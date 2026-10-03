@@ -24,3 +24,15 @@ Chamado elétrico de teste: sintoma com três causas sorteadas para validar game
 12. **Campanha + mercado livre:** a campanha narrativa é um eixo, não uma fila obrigatória. Chamados livres, contratos preventivos e serviços regionais coexistem com missões autorais.
 
 O detalhamento oficial destes sistemas está em `Docs/GDD_PROGRESSAO_VIDA_LIBERDADE_ECONOMIA.md`.
+
+
+## Decisão oficial — escala do mundo e qualidade visual
+
+13. **Mapa grande:** Santa Aurora passa a ser planejada com footprint de produção de aproximadamente **8 km × 8 km (64 km² reservados)**, construído por streaming e densidade variável. A cidade não deve parecer uma coleção de mapas pequenos.
+14. **Produção por distritos:** a cidade inteira deve ser planejada desde o início, mas finalizada por etapas, começando pela Cidade Antiga e pelo vertical slice.
+15. **Nada low-poly como resultado final:** blockout simplificado é permitido apenas durante desenvolvimento. Nenhuma área de produção final pode manter aparência low-poly, materiais flat ou geometria provisória.
+16. **Alvo visual:** buscar realismo urbano denso, materiais PBR, decals, desgaste, iluminação atmosférica, interiores detalhados e infraestrutura coerente em patamar comparável à referência VEIN. Isso é referência de qualidade/linguagem visual, não autorização para copiar assets, prédios, layouts, texturas ou identidade.
+17. **Streaming obrigatório:** usar organização por células, cenas aditivas, LOD/HLOD, occlusion e instancing para permitir grande escala sem reduzir a estética final.
+18. **Edifícios e história:** todos os locais importantes da campanha devem ser posicionados no masterplan antes de suas missões finais serem produzidas.
+
+O planejamento detalhado está em `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`.
