@@ -1,10 +1,14 @@
 # PROJECT FACILITY — contexto para Claude
 
-Leia primeiro `Docs/DECISOES_ATUAIS.md`, `Docs/LORE_CAMPANHA_ORIGINAL.md`, `Docs/MAPA_CAMPANHA.md`, `Docs/STATUS_IMPLEMENTACAO.md` e `README.md`.
+Leia primeiro `Docs/DECISOES_ATUAIS.md`, `Docs/GDD_PROGRESSAO_VIDA_LIBERDADE_ECONOMIA.md`, `Docs/LORE_CAMPANHA_ORIGINAL.md`, `Docs/MAPA_CAMPANHA.md`, `Docs/STATUS_IMPLEMENTACAO.md` e `README.md`.
 
 ## Direção vigente
 
 Unity 6000.6.2f1, URP, C#, Windows/Steam, single-player, **primeira pessoa**. O usuário chegou a pedir terceira pessoa, mas decidiu voltar à primeira pessoa. Manter a engine instalada, a lore de Santa Aurora e o diferencial diagnóstico → reparo → teste → pagamento.
+
+A direção visual do mapa, casas, estruturas e interiores usa **VEIN apenas como referência de linguagem visual**: realismo urbano cru, materiais usados, iluminação atmosférica, clutter funcional e interiores densos. Não copiar assets, layouts ou mapas.
+
+Nova regra de progressão: campanha + mercado livre de trabalhos. O jogador decide em que trabalhar e em quais regiões desbloqueadas atuar. O escopo inicial é pequeno e cresce com reputação, dinheiro, ferramentas e veículo. O jogo deve ser difícil, porém sempre recuperável.
 
 ## Onde trabalhar
 
@@ -27,12 +31,15 @@ Não editar JSON gerado sem atualizar o gerador. IDs devem permanecer estáveis.
 3. Polir o prólogo autoral implementado no Horizonte: aquecimento fictício, isolamento, teste, troca, restauração e mensagens persistentes de Guto/Helena. Ler `Docs/PROLOGO_IMPLEMENTADO.md`. Converter mensagens em apresentação narrativa sem quebrar as regras de intervenção.
 4. Substituir um conjunto pequeno de setores do catálogo por arquitetura e props finais do Blender, mantendo as conexões.
 5. Construir inspeção, fotografia/laudo e consequências persistentes antes de desbloquear capítulos avançados.
-6. Ampliar a hidráulica abstrata da torneira para bombas e inspeção preventiva; depois climatização. Só então implementar Cascata e coordenação de equipes.
+6. Validar na Unity o primeiro contrato preventivo de bomba já integrado no código e ajustar qualquer erro de parser/runtime antes de expandir.
+7. Implementar o primeiro recorte do mercado livre de serviços: 3–5 chamados disponíveis, escolha de região e separação entre campanha e trabalhos livres.
+8. Criar o lar inicial detalhado em 3D e planejar a primeira camada comprável de móveis/ferramentas conforme o GDD de progressão.
+9. Depois expandir climatização, patrimônio, veículos e liberdade econômica. Só então avançar Cascata e coordenação de equipes.
 
 Os mapas de campanha são estruturas de protótipo. Os capítulos, NPCs, decisões e finais não estão todos implementados. Não afirmar qualidade premium, desempenho alvo ou campanha pronta sem evidência de execução e inspeção visual.
 
 O primeiro aceite da campanha usa `ServiceSession.AcceptPrologue`; os três serviços iniciais seguintes usam `AcceptChapterOne(id)` em ordem. Chamados livres continuam com `Accept(cause)` e não contam como serviços autorais. Save v1 inclui `servicePresenceVersion/hasActiveService` para impedir que uma classe inline vazia represente um chamado encerrado e `chapterOneDataVersion` para adicionar o estoque hidráulico em carreiras anteriores.
 
-`CareerData.completedChapterOneJobs/buildingHistory/recurringContractUnlocked` são persistentes. Três serviços mais reputação 25 liberam a indicação de Helena, sem gerar dinheiro recorrente automaticamente. O contrato preventivo ainda está pendente. A classe `ElectricalNetwork` conserva o nome original por compatibilidade, mas também fornece as leituras abstratas do chamado hidráulico. Hidráulica consome `sealKits`; não debitar drivers. `WorldBuilder.ReflectService` distingue iluminação de vazamento. Preservar compatibilidade de saves, IDs e testes separados do jogador.
+`CareerData.completedChapterOneJobs/buildingHistory/recurringContractUnlocked` são persistentes. Três serviços mais reputação 25 liberam a indicação de Helena. O primeiro contrato preventivo de bomba foi integrado ao código com ID estável `campaign.c2.recurringcondo.pump.v1`, estoque `pumpKits`, flags persistentes e extensão do smoke test; **essa nova etapa ainda precisa de validação real na Unity após os commits recentes**. A classe `ElectricalNetwork` conserva o nome original por compatibilidade e também fornece leituras hidráulicas abstratas. Preservar compatibilidade de saves, IDs e testes separados do jogador.
 
 Use branches `codex/` ou `claude/` e mudanças focadas para permitir integração. Este arquivo é contexto de colaboração, não autorização para publicar releases, enviar mensagens ou mudar a visibilidade do repositório.
