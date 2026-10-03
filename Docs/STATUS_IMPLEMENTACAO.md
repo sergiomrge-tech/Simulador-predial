@@ -55,3 +55,30 @@ UI é provisória em IMGUI. Os ScriptableObjects são definições iniciais aind
 5. Bombas e inspeção preventiva com consequências persistentes do Capítulo II.
 6. Arte final de um pequeno conjunto de setores antes de expandir acabamento aos 24 locais.
 7. Climatização, redundância e equipes; depois campanha avançada e operação Cascata.
+
+
+## Checkpoint de planejamento e código — expansão de carreira e vida pessoal
+
+### Planejamento oficial adicionado
+- GDD completo em `Docs/GDD_PROGRESSAO_VIDA_LIBERDADE_ECONOMIA.md`.
+- Liberdade para escolher trabalhos e regiões desbloqueadas.
+- Escopo inicial pequeno, expandindo por reputação, ferramentas, dinheiro e transporte.
+- Dificuldade planejada como exigente, porém recuperável, sem softlocks.
+- Moradia evolutiva: kitnet → apartamentos → casas → residência premium opcional.
+- Compra de móveis, eletrodomésticos, ferramentas, veículos, imóveis, oficina e futura sede.
+- Lazer opcional: entretenimento, hobbies, atividades urbanas, vida social, viagens curtas e coleções.
+- Direção visual de mapa/estruturas/casas inspirada na linguagem visual de VEIN, sem copiar conteúdo.
+
+### Código novo após o último QA confirmado
+- Primeiro contrato preventivo: `campaign.c2.recurringcondo.pump.v1`.
+- Local: `recurringcondo`.
+- Diagnóstico de entrada → bomba principal → reservatório.
+- Estoque independente `pumpKits`.
+- Compra de kit preventivo.
+- Flags persistentes `firstContractCompleted` e `preventiveRecommendationLogged`.
+- Migração aditiva do save v1 via `chapterTwoDataVersion`.
+- Blockout específico da casa de bombas, sem reutilizar a torneira.
+- Tablet e fluxo de campanha atualizados.
+- Runtime smoke test estendido até a preventiva.
+
+**Importante:** esta seção descreve alterações de código já commitadas, mas ainda não substitui o QA anterior. É obrigatório abrir/compilar no Unity 6000.6.2f1 e executar as verificações antes de declarar o contrato preventivo validado.
