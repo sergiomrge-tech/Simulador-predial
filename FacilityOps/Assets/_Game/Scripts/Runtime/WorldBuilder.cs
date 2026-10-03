@@ -136,7 +136,29 @@ namespace FacilityOps
                 }
                 if (job.hydraulic)
                 {
-                    if (i==0)
+                    if (job.id==ChapterOne.FirstContractId)
+                    {
+                        if (i==0)
+                        {
+                            Decoration("Coletor de entrada",position+new Vector3(0,-.25f,-.3f),new Vector3(1.5f,.14f,.14f),metal,station.transform);
+                            Decoration("Registro de isolamento",position+new Vector3(0,.08f,-.36f),new Vector3(.55f,.16f,.12f),amber,station.transform);
+                        }
+                        else if (i==1)
+                        {
+                            station.GetComponent<Renderer>().enabled=false;
+                            Decoration("Base da bomba",position+new Vector3(0,-.55f,0),new Vector3(1.45f,.22f,.9f),dark,station.transform);
+                            Decoration("Motor da bomba",position+new Vector3(-.28f,-.05f,-.08f),new Vector3(.75f,.62f,.62f),blue,station.transform);
+                            Decoration("Corpo hidráulico",position+new Vector3(.38f,-.05f,-.08f),new Vector3(.58f,.68f,.68f),metal,station.transform);
+                            Decoration("Linha de recalque",position+new Vector3(.78f,.05f,-.08f),new Vector3(.6f,.16f,.16f),metal,station.transform);
+                            Decoration("Etiqueta preventiva",position+new Vector3(-.28f,.05f,-.41f),new Vector3(.42f,.18f,.03f),amber,station.transform);
+                        }
+                        else
+                        {
+                            Decoration("Linha do reservatório",position+new Vector3(0,-.25f,-.3f),new Vector3(1.35f,.14f,.14f),metal,station.transform);
+                            Decoration("Indicador de nível",position+new Vector3(0,.12f,-.36f),new Vector3(.18f,.55f,.05f),blue,station.transform);
+                        }
+                    }
+                    else if (i==0)
                     {
                         Decoration("Tubo alimentação",position+new Vector3(0,-.25f,-.3f),new Vector3(1.4f,.12f,.12f),metal,station.transform);
                         Decoration("Registro volante",position+new Vector3(0,.08f,-.36f),new Vector3(.5f,.14f,.12f),amber,station.transform);
@@ -182,6 +204,16 @@ namespace FacilityOps
                     Box("Prateleira de mercadorias",new Vector3(room.x+2,.5f+shelf*.5f,room.z-2),new Vector3(2,.08f,1),metal);
                     for(int product=0;product<3;product++)Box("Mercadoria provisória",new Vector3(room.x+1.3f+product*.65f,.7f+shelf*.5f,room.z-2),new Vector3(.45f,.3f,.6f),product%2==0 ? amber : blue);
                 }
+            }
+            else if(job.locationId=="recurringcondo")
+            {
+                var pumpRoom=rooms[3];
+                Box("Bancada manutenção preventiva",new Vector3(pumpRoom.x+2,.72f,pumpRoom.z-2),new Vector3(2.1f,1.05f,.9f),metal);
+                Box("Prateleira EPIs",new Vector3(pumpRoom.x-2,1.25f,pumpRoom.z-2.8f),new Vector3(1.8f,2.2f,.35f),dark);
+                Box("Caixa kit preventivo",new Vector3(pumpRoom.x+2,1.45f,pumpRoom.z-2),new Vector3(.75f,.35f,.55f),amber);
+                var reservoir=rooms[5];
+                Box("Reservatório técnico provisório",new Vector3(reservoir.x+1.5f,1.1f,reservoir.z-1.5f),new Vector3(2.5f,2.2f,2.5f),blue);
+                Label("PREVENTIVA / BOMBA DE RECALQUE",new Vector3(pumpRoom.x,2.8f,pumpRoom.z+3.75f),0,.05f,new Color(.08f,.17f,.2f));
             }
             else
             {
