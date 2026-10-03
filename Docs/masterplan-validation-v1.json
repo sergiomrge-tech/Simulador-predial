@@ -1,0 +1,29 @@
+{
+  "validatedAt": "2026-10-03",
+  "schemaVersion": 1,
+  "worldMeters": [
+    8000,
+    8000
+  ],
+  "areaKm2": 64,
+  "districts": 6,
+  "campaignLocations": 24,
+  "lifeEconomyLocations": 20,
+  "roads": 8,
+  "macroCells": 64,
+  "subCells": 1024,
+  "checks": [
+    "all IDs unique",
+    "all location anchors inside world bounds",
+    "all campaign footprints inside world bounds",
+    "all campaign footprints non-overlapping within districts",
+    "all road endpoints inside world bounds",
+    "8 km world divisible into 1 km macro cells",
+    "1 km macro cells divisible into 250 m subcells",
+    "all life/economy markers inside nominal district bounds"
+  ],
+  "errors": [],
+  "warnings": [],
+  "passed": true,
+  "note": "Static spec validation only. Blender generation/reopen and Unity runtime validation remain pending."
+}
