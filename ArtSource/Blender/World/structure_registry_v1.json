@@ -1,0 +1,460 @@
+{
+  "schemaVersion": 1,
+  "rule": "Story-driven structures before mission implementation",
+  "productionStates": [
+    "S0_MASSING",
+    "S1_ARCHITECTURE",
+    "S2_TECHNICAL",
+    "S3_DRESSING",
+    "S4_LIGHTING",
+    "S5_GAMEPLAY",
+    "S6_FINAL_GATE"
+  ],
+  "locations": [
+    {
+      "id": "home.starter",
+      "priority": "super-hero",
+      "chapters": [
+        "prologue",
+        "I",
+        "II+"
+      ],
+      "visibleFloors": 1,
+      "accessible": [
+        "living",
+        "kitchen",
+        "bathroom",
+        "desk",
+        "storage",
+        "parking"
+      ],
+      "stateVariants": [
+        "H0",
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ]
+    },
+    {
+      "id": "garage",
+      "priority": "super-hero",
+      "chapters": [
+        "prologue",
+        "I",
+        "XIV"
+      ],
+      "visibleFloors": 1,
+      "accessible": [
+        "workbench",
+        "stock",
+        "old_pc",
+        "garage",
+        "storage"
+      ],
+      "stateVariants": [
+        "G0",
+        "G1",
+        "G2",
+        "G3",
+        "G4"
+      ]
+    },
+    {
+      "id": "horizonte",
+      "priority": "super-hero",
+      "chapters": [
+        "prologue",
+        "I",
+        "VIII",
+        "XIV"
+      ],
+      "visibleFloors": 12,
+      "accessible": [
+        "lobby",
+        "garage",
+        "residential_corridor",
+        "shaft",
+        "pump_room",
+        "electrical_room",
+        "reservoir",
+        "roof",
+        "access_control"
+      ],
+      "stateVariants": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ]
+    },
+    {
+      "id": "imperial",
+      "priority": "hero",
+      "chapters": [
+        "II"
+      ],
+      "visibleFloors": 4,
+      "accessible": [
+        "foyer",
+        "auditorium",
+        "stage",
+        "backstage",
+        "booth",
+        "storage",
+        "electrical",
+        "hvac",
+        "roof"
+      ],
+      "stateVariants": [
+        "T0",
+        "T1"
+      ]
+    },
+    {
+      "id": "recurringcondo",
+      "priority": "super-hero",
+      "chapters": [
+        "II"
+      ],
+      "visibleFloors": 16,
+      "accessible": [
+        "gatehouse",
+        "garage",
+        "halls",
+        "pump_room",
+        "main_panel",
+        "reservoirs",
+        "common_area",
+        "roof",
+        "admin"
+      ],
+      "stateVariants": [
+        "C0",
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    {
+      "id": "lostcondo",
+      "priority": "hero",
+      "chapters": [
+        "III"
+      ],
+      "visibleFloors": 18,
+      "accessible": [
+        "gatehouse",
+        "garage",
+        "pump_room",
+        "generator",
+        "main_panel",
+        "access",
+        "reservoirs",
+        "roof"
+      ],
+      "stateVariants": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+      ]
+    },
+    {
+      "id": "hotel",
+      "priority": "hero",
+      "chapters": [
+        "IV",
+        "VI"
+      ],
+      "visibleFloors": 10,
+      "accessible": [
+        "lobby",
+        "sample_rooms",
+        "laundry",
+        "pump_room",
+        "hot_water",
+        "backup_pump",
+        "hvac",
+        "roof"
+      ],
+      "stateVariants": [
+        "HT0",
+        "HT1"
+      ]
+    },
+    {
+      "id": "smallhospital",
+      "priority": "hero",
+      "chapters": [
+        "IV"
+      ],
+      "visibleFloors": 5,
+      "accessible": [
+        "reception",
+        "care_wing",
+        "equipment",
+        "hvac",
+        "pumps",
+        "generator",
+        "panel",
+        "roof",
+        "service_entry"
+      ],
+      "stateVariants": [
+        "SH0",
+        "SH1"
+      ]
+    },
+    {
+      "id": "companyhq",
+      "priority": "super-hero",
+      "chapters": [
+        "VII",
+        "X",
+        "XIII"
+      ],
+      "visibleFloors": 2,
+      "accessible": [
+        "reception",
+        "admin",
+        "workshop",
+        "warehouse",
+        "training",
+        "monitoring",
+        "fleet_garage",
+        "planning"
+      ],
+      "stateVariants": [
+        "HQ0",
+        "HQ1",
+        "HQ2",
+        "HQ3",
+        "HQ4"
+      ]
+    },
+    {
+      "id": "mall",
+      "priority": "hero",
+      "chapters": [
+        "IV",
+        "VIII"
+      ],
+      "visibleFloors": 4,
+      "accessible": [
+        "mall",
+        "selected_shops",
+        "dock",
+        "security",
+        "electrical",
+        "hvac",
+        "pumps",
+        "roof"
+      ],
+      "stateVariants": [
+        "M0",
+        "M1"
+      ]
+    },
+    {
+      "id": "hospital0317",
+      "priority": "super-hero",
+      "chapters": [
+        "V",
+        "VIII"
+      ],
+      "visibleFloors": 7,
+      "accessible": [
+        "service_reception",
+        "hot_wing",
+        "hvac",
+        "automation",
+        "circulation",
+        "thermal_backup",
+        "panel",
+        "evidence",
+        "service_route"
+      ],
+      "stateVariants": [
+        "H0317_0",
+        "H0317_1",
+        "H0317_2"
+      ]
+    },
+    {
+      "id": "blackouttower",
+      "priority": "hero",
+      "chapters": [
+        "IX"
+      ],
+      "visibleFloors": 30,
+      "accessible": [
+        "lobby",
+        "technical_floor",
+        "generator",
+        "tank",
+        "batteries",
+        "backup",
+        "main_panel",
+        "evidence",
+        "roof"
+      ],
+      "stateVariants": [
+        "BT0",
+        "BT1"
+      ]
+    },
+    {
+      "id": "vertice",
+      "priority": "super-hero",
+      "chapters": [
+        "III",
+        "VI",
+        "X",
+        "XI"
+      ],
+      "visibleFloors": 8,
+      "accessible": [
+        "reception",
+        "proposals",
+        "director",
+        "engineering",
+        "archive",
+        "reports",
+        "meeting",
+        "service_access"
+      ],
+      "stateVariants": [
+        "V0",
+        "V1",
+        "V2"
+      ]
+    },
+    {
+      "id": "factory",
+      "priority": "super-hero",
+      "chapters": [
+        "VI"
+      ],
+      "visibleFloors": 3,
+      "accessible": [
+        "gate",
+        "production",
+        "aux_machine",
+        "workshop",
+        "main_panel",
+        "pumps",
+        "hvac",
+        "yard",
+        "utilities",
+        "docks"
+      ],
+      "stateVariants": [
+        "F0",
+        "F1"
+      ]
+    },
+    {
+      "id": "drainage",
+      "priority": "super-hero",
+      "chapters": [
+        "VIII"
+      ],
+      "visibleFloors": 2,
+      "accessible": [
+        "elevated_access",
+        "sump",
+        "pump_a",
+        "pump_b",
+        "control",
+        "power",
+        "reservoir",
+        "escape"
+      ],
+      "stateVariants": [
+        "D0",
+        "D1",
+        "D2"
+      ]
+    },
+    {
+      "id": "datacenter",
+      "priority": "super-hero",
+      "chapters": [
+        "VII"
+      ],
+      "visibleFloors": 4,
+      "accessible": [
+        "access",
+        "racks_a",
+        "racks_b",
+        "cold_hot_aisles",
+        "cooling",
+        "power_a",
+        "power_b",
+        "telecom",
+        "ops",
+        "utilities"
+      ],
+      "stateVariants": [
+        "DC0",
+        "DC1"
+      ]
+    },
+    {
+      "id": "smarttower",
+      "priority": "hero",
+      "chapters": [
+        "VII"
+      ],
+      "visibleFloors": 24,
+      "accessible": [
+        "lobby",
+        "sample_office",
+        "automation",
+        "access",
+        "hvac",
+        "power",
+        "telecom",
+        "roof"
+      ],
+      "stateVariants": [
+        "ST0",
+        "ST1"
+      ]
+    },
+    {
+      "id": "central",
+      "priority": "super-hero-final",
+      "chapters": [
+        "XII",
+        "XIII",
+        "XIV"
+      ],
+      "visibleFloors": 5,
+      "accessible": [
+        "admin",
+        "monitoring",
+        "municipal_dc",
+        "telecom",
+        "emergency",
+        "distribution",
+        "generators",
+        "drainage",
+        "hvac",
+        "automation",
+        "service_tunnels",
+        "dawn_yard"
+      ],
+      "stateVariants": [
+        "SC0",
+        "SC1",
+        "SC2",
+        "SC3",
+        "SC4",
+        "SC5"
+      ]
+    }
+  ]
+}
