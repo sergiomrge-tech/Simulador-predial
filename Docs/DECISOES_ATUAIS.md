@@ -36,3 +36,9 @@ O detalhamento oficial destes sistemas está em `Docs/GDD_PROGRESSAO_VIDA_LIBERD
 18. **Edifícios e história:** todos os locais importantes da campanha devem ser posicionados no masterplan antes de suas missões finais serem produzidas.
 
 O planejamento detalhado está em `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`.
+
+
+19. **Ordem de produção world-first:** antes de expandir a campanha para novas missões, construir e validar a fundação espacial de Santa Aurora: masterplan métrico, vias, distritos, locais da história e estruturas previstas. Correções técnicas do protótipo continuam permitidas.
+20. **Fonte espacial oficial:** `Docs/WORLD_BIBLE_SANTA_AURORA_V1.md` + `ArtSource/Blender/World/masterplan_spec_v1.json`.
+21. **Fonte estrutural oficial:** `Docs/REGISTRO_ESTRUTURAS_SANTA_AURORA_V1.md` + `ArtSource/Blender/World/structure_registry_v1.json`.
+22. **Compatibilidade:** não substituir as coordenadas pequenas do runtime atual até existir uma migração explícita e validada. O mundo grande será construído em paralelo ao protótipo funcional para evitar regressões.
