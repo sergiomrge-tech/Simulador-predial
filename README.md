@@ -25,7 +25,21 @@ Confira o estoque no tablet e aceite **PRÓLOGO / O primeiro chamado**. Helena r
 
 Após o prólogo, o botão principal oferece três serviços autorais do Capítulo I, em sequência: tomada de apartamento, iluminação da mercearia e torneira do restaurante. Cada chamado viaja para seu local no catálogo. Nos três, registre a hipótese, isole na origem [6], confirme no componente [5], troque [4], restaure [7] e espere três segundos antes do teste final [5] na origem. O serviço hidráulico mede pressão/vazão virtuais e usa kit de vedação separado.
 
-Os chamados livres continuam disponíveis pelo botão secundário, com três causas variáveis e ferramentas 1–5. Eles não concluem serviços autorais. Após os três serviços iniciais e reputação **25**, Helena registra a indicação ao primeiro contrato recorrente. A rotina de manutenção preventiva desse contrato ainda precisa ser implementada. Detalhes em `Docs/PROLOGO_IMPLEMENTADO.md` e `Docs/CAPITULO_I_IMPLEMENTADO.md`.
+Os chamados livres continuam disponíveis pelo botão secundário, com três causas variáveis e ferramentas 1–5. Eles não concluem serviços autorais. Após os três serviços iniciais e reputação **25**, Helena registra a indicação ao primeiro contrato recorrente. O primeiro contrato preventivo de bomba no condomínio já foi integrado ao código, com diagnóstico, isolamento, kit próprio, validação de estabilidade e histórico persistente; **os commits recentes ainda precisam ser revalidados no runtime da Unity**. Detalhes em `Docs/PROLOGO_IMPLEMENTADO.md`, `Docs/CAPITULO_I_IMPLEMENTADO.md` e `CLAUDE.md`.
+
+## Progressão, liberdade de trabalho e vida pessoal
+
+O planejamento oficial de carreira semiaberta, escolha de trabalhos/regiões, dificuldade recuperável, ferramentas, veículos, moradias, móveis, patrimônio e lazer está em `Docs/GDD_PROGRESSAO_VIDA_LIBERDADE_ECONOMIA.md`.
+
+Regras centrais planejadas:
+- o jogador escolhe entre campanha e trabalhos livres disponíveis;
+- o começo oferece poucas opções e a liberdade cresce com reputação, ferramentas, dinheiro e transporte;
+- o dinheiro pode ser investido na empresa ou na vida pessoal;
+- a moradia evolui de kitnet para apartamentos/casas maiores, sem caminho obrigatório;
+- lazer e conforto existem como gastos opcionais;
+- o jogo deve ser difícil, mas sempre possuir uma rota econômica de recuperação.
+
+A direção visual futura do mapa, casas, estruturas e interiores usa VEIN apenas como referência de atmosfera/materialidade, mantendo Santa Aurora, layouts e assets originais.
 
 ## Estrutura da campanha / visitar mapas
 
@@ -75,6 +89,6 @@ Para regenerar o catálogo e as plantas: `node Tools/Map/generate_campaign.mjs C
 
 Os ScriptableObjects de conteúdo são a base para a próxima etapa; o chamado inicial ainda é definido no código. Interface do tablet é provisória em IMGUI e deverá migrar para UI Toolkit/uGUI antes do vertical slice. A cena Bootstrap monta os ambientes em runtime; a próxima etapa deve converter a área artística aprovada em prefabs editáveis no editor.
 
-Ainda pendentes: animações táteis de desmontagem, ferramentas visíveis nas mãos, áudio elaborado, acabamento arquitetônico autoral, bombas e hidráulica avançada, climatização, expansão da lista de chamados, upgrades, funcionários, execução recorrente de contratos, localização completa, configurações/remapeamento, testes de desempenho e integração Steam.
+Ainda pendentes: validação Unity dos commits recentes do contrato preventivo, animações táteis de desmontagem, ferramentas visíveis nas mãos, áudio elaborado, acabamento arquitetônico autoral, mercado livre de 3–5 chamados/regiões, lar inicial detalhado e comprável, veículos, patrimônio, lazer, climatização, expansão da lista de chamados, upgrades, funcionários, localização completa, configurações/remapeamento, testes de desempenho e integração Steam.
 
 Os resultados confirmados de validação ficam em `Docs/STATUS_IMPLEMENTACAO.md` e nos logs da execução.
