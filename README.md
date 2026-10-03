@@ -41,6 +41,12 @@ Regras centrais planejadas:
 
 A direção visual futura do mapa, casas, estruturas e interiores usa VEIN apenas como referência de atmosfera/materialidade, mantendo Santa Aurora, layouts e assets originais.
 
+## Mundo grande / Santa Aurora
+
+O planejamento mestre do mundo está em `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`. Santa Aurora passa a ser planejada com footprint aproximado de **8 × 8 km**, densidade variável e produção por streaming. A cidade inteira será posicionada desde o começo, mas o acabamento será executado distrito por distrito.
+
+A Cidade Antiga será o primeiro vertical slice de alta fidelidade. O padrão final não aceita aparência low-poly: blockouts simplificados são apenas temporários. O alvo visual é realismo urbano denso, PBR, decals, desgaste, iluminação atmosférica e interiores detalhados, usando VEIN como referência de qualidade/atmosfera, sem copiar conteúdo do jogo.
+
 ## Estrutura da campanha / visitar mapas
 
 No tablet, abra **CIDADE**, escolha um distrito e um local, e clique em **Visitar / nível**. A prévia permite caminhar pelos setores e ler registros, sem avançar a campanha ou alterar recompensas. Para trocar de pavimento, use a mesma aba; **Voltar à garagem** retorna ao hub.
