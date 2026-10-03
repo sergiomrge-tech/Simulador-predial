@@ -93,3 +93,17 @@ Documentos oficiais adicionados:
 A Cidade Antiga passa a ser o primeiro vertical slice visual. Não escalar acabamento para os demais distritos antes de validar qualidade e performance desse recorte.
 
 A referência VEIN deve ser usada para comparar patamar de realismo, atmosfera, densidade e materialidade. Assets, texturas, prédios e layouts de Santa Aurora devem ser originais.
+
+
+## Checkpoint — Santa Aurora Foundation W1 preparado
+
+Preparação concluída no GitHub:
+- World Bible métrica 8×8 km.
+- `masterplan_spec_v1.json` com 6 distritos, 24 locais de campanha, 20 locais de vida/economia e 8 corredores viários.
+- Validação estática: PASS, 0 erros e 0 warnings após ajuste.
+- Registro estrutural orientado pela história.
+- Gerador Blender `create_santa_aurora_masterplan.py`.
+- Validador independente `validate_masterplan.py`.
+- Checklist de geração, screenshots reais, reabertura e gate W1.
+
+**Ainda pendente:** executar o gerador no Blender real, salvar/reabrir `SantaAurora_Masterplan_v1.blend`, capturar as 10 vistas exigidas e aprovar espacialmente W1. O mapa grande ainda não deve ser descrito como jogável na Unity.
