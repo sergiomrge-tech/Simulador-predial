@@ -68,6 +68,8 @@ namespace FacilityOps
             if (keyboard.digit3Key.wasPressedThisFrame) game.Tool = ToolMode.SignalProbe;
             if (keyboard.digit4Key.wasPressedThisFrame) game.Tool = ToolMode.Repair;
             if (keyboard.digit5Key.wasPressedThisFrame) game.Tool = ToolMode.Verify;
+            if (keyboard.digit6Key.wasPressedThisFrame) game.Tool = ToolMode.Isolate;
+            if (keyboard.digit7Key.wasPressedThisFrame) game.Tool = ToolMode.Restore;
             RefreshFocus();
             if (keyboard.eKey.wasPressedThisFrame && Focus != null) Focus.Interact(game);
         }

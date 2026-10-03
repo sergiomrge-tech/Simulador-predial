@@ -137,7 +137,43 @@ namespace FacilityOps
             }
             Check(game.Session.Career.completed == 3 && game.Session.Career.money == 1600, "Map previews never alter career rewards");
             game.ReturnToOffice();
-            File.WriteAllText(Path.Combine(directory, "PASSED.txt"), "Windows runtime smoke passed: three causes, first-person camera, raycasts, collision, evidence, repair, lighting, final test, settlement, save/load. Campaign previews: " + floors + " floors / " + connections + " traversable door connections.\n" + DateTime.UtcNow.ToString("O"));
+            game.Accept();
+            Check(game.Session.IsPrologue && !game.World.WorkLights.TrueForAll(light => light.enabled), "Default campaign begins with authored prologue and dark corridor");
+            var distribution = game.World.Stations[0];
+            var luminaire = game.World.Stations[2];
+            game.Tool = ToolMode.Restore; distribution.Interact(game);
+            Check(game.World.WorkLights.TrueForAll(light => light.enabled), "Rearming temporarily restores visual lighting");
+            game.SetTablet(true);
+            yield return new WaitForSeconds(.3f);
+            Check(game.Session.Active.heatSeconds == 0, "Tablet pauses thermal simulation");
+            game.SetTablet(false);
+            yield return new WaitForSeconds(5.2f);
+            Check(!game.Session.Network.LightingHealthy && game.World.WorkLights.TrueForAll(light => !light.enabled), "Live runtime heat trips unrepaired circuit and turns lights off");
+            game.Tool = ToolMode.Inspect; luminaire.Interact(game);
+            game.Tool = ToolMode.Scanner; distribution.Interact(game);
+            game.Tool = ToolMode.SignalProbe; luminaire.Interact(game);
+            game.Diagnose(FailureCause.LightDriver);
+            game.Tool = ToolMode.Repair; luminaire.Interact(game);
+            Check(!game.Session.Active.repaired && game.Session.Career.driverParts == 1, "Unsafe attempt consumes no extra stock");
+            game.Tool = ToolMode.Isolate; distribution.Interact(game);
+            game.Tool = ToolMode.Verify; luminaire.Interact(game);
+            game.Save();
+            var prologueSave = SaveService.Load(game.SavePath);
+            Check(prologueSave.active.isolated && prologueSave.active.insulationTested && prologueSave.campaignJournal.Count == 3, "Isolated prologue and mentor messages persist");
+            game.Tool = ToolMode.Repair; luminaire.Interact(game);
+            Check(game.Session.Active.repaired && !game.Session.Network.LightingHealthy, "Replacement leaves circuit isolated");
+            game.Tool = ToolMode.Restore; distribution.Interact(game);
+            game.Tool = ToolMode.Verify; distribution.Interact(game);
+            Check(!game.Session.Active.validated, "Immediate final test rejected before soak");
+            yield return new WaitForSeconds(5.2f);
+            distribution.Interact(game);
+            Check(game.Session.Active.validated && game.World.WorkLights.TrueForAll(light => light.enabled), "Authored repair passes thermal stability test");
+            Capture(Path.Combine(directory,"07-prologue-stable.png"));
+            game.Deliver();
+            var career = SaveService.Load(game.SavePath);
+            Check(game.AtOffice && career.prologueCompleted && career.completed == 4 && career.money == 2000 && career.campaignJournal.Count == 5, "Authored prologue payment, chapter frontier and journal saved");
+            Check(!game.Session.AcceptPrologue(), "Finished prologue cannot be farmed");
+            File.WriteAllText(Path.Combine(directory, "PASSED.txt"), "Windows runtime smoke passed: three free-job causes, first-person camera, raycasts, collision, evidence, repair, lighting, final test, settlement, save/load. Campaign previews: " + floors + " floors / " + connections + " traversable door connections. Authored prologue: live thermal recurrence, tablet pause, isolation, blocked unsafe repair, restoration, thermal soak, mentor/client journal and persistent completion.\n" + DateTime.UtcNow.ToString("O"));
             Application.Quit(0);
         }
     }

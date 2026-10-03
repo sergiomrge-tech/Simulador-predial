@@ -7,4 +7,10 @@ New-Item -ItemType Directory -Force -Path (Split-Path $logPath) | Out-Null
 $unityArguments = @('-batchmode', '-nographics', '-quit', '-projectPath', ('"' + $unityProject + '"'), '-executeMethod', 'FacilityOps.Editor.ProjectBuilder.Build', '-logFile', ('"' + $logPath + '"'))
 $buildProcess = Start-Process -FilePath $UnityEditor -ArgumentList $unityArguments -WindowStyle Hidden -Wait -PassThru
 if ($buildProcess.ExitCode -ne 0) { throw "Falha na compilação. Consulte $logPath" }
+# The Editor regenerates a default value for an unused console platform on load.
+# Clear that field after the Editor exits so Windows sources remain portable.
+$settingsPath = Join-Path $unityProject 'ProjectSettings\ProjectSettings.asset'
+$settingsText = [IO.File]::ReadAllText($settingsPath)
+$settingsText = [regex]::Replace($settingsText, '(?m)^(  ps4Passcode:).*$', '$1 ')
+[IO.File]::WriteAllText($settingsPath, $settingsText, [Text.UTF8Encoding]::new($false))
 Write-Output (Join-Path $projectRoot 'Builds\Windows\FacilityOps.exe')

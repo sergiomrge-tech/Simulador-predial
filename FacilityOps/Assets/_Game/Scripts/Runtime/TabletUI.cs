@@ -48,7 +48,7 @@ namespace FacilityOps
         {
             Fill(new Rect(24, 24, 450, 79), ink);
             Text(40, 34, 430, 27, game.PreviewLocation != null ? "PRÉVIA / " + game.PreviewLocation.name : game.AtOffice ? "OFICINA AURORA" : "CHAMADO / EDIFÍCIO HORIZONTE", heading);
-            Text(40, 69, 430, 27, game.PreviewLocation != null ? "Leia registros [E] • [TAB] Cidade / pavimentos" : game.AtOffice ? "Central de chamados na mesa • [TAB] tablet" : "As luzes do corredor do 4º andar apagaram.", small);
+            Text(40, 69, 430, 27, game.PreviewLocation != null ? "Leia registros [E] • [TAB] Cidade / pavimentos" : game.AtOffice ? "Central de chamados na mesa • [TAB] tablet" : game.Session.IsPrologue ? "Investigue a luminária; isole antes de substituir." : "As luzes do corredor do 4º andar apagaram.", small);
             Fill(new Rect(625, 359, 30, 2), Color.white); Fill(new Rect(639, 345, 2, 30), Color.white);
             string focus = game.Player.Focus?.GetPrompt(game.Tool);
             if (focus != null)
@@ -57,7 +57,7 @@ namespace FacilityOps
             }
             Fill(new Rect(24, 622, 650, 72), ink);
             Text(40, 632, 620, 25, ((int)game.Tool + 1) + "  /  " + GameRuntime.ToolNames[(int)game.Tool]);
-            Text(40, 667, 620, 24, "WASD mover  •  Mouse olhar  •  E usar  •  1–5 ferramenta  •  TAB tablet", small);
+            Text(40, 667, 620, 24, "WASD mover  •  E usar  •  1–5 ferramentas  •  6 isolar  •  7 restaurar  •  TAB", small);
             if (game.ShowNotice)
             {
                 Fill(new Rect(340, 506, 600, 96), panel); Text(358, 520, 566, 76, game.Notice);
@@ -72,11 +72,11 @@ namespace FacilityOps
             Text(114, 117, 500, 30, "OFICINA AURORA   /   CENTRAL OPERACIONAL", small);
             Text(755, 78, 410, 30, "R$ " + game.Session.Career.money + "    •    REP " + game.Session.Career.reputation + "/100", heading);
             Text(757, 116, 400, 25, game.Session.Career.completed + " serviços entregues   /   " + game.Session.Career.experience + " XP", small);
-            string[] tabs = { "CHAMADO", "EVIDÊNCIAS", "DIAGNÓSTICO", "ESTOQUE", "CIDADE", "GUIA" };
+            string[] tabs = { "CHAMADO", "EVIDÊNCIAS", "DIAGNÓSTICO", "ESTOQUE", "CIDADE", "GUIA", "MENSAGENS" };
             for (int i = 0; i < tabs.Length; i++)
             {
                 GUI.backgroundColor = page == i ? accent : Color.gray;
-                if (GUI.Button(new Rect(112 + i * 175, 160, 163, 37), tabs[i], tab)) { page = i; scroll = Vector2.zero; }
+                if (GUI.Button(new Rect(112 + i * 151, 160, 145, 37), tabs[i], tab)) { page = i; scroll = Vector2.zero; }
             }
             GUI.backgroundColor = Color.white;
             Fill(new Rect(112, 218, 1055, 342), panel);
@@ -86,16 +86,18 @@ namespace FacilityOps
             if (page == 3) Stock();
             if (page == 4) City();
             if (page == 5) Guide();
+            if (page == 6) Messages();
             Text(115, 575, 1020, 48, game.Notice, small);
             if (Button(112, 624, 220, "Voltar ao ambiente [TAB]")) game.SetTablet(false);
-            Text(355, 634, 580, 25, "PROTÓTIPO 0.1  •  Sistemas e medições fictícios", small);
+            Text(355, 634, 580, 25, "PROTÓTIPO 0.2  •  Sistemas e medições fictícios", small);
             if (Button(963, 624, 204, "Salvar e sair")) { game.Save(); Application.Quit(); }
         }
         private void Mission()
         {
-            Text(136, 239, 700, 35, game.Session.Active == null ? "01 / Corredor às escuras" : "EM ATENDIMENTO / Corredor às escuras", heading);
-            Text(136, 288, 660, 80, "Cliente: Helena Prado / Edifício Horizonte\n“As luzes do corredor do 4º andar apagaram. Ontem estavam piscando.”\nChamado de teste • Elétrica abstrata • 3 causas possíveis");
-            Text(136, 382, 660, 62, "Pagamento base: R$ 320  •  Bônus sem desperdício: R$ 80\nInvestigue a rede, registre uma hipótese, repare e faça o teste integrado.");
+            bool prologue = game.Session.IsPrologue || (game.Session.Active == null && !game.Session.Career.prologueCompleted);
+            Text(136, 239, 700, 35, game.MissionTitle, heading);
+            Text(136, 288, 660, 80, "Cliente: Helena Prado / Edifício Horizonte\n“As luzes do corredor do 4º andar apagaram. Ontem estavam piscando.”\n" + (prologue ? "Guto: investigue a causa antes de religar a proteção." : "Chamado livre • Elétrica abstrata • 3 causas possíveis"));
+            Text(136, 382, 660, 86, "Pagamento base: R$ 320  •  Bônus sem desperdício: R$ 80\n" + (prologue ? "Inspecione e meça. Isole [6] no QD-01, confirme [5] na LM-01, troque [4]. Restaure [7], aguarde 5s em campo e teste [5] no QD-01." : "Investigue a rede, registre uma hipótese, repare e faça o teste integrado."));
             var active = game.Session.Active;
             if (active == null)
             {
@@ -104,9 +106,13 @@ namespace FacilityOps
             }
             else
             {
-                Text(840, 241, 285, 165, "CHECKLIST\n\n" + (active.testedNodes.Count >= 2 ? "✓" : "○") + " Coletar medições\n" + (active.diagnosis >= 0 ? "✓" : "○") + " Registrar hipótese\n" + (active.repaired ? "✓" : "○") + " Reparar o componente\n" + (active.validated ? "✓" : "○") + " Validar no QD-01");
+                string checklist = "CHECKLIST\n\n" + (active.testedNodes.Count >= 2 ? "✓" : "○") + " Coletar medições\n" + (active.diagnosis >= 0 ? "✓" : "○") + " Registrar hipótese\n";
+                if (prologue) checklist += ((active.isolated && active.insulationTested) || active.repaired ? "✓" : "○") + " Isolar e confirmar na LM-01\n";
+                checklist += (active.repaired ? "✓" : "○") + " Reparar o componente\n" + (active.validated ? "✓" : "○") + " Validar no QD-01";
+                if (prologue) checklist += "\nCircuito: " + (active.isolated ? "isolado" : active.circuitClosed ? "restaurado" : "desarmado") + "\nEnsaio térmico: " + active.heatSeconds.ToString("0.0") + " / 5 s";
+                Text(840, 241, 285, 237, checklist, small);
                 if (Button(136, 483, 280, "Entregar serviço", active.validated)) { game.Deliver(); page = 0; }
-                if (Button(432, 483, 280, game.AtOffice ? "Retomar visita" : "Voltar à sede / comprar")) { if (game.AtOffice) game.Resume(); else { game.ReturnToOffice(); page = 3; } }
+                if (Button(432, 483, 280, game.AtOffice || game.PreviewLocation != null ? "Retomar visita" : "Voltar à sede / comprar")) { if (game.AtOffice || game.PreviewLocation != null) game.Resume(); else { game.ReturnToOffice(); page = 3; } }
             }
         }
         private void Evidence()
@@ -123,10 +129,10 @@ namespace FacilityOps
             Text(136, 286, 950, 58, "Rede lógica: QD-01 (alimentação) → CT-01 (comando) → LM-01 (driver).\nA energia pode faltar no final por uma falha anterior. Compare scanner e sonda.");
             for (int i = 0; i < 3; i++)
             {
-                if (Button(136 + i * 335, 363, 315, GameRuntime.CauseNames[i], game.Session.Active != null)) game.Diagnose((FailureCause)i);
-                Text(145 + i * 335, 420, 295, 57, i == 0 ? "A entrada existe, mas o módulo não alimenta a rede?" : i == 1 ? "A alimentação chega ao comando, mas o sinal não sai?" : "Energia e sinal chegam, mas o driver não responde?", small);
+                if (Button(136 + i * 335, 363, 315, game.CauseName(i), game.Session.Active != null)) game.Diagnose((FailureCause)i);
+                Text(145 + i * 335, 420, 295, 57, i == 0 ? "A entrada existe, mas o módulo não alimenta a rede?" : i == 1 ? "A alimentação chega ao comando, mas o sinal não sai?" : game.Session.IsPrologue ? "O isolamento danificado explica o desarme ao aquecer?" : "Energia e sinal chegam, mas o driver não responde?", small);
             }
-            Text(136, 497, 960, 42, game.Session.Active?.diagnosis >= 0 ? "Hipótese atual: " + GameRuntime.CauseNames[game.Session.Active.diagnosis] + "  •  [4] Kit de reparo + [E] no componente" : "Colete ao menos duas medições e registre uma hipótese. Uma troca errada consome peça.");
+            Text(136, 497, 960, 42, game.Session.Active?.diagnosis >= 0 ? "Hipótese atual: " + game.CauseName(game.Session.Active.diagnosis) + "  •  [4] Kit de reparo + [E] no componente" : "Colete ao menos duas medições e registre uma hipótese. Uma troca errada consome peça.");
         }
         private void Stock()
         {
@@ -141,7 +147,16 @@ namespace FacilityOps
         private void Guide()
         {
             Text(136, 239, 960, 35, "Seu primeiro atendimento", heading);
-            Text(136, 285, 960, 248, "1. Confira o estoque e aceite o chamado na aba CHAMADO.\n2. WASD move, mouse olha, Shift acelera. Aproxime-se dos painéis.\n3. Selecione [1] inspeção, [2] scanner ou [3] sonda. Use [E] para registrar pistas.\n4. [TAB] abre o tablet. Compare evidências e escolha sua hipótese em DIAGNÓSTICO.\n5. Selecione [4] kit de reparo e use [E] no componente escolhido.\n6. Luzes acesas? Selecione [5] e execute [E] no QD-01 para validar a rede.\n7. Entregue na aba CHAMADO. Reponha peças e aceite outro atendimento.\n\nO mesmo sintoma pode ter outra causa no próximo chamado.\nSave automático nas ações, a cada 30 segundos e ao sair. ESC também abre o tablet.");
+            Text(136, 285, 960, 248, "1. Aceite o prólogo na aba CHAMADO. WASD move, mouse olha, Shift acelera.\n2. [1] inspeciona, [2] mede energia fictícia, [3] compara sinais. [E] usa a ferramenta.\n3. Inspecione LM-01, colete duas medições e escolha a hipótese em DIAGNÓSTICO.\n4. [6] no QD-01 isola; [5] na LM-01 confirma. [4] substitui a luminária.\n5. [7] no QD-01 restaura. Aguarde 5s fora do tablet e teste [5] no QD-01.\n6. Entregue na aba CHAMADO. Leia Guto e Helena em MENSAGENS.\n\nReligar sem reparar provoca novo desarme ao aquecer. O tablet pausa o ensaio.\nApós o prólogo, chamados livres usam as ferramentas [1–5] e três causas variáveis.\nSave automático nas ações, a cada 30 segundos e ao sair. TAB/ESC abre o tablet.");
+        }
+        private void Messages()
+        {
+            Text(136,239,960,35,game.Session.Career.prologueCompleted ? "Campanha / Capítulo I — Pequenos problemas" : "Campanha / Prólogo — O primeiro chamado",heading);
+            string log = game.Session.Career.campaignJournal.Count == 0 ? "A maleta de Guto está pronta. Aceite o primeiro chamado de Helena para iniciar a campanha." : string.Join("\n\n",game.Session.Career.campaignJournal);
+            if (game.Session.Career.prologueCompleted) log += "\n\nPrólogo concluído. Chamados livres disponíveis. As missões autorais do Capítulo I ainda estão em desenvolvimento.";
+            float height = Mathf.Max(246,body.CalcHeight(new GUIContent(log),950)+20);
+            scroll=GUI.BeginScrollView(new Rect(136,288,999,246),scroll,new Rect(0,0,970,height));
+            GUI.Label(new Rect(0,0,950,height),log,body);GUI.EndScrollView();
         }
         private void City()
         {

@@ -91,7 +91,52 @@ namespace FacilityOps.Editor
             Require(SaveService.Load(qa).money == 350, "Save roundtrip and replacement");
             File.WriteAllText(qa, "broken json");
             Require(SaveService.Load(qa).money == 340, "Recover from backup");
-            File.WriteAllText(Path.GetFullPath("../Logs/rules-passed.txt"), "Domain checks passed: all causes, invalid transitions, duplicate payouts, wrong repairs, inventory, debt recovery, save and backup.");
+            RunPrologueRules();
+            File.WriteAllText(Path.GetFullPath("../Logs/rules-passed.txt"), "Domain checks passed: all causes, invalid transitions, duplicate payouts, wrong repairs, inventory, debt recovery, save and backup. Authored prologue: thermal recurrence, isolation, safety confirmation, restoration, stable final test, persistent journal and legacy-save compatibility.");
+        }
+        private static void RunPrologueRules()
+        {
+            var s = new ServiceSession(new CareerData());
+            Require(s.AcceptPrologue() && s.IsPrologue && !s.Network.LightingHealthy, "Prologue starts with tripped breaker");
+            Require(!s.AcceptPrologue(), "Single active prologue");
+            s.Restore(StationId.Distribution);
+            Require(s.Network.LightingHealthy, "Rearm briefly clears the symptom");
+            s.Tick(4f); s.Restore(StationId.Distribution); s.Tick(1f);
+            Require(!s.Network.LightingHealthy && !s.Active.repaired, "Heat reproduces short; repeated restore cannot reset test");
+            s.Measure(StationId.Distribution, ToolMode.Scanner); s.Measure(StationId.Luminaire, ToolMode.SignalProbe);
+            s.Diagnose(FailureCause.LightDriver);
+            Require(s.Active.diagnosis == -1, "Authored defect must be inspected");
+            s.Inspect(StationId.Luminaire); s.Diagnose(FailureCause.LightDriver);
+            s.Repair(StationId.Luminaire);
+            Require(!s.Active.repaired && s.Career.driverParts == 2, "Tripped protection is not confirmed isolation");
+            s.Isolate(StationId.Controller);
+            Require(!s.Active.isolated, "Isolation requires QD-01");
+            s.Isolate(StationId.Distribution); s.Repair(StationId.Luminaire);
+            Require(!s.Active.repaired && s.Career.driverParts == 2, "Isolation alone does not permit repair");
+            s.Verify(StationId.Luminaire);
+            string path = Path.GetFullPath("../Logs/prologue-save.json");
+            SaveService.Save(s.Career,path);
+            s = new ServiceSession(SaveService.Load(path));
+            Require(s.Active.isolated && s.Active.insulationTested && s.Active.diagnosis == 2, "Resume isolated service without losing safety confirmation");
+            s.Repair(StationId.Luminaire);
+            Require(s.Active.repaired && !s.Network.LightingHealthy && s.Career.driverParts == 1, "Repair consumes one module but keeps circuit isolated");
+            s.Verify(StationId.Distribution);
+            Require(!s.Active.validated && !s.Settle(out _), "Cannot deliver with circuit isolated");
+            s.Restore(StationId.Distribution); s.Verify(StationId.Distribution);
+            Require(!s.Active.validated, "Restoration requires thermal soak");
+            s.Tick(5f); s.Verify(StationId.Distribution);
+            Require(s.Active.validated, "Repaired circuit survives thermal test");
+            s.Isolate(StationId.Distribution);
+            Require(!s.Active.validated && !s.Settle(out _), "New isolation invalidates final verification");
+            s.Restore(StationId.Distribution); s.Tick(5f); s.Verify(StationId.Distribution);
+            Require(s.Settle(out int paid) && paid == 400 && s.Career.prologueCompleted, "Prologue paid once and chapter frontier persisted");
+            Require(!s.AcceptPrologue() && !s.Settle(out _), "Cannot replay prologue or duplicate reward");
+            SaveService.Save(s.Career,path);
+            var saved = SaveService.Load(path);
+            Require(saved.prologueCompleted && saved.campaignJournal.Count == 5 && saved.active == null, "Mentor/client journal and completion survive load");
+            File.WriteAllText(path,"{\"version\":1,\"money\":200,\"completed\":2,\"supplyParts\":1,\"relayParts\":1,\"driverParts\":1}");
+            var legacy = SaveService.Load(path);
+            Require(legacy.money == 200 && legacy.completed == 2 && !legacy.prologueCompleted && legacy.campaignJournal != null, "Old v1 careers retain rewards and can start authored prologue");
         }
     }
 }

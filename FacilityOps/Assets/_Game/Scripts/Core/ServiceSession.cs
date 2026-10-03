@@ -5,7 +5,7 @@ namespace FacilityOps
 {
     public enum FailureCause { SupplyModule, ControlRelay, LightDriver }
     public enum StationId { Distribution, Controller, Luminaire }
-    public enum ToolMode { Inspect, Scanner, SignalProbe, Repair, Verify }
+    public enum ToolMode { Inspect, Scanner, SignalProbe, Repair, Verify, Isolate, Restore }
 
     [Serializable]
     public sealed class CareerData
@@ -19,6 +19,10 @@ namespace FacilityOps
         public int supplyParts = 2;
         public int relayParts = 2;
         public int driverParts = 2;
+        public bool prologueCompleted;
+        public List<string> campaignJournal = new List<string>();
+        public int servicePresenceVersion;
+        public bool hasActiveService;
         public ServiceData active;
     }
 
@@ -33,6 +37,11 @@ namespace FacilityOps
         public bool settled;
         public int mistakes;
         public float elapsed;
+        public bool circuitClosed;
+        public bool isolated;
+        public bool insulationTested;
+        public bool defectFound;
+        public float heatSeconds;
         public List<string> evidence = new List<string>();
         public List<string> testedNodes = new List<string>();
     }
@@ -42,11 +51,18 @@ namespace FacilityOps
     {
         private readonly ServiceData state;
         public ElectricalNetwork(ServiceData state) { this.state = state; }
-        public bool SupplyHealthy => state.repaired || state.cause != (int)FailureCause.SupplyModule;
-        public bool CommandHealthy => SupplyHealthy && (state.repaired || state.cause != (int)FailureCause.ControlRelay);
-        public bool LightingHealthy => CommandHealthy && (state.repaired || state.cause != (int)FailureCause.LightDriver);
+        private bool Prologue => state.missionId == ServiceSession.PrologueId;
+        public bool SupplyHealthy => Prologue ? state.circuitClosed : state.repaired || state.cause != (int)FailureCause.SupplyModule;
+        public bool CommandHealthy => SupplyHealthy && (Prologue || state.repaired || state.cause != (int)FailureCause.ControlRelay);
+        public bool LightingHealthy => CommandHealthy && (Prologue || state.repaired || state.cause != (int)FailureCause.LightDriver);
         public string Read(StationId node, ToolMode tool)
         {
+            if (Prologue)
+            {
+                if (tool == ToolMode.Scanner) return state.circuitClosed ? "Circuito: 100 U fictícias. A luz acendeu; observe o comportamento ao aquecer." : "Circuito: 0 U fictícias. Distinguir disjuntor desarmado de isolamento confirmado.";
+                if (node == StationId.Luminaire) return state.repaired ? "Módulo de luminária substituído. Isolamento virtual íntegro." : "LM-01: resposta de isolamento irregular. O defeito aparece com aquecimento.";
+                return node == StationId.Distribution ? (state.circuitClosed ? "Proteção virtual fechada; acompanhe a estabilidade do circuito." : "Proteção virtual aberta. Investigue a falha no circuito a jusante.") : "Comando íntegro. A causa não está no relé CT-01.";
+            }
             if (tool == ToolMode.Scanner)
             {
                 if (node == StationId.Distribution) return SupplyHealthy ? "Entrada 100 U / saída 100 U. Alimentação estável." : "Entrada 100 U / saída 0 U. Módulo sem resposta.";
@@ -61,10 +77,54 @@ namespace FacilityOps
 
     public sealed class ServiceSession
     {
+        public const string PrologueId = "campaign.prologue.horizonte.v1";
+        public const float HeatTestSeconds = 5f;
         public CareerData Career { get; }
         public ServiceData Active => Career.active;
         public ElectricalNetwork Network => Active == null ? null : new ElectricalNetwork(Active);
-        public ServiceSession(CareerData career) { Career = career; }
+        public bool IsPrologue => Active?.missionId == PrologueId;
+        public ServiceSession(CareerData career) { Career = career; if (Career.campaignJournal == null) Career.campaignJournal = new List<string>(); }
+        public bool AcceptPrologue()
+        {
+            if (Active != null || Career.prologueCompleted) return false;
+            Career.active = new ServiceData { missionId = PrologueId, cause = (int)FailureCause.LightDriver };
+            Journal("Guto / A maleta agora é sua. Máquina sempre avisa antes de parar. Primeiro entenda, depois confirme, só então repare.");
+            Journal("Helena / Edifício Horizonte: o corredor do quarto andar ficou sem energia. O disjuntor desarmou depois que as luzes piscaram.");
+            return true;
+        }
+        private void Journal(string message) { if (!Career.campaignJournal.Contains(message)) Career.campaignJournal.Add(message); }
+        public string Tick(float seconds)
+        {
+            if (!IsPrologue || !Active.circuitClosed || seconds <= 0) return null;
+            Active.heatSeconds = Math.Min(HeatTestSeconds, Active.heatSeconds + seconds);
+            if (!Active.repaired && Active.heatSeconds >= HeatTestSeconds)
+            {
+                Active.circuitClosed = false;
+                AddEvidence("Falha reproduzida: ao aquecer, LM-01 provoca curto virtual e a proteção desarma novamente.");
+                Journal("Guto / Disjuntor não desarma por vontade própria. Religar remove o sintoma por alguns segundos; investigue a luminária.");
+                return "O circuito desarmou novamente ao aquecer. Guto: sintoma não é causa. Inspecione LM-01.";
+            }
+            return null;
+        }
+        public string Isolate(StationId node)
+        {
+            if (!IsPrologue) return "Isolamento disponível no prólogo autoral do Horizonte.";
+            if (node != StationId.Distribution) return "Isole o circuito no QD-01 usando [6].";
+            if (Active.isolated) return "Circuito já isolado. Use [5] na LM-01 para confirmar antes da troca.";
+            Active.circuitClosed = false; Active.isolated = true; Active.insulationTested = false;
+            Active.validated = false; Active.heatSeconds = 0;
+            AddEvidence("QD-01: circuito isolado e bloqueado no sistema fictício.");
+            return "Circuito isolado. Confirme na LM-01 com [5]; só então use o kit de reparo.";
+        }
+        public string Restore(StationId node)
+        {
+            if (!IsPrologue) return "Restauração manual disponível no prólogo do Horizonte.";
+            if (node != StationId.Distribution) return "Restaure no QD-01 usando [7].";
+            if (Active.circuitClosed) return "Circuito já restaurado. Aguarde o ensaio de aquecimento e teste no QD-01.";
+            Active.circuitClosed = true; Active.isolated = false; Active.insulationTested = false;
+            Active.validated = false; Active.heatSeconds = 0;
+            return Active.repaired ? "Circuito restaurado. Aguarde 5 segundos em campo e use [5] no QD-01 para verificar estabilidade." : "Proteção rearmada. A causa permanece: observe se o circuito sustenta a iluminação ao aquecer.";
+        }
         public bool Accept(FailureCause cause)
         {
             if (Active != null) return false;
@@ -74,6 +134,14 @@ namespace FacilityOps
         public string Inspect(StationId node)
         {
             if (Active == null) return "Aceite um chamado na sede.";
+            if (IsPrologue)
+            {
+                string observation;
+                if (node == StationId.Distribution) observation = Active.circuitClosed ? "QD-01: circuito energizado. O rearme ainda não comprova a correção da causa." : Active.isolated ? "QD-01: circuito isolado e bloqueado." : "QD-01: disjuntor desarmado. Guto: disjuntor não desarma por vontade própria.";
+                else if (node == StationId.Controller) observation = "CT-01: comando íntegro. Siga o circuito até a luminária antiga.";
+                else { Active.defectFound = true; observation = Active.repaired ? "LM-01: módulo novo instalado." : "LM-01: isolamento danificado na luminária antiga. Marcas de aquecimento explicam a falha intermitente."; }
+                AddEvidence(node + ": " + observation); return observation;
+            }
             string note = node == StationId.Distribution ? "QD-01 alimenta CT-01, que comanda LM-01. Etiquetas legíveis; carcaça intacta." : node == StationId.Controller ? "CT-01: comando do corredor. O histórico registra iluminação intermitente." : "LM-01: corredor sem iluminação. Sem dano externo visível.";
             AddEvidence(node + ": " + note);
             return note;
@@ -94,6 +162,7 @@ namespace FacilityOps
             if (Active == null) return "Aceite um chamado primeiro.";
             if (Active.repaired) return "O reparo já foi executado. Faça a validação.";
             if (Active.testedNodes.Count < 2) return "Colete ao menos duas medições antes de registrar uma hipótese.";
+            if (IsPrologue && !Active.defectFound) return "Inspecione a luminária LM-01 antes de concluir a causa.";
             Active.diagnosis = (int)cause;
             return "Hipótese registrada. Use o kit de reparo no componente escolhido.";
         }
@@ -123,6 +192,7 @@ namespace FacilityOps
             if (Active.repaired) return "Componente reparado. Valide a rede no QD-01.";
             if (Active.diagnosis < 0) return "Registre seu diagnóstico no tablet [TAB] antes de reparar.";
             if ((int)node != Active.diagnosis) return "Este componente não corresponde à hipótese registrada.";
+            if (IsPrologue && (!Active.isolated || Active.circuitClosed || !Active.insulationTested)) return "Troca bloqueada: isole no QD-01 [6] e confirme na LM-01 [5]. Nenhuma peça foi consumida.";
             FailureCause chosen = (FailureCause)Active.diagnosis;
             if (Stock(chosen) < 1) return "Sem peça compatível. Volte à sede e reponha o estoque.";
             ChangeStock(chosen, -1);
@@ -134,14 +204,24 @@ namespace FacilityOps
             }
             Active.repaired = true;
             Active.validated = false;
+            if (IsPrologue) return "Luminária substituída com circuito isolado. Restaure no QD-01 [7] e confirme estabilidade após aquecer.";
             return "Componente substituído. Iluminação restaurada! Falta testar a rede no QD-01.";
         }
         public string Verify(StationId node)
         {
             if (Active == null) return "Nenhum chamado ativo.";
+            if (IsPrologue && node == StationId.Luminaire)
+            {
+                if (!Active.isolated || Active.circuitClosed) return "Confirmação recusada: isole primeiro no QD-01 [6].";
+                Active.insulationTested = true;
+                AddEvidence("LM-01: ausência de energia fictícia confirmada antes da intervenção.");
+                return "Teste de isolamento confirmado. Registre a hipótese e substitua o módulo de luminária com [4].";
+            }
             if (node != StationId.Distribution) return "O teste integrado está disponível no QD-01.";
             if (!Active.repaired || !Network.LightingHealthy) return "Teste reprovado: a iluminação continua indisponível.";
+            if (IsPrologue && Active.heatSeconds < HeatTestSeconds) return "Ensaio ainda em andamento. Aguarde 5 segundos com circuito restaurado, fora do tablet, e repita.";
             Active.validated = true;
+            if (IsPrologue) AddEvidence("Ensaio térmico virtual aprovado: a iluminação permanece estável após aquecimento.");
             return "Teste aprovado: distribuição, comando e iluminação operacionais. Entregue pelo tablet.";
         }
         public int Reward => Active == null ? 0 : Math.Max(180, 320 + (Active.mistakes == 0 ? 80 : 0) - Active.mistakes * 30);
@@ -158,6 +238,12 @@ namespace FacilityOps
             Career.reputation = Math.Max(0, Math.Min(100, Career.reputation + (Active.mistakes == 0 ? 5 : 1)));
             Career.experience += 100;
             Career.completed++;
+            if (IsPrologue)
+            {
+                Career.prologueCompleted = true;
+                Journal("Guto / Você encontrou a causa, isolou, confirmou e testou antes de entregar. Guarde esse método para cada chamado.");
+                Journal("Helena / Pagamento enviado. A iluminação permaneceu estável; vou indicar sua empresa quando precisarem de manutenção.");
+            }
             Career.active = null;
             return true;
         }

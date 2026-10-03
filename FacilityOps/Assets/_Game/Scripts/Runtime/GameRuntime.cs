@@ -6,7 +6,7 @@ namespace FacilityOps
 {
     public sealed class GameRuntime : MonoBehaviour
     {
-        public static readonly string[] ToolNames = { "Inspeção visual", "Scanner de energia", "Sonda de sinal", "Kit de reparo", "Teste integrado" };
+        public static readonly string[] ToolNames = { "Inspeção visual", "Scanner de energia", "Sonda de sinal", "Kit de reparo", "Teste / confirmação", "Isolar circuito", "Restaurar circuito" };
         public static readonly string[] CauseNames = { "Módulo de alimentação", "Relé de comando", "Driver de iluminação" };
         public ServiceSession Session { get; private set; }
         public FirstPersonController Player { get; private set; }
@@ -20,6 +20,8 @@ namespace FacilityOps
         public string SaveError { get; private set; }
         public string LastReport { get; private set; }
         public CampaignCatalog Campaign { get; private set; }
+        public string MissionTitle => Session.IsPrologue || (Session.Active == null && !Session.Career.prologueCompleted) ? "PRÓLOGO / O primeiro chamado" : "Corredor às escuras / chamado livre";
+        public string CauseName(int cause) => Session.IsPrologue && cause == 2 ? "Isolamento da luminária" : CauseNames[cause];
         public LocationData PreviewLocation { get; private set; }
         public int PreviewFloor { get; private set; }
         private AudioSource audioSource;
@@ -60,7 +62,12 @@ namespace FacilityOps
         private void Update()
         {
             if (Session == null) return;
-            if (!TabletOpen && PreviewLocation == null && Session.Active != null) Session.Active.elapsed += Time.deltaTime;
+            if (!TabletOpen && !AtOffice && PreviewLocation == null && Session.Active != null)
+            {
+                Session.Active.elapsed += Time.deltaTime;
+                string eventMessage = Session.Tick(Time.deltaTime);
+                if (eventMessage != null) { World.Reflect(Session.Network.LightingHealthy); Notify(eventMessage); Save(); }
+            }
             autosave += Time.unscaledDeltaTime;
             if (autosave > 30) { Save(); autosave = 0; }
         }
@@ -91,9 +98,10 @@ namespace FacilityOps
         }
         public void Accept()
         {
-            if (!Session.Accept((FailureCause)((Session.Career.completed + DateTime.Now.Second) % 3))) return;
+            bool accepted = Session.Career.prologueCompleted ? Session.Accept((FailureCause)((Session.Career.completed + DateTime.Now.Second) % 3)) : Session.AcceptPrologue();
+            if (!accepted) return;
             LoadLocation(false); SetTablet(false); Save();
-            Notify("Chamado aceito. Inspecione QD-01, CT-01 e LM-01. [TAB] abre suas hipóteses.");
+            Notify(Session.IsPrologue ? "Guto: disjuntor não desarma por vontade própria. Inspecione QD-01 e a luminária LM-01. Mensagens no tablet." : "Chamado aceito. Inspecione QD-01, CT-01 e LM-01. [TAB] abre suas hipóteses.");
         }
         public void Resume() { LoadLocation(false); SetTablet(false); }
         public void ReturnToOffice() { LoadLocation(true); SetTablet(true); Save(); }
@@ -103,6 +111,8 @@ namespace FacilityOps
             if (Tool == ToolMode.Inspect) message = Session.Inspect(node);
             else if (Tool == ToolMode.Repair) message = Session.Repair(node);
             else if (Tool == ToolMode.Verify) message = Session.Verify(node);
+            else if (Tool == ToolMode.Isolate) message = Session.Isolate(node);
+            else if (Tool == ToolMode.Restore) message = Session.Restore(node);
             else message = Session.Measure(node, Tool);
             World.Reflect(Session.Network != null && Session.Network.LightingHealthy);
             Notify(message); Save();
@@ -117,12 +127,13 @@ namespace FacilityOps
         }
         public void Deliver()
         {
+            bool prologue = Session.IsPrologue;
             int mistakes = Session.Active?.mistakes ?? 0;
             float elapsed = Session.Active?.elapsed ?? 0;
             if (!Session.Settle(out int payment)) { Notify("Conclua o reparo e o teste integrado antes de entregar."); return; }
             LastReport = "SERVIÇO ENTREGUE\n\nIluminação restaurada e rede validada.\nPagamento: R$ " + payment + "\nPeças desperdiçadas: " + mistakes + "\nTempo em campo: " + TimeSpan.FromSeconds(elapsed).ToString(@"mm\:ss") + "\nExperiência: +100  •  Reputação: +" + (mistakes == 0 ? "5" : "1");
             LoadLocation(true); SetTablet(true); Save(); audioSource.PlayOneShot(success);
-            Notify("Serviço entregue. Pagamento recebido. Você voltou à sede.");
+            Notify(prologue ? "Prólogo concluído. Helena enviou o pagamento e Guto deixou uma mensagem. Capítulo I registrado na carreira; chamados livres disponíveis." : "Serviço entregue. Pagamento recebido. Você voltou à sede.");
         }
         public void Notify(string message) { Notice = message; noticeUntil = Time.unscaledTime + 10; if (audioSource) audioSource.PlayOneShot(click); }
         public bool ShowNotice => TabletOpen || Time.unscaledTime < noticeUntil;

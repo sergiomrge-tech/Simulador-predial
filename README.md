@@ -13,14 +13,17 @@ Engine escolhida pelo usuário: **Unity 6000.6.2f1**, já instalada. C#, URP, no
 
 ## Primeiro serviço
 
-Confira o estoque no tablet e aceite o chamado “Corredor às escuras”. As causas variam entre módulo de alimentação, relé de comando e driver de iluminação.
+Confira o estoque no tablet e aceite **PRÓLOGO / O primeiro chamado**. Helena relata falta de energia no Horizonte e Guto orienta a investigação. A causa autoral é o isolamento danificado de uma luminária antiga: religar o disjuntor sem reparar acende as luzes por alguns segundos, mas a falha reaparece ao aquecer.
 
 1. Caminhe até QD-01, CT-01 e LM-01.
 2. Inspecione e compare energia de entrada/saída e passagem de sinal. Registre pelo menos duas medições.
-3. Abra o tablet e registre a hipótese que explica as pistas.
-4. Use o kit de reparo no componente escolhido. Uma troca errada consome peça e reduz a recompensa.
-5. Execute o teste integrado no QD-01. Somente depois entregue pelo tablet.
-6. Receba o pagamento, volte à sede e reponha peças. O próximo chamado pode ter outra causa.
+3. Abra o tablet e registre a hipótese **Isolamento da luminária** após inspecionar LM-01.
+4. Use **[6] + E no QD-01** para isolar e **[5] + E na LM-01** para confirmar. A troca fica bloqueada sem essas duas ações.
+5. Use **[4] + E na LM-01** para substituir o módulo. O circuito permanece isolado.
+6. Use **[7] + E no QD-01** para restaurar, aguarde cinco segundos em campo e faça **[5] + E no QD-01** para validar estabilidade. O tablet pausa o ensaio.
+7. Entregue pelo tablet. Pagamento, conclusão e mensagens de Guto/Helena são salvos. A aba **MENSAGENS** guarda o diário.
+
+Após o prólogo, os chamados livres mantêm as três causas variáveis (alimentação, relé e driver), usando diagnóstico → troca → teste → pagamento com as ferramentas 1–5. O Capítulo I é registrado como próxima etapa narrativa; suas missões autorais ainda não estão implementadas. Detalhes em `Docs/PROLOGO_IMPLEMENTADO.md`.
 
 ## Estrutura da campanha / visitar mapas
 
@@ -40,11 +43,13 @@ O catálogo mantém garagem original, Edifício Horizonte, Teatro Imperial, esco
 | 3 | Sonda de sinal fictícia |
 | 4 | Kit de reparo |
 | 5 | Teste integrado |
+| 6 | Isolar circuito no QD-01, no prólogo |
+| 7 | Restaurar circuito no QD-01, no prólogo |
 | Tab / Esc | Abrir ou fechar tablet |
 
 ## Save e economia
 
-Save v1 em `%USERPROFILE%/AppData/LocalLow/OficinaAurora/Facility Ops Prototype/career-v1.json`, com backup `.bak`. Salva missão ativa, evidências, reparo, dinheiro, XP, reputação, peças e dívida do fornecedor. Autosave nas ações e a cada 30 segundos. Um save ilegível sem backup é preservado e bloqueia sobrescrita, mostrando aviso.
+Save v1 em `%USERPROFILE%/AppData/LocalLow/OficinaAurora/Facility Ops Prototype/career-v1.json`, com backup `.bak`. Salva missão ativa, evidências, reparo, dinheiro, XP, reputação, peças, dívida, conclusão do prólogo e diário. No prólogo também conserva isolamento, confirmação e ensaio térmico. Um marcador explícito distingue ausência de chamado de uma instância vazia criada pela serialização inline da Unity. Campos antigos são preservados na leitura de v1. Autosave nas ações e a cada 30 segundos. Um save ilegível sem backup é preservado e bloqueia sobrescrita, mostrando aviso.
 
 Peças custam R$ 60. É possível voltar à sede durante uma visita. Se faltar saldo, o fornecedor oferece crédito e desconta a dívida nos pagamentos, evitando que uma carreira fique presa por falta de peças. Essa regra é uma adaptação de protótipo e precisa de balanceamento.
 

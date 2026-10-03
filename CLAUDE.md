@@ -23,11 +23,13 @@ Não editar JSON gerado sem atualizar o gerador. IDs devem permanecer estáveis.
 
 1. Conferir a área inicial em primeira pessoa e adicionar mãos/ferramentas com animações táteis, sem alterar o alcance do raycast.
 2. Converter a garagem, o corredor aprovado e os equipamentos em prefabs/cenas editáveis, mantendo componentes e IDs.
-3. Implementar o prólogo autoral no Horizonte: aquecimento fictício, isolamento, teste, troca, restauração e conversa/mensagens de Guto/Helena.
+3. Polir o prólogo autoral implementado no Horizonte: aquecimento fictício, isolamento, teste, troca, restauração e mensagens persistentes de Guto/Helena. Ler `Docs/PROLOGO_IMPLEMENTADO.md`. Converter mensagens em apresentação narrativa sem quebrar as regras de intervenção.
 4. Substituir um conjunto pequeno de setores do catálogo por arquitetura e props finais do Blender, mantendo as conexões.
 5. Construir inspeção, fotografia/laudo e consequências persistentes antes de desbloquear capítulos avançados.
 6. Adicionar hidráulica e bombas e depois climatização; somente então implementar Cascata e coordenação de equipes.
 
 Os mapas de campanha são estruturas de protótipo. Os capítulos, NPCs, decisões e finais não estão todos implementados. Não afirmar qualidade premium, desempenho alvo ou campanha pronta sem evidência de execução e inspeção visual.
+
+O primeiro aceite da campanha usa `ServiceSession.AcceptPrologue`; chamados livres continuam com `Accept(cause)`. `CareerData.prologueCompleted` marca a passagem para o Capítulo I, cuja campanha autoral ainda está pendente. Save v1 inclui `servicePresenceVersion/hasActiveService` para impedir que uma classe inline vazia represente um chamado encerrado. Preservar compatibilidade de saves e testes separados do jogador.
 
 Use branches `codex/` ou `claude/` e mudanças focadas para permitir integração. Este arquivo é contexto de colaboração, não autorização para publicar releases, enviar mensagens ou mudar a visibilidade do repositório.
