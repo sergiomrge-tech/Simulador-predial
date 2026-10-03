@@ -48,7 +48,7 @@ namespace FacilityOps
             if (data.buildingHistory == null) data.buildingHistory = new System.Collections.Generic.List<BuildingRecord>();
             var uniqueJobs = new System.Collections.Generic.HashSet<string>();
             foreach (string id in data.completedChapterOneJobs)
-                if (ChapterOne.Find(id) == null || !uniqueJobs.Add(id)) throw new InvalidDataException("Progresso do capítulo inválido.");
+                if (System.Array.Find(ChapterOne.Jobs, job => job.id == id) == null || !uniqueJobs.Add(id)) throw new InvalidDataException("Progresso do capítulo inválido.");
             if (data.active != null && (data.active.cause < 0 || data.active.cause > 2 || data.active.diagnosis < -1 || data.active.diagnosis > 2 || data.active.evidence == null || data.active.testedNodes == null)) throw new InvalidDataException("Chamado inválido.");
             if (data.campaignJournal == null) data.campaignJournal = new System.Collections.Generic.List<string>();
             var job = ChapterOne.Find(data.active?.missionId);
