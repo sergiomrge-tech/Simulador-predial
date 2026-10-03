@@ -13,6 +13,7 @@ namespace FacilityOps
             data.servicePresenceVersion = 1;
             data.hasActiveService = data.active != null;
             data.chapterOneDataVersion = 1;
+            data.chapterTwoDataVersion = 1;
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path)));
             string temporary = path + ".tmp";
             File.WriteAllText(temporary, JsonUtility.ToJson(data, true));
@@ -39,6 +40,10 @@ namespace FacilityOps
             if (data.chapterOneDataVersion < 0 || data.chapterOneDataVersion > 1) throw new InvalidDataException("Dados do capítulo incompatíveis.");
             if (data.chapterOneDataVersion == 0) data.sealKits = 2;
             if (data.sealKits < 0) throw new InvalidDataException("Estoque hidráulico inválido.");
+            if (data.chapterTwoDataVersion < 0 || data.chapterTwoDataVersion > 1) throw new InvalidDataException("Dados do Capítulo II incompatíveis.");
+            if (data.chapterTwoDataVersion == 0) data.pumpKits = 1;
+            if (data.pumpKits < 0) throw new InvalidDataException("Estoque preventivo de bombas inválido.");
+            if (data.firstContractCompleted && !data.recurringContractUnlocked) throw new InvalidDataException("Contrato concluído sem desbloqueio.");
             if (data.completedChapterOneJobs == null) data.completedChapterOneJobs = new System.Collections.Generic.List<string>();
             if (data.buildingHistory == null) data.buildingHistory = new System.Collections.Generic.List<BuildingRecord>();
             var uniqueJobs = new System.Collections.Generic.HashSet<string>();
@@ -47,7 +52,14 @@ namespace FacilityOps
             if (data.active != null && (data.active.cause < 0 || data.active.cause > 2 || data.active.diagnosis < -1 || data.active.diagnosis > 2 || data.active.evidence == null || data.active.testedNodes == null)) throw new InvalidDataException("Chamado inválido.");
             if (data.campaignJournal == null) data.campaignJournal = new System.Collections.Generic.List<string>();
             var job = ChapterOne.Find(data.active?.missionId);
-            if (job != null && (!data.prologueCompleted || data.completedChapterOneJobs.Contains(job.id) || data.active.cause != (int)job.cause || (data.active.isolated && data.active.circuitClosed) || float.IsNaN(data.active.heatSeconds) || float.IsInfinity(data.active.heatSeconds) || data.active.heatSeconds < 0 || data.active.heatSeconds > 3f)) throw new InvalidDataException("Chamado autoral inválido.");
+            if (job != null)
+            {
+                bool firstContract = job.id == ChapterOne.FirstContractId;
+                bool alreadyCompleted = firstContract ? data.firstContractCompleted : data.completedChapterOneJobs.Contains(job.id);
+                float maxStability = firstContract ? 4f : 3f;
+                if (!data.prologueCompleted || alreadyCompleted || data.active.cause != (int)job.cause || (data.active.isolated && data.active.circuitClosed) || float.IsNaN(data.active.heatSeconds) || float.IsInfinity(data.active.heatSeconds) || data.active.heatSeconds < 0 || data.active.heatSeconds > maxStability) throw new InvalidDataException("Chamado autoral inválido.");
+                if (firstContract && (!data.recurringContractUnlocked || data.completedChapterOneJobs.Count != ChapterOne.Jobs.Length)) throw new InvalidDataException("Contrato preventivo aceito antes da indicação.");
+            }
             if (data.active != null && data.active.missionId == ServiceSession.PrologueId && (data.active.cause != 2 || float.IsNaN(data.active.heatSeconds) || float.IsInfinity(data.active.heatSeconds) || data.active.heatSeconds < 0 || data.active.heatSeconds > ServiceSession.HeatTestSeconds || (data.active.isolated && data.active.circuitClosed))) throw new InvalidDataException("Estado do prólogo inválido.");
             return data;
         }
