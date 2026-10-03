@@ -69,6 +69,20 @@ namespace FacilityOps
         {
             if (Job != null && Job.hydraulic)
             {
+                if (Job.id == ChapterOne.FirstContractId)
+                {
+                    if (tool == ToolMode.Scanner)
+                    {
+                        if (!state.circuitClosed) return "Pressão virtual: 0 UP. Sistema preventivamente isolado.";
+                        if (node == StationId.Distribution) return "Pressão virtual de entrada: 100 UP. Alimentação disponível.";
+                        if (node == StationId.Controller) return state.repaired ? "Pressão após bomba: 96 UP estáveis." : "Pressão após bomba: 62–78 UP oscilantes. Compare com a entrada.";
+                        return state.repaired ? "Reservatório: 94 UP equivalentes, recuperação estável." : "Reservatório: recuperação lenta e oscilante nos picos.";
+                    }
+                    if (!state.circuitClosed) return "Vazão virtual: 0 UF. Sistema isolado para intervenção.";
+                    if (node == StationId.Distribution) return "RG-01 responde; não há restrição relevante na entrada.";
+                    if (node == StationId.Controller) return state.repaired ? "BP-01: resposta uniforme após preventiva." : "BP-01: vibração virtual elevada e resposta irregular sob demanda.";
+                    return state.repaired ? "RS-01: ciclo de enchimento regular." : "RS-01: nível recupera lentamente; o controle recebe vazão instável.";
+                }
                 if (tool == ToolMode.Scanner) return SupplyHealthy ? "Pressão virtual: 100 UP fictícias. Alimentação disponível." : "Pressão virtual: 0 UP. Registro fechado ou alimentação interrompida.";
                 if (!SupplyHealthy) return "Vazão virtual: 0 UF. O sistema está isolado; confirme antes de abrir o componente.";
                 if (node == StationId.Luminaire) return state.repaired ? "Comando fechar: 0 UF / comando abrir: 20 UF. Vedação responde." : "Comando fechar: 12 UF residuais. A torneira não veda.";
