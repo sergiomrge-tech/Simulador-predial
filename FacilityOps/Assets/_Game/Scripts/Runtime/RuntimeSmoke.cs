@@ -234,13 +234,45 @@ namespace FacilityOps
             }
             var chapterSave=SaveService.Load(game.SavePath);
             Check(chapterSave.money==2980 && chapterSave.completed==7 && chapterSave.buildingHistory.Count==3 && chapterSave.recurringContractUnlocked,"Chapter payments, memories and Helena recommendation persisted");
+
+            game.Accept();
+            yield return null;
+            Check(game.Session.IsFirstContract && game.World.CurrentLocationId=="recurringcondo","First recurring preventive contract loads indicated condominium");
+            Check(game.World.LeakVisual==null,"Pump preventive uses dedicated blockout instead of faucet leakage");
+            foreach(var station in game.World.Stations)
+            {
+                game.Tool=ToolMode.Inspect;station.Interact(game);
+                game.Tool=ToolMode.Scanner;station.Interact(game);
+                game.Tool=ToolMode.SignalProbe;station.Interact(game);
+            }
+            game.Diagnose(FailureCause.ControlRelay);
+            game.Tool=ToolMode.Isolate;game.World.Stations[0].Interact(game);
+            game.Tool=ToolMode.Verify;game.World.Stations[1].Interact(game);
+            int pumpStockBefore=game.Session.Career.pumpKits;
+            game.Tool=ToolMode.Repair;game.World.Stations[1].Interact(game);
+            Check(game.Session.Active.repaired && game.Session.Career.pumpKits==pumpStockBefore-1,"Preventive pump kit is consumed only on confirmed intervention");
+            game.Tool=ToolMode.Restore;game.World.Stations[0].Interact(game);
+            game.Tool=ToolMode.Verify;game.World.Stations[0].Interact(game);
+            Check(!game.Session.Active.validated,"Preventive contract rejects immediate final validation");
+            yield return new WaitForSeconds(4.2f);
+            game.World.Stations[0].Interact(game);
+            Check(game.Session.Active.validated,"Preventive pump contract passes four-second stability test");
+            game.Deliver();
+            var contractSave=SaveService.Load(game.SavePath);
+            Check(contractSave.firstContractCompleted && contractSave.preventiveRecommendationLogged && contractSave.money==3600 && contractSave.completed==8 && contractSave.buildingHistory.Count==4,"Preventive contract completion, payment and building history persist");
+
             var restaurant=Array.Find(game.Campaign.locations,location=>location.id=="restaurant");
             game.VisitPreview(restaurant);
             yield return null;
             Check(GameObject.Find("Histórico de manutenção")!=null,"Building remembers completed service in later preview");
-            Check(game.Session.Career.money==2980,"History preview adds no duplicate payment");
+            Check(game.Session.Career.money==3600,"History preview adds no duplicate payment");
             game.ReturnToOffice();
-            File.WriteAllText(Path.Combine(directory, "PASSED.txt"), "Windows runtime smoke passed: three free-job causes, first-person camera, raycasts, collision, evidence, repair, lighting, final test, settlement, save/load. Campaign previews: " + floors + " floors / " + connections + " traversable door connections. Authored prologue: live thermal recurrence, tablet pause, isolation, blocked unsafe repair, restoration, thermal soak, mentor/client journal and persistent completion. Chapter I: three distinct locations, "+missionRoutes+" preserved door passages, equipment raycasts, isolated hub roundtrip, socket/lighting repairs, faucet leakage stopped after repair/reopening, independent hydraulic kit, payments, building memory and recurring-contract recommendation.\n" + DateTime.UtcNow.ToString("O"));
+            var contractLocation=Array.Find(game.Campaign.locations,location=>location.id=="recurringcondo");
+            game.VisitPreview(contractLocation);
+            yield return null;
+            Check(GameObject.Find("Histórico de manutenção")!=null,"Recurring condominium preserves preventive maintenance record");
+            game.ReturnToOffice();
+            File.WriteAllText(Path.Combine(directory, "PASSED.txt"), "Windows runtime smoke passed: three free-job causes, first-person camera, raycasts, collision, evidence, repair, lighting, final test, settlement, save/load. Campaign previews: " + floors + " floors / " + connections + " traversable door connections. Authored prologue: live thermal recurrence, tablet pause, isolation, blocked unsafe repair, restoration, thermal soak, mentor/client journal and persistent completion. Chapter I: three distinct locations, "+missionRoutes+" preserved door passages, equipment raycasts, isolated hub roundtrip, socket/lighting repairs, faucet leakage stopped after repair/reopening, independent hydraulic kit, payments, building memory and recurring-contract recommendation. Chapter II bridge: recurring condominium preventive pump contract, dedicated pump blockout, independent pump kit, four-second stability validation, persistent maintenance record and completion flag.\n" + DateTime.UtcNow.ToString("O"));
             Application.Quit(0);
         }
     }
