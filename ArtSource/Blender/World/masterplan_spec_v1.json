@@ -1,0 +1,558 @@
+{
+  "schemaVersion": 1,
+  "units": "meters",
+  "world": {
+    "name": "Santa Aurora",
+    "minX": -4000,
+    "maxX": 4000,
+    "minZ": -4000,
+    "maxZ": 4000,
+    "areaKm2": 64,
+    "origin": "civic-axis"
+  },
+  "districts": [
+    {
+      "id": "old",
+      "name": "Cidade Antiga",
+      "center": [
+        -2350,
+        -1900
+      ],
+      "bounds": [
+        -3800,
+        -3400,
+        -900,
+        -500
+      ]
+    },
+    {
+      "id": "expansion",
+      "name": "Cinturão da Expansão",
+      "center": [
+        0,
+        -2100
+      ],
+      "bounds": [
+        -1200,
+        -3600,
+        1500,
+        -700
+      ]
+    },
+    {
+      "id": "civic",
+      "name": "Santa Aurora Central",
+      "center": [
+        0,
+        450
+      ],
+      "bounds": [
+        -1100,
+        -700,
+        1100,
+        1600
+      ]
+    },
+    {
+      "id": "corporate",
+      "name": "Zona Empresarial",
+      "center": [
+        2350,
+        -150
+      ],
+      "bounds": [
+        1200,
+        -1600,
+        3800,
+        1300
+      ]
+    },
+    {
+      "id": "industrial",
+      "name": "Distrito Industrial",
+      "center": [
+        -2350,
+        1950
+      ],
+      "bounds": [
+        -3900,
+        500,
+        -900,
+        3600
+      ]
+    },
+    {
+      "id": "technology",
+      "name": "Distrito Tecnológico",
+      "center": [
+        2300,
+        2350
+      ],
+      "bounds": [
+        900,
+        1100,
+        3900,
+        3800
+      ]
+    }
+  ],
+  "campaignLocations": [
+    {
+      "id": "garage",
+      "district": "old",
+      "x": -2700,
+      "z": -2150,
+      "width": 32,
+      "depth": 38,
+      "priority": "hero"
+    },
+    {
+      "id": "horizonte",
+      "district": "old",
+      "x": -2350,
+      "z": -1800,
+      "width": 42,
+      "depth": 55,
+      "priority": "hero"
+    },
+    {
+      "id": "apartments",
+      "district": "old",
+      "x": -3050,
+      "z": -1550,
+      "width": 48,
+      "depth": 62,
+      "priority": "A"
+    },
+    {
+      "id": "grocery",
+      "district": "old",
+      "x": -2580,
+      "z": -1480,
+      "width": 28,
+      "depth": 36,
+      "priority": "A"
+    },
+    {
+      "id": "restaurant",
+      "district": "old",
+      "x": -2140,
+      "z": -1420,
+      "width": 34,
+      "depth": 42,
+      "priority": "A"
+    },
+    {
+      "id": "workshop",
+      "district": "old",
+      "x": -3200,
+      "z": -2050,
+      "width": 45,
+      "depth": 58,
+      "priority": "B"
+    },
+    {
+      "id": "smalloffice",
+      "district": "old",
+      "x": -1850,
+      "z": -1900,
+      "width": 38,
+      "depth": 44,
+      "priority": "B"
+    },
+    {
+      "id": "imperial",
+      "district": "old",
+      "x": -2050,
+      "z": -2650,
+      "width": 78,
+      "depth": 96,
+      "priority": "hero"
+    },
+    {
+      "id": "school",
+      "district": "expansion",
+      "x": -500,
+      "z": -2450,
+      "width": 100,
+      "depth": 125,
+      "priority": "A"
+    },
+    {
+      "id": "recurringcondo",
+      "district": "expansion",
+      "x": 350,
+      "z": -2150,
+      "width": 145,
+      "depth": 180,
+      "priority": "hero"
+    },
+    {
+      "id": "lostcondo",
+      "district": "expansion",
+      "x": 950,
+      "z": -1800,
+      "width": 160,
+      "depth": 200,
+      "priority": "A"
+    },
+    {
+      "id": "hotel",
+      "district": "expansion",
+      "x": 600,
+      "z": -2950,
+      "width": 95,
+      "depth": 120,
+      "priority": "hero"
+    },
+    {
+      "id": "smallhospital",
+      "district": "expansion",
+      "x": -250,
+      "z": -1250,
+      "width": 115,
+      "depth": 145,
+      "priority": "hero"
+    },
+    {
+      "id": "companyhq",
+      "district": "expansion",
+      "x": 1100,
+      "z": -2650,
+      "width": 125,
+      "depth": 150,
+      "priority": "hero"
+    },
+    {
+      "id": "mall",
+      "district": "corporate",
+      "x": 2050,
+      "z": -500,
+      "width": 230,
+      "depth": 260,
+      "priority": "hero"
+    },
+    {
+      "id": "hospital0317",
+      "district": "corporate",
+      "x": 2850,
+      "z": -900,
+      "width": 175,
+      "depth": 220,
+      "priority": "hero"
+    },
+    {
+      "id": "blackouttower",
+      "district": "corporate",
+      "x": 3000,
+      "z": 350,
+      "width": 95,
+      "depth": 110,
+      "priority": "hero"
+    },
+    {
+      "id": "vertice",
+      "district": "corporate",
+      "x": 1900,
+      "z": 450,
+      "width": 120,
+      "depth": 150,
+      "priority": "hero"
+    },
+    {
+      "id": "logistics",
+      "district": "industrial",
+      "x": -3150,
+      "z": 1650,
+      "width": 240,
+      "depth": 290,
+      "priority": "A"
+    },
+    {
+      "id": "factory",
+      "district": "industrial",
+      "x": -2200,
+      "z": 2450,
+      "width": 300,
+      "depth": 340,
+      "priority": "hero"
+    },
+    {
+      "id": "drainage",
+      "district": "industrial",
+      "x": -1100,
+      "z": 3100,
+      "width": 130,
+      "depth": 160,
+      "priority": "hero"
+    },
+    {
+      "id": "datacenter",
+      "district": "technology",
+      "x": 2450,
+      "z": 2600,
+      "width": 190,
+      "depth": 230,
+      "priority": "hero"
+    },
+    {
+      "id": "smarttower",
+      "district": "technology",
+      "x": 3150,
+      "z": 1850,
+      "width": 110,
+      "depth": 130,
+      "priority": "hero"
+    },
+    {
+      "id": "central",
+      "district": "civic",
+      "x": 0,
+      "z": 650,
+      "width": 360,
+      "depth": 420,
+      "priority": "super-hero"
+    }
+  ],
+  "lifeLocations": [
+    {
+      "id": "home.starter",
+      "district": "old",
+      "x": -2860,
+      "z": -2280
+    },
+    {
+      "id": "home.apartment.01",
+      "district": "expansion",
+      "x": -750,
+      "z": -1850
+    },
+    {
+      "id": "home.apartment.02",
+      "district": "expansion",
+      "x": 150,
+      "z": -3150
+    },
+    {
+      "id": "home.house.01",
+      "district": "expansion",
+      "x": 1050,
+      "z": -3350
+    },
+    {
+      "id": "home.house.02",
+      "district": "old",
+      "x": -1350,
+      "z": -3250
+    },
+    {
+      "id": "home.premium.01",
+      "district": "technology",
+      "x": 3300,
+      "z": 3200
+    },
+    {
+      "id": "supplier.tools",
+      "district": "old",
+      "x": -2480,
+      "z": -2320
+    },
+    {
+      "id": "supplier.parts",
+      "district": "industrial",
+      "x": -1700,
+      "z": 1200
+    },
+    {
+      "id": "supplier.electrical",
+      "district": "old",
+      "x": -1800,
+      "z": -2350
+    },
+    {
+      "id": "supplier.hydraulic",
+      "district": "expansion",
+      "x": -850,
+      "z": -2850
+    },
+    {
+      "id": "vehicles.used",
+      "district": "old",
+      "x": -3400,
+      "z": -2550
+    },
+    {
+      "id": "vehicles.commercial",
+      "district": "expansion",
+      "x": 1250,
+      "z": -3050
+    },
+    {
+      "id": "fuel.old",
+      "district": "old",
+      "x": -1550,
+      "z": -900
+    },
+    {
+      "id": "fuel.north",
+      "district": "industrial",
+      "x": -1350,
+      "z": 900
+    },
+    {
+      "id": "leisure.cafe",
+      "district": "old",
+      "x": -2450,
+      "z": -1700
+    },
+    {
+      "id": "leisure.gym",
+      "district": "expansion",
+      "x": 900,
+      "z": -2350
+    },
+    {
+      "id": "leisure.cinema",
+      "district": "corporate",
+      "x": 1650,
+      "z": -250
+    },
+    {
+      "id": "leisure.park",
+      "district": "civic",
+      "x": -650,
+      "z": 1050
+    },
+    {
+      "id": "leisure.fishing",
+      "district": "industrial",
+      "x": -850,
+      "z": 2200
+    },
+    {
+      "id": "property.agency",
+      "district": "expansion",
+      "x": -200,
+      "z": -2050
+    }
+  ],
+  "roads": [
+    {
+      "id": "R01",
+      "name": "Avenida Santa Aurora",
+      "class": "arterial",
+      "from": [
+        -3700,
+        -250
+      ],
+      "to": [
+        3700,
+        600
+      ]
+    },
+    {
+      "id": "R02",
+      "name": "Avenida do Trabalho",
+      "class": "arterial",
+      "from": [
+        -2750,
+        -3300
+      ],
+      "to": [
+        -2450,
+        3500
+      ]
+    },
+    {
+      "id": "R03",
+      "name": "Avenida das Palmeiras",
+      "class": "arterial",
+      "from": [
+        100,
+        -3550
+      ],
+      "to": [
+        0,
+        1550
+      ]
+    },
+    {
+      "id": "R04",
+      "name": "Via Tecnológica",
+      "class": "arterial",
+      "from": [
+        700,
+        1000
+      ],
+      "to": [
+        3500,
+        3300
+      ]
+    },
+    {
+      "id": "R05",
+      "name": "Anel Norte",
+      "class": "arterial",
+      "from": [
+        -3700,
+        1600
+      ],
+      "to": [
+        3600,
+        1700
+      ]
+    },
+    {
+      "id": "R06",
+      "name": "Eixo Empresarial",
+      "class": "arterial",
+      "from": [
+        500,
+        300
+      ],
+      "to": [
+        3500,
+        -700
+      ]
+    },
+    {
+      "id": "R07",
+      "name": "Estrada do Porto Seco",
+      "class": "collector",
+      "from": [
+        -3900,
+        -3000
+      ],
+      "to": [
+        -3300,
+        2500
+      ]
+    },
+    {
+      "id": "R08",
+      "name": "Marginal do Canal",
+      "class": "collector",
+      "from": [
+        -3300,
+        3200
+      ],
+      "to": [
+        600,
+        1850
+      ]
+    }
+  ],
+  "streaming": {
+    "macroCellMeters": 1000,
+    "subCellMeters": 250,
+    "macroGrid": [
+      8,
+      8
+    ],
+    "subGrid": [
+      4,
+      4
+    ]
+  },
+  "note": "Production masterplan only. Do not replace current runtime campaign coordinates until migration is explicitly implemented and validated."
+}
