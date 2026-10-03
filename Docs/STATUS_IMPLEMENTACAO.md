@@ -7,6 +7,9 @@
 - Uma rede elétrica abstrata com três causas do mesmo sintoma, duas ferramentas de medição e inspeção visual.
 - Prólogo autoral do Horizonte: luminária com isolamento danificado, rearme temporário, desarme ao aquecer, isolamento e confirmação obrigatórios antes da substituição, restauração e teste de estabilidade.
 - Diário persistente com mensagens de Guto e Helena; conclusão única do prólogo e indicação do Capítulo I como próxima etapa. Chamados livres continuam disponíveis depois.
+- Três serviços autorais iniciais do Capítulo I nos mapas de apartamento, mercearia e restaurante: tomada, relé de iluminação e vedação de torneira. Os ambientes recebem equipamentos interativos e props provisórios distintos.
+- Diagnóstico hidráulico abstrato com pressão/vazão fictícias, vazamento visível, fechamento de registro, troca com confirmação, reabertura e validação. Kits hidráulicos têm estoque, preço e crédito próprios.
+- Histórico persistente por local atendido, consultável em visitas posteriores; indicação de Helena ao primeiro contrato recorrente exige os três serviços e reputação 25.
 - Evidências, escolha de diagnóstico, consumo de peças, penalidade por troca errada, reparo, validação e pagamento único.
 - Dinheiro, experiência, reputação, reposição de peças e crédito do fornecedor para recuperar falta de estoque/saldo.
 - Save local versionado v1, escrita temporária, backup, recuperação e progresso de chamado ativo.
@@ -26,6 +29,8 @@
 - Equipamentos Blender verificam orientação vertical e escala em metros no runtime. Capturas de câmera mostram corredor, equipamentos e uma planta de Santa Aurora Central.
 - Os arquivos `.blend` foram reabertos para conferir geometria, UVs do kit/corredor, textura incorporada do kit e presença dos 24 locais no estudo da cidade.
 - Prólogo verificado nas regras e no executável: falha térmica real no loop do jogo, pausa pelo tablet, troca insegura sem consumo de estoque, reparo com circuito isolado, restauração, espera obrigatória, pagamento único, diário e conclusão persistentes. Save/load das etapas isoladas e leitura dos campos antigos de v1 verificados pelo editor.
+- Regras do Capítulo I verificam ordem, isolamento, confirmação por componente, consumo separado de peças, crédito hidráulico, pagamentos, registros, save/load e recuperação de reputação por chamados livres. A indicação não é concedida apenas por concluir serviços com reputação baixa.
+- Executável confirmou os três locais corretos, raycasts dos equipamentos, 21 passagens preservadas com props instalados, ida à garagem e retomada com isolamento, reparos de tomada/iluminação, vazamento visível antes da intervenção e ausência de vazamento após reparar/reabrir. Economia, memória por prédio e indicação foram conferidas no save de QA. Capturas do restaurante ficam em `Docs/Previews/`.
 
 Relatórios completos locais: `Logs/unity-build.log`, `Logs/rules-passed.txt`, `Logs/windows-smoke.log` e `Builds/Windows/QA/PASSED.txt`. Resultados resumidos portáveis: `Docs/map-validation.json`, `Docs/QA_RESULTADO.txt` e `ArtSource/Blender/*verification.json`.
 
@@ -37,7 +42,7 @@ Esta é a fundação e estrutura explorável de um protótipo, não a campanha i
 
 Os locais avançados usam uma grade modular de teste. A dimensão e posição dos distritos são uma proposta de level design baseada na lore, não uma geografia fornecida pelo usuário. A arquitetura completa de cada local precisa de curadoria própria. As ligações verticais estão registradas no catálogo e usam viagem pelo tablet; escadas e elevadores físicos ainda não existem.
 
-O primeiro chamado da campanha agora segue o prólogo da lore; o aquecimento é um temporizador virtual de cinco segundos e os procedimentos são ações abstratas, sem desmontagem física. Mensagens substituem a apresentação de NPCs. Após o prólogo, o modo de chamados livres sorteia três causas; ele não representa os capítulos autorais seguintes. Fotografias/laudos, eventos climáticos, auditoria, escolhas, finais, equipes e Cascata estão estruturados narrativamente, mas não implementados como campanha jogável.
+O primeiro chamado da campanha segue o prólogo da lore; o aquecimento é um temporizador virtual de cinco segundos e os procedimentos são ações abstratas, sem desmontagem física. Os três serviços seguintes adaptam categorias do Capítulo I, com sintomas e preços escritos para o protótipo. Não esgotam todo o conteúdo do capítulo. Hidráulica não utiliza simulação de fluidos: o vazamento e leituras são estados lógicos e um efeito visual simples. Mensagens substituem a apresentação de NPCs. A indicação ao contrato é persistente, mas a execução preventiva/recorrente ainda não existe. Fotografias/laudos, eventos climáticos, auditoria, escolhas, finais, equipes e Cascata continuam pendentes.
 
 UI é provisória em IMGUI. Os ScriptableObjects são definições iniciais ainda sem catálogo de assets conectado; missões de teste estão no código. Ambientes são montados em runtime e precisam migrar para cenas/prefabs editáveis. Não houve validação de 60 FPS em máquinas de referência, gamepad ou acessibilidade final. Steamworks não integrado.
 
@@ -45,8 +50,8 @@ UI é provisória em IMGUI. Os ScriptableObjects são definições iniciais aind
 
 1. Playtest da câmera em primeira pessoa, prompts e tablet.
 2. Prefabs/cena do Edifício Horizonte e garagem; mãos, ferramentas e ações táteis.
-3. Polimento narrativo/visual do prólogo e primeiros serviços autorais do Capítulo I.
+3. Polimento narrativo/visual dos serviços e apresentação do primeiro contrato recorrente.
 4. Inspeção/documentação e memória persistente dos prédios.
-5. Hidráulica e bombas; segundo ciclo de serviço completo.
+5. Bombas e inspeção preventiva com consequências persistentes do Capítulo II.
 6. Arte final de um pequeno conjunto de setores antes de expandir acabamento aos 24 locais.
 7. Climatização, redundância e equipes; depois campanha avançada e operação Cascata.

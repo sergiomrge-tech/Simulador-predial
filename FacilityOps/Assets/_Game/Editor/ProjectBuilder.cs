@@ -92,7 +92,8 @@ namespace FacilityOps.Editor
             File.WriteAllText(qa, "broken json");
             Require(SaveService.Load(qa).money == 340, "Recover from backup");
             RunPrologueRules();
-            File.WriteAllText(Path.GetFullPath("../Logs/rules-passed.txt"), "Domain checks passed: all causes, invalid transitions, duplicate payouts, wrong repairs, inventory, debt recovery, save and backup. Authored prologue: thermal recurrence, isolation, safety confirmation, restoration, stable final test, persistent journal and legacy-save compatibility.");
+            RunChapterOneRules();
+            File.WriteAllText(Path.GetFullPath("../Logs/rules-passed.txt"), "Domain checks passed: all causes, invalid transitions, duplicate payouts, wrong repairs, inventory, debt recovery, save and backup. Authored prologue: thermal recurrence, isolation, safety confirmation, restoration, stable final test, persistent journal and legacy-save compatibility. Chapter I: order, isolation, separate hydraulic stock/credit, faucet diagnosis, component confirmation, authored rewards, building history, persistence and reputation-gated recommendation.");
         }
         private static void RunPrologueRules()
         {
@@ -137,6 +138,53 @@ namespace FacilityOps.Editor
             File.WriteAllText(path,"{\"version\":1,\"money\":200,\"completed\":2,\"supplyParts\":1,\"relayParts\":1,\"driverParts\":1}");
             var legacy = SaveService.Load(path);
             Require(legacy.money == 200 && legacy.completed == 2 && !legacy.prologueCompleted && legacy.campaignJournal != null, "Old v1 careers retain rewards and can start authored prologue");
+        }
+        private static void CompleteChapterJob(ServiceSession s,ServiceDefinition job)
+        {
+            Require(s.AcceptChapterOne(job.id),"Accept authored job " + job.id);
+            foreach (StationId node in Enum.GetValues(typeof(StationId))) s.Inspect(node);
+            s.Measure(StationId.Distribution,ToolMode.Scanner); s.Measure(StationId.Luminaire,ToolMode.SignalProbe);
+            s.Diagnose(job.cause); s.Repair((StationId)job.cause);
+            Require(!s.Active.repaired,"Chapter repair requires isolation");
+            s.Isolate(StationId.Distribution); s.Verify((StationId)job.cause); s.Repair((StationId)job.cause);
+            Require(s.Active.repaired && !s.Network.LightingHealthy,"Chapter replacement preserves isolation");
+            s.Restore(StationId.Distribution); s.Verify(StationId.Distribution);
+            Require(!s.Active.validated,"Chapter final test needs stable restored state");
+            s.Tick(3f); s.Verify(StationId.Distribution);
+            Require(s.Settle(out int paid) && paid==job.basePay+job.cleanBonus,"Authored payment and result recorded");
+        }
+        private static void RunChapterOneRules()
+        {
+            var locked = new ServiceSession(new CareerData());
+            Require(!locked.AcceptChapterOne(ChapterOne.Jobs[0].id),"Chapter I requires prologue");
+            var s = new ServiceSession(new CareerData { prologueCompleted=true, reputation=0 });
+            Require(!s.AcceptChapterOne(ChapterOne.Jobs[1].id),"Authored services preserve order");
+            foreach(var job in ChapterOne.Jobs)CompleteChapterJob(s,job);
+            Require(s.NextJob==null && s.Career.buildingHistory.Count==3 && !s.Career.recurringContractUnlocked,"Three records persist; low reputation delays recommendation");
+            Require(s.Career.supplyParts==1 && s.Career.relayParts==1 && s.Career.driverParts==2 && s.Career.sealKits==1,"Hydraulic kit is independent of electrical stock");
+            Require(!s.AcceptChapterOne(ChapterOne.Jobs[0].id) && !s.Settle(out _),"Authored rewards cannot be repeated");
+            string path=Path.GetFullPath("../Logs/chapter-one-save.json");
+            SaveService.Save(s.Career,path); s=new ServiceSession(SaveService.Load(path));
+            Require(s.Career.completedChapterOneJobs.Count==3 && s.Career.buildingHistory.Count==3,"Chapter progress and building memory roundtrip");
+            for(int i=0;i<2;i++)
+            {
+                s.Accept(FailureCause.LightDriver);
+                s.Measure(StationId.Distribution,ToolMode.Scanner);s.Measure(StationId.Luminaire,ToolMode.SignalProbe);
+                s.Diagnose(FailureCause.LightDriver);s.Repair(StationId.Luminaire);s.Verify(StationId.Distribution);s.Settle(out _);
+            }
+            Require(s.Career.recurringContractUnlocked && s.Career.completedChapterOneJobs.Count==3,"Free services recover reputation without faking chapter progress");
+            var water=new ServiceSession(new CareerData { prologueCompleted=true, money=0, sealKits=0, completedChapterOneJobs=new System.Collections.Generic.List<string>{ChapterOne.Jobs[0].id,ChapterOne.Jobs[1].id} });
+            water.AcceptChapterOne(ChapterOne.Jobs[2].id);
+            Require(water.Network.Read(StationId.Luminaire,ToolMode.SignalProbe).Contains("12 UF"),"Residual flow identifies faucet seal");
+            Require(!water.BuySealKit(false) && water.BuySealKit(true) && water.Career.supplierDebt==50,"Hydraulic credit avoids stock softlock and stays at hub");
+            water.Inspect(StationId.Luminaire);water.Measure(StationId.Distribution,ToolMode.Scanner);water.Measure(StationId.Luminaire,ToolMode.SignalProbe);
+            water.Diagnose(FailureCause.LightDriver);water.Isolate(StationId.Distribution);water.Verify(StationId.Luminaire);
+            SaveService.Save(water.Career,path);water=new ServiceSession(SaveService.Load(path));
+            Require(water.Active.isolated && water.Active.insulationTested && water.Career.sealKits==1,"Hydraulic isolated visit resumes safely");
+            water.Diagnose(FailureCause.ControlRelay);water.Repair(StationId.Controller);
+            Require(!water.Active.repaired && water.Career.sealKits==1,"Changing hydraulic diagnosis invalidates component confirmation");
+            water.Diagnose(FailureCause.LightDriver);water.Verify(StationId.Luminaire);water.Repair(StationId.Luminaire);water.Restore(StationId.Distribution);water.Tick(3);water.Verify(StationId.Distribution);
+            Require(water.Settle(out int paid) && paid==290 && water.Career.supplierDebt==0,"Hydraulic credit repaid on delivery");
         }
     }
 }

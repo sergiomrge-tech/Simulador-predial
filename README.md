@@ -23,7 +23,9 @@ Confira o estoque no tablet e aceite **PRÓLOGO / O primeiro chamado**. Helena r
 6. Use **[7] + E no QD-01** para restaurar, aguarde cinco segundos em campo e faça **[5] + E no QD-01** para validar estabilidade. O tablet pausa o ensaio.
 7. Entregue pelo tablet. Pagamento, conclusão e mensagens de Guto/Helena são salvos. A aba **MENSAGENS** guarda o diário.
 
-Após o prólogo, os chamados livres mantêm as três causas variáveis (alimentação, relé e driver), usando diagnóstico → troca → teste → pagamento com as ferramentas 1–5. O Capítulo I é registrado como próxima etapa narrativa; suas missões autorais ainda não estão implementadas. Detalhes em `Docs/PROLOGO_IMPLEMENTADO.md`.
+Após o prólogo, o botão principal oferece três serviços autorais do Capítulo I, em sequência: tomada de apartamento, iluminação da mercearia e torneira do restaurante. Cada chamado viaja para seu local no catálogo. Nos três, registre a hipótese, isole na origem [6], confirme no componente [5], troque [4], restaure [7] e espere três segundos antes do teste final [5] na origem. O serviço hidráulico mede pressão/vazão virtuais e usa kit de vedação separado.
+
+Os chamados livres continuam disponíveis pelo botão secundário, com três causas variáveis e ferramentas 1–5. Eles não concluem serviços autorais. Após os três serviços iniciais e reputação **25**, Helena registra a indicação ao primeiro contrato recorrente. A rotina de manutenção preventiva desse contrato ainda precisa ser implementada. Detalhes em `Docs/PROLOGO_IMPLEMENTADO.md` e `Docs/CAPITULO_I_IMPLEMENTADO.md`.
 
 ## Estrutura da campanha / visitar mapas
 
@@ -43,15 +45,15 @@ O catálogo mantém garagem original, Edifício Horizonte, Teatro Imperial, esco
 | 3 | Sonda de sinal fictícia |
 | 4 | Kit de reparo |
 | 5 | Teste integrado |
-| 6 | Isolar circuito no QD-01, no prólogo |
-| 7 | Restaurar circuito no QD-01, no prólogo |
+| 6 | Isolar na origem do sistema, nos serviços autorais |
+| 7 | Restaurar na origem do sistema, nos serviços autorais |
 | Tab / Esc | Abrir ou fechar tablet |
 
 ## Save e economia
 
 Save v1 em `%USERPROFILE%/AppData/LocalLow/OficinaAurora/Facility Ops Prototype/career-v1.json`, com backup `.bak`. Salva missão ativa, evidências, reparo, dinheiro, XP, reputação, peças, dívida, conclusão do prólogo e diário. No prólogo também conserva isolamento, confirmação e ensaio térmico. Um marcador explícito distingue ausência de chamado de uma instância vazia criada pela serialização inline da Unity. Campos antigos são preservados na leitura de v1. Autosave nas ações e a cada 30 segundos. Um save ilegível sem backup é preservado e bloqueia sobrescrita, mostrando aviso.
 
-Peças custam R$ 60. É possível voltar à sede durante uma visita. Se faltar saldo, o fornecedor oferece crédito e desconta a dívida nos pagamentos, evitando que uma carreira fique presa por falta de peças. Essa regra é uma adaptação de protótipo e precisa de balanceamento.
+Peças elétricas custam R$ 60 e kits hidráulicos R$ 50. É possível voltar à sede durante uma visita, preservando o estado isolado do chamado. Se faltar saldo, o fornecedor oferece crédito e desconta a dívida nos pagamentos, evitando que uma carreira fique presa por falta de peças. Essa regra é uma adaptação de protótipo e precisa de balanceamento. O save também guarda a lista de serviços do capítulo, estoque hidráulico, indicação do contrato e histórico por prédio. Na prévia de um local atendido, use E na placa **MANUTENÇÃO REGISTRADA** para ler o resultado anterior.
 
 O teste automático usa `Builds/Windows/QA/smoke-career.json`, separado do progresso do jogador.
 
@@ -73,6 +75,6 @@ Para regenerar o catálogo e as plantas: `node Tools/Map/generate_campaign.mjs C
 
 Os ScriptableObjects de conteúdo são a base para a próxima etapa; o chamado inicial ainda é definido no código. Interface do tablet é provisória em IMGUI e deverá migrar para UI Toolkit/uGUI antes do vertical slice. A cena Bootstrap monta os ambientes em runtime; a próxima etapa deve converter a área artística aprovada em prefabs editáveis no editor.
 
-Ainda pendentes: animações táteis de desmontagem, ferramentas visíveis nas mãos, áudio elaborado, cenário arquitetônico autoral, hidráulica, climatização, 5–8 chamados, upgrades, funcionários, contratos, localização completa, configurações/remapeamento, testes de desempenho e integração Steam.
+Ainda pendentes: animações táteis de desmontagem, ferramentas visíveis nas mãos, áudio elaborado, acabamento arquitetônico autoral, bombas e hidráulica avançada, climatização, expansão da lista de chamados, upgrades, funcionários, execução recorrente de contratos, localização completa, configurações/remapeamento, testes de desempenho e integração Steam.
 
 Os resultados confirmados de validação ficam em `Docs/STATUS_IMPLEMENTACAO.md` e nos logs da execução.

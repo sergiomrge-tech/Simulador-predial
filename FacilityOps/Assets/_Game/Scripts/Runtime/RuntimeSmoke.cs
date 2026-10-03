@@ -173,7 +173,74 @@ namespace FacilityOps
             var career = SaveService.Load(game.SavePath);
             Check(game.AtOffice && career.prologueCompleted && career.completed == 4 && career.money == 2000 && career.campaignJournal.Count == 5, "Authored prologue payment, chapter frontier and journal saved");
             Check(!game.Session.AcceptPrologue(), "Finished prologue cannot be farmed");
-            File.WriteAllText(Path.Combine(directory, "PASSED.txt"), "Windows runtime smoke passed: three free-job causes, first-person camera, raycasts, collision, evidence, repair, lighting, final test, settlement, save/load. Campaign previews: " + floors + " floors / " + connections + " traversable door connections. Authored prologue: live thermal recurrence, tablet pause, isolation, blocked unsafe repair, restoration, thermal soak, mentor/client journal and persistent completion.\n" + DateTime.UtcNow.ToString("O"));
+            int missionRoutes=0;
+            for(int jobIndex=0;jobIndex<ChapterOne.Jobs.Length;jobIndex++)
+            {
+                var job=ChapterOne.Jobs[jobIndex];
+                game.Accept();
+                yield return null;
+                Check(game.Session.ActiveJob==job && game.World.CurrentLocationId==job.locationId,"Authored service loads matching campaign location "+job.locationId);
+                var place=Array.Find(game.Campaign.locations,location=>location.id==job.locationId);
+                var floor=place.floors[0];
+                foreach(var link in floor.connections)
+                {
+                    var from=Array.Find(floor.rooms,room=>room.id==link.from);
+                    var to=Array.Find(floor.rooms,room=>room.id==link.to);
+                    game.Player.Teleport(new Vector3(from.x,.05f,from.z));
+                    var target=new Vector3(to.x,.05f,to.z);
+                    game.Player.GetComponent<CharacterController>().Move(target-game.Player.transform.position);
+                    Check(Vector3.Distance(game.Player.transform.position,target)<.3f,"Equipment preserves door passage "+link.from+" → "+link.to);
+                    missionRoutes++;
+                }
+                foreach(var station in game.World.Stations)
+                {
+                    game.Player.Teleport(new Vector3(station.transform.position.x,.01f,station.transform.position.z-1.8f));
+                    game.Player.AimAt(station.transform.position);Physics.SyncTransforms();game.Player.RefreshFocus();
+                    Check(game.Player.Focus==(IInteractable)station,"Authored equipment raycast "+job.id+" / "+station.id);
+                    game.Tool=ToolMode.Inspect;game.Player.Focus.Interact(game);
+                    game.Tool=ToolMode.Scanner;game.Player.Focus.Interact(game);
+                    game.Tool=ToolMode.SignalProbe;game.Player.Focus.Interact(game);
+                }
+                if(job.hydraulic)
+                {
+                    Check(game.World.LeakVisual!=null && game.World.LeakVisual.activeSelf,"Faucet shows active leakage before intervention");
+                    Capture(Path.Combine(directory,"08-restaurant-leak.png"));
+                }
+                game.Diagnose(job.cause);
+                game.Tool=ToolMode.Isolate;game.World.Stations[0].Interact(game);
+                game.Tool=ToolMode.Verify;game.World.Stations[(int)job.cause].Interact(game);
+                game.ReturnToOffice();game.Resume();
+                yield return null;
+                Check(game.Session.Active.isolated && game.Session.Active.insulationTested,"Hub roundtrip preserves isolated authored visit");
+                game.Tool=ToolMode.Repair;game.World.Stations[(int)job.cause].Interact(game);
+                Check(game.Session.Active.repaired && !game.Session.Network.LightingHealthy,"Authored repair stays isolated");
+                game.Tool=ToolMode.Restore;game.World.Stations[0].Interact(game);
+                game.Tool=ToolMode.Verify;game.World.Stations[0].Interact(game);
+                Check(!game.Session.Active.validated,"Authored job rejects premature stability test");
+                yield return new WaitForSeconds(3.2f);
+                game.World.Stations[0].Interact(game);
+                Check(game.Session.Active.validated,"Authored job passes stable final test "+job.id);
+                if(job.hydraulic)
+                {
+                    Check(!game.World.LeakVisual.activeSelf,"Reopened repaired faucet stops leakage");
+                    var tap=game.World.Stations[2];
+                    game.Player.Teleport(new Vector3(tap.transform.position.x,.01f,tap.transform.position.z-1.8f));
+                    game.Player.AimAt(tap.transform.position);
+                    Capture(Path.Combine(directory,"09-restaurant-repaired.png"));
+                }
+                game.Deliver();
+                Check(game.AtOffice && game.Session.Career.completedChapterOneJobs.Count==jobIndex+1,"Chapter result registered once");
+                yield return null;
+            }
+            var chapterSave=SaveService.Load(game.SavePath);
+            Check(chapterSave.money==2980 && chapterSave.completed==7 && chapterSave.buildingHistory.Count==3 && chapterSave.recurringContractUnlocked,"Chapter payments, memories and Helena recommendation persisted");
+            var restaurant=Array.Find(game.Campaign.locations,location=>location.id=="restaurant");
+            game.VisitPreview(restaurant);
+            yield return null;
+            Check(GameObject.Find("Histórico de manutenção")!=null,"Building remembers completed service in later preview");
+            Check(game.Session.Career.money==2980,"History preview adds no duplicate payment");
+            game.ReturnToOffice();
+            File.WriteAllText(Path.Combine(directory, "PASSED.txt"), "Windows runtime smoke passed: three free-job causes, first-person camera, raycasts, collision, evidence, repair, lighting, final test, settlement, save/load. Campaign previews: " + floors + " floors / " + connections + " traversable door connections. Authored prologue: live thermal recurrence, tablet pause, isolation, blocked unsafe repair, restoration, thermal soak, mentor/client journal and persistent completion. Chapter I: three distinct locations, "+missionRoutes+" preserved door passages, equipment raycasts, isolated hub roundtrip, socket/lighting repairs, faucet leakage stopped after repair/reopening, independent hydraulic kit, payments, building memory and recurring-contract recommendation.\n" + DateTime.UtcNow.ToString("O"));
             Application.Quit(0);
         }
     }

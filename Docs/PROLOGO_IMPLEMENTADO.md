@@ -18,7 +18,7 @@ Rearmar repetidamente não reinicia um ensaio já em andamento. Uma nova operaç
 
 O save conserva o estado de isolamento, a confirmação, o componente reparado, o tempo de ensaio, as evidências e o diário. A ausência de missão ativa possui marcador explícito para evitar a criação de um chamado vazio pelo serializador inline da Unity.
 
-Carreiras v1 anteriores conservam economia e chamados existentes. Se um chamado livre já estiver ativo, o jogador pode concluí-lo antes de iniciar o prólogo. A conclusão do prólogo aponta para o Capítulo I; depois dela, o protótipo disponibiliza chamados livres com três causas possíveis. A missão autoral do Capítulo I não é simulada por esse modo livre.
+Carreiras v1 anteriores conservam economia e chamados existentes. Se um chamado livre já estiver ativo, o jogador pode concluí-lo antes de iniciar o prólogo. A conclusão do prólogo aponta para os três serviços iniciais do Capítulo I, descritos em `CAPITULO_I_IMPLEMENTADO.md`; chamados livres com três causas possíveis também continuam disponíveis. O modo livre não substitui nem conclui a lista autoral.
 
 ## Adaptações e limites
 

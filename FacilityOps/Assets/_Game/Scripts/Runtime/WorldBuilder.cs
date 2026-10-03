@@ -10,6 +10,8 @@ namespace FacilityOps
         public readonly List<Light> WorkLights = new List<Light>();
         public readonly List<Renderer> LightFaces = new List<Renderer>();
         public readonly List<TechnicalStation> Stations = new List<TechnicalStation>();
+        public string CurrentLocationId { get; private set; }
+        public GameObject LeakVisual { get; private set; }
         private Material concrete, dark, metal, amber, white, timber, blue, lit, unlit;
         private Material labelMaterial;
         private Material Material(string name, Color color, float smooth = .2f)
@@ -23,6 +25,7 @@ namespace FacilityOps
         {
             if (Root != null) { Root.SetActive(false); Object.Destroy(Root); }
             WorkLights.Clear(); LightFaces.Clear(); Stations.Clear();
+            LeakVisual = null; CurrentLocationId = office ? "garage" : "horizonte";
             Root = new GameObject(office ? "Hub · Garagem original" : "Local · Edifício Horizonte");
             if (concrete == null)
             {
@@ -79,6 +82,7 @@ namespace FacilityOps
             Create(true);
             foreach (Transform child in Root.transform) { child.gameObject.SetActive(false); Object.Destroy(child.gameObject); }
             Root.name = "Prévia de campanha / " + location.id;
+            CurrentLocationId = location.id;
             var directional = new GameObject("Luz de estudo"); directional.transform.SetParent(Root.transform); directional.transform.rotation = Quaternion.Euler(55,-35,0);
             var light = directional.AddComponent<Light>(); light.type = LightType.Directional; light.intensity = .9f;
             FloorData floor = location.floors[floorIndex];
@@ -110,6 +114,109 @@ namespace FacilityOps
                 Label("REGISTRO\n" + room.name, new Vector3(room.x+2.3f,1.4f,room.z+2.44f),0,.025f,new Color(.1f,.2f,.24f));
                 CeilingLight(room.x,room.z,false);
             }
+        }
+        public void CreateService(ServiceDefinition job, LocationData location, CareerData career)
+        {
+            CreatePreview(location,0);
+            Root.name = "Chamado / " + job.id;
+            var rooms = location.floors[0].rooms;
+            for (int i=0;i<3;i++)
+            {
+                var room=rooms[job.stationRooms[i]];
+                Vector3 position=new Vector3(room.x-2f,1.55f,room.z+3.35f);
+                bool socket = job.locationId=="apartments" && i==2;
+                var station=Station((StationId)i,job.stationNames[i],position,socket ? new Vector3(.5f,.55f,.25f) : new Vector3(1.1f,1.35f,.45f),0,!job.hydraulic && !socket,!job.hydraulic);
+                station.hydraulic = job.hydraulic;
+                Label(job.stationNames[i],position+new Vector3(0,.95f,-.25f),0,.045f,new Color(.08f,.17f,.2f));
+                if (socket)
+                {
+                    for (int hole=-1;hole<=1;hole+=2) Decoration("Encaixe tomada",position+new Vector3(hole*.10f,0,-.14f),new Vector3(.055f,.075f,.025f),dark,station.transform);
+                    var indicator=Decoration("Resposta tomada",position+new Vector3(0,.2f,-.15f),new Vector3(.14f,.04f,.02f),lit,station.transform);
+                    LightFaces.Add(indicator.GetComponent<Renderer>());
+                }
+                if (job.hydraulic)
+                {
+                    if (i==0)
+                    {
+                        Decoration("Tubo alimentação",position+new Vector3(0,-.25f,-.3f),new Vector3(1.4f,.12f,.12f),metal,station.transform);
+                        Decoration("Registro volante",position+new Vector3(0,.08f,-.36f),new Vector3(.5f,.14f,.12f),amber,station.transform);
+                    }
+                    else if (i==1) Decoration("Trecho tubulação",position+new Vector3(0,0,-.3f),new Vector3(.16f,1.35f,.16f),metal,station.transform);
+                    else
+                    {
+                        station.GetComponent<Renderer>().enabled=false;
+                        Decoration("Cuba lavagem",position+new Vector3(0,-.65f,-.55f),new Vector3(1.4f,.18f,.8f),white,station.transform);
+                        Decoration("Base torneira",position+new Vector3(0,-.17f,-.3f),new Vector3(.14f,.5f,.14f),metal,station.transform);
+                        Decoration("Bico torneira",position+new Vector3(0,.04f,-.5f),new Vector3(.14f,.12f,.45f),metal,station.transform);
+                        LeakVisual=Decoration("Vazamento virtual",position+new Vector3(0,-.30f,-.68f),new Vector3(.055f,.6f,.055f),blue,station.transform);
+                    }
+                }
+            }
+            if (job.locationId=="grocery")
+            {
+                var room=rooms[job.stationRooms[2]];
+                foreach (Transform child in Root.transform)
+                {
+                    if (Mathf.Abs(child.position.x-room.x)>.1f || Mathf.Abs(child.position.z-room.z)>.1f) continue;
+                    if (child.name=="Iluminação de área") WorkLights.Add(child.GetComponent<Light>());
+                    if (child.name=="Difusor") LightFaces.Add(child.GetComponent<Renderer>());
+                }
+            }
+            ServiceProps(job,rooms);
+            ShowBuildingHistory(location,career);
+        }
+        private void ServiceProps(ServiceDefinition job,RoomData[] rooms)
+        {
+            var room=rooms[0];
+            if(job.locationId=="apartments")
+            {
+                room=rooms[1];
+                Box("Sofá / assento",new Vector3(room.x+2,.4f,room.z-2),new Vector3(2.2f,.6f,1),blue);
+                Box("Sofá / encosto",new Vector3(room.x+2,.8f,room.z-2.4f),new Vector3(2.2f,.7f,.2f),blue);
+                Box("Mesa lateral",new Vector3(room.x-2,.4f,room.z-2),new Vector3(1,.8f,1),timber);
+            }
+            else if(job.locationId=="grocery")
+            {
+                for(int shelf=0;shelf<3;shelf++)
+                {
+                    Box("Prateleira de mercadorias",new Vector3(room.x+2,.5f+shelf*.5f,room.z-2),new Vector3(2,.08f,1),metal);
+                    for(int product=0;product<3;product++)Box("Mercadoria provisória",new Vector3(room.x+1.3f+product*.65f,.7f+shelf*.5f,room.z-2),new Vector3(.45f,.3f,.6f),product%2==0 ? amber : blue);
+                }
+            }
+            else
+            {
+                Box("Mesa de restaurante",new Vector3(room.x+2,.75f,room.z-2),new Vector3(1.8f,.12f,1.2f),timber);
+                Box("Base da mesa",new Vector3(room.x+2,.35f,room.z-2),new Vector3(.35f,.7f,.35f),metal);
+                Box("Assento",new Vector3(room.x+2,.42f,room.z-3),new Vector3(.7f,.12f,.6f),blue);
+                var kitchen=rooms[1];
+                Box("Bancada de cozinha",new Vector3(kitchen.x+2,.5f,kitchen.z-2),new Vector3(2,1,1.1f),metal);
+                Box("Tampo cozinha",new Vector3(kitchen.x+2,1.05f,kitchen.z-2),new Vector3(2.1f,.12f,1.15f),white);
+            }
+        }
+        private GameObject Decoration(string name,Vector3 position,Vector3 scale,Material material,Transform target)
+        {
+            var obj=Box(name,position,scale,material);
+            obj.transform.SetParent(target,true);
+            Object.Destroy(obj.GetComponent<Collider>());
+            return obj;
+        }
+        public void ShowBuildingHistory(LocationData location,CareerData career)
+        {
+            var records=career.buildingHistory.FindAll(record=>record.locationId==location.id);
+            if (records.Count==0)return;
+            var room=location.floors[0].rooms[0];
+            var marker=Box("Histórico de manutenção",new Vector3(room.x-2f,1f,room.z-2f),new Vector3(1,.7f,.3f),blue);
+            var hotspot=marker.AddComponent<LoreHotspot>(); hotspot.caption="Histórico / "+location.name;
+            hotspot.note=string.Join("\n",records.ConvertAll(record=>record.summary));
+            Label("MANUTENÇÃO\nREGISTRADA",marker.transform.position+new Vector3(0,0,-.17f),0,.038f);
+        }
+        public void ReflectService(ServiceSession session)
+        {
+            if (session.ActiveJob?.hydraulic==true)
+            {
+                if (LeakVisual!=null) LeakVisual.SetActive(session.Active.circuitClosed && !session.Active.repaired);
+            }
+            else Reflect(session.Network!=null && session.Network.LightingHealthy);
         }
         private void InstallCorridorArt()
         {
@@ -209,12 +316,12 @@ namespace FacilityOps
             }
             Label("EDIFÍCIO HORIZONTE\nCORREDOR RESIDENCIAL", new Vector3(0, 2.45f, 13.84f), 0, .10f, new Color(.12f, .23f, .26f));
         }
-        private void Station(StationId id, string title, Vector3 position, Vector3 size, float yaw)
+        private TechnicalStation Station(StationId id, string title, Vector3 position, Vector3 size, float yaw, bool importAsset=true, bool decorateFallback=true)
         {
             var body = Box(title, position, size, metal);
             var station = body.AddComponent<TechnicalStation>(); station.id = id; station.label = title; Stations.Add(station);
             string assetId = id == StationId.Distribution ? "QD01" : id == StationId.Controller ? "CT01" : "LM01";
-            var source = Resources.Load<GameObject>("Art/" + assetId);
+            var source = importAsset ? Resources.Load<GameObject>("Art/" + assetId) : null;
             if (source != null)
             {
                 body.GetComponent<Renderer>().enabled = false;
@@ -231,20 +338,24 @@ namespace FacilityOps
                     }
                     renderer.sharedMaterials = materials;
                 }
-                return;
+                return station;
             }
+            if(!decorateFallback)return station;
             Vector3 front = Quaternion.Euler(0, yaw, 0) * Vector3.back;
             float offset = yaw == 0 ? size.z / 2 : size.x / 2;
             Vector3 panel = position + front * (offset + .016f);
             var plate = Box("Placa de identificação", panel + Vector3.up * .16f, new Vector3(.7f, .25f, .025f), dark);
             plate.transform.rotation = Quaternion.Euler(0, yaw, 0);
+            plate.transform.SetParent(body.transform,true);
             Label(title.Replace(" / ", "\n"), panel + front * .025f + Vector3.up * .16f, yaw, .052f);
             for (int i = -1; i <= 1; i++)
             {
                 Vector3 side = Quaternion.Euler(0, yaw, 0) * Vector3.right;
                 var indicator = Box("Indicador virtual", panel - Vector3.up * .17f + side * i * .18f, new Vector3(.07f, .09f, .035f), i == 0 ? amber : dark);
                 indicator.transform.rotation = Quaternion.Euler(0, yaw, 0);
+                indicator.transform.SetParent(body.transform,true);
             }
+            return station;
         }
     }
 }

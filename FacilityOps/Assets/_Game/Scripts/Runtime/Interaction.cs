@@ -12,7 +12,8 @@ namespace FacilityOps
     {
         public StationId id;
         public string label;
-        public string GetPrompt(ToolMode tool) => "[E] " + GameRuntime.ToolNames[(int)tool] + "  •  " + label;
+        public bool hydraulic;
+        public string GetPrompt(ToolMode tool) => "[E] " + (hydraulic ? GameRuntime.HydraulicToolNames : GameRuntime.ToolNames)[(int)tool] + "  •  " + label;
         public void Interact(GameRuntime context) { context.UseStation(id); }
     }
     public sealed class OfficeTerminal : MonoBehaviour, IInteractable

@@ -8,6 +8,7 @@ namespace FacilityOps
     {
         public static readonly string[] ToolNames = { "Inspeção visual", "Scanner de energia", "Sonda de sinal", "Kit de reparo", "Teste / confirmação", "Isolar circuito", "Restaurar circuito" };
         public static readonly string[] CauseNames = { "Módulo de alimentação", "Relé de comando", "Driver de iluminação" };
+        public static readonly string[] HydraulicToolNames = { "Inspeção visual", "Medidor de pressão", "Sonda de vazão", "Kit hidráulico", "Teste / confirmação", "Fechar registro", "Abrir registro" };
         public ServiceSession Session { get; private set; }
         public FirstPersonController Player { get; private set; }
         public WorldBuilder World { get; private set; }
@@ -20,8 +21,12 @@ namespace FacilityOps
         public string SaveError { get; private set; }
         public string LastReport { get; private set; }
         public CampaignCatalog Campaign { get; private set; }
-        public string MissionTitle => Session.IsPrologue || (Session.Active == null && !Session.Career.prologueCompleted) ? "PRÓLOGO / O primeiro chamado" : "Corredor às escuras / chamado livre";
-        public string CauseName(int cause) => Session.IsPrologue && cause == 2 ? "Isolamento da luminária" : CauseNames[cause];
+        public ServiceDefinition DisplayJob => Session.ActiveJob ?? (Session.Active==null && Session.Career.prologueCompleted ? Session.NextJob : null);
+        public string MissionTitle => DisplayJob?.title ?? (Session.IsPrologue || (Session.Active == null && !Session.Career.prologueCompleted) ? "PRÓLOGO / O primeiro chamado" : "Corredor às escuras / chamado livre");
+        public string CauseName(int cause) => Session.ActiveJob?.causes[cause] ?? (Session.IsPrologue && cause == 2 ? "Isolamento da luminária" : CauseNames[cause]);
+        public string ToolName => (Session.ActiveJob?.hydraulic==true ? HydraulicToolNames : ToolNames)[(int)Tool];
+        public string ServiceLocationName => Session.ActiveJob==null ? "Edifício Horizonte" : Array.Find(Campaign.locations,place=>place.id==Session.ActiveJob.locationId).name;
+        public string DisplayLocationName => DisplayJob==null ? "Edifício Horizonte" : Array.Find(Campaign.locations,place=>place.id==DisplayJob.locationId).name;
         public LocationData PreviewLocation { get; private set; }
         public int PreviewFloor { get; private set; }
         private AudioSource audioSource;
@@ -66,7 +71,7 @@ namespace FacilityOps
             {
                 Session.Active.elapsed += Time.deltaTime;
                 string eventMessage = Session.Tick(Time.deltaTime);
-                if (eventMessage != null) { World.Reflect(Session.Network.LightingHealthy); Notify(eventMessage); Save(); }
+                if (eventMessage != null) { World.ReflectService(Session); Notify(eventMessage); Save(); }
             }
             autosave += Time.unscaledDeltaTime;
             if (autosave > 30) { Save(); autosave = 0; }
@@ -81,9 +86,15 @@ namespace FacilityOps
         {
             PreviewLocation = null;
             AtOffice = office;
-            World.Create(office);
-            Player.Teleport(new Vector3(0, .1f, office ? 4 : 2));
-            if (!office) World.Reflect(Session.Network.LightingHealthy);
+            if (!office && Session.ActiveJob!=null)
+            {
+                var location=Array.Find(Campaign.locations,place=>place.id==Session.ActiveJob.locationId);
+                World.CreateService(Session.ActiveJob,location,Session.Career);
+                var entry=location.floors[0].rooms[0];
+                Player.Teleport(new Vector3(entry.x,.1f,entry.z));
+            }
+            else { World.Create(office); Player.Teleport(new Vector3(0, .1f, office ? 4 : 2)); }
+            if (!office) World.ReflectService(Session);
         }
         public void VisitPreview(LocationData location, int floor = 0)
         {
@@ -91,6 +102,7 @@ namespace FacilityOps
             PreviewFloor = Mathf.Clamp(floor, 0, location.floors.Length - 1);
             AtOffice = false;
             World.CreatePreview(location, PreviewFloor);
+            if (PreviewFloor==0) World.ShowBuildingHistory(location,Session.Career);
             var entry = location.floors[PreviewFloor].rooms[0];
             Player.Teleport(new Vector3(entry.x, .1f, entry.z));
             SetTablet(false);
@@ -98,10 +110,15 @@ namespace FacilityOps
         }
         public void Accept()
         {
-            bool accepted = Session.Career.prologueCompleted ? Session.Accept((FailureCause)((Session.Career.completed + DateTime.Now.Second) % 3)) : Session.AcceptPrologue();
+            bool accepted = !Session.Career.prologueCompleted ? Session.AcceptPrologue() : Session.NextJob!=null ? Session.AcceptChapterOne(Session.NextJob.id) : Session.Accept((FailureCause)((Session.Career.completed + DateTime.Now.Second) % 3));
             if (!accepted) return;
             LoadLocation(false); SetTablet(false); Save();
-            Notify(Session.IsPrologue ? "Guto: disjuntor não desarma por vontade própria. Inspecione QD-01 e a luminária LM-01. Mensagens no tablet." : "Chamado aceito. Inspecione QD-01, CT-01 e LM-01. [TAB] abre suas hipóteses.");
+            Notify(Session.IsPrologue ? "Guto: disjuntor não desarma por vontade própria. Inspecione QD-01 e a luminária LM-01. Mensagens no tablet." : Session.ActiveJob!=null ? Session.ActiveJob.symptom + " Consulte CHAMADO e DIAGNÓSTICO no tablet." : "Chamado livre aceito. Inspecione QD-01, CT-01 e LM-01. [TAB] abre suas hipóteses.");
+        }
+        public void AcceptFree()
+        {
+            if (!Session.Career.prologueCompleted || !Session.Accept((FailureCause)((Session.Career.completed+DateTime.Now.Second)%3))) return;
+            LoadLocation(false); SetTablet(false); Save(); Notify("Chamado livre aceito no Horizonte. A progressão autoral fica preservada.");
         }
         public void Resume() { LoadLocation(false); SetTablet(false); }
         public void ReturnToOffice() { LoadLocation(true); SetTablet(true); Save(); }
@@ -114,7 +131,7 @@ namespace FacilityOps
             else if (Tool == ToolMode.Isolate) message = Session.Isolate(node);
             else if (Tool == ToolMode.Restore) message = Session.Restore(node);
             else message = Session.Measure(node, Tool);
-            World.Reflect(Session.Network != null && Session.Network.LightingHealthy);
+            World.ReflectService(Session);
             Notify(message); Save();
         }
         public void Diagnose(FailureCause cause) { Notify(Session.Diagnose(cause)); Save(); }
@@ -125,15 +142,24 @@ namespace FacilityOps
             bool bought = Session.Buy(cause, AtOffice);
             Notify(bought ? (Session.Career.supplierDebt > debtBefore ? "Peça recebida a crédito. O fornecedor descontará a dívida no próximo pagamento." : "Peça adicionada ao estoque. R$ 60 debitados.") : "Compra disponível na sede."); Save();
         }
+        public void BuySealKit()
+        {
+            if (!AtOffice)return;
+            int debt=Session.Career.supplierDebt;
+            bool bought=Session.BuySealKit(true);
+            Notify(bought ? (Session.Career.supplierDebt>debt ? "Kit hidráulico recebido a crédito." : "Kit hidráulico adicionado. R$ 50 debitados.") : "Compra disponível na sede."); Save();
+        }
         public void Deliver()
         {
             bool prologue = Session.IsPrologue;
+            string reportTitle = MissionTitle;
+            bool contractBefore=Session.Career.recurringContractUnlocked;
             int mistakes = Session.Active?.mistakes ?? 0;
             float elapsed = Session.Active?.elapsed ?? 0;
             if (!Session.Settle(out int payment)) { Notify("Conclua o reparo e o teste integrado antes de entregar."); return; }
-            LastReport = "SERVIÇO ENTREGUE\n\nIluminação restaurada e rede validada.\nPagamento: R$ " + payment + "\nPeças desperdiçadas: " + mistakes + "\nTempo em campo: " + TimeSpan.FromSeconds(elapsed).ToString(@"mm\:ss") + "\nExperiência: +100  •  Reputação: +" + (mistakes == 0 ? "5" : "1");
+            LastReport = "SERVIÇO ENTREGUE\n\n" + reportTitle + "\nSistema restaurado e validado.\nPagamento: R$ " + payment + "\nPeças desperdiçadas: " + mistakes + "\nTempo em campo: " + TimeSpan.FromSeconds(elapsed).ToString(@"mm\:ss") + "\nExperiência: +100  •  Reputação: +" + (mistakes == 0 ? "5" : "1");
             LoadLocation(true); SetTablet(true); Save(); audioSource.PlayOneShot(success);
-            Notify(prologue ? "Prólogo concluído. Helena enviou o pagamento e Guto deixou uma mensagem. Capítulo I registrado na carreira; chamados livres disponíveis." : "Serviço entregue. Pagamento recebido. Você voltou à sede.");
+            Notify(!contractBefore && Session.Career.recurringContractUnlocked ? "Helena indicou sua empresa ao primeiro contrato recorrente. Confira MENSAGENS." : prologue ? "Prólogo concluído. Primeiro serviço do Capítulo I disponível. Leia Guto e Helena em MENSAGENS." : "Serviço entregue. Pagamento e histórico salvos. Você voltou à sede.");
         }
         public void Notify(string message) { Notice = message; noticeUntil = Time.unscaledTime + 10; if (audioSource) audioSource.PlayOneShot(click); }
         public bool ShowNotice => TabletOpen || Time.unscaledTime < noticeUntil;
