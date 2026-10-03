@@ -43,7 +43,9 @@ A direção visual futura do mapa, casas, estruturas e interiores usa VEIN apena
 
 ## Mundo grande / Santa Aurora
 
-O planejamento mestre do mundo está em `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`. Santa Aurora passa a ser planejada com footprint aproximado de **8 × 8 km**, densidade variável e produção por streaming. A cidade inteira será posicionada desde o começo, mas o acabamento será executado distrito por distrito.
+O planejamento mestre do mundo está em `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`. A especificação espacial executável está em `Docs/WORLD_BIBLE_SANTA_AURORA_V1.md` e `ArtSource/Blender/World/masterplan_spec_v1.json`. Santa Aurora passa a ser planejada com footprint aproximado de **8 × 8 km**, densidade variável e produção por streaming. A cidade inteira será posicionada desde o começo, mas o acabamento será executado distrito por distrito.
+
+O registro das estruturas da história está em `Docs/REGISTRO_ESTRUTURAS_SANTA_AURORA_V1.md`. O gerador Blender fica em `Tools/Blender/create_santa_aurora_masterplan.py`, a validação em `Tools/Map/validate_masterplan.py` e o checklist de aceite em `Docs/W1_MASTERPLAN_CHECKLIST.md`.
 
 A Cidade Antiga será o primeiro vertical slice de alta fidelidade. O padrão final não aceita aparência low-poly: blockouts simplificados são apenas temporários. O alvo visual é realismo urbano denso, PBR, decals, desgaste, iluminação atmosférica e interiores detalhados, usando VEIN como referência de qualidade/atmosfera, sem copiar conteúdo do jogo.
 
