@@ -26,6 +26,10 @@ namespace FacilityOps
         public int chapterOneDataVersion;
         public int sealKits = 2;
         public bool recurringContractUnlocked;
+        public int chapterTwoDataVersion;
+        public int pumpKits = 1;
+        public bool firstContractCompleted;
+        public bool preventiveRecommendationLogged;
         public List<string> completedChapterOneJobs = new List<string>();
         public List<BuildingRecord> buildingHistory = new List<BuildingRecord>();
         public ServiceData active;
@@ -106,10 +110,12 @@ namespace FacilityOps
         public ServiceData Active => Career.active;
         public ElectricalNetwork Network => Active == null ? null : new ElectricalNetwork(Active);
         public bool IsPrologue => Active?.missionId == PrologueId;
+        public bool IsFirstContract => Active?.missionId == ChapterOne.FirstContractId;
         public ServiceDefinition ActiveJob => ChapterOne.Find(Active?.missionId);
         public bool IsAuthored => IsPrologue || ActiveJob != null;
         public ServiceDefinition NextJob => Array.Find(ChapterOne.Jobs, job => !Career.completedChapterOneJobs.Contains(job.id));
-        public float StabilitySeconds => IsPrologue ? HeatTestSeconds : 3f;
+        public bool FirstContractAvailable => Career.recurringContractUnlocked && !Career.firstContractCompleted;
+        public float StabilitySeconds => IsPrologue ? HeatTestSeconds : IsFirstContract ? 4f : 3f;
         public ServiceSession(CareerData career)
         {
             Career = career;
@@ -122,6 +128,15 @@ namespace FacilityOps
             if (Active != null || !Career.prologueCompleted || NextJob == null || NextJob.id != id) return false;
             var job = NextJob;
             Career.active = new ServiceData { missionId=job.id, cause=(int)job.cause, circuitClosed=true };
+            Journal(job.client + " / " + job.title + ": " + job.symptom);
+            return true;
+        }
+        public bool AcceptFirstContract()
+        {
+            if (Active != null || !FirstContractAvailable || NextJob != null) return false;
+            var job = ChapterOne.FirstContract;
+            Career.active = new ServiceData { missionId=job.id, cause=(int)job.cause, circuitClosed=true };
+            Journal("Helena / Sua indicação foi aceita. O condomínio quer uma preventiva antes de fechar um contrato maior.");
             Journal(job.client + " / " + job.title + ": " + job.symptom);
             return true;
         }
@@ -231,6 +246,11 @@ namespace FacilityOps
             if (!atOffice) return false;
             PayForPart(50); Career.sealKits++; return true;
         }
+        public bool BuyPumpKit(bool atOffice)
+        {
+            if (!atOffice) return false;
+            PayForPart(120); Career.pumpKits++; return true;
+        }
         private void PayForPart(int cost)
         {
             if (Career.money < cost)
@@ -240,7 +260,7 @@ namespace FacilityOps
             }
             else Career.money -= cost;
         }
-        public int RepairStock(FailureCause cause) => ActiveJob?.hydraulic == true ? Career.sealKits : Stock(cause);
+        public int RepairStock(FailureCause cause) => IsFirstContract ? Career.pumpKits : ActiveJob?.hydraulic == true ? Career.sealKits : Stock(cause);
         private void ChangeStock(FailureCause cause, int delta)
         {
             if (cause == FailureCause.SupplyModule) Career.supplyParts += delta;
@@ -256,7 +276,9 @@ namespace FacilityOps
             if (IsAuthored && (!Active.isolated || Active.circuitClosed || !Active.insulationTested)) return "Troca bloqueada: isole o sistema [6] e confirme no componente [5]. Nenhuma peça foi consumida.";
             FailureCause chosen = (FailureCause)Active.diagnosis;
             if (RepairStock(chosen) < 1) return "Sem peça compatível. Volte à sede e reponha o estoque.";
-            if (ActiveJob?.hydraulic == true) Career.sealKits--; else ChangeStock(chosen, -1);
+            if (IsFirstContract) Career.pumpKits--;
+            else if (ActiveJob?.hydraulic == true) Career.sealKits--;
+            else ChangeStock(chosen, -1);
             if (Active.diagnosis != Active.cause)
             {
                 Active.mistakes++;
@@ -267,6 +289,7 @@ namespace FacilityOps
             Active.validated = false;
             Active.heatSeconds = 0;
             if (IsPrologue) return "Luminária substituída com circuito isolado. Restaure no QD-01 [7] e confirme estabilidade após aquecer.";
+            if (IsFirstContract) return "Kit preventivo aplicado à bomba com o sistema isolado. Reabra [7], aguarde estabilizar e valide na origem [5].";
             if (ActiveJob != null) return "Componente substituído com sistema isolado. Restaure [7] e valide a rede [5].";
             return "Componente substituído. Iluminação restaurada! Falta testar a rede no QD-01.";
         }
@@ -310,9 +333,19 @@ namespace FacilityOps
             if (ActiveJob != null)
             {
                 var job = ActiveJob;
-                Career.completedChapterOneJobs.Add(job.id);
                 Career.buildingHistory.Add(new BuildingRecord { locationId=job.locationId, missionId=job.id, mistakes=Active.mistakes, summary=job.title + " / sistema restaurado e validado / trocas incorretas: " + Active.mistakes });
-                Journal(job.client + " / Serviço entregue: " + job.title + ". Pagamento líquido: R$ " + payment + ".");
+                if (job.id == ChapterOne.FirstContractId)
+                {
+                    Career.firstContractCompleted = true;
+                    Career.preventiveRecommendationLogged = true;
+                    Journal("Síndico / Preventiva aprovada. A oscilação foi corrigida antes de virar pane e o laudo de condição ficou registrado.");
+                    Journal("Helena / É assim que contrato se ganha: evitar a falha, documentar o risco e voltar antes da emergência. O Capítulo II está aberto.");
+                }
+                else
+                {
+                    Career.completedChapterOneJobs.Add(job.id);
+                    Journal(job.client + " / Serviço entregue: " + job.title + ". Pagamento líquido: R$ " + payment + ".");
+                }
             }
             if (!Career.recurringContractUnlocked && Career.completedChapterOneJobs.Count == ChapterOne.Jobs.Length && Career.reputation >= ChapterOne.ContractReputation)
             {
