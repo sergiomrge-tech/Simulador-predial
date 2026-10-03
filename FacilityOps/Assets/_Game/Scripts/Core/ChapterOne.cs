@@ -28,6 +28,20 @@ namespace FacilityOps
     public static class ChapterOne
     {
         public const int ContractReputation = 25;
+        public const string FirstContractId = "campaign.c2.recurringcondo.pump.v1";
+        public static readonly ServiceDefinition FirstContract = new ServiceDefinition(
+            FirstContractId, "II.1 / Primeira preventiva — bomba de recalque", "recurringcondo", "Síndico / Helena",
+            "A pressão oscila nos horários de pico. O sistema ainda funciona, mas a bomba principal apresenta sinais de desgaste.",
+            FailureCause.ControlRelay, true, 520, 100,
+            new[]{"RG-01 / ISOLAMENTO", "BP-01 / BOMBA PRINCIPAL", "RS-01 / RESERVATÓRIO"},
+            new[]{"Alimentação / registro", "Bomba de recalque", "Reservatório / controle"},
+            new[]{
+                "RG-01: alimentação hidráulica disponível e registro operacional. O problema não nasce na entrada.",
+                "BP-01: vibração e resposta irregulares no modelo preventivo. A bomba ainda opera, mas o conjunto pede intervenção antes da falha.",
+                "RS-01: nível e controle respondem. A oscilação chega ao reservatório vinda da etapa de recalque."
+            },
+            new[]{4,3,5});
+
         public static readonly ServiceDefinition[] Jobs =
         {
             new ServiceDefinition("campaign.c1.apartment.socket.v1", "I.1 / Tomada sem energia", "apartments", "Moradores",
@@ -49,6 +63,10 @@ namespace FacilityOps
                 new[]{"RG-01: registro responde e a alimentação de água está disponível.", "TB-01: trecho seco; não há vazamento visível na tubulação.", "TR-01: gotejamento com comando fechado. A vedação está desgastada."},
                 new[]{4,2,3})
         };
-        public static ServiceDefinition Find(string id) => Array.Find(Jobs, job => job.id==id);
+        public static ServiceDefinition Find(string id)
+        {
+            if (id == FirstContractId) return FirstContract;
+            return Array.Find(Jobs, job => job.id==id);
+        }
     }
 }
