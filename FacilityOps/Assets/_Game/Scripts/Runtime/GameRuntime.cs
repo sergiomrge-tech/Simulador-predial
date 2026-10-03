@@ -21,7 +21,9 @@ namespace FacilityOps
         public string SaveError { get; private set; }
         public string LastReport { get; private set; }
         public CampaignCatalog Campaign { get; private set; }
-        public ServiceDefinition DisplayJob => Session.ActiveJob ?? (Session.Active==null && Session.Career.prologueCompleted ? Session.NextJob : null);
+        public ServiceDefinition DisplayJob => Session.ActiveJob ?? (Session.Active==null && Session.Career.prologueCompleted
+            ? Session.NextJob ?? (Session.FirstContractAvailable ? ChapterOne.FirstContract : null)
+            : null);
         public string MissionTitle => DisplayJob?.title ?? (Session.IsPrologue || (Session.Active == null && !Session.Career.prologueCompleted) ? "PRÓLOGO / O primeiro chamado" : "Corredor às escuras / chamado livre");
         public string CauseName(int cause) => Session.ActiveJob?.causes[cause] ?? (Session.IsPrologue && cause == 2 ? "Isolamento da luminária" : CauseNames[cause]);
         public string ToolName => (Session.ActiveJob?.hydraulic==true ? HydraulicToolNames : ToolNames)[(int)Tool];
@@ -110,10 +112,22 @@ namespace FacilityOps
         }
         public void Accept()
         {
-            bool accepted = !Session.Career.prologueCompleted ? Session.AcceptPrologue() : Session.NextJob!=null ? Session.AcceptChapterOne(Session.NextJob.id) : Session.Accept((FailureCause)((Session.Career.completed + DateTime.Now.Second) % 3));
+            bool accepted = !Session.Career.prologueCompleted
+                ? Session.AcceptPrologue()
+                : Session.NextJob!=null
+                    ? Session.AcceptChapterOne(Session.NextJob.id)
+                    : Session.FirstContractAvailable
+                        ? Session.AcceptFirstContract()
+                        : Session.Accept((FailureCause)((Session.Career.completed + DateTime.Now.Second) % 3));
             if (!accepted) return;
             LoadLocation(false); SetTablet(false); Save();
-            Notify(Session.IsPrologue ? "Guto: disjuntor não desarma por vontade própria. Inspecione QD-01 e a luminária LM-01. Mensagens no tablet." : Session.ActiveJob!=null ? Session.ActiveJob.symptom + " Consulte CHAMADO e DIAGNÓSTICO no tablet." : "Chamado livre aceito. Inspecione QD-01, CT-01 e LM-01. [TAB] abre suas hipóteses.");
+            Notify(Session.IsPrologue
+                ? "Guto: disjuntor não desarma por vontade própria. Inspecione QD-01 e a luminária LM-01. Mensagens no tablet."
+                : Session.IsFirstContract
+                    ? "Primeira preventiva aceita. Compare entrada, bomba e reservatório antes de intervir."
+                    : Session.ActiveJob!=null
+                        ? Session.ActiveJob.symptom + " Consulte CHAMADO e DIAGNÓSTICO no tablet."
+                        : "Chamado livre aceito. Inspecione QD-01, CT-01 e LM-01. [TAB] abre suas hipóteses.");
         }
         public void AcceptFree()
         {
@@ -149,9 +163,17 @@ namespace FacilityOps
             bool bought=Session.BuySealKit(true);
             Notify(bought ? (Session.Career.supplierDebt>debt ? "Kit hidráulico recebido a crédito." : "Kit hidráulico adicionado. R$ 50 debitados.") : "Compra disponível na sede."); Save();
         }
+        public void BuyPumpKit()
+        {
+            if (!AtOffice)return;
+            int debt=Session.Career.supplierDebt;
+            bool bought=Session.BuyPumpKit(true);
+            Notify(bought ? (Session.Career.supplierDebt>debt ? "Kit preventivo de bomba recebido a crédito." : "Kit preventivo de bomba adicionado. R$ 120 debitados.") : "Compra disponível na sede."); Save();
+        }
         public void Deliver()
         {
             bool prologue = Session.IsPrologue;
+            bool firstContract = Session.IsFirstContract;
             string reportTitle = MissionTitle;
             bool contractBefore=Session.Career.recurringContractUnlocked;
             int mistakes = Session.Active?.mistakes ?? 0;
@@ -159,7 +181,13 @@ namespace FacilityOps
             if (!Session.Settle(out int payment)) { Notify("Conclua o reparo e o teste integrado antes de entregar."); return; }
             LastReport = "SERVIÇO ENTREGUE\n\n" + reportTitle + "\nSistema restaurado e validado.\nPagamento: R$ " + payment + "\nPeças desperdiçadas: " + mistakes + "\nTempo em campo: " + TimeSpan.FromSeconds(elapsed).ToString(@"mm\:ss") + "\nExperiência: +100  •  Reputação: +" + (mistakes == 0 ? "5" : "1");
             LoadLocation(true); SetTablet(true); Save(); audioSource.PlayOneShot(success);
-            Notify(!contractBefore && Session.Career.recurringContractUnlocked ? "Helena indicou sua empresa ao primeiro contrato recorrente. Confira MENSAGENS." : prologue ? "Prólogo concluído. Primeiro serviço do Capítulo I disponível. Leia Guto e Helena em MENSAGENS." : "Serviço entregue. Pagamento e histórico salvos. Você voltou à sede.");
+            Notify(firstContract
+                ? "Primeira preventiva concluída. O condomínio entrou no histórico e o Capítulo II foi aberto."
+                : !contractBefore && Session.Career.recurringContractUnlocked
+                    ? "Helena indicou sua empresa ao primeiro contrato recorrente. Confira MENSAGENS."
+                    : prologue
+                        ? "Prólogo concluído. Primeiro serviço do Capítulo I disponível. Leia Guto e Helena em MENSAGENS."
+                        : "Serviço entregue. Pagamento e histórico salvos. Você voltou à sede.");
         }
         public void Notify(string message) { Notice = message; noticeUntil = Time.unscaledTime + 10; if (audioSource) audioSource.PlayOneShot(click); }
         public bool ShowNotice => TabletOpen || Time.unscaledTime < noticeUntil;
