@@ -82,3 +82,14 @@ UI é provisória em IMGUI. Os ScriptableObjects são definições iniciais aind
 - Runtime smoke test estendido até a preventiva.
 
 **Importante:** esta seção descreve alterações de código já commitadas, mas ainda não substitui o QA anterior. É obrigatório abrir/compilar no Unity 6000.6.2f1 e executar as verificações antes de declarar o contrato preventivo validado.
+
+
+## Checkpoint — planejamento de mundo grande e direção visual
+
+Documentos oficiais adicionados:
+- `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`: footprint 8×8 km, produção por distritos, grid de streaming, vias, hero locations, pipeline Blender→Unity, LOD/HLOD, performance e ordem de construção.
+- `Docs/ART_BIBLE_REALISMO_SANTA_AURORA.md`: regra de realismo, proibição de low-poly final, PBR, decals, desgaste, densidade, interiores técnicos, veículos, ferramentas, clima e gates visuais.
+
+A Cidade Antiga passa a ser o primeiro vertical slice visual. Não escalar acabamento para os demais distritos antes de validar qualidade e performance desse recorte.
+
+A referência VEIN deve ser usada para comparar patamar de realismo, atmosfera, densidade e materialidade. Assets, texturas, prédios e layouts de Santa Aurora devem ser originais.
