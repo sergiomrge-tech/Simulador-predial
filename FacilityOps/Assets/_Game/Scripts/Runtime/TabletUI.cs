@@ -154,7 +154,8 @@ namespace FacilityOps
         private void Guide()
         {
             Text(136, 239, 960, 35, "Seu primeiro atendimento", heading);
-            Text(136, 285, 960, 248, "1. Aceite o próximo chamado da campanha. WASD move, mouse olha, E usa.\n2. [1] inspeciona, [2] mede energia/pressão fictícia, [3] compara resposta/vazão.\n3. Inspecione os componentes, colete duas medições e escolha a hipótese no tablet.\n4. [6] na origem isola; [5] no componente da hipótese confirma; [4] substitui.\n5. [7] na origem restaura. Aguarde 5s no prólogo ou 3s no Capítulo I e teste [5] na origem.\n6. Entregue, reponha peças e confira MENSAGENS. Hidráulica usa kit de vedação separado.\n\nNo prólogo, religar sem reparar provoca novo desarme. O tablet pausa o ensaio.\nChamados livres usam [1–5] e não avançam a lista autoral do capítulo.\nTrês serviços do bairro + reputação 25 permitem a indicação ao contrato recorrente.");
+            Text(136, 285, 960, 248, "1. Aceite o próximo chamado da campanha. WASD move, mouse olha, E usa.\n2. [1] inspeciona, [2] mede energia/pressão fictícia, [3] compara resposta/vazão.\n3. Inspecione os componentes, colete duas medições e escolha a hipótese no tablet.\n4. [6] na origem isola; [5] no componente da hipótese confirma; [4] substitui.\n5. [7] na origem restaura. Aguarde 5s no prólogo ou 3s no Capítulo I e teste [5] na origem.\n6. Entregue, reponha peças e confira MENSAGENS. Hidráulica usa kit de vedação separado.\n\nNo prólogo, religar sem reparar provoca novo desarme. O tablet pausa o ensaio.\nChamados livres usam [1–5] e não avançam a lista autoral do capítulo.\nTrês serviços do bairro + reputação 25 permitem a indicação ao contrato recorrente.
+7. No primeiro contrato, compare RG-01, BP-01 e RS-01. A preventiva usa kit de bomba próprio e abre o Capítulo II.");
         }
         private void Messages()
         {
