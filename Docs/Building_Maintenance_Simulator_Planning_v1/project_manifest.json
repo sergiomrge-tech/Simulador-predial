@@ -1,0 +1,37 @@
+{
+  "project": "Simulador de Manutencao Predial / Facilities",
+  "codename": "Facility Ops",
+  "planning_version": "1.0",
+  "date": "2026-10-03",
+  "engine": "Unity 6 LTS",
+  "language": "C#",
+  "platform": "Windows PC / Steam",
+  "mode": "Single-player",
+  "commercial_model": "Premium",
+  "core_loop": [
+    "Sintoma",
+    "Hipoteses",
+    "Testes",
+    "Evidencias",
+    "Diagnostico",
+    "Reparo",
+    "Validacao"
+  ],
+  "documents": [
+    "00_README_PRIMEIRO.md",
+    "01_VISAO_E_PILARES.md",
+    "02_GDD_MASTER.md",
+    "03_SISTEMAS_DE_GAMEPLAY.md",
+    "04_PROGRESSAO_E_ECONOMIA.md",
+    "05_CONTEUDO_E_MISSOES.md",
+    "06_ARQUITETURA_UNITY.md",
+    "07_ARTE_AUDIO_UI.md",
+    "08_ROADMAP_PRODUCAO.md",
+    "09_STEAM_COMERCIAL.md",
+    "10_QA_RISCOS_E_ESCOPO.md",
+    "11_BACKLOG_INICIAL.md",
+    "12_HANDOFF_CHATGPT_PROJECTS.md",
+    "13_DECISOES_E_NAO_OBJETIVOS.md",
+    "project_manifest.json"
+  ]
+}

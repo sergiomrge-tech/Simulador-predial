@@ -1,0 +1,2 @@
+Windows runtime smoke passed: three causes, first-person camera, raycasts, collision, evidence, repair, lighting, final test, settlement, save/load. Campaign previews: 30 floors / 213 traversable door connections.
+2026-10-03T22:18:09.7791925Z

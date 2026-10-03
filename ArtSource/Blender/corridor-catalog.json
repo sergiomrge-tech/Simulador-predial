@@ -1,0 +1,11 @@
+{
+  "source": "Original project geometry",
+  "size_metres": [
+    7,
+    3.4,
+    14
+  ],
+  "materials": 7,
+  "export": "ArtSource/Exports/AuroraCorridor.fbx",
+  "uvs": true
+}

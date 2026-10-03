@@ -1,0 +1,16 @@
+.template/
+FacilityOps/Library/
+FacilityOps/Temp/
+FacilityOps/Obj/
+FacilityOps/Logs/
+FacilityOps/UserSettings/
+FacilityOps/MemoryCaptures/
+FacilityOps/*.csproj
+FacilityOps/*.sln
+FacilityOps/*.slnx
+Builds/
+Logs/
+.vs/
+*.blend1
+*.blend2
+FacilityOps/Assets/Resources/PerformanceTestRun*

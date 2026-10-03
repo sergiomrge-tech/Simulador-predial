@@ -1,0 +1,5 @@
+{
+  "name": "FacilityOps.Editor",
+  "references": ["FacilityOps.Core", "FacilityOps.Runtime"],
+  "includePlatforms": ["Editor"]
+}

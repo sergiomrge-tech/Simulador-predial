@@ -1,0 +1,8 @@
+{
+  "districts": 6,
+  "locations": 24,
+  "chapters": 15,
+  "sectors": 182,
+  "allRoomGraphsConnected": true,
+  "allChapterLocationsExist": true
+}

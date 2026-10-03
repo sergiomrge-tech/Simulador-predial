@@ -1,0 +1,6 @@
+{
+  "name": "FacilityOps.Core",
+  "rootNamespace": "FacilityOps",
+  "references": [],
+  "autoReferenced": true
+}

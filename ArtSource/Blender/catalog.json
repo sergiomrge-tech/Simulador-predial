@@ -1,0 +1,21 @@
+{
+  "source": "Original geometry and paint generated for this project",
+  "units": "metres",
+  "exports": [
+    {
+      "id": "QD01",
+      "file": "FacilityOps\\Assets\\_Game\\Resources\\Art\\QD01.fbx",
+      "mesh_objects": 32
+    },
+    {
+      "id": "CT01",
+      "file": "FacilityOps\\Assets\\_Game\\Resources\\Art\\CT01.fbx",
+      "mesh_objects": 18
+    },
+    {
+      "id": "LM01",
+      "file": "FacilityOps\\Assets\\_Game\\Resources\\Art\\LM01.fbx",
+      "mesh_objects": 20
+    }
+  ]
+}

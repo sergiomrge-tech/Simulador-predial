@@ -1,0 +1,12 @@
+{
+  "blend": "Aurora_TechnicalKit.blend",
+  "reopened": true,
+  "mesh_count": 70,
+  "uvs": true,
+  "packed_paint": true,
+  "roots": [
+    "QD01",
+    "CT01",
+    "LM01"
+  ]
+}

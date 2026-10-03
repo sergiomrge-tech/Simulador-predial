@@ -1,0 +1,4842 @@
+{
+  "schemaVersion": 1,
+  "codename": "PROJECT FACILITY",
+  "city": "Santa Aurora",
+  "perspective": "first-person",
+  "worldMode": "hub-and-instanced-locations",
+  "geographyStatus": "Proposed spatial arrangement based on supplied lore",
+  "districts": [
+    {
+      "id": "old",
+      "name": "Cidade Antiga",
+      "x": -85,
+      "z": -55,
+      "description": "Ferrovia, porto seco, prédios antigos e instalações de várias gerações."
+    },
+    {
+      "id": "expansion",
+      "name": "Cinturão da Expansão",
+      "x": 0,
+      "z": -60,
+      "description": "Condomínios, escolas e hotéis com infraestrutura padronizada envelhecendo."
+    },
+    {
+      "id": "corporate",
+      "name": "Zona Empresarial",
+      "x": 70,
+      "z": 0,
+      "description": "Torres, shopping e contratos de grande escala."
+    },
+    {
+      "id": "industrial",
+      "name": "Distrito Industrial",
+      "x": -85,
+      "z": 60,
+      "description": "Galpões, fábricas e redes de alta demanda."
+    },
+    {
+      "id": "technology",
+      "name": "Distrito Tecnológico",
+      "x": 65,
+      "z": 80,
+      "description": "Data centers, automação e edifícios conectados."
+    },
+    {
+      "id": "civic",
+      "name": "Santa Aurora Central",
+      "x": 0,
+      "z": 25,
+      "description": "Complexo municipal e palco da operação Cascata."
+    }
+  ],
+  "chapters": [
+    {
+      "id": "chapter.0",
+      "index": 0,
+      "name": "Prólogo — O primeiro chamado",
+      "locationIds": [
+        "garage",
+        "horizonte"
+      ],
+      "beat": "Sintoma não é causa; a falha do prólogo é autoral e distinta dos chamados aleatórios."
+    },
+    {
+      "id": "chapter.1",
+      "index": 1,
+      "name": "I — Pequenos problemas",
+      "locationIds": [
+        "apartments",
+        "grocery",
+        "restaurant",
+        "workshop",
+        "smalloffice",
+        "horizonte"
+      ],
+      "beat": "Construir reputação e conquistar a indicação de Helena."
+    },
+    {
+      "id": "chapter.2",
+      "index": 2,
+      "name": "II — Prevenir é mais barato",
+      "locationIds": [
+        "recurringcondo",
+        "school",
+        "imperial"
+      ],
+      "beat": "Inspeção preventiva, recomendação ignorada, encontro com Lara."
+    },
+    {
+      "id": "chapter.3",
+      "index": 3,
+      "name": "III — O contrato perdido",
+      "locationIds": [
+        "lostcondo"
+      ],
+      "beat": "Concorrência vencida pela Vértice e primeiros indícios de inspeções falsas."
+    },
+    {
+      "id": "chapter.4",
+      "index": 4,
+      "name": "IV — Sistemas críticos",
+      "locationIds": [
+        "hotel",
+        "mall",
+        "smallhospital",
+        "logistics"
+      ],
+      "beat": "Falhas em cadeia e redundância não testada no hotel."
+    },
+    {
+      "id": "chapter.5",
+      "index": 5,
+      "name": "V — 03:17",
+      "locationIds": [
+        "hospital0317"
+      ],
+      "beat": "Emergência de climatização e documentação incompatível com a condição real."
+    },
+    {
+      "id": "chapter.6",
+      "index": 6,
+      "name": "VI — A dívida técnica",
+      "locationIds": [
+        "factory",
+        "hotel",
+        "vertice"
+      ],
+      "beat": "Lara e Íris correlacionam o padrão de manutenção omitida."
+    },
+    {
+      "id": "chapter.7",
+      "index": 7,
+      "name": "VII — Onda de calor",
+      "locationIds": [
+        "datacenter",
+        "smarttower",
+        "companyhq"
+      ],
+      "beat": "Escolha de prioridades e equipes necessárias para múltiplos chamados."
+    },
+    {
+      "id": "chapter.8",
+      "index": 8,
+      "name": "VIII — A tempestade",
+      "locationIds": [
+        "drainage",
+        "mall",
+        "hospital0317",
+        "horizonte"
+      ],
+      "beat": "Recursos limitados, alagamentos e consequências persistentes."
+    },
+    {
+      "id": "chapter.9",
+      "index": 9,
+      "name": "IX — O apagão",
+      "locationIds": [
+        "blackouttower"
+      ],
+      "beat": "Colapso de redundâncias e início da investigação oficial."
+    },
+    {
+      "id": "chapter.10",
+      "index": 10,
+      "name": "X — A auditoria",
+      "locationIds": [
+        "vertice",
+        "companyhq"
+      ],
+      "beat": "Oferta de Victor Salles e conflito econômico."
+    },
+    {
+      "id": "chapter.11",
+      "index": 11,
+      "name": "XI — O arquivo",
+      "locationIds": [
+        "vertice"
+      ],
+      "beat": "Comparar relatórios antigos e atuais com ajuda de Íris."
+    },
+    {
+      "id": "chapter.12",
+      "index": 12,
+      "name": "XII — Santa Aurora Central",
+      "locationIds": [
+        "central"
+      ],
+      "beat": "Auditoria municipal e pendências interdependentes."
+    },
+    {
+      "id": "chapter.13",
+      "index": 13,
+      "name": "XIII — Cascata",
+      "locationIds": [
+        "central",
+        "companyhq"
+      ],
+      "beat": "Operação final por equipes, com escolhas de isolamento e capacidade."
+    },
+    {
+      "id": "chapter.14",
+      "index": 14,
+      "name": "XIV — O último chamado",
+      "locationIds": [
+        "central",
+        "garage",
+        "horizonte"
+      ],
+      "beat": "Amanhecer, mensagem de Guto e memória do crescimento."
+    }
+  ],
+  "locations": [
+    {
+      "id": "garage",
+      "name": "Garagem original",
+      "districtId": "old",
+      "unlockChapter": 0,
+      "npc": "Augusto Moreira",
+      "systems": [
+        "elétrica"
+      ],
+      "lore": "A primeira maleta de Augusto permanece na parede após a campanha.",
+      "x": -104,
+      "z": -55,
+      "floors": [
+        {
+          "id": "garage.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "garage.f0.r0",
+              "name": "Bancada",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica"
+              ],
+              "hotspot": "Área Bancada; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "garage.f0.r1",
+              "name": "Estoque inicial",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica"
+              ],
+              "hotspot": "Área Estoque inicial; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "garage.f0.r2",
+              "name": "Computador antigo",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica"
+              ],
+              "hotspot": "Área Computador antigo; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "garage.f0.r3",
+              "name": "Garagem / veículo usado",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica"
+              ],
+              "hotspot": "A primeira maleta de Augusto permanece na parede após a campanha."
+            }
+          ],
+          "connections": [
+            {
+              "from": "garage.f0.r0",
+              "to": "garage.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "garage.f0.r0",
+              "to": "garage.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "garage.f0.r1",
+              "to": "garage.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "garage.f0.r2",
+              "to": "garage.f0.r3",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "prototype",
+      "persistentFlags": [
+        "garage.inspected",
+        "garage.documented",
+        "garage.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "horizonte",
+      "name": "Edifício Horizonte",
+      "districtId": "old",
+      "unlockChapter": 0,
+      "npc": "Helena Prado",
+      "systems": [
+        "elétrica",
+        "hidráulica",
+        "bombas",
+        "acesso"
+      ],
+      "lore": "Corredor sem energia; componente antigo e falha ao aquecer. Primeiro chamado de Guto.",
+      "x": -85,
+      "z": -55,
+      "floors": [
+        {
+          "id": "horizonte.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "horizonte.f0.r0",
+              "name": "Recepção",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Recepção; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "horizonte.f0.r1",
+              "name": "Garagem",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Garagem; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "horizonte.f0.r2",
+              "name": "Corredor residencial",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Corredor residencial; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "horizonte.f0.r3",
+              "name": "Casa de bombas",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Corredor sem energia; componente antigo e falha ao aquecer. Primeiro chamado de Guto."
+            }
+          ],
+          "connections": [
+            {
+              "from": "horizonte.f0.r0",
+              "to": "horizonte.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "horizonte.f0.r0",
+              "to": "horizonte.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "horizonte.f0.r1",
+              "to": "horizonte.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "horizonte.f0.r2",
+              "to": "horizonte.f0.r3",
+              "type": "door"
+            }
+          ]
+        },
+        {
+          "id": "horizonte.floor.1",
+          "name": "Pavimento técnico",
+          "index": 1,
+          "rooms": [
+            {
+              "id": "horizonte.f1.r0",
+              "name": "Quadro técnico",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Quadro técnico; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "horizonte.f1.r1",
+              "name": "Reservatório",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Reservatório; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "horizonte.f1.r2",
+              "name": "Portão / interfone",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Portão / interfone; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "horizonte.f1.r3",
+              "name": "Cobertura",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Corredor sem energia; componente antigo e falha ao aquecer. Primeiro chamado de Guto."
+            }
+          ],
+          "connections": [
+            {
+              "from": "horizonte.f1.r0",
+              "to": "horizonte.f1.r1",
+              "type": "door"
+            },
+            {
+              "from": "horizonte.f1.r0",
+              "to": "horizonte.f1.r2",
+              "type": "door"
+            },
+            {
+              "from": "horizonte.f1.r1",
+              "to": "horizonte.f1.r3",
+              "type": "door"
+            },
+            {
+              "from": "horizonte.f1.r2",
+              "to": "horizonte.f1.r3",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [
+        {
+          "from": "horizonte.floor.0",
+          "to": "horizonte.floor.1",
+          "type": "service-stair-or-lift",
+          "previewTravel": "tablet"
+        }
+      ],
+      "productionState": "prototype",
+      "persistentFlags": [
+        "horizonte.inspected",
+        "horizonte.documented",
+        "horizonte.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "apartments",
+      "name": "Apartamentos do bairro antigo",
+      "districtId": "old",
+      "unlockChapter": 1,
+      "npc": "Moradores",
+      "systems": [
+        "elétrica",
+        "hidráulica"
+      ],
+      "lore": "Instalações improvisadas e reparos anteriores contam a história dos moradores.",
+      "x": -66,
+      "z": -55,
+      "floors": [
+        {
+          "id": "apartments.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "apartments.f0.r0",
+              "name": "Entrada",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Entrada; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "apartments.f0.r1",
+              "name": "Sala",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Sala; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "apartments.f0.r2",
+              "name": "Cozinha",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Cozinha; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "apartments.f0.r3",
+              "name": "Banheiro",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Banheiro; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "apartments.f0.r4",
+              "name": "Área de serviço",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Área de serviço; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "apartments.f0.r5",
+              "name": "Corredor técnico",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Instalações improvisadas e reparos anteriores contam a história dos moradores."
+            }
+          ],
+          "connections": [
+            {
+              "from": "apartments.f0.r0",
+              "to": "apartments.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "apartments.f0.r0",
+              "to": "apartments.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "apartments.f0.r1",
+              "to": "apartments.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "apartments.f0.r2",
+              "to": "apartments.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "apartments.f0.r2",
+              "to": "apartments.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "apartments.f0.r3",
+              "to": "apartments.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "apartments.f0.r4",
+              "to": "apartments.f0.r5",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "apartments.inspected",
+        "apartments.documented",
+        "apartments.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "grocery",
+      "name": "Mercearia do bairro",
+      "districtId": "old",
+      "unlockChapter": 1,
+      "npc": "Comerciante",
+      "systems": [
+        "elétrica",
+        "climatização"
+      ],
+      "lore": "Equipamentos de diferentes épocas dividem o mesmo circuito fictício.",
+      "x": -104,
+      "z": -35,
+      "floors": [
+        {
+          "id": "grocery.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "grocery.f0.r0",
+              "name": "Loja",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Loja; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "grocery.f0.r1",
+              "name": "Estoque",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Estoque; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "grocery.f0.r2",
+              "name": "Câmara de apoio",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Câmara de apoio; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "grocery.f0.r3",
+              "name": "Copa",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Copa; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "grocery.f0.r4",
+              "name": "Quadro técnico",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Quadro técnico; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "grocery.f0.r5",
+              "name": "Carga e descarga",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Equipamentos de diferentes épocas dividem o mesmo circuito fictício."
+            }
+          ],
+          "connections": [
+            {
+              "from": "grocery.f0.r0",
+              "to": "grocery.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "grocery.f0.r0",
+              "to": "grocery.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "grocery.f0.r1",
+              "to": "grocery.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "grocery.f0.r2",
+              "to": "grocery.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "grocery.f0.r2",
+              "to": "grocery.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "grocery.f0.r3",
+              "to": "grocery.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "grocery.f0.r4",
+              "to": "grocery.f0.r5",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "grocery.inspected",
+        "grocery.documented",
+        "grocery.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "restaurant",
+      "name": "Restaurante em crescimento",
+      "districtId": "old",
+      "unlockChapter": 1,
+      "npc": "Proprietário",
+      "systems": [
+        "elétrica",
+        "hidráulica",
+        "climatização"
+      ],
+      "lore": "O pequeno restaurante cresce junto com a empresa do jogador.",
+      "x": -85,
+      "z": -35,
+      "floors": [
+        {
+          "id": "restaurant.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "restaurant.f0.r0",
+              "name": "Salão",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "climatização"
+              ],
+              "hotspot": "Área Salão; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "restaurant.f0.r1",
+              "name": "Cozinha",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "climatização"
+              ],
+              "hotspot": "Área Cozinha; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "restaurant.f0.r2",
+              "name": "Despensa",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "climatização"
+              ],
+              "hotspot": "Área Despensa; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "restaurant.f0.r3",
+              "name": "Copa / lavagem",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "climatização"
+              ],
+              "hotspot": "Área Copa / lavagem; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "restaurant.f0.r4",
+              "name": "Sala técnica",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "climatização"
+              ],
+              "hotspot": "Área Sala técnica; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "restaurant.f0.r5",
+              "name": "Carga e descarga",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "climatização"
+              ],
+              "hotspot": "O pequeno restaurante cresce junto com a empresa do jogador."
+            }
+          ],
+          "connections": [
+            {
+              "from": "restaurant.f0.r0",
+              "to": "restaurant.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "restaurant.f0.r0",
+              "to": "restaurant.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "restaurant.f0.r1",
+              "to": "restaurant.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "restaurant.f0.r2",
+              "to": "restaurant.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "restaurant.f0.r2",
+              "to": "restaurant.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "restaurant.f0.r3",
+              "to": "restaurant.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "restaurant.f0.r4",
+              "to": "restaurant.f0.r5",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "restaurant.inspected",
+        "restaurant.documented",
+        "restaurant.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "workshop",
+      "name": "Oficina local",
+      "districtId": "old",
+      "unlockChapter": 1,
+      "npc": "Proprietário",
+      "systems": [
+        "elétrica",
+        "hidráulica"
+      ],
+      "lore": "Reparos temporários permanecem em uso há anos.",
+      "x": -66,
+      "z": -35,
+      "floors": [
+        {
+          "id": "workshop.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "workshop.f0.r0",
+              "name": "Recepção",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Recepção; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "workshop.f0.r1",
+              "name": "Bancada",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Bancada; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "workshop.f0.r2",
+              "name": "Área de serviço",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Área de serviço; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "workshop.f0.r3",
+              "name": "Depósito",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Depósito; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "workshop.f0.r4",
+              "name": "Quadro técnico",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Quadro técnico; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "workshop.f0.r5",
+              "name": "Pátio",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Reparos temporários permanecem em uso há anos."
+            }
+          ],
+          "connections": [
+            {
+              "from": "workshop.f0.r0",
+              "to": "workshop.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "workshop.f0.r0",
+              "to": "workshop.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "workshop.f0.r1",
+              "to": "workshop.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "workshop.f0.r2",
+              "to": "workshop.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "workshop.f0.r2",
+              "to": "workshop.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "workshop.f0.r3",
+              "to": "workshop.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "workshop.f0.r4",
+              "to": "workshop.f0.r5",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "workshop.inspected",
+        "workshop.documented",
+        "workshop.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "smalloffice",
+      "name": "Pequeno escritório",
+      "districtId": "old",
+      "unlockChapter": 1,
+      "npc": "Gerente",
+      "systems": [
+        "elétrica",
+        "rede"
+      ],
+      "lore": "Primeiros serviços profissionais e recomendações de Helena.",
+      "x": -104,
+      "z": -15,
+      "floors": [
+        {
+          "id": "smalloffice.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "smalloffice.f0.r0",
+              "name": "Recepção",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Recepção; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smalloffice.f0.r1",
+              "name": "Estações de trabalho",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Estações de trabalho; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smalloffice.f0.r2",
+              "name": "Copa",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Copa; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smalloffice.f0.r3",
+              "name": "Banheiro",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Banheiro; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smalloffice.f0.r4",
+              "name": "Corredor",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Corredor; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smalloffice.f0.r5",
+              "name": "Sala técnica",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Primeiros serviços profissionais e recomendações de Helena."
+            }
+          ],
+          "connections": [
+            {
+              "from": "smalloffice.f0.r0",
+              "to": "smalloffice.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "smalloffice.f0.r0",
+              "to": "smalloffice.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "smalloffice.f0.r1",
+              "to": "smalloffice.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "smalloffice.f0.r2",
+              "to": "smalloffice.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "smalloffice.f0.r2",
+              "to": "smalloffice.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "smalloffice.f0.r3",
+              "to": "smalloffice.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "smalloffice.f0.r4",
+              "to": "smalloffice.f0.r5",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "smalloffice.inspected",
+        "smalloffice.documented",
+        "smalloffice.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "imperial",
+      "name": "Teatro Imperial",
+      "districtId": "old",
+      "unlockChapter": 2,
+      "npc": "Direção do teatro",
+      "systems": [
+        "elétrica",
+        "climatização"
+      ],
+      "lore": "Teatro com orçamento apertado e sistema elétrico ultrapassado.",
+      "x": -85,
+      "z": -15,
+      "floors": [
+        {
+          "id": "imperial.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "imperial.f0.r0",
+              "name": "Foyer",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Foyer; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "imperial.f0.r1",
+              "name": "Plateia",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Plateia; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "imperial.f0.r2",
+              "name": "Palco",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Palco; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "imperial.f0.r3",
+              "name": "Bastidores",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Bastidores; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "imperial.f0.r4",
+              "name": "Cabine técnica",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Cabine técnica; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "imperial.f0.r5",
+              "name": "Depósito",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Depósito; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "imperial.f0.r6",
+              "name": "Quadro antigo",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Área Quadro antigo; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "imperial.f0.r7",
+              "name": "Cobertura",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização"
+              ],
+              "hotspot": "Teatro com orçamento apertado e sistema elétrico ultrapassado."
+            }
+          ],
+          "connections": [
+            {
+              "from": "imperial.f0.r0",
+              "to": "imperial.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "imperial.f0.r0",
+              "to": "imperial.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "imperial.f0.r1",
+              "to": "imperial.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "imperial.f0.r2",
+              "to": "imperial.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "imperial.f0.r2",
+              "to": "imperial.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "imperial.f0.r3",
+              "to": "imperial.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "imperial.f0.r4",
+              "to": "imperial.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "imperial.f0.r4",
+              "to": "imperial.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "imperial.f0.r5",
+              "to": "imperial.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "imperial.f0.r6",
+              "to": "imperial.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "imperial.inspected",
+        "imperial.documented",
+        "imperial.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "school",
+      "name": "Escola pública",
+      "districtId": "expansion",
+      "unlockChapter": 2,
+      "npc": "Direção escolar",
+      "systems": [
+        "elétrica",
+        "hidráulica",
+        "bombas"
+      ],
+      "lore": "Manutenção eficiente com orçamento limitado; primeira inspeção de Lara.",
+      "x": -19,
+      "z": -60,
+      "floors": [
+        {
+          "id": "school.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "school.f0.r0",
+              "name": "Recepção",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas"
+              ],
+              "hotspot": "Área Recepção; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "school.f0.r1",
+              "name": "Salas de aula",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas"
+              ],
+              "hotspot": "Área Salas de aula; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "school.f0.r2",
+              "name": "Pátio",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas"
+              ],
+              "hotspot": "Área Pátio; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "school.f0.r3",
+              "name": "Cozinha",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas"
+              ],
+              "hotspot": "Área Cozinha; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "school.f0.r4",
+              "name": "Banheiros",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas"
+              ],
+              "hotspot": "Área Banheiros; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "school.f0.r5",
+              "name": "Sala técnica",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas"
+              ],
+              "hotspot": "Área Sala técnica; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "school.f0.r6",
+              "name": "Reservatório",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas"
+              ],
+              "hotspot": "Área Reservatório; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "school.f0.r7",
+              "name": "Cobertura",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas"
+              ],
+              "hotspot": "Manutenção eficiente com orçamento limitado; primeira inspeção de Lara."
+            }
+          ],
+          "connections": [
+            {
+              "from": "school.f0.r0",
+              "to": "school.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "school.f0.r0",
+              "to": "school.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "school.f0.r1",
+              "to": "school.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "school.f0.r2",
+              "to": "school.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "school.f0.r2",
+              "to": "school.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "school.f0.r3",
+              "to": "school.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "school.f0.r4",
+              "to": "school.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "school.f0.r4",
+              "to": "school.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "school.f0.r5",
+              "to": "school.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "school.f0.r6",
+              "to": "school.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "school.inspected",
+        "school.documented",
+        "school.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "recurringcondo",
+      "name": "Condomínio indicado por Helena",
+      "districtId": "expansion",
+      "unlockChapter": 2,
+      "npc": "Administrador",
+      "systems": [
+        "elétrica",
+        "hidráulica",
+        "bombas",
+        "acesso"
+      ],
+      "lore": "Primeiro contrato recorrente; recomendações de inspeção terão consequências.",
+      "x": 0,
+      "z": -60,
+      "floors": [
+        {
+          "id": "recurringcondo.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "recurringcondo.f0.r0",
+              "name": "Portaria",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Portaria; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "recurringcondo.f0.r1",
+              "name": "Garagem",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Garagem; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "recurringcondo.f0.r2",
+              "name": "Corredores",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Corredores; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "recurringcondo.f0.r3",
+              "name": "Casa de bombas",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Casa de bombas; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "recurringcondo.f0.r4",
+              "name": "Quadro técnico",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Quadro técnico; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "recurringcondo.f0.r5",
+              "name": "Reservatórios",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Reservatórios; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "recurringcondo.f0.r6",
+              "name": "Área comum",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Área Área comum; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "recurringcondo.f0.r7",
+              "name": "Cobertura",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "hidráulica",
+                "bombas",
+                "acesso"
+              ],
+              "hotspot": "Primeiro contrato recorrente; recomendações de inspeção terão consequências."
+            }
+          ],
+          "connections": [
+            {
+              "from": "recurringcondo.f0.r0",
+              "to": "recurringcondo.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "recurringcondo.f0.r0",
+              "to": "recurringcondo.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "recurringcondo.f0.r1",
+              "to": "recurringcondo.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "recurringcondo.f0.r2",
+              "to": "recurringcondo.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "recurringcondo.f0.r2",
+              "to": "recurringcondo.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "recurringcondo.f0.r3",
+              "to": "recurringcondo.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "recurringcondo.f0.r4",
+              "to": "recurringcondo.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "recurringcondo.f0.r4",
+              "to": "recurringcondo.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "recurringcondo.f0.r5",
+              "to": "recurringcondo.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "recurringcondo.f0.r6",
+              "to": "recurringcondo.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "recurringcondo.inspected",
+        "recurringcondo.documented",
+        "recurringcondo.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "lostcondo",
+      "name": "Condomínio do contrato perdido",
+      "districtId": "expansion",
+      "unlockChapter": 3,
+      "npc": "Administrador / Íris",
+      "systems": [
+        "elétrica",
+        "bombas",
+        "geradores",
+        "acesso"
+      ],
+      "lore": "Vértice vence a concorrência. Adesivos recentes contrastam com a condição dos equipamentos.",
+      "x": 19,
+      "z": -60,
+      "floors": [
+        {
+          "id": "lostcondo.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "lostcondo.f0.r0",
+              "name": "Portaria",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "geradores",
+                "acesso"
+              ],
+              "hotspot": "Área Portaria; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "lostcondo.f0.r1",
+              "name": "Garagem",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "geradores",
+                "acesso"
+              ],
+              "hotspot": "Área Garagem; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "lostcondo.f0.r2",
+              "name": "Casa de bombas",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "geradores",
+                "acesso"
+              ],
+              "hotspot": "Área Casa de bombas; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "lostcondo.f0.r3",
+              "name": "Gerador",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "geradores",
+                "acesso"
+              ],
+              "hotspot": "Área Gerador; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "lostcondo.f0.r4",
+              "name": "Quadro principal",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "geradores",
+                "acesso"
+              ],
+              "hotspot": "Área Quadro principal; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "lostcondo.f0.r5",
+              "name": "Central de acesso",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "geradores",
+                "acesso"
+              ],
+              "hotspot": "Área Central de acesso; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "lostcondo.f0.r6",
+              "name": "Reservatórios",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "geradores",
+                "acesso"
+              ],
+              "hotspot": "Área Reservatórios; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "lostcondo.f0.r7",
+              "name": "Cobertura",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "geradores",
+                "acesso"
+              ],
+              "hotspot": "Vértice vence a concorrência. Adesivos recentes contrastam com a condição dos equipamentos."
+            }
+          ],
+          "connections": [
+            {
+              "from": "lostcondo.f0.r0",
+              "to": "lostcondo.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "lostcondo.f0.r0",
+              "to": "lostcondo.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "lostcondo.f0.r1",
+              "to": "lostcondo.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "lostcondo.f0.r2",
+              "to": "lostcondo.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "lostcondo.f0.r2",
+              "to": "lostcondo.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "lostcondo.f0.r3",
+              "to": "lostcondo.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "lostcondo.f0.r4",
+              "to": "lostcondo.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "lostcondo.f0.r4",
+              "to": "lostcondo.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "lostcondo.f0.r5",
+              "to": "lostcondo.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "lostcondo.f0.r6",
+              "to": "lostcondo.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "lostcondo.inspected",
+        "lostcondo.documented",
+        "lostcondo.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "hotel",
+      "name": "Hotel em reforma",
+      "districtId": "expansion",
+      "unlockChapter": 4,
+      "npc": "Gerência",
+      "systems": [
+        "hidráulica",
+        "bombas",
+        "climatização"
+      ],
+      "lore": "A bomba reserva não foi testada, embora o laudo registre redundância operacional.",
+      "x": -19,
+      "z": -40,
+      "floors": [
+        {
+          "id": "hotel.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "hotel.f0.r0",
+              "name": "Recepção",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "hidráulica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Recepção; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hotel.f0.r1",
+              "name": "Quartos / corredor",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "hidráulica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Quartos / corredor; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hotel.f0.r2",
+              "name": "Lavanderia",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "hidráulica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Lavanderia; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hotel.f0.r3",
+              "name": "Sala de bombas",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "hidráulica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "A bomba reserva não foi testada, embora o laudo registre redundância operacional."
+            }
+          ],
+          "connections": [
+            {
+              "from": "hotel.f0.r0",
+              "to": "hotel.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "hotel.f0.r0",
+              "to": "hotel.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "hotel.f0.r1",
+              "to": "hotel.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "hotel.f0.r2",
+              "to": "hotel.f0.r3",
+              "type": "door"
+            }
+          ]
+        },
+        {
+          "id": "hotel.floor.1",
+          "name": "Pavimento técnico",
+          "index": 1,
+          "rooms": [
+            {
+              "id": "hotel.f1.r0",
+              "name": "Água quente",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "hidráulica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Água quente; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hotel.f1.r1",
+              "name": "Bomba reserva",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "hidráulica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Bomba reserva; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hotel.f1.r2",
+              "name": "HVAC",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "hidráulica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área HVAC; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hotel.f1.r3",
+              "name": "Cobertura",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "hidráulica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "A bomba reserva não foi testada, embora o laudo registre redundância operacional."
+            }
+          ],
+          "connections": [
+            {
+              "from": "hotel.f1.r0",
+              "to": "hotel.f1.r1",
+              "type": "door"
+            },
+            {
+              "from": "hotel.f1.r0",
+              "to": "hotel.f1.r2",
+              "type": "door"
+            },
+            {
+              "from": "hotel.f1.r1",
+              "to": "hotel.f1.r3",
+              "type": "door"
+            },
+            {
+              "from": "hotel.f1.r2",
+              "to": "hotel.f1.r3",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [
+        {
+          "from": "hotel.floor.0",
+          "to": "hotel.floor.1",
+          "type": "service-stair-or-lift",
+          "previewTravel": "tablet"
+        }
+      ],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "hotel.inspected",
+        "hotel.documented",
+        "hotel.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "mall",
+      "name": "Shopping",
+      "districtId": "corporate",
+      "unlockChapter": 4,
+      "npc": "Administração",
+      "systems": [
+        "elétrica",
+        "climatização",
+        "bombas",
+        "segurança"
+      ],
+      "lore": "A operação precisa continuar; durante a tempestade, pode ter prioridade menor que o hospital.",
+      "x": 51,
+      "z": 0,
+      "floors": [
+        {
+          "id": "mall.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "mall.f0.r0",
+              "name": "Praça central",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "segurança"
+              ],
+              "hotspot": "Área Praça central; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "mall.f0.r1",
+              "name": "Lojas",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "segurança"
+              ],
+              "hotspot": "Área Lojas; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "mall.f0.r2",
+              "name": "Doca",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "segurança"
+              ],
+              "hotspot": "Área Doca; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "mall.f0.r3",
+              "name": "Segurança",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "segurança"
+              ],
+              "hotspot": "Área Segurança; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "mall.f0.r4",
+              "name": "Sala elétrica",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "segurança"
+              ],
+              "hotspot": "Área Sala elétrica; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "mall.f0.r5",
+              "name": "HVAC",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "segurança"
+              ],
+              "hotspot": "Área HVAC; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "mall.f0.r6",
+              "name": "Bombas",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "segurança"
+              ],
+              "hotspot": "Área Bombas; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "mall.f0.r7",
+              "name": "Cobertura",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "segurança"
+              ],
+              "hotspot": "A operação precisa continuar; durante a tempestade, pode ter prioridade menor que o hospital."
+            }
+          ],
+          "connections": [
+            {
+              "from": "mall.f0.r0",
+              "to": "mall.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "mall.f0.r0",
+              "to": "mall.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "mall.f0.r1",
+              "to": "mall.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "mall.f0.r2",
+              "to": "mall.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "mall.f0.r2",
+              "to": "mall.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "mall.f0.r3",
+              "to": "mall.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "mall.f0.r4",
+              "to": "mall.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "mall.f0.r4",
+              "to": "mall.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "mall.f0.r5",
+              "to": "mall.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "mall.f0.r6",
+              "to": "mall.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "mall.inspected",
+        "mall.documented",
+        "mall.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "smallhospital",
+      "name": "Hospital pequeno",
+      "districtId": "expansion",
+      "unlockChapter": 4,
+      "npc": "Administração / Lara",
+      "systems": [
+        "elétrica",
+        "climatização",
+        "bombas",
+        "geradores"
+      ],
+      "lore": "Introdução a sistemas críticos e efeitos em cadeia.",
+      "x": 0,
+      "z": -40,
+      "floors": [
+        {
+          "id": "smallhospital.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "smallhospital.f0.r0",
+              "name": "Recepção",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "geradores"
+              ],
+              "hotspot": "Área Recepção; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smallhospital.f0.r1",
+              "name": "Ala assistencial",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "geradores"
+              ],
+              "hotspot": "Área Ala assistencial; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smallhospital.f0.r2",
+              "name": "Sala de equipamentos",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "geradores"
+              ],
+              "hotspot": "Área Sala de equipamentos; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smallhospital.f0.r3",
+              "name": "HVAC",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "geradores"
+              ],
+              "hotspot": "Área HVAC; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smallhospital.f0.r4",
+              "name": "Bombas",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "geradores"
+              ],
+              "hotspot": "Área Bombas; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smallhospital.f0.r5",
+              "name": "Gerador",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "geradores"
+              ],
+              "hotspot": "Área Gerador; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smallhospital.f0.r6",
+              "name": "Quadro técnico",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "geradores"
+              ],
+              "hotspot": "Área Quadro técnico; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smallhospital.f0.r7",
+              "name": "Cobertura",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "bombas",
+                "geradores"
+              ],
+              "hotspot": "Introdução a sistemas críticos e efeitos em cadeia."
+            }
+          ],
+          "connections": [
+            {
+              "from": "smallhospital.f0.r0",
+              "to": "smallhospital.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "smallhospital.f0.r0",
+              "to": "smallhospital.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "smallhospital.f0.r1",
+              "to": "smallhospital.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "smallhospital.f0.r2",
+              "to": "smallhospital.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "smallhospital.f0.r2",
+              "to": "smallhospital.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "smallhospital.f0.r3",
+              "to": "smallhospital.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "smallhospital.f0.r4",
+              "to": "smallhospital.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "smallhospital.f0.r4",
+              "to": "smallhospital.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "smallhospital.f0.r5",
+              "to": "smallhospital.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "smallhospital.f0.r6",
+              "to": "smallhospital.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "smallhospital.inspected",
+        "smallhospital.documented",
+        "smallhospital.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "logistics",
+      "name": "Galpão logístico",
+      "districtId": "industrial",
+      "unlockChapter": 4,
+      "npc": "Operações",
+      "systems": [
+        "elétrica",
+        "bombas",
+        "rede",
+        "segurança"
+      ],
+      "lore": "Infraestrutura de alta demanda mantém a distribuição da cidade.",
+      "x": -104,
+      "z": 60,
+      "floors": [
+        {
+          "id": "logistics.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "logistics.f0.r0",
+              "name": "Doca",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "rede",
+                "segurança"
+              ],
+              "hotspot": "Área Doca; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "logistics.f0.r1",
+              "name": "Armazenagem",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "rede",
+                "segurança"
+              ],
+              "hotspot": "Área Armazenagem; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "logistics.f0.r2",
+              "name": "Expedição",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "rede",
+                "segurança"
+              ],
+              "hotspot": "Área Expedição; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "logistics.f0.r3",
+              "name": "Escritório",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "rede",
+                "segurança"
+              ],
+              "hotspot": "Área Escritório; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "logistics.f0.r4",
+              "name": "Sala elétrica",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "rede",
+                "segurança"
+              ],
+              "hotspot": "Área Sala elétrica; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "logistics.f0.r5",
+              "name": "Bombas",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "rede",
+                "segurança"
+              ],
+              "hotspot": "Área Bombas; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "logistics.f0.r6",
+              "name": "Telecom",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "rede",
+                "segurança"
+              ],
+              "hotspot": "Área Telecom; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "logistics.f0.r7",
+              "name": "Pátio",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "rede",
+                "segurança"
+              ],
+              "hotspot": "Infraestrutura de alta demanda mantém a distribuição da cidade."
+            }
+          ],
+          "connections": [
+            {
+              "from": "logistics.f0.r0",
+              "to": "logistics.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "logistics.f0.r0",
+              "to": "logistics.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "logistics.f0.r1",
+              "to": "logistics.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "logistics.f0.r2",
+              "to": "logistics.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "logistics.f0.r2",
+              "to": "logistics.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "logistics.f0.r3",
+              "to": "logistics.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "logistics.f0.r4",
+              "to": "logistics.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "logistics.f0.r4",
+              "to": "logistics.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "logistics.f0.r5",
+              "to": "logistics.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "logistics.f0.r6",
+              "to": "logistics.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "logistics.inspected",
+        "logistics.documented",
+        "logistics.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "hospital0317",
+      "name": "Hospital / ocorrência 03:17",
+      "districtId": "corporate",
+      "unlockChapter": 5,
+      "npc": "Lara / administração",
+      "systems": [
+        "elétrica",
+        "climatização",
+        "automação",
+        "hidráulica"
+      ],
+      "lore": "Filtro com meses de sujeira e etiqueta de manutenção de oito dias atrás.",
+      "x": 70,
+      "z": 0,
+      "floors": [
+        {
+          "id": "hospital0317.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "hospital0317.f0.r0",
+              "name": "Recepção de serviço",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "automação",
+                "hidráulica"
+              ],
+              "hotspot": "Área Recepção de serviço; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hospital0317.f0.r1",
+              "name": "Ala quente",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "automação",
+                "hidráulica"
+              ],
+              "hotspot": "Área Ala quente; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hospital0317.f0.r2",
+              "name": "HVAC principal",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "automação",
+                "hidráulica"
+              ],
+              "hotspot": "Área HVAC principal; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hospital0317.f0.r3",
+              "name": "Automação",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "automação",
+                "hidráulica"
+              ],
+              "hotspot": "Área Automação; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hospital0317.f0.r4",
+              "name": "Válvula de circulação",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "automação",
+                "hidráulica"
+              ],
+              "hotspot": "Área Válvula de circulação; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hospital0317.f0.r5",
+              "name": "Backup térmico",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "automação",
+                "hidráulica"
+              ],
+              "hotspot": "Área Backup térmico; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hospital0317.f0.r6",
+              "name": "Quadro técnico",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "automação",
+                "hidráulica"
+              ],
+              "hotspot": "Área Quadro técnico; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "hospital0317.f0.r7",
+              "name": "Sala de evidências",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "automação",
+                "hidráulica"
+              ],
+              "hotspot": "Filtro com meses de sujeira e etiqueta de manutenção de oito dias atrás."
+            }
+          ],
+          "connections": [
+            {
+              "from": "hospital0317.f0.r0",
+              "to": "hospital0317.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "hospital0317.f0.r0",
+              "to": "hospital0317.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "hospital0317.f0.r1",
+              "to": "hospital0317.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "hospital0317.f0.r2",
+              "to": "hospital0317.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "hospital0317.f0.r2",
+              "to": "hospital0317.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "hospital0317.f0.r3",
+              "to": "hospital0317.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "hospital0317.f0.r4",
+              "to": "hospital0317.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "hospital0317.f0.r4",
+              "to": "hospital0317.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "hospital0317.f0.r5",
+              "to": "hospital0317.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "hospital0317.f0.r6",
+              "to": "hospital0317.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "hospital0317.inspected",
+        "hospital0317.documented",
+        "hospital0317.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "factory",
+      "name": "Fábrica",
+      "districtId": "industrial",
+      "unlockChapter": 6,
+      "npc": "Gerência industrial",
+      "systems": [
+        "elétrica",
+        "bombas",
+        "climatização"
+      ],
+      "lore": "Decisão entre parar produção e continuar com equipamento auxiliar degradado.",
+      "x": -85,
+      "z": 60,
+      "floors": [
+        {
+          "id": "factory.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "factory.f0.r0",
+              "name": "Portaria",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Portaria; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "factory.f0.r1",
+              "name": "Produção",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Produção; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "factory.f0.r2",
+              "name": "Máquina auxiliar",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Máquina auxiliar; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "factory.f0.r3",
+              "name": "Oficina",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Oficina; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "factory.f0.r4",
+              "name": "Quadro principal",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Quadro principal; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "factory.f0.r5",
+              "name": "Bombas",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área Bombas; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "factory.f0.r6",
+              "name": "HVAC",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Área HVAC; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "factory.f0.r7",
+              "name": "Pátio técnico",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "bombas",
+                "climatização"
+              ],
+              "hotspot": "Decisão entre parar produção e continuar com equipamento auxiliar degradado."
+            }
+          ],
+          "connections": [
+            {
+              "from": "factory.f0.r0",
+              "to": "factory.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "factory.f0.r0",
+              "to": "factory.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "factory.f0.r1",
+              "to": "factory.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "factory.f0.r2",
+              "to": "factory.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "factory.f0.r2",
+              "to": "factory.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "factory.f0.r3",
+              "to": "factory.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "factory.f0.r4",
+              "to": "factory.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "factory.f0.r4",
+              "to": "factory.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "factory.f0.r5",
+              "to": "factory.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "factory.f0.r6",
+              "to": "factory.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "factory.inspected",
+        "factory.documented",
+        "factory.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "datacenter",
+      "name": "Data center",
+      "districtId": "technology",
+      "unlockChapter": 7,
+      "npc": "Operações de TI",
+      "systems": [
+        "elétrica",
+        "climatização",
+        "rede",
+        "redundância"
+      ],
+      "lore": "Não pode ficar offline; calor e redundância condicionam a ordem dos reparos.",
+      "x": 46,
+      "z": 80,
+      "floors": [
+        {
+          "id": "datacenter.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "datacenter.f0.r0",
+              "name": "Controle de acesso",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "rede",
+                "redundância"
+              ],
+              "hotspot": "Área Controle de acesso; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "datacenter.f0.r1",
+              "name": "Sala de racks A",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "rede",
+                "redundância"
+              ],
+              "hotspot": "Área Sala de racks A; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "datacenter.f0.r2",
+              "name": "Sala de racks B",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "rede",
+                "redundância"
+              ],
+              "hotspot": "Área Sala de racks B; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "datacenter.f0.r3",
+              "name": "Refrigeração",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "rede",
+                "redundância"
+              ],
+              "hotspot": "Área Refrigeração; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "datacenter.f0.r4",
+              "name": "Energia A",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "rede",
+                "redundância"
+              ],
+              "hotspot": "Área Energia A; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "datacenter.f0.r5",
+              "name": "Energia B",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "rede",
+                "redundância"
+              ],
+              "hotspot": "Área Energia B; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "datacenter.f0.r6",
+              "name": "Telecom",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "rede",
+                "redundância"
+              ],
+              "hotspot": "Área Telecom; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "datacenter.f0.r7",
+              "name": "Sala de operação",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "climatização",
+                "rede",
+                "redundância"
+              ],
+              "hotspot": "Não pode ficar offline; calor e redundância condicionam a ordem dos reparos."
+            }
+          ],
+          "connections": [
+            {
+              "from": "datacenter.f0.r0",
+              "to": "datacenter.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "datacenter.f0.r0",
+              "to": "datacenter.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "datacenter.f0.r1",
+              "to": "datacenter.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "datacenter.f0.r2",
+              "to": "datacenter.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "datacenter.f0.r2",
+              "to": "datacenter.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "datacenter.f0.r3",
+              "to": "datacenter.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "datacenter.f0.r4",
+              "to": "datacenter.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "datacenter.f0.r4",
+              "to": "datacenter.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "datacenter.f0.r5",
+              "to": "datacenter.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "datacenter.f0.r6",
+              "to": "datacenter.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "datacenter.inspected",
+        "datacenter.documented",
+        "datacenter.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "smarttower",
+      "name": "Edifício inteligente",
+      "districtId": "technology",
+      "unlockChapter": 7,
+      "npc": "Gerência técnica",
+      "systems": [
+        "elétrica",
+        "automação",
+        "climatização",
+        "acesso",
+        "rede"
+      ],
+      "lore": "Tudo está conectado: uma falha se propaga entre subsistemas.",
+      "x": 65,
+      "z": 80,
+      "floors": [
+        {
+          "id": "smarttower.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "smarttower.f0.r0",
+              "name": "Lobby",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "automação",
+                "climatização",
+                "acesso",
+                "rede"
+              ],
+              "hotspot": "Área Lobby; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smarttower.f0.r1",
+              "name": "Escritórios",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "automação",
+                "climatização",
+                "acesso",
+                "rede"
+              ],
+              "hotspot": "Área Escritórios; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smarttower.f0.r2",
+              "name": "Automação",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "automação",
+                "climatização",
+                "acesso",
+                "rede"
+              ],
+              "hotspot": "Área Automação; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smarttower.f0.r3",
+              "name": "Controle de acesso",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "automação",
+                "climatização",
+                "acesso",
+                "rede"
+              ],
+              "hotspot": "Tudo está conectado: uma falha se propaga entre subsistemas."
+            }
+          ],
+          "connections": [
+            {
+              "from": "smarttower.f0.r0",
+              "to": "smarttower.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "smarttower.f0.r0",
+              "to": "smarttower.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "smarttower.f0.r1",
+              "to": "smarttower.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "smarttower.f0.r2",
+              "to": "smarttower.f0.r3",
+              "type": "door"
+            }
+          ]
+        },
+        {
+          "id": "smarttower.floor.1",
+          "name": "Pavimento técnico",
+          "index": 1,
+          "rooms": [
+            {
+              "id": "smarttower.f1.r0",
+              "name": "HVAC",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "automação",
+                "climatização",
+                "acesso",
+                "rede"
+              ],
+              "hotspot": "Área HVAC; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smarttower.f1.r1",
+              "name": "Energia",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "automação",
+                "climatização",
+                "acesso",
+                "rede"
+              ],
+              "hotspot": "Área Energia; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smarttower.f1.r2",
+              "name": "Telecom",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "automação",
+                "climatização",
+                "acesso",
+                "rede"
+              ],
+              "hotspot": "Área Telecom; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "smarttower.f1.r3",
+              "name": "Cobertura",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "automação",
+                "climatização",
+                "acesso",
+                "rede"
+              ],
+              "hotspot": "Tudo está conectado: uma falha se propaga entre subsistemas."
+            }
+          ],
+          "connections": [
+            {
+              "from": "smarttower.f1.r0",
+              "to": "smarttower.f1.r1",
+              "type": "door"
+            },
+            {
+              "from": "smarttower.f1.r0",
+              "to": "smarttower.f1.r2",
+              "type": "door"
+            },
+            {
+              "from": "smarttower.f1.r1",
+              "to": "smarttower.f1.r3",
+              "type": "door"
+            },
+            {
+              "from": "smarttower.f1.r2",
+              "to": "smarttower.f1.r3",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [
+        {
+          "from": "smarttower.floor.0",
+          "to": "smarttower.floor.1",
+          "type": "service-stair-or-lift",
+          "previewTravel": "tablet"
+        }
+      ],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "smarttower.inspected",
+        "smarttower.documented",
+        "smarttower.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "drainage",
+      "name": "Casa de bombas / drenagem",
+      "districtId": "industrial",
+      "unlockChapter": 8,
+      "npc": "Defesa civil",
+      "systems": [
+        "bombas",
+        "elétrica",
+        "hidráulica"
+      ],
+      "lore": "A tempestade ameaça inundar a instalação; prioridade compete com outros chamados.",
+      "x": -66,
+      "z": 60,
+      "floors": [
+        {
+          "id": "drainage.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "drainage.f0.r0",
+              "name": "Acesso elevado",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "bombas",
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Acesso elevado; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "drainage.f0.r1",
+              "name": "Poço de drenagem",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "bombas",
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Poço de drenagem; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "drainage.f0.r2",
+              "name": "Bomba A",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "bombas",
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Bomba A; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "drainage.f0.r3",
+              "name": "Bomba B",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "bombas",
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Bomba B; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "drainage.f0.r4",
+              "name": "Comando",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "bombas",
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Comando; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "drainage.f0.r5",
+              "name": "Energia",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "bombas",
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Energia; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "drainage.f0.r6",
+              "name": "Reservatório",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "bombas",
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "Área Reservatório; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "drainage.f0.r7",
+              "name": "Saída de emergência",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "bombas",
+                "elétrica",
+                "hidráulica"
+              ],
+              "hotspot": "A tempestade ameaça inundar a instalação; prioridade compete com outros chamados."
+            }
+          ],
+          "connections": [
+            {
+              "from": "drainage.f0.r0",
+              "to": "drainage.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "drainage.f0.r0",
+              "to": "drainage.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "drainage.f0.r1",
+              "to": "drainage.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "drainage.f0.r2",
+              "to": "drainage.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "drainage.f0.r2",
+              "to": "drainage.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "drainage.f0.r3",
+              "to": "drainage.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "drainage.f0.r4",
+              "to": "drainage.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "drainage.f0.r4",
+              "to": "drainage.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "drainage.f0.r5",
+              "to": "drainage.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "drainage.f0.r6",
+              "to": "drainage.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "drainage.inspected",
+        "drainage.documented",
+        "drainage.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "blackouttower",
+      "name": "Torre empresarial / apagão",
+      "districtId": "corporate",
+      "unlockChapter": 9,
+      "npc": "Lara / administração",
+      "systems": [
+        "elétrica",
+        "geradores",
+        "redundância"
+      ],
+      "lore": "Testes mensais registrados não aconteceram. Três redundâncias anunciadas, nenhuma operacional.",
+      "x": 89,
+      "z": 0,
+      "floors": [
+        {
+          "id": "blackouttower.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "blackouttower.f0.r0",
+              "name": "Lobby",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "redundância"
+              ],
+              "hotspot": "Área Lobby; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "blackouttower.f0.r1",
+              "name": "Escritórios",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "redundância"
+              ],
+              "hotspot": "Área Escritórios; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "blackouttower.f0.r2",
+              "name": "Gerador principal",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "redundância"
+              ],
+              "hotspot": "Área Gerador principal; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "blackouttower.f0.r3",
+              "name": "Tanque fictício",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "redundância"
+              ],
+              "hotspot": "Testes mensais registrados não aconteceram. Três redundâncias anunciadas, nenhuma operacional."
+            }
+          ],
+          "connections": [
+            {
+              "from": "blackouttower.f0.r0",
+              "to": "blackouttower.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "blackouttower.f0.r0",
+              "to": "blackouttower.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "blackouttower.f0.r1",
+              "to": "blackouttower.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "blackouttower.f0.r2",
+              "to": "blackouttower.f0.r3",
+              "type": "door"
+            }
+          ]
+        },
+        {
+          "id": "blackouttower.floor.1",
+          "name": "Pavimento técnico",
+          "index": 1,
+          "rooms": [
+            {
+              "id": "blackouttower.f1.r0",
+              "name": "Partida / baterias",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "redundância"
+              ],
+              "hotspot": "Área Partida / baterias; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "blackouttower.f1.r1",
+              "name": "Backup secundário",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "redundância"
+              ],
+              "hotspot": "Área Backup secundário; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "blackouttower.f1.r2",
+              "name": "Quadro principal",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "redundância"
+              ],
+              "hotspot": "Área Quadro principal; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "blackouttower.f1.r3",
+              "name": "Sala de evidências",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "redundância"
+              ],
+              "hotspot": "Testes mensais registrados não aconteceram. Três redundâncias anunciadas, nenhuma operacional."
+            }
+          ],
+          "connections": [
+            {
+              "from": "blackouttower.f1.r0",
+              "to": "blackouttower.f1.r1",
+              "type": "door"
+            },
+            {
+              "from": "blackouttower.f1.r0",
+              "to": "blackouttower.f1.r2",
+              "type": "door"
+            },
+            {
+              "from": "blackouttower.f1.r1",
+              "to": "blackouttower.f1.r3",
+              "type": "door"
+            },
+            {
+              "from": "blackouttower.f1.r2",
+              "to": "blackouttower.f1.r3",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [
+        {
+          "from": "blackouttower.floor.0",
+          "to": "blackouttower.floor.1",
+          "type": "service-stair-or-lift",
+          "previewTravel": "tablet"
+        }
+      ],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "blackouttower.inspected",
+        "blackouttower.documented",
+        "blackouttower.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "vertice",
+      "name": "Vértice Serviços Integrados",
+      "districtId": "corporate",
+      "unlockChapter": 10,
+      "npc": "Victor Salles / Íris",
+      "systems": [
+        "rede",
+        "documentação"
+      ],
+      "lore": "Oferta de terceirização e arquivo de recomendações omitidas. Sem invasão ou missão de combate.",
+      "x": 51,
+      "z": 20,
+      "floors": [
+        {
+          "id": "vertice.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "vertice.f0.r0",
+              "name": "Recepção",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "rede",
+                "documentação"
+              ],
+              "hotspot": "Área Recepção; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "vertice.f0.r1",
+              "name": "Sala de propostas",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "rede",
+                "documentação"
+              ],
+              "hotspot": "Área Sala de propostas; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "vertice.f0.r2",
+              "name": "Diretoria",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "rede",
+                "documentação"
+              ],
+              "hotspot": "Área Diretoria; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "vertice.f0.r3",
+              "name": "Engenharia",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "rede",
+                "documentação"
+              ],
+              "hotspot": "Área Engenharia; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "vertice.f0.r4",
+              "name": "Arquivo antigo",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "rede",
+                "documentação"
+              ],
+              "hotspot": "Área Arquivo antigo; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "vertice.f0.r5",
+              "name": "Base de relatórios",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "rede",
+                "documentação"
+              ],
+              "hotspot": "Área Base de relatórios; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "vertice.f0.r6",
+              "name": "Sala de reunião",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "rede",
+                "documentação"
+              ],
+              "hotspot": "Área Sala de reunião; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "vertice.f0.r7",
+              "name": "Acesso de serviço",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "rede",
+                "documentação"
+              ],
+              "hotspot": "Oferta de terceirização e arquivo de recomendações omitidas. Sem invasão ou missão de combate."
+            }
+          ],
+          "connections": [
+            {
+              "from": "vertice.f0.r0",
+              "to": "vertice.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "vertice.f0.r0",
+              "to": "vertice.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "vertice.f0.r1",
+              "to": "vertice.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "vertice.f0.r2",
+              "to": "vertice.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "vertice.f0.r2",
+              "to": "vertice.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "vertice.f0.r3",
+              "to": "vertice.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "vertice.f0.r4",
+              "to": "vertice.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "vertice.f0.r4",
+              "to": "vertice.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "vertice.f0.r5",
+              "to": "vertice.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "vertice.f0.r6",
+              "to": "vertice.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "vertice.inspected",
+        "vertice.documented",
+        "vertice.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "companyhq",
+      "name": "Sede expandida da empresa",
+      "districtId": "expansion",
+      "unlockChapter": 7,
+      "npc": "Equipe do jogador",
+      "systems": [
+        "gestão",
+        "elétrica",
+        "rede"
+      ],
+      "lore": "Funcionários, frota e central de operações tornam visível o crescimento.",
+      "x": 19,
+      "z": -40,
+      "floors": [
+        {
+          "id": "companyhq.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "companyhq.f0.r0",
+              "name": "Recepção / atendimento",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "gestão",
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Recepção / atendimento; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "companyhq.f0.r1",
+              "name": "Administração",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "gestão",
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Administração; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "companyhq.f0.r2",
+              "name": "Oficina",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "gestão",
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Oficina; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "companyhq.f0.r3",
+              "name": "Almoxarifado",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "gestão",
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Almoxarifado; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "companyhq.f0.r4",
+              "name": "Treinamento",
+              "x": 0,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "gestão",
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Treinamento; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "companyhq.f0.r5",
+              "name": "Monitoramento",
+              "x": 8,
+              "z": 16,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "gestão",
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Monitoramento; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "companyhq.f0.r6",
+              "name": "Garagem / frota",
+              "x": 0,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "gestão",
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Área Garagem / frota; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "companyhq.f0.r7",
+              "name": "Sala de planejamento",
+              "x": 8,
+              "z": 24,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "gestão",
+                "elétrica",
+                "rede"
+              ],
+              "hotspot": "Funcionários, frota e central de operações tornam visível o crescimento."
+            }
+          ],
+          "connections": [
+            {
+              "from": "companyhq.f0.r0",
+              "to": "companyhq.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "companyhq.f0.r0",
+              "to": "companyhq.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "companyhq.f0.r1",
+              "to": "companyhq.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "companyhq.f0.r2",
+              "to": "companyhq.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "companyhq.f0.r2",
+              "to": "companyhq.f0.r4",
+              "type": "door"
+            },
+            {
+              "from": "companyhq.f0.r3",
+              "to": "companyhq.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "companyhq.f0.r4",
+              "to": "companyhq.f0.r5",
+              "type": "door"
+            },
+            {
+              "from": "companyhq.f0.r4",
+              "to": "companyhq.f0.r6",
+              "type": "door"
+            },
+            {
+              "from": "companyhq.f0.r5",
+              "to": "companyhq.f0.r7",
+              "type": "door"
+            },
+            {
+              "from": "companyhq.f0.r6",
+              "to": "companyhq.f0.r7",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "companyhq.inspected",
+        "companyhq.documented",
+        "companyhq.improved"
+      ],
+      "visitAfterCampaign": true
+    },
+    {
+      "id": "central",
+      "name": "Santa Aurora Central",
+      "districtId": "civic",
+      "unlockChapter": 12,
+      "npc": "Lara / equipe / município",
+      "systems": [
+        "elétrica",
+        "geradores",
+        "bombas",
+        "climatização",
+        "rede",
+        "automação"
+      ],
+      "lore": "Cascata: aquecimento, refrigeração reduzida, drenagem parada e perda de comunicação.",
+      "x": -19,
+      "z": 25,
+      "floors": [
+        {
+          "id": "central.floor.0",
+          "name": "Térreo / serviço",
+          "index": 0,
+          "rooms": [
+            {
+              "id": "central.f0.r0",
+              "name": "Centro administrativo",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Área Centro administrativo; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "central.f0.r1",
+              "name": "Monitoramento urbano",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Área Monitoramento urbano; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "central.f0.r2",
+              "name": "Data center municipal",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Área Data center municipal; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "central.f0.r3",
+              "name": "Telecomunicações",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Cascata: aquecimento, refrigeração reduzida, drenagem parada e perda de comunicação."
+            }
+          ],
+          "connections": [
+            {
+              "from": "central.f0.r0",
+              "to": "central.f0.r1",
+              "type": "door"
+            },
+            {
+              "from": "central.f0.r0",
+              "to": "central.f0.r2",
+              "type": "door"
+            },
+            {
+              "from": "central.f0.r1",
+              "to": "central.f0.r3",
+              "type": "door"
+            },
+            {
+              "from": "central.f0.r2",
+              "to": "central.f0.r3",
+              "type": "door"
+            }
+          ]
+        },
+        {
+          "id": "central.floor.1",
+          "name": "Pavimento técnico",
+          "index": 1,
+          "rooms": [
+            {
+              "id": "central.f1.r0",
+              "name": "Centro de emergência",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Área Centro de emergência; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "central.f1.r1",
+              "name": "Distribuição elétrica",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Área Distribuição elétrica; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "central.f1.r2",
+              "name": "Geradores",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Área Geradores; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "central.f1.r3",
+              "name": "Bombas / drenagem",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Cascata: aquecimento, refrigeração reduzida, drenagem parada e perda de comunicação."
+            }
+          ],
+          "connections": [
+            {
+              "from": "central.f1.r0",
+              "to": "central.f1.r1",
+              "type": "door"
+            },
+            {
+              "from": "central.f1.r0",
+              "to": "central.f1.r2",
+              "type": "door"
+            },
+            {
+              "from": "central.f1.r1",
+              "to": "central.f1.r3",
+              "type": "door"
+            },
+            {
+              "from": "central.f1.r2",
+              "to": "central.f1.r3",
+              "type": "door"
+            }
+          ]
+        },
+        {
+          "id": "central.floor.2",
+          "name": "Nível superior",
+          "index": 2,
+          "rooms": [
+            {
+              "id": "central.f2.r0",
+              "name": "HVAC principal",
+              "x": 0,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Área HVAC principal; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "central.f2.r1",
+              "name": "Controlador / automação",
+              "x": 8,
+              "z": 0,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Área Controlador / automação; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "central.f2.r2",
+              "name": "Corredor de serviço",
+              "x": 0,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Área Corredor de serviço; pontos técnicos e histórico ainda em produção."
+            },
+            {
+              "id": "central.f2.r3",
+              "name": "Pátio do amanhecer",
+              "x": 8,
+              "z": 8,
+              "width": 8,
+              "depth": 8,
+              "systemIds": [
+                "elétrica",
+                "geradores",
+                "bombas",
+                "climatização",
+                "rede",
+                "automação"
+              ],
+              "hotspot": "Cascata: aquecimento, refrigeração reduzida, drenagem parada e perda de comunicação."
+            }
+          ],
+          "connections": [
+            {
+              "from": "central.f2.r0",
+              "to": "central.f2.r1",
+              "type": "door"
+            },
+            {
+              "from": "central.f2.r0",
+              "to": "central.f2.r2",
+              "type": "door"
+            },
+            {
+              "from": "central.f2.r1",
+              "to": "central.f2.r3",
+              "type": "door"
+            },
+            {
+              "from": "central.f2.r2",
+              "to": "central.f2.r3",
+              "type": "door"
+            }
+          ]
+        }
+      ],
+      "verticalConnections": [
+        {
+          "from": "central.floor.0",
+          "to": "central.floor.1",
+          "type": "service-stair-or-lift",
+          "previewTravel": "tablet"
+        },
+        {
+          "from": "central.floor.1",
+          "to": "central.floor.2",
+          "type": "service-stair-or-lift",
+          "previewTravel": "tablet"
+        }
+      ],
+      "productionState": "layout-blockout",
+      "persistentFlags": [
+        "central.inspected",
+        "central.documented",
+        "central.improved"
+      ],
+      "visitAfterCampaign": true
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "elétrica",
+      "to": "bombas",
+      "effect": "Bombas virtuais sem alimentação param."
+    },
+    {
+      "from": "elétrica",
+      "to": "climatização",
+      "effect": "HVAC sem alimentação perde capacidade."
+    },
+    {
+      "from": "bombas",
+      "to": "climatização",
+      "effect": "Circulação insuficiente reduz refrigeração."
+    },
+    {
+      "from": "climatização",
+      "to": "rede",
+      "effect": "Calor crescente reduz capacidade de servidores."
+    },
+    {
+      "from": "rede",
+      "to": "automação",
+      "effect": "Perda de comunicação impede comando remoto."
+    },
+    {
+      "from": "automação",
+      "to": "redundância",
+      "effect": "Backup pode não assumir automaticamente."
+    }
+  ]
+}
