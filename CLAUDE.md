@@ -1,6 +1,6 @@
 # PROJECT FACILITY — contexto para Claude
 
-Leia primeiro `Docs/DECISOES_ATUAIS.md`, `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`, `Docs/ART_BIBLE_REALISMO_SANTA_AURORA.md`, `Docs/GDD_PROGRESSAO_VIDA_LIBERDADE_ECONOMIA.md`, `Docs/LORE_CAMPANHA_ORIGINAL.md`, `Docs/MAPA_CAMPANHA.md`, `Docs/STATUS_IMPLEMENTACAO.md` e `README.md`.
+Leia primeiro `Docs/DECISOES_ATUAIS.md`, `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`, `Docs/WORLD_BIBLE_SANTA_AURORA_V1.md`, `Docs/REGISTRO_ESTRUTURAS_SANTA_AURORA_V1.md`, `Docs/ART_BIBLE_REALISMO_SANTA_AURORA.md`, `Docs/GDD_PROGRESSAO_VIDA_LIBERDADE_ECONOMIA.md`, `Docs/LORE_CAMPANHA_ORIGINAL.md`, `Docs/MAPA_CAMPANHA.md`, `Docs/STATUS_IMPLEMENTACAO.md` e `README.md`.
 
 ## Direção vigente
 
@@ -45,3 +45,31 @@ O primeiro aceite da campanha usa `ServiceSession.AcceptPrologue`; os três serv
 `CareerData.completedChapterOneJobs/buildingHistory/recurringContractUnlocked` são persistentes. Três serviços mais reputação 25 liberam a indicação de Helena. O primeiro contrato preventivo de bomba foi integrado ao código com ID estável `campaign.c2.recurringcondo.pump.v1`, estoque `pumpKits`, flags persistentes e extensão do smoke test; **essa nova etapa ainda precisa de validação real na Unity após os commits recentes**. A classe `ElectricalNetwork` conserva o nome original por compatibilidade e também fornece leituras hidráulicas abstratas. Preservar compatibilidade de saves, IDs e testes separados do jogador.
 
 Use branches `codex/` ou `claude/` e mudanças focadas para permitir integração. Este arquivo é contexto de colaboração, não autorização para publicar releases, enviar mensagens ou mudar a visibilidade do repositório.
+
+
+## Prioridade vigente — WORLD FOUNDATION W1
+
+O usuário decidiu que, por ser um projeto ambicioso, o mundo e as estruturas devem ser construídos primeiro com base na história.
+
+**Não ampliar missões/sistemas de campanha antes de concluir W1, salvo correção necessária para manter o protótipo compilável.**
+
+Arquivos de produção:
+- `ArtSource/Blender/World/masterplan_spec_v1.json`: coordenadas métricas, distritos, 24 locais da campanha, 20 locais de vida/economia, 8 vias principais e grid de streaming.
+- `ArtSource/Blender/World/structure_registry_v1.json`: hero locations, áreas acessíveis, capítulos e estados.
+- `Tools/Blender/create_santa_aurora_masterplan.py`: gera `SantaAurora_Masterplan_v1.blend` sem sobrescrever o masterplan anterior.
+- `Tools/Map/validate_masterplan.py`: valida o spec independentemente do Blender.
+- `Docs/masterplan-validation-v1.json`: validação estática atual aprovada.
+
+### W1 precisa entregar
+1. arquivo Blender métrico 8×8 km;
+2. seis distritos legíveis;
+3. oito corredores viários;
+4. volumes dos 24 locais da campanha;
+5. marcadores dos 20 locais de vida/economia;
+6. skyline preliminar;
+7. acesso viário plausível;
+8. screenshots reais do Blender;
+9. reabertura do .blend;
+10. relatório de geração/validação.
+
+A geometria gerada em W1 é **massing**, não arte final. A regra “não low-poly” se aplica ao resultado de produção final; blockout simples é permitido apenas nesta etapa de planejamento espacial.
