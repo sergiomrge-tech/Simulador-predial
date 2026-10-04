@@ -1,4 +1,4 @@
-> **Sequência autorizada:** após concluir esta Etapa A e passar o gate, continue automaticamente pela fila em `Docs/CLAUDE_NIGHT_QUEUE.md` (Etapas B → C → D). Não aguarde confirmação entre elas salvo bloqueio crítico.
+> **Sequência autorizada atualizada:** concluir primeiro o masterplan/W1.5 já em andamento. Depois executar a pesquisa de skills, em seguida revisão/gates/capturas e então W2 Cidade Antiga Base. Não interromper o W1.5 para começar skills.
 
 # CLAUDE NEXT TASK — ETAPA A
 
