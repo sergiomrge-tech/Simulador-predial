@@ -5,10 +5,10 @@
   "blenderVersion": "5.2.1 LTS",
   "cell": "SA_M01_01_S01_03",
   "sourceManifest": "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json",
-  "objects": 48,
+  "objects": 81,
   "objectTypes": {
     "EMPTY": 31,
-    "MESH": 17
+    "MESH": 50
   },
   "modifiers": {
     "NODES": 5
@@ -49,11 +49,11 @@
       "manifestObjects": 1
     },
     "Props": {
-      "objects": 1,
+      "objects": 34,
       "types": {
-        "MESH": 1
+        "MESH": 34
       },
-      "meshTris": 0,
+      "meshTris": 163342,
       "manifestObjects": 1
     },
     "Roads": {
@@ -61,7 +61,7 @@
       "types": {
         "MESH": 1
       },
-      "meshTris": 8442,
+      "meshTris": 9022,
       "manifestObjects": 1
     },
     "Terrain": {
@@ -81,10 +81,10 @@
       "manifestObjects": 1
     }
   },
-  "meshTris": 30872,
+  "meshTris": 194794,
   "largestMesh": {
-    "name": "HERO_garage__workshop_shed__F00",
-    "tris": 10090
+    "name": "OT_Vehicle_SA_M01_01_S01_03_008",
+    "tris": 15542
   },
   "geometryNodesObjects": [
     "OT_Accessories_SA_M01_01_S01_03",
@@ -314,6 +314,39 @@
     "HERO_garage__parking",
     "HERO_garage__workshop_shed__F00",
     "HERO_garage__workshop_shed__ROOF",
+    "OT_Vehicle_SA_M01_01_S01_03_008",
+    "OT_Vehicle_SA_M01_01_S01_03_175",
+    "OT_Vehicle_SA_M01_01_S01_03_176",
+    "OT_Vehicle_SA_M01_01_S01_03_177",
+    "OT_Vehicle_SA_M01_01_S01_03_178",
+    "OT_Vehicle_SA_M01_01_S01_03_209",
+    "OT_Vehicle_SA_M01_01_S01_03_210",
+    "OT_Vehicle_SA_M01_01_S01_03_211",
+    "OT_Vehicle_SA_M01_01_S01_03_268",
+    "OT_Vehicle_SA_M01_01_S01_03_269",
+    "OT_Vehicle_SA_M01_01_S01_03_274",
+    "OT_Vehicle_SA_M01_01_S01_03_275",
+    "OT_Vehicle_SA_M01_01_S01_03_276",
+    "OT_Vehicle_SA_M01_01_S01_03_277",
+    "OT_Vehicle_SA_M01_01_S01_03_278",
+    "OT_Vehicle_SA_M01_01_S01_03_279",
+    "OT_Vehicle_SA_M01_01_S01_03_280",
+    "OT_Vehicle_SA_M01_01_S01_03_281",
+    "OT_Vehicle_SA_M01_01_S01_03_283",
+    "OT_Vehicle_SA_M01_01_S01_03_284",
+    "OT_Vehicle_SA_M01_01_S01_03_285",
+    "OT_Vehicle_SA_M01_01_S01_03_287",
+    "OT_Vehicle_SA_M01_01_S01_03_288",
+    "OT_Vehicle_SA_M01_01_S01_03_289",
+    "OT_Vehicle_SA_M01_01_S01_03_290",
+    "OT_Vehicle_SA_M01_01_S01_03_291",
+    "OT_Vehicle_SA_M01_01_S01_03_292",
+    "OT_Vehicle_SA_M01_01_S01_03_293",
+    "OT_Vehicle_SA_M01_01_S01_03_680",
+    "OT_Vehicle_SA_M01_01_S01_03_681",
+    "OT_Vehicle_SA_M01_01_S01_03_709",
+    "OT_Vehicle_SA_M01_01_S01_03_710",
+    "OT_Vehicle_SA_M01_01_S01_03_851",
     "PROXY_garage__G0",
     "SLOT_garage__ALL__maleta_guto_original",
     "SLOT_garage__G0__boxes",
@@ -338,7 +371,7 @@
   ],
   "errors": [],
   "warnings": [
-    "36 cell-tagged objects are not listed in manifest",
+    "69 cell-tagged objects are not listed in manifest",
     "Geometry Nodes present: export must evaluate/realize geometry in a staging copy, never destructively in source",
     "Linked collection instances present: hero assets should remain separate prefab sources instead of being blindly baked into static cell FBX"
   ],

@@ -113,11 +113,28 @@ namespace FacilityOps
             Active = true;
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-worldSliceQaTour") >= 0 && debugOverlay != null)
                 StartCoroutine(gameObject.AddComponent<WorldSliceQaTour>().Run(game, streamService, debugOverlay));
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-worldSliceQaWalk") >= 0 && debugOverlay != null)
+                StartCoroutine(RunQaWalk());
             Debug.Log(
                 "WORLD SLICE BRIDGE ACTIVE: " +
                 homeCell.Name +
                 " @ " +
                 initialPosition);
+        }
+
+        // Development-player autopilot: continuous walk with screenshots and per-segment metrics (see WorldSliceQaWalker).
+        private IEnumerator RunQaWalk()
+        {
+            string path = System.IO.Path.Combine(Application.streamingAssetsPath, "world-walk-route.json");
+            if (!System.IO.File.Exists(path)) { Debug.LogError("WORLD WALK: route missing " + path); Application.Quit(2); yield break; }
+            var route = JsonUtility.FromJson<WorldSliceQaWalker.Route>(System.IO.File.ReadAllText(path));
+            var walker = gameObject.AddComponent<WorldSliceQaWalker>();
+            walker.CaptureFolder = System.IO.Path.Combine(Application.persistentDataPath, "WalkCaptures");
+            walker.SummaryPath = System.IO.Path.Combine(Application.persistentDataPath, "world-walk-qa.json");
+            yield return StartCoroutine(walker.Run(game, streamService, debugOverlay, route));
+            Debug.Log("WORLD WALK SUMMARY: " + walker.SummaryPath);
+            yield return new WaitForSeconds(1f);
+            Application.Quit(walker.Result.status == "PASS" ? 0 : 1);
         }
 
         private void Update()

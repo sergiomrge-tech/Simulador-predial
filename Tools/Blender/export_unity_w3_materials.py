@@ -149,6 +149,21 @@ for name in sorted(used):
         # Blender drives glass alpha by Fresnel; Unity v0.1 uses this as its face-on baseline.
         alpha = {"vidro": 0.16, "vidro_vitrine": 0.12, "vidro_fachada": 0.86}.get(base_name, alpha)
 
+    # W3.2: authored RGBA decals (cartazes, grafites, placas, marcas) are textured transparent quads; vehicle glass and lamp lenses are translucent
+    # (the interior is modelled). Both reuse the transparent URP path: base map alpha x tint alpha.
+    if name.startswith("decal_w31_"):
+        png = root / "ArtSource" / "Textures" / "decals_w31" / (name[len("decal_w31_"):] + ".png")
+        if png.is_file():
+            maps = [{"channel": "BaseColor", "path": png.relative_to(root).as_posix()}]
+            tile_m, is_glass, alpha, roughness = 1.0, True, 1.0, 0.9
+            rgba = [1.0, 1.0, 1.0, 1.0]
+            tint = rgba[:]
+            status = "decal autoral W3.1 (RGBA, transparente)"
+    elif family in ("vidro_veiculo", "lente_veiculo"):
+        is_glass = True
+        alpha = {"vidro_veiculo_claro": 0.28, "lente_farol": 0.25, "lente_lanterna": 0.45}.get(name, 0.3)
+        status = "vidro/lente de veículo translúcido (interior modelado)"
+
     records.append({
         "name": name,
         "baseName": base_name,

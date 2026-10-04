@@ -43,6 +43,9 @@ namespace FacilityOps.Editor
                 {
                     EditorSceneManager.OpenScene(WorldCellSceneScaffolder.ScenePathFor(cell), OpenSceneMode.Single);
                     var root = UnityEngine.Object.FindAnyObjectByType<WorldCellRoot>();
+                    // Doors are closed by default in the slice; the reference NavMesh is the route a player can take once the doors are operated
+                    // (the Play Mode walkers open them through the real [E] interaction). The pose is never saved: scenes are only opened here.
+                    foreach (var door in root.GetComponentsInChildren<WorldDoor>(true)) door.SetOpenImmediate(true);
                     if (openDoors)
                         foreach (var leaf in root.GetComponentsInChildren<MeshFilter>())
                             if (leaf.name.Contains("_stair_door__leaf"))
@@ -50,6 +53,8 @@ namespace FacilityOps.Editor
                     var sources = new List<NavMeshBuildSource>();
                     NavMeshBuilder.CollectSources(root.transform, ~0, NavMeshCollectGeometry.PhysicsColliders,
                         0, new List<NavMeshBuildMarkup>(), sources);
+                    if (Environment.GetEnvironmentVariable("NAV_SKIP_VEHICLES") == "1")
+                        sources.RemoveAll(src => src.component != null && src.component.GetComponentInParent<LODGroup>() != null);
                     all.AddRange(sources);
                     foreach (var marker in root.GetComponentsInChildren<WorldGameplayMarker>())
                     {

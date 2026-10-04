@@ -1,0 +1,73 @@
+{
+    "status": "PASS",
+    "fingerprint": "37ED5D7F047973EEA4B61BFA5D13F0EEEBE49E52FD4DDFF3A713CEA8C8635799",
+    "unityVersion": "6000.6.2f1",
+    "device": "NVIDIA GeForce RTX 4060 Ti",
+    "scope": "Unity Editor Play Mode: FirstPersonController CharacterController driven frame by frame (3 m/s, gravity -20) along the street->panel line over authored colliders. Editor, not a standalone benchmark.",
+    "interaction": "TechnicalStation",
+    "failure": "",
+    "pathCorners": 386,
+    "frames": 3601,
+    "airborneFrames": 5,
+    "maxAirborneStreak": 4,
+    "penetrationFrames": 0,
+    "stuckWindows": 0,
+    "pathLength": 185.18618774414063,
+    "seconds": 60.01592254638672,
+    "maxFloorGap": 0.5729141235351563,
+    "finalDistanceToTarget": 0.250616192817688,
+    "maxHeight": 10.089786529541016,
+    "start": {
+        "x": -2350.0,
+        "y": 27.051223754882813,
+        "z": -1831.0
+    },
+    "target": {
+        "x": -2345.5,
+        "y": 37.05101013183594,
+        "z": -1800.300048828125
+    },
+    "end": {
+        "x": -2345.714111328125,
+        "y": 37.14100646972656,
+        "z": -1800.1697998046875
+    },
+    "milestones": [
+        {
+            "name": "escada: primeiros degraus",
+            "seconds": 52.51603698730469,
+            "position": {
+                "x": -2347.163330078125,
+                "y": 27.224689483642578,
+                "z": -1797.78466796875
+            }
+        },
+        {
+            "name": "escada: patamar do 1º andar (meio da subida)",
+            "seconds": 53.68268585205078,
+            "position": {
+                "x": -2347.631103515625,
+                "y": 29.357765197753906,
+                "z": -1794.6329345703125
+            }
+        },
+        {
+            "name": "chegada ao 1º pavimento",
+            "seconds": 54.6660041809082,
+            "position": {
+                "x": -2347.6494140625,
+                "y": 31.260831832885742,
+                "z": -1797.4412841796875
+            }
+        },
+        {
+            "name": "chegada ao piso do prólogo (4º andar)",
+            "seconds": 58.4992790222168,
+            "position": {
+                "x": -2347.870849609375,
+                "y": 36.77534103393555,
+                "z": -1796.49609375
+            }
+        }
+    ]
+}

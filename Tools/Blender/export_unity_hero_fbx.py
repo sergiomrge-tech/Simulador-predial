@@ -114,10 +114,67 @@ for obj in visual:
     obj.select_set(True)
 bpy.context.view_layer.objects.active = hero_root
 
+def split_horizonte_gate(staged):
+    """Export-time (staging copy only) pedestrian gate for the Horizonte: the authored hero has the gate leaf fused into the `site` mesh on top of
+    a continuous 0.9 m wall block, so the building had no pedestrian entrance. In the staging copy the wall block inside the gate gap is removed
+    and the gate leaf (bars and rails) becomes its own object with its pivot on the hinge, so Unity can swing it. The source .blend is untouched."""
+    import bmesh
+    from mathutils import Matrix, Vector
+    heroes = json.loads((root / "ArtSource" / "Blender" / "World" / "OldTown" / "oldtown_heroes_v1.json").read_text(encoding="utf-8"))
+    hero_data = next(h for h in heroes["heroes"] if h["id"] == "horizonte")
+    gate = next(e for e in hero_data["entrances"] if e["role"] == "pedestrian_gate")
+    gx, gy, w = float(gate["p"][0]), float(gate["p"][1]), float(gate["w"])
+    fy = gy + .15                                                    # front wall line used by create_w2_hero_horizonte.py (lot y0 + .15)
+    site = next(o for o in staged if o.name == "EXPORT_W2_horizonte__site")
+    z0 = hero_root.matrix_world.translation.z
+    mw = site.matrix_world
+    bm = bmesh.new()
+    bm.from_mesh(site.data)
+    leaf_faces, wall_faces = [], []
+    for f in bm.faces:
+        pts = [mw @ v.co for v in f.verts]
+        xs = [p.x for p in pts]
+        cx = sum(xs) / len(xs)
+        cy = sum(p.y for p in pts) / len(pts)
+        zmin, zmax = min(p.z for p in pts), max(p.z for p in pts)
+        if abs(cx - gx) >= w / 2 - .005 or not (fy - .12 <= cy <= fy + .12) or max(xs) - min(xs) > w + .03:
+            continue
+        if f.material_index == 1 and zmin > z0 + .02 and zmax < z0 + 2.35:
+            leaf_faces.append(f)
+        elif f.material_index == 0 and zmax < z0 + .95:
+            wall_faces.append(f)
+    if len(leaf_faces) < 20 or not wall_faces:
+        raise RuntimeError(f"pedestrian gate not found in site mesh: leaf faces {len(leaf_faces)}, wall faces {len(wall_faces)}")
+    hinge = Vector((gx - w / 2, fy - .05, z0))                       # west jamb, on the leaf line
+    leaf_mesh = bpy.data.meshes.new("EXPORT_W2_horizonte__ped_gate__leaf")
+    verts, faces, mats = [], [], []
+    for f in leaf_faces:
+        base = len(verts)
+        verts.extend(tuple((mw @ v.co) - hinge) for v in f.verts)
+        faces.append(tuple(range(base, base + len(f.verts))))
+        mats.append(f.material_index)
+    leaf_mesh.from_pydata(verts, [], faces)
+    for m in site.data.materials:
+        leaf_mesh.materials.append(m)
+    leaf_mesh.polygons.foreach_set("material_index", mats)
+    leaf_mesh.update()
+    bmesh.ops.delete(bm, geom=leaf_faces + wall_faces, context="FACES")
+    bm.to_mesh(site.data)
+    bm.free()
+    leaf = bpy.data.objects.new("EXPORT_W2_horizonte__ped_gate__leaf", leaf_mesh)
+    bpy.context.scene.collection.objects.link(leaf)
+    leaf.matrix_world = Matrix.Translation(hinge)
+    leaf["sa_kind"] = "gate_leaf"
+    staged.append(leaf)
+    print("HORIZONTE GATE SPLIT:", len(leaf_faces), "leaf faces,", len(wall_faces), "wall faces removed, hinge", tuple(round(c, 3) for c in hinge))
+
+
 status = "PASS"
 error = None
 try:
     staged, groups = stage_meshes(visual)
+    if hero == "horizonte":
+        split_horizonte_gate(staged)
     bpy.ops.object.select_all(action="DESELECT")
     for obj in staged:
         obj.select_set(True)

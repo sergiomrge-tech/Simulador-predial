@@ -52,6 +52,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: grama_laminas
+    second: {fileID: 2100000, guid: 541afd3e4786f7e47a87299b96c59343, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: tronco
     second: {fileID: 2100000, guid: 7fc9d4201191f404e8f2e47580da2850, type: 2}
   materials:

@@ -43,6 +43,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--root", required=True)
     p.add_argument("--cell", required=True)
     p.add_argument("--output", default="")
+    p.add_argument("--layers", default="", help="comma-separated subset of layers to (re)export; the cell manifest keeps the other entries")
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     return p.parse_args(argv)
 
@@ -81,6 +82,74 @@ def selected_exportable(objects):
     return exportable, linked, unsupported
 
 
+VEHICLE_FAMILIES = ("hatch_antigo", "hatch", "sedan", "picape", "suv", "van")
+
+
+def vehicle_family(obj):
+    src = str(obj.get("vehicle", ""))
+    for fam in VEHICLE_FAMILIES:
+        if src.startswith("VEH_" + fam + "_"):
+            return fam
+    return None
+
+
+def export_vehicle_lods(vehicles, output: Path):
+    """W3.2 parked cars as LOD groups: one empty per car at its world transform with children _LOD0 (14k tris), _LOD1 and _LOD2 (proxy) that share
+    the library meshes, so Unity builds a LODGroup per car and a single mesh per variant instead of 889 unique copies. The Blender slice swaps far cars to
+    LOD1 for its own render budget; Unity decides by distance, so every car is exported with its LOD0 mesh regardless of that swap."""
+    created = []
+    library = {}                                                         # (kind, variant) -> library mesh; Blender may have suffixed names (.002)
+    for me in bpy.data.meshes:
+        if me.library is not None or not me.name.startswith("VEH_"):
+            continue
+        key = re.sub(r"\.\d+$", "", me.name)
+        kind = "L1" if key.endswith("_LOD1") else "P" if key.endswith("_PROXY") else "L0"
+        library[(kind, key[:-5] if kind == "L1" else key)] = me
+    try:
+        for o in vehicles:
+            key = re.sub(r"\.\d+$", "", o.data.name)
+            key = key[:-5] if key.endswith("_LOD1") else key
+            lod0, lod1 = library.get(("L0", key)), library.get(("L1", key))
+            family = vehicle_family(o)
+            proxy = library.get(("P", f"VEH_{family}_PROXY")) if family else None
+            if lod0 is None:
+                raise RuntimeError(f"vehicle {o.name}: LOD0 mesh for '{key}' not found")
+            holder = bpy.data.objects.new("EXPORT_" + o.name, None)
+            bpy.context.scene.collection.objects.link(holder)
+            holder.matrix_world = o.matrix_world.copy()
+            created.append(holder)
+            for suffix, mesh in ((0, lod0), (1, lod1), (2, proxy)):
+                if mesh is None:
+                    continue
+                child = bpy.data.objects.new(f"EXPORT_{o.name}_LOD{suffix}", mesh)
+                bpy.context.scene.collection.objects.link(child)
+                child.parent = holder
+                created.append(child)
+        bpy.context.view_layer.update()
+        bpy.ops.object.select_all(action="DESELECT")
+        for obj in created:
+            obj.select_set(True)
+        bpy.ops.export_scene.fbx(
+            filepath=str(output),
+            use_selection=True,
+            object_types={"MESH", "EMPTY"},
+            use_mesh_modifiers=False,
+            use_custom_props=False,
+            add_leaf_bones=False,
+            bake_anim=False,
+            apply_unit_scale=True,
+            apply_scale_options="FBX_SCALE_UNITS",
+            axis_forward="-Z",
+            axis_up="Y",
+            path_mode="AUTO",
+            embed_textures=False,
+        )
+    finally:
+        for obj in created:
+            bpy.data.objects.remove(obj, do_unlink=True)
+    return len(vehicles)
+
+
 def export_layer(layer: str, objects, out_dir: Path):
     exportable, linked, unsupported = selected_exportable(objects)
 
@@ -96,6 +165,19 @@ def export_layer(layer: str, objects, out_dir: Path):
         except RuntimeError:
             pass
         obj.select_set(True)
+
+    vehicles = []
+    if layer == "Props":
+        vehicles = [o for o in exportable if o.get("sa_kind") == "vehicle"]
+        exportable = [o for o in exportable if o.get("sa_kind") != "vehicle"]
+    lod_file, lod_bytes, lod_error = None, 0, None
+    if vehicles:
+        lod_path = out_dir / "Props_Vehicles.fbx"
+        try:
+            export_vehicle_lods(vehicles, lod_path)
+            lod_file, lod_bytes = lod_path.name, lod_path.stat().st_size
+        except Exception as exc:
+            lod_error = repr(exc)
 
     output = out_dir / f"{layer}.fbx"
     status = "SKIPPED"
@@ -143,6 +225,10 @@ def export_layer(layer: str, objects, out_dir: Path):
         "unsupportedExcluded": unsupported,
         "error": error,
         "blenderBounds": source_bounds if status == 'EXPORTED' else None,
+        "lodFile": lod_file,
+        "lodFileBytes": lod_bytes,
+        "lodVehicles": len(vehicles),
+        "lodError": lod_error,
     }
 
 
@@ -183,7 +269,10 @@ def main() -> int:
     all_linked = []
     failure = False
 
+    wanted = [x for x in opt.layers.split(",") if x] or list(STATIC_LAYERS)
     for layer in STATIC_LAYERS:
+        if layer not in wanted:
+            continue
         objects = [
             obj
             for obj in bpy.data.objects
@@ -194,9 +283,15 @@ def main() -> int:
         result = export_layer(layer, objects, out_dir)
         per_layer.append(result)
         all_linked.extend(result["linkedInstancesExcluded"])
-        if result["status"] == "FAIL":
+        if result["status"] == "FAIL" or result.get("lodError"):
             failure = True
 
+    manifest_file = out_dir / "cell_export_manifest.json"
+    if opt.layers and manifest_file.is_file():                          # partial re-export: keep the entries of the layers that were not touched
+        previous = json.loads(manifest_file.read_text(encoding="utf-8"))
+        kept = [item for item in previous.get("layers", []) if item["layer"] not in wanted]
+        per_layer = kept + per_layer
+        per_layer.sort(key=lambda item: STATIC_LAYERS.index(item["layer"]))
     required = {item["layer"]: item for item in per_layer}
     for layer in ("Terrain", "Roads", "Architecture"):
         if required[layer]["status"] != "EXPORTED":

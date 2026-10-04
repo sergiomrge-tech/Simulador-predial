@@ -20,11 +20,19 @@
   "exportedObjects": 155,
   "excluded": [
     {
+      "name": "IV_home.starter",
+      "reason": "LIGHT_PROBE"
+    },
+    {
       "name": "W2_home__apto12_bath_light__light",
       "reason": "light"
     },
     {
       "name": "W2_home__apto12_bulb__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_home__apto12_fill",
       "reason": "light"
     },
     {

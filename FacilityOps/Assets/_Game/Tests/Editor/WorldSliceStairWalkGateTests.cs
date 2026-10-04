@@ -85,6 +85,10 @@ namespace FacilityOps.Tests
             yield return Settle(controller);
             Assert.That(controller.isGrounded, Is.True, "Street floor missing in front of the Horizonte");
 
+            // This gate isolates the stair geometry; the doors are authored closed, so they are put in their open pose here. Door interaction
+            // (closed leaf blocks, [E] opens, never traps) is exercised by the continuous-walk gate, which operates them through the real prompt.
+            foreach (var door in WorldDoor.All) door.SetOpenImmediate(true);
+            yield return null;
             var navData = AssetDatabase.LoadAssetAtPath<NavMeshData>(WorldSliceWalkabilityQa.NavAsset);
             Assert.That(navData, Is.Not.Null, "Run WorldSliceWalkabilityQa.BuildReference first");
             var navInstance = NavMesh.AddNavMeshData(navData);

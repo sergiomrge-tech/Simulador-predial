@@ -38,7 +38,7 @@
       "layer": "Roads",
       "status": "EXPORTED",
       "file": "Roads.fbx",
-      "fileBytes": 333548,
+      "fileBytes": 351228,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -61,7 +61,7 @@
       "layer": "Architecture",
       "status": "EXPORTED",
       "file": "Architecture.fbx",
-      "fileBytes": 4164924,
+      "fileBytes": 6510972,
       "sourceObjects": 9,
       "exportedObjects": 3,
       "linkedInstancesExcluded": [
@@ -115,7 +115,7 @@
       "status": "EXPORTED",
       "file": "Props.fbx",
       "fileBytes": 115468,
-      "sourceObjects": 1,
+      "sourceObjects": 34,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
@@ -131,13 +131,17 @@
           -2063.819091796875,
           34.50418472290039
         ]
-      }
+      },
+      "lodFile": "Props_Vehicles.fbx",
+      "lodFileBytes": 6550396,
+      "lodVehicles": 33,
+      "lodError": null
     },
     {
       "layer": "Vegetation",
       "status": "EXPORTED",
       "file": "Vegetation.fbx",
-      "fileBytes": 1419628,
+      "fileBytes": 22897836,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -145,26 +149,19 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -2750.06640625,
-          -2250.069580078125,
+          -2750.114990234375,
+          -2249.962890625,
           17.692996978759766
         ],
         "max": [
-          -2500.047607421875,
-          -2000.12353515625,
-          38.206871032714844
+          -2499.6865234375,
+          -2000.099853515625,
+          37.446075439453125
         ]
       }
     }
   ],
-  "linkedHeroInstancesExcluded": [
-    {
-      "object": "W2I_garage",
-      "collection": "W2_garage",
-      "facilityId": "garage",
-      "source": "Heroes/W2_garage.blend"
-    }
-  ],
+  "linkedHeroInstancesExcluded": [],
   "gameplayExport": "Use Tools/Blender/export_unity_gameplay_markers.py",
   "sourceBlendModified": false
 }

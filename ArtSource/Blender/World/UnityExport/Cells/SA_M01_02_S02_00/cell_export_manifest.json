@@ -38,7 +38,7 @@
       "layer": "Roads",
       "status": "EXPORTED",
       "file": "Roads.fbx",
-      "fileBytes": 341340,
+      "fileBytes": 363212,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -61,9 +61,9 @@
       "layer": "Architecture",
       "status": "EXPORTED",
       "file": "Architecture.fbx",
-      "fileBytes": 4881260,
-      "sourceObjects": 19,
-      "exportedObjects": 3,
+      "fileBytes": 8183724,
+      "sourceObjects": 21,
+      "exportedObjects": 5,
       "linkedInstancesExcluded": [
         {
           "object": "W2I_horizonte",
@@ -83,7 +83,7 @@
         "max": [
           -2246.5966796875,
           -1745.11328125,
-          50.22721481323242
+          51.57721710205078
         ]
       }
     },
@@ -115,7 +115,7 @@
       "status": "EXPORTED",
       "file": "Props.fbx",
       "fileBytes": 228988,
-      "sourceObjects": 1,
+      "sourceObjects": 75,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
@@ -131,13 +131,17 @@
           -1759.4012451171875,
           37.965538024902344
         ]
-      }
+      },
+      "lodFile": "Props_Vehicles.fbx",
+      "lodFileBytes": 6687500,
+      "lodVehicles": 74,
+      "lodError": null
     },
     {
       "layer": "Vegetation",
       "status": "EXPORTED",
       "file": "Vegetation.fbx",
-      "fileBytes": 1339900,
+      "fileBytes": 17115004,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -145,26 +149,19 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -2500.59814453125,
-          -2000.0721435546875,
+          -2500.253662109375,
+          -1999.9384765625,
           25.3574275970459
         ],
         "max": [
-          -2249.8173828125,
-          -1749.923095703125,
-          42.42988586425781
+          -2249.7626953125,
+          -1749.890380859375,
+          41.103904724121094
         ]
       }
     }
   ],
-  "linkedHeroInstancesExcluded": [
-    {
-      "object": "W2I_horizonte",
-      "collection": "W2_horizonte",
-      "facilityId": "horizonte",
-      "source": "Heroes/W2_horizonte.blend"
-    }
-  ],
+  "linkedHeroInstancesExcluded": [],
   "gameplayExport": "Use Tools/Blender/export_unity_gameplay_markers.py",
   "sourceBlendModified": false
 }

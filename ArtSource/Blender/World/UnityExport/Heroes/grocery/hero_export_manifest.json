@@ -16,9 +16,29 @@
     -1480.0
   ],
   "fbx": "grocery.fbx",
-  "fileBytes": 1780380,
+  "fileBytes": 3231548,
   "exportedObjects": 59,
   "excluded": [
+    {
+      "name": "IV_grocery",
+      "reason": "LIGHT_PROBE"
+    },
+    {
+      "name": "W2_grocery__fill_caixa",
+      "reason": "light"
+    },
+    {
+      "name": "W2_grocery__fill_copa",
+      "reason": "light"
+    },
+    {
+      "name": "W2_grocery__fill_estoque",
+      "reason": "light"
+    },
+    {
+      "name": "W2_grocery__fill_salao",
+      "reason": "light"
+    },
     {
       "name": "W2_grocery__fridge_light__light",
       "reason": "light"

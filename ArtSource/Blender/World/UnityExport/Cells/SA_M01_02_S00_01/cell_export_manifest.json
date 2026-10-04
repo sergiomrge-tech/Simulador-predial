@@ -38,7 +38,7 @@
       "layer": "Roads",
       "status": "EXPORTED",
       "file": "Roads.fbx",
-      "fileBytes": 342348,
+      "fileBytes": 377276,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -61,7 +61,7 @@
       "layer": "Architecture",
       "status": "EXPORTED",
       "file": "Architecture.fbx",
-      "fileBytes": 4545980,
+      "fileBytes": 7689340,
       "sourceObjects": 3,
       "exportedObjects": 3,
       "linkedInstancesExcluded": [],
@@ -75,7 +75,7 @@
         ],
         "max": [
           -2759.199951171875,
-          -1496.8934326171875,
+          -1496.8309326171875,
           50.27684020996094
         ]
       }
@@ -108,7 +108,7 @@
       "status": "EXPORTED",
       "file": "Props.fbx",
       "fileBytes": 164572,
-      "sourceObjects": 1,
+      "sourceObjects": 69,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
@@ -124,13 +124,17 @@
           -1535.72216796875,
           27.98971939086914
         ]
-      }
+      },
+      "lodFile": "Props_Vehicles.fbx",
+      "lodFileBytes": 6286668,
+      "lodVehicles": 68,
+      "lodError": null
     },
     {
       "layer": "Vegetation",
       "status": "EXPORTED",
       "file": "Vegetation.fbx",
-      "fileBytes": 1657836,
+      "fileBytes": 18902252,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -138,14 +142,14 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -3000.103515625,
-          -1749.9306640625,
-          14.803171157836914
+          -3000.045166015625,
+          -1750.0577392578125,
+          14.7978515625
         ],
         "max": [
-          -2749.875244140625,
-          -1498.93115234375,
-          35.89124298095703
+          -2749.908203125,
+          -1498.61962890625,
+          35.86402130126953
         ]
       }
     }

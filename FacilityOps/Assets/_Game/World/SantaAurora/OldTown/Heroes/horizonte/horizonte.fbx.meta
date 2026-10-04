@@ -32,8 +32,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: aro_liga_carro
+    second: {fileID: 2100000, guid: d0fffb82559716b41947c3f1a8e4e02f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: asfalto_gasto
     second: {fileID: 2100000, guid: 45eeca8bda7b09447ab5d4077951a62b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: banco_carro_bege
+    second: {fileID: 2100000, guid: e9ffd44fa6c3d394d9721829d9b94477, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: banco_carro_cinza
+    second: {fileID: 2100000, guid: e9182c518e224454e91ffc209dfb7c9f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -62,6 +77,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: cromado_carro
+    second: {fileID: 2100000, guid: e3279009d3b4ba84f998b5154bdc4b58, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: decal_ferrugem
     second: {fileID: 2100000, guid: 5cba31075780d6b418db059469391c91, type: 2}
   - first:
@@ -87,6 +107,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: farol_veiculo
+    second: {fileID: 2100000, guid: 108fd82b3e1cf8c468819ccf308dba77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: folhagem
     second: {fileID: 2100000, guid: ade7efbf5fa35e9409c170bf58c43772, type: 2}
   - first:
@@ -97,8 +122,33 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: interior_carro
+    second: {fileID: 2100000, guid: 8bf9b2c64b126174d96b165374aaea14, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: lampada_emissiva
     second: {fileID: 2100000, guid: ffc57fe040d96e44081b8b232577f56b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lanterna_veiculo
+    second: {fileID: 2100000, guid: 0acec19f025a13240b54e99b1279d5dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lente_farol
+    second: {fileID: 2100000, guid: 91d75534bdadb084187d75a4a5eacd31, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lente_lanterna
+    second: {fileID: 2100000, guid: 34e8dff5fcfe498439044059e1993435, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: liner_veiculo
+    second: {fileID: 2100000, guid: ccd9e7ca21263c943b4d87e09b89c77e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -124,6 +174,21 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: parede_pintada
     second: {fileID: 2100000, guid: dd906c4d77136fd42938e7c8d8c32fef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pintura_carro_azul_escuro
+    second: {fileID: 2100000, guid: db55e08c5f91aa547af18f3ade288ecc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pintura_carro_branco
+    second: {fileID: 2100000, guid: a7567a7acdcca51419996c813aa619b1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pintura_carro_verde_velho
+    second: {fileID: 2100000, guid: 939bc579cd7b06948924370003184c8d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -184,6 +249,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: vidro
     second: {fileID: 2100000, guid: d930847609065504aa6d12f1624b2715, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vidro_veiculo_claro
+    second: {fileID: 2100000, guid: 3bbd78510f03eb3438d1da27ebe01f35, type: 2}
   materials:
     materialImportMode: 1
     materialName: 1

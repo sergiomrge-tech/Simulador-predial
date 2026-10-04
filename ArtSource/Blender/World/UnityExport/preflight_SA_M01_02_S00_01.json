@@ -5,9 +5,9 @@
   "blenderVersion": "5.2.1 LTS",
   "cell": "SA_M01_02_S00_01",
   "sourceManifest": "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json",
-  "objects": 11,
+  "objects": 79,
   "objectTypes": {
-    "MESH": 11
+    "MESH": 79
   },
   "modifiers": {
     "NODES": 5
@@ -46,11 +46,11 @@
       "manifestObjects": 1
     },
     "Props": {
-      "objects": 1,
+      "objects": 69,
       "types": {
-        "MESH": 1
+        "MESH": 69
       },
-      "meshTris": 0,
+      "meshTris": 352906,
       "manifestObjects": 1
     },
     "Roads": {
@@ -58,7 +58,7 @@
       "types": {
         "MESH": 1
       },
-      "meshTris": 7740,
+      "meshTris": 8900,
       "manifestObjects": 1
     },
     "Terrain": {
@@ -78,10 +78,10 @@
       "manifestObjects": 1
     }
   },
-  "meshTris": 22138,
+  "meshTris": 376204,
   "largestMesh": {
-    "name": "OT_Terrain_SA_M01_02_S00_01",
-    "tris": 7812
+    "name": "OT_Vehicle_SA_M01_02_S00_01_198",
+    "tris": 16232
   },
   "geometryNodesObjects": [
     "OT_Accessories_SA_M01_02_S00_01",
@@ -101,9 +101,79 @@
   ],
   "facilityIds": [],
   "missingManifestObjects": [],
-  "unexpectedCellObjects": [],
+  "unexpectedCellObjects": [
+    "OT_Vehicle_SA_M01_02_S00_01_014",
+    "OT_Vehicle_SA_M01_02_S00_01_015",
+    "OT_Vehicle_SA_M01_02_S00_01_078",
+    "OT_Vehicle_SA_M01_02_S00_01_079",
+    "OT_Vehicle_SA_M01_02_S00_01_080",
+    "OT_Vehicle_SA_M01_02_S00_01_081",
+    "OT_Vehicle_SA_M01_02_S00_01_082",
+    "OT_Vehicle_SA_M01_02_S00_01_083",
+    "OT_Vehicle_SA_M01_02_S00_01_132",
+    "OT_Vehicle_SA_M01_02_S00_01_133",
+    "OT_Vehicle_SA_M01_02_S00_01_135",
+    "OT_Vehicle_SA_M01_02_S00_01_136",
+    "OT_Vehicle_SA_M01_02_S00_01_160",
+    "OT_Vehicle_SA_M01_02_S00_01_161",
+    "OT_Vehicle_SA_M01_02_S00_01_162",
+    "OT_Vehicle_SA_M01_02_S00_01_163",
+    "OT_Vehicle_SA_M01_02_S00_01_164",
+    "OT_Vehicle_SA_M01_02_S00_01_165",
+    "OT_Vehicle_SA_M01_02_S00_01_166",
+    "OT_Vehicle_SA_M01_02_S00_01_167",
+    "OT_Vehicle_SA_M01_02_S00_01_168",
+    "OT_Vehicle_SA_M01_02_S00_01_169",
+    "OT_Vehicle_SA_M01_02_S00_01_170",
+    "OT_Vehicle_SA_M01_02_S00_01_171",
+    "OT_Vehicle_SA_M01_02_S00_01_172",
+    "OT_Vehicle_SA_M01_02_S00_01_173",
+    "OT_Vehicle_SA_M01_02_S00_01_174",
+    "OT_Vehicle_SA_M01_02_S00_01_193",
+    "OT_Vehicle_SA_M01_02_S00_01_195",
+    "OT_Vehicle_SA_M01_02_S00_01_196",
+    "OT_Vehicle_SA_M01_02_S00_01_197",
+    "OT_Vehicle_SA_M01_02_S00_01_198",
+    "OT_Vehicle_SA_M01_02_S00_01_199",
+    "OT_Vehicle_SA_M01_02_S00_01_200",
+    "OT_Vehicle_SA_M01_02_S00_01_201",
+    "OT_Vehicle_SA_M01_02_S00_01_202",
+    "OT_Vehicle_SA_M01_02_S00_01_203",
+    "OT_Vehicle_SA_M01_02_S00_01_204",
+    "OT_Vehicle_SA_M01_02_S00_01_205",
+    "OT_Vehicle_SA_M01_02_S00_01_206",
+    "OT_Vehicle_SA_M01_02_S00_01_207",
+    "OT_Vehicle_SA_M01_02_S00_01_208",
+    "OT_Vehicle_SA_M01_02_S00_01_254",
+    "OT_Vehicle_SA_M01_02_S00_01_255",
+    "OT_Vehicle_SA_M01_02_S00_01_257",
+    "OT_Vehicle_SA_M01_02_S00_01_682",
+    "OT_Vehicle_SA_M01_02_S00_01_683",
+    "OT_Vehicle_SA_M01_02_S00_01_684",
+    "OT_Vehicle_SA_M01_02_S00_01_685",
+    "OT_Vehicle_SA_M01_02_S00_01_689",
+    "OT_Vehicle_SA_M01_02_S00_01_690",
+    "OT_Vehicle_SA_M01_02_S00_01_725",
+    "OT_Vehicle_SA_M01_02_S00_01_726",
+    "OT_Vehicle_SA_M01_02_S00_01_727",
+    "OT_Vehicle_SA_M01_02_S00_01_728",
+    "OT_Vehicle_SA_M01_02_S00_01_729",
+    "OT_Vehicle_SA_M01_02_S00_01_730",
+    "OT_Vehicle_SA_M01_02_S00_01_801",
+    "OT_Vehicle_SA_M01_02_S00_01_802",
+    "OT_Vehicle_SA_M01_02_S00_01_803",
+    "OT_Vehicle_SA_M01_02_S00_01_804",
+    "OT_Vehicle_SA_M01_02_S00_01_805",
+    "OT_Vehicle_SA_M01_02_S00_01_829",
+    "OT_Vehicle_SA_M01_02_S00_01_830",
+    "OT_Vehicle_SA_M01_02_S00_01_852",
+    "OT_Vehicle_SA_M01_02_S00_01_883",
+    "OT_Vehicle_SA_M01_02_S00_01_884",
+    "OT_Vehicle_SA_M01_02_S00_01_885"
+  ],
   "errors": [],
   "warnings": [
+    "68 cell-tagged objects are not listed in manifest",
     "Geometry Nodes present: export must evaluate/realize geometry in a staging copy, never destructively in source"
   ],
   "exportPolicy": {

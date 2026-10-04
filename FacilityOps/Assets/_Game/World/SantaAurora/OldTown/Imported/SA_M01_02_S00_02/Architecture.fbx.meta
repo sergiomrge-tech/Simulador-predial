@@ -27,6 +27,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: azulejo_branco
+    second: {fileID: 2100000, guid: 0020e8bf045961f48969542520aa3927, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: borracha
+    second: {fileID: 2100000, guid: f54edda9f145aa34fb275c0590f959ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: borracha_preta
     second: {fileID: 2100000, guid: 1f3213dd8f69d404badf1787fbf512c8, type: 2}
   - first:
@@ -52,6 +62,116 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_aluga
+    second: {fileID: 2100000, guid: 6fbf345fab05ee445bd72c4f33696587, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_baile
+    second: {fileID: 2100000, guid: e0bf25599b4c12b428463c6f9dbba7c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_circo
+    second: {fileID: 2100000, guid: cfadcebd40a5a0944921ad47a7ff18f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_feira
+    second: {fileID: 2100000, guid: 63e5a21264143f546933be66d342726b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_forro
+    second: {fileID: 2100000, guid: 550fcc5c0876b9548b86a821c025ab9e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_mutirao
+    second: {fileID: 2100000, guid: b77427867331d674199e85c9bfc7b7cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_procura
+    second: {fileID: 2100000, guid: f8a6e6626e9572641a83ba837135df79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_violao
+    second: {fileID: 2100000, guid: 51d3a2d1b3311924b994b7f245eba09b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_estencil_nao_estacione
+    second: {fileID: 2100000, guid: 7e61d8164007c504f8f0dc3f74d9a5c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_etiqueta_numero
+    second: {fileID: 2100000, guid: 1b9d04fb686055c48a291b07d81597c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_etiqueta_perigo
+    second: {fileID: 2100000, guid: 9ebf3be91ae761345b63d47cfa78b5f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_grafite_bomb
+    second: {fileID: 2100000, guid: 755b6c66c2b8de9448195c25b122f113, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_grafite_crua
+    second: {fileID: 2100000, guid: 144ca27b61526054f9d7751654814c4c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_grafite_tags
+    second: {fileID: 2100000, guid: fb56452e8c17bf149b00932ed7e7a51e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_marca_agua
+    second: {fileID: 2100000, guid: b2346350371feac49a49267f879d9af5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_marca_rn
+    second: {fileID: 2100000, guid: f36f2738ab366cc41beb4106bf960855, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_bazar
+    second: {fileID: 2100000, guid: 4e88a520a39fd674d97a4dbaeef4bcdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_chaveiro
+    second: {fileID: 2100000, guid: 316049a0c0a932d44acea6053a88cb08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_eletro
+    second: {fileID: 2100000, guid: fb4a0f8ef5041e44682ed6b282297917, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_lanches
+    second: {fileID: 2100000, guid: 3c5eabbf8c47d074e9e211bd4a04b569, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_salao
+    second: {fileID: 2100000, guid: 1b503122139cf984e9cbf9e9fddc55e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_tinta_descascando
+    second: {fileID: 2100000, guid: a7595a20a9727f743b231735942b73bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: ferrugem
     second: {fileID: 2100000, guid: aeeef0f74b1760f4aa5c5cf99a9048bd, type: 2}
   - first:
@@ -59,6 +179,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: folhagem
     second: {fileID: 2100000, guid: ade7efbf5fa35e9409c170bf58c43772, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: granito
+    second: {fileID: 2100000, guid: ac111b723b0cca64891d8f5d0a59c6fa, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -84,6 +209,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: pedra_reboco_historico
     second: {fileID: 2100000, guid: a3e4ce2144f8e4648b64d8b13501276e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: piso_ceramico_bege
+    second: {fileID: 2100000, guid: cb9d6632995e29947b73c39f15cc5df0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

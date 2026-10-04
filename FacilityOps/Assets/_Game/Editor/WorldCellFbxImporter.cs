@@ -26,6 +26,7 @@ namespace FacilityOps.Editor
             public string status;
             public string file;
             public long fileBytes;
+            public string lodFile;
             public int sourceObjects;
             public int exportedObjects;
             public string error;
@@ -104,61 +105,9 @@ namespace FacilityOps.Editor
                     throw new InvalidOperationException(
                         $"Cell Scene is missing layer root {layer.layer}.");
 
-                string sourceFbx = Path.Combine(sourceFolder, layer.file);
-                if (!File.Exists(sourceFbx))
-                    throw new FileNotFoundException(
-                        $"Staging FBX for {layer.layer} is missing.",
-                        sourceFbx);
-
-                string assetPath = cellAssetFolder + "/" + layer.file;
-                string destination = Path.GetFullPath(
-                    Path.Combine(Application.dataPath, "..", assetPath));
-
-                Directory.CreateDirectory(Path.GetDirectoryName(destination));
-                File.Copy(sourceFbx, destination, true);
-                AssetDatabase.ImportAsset(
-                    assetPath,
-                    ImportAssetOptions.ForceSynchronousImport |
-                    ImportAssetOptions.ForceUpdate);
-
-                ModelImporter modelImporter =
-                    AssetImporter.GetAtPath(assetPath) as ModelImporter;
-                if (modelImporter != null)
-                {
-                    modelImporter.materialImportMode =
-                        ModelImporterMaterialImportMode.ImportStandard;
-                    modelImporter.SearchAndRemapMaterials(
-                        ModelImporterMaterialName.BasedOnMaterialName,
-                        ModelImporterMaterialSearch.Everywhere);
-                    modelImporter.SaveAndReimport();
-                }
-
-                GameObject model = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
-                if (model == null)
-                    throw new InvalidDataException(
-                        "Unity did not import a GameObject from " + assetPath);
-
-                string instanceName = "Imported_" + layer.layer;
-                Transform existing = layerRoot.Find(instanceName);
-                if (existing != null)
-                    Undo.DestroyObjectImmediate(existing.gameObject);
-
-                GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(
-                    model,
-                    root.gameObject.scene);
-                if (instance == null)
-                    throw new InvalidOperationException(
-                        "Could not instantiate imported FBX: " + assetPath);
-
-                Undo.RegisterCreatedObjectUndo(instance, "Import world cell FBX");
-                instance.name = instanceName;
-                instance.transform.SetParent(layerRoot, true);
-                // Blender's right-handed -Z/Y FBX arrives with X/Z reversed in
-                // Unity 6000.6.2f1. Apply the measured world-origin correction;
-                // the pipeline checks source bounds independently after import.
-                var axisCorrection = Quaternion.Euler(0f, 180f, 0f);
-                instance.transform.position = axisCorrection * instance.transform.position;
-                instance.transform.rotation = axisCorrection * instance.transform.rotation;
+                ImportOne(sourceFolder, cellAssetFolder, layer.file, layerRoot, root.gameObject.scene, "Imported_" + layer.layer);
+                if (!string.IsNullOrEmpty(layer.lodFile))
+                    StampVehicles(ImportOne(sourceFolder, cellAssetFolder, layer.lodFile, layerRoot, root.gameObject.scene, "Imported_Vehicles"));
                 importedLayers++;
             }
 
@@ -172,6 +121,84 @@ namespace FacilityOps.Editor
             Debug.Log(
                 $"WORLD CELL FBX IMPORT COMPLETE: {manifest.cell}, layers={importedLayers}. " +
                 "Run collider preparation, marker import and content stamp before QA.");
+        }
+
+        private static GameObject ImportOne(string sourceFolder, string cellAssetFolder, string file, Transform layerRoot, UnityEngine.SceneManagement.Scene scene, string instanceName)
+        {
+            string sourceFbx = Path.Combine(sourceFolder, file);
+            if (!File.Exists(sourceFbx))
+                throw new FileNotFoundException("Staging FBX is missing.", sourceFbx);
+
+            string assetPath = cellAssetFolder + "/" + file;
+            string destination = Path.GetFullPath(Path.Combine(Application.dataPath, "..", assetPath));
+            Directory.CreateDirectory(Path.GetDirectoryName(destination));
+            File.Copy(sourceFbx, destination, true);
+            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
+
+            ModelImporter modelImporter = AssetImporter.GetAtPath(assetPath) as ModelImporter;
+            if (modelImporter != null)
+            {
+                modelImporter.materialImportMode = ModelImporterMaterialImportMode.ImportStandard;
+                modelImporter.SearchAndRemapMaterials(ModelImporterMaterialName.BasedOnMaterialName, ModelImporterMaterialSearch.Everywhere);
+                modelImporter.SaveAndReimport();
+            }
+
+            GameObject model = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
+            if (model == null)
+                throw new InvalidDataException("Unity did not import a GameObject from " + assetPath);
+
+            Transform existing = layerRoot.Find(instanceName);
+            if (existing != null)
+                Undo.DestroyObjectImmediate(existing.gameObject);
+
+            GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(model, scene);
+            if (instance == null)
+                throw new InvalidOperationException("Could not instantiate imported FBX: " + assetPath);
+
+            Undo.RegisterCreatedObjectUndo(instance, "Import world cell FBX");
+            instance.name = instanceName;
+            instance.transform.SetParent(layerRoot, true);
+            // Blender's right-handed -Z/Y FBX arrives with X/Z reversed in Unity 6000.6.2f1.
+            // Apply the measured world-origin correction; the pipeline checks source bounds independently after import.
+            var axisCorrection = Quaternion.Euler(0f, 180f, 0f);
+            instance.transform.position = axisCorrection * instance.transform.position;
+            instance.transform.rotation = axisCorrection * instance.transform.rotation;
+            return instance;
+        }
+
+        // Vehicles arrive as LOD0/LOD1/proxy children under one node (Unity builds the LODGroup); fix the thresholds and give each car a cheap box collider.
+        private static readonly float[] VehicleLodHeights = { .06f, .02f, .006f };
+        private static void StampVehicles(GameObject cars)
+        {
+            foreach (var group in cars.GetComponentsInChildren<LODGroup>(true))
+            {
+                LOD[] lods = group.GetLODs();
+                var fitted = new LOD[lods.Length];
+                for (int i = 0; i < lods.Length; i++)
+                {
+                    fitted[i] = lods[i];
+                    fitted[i].screenRelativeTransitionHeight = i < VehicleLodHeights.Length ? VehicleLodHeights[i] : VehicleLodHeights[VehicleLodHeights.Length - 1] / 2f;
+                }
+                group.SetLODs(fitted);
+                group.RecalculateBounds();
+                if (group.GetComponent<Collider>() == null)
+                {
+                    // Box in the car's own space from the LOD0 mesh bounds (world-aligned renderer bounds would inflate a turned car).
+                    Renderer lod0 = group.GetLODs()[0].renderers.Length > 0 ? group.GetLODs()[0].renderers[0] : null;
+                    var filter = lod0 != null ? lod0.GetComponent<MeshFilter>() : null;
+                    if (filter == null || filter.sharedMesh == null) continue;
+                    Bounds mb = filter.sharedMesh.bounds;
+                    Matrix4x4 toGroup = group.transform.worldToLocalMatrix * filter.transform.localToWorldMatrix;
+                    Bounds local = new Bounds(toGroup.MultiplyPoint3x4(mb.center), Vector3.zero);
+                    for (int c = 0; c < 8; c++)
+                    {
+                        Vector3 corner = mb.center + Vector3.Scale(mb.extents, new Vector3((c & 1) == 0 ? -1 : 1, (c & 2) == 0 ? -1 : 1, (c & 4) == 0 ? -1 : 1));
+                        local.Encapsulate(toGroup.MultiplyPoint3x4(corner));
+                    }
+                    var box = Undo.AddComponent<BoxCollider>(group.gameObject);
+                    box.center = local.center; box.size = local.size;
+                }
+            }
         }
 
         private static void EnsureAssetFolder(string path)

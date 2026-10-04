@@ -16,11 +16,27 @@
     -2147.0
   ],
   "fbx": "garage.fbx",
-  "fileBytes": 1699644,
-  "exportedObjects": 72,
+  "fileBytes": 1807276,
+  "exportedObjects": 79,
   "excluded": [
     {
+      "name": "IV_garage",
+      "reason": "LIGHT_PROBE"
+    },
+    {
       "name": "W2_garage__bath_light__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_garage__fill_+10",
+      "reason": "light"
+    },
+    {
+      "name": "W2_garage__fill_+3",
+      "reason": "light"
+    },
+    {
+      "name": "W2_garage__fill_-4",
       "reason": "light"
     },
     {

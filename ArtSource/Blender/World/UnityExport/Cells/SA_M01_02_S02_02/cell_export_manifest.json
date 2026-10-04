@@ -38,7 +38,7 @@
       "layer": "Roads",
       "status": "EXPORTED",
       "file": "Roads.fbx",
-      "fileBytes": 289532,
+      "fileBytes": 318380,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -61,9 +61,9 @@
       "layer": "Architecture",
       "status": "EXPORTED",
       "file": "Architecture.fbx",
-      "fileBytes": 5947996,
-      "sourceObjects": 3,
-      "exportedObjects": 3,
+      "fileBytes": 9562972,
+      "sourceObjects": 5,
+      "exportedObjects": 5,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
       "error": null,
@@ -76,7 +76,7 @@
         "max": [
           -2241.553955078125,
           -1245.58203125,
-          52.92887878417969
+          54.63898468017578
         ]
       }
     },
@@ -108,7 +108,7 @@
       "status": "EXPORTED",
       "file": "Props.fbx",
       "fileBytes": 129724,
-      "sourceObjects": 1,
+      "sourceObjects": 50,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
@@ -124,13 +124,17 @@
           -1313.1697998046875,
           35.414306640625
         ]
-      }
+      },
+      "lodFile": "Props_Vehicles.fbx",
+      "lodFileBytes": 5804812,
+      "lodVehicles": 49,
+      "lodError": null
     },
     {
       "layer": "Vegetation",
       "status": "EXPORTED",
       "file": "Vegetation.fbx",
-      "fileBytes": 1543244,
+      "fileBytes": 20288300,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -138,14 +142,14 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -2500.23388671875,
-          -1500.3175048828125,
-          19.0980167388916
+          -2500.380126953125,
+          -1500.5867919921875,
+          19.08978271484375
         ],
         "max": [
-          -2251.54736328125,
-          -1248.2711181640625,
-          43.07614517211914
+          -2251.446533203125,
+          -1248.605712890625,
+          42.59748840332031
         ]
       }
     }

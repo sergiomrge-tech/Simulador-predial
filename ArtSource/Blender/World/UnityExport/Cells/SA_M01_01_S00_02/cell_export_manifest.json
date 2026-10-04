@@ -38,7 +38,7 @@
       "layer": "Roads",
       "status": "EXPORTED",
       "file": "Roads.fbx",
-      "fileBytes": 280188,
+      "fileBytes": 292028,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -61,7 +61,7 @@
       "layer": "Architecture",
       "status": "EXPORTED",
       "file": "Architecture.fbx",
-      "fileBytes": 3261628,
+      "fileBytes": 4674460,
       "sourceObjects": 12,
       "exportedObjects": 3,
       "linkedInstancesExcluded": [
@@ -115,7 +115,7 @@
       "status": "EXPORTED",
       "file": "Props.fbx",
       "fileBytes": 135580,
-      "sourceObjects": 1,
+      "sourceObjects": 66,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
@@ -131,13 +131,17 @@
           -2250.40283203125,
           26.521326065063477
         ]
-      }
+      },
+      "lodFile": "Props_Vehicles.fbx",
+      "lodFileBytes": 6270972,
+      "lodVehicles": 65,
+      "lodError": null
     },
     {
       "layer": "Vegetation",
       "status": "EXPORTED",
       "file": "Vegetation.fbx",
-      "fileBytes": 1034460,
+      "fileBytes": 8098620,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -145,26 +149,19 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -3000.06396484375,
-          -2500.083984375,
-          16.241058349609375
+          -3000.302734375,
+          -2500.177001953125,
+          16.23906898498535
         ],
         "max": [
-          -2750.56494140625,
-          -2249.822265625,
-          31.259719848632812
+          -2750.6025390625,
+          -2249.707275390625,
+          31.232498168945312
         ]
       }
     }
   ],
-  "linkedHeroInstancesExcluded": [
-    {
-      "object": "W2I_home.starter",
-      "collection": "W2_home.starter",
-      "facilityId": "home.starter",
-      "source": "Heroes/W2_home_starter.blend"
-    }
-  ],
+  "linkedHeroInstancesExcluded": [],
   "gameplayExport": "Use Tools/Blender/export_unity_gameplay_markers.py",
   "sourceBlendModified": false
 }

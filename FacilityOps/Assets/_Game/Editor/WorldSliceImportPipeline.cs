@@ -162,6 +162,7 @@ namespace FacilityOps.Editor
                             "Missing/non-URP material: " + renderer.name);
                 WorldCellCollisionBuilder.BuildActiveCellQaColliders();
                 WorldCellContentStamper.StampActiveCell();
+                WorldDoorStamper.StampActiveCell();                         // Horizonte stair doors + pedestrian gate: closed by default, [E] to operate
                 if (!EditorSceneManager.SaveScene(scene)) throw new IOException("Unable to save " + scene.path);
             }
             AssetDatabase.SaveAssets();

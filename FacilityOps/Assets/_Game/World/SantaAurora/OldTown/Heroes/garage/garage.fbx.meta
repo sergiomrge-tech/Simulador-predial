@@ -82,6 +82,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: folhagem
+    second: {fileID: 2100000, guid: ade7efbf5fa35e9409c170bf58c43772, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: granito
     second: {fileID: 2100000, guid: ac111b723b0cca64891d8f5d0a59c6fa, type: 2}
   - first:

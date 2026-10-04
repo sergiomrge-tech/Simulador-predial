@@ -27,6 +27,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: azulejo_branco
+    second: {fileID: 2100000, guid: 0020e8bf045961f48969542520aa3927, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: borracha
+    second: {fileID: 2100000, guid: f54edda9f145aa34fb275c0590f959ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: borracha_preta
     second: {fileID: 2100000, guid: 1f3213dd8f69d404badf1787fbf512c8, type: 2}
   - first:
@@ -49,6 +59,81 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: concreto_pintado
     second: {fileID: 2100000, guid: 16e73e4ef27d73c488c43eaa8b0862be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_umidade
+    second: {fileID: 2100000, guid: c05d083a37b80404199268f3fc85b8c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_etiqueta_numero
+    second: {fileID: 2100000, guid: 1b9d04fb686055c48a291b07d81597c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_etiqueta_perigo
+    second: {fileID: 2100000, guid: 9ebf3be91ae761345b63d47cfa78b5f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_grafite_aurora
+    second: {fileID: 2100000, guid: 0cfdde38a50f76a41b222cc3415ae6b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_grafite_bomb
+    second: {fileID: 2100000, guid: 755b6c66c2b8de9448195c25b122f113, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_grafite_tags
+    second: {fileID: 2100000, guid: fb56452e8c17bf149b00932ed7e7a51e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_marca_agua
+    second: {fileID: 2100000, guid: b2346350371feac49a49267f879d9af5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_marca_rn
+    second: {fileID: 2100000, guid: f36f2738ab366cc41beb4106bf960855, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_marca_vala
+    second: {fileID: 2100000, guid: 91b9a28f40ad72f408bcb3f96e61deb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_bazar
+    second: {fileID: 2100000, guid: 4e88a520a39fd674d97a4dbaeef4bcdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_chaveiro
+    second: {fileID: 2100000, guid: 316049a0c0a932d44acea6053a88cb08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_eletro
+    second: {fileID: 2100000, guid: fb4a0f8ef5041e44682ed6b282297917, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_lanches
+    second: {fileID: 2100000, guid: 3c5eabbf8c47d074e9e211bd4a04b569, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_salao
+    second: {fileID: 2100000, guid: 1b503122139cf984e9cbf9e9fddc55e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_tinta_descascando
+    second: {fileID: 2100000, guid: a7595a20a9727f743b231735942b73bf, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -87,6 +172,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: piso_ceramico_bege
+    second: {fileID: 2100000, guid: cb9d6632995e29947b73c39f15cc5df0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: plastico
     second: {fileID: 2100000, guid: a40477e63aff375499479862a96c484f, type: 2}
   - first:
@@ -114,6 +204,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: telha_fibrocimento
     second: {fileID: 2100000, guid: c0ecf1486d5adfb408a23ac411c8bb8d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: telha_metalica
+    second: {fileID: 2100000, guid: 6ba140f3851b28642aa946727de3c5a8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

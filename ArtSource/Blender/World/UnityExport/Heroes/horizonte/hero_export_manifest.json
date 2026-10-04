@@ -16,9 +16,13 @@
     -1796.0
   ],
   "fbx": "horizonte.fbx",
-  "fileBytes": 4426668,
+  "fileBytes": 5349900,
   "exportedObjects": 148,
   "excluded": [
+    {
+      "name": "IV_horizonte",
+      "reason": "LIGHT_PROBE"
+    },
     {
       "name": "W2_horizonte__F00_lobby_light_0__light",
       "reason": "light"

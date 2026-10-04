@@ -102,6 +102,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: farol_veiculo
+    second: {fileID: 2100000, guid: 108fd82b3e1cf8c468819ccf308dba77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: folhagem
     second: {fileID: 2100000, guid: ade7efbf5fa35e9409c170bf58c43772, type: 2}
   - first:
@@ -114,6 +119,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: lampada_emissiva
     second: {fileID: 2100000, guid: ffc57fe040d96e44081b8b232577f56b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lanterna_veiculo
+    second: {fileID: 2100000, guid: 0acec19f025a13240b54e99b1279d5dc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -139,6 +149,41 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: parede_pintada
     second: {fileID: 2100000, guid: dd906c4d77136fd42938e7c8d8c32fef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pintura_carro_bege
+    second: {fileID: 2100000, guid: 14bdea14d32db464caaf0e12e7df00d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pintura_carro_bege_gasta
+    second: {fileID: 2100000, guid: 734fb3c0556036d40a88ebe8bc7fc4eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pintura_carro_branco
+    second: {fileID: 2100000, guid: a7567a7acdcca51419996c813aa619b1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pintura_carro_prata
+    second: {fileID: 2100000, guid: 694af21323fb8b74caac386f9f5d4099, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pintura_carro_verde_velho
+    second: {fileID: 2100000, guid: 939bc579cd7b06948924370003184c8d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pintura_carro_vermelho
+    second: {fileID: 2100000, guid: a654e54d16005c0459379f7560069ec7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pintura_carro_vermelho_gasta
+    second: {fileID: 2100000, guid: 64efc1a1601e8614c852f3cd11d8707f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -204,6 +249,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: vidro
     second: {fileID: 2100000, guid: d930847609065504aa6d12f1624b2715, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vidro_veiculo
+    second: {fileID: 2100000, guid: 73413a8e6fa32264885ff7e0386a8ab2, type: 2}
   materials:
     materialImportMode: 1
     materialName: 1

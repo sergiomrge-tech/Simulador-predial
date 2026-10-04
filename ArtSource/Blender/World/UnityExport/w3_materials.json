@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "stage": "W3",
   "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
-  "materialCount": 85,
+  "materialCount": 138,
   "textureLibrary": "ArtSource/Textures/texture_library_w3.json",
   "materials": [
     {
@@ -334,6 +334,35 @@
       "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
     },
     {
+      "name": "aro_liga_carro",
+      "baseName": "aro_liga_carro",
+      "family": "",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.46,
+        0.47,
+        0.49,
+        1.0
+      ],
+      "diffuseColor": [
+        0.46,
+        0.47,
+        0.49,
+        1.0
+      ],
+      "metallic": 0.9,
+      "roughness": 0.35,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
       "name": "asfalto",
       "baseName": "asfalto",
       "family": "asfalto",
@@ -482,6 +511,114 @@
       ],
       "normalConvention": "OpenGL (Y+), espaço tangente",
       "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/ceramica)"
+    },
+    {
+      "name": "banco_carro_bege",
+      "baseName": "banco_carro_bege",
+      "family": "",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.3,
+        0.25,
+        0.17,
+        1.0
+      ],
+      "diffuseColor": [
+        0.3,
+        0.25,
+        0.17,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "banco_carro_cinza",
+      "baseName": "banco_carro_cinza",
+      "family": "",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.09,
+        0.09,
+        0.1,
+        1.0
+      ],
+      "diffuseColor": [
+        0.09,
+        0.09,
+        0.1,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "borracha",
+      "baseName": "borracha",
+      "family": "borracha",
+      "textureSet": "borracha",
+      "textureMode": "raw",
+      "tileMeters": 0.5,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.05,
+        0.05,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/borracha/borracha_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/borracha/borracha_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/borracha/borracha_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/borracha/borracha_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/borracha/borracha_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/borracha)"
     },
     {
       "name": "borracha_preta",
@@ -934,6 +1071,35 @@
       "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/reboco)"
     },
     {
+      "name": "cromado_carro",
+      "baseName": "cromado_carro",
+      "family": "",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.55,
+        0.56,
+        0.58,
+        1.0
+      ],
+      "diffuseColor": [
+        0.55,
+        0.56,
+        0.58,
+        1.0
+      ],
+      "metallic": 1.0,
+      "roughness": 0.25,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
       "name": "decal_ferrugem",
       "baseName": "decal_ferrugem",
       "family": "decal",
@@ -1079,6 +1245,890 @@
       "status": "decal procedural W2.5"
     },
     {
+      "name": "decal_w31_cartaz_aluga",
+      "baseName": "decal_w31_cartaz_aluga",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/cartaz_aluga.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_cartaz_baile",
+      "baseName": "decal_w31_cartaz_baile",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/cartaz_baile.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_cartaz_circo",
+      "baseName": "decal_w31_cartaz_circo",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/cartaz_circo.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_cartaz_feira",
+      "baseName": "decal_w31_cartaz_feira",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/cartaz_feira.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_cartaz_forro",
+      "baseName": "decal_w31_cartaz_forro",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/cartaz_forro.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_cartaz_mutirao",
+      "baseName": "decal_w31_cartaz_mutirao",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/cartaz_mutirao.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_cartaz_procura",
+      "baseName": "decal_w31_cartaz_procura",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/cartaz_procura.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_cartaz_violao",
+      "baseName": "decal_w31_cartaz_violao",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/cartaz_violao.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_estencil_nao_estacione",
+      "baseName": "decal_w31_estencil_nao_estacione",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/estencil_nao_estacione.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_etiqueta_numero",
+      "baseName": "decal_w31_etiqueta_numero",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/etiqueta_numero.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_etiqueta_perigo",
+      "baseName": "decal_w31_etiqueta_perigo",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/etiqueta_perigo.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_grafite_aurora",
+      "baseName": "decal_w31_grafite_aurora",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/grafite_aurora.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_grafite_bomb",
+      "baseName": "decal_w31_grafite_bomb",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/grafite_bomb.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_grafite_crua",
+      "baseName": "decal_w31_grafite_crua",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/grafite_crua.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_grafite_tags",
+      "baseName": "decal_w31_grafite_tags",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/grafite_tags.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_grafite_vlt",
+      "baseName": "decal_w31_grafite_vlt",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/grafite_vlt.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_marca_agua",
+      "baseName": "decal_w31_marca_agua",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/marca_agua.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_marca_rn",
+      "baseName": "decal_w31_marca_rn",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/marca_rn.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_marca_vala",
+      "baseName": "decal_w31_marca_vala",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/marca_vala.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_placa_bazar",
+      "baseName": "decal_w31_placa_bazar",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/placa_bazar.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_placa_chaveiro",
+      "baseName": "decal_w31_placa_chaveiro",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/placa_chaveiro.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_placa_eletro",
+      "baseName": "decal_w31_placa_eletro",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/placa_eletro.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_placa_lanches",
+      "baseName": "decal_w31_placa_lanches",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/placa_lanches.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_placa_salao",
+      "baseName": "decal_w31_placa_salao",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/placa_salao.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_restos_cartaz",
+      "baseName": "decal_w31_restos_cartaz",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/restos_cartaz.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
+      "name": "decal_w31_tinta_descascando",
+      "baseName": "decal_w31_tinta_descascando",
+      "family": "decal_autoral",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/decals_w31/tinta_descascando.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "decal autoral W3.1 (RGBA, transparente)"
+    },
+    {
       "name": "dourado_velho",
       "baseName": "dourado_velho",
       "family": "metal",
@@ -1106,6 +2156,35 @@
       "maps": [],
       "normalConvention": null,
       "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "farol_veiculo",
+      "baseName": "farol_veiculo",
+      "family": "",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.9,
+        0.9,
+        0.85,
+        1.0
+      ],
+      "diffuseColor": [
+        0.9,
+        0.9,
+        0.85,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.1,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
     },
     {
       "name": "ferrugem",
@@ -1282,40 +2361,6 @@
         {
           "channel": "BaseColor",
           "path": "ArtSource/Blender/World/UnityExport/Textures/folha_erva_BaseColorAlpha.png"
-        }
-      ],
-      "normalConvention": null,
-      "status": "W3 vegetação de produção: máscara alpha procedural própria"
-    },
-    {
-      "name": "folha_grama",
-      "baseName": "folha_grama",
-      "family": "vegetacao",
-      "textureSet": "",
-      "textureMode": "",
-      "tileMeters": 1.0,
-      "tint": [
-        0.16,
-        0.25,
-        0.06,
-        1.0
-      ],
-      "diffuseColor": [
-        0.16,
-        0.25,
-        0.06,
-        1.0
-      ],
-      "metallic": 0.0,
-      "roughness": 0.55,
-      "alpha": 1.0,
-      "ior": 1.5,
-      "isGlass": false,
-      "isCutout": true,
-      "maps": [
-        {
-          "channel": "BaseColor",
-          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_grama_BaseColorAlpha.png"
         }
       ],
       "normalConvention": null,
@@ -1789,6 +2834,35 @@
       "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/grama)"
     },
     {
+      "name": "grama_laminas",
+      "baseName": "grama_laminas",
+      "family": "vegetacao_lamina",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.2,
+        0.3,
+        0.08,
+        1.0
+      ],
+      "diffuseColor": [
+        0.2,
+        0.3,
+        0.08,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
       "name": "granito",
       "baseName": "granito",
       "family": "pedra",
@@ -1839,6 +2913,35 @@
       "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/granito)"
     },
     {
+      "name": "interior_carro",
+      "baseName": "interior_carro",
+      "family": "",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.07,
+        0.07,
+        0.075,
+        1.0
+      ],
+      "diffuseColor": [
+        0.07,
+        0.07,
+        0.075,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
       "name": "lampada_emissiva",
       "baseName": "lampada_emissiva",
       "family": "",
@@ -1866,6 +2969,122 @@
       "maps": [],
       "normalConvention": null,
       "status": "emissivo de teste (W2)"
+    },
+    {
+      "name": "lanterna_veiculo",
+      "baseName": "lanterna_veiculo",
+      "family": "",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.6,
+        0.04,
+        0.03,
+        1.0
+      ],
+      "diffuseColor": [
+        0.6,
+        0.04,
+        0.03,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.1,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "lente_farol",
+      "baseName": "lente_farol",
+      "family": "lente_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.5,
+        0.55,
+        0.55,
+        1.0
+      ],
+      "diffuseColor": [
+        0.5,
+        0.55,
+        0.55,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.05,
+      "alpha": 0.25,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "vidro/lente de veículo translúcido (interior modelado)"
+    },
+    {
+      "name": "lente_lanterna",
+      "baseName": "lente_lanterna",
+      "family": "lente_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.35,
+        0.02,
+        0.02,
+        1.0
+      ],
+      "diffuseColor": [
+        0.35,
+        0.02,
+        0.02,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.05,
+      "alpha": 0.45,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "vidro/lente de veículo translúcido (interior modelado)"
+    },
+    {
+      "name": "liner_veiculo",
+      "baseName": "liner_veiculo",
+      "family": "",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.015,
+        0.015,
+        0.016,
+        1.0
+      ],
+      "diffuseColor": [
+        0.015,
+        0.015,
+        0.016,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.8,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
     },
     {
       "name": "lona_obra",
@@ -2336,6 +3555,412 @@
       ],
       "normalConvention": "OpenGL (Y+), espaço tangente",
       "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/reboco)"
+    },
+    {
+      "name": "pintura_carro_amarelo_servico",
+      "baseName": "pintura_carro_amarelo_servico",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.82,
+        0.62,
+        0.06,
+        1.0
+      ],
+      "diffuseColor": [
+        0.82,
+        0.62,
+        0.06,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.22,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_azul_escuro",
+      "baseName": "pintura_carro_azul_escuro",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.05,
+        0.09,
+        0.22,
+        1.0
+      ],
+      "diffuseColor": [
+        0.05,
+        0.09,
+        0.22,
+        1.0
+      ],
+      "metallic": 0.35,
+      "roughness": 0.22,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_azul_escuro_gasta",
+      "baseName": "pintura_carro_azul_escuro_gasta",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.05,
+        0.09,
+        0.22,
+        1.0
+      ],
+      "diffuseColor": [
+        0.05,
+        0.09,
+        0.22,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_bege",
+      "baseName": "pintura_carro_bege",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.68,
+        0.6,
+        0.45,
+        1.0
+      ],
+      "diffuseColor": [
+        0.68,
+        0.6,
+        0.45,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.22,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_bege_gasta",
+      "baseName": "pintura_carro_bege_gasta",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.68,
+        0.6,
+        0.45,
+        1.0
+      ],
+      "diffuseColor": [
+        0.68,
+        0.6,
+        0.45,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_branco",
+      "baseName": "pintura_carro_branco",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.86,
+        0.86,
+        0.84,
+        1.0
+      ],
+      "diffuseColor": [
+        0.86,
+        0.86,
+        0.84,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.22,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_branco_gasta",
+      "baseName": "pintura_carro_branco_gasta",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.86,
+        0.86,
+        0.84,
+        1.0
+      ],
+      "diffuseColor": [
+        0.86,
+        0.86,
+        0.84,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_prata",
+      "baseName": "pintura_carro_prata",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.62,
+        0.63,
+        0.64,
+        1.0
+      ],
+      "diffuseColor": [
+        0.62,
+        0.63,
+        0.64,
+        1.0
+      ],
+      "metallic": 0.35,
+      "roughness": 0.22,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_prata_gasta",
+      "baseName": "pintura_carro_prata_gasta",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.62,
+        0.63,
+        0.64,
+        1.0
+      ],
+      "diffuseColor": [
+        0.62,
+        0.63,
+        0.64,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_preto",
+      "baseName": "pintura_carro_preto",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.03,
+        0.03,
+        0.035,
+        1.0
+      ],
+      "diffuseColor": [
+        0.03,
+        0.03,
+        0.035,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.22,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_verde_velho",
+      "baseName": "pintura_carro_verde_velho",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.2,
+        0.3,
+        0.2,
+        1.0
+      ],
+      "diffuseColor": [
+        0.2,
+        0.3,
+        0.2,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.22,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_verde_velho_gasta",
+      "baseName": "pintura_carro_verde_velho_gasta",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.2,
+        0.3,
+        0.2,
+        1.0
+      ],
+      "diffuseColor": [
+        0.2,
+        0.3,
+        0.2,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_vermelho",
+      "baseName": "pintura_carro_vermelho",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.5,
+        0.06,
+        0.05,
+        1.0
+      ],
+      "diffuseColor": [
+        0.5,
+        0.06,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.22,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "pintura_carro_vermelho_gasta",
+      "baseName": "pintura_carro_vermelho_gasta",
+      "family": "pintura_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.5,
+        0.06,
+        0.05,
+        1.0
+      ],
+      "diffuseColor": [
+        0.5,
+        0.06,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
     },
     {
       "name": "pintura_industrial",
@@ -3409,6 +5034,64 @@
       "maps": [],
       "normalConvention": null,
       "status": "W3 vidro funcional (Fresnel/alpha, sombra transparente)"
+    },
+    {
+      "name": "vidro_veiculo",
+      "baseName": "vidro_veiculo",
+      "family": "",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.02,
+        0.025,
+        0.03,
+        1.0
+      ],
+      "diffuseColor": [
+        0.02,
+        0.025,
+        0.03,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.04,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": ""
+    },
+    {
+      "name": "vidro_veiculo_claro",
+      "baseName": "vidro_veiculo_claro",
+      "family": "vidro_veiculo",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.012,
+        0.016,
+        0.02,
+        1.0
+      ],
+      "diffuseColor": [
+        0.012,
+        0.016,
+        0.02,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.03,
+      "alpha": 0.28,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "vidro/lente de veículo translúcido (interior modelado)"
     },
     {
       "name": "vidro_vitrine",

@@ -57,6 +57,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: grama_laminas
+    second: {fileID: 2100000, guid: 541afd3e4786f7e47a87299b96c59343, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: madeira_crua
     second: {fileID: 2100000, guid: ae45839614c5cae4fab943444b5ad487, type: 2}
   - first:

@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "errors": [],
+  "observations": {
+    "meshesChecked": 1013,
+    "geometryNodesInstancers": 75,
+    "subcellsInFile": 15,
+    "subcellsOutsideCorridor": [],
+    "unitSystem": "METRIC",
+    "unitScale": 1.0
+  },
+  "blenderUp": "Z",
+  "unityUp": "Y (FBX exporter converts; manifests carry Blender bounds)"
+}

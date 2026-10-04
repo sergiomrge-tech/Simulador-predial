@@ -38,7 +38,7 @@
       "layer": "Roads",
       "status": "EXPORTED",
       "file": "Roads.fbx",
-      "fileBytes": 404252,
+      "fileBytes": 424780,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -61,7 +61,7 @@
       "layer": "Architecture",
       "status": "EXPORTED",
       "file": "Architecture.fbx",
-      "fileBytes": 4439484,
+      "fileBytes": 7729772,
       "sourceObjects": 10,
       "exportedObjects": 3,
       "linkedInstancesExcluded": [
@@ -115,7 +115,7 @@
       "status": "EXPORTED",
       "file": "Props.fbx",
       "fileBytes": 242348,
-      "sourceObjects": 1,
+      "sourceObjects": 51,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
@@ -131,13 +131,17 @@
           -1259.418212890625,
           32.14419174194336
         ]
-      }
+      },
+      "lodFile": "Props_Vehicles.fbx",
+      "lodFileBytes": 6213292,
+      "lodVehicles": 50,
+      "lodError": null
     },
     {
       "layer": "Vegetation",
       "status": "EXPORTED",
       "file": "Vegetation.fbx",
-      "fileBytes": 1397644,
+      "fileBytes": 20168060,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -145,26 +149,19 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -2749.492919921875,
-          -1500.2000732421875,
+          -2749.536865234375,
+          -1500.311767578125,
           16.984203338623047
         ],
         "max": [
-          -2499.73193359375,
-          -1250.0316162109375,
-          34.26201248168945
+          -2499.64892578125,
+          -1249.5576171875,
+          34.17765426635742
         ]
       }
     }
   ],
-  "linkedHeroInstancesExcluded": [
-    {
-      "object": "W2I_grocery",
-      "collection": "W2_grocery",
-      "facilityId": "grocery",
-      "source": "Heroes/W2_grocery.blend"
-    }
-  ],
+  "linkedHeroInstancesExcluded": [],
   "gameplayExport": "Use Tools/Blender/export_unity_gameplay_markers.py",
   "sourceBlendModified": false
 }

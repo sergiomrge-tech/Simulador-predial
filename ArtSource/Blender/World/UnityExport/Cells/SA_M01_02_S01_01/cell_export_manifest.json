@@ -38,7 +38,7 @@
       "layer": "Roads",
       "status": "EXPORTED",
       "file": "Roads.fbx",
-      "fileBytes": 510508,
+      "fileBytes": 544060,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -61,7 +61,7 @@
       "layer": "Architecture",
       "status": "EXPORTED",
       "file": "Architecture.fbx",
-      "fileBytes": 5158204,
+      "fileBytes": 8814092,
       "sourceObjects": 3,
       "exportedObjects": 3,
       "linkedInstancesExcluded": [],
@@ -69,14 +69,14 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -2730.800048828125,
+          -2745.25,
           -1758.1434326171875,
           16.61825942993164
         ],
         "max": [
           -2493.49560546875,
           -1497.0748291015625,
-          46.118656158447266
+          47.45819091796875
         ]
       }
     },
@@ -108,7 +108,7 @@
       "status": "EXPORTED",
       "file": "Props.fbx",
       "fileBytes": 234236,
-      "sourceObjects": 1,
+      "sourceObjects": 86,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
@@ -124,13 +124,17 @@
           -1507.0496826171875,
           33.670921325683594
         ]
-      }
+      },
+      "lodFile": "Props_Vehicles.fbx",
+      "lodFileBytes": 5945852,
+      "lodVehicles": 85,
+      "lodError": null
     },
     {
       "layer": "Vegetation",
       "status": "EXPORTED",
       "file": "Vegetation.fbx",
-      "fileBytes": 1507276,
+      "fileBytes": 21034748,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -138,14 +142,14 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -2749.94677734375,
-          -1749.8291015625,
-          18.01525115966797
+          -2750.010009765625,
+          -1749.89697265625,
+          18.01416015625
         ],
         "max": [
-          -2498.154052734375,
-          -1499.8470458984375,
-          38.540809631347656
+          -2497.864501953125,
+          -1499.760009765625,
+          38.171443939208984
         ]
       }
     }

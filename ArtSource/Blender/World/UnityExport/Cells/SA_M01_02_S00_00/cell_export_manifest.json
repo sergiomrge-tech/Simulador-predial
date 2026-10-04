@@ -38,7 +38,7 @@
       "layer": "Roads",
       "status": "EXPORTED",
       "file": "Roads.fbx",
-      "fileBytes": 281564,
+      "fileBytes": 306844,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -61,7 +61,7 @@
       "layer": "Architecture",
       "status": "EXPORTED",
       "file": "Architecture.fbx",
-      "fileBytes": 5444300,
+      "fileBytes": 9160444,
       "sourceObjects": 3,
       "exportedObjects": 3,
       "linkedInstancesExcluded": [],
@@ -70,13 +70,13 @@
       "blenderBounds": {
         "min": [
           -3006.90234375,
-          -1994.66796875,
+          -1999.9144287109375,
           19.088720321655273
         ],
         "max": [
           -2759.199951171875,
           -1737.26025390625,
-          49.20491027832031
+          50.23491287231445
         ]
       }
     },
@@ -108,7 +108,7 @@
       "status": "EXPORTED",
       "file": "Props.fbx",
       "fileBytes": 157676,
-      "sourceObjects": 1,
+      "sourceObjects": 57,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
@@ -124,13 +124,17 @@
           -1751.9742431640625,
           33.01490020751953
         ]
-      }
+      },
+      "lodFile": "Props_Vehicles.fbx",
+      "lodFileBytes": 6237724,
+      "lodVehicles": 56,
+      "lodError": null
     },
     {
       "layer": "Vegetation",
       "status": "EXPORTED",
       "file": "Vegetation.fbx",
-      "fileBytes": 1213276,
+      "fileBytes": 14756444,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -138,14 +142,14 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -3000.093017578125,
-          -1999.980712890625,
-          20.467544555664062
+          -3000.173583984375,
+          -1999.9755859375,
+          20.46566390991211
         ],
         "max": [
-          -2750.46875,
-          -1750.03515625,
-          44.155189514160156
+          -2750.504150390625,
+          -1749.801513671875,
+          44.126487731933594
         ]
       }
     }
