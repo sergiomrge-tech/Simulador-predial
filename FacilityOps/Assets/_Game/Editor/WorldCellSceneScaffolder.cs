@@ -49,6 +49,9 @@ namespace FacilityOps.Editor
                     "Cancel"))
                 return;
 
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                return;
+
             EnsureAssetFolder(SceneRoot);
 
             Scene original = SceneManager.GetActiveScene();
@@ -98,7 +101,8 @@ namespace FacilityOps.Editor
             }
             finally
             {
-                if (!string.IsNullOrEmpty(originalPath) && File.Exists(originalPath))
+                if (!string.IsNullOrEmpty(originalPath) &&
+                    AssetDatabase.LoadAssetAtPath<SceneAsset>(originalPath) != null)
                     EditorSceneManager.OpenScene(originalPath, OpenSceneMode.Single);
             }
 
