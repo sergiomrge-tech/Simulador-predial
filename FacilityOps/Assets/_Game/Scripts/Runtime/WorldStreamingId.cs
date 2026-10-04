@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using UnityEngine;
 
 namespace FacilityOps
@@ -110,7 +109,18 @@ namespace FacilityOps
             SubX == other.SubX && SubZ == other.SubZ;
 
         public override bool Equals(object obj) => obj is WorldStreamingId other && Equals(other);
-        public override int GetHashCode() => HashCode.Combine(MacroX, MacroZ, SubX, SubZ);
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 31 + MacroX;
+                hash = hash * 31 + MacroZ;
+                hash = hash * 31 + SubX;
+                hash = hash * 31 + SubZ;
+                return hash;
+            }
+        }
         public override string ToString() => Name;
 
         public static bool operator ==(WorldStreamingId left, WorldStreamingId right) => left.Equals(right);
