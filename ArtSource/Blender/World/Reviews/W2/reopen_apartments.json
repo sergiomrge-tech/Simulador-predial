@@ -1,0 +1,77 @@
+{
+  "hero": "apartments",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_apartments.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 46,
+  "checks": {
+    "meshObjects": 33,
+    "triangles": 73678,
+    "trianglesPerCollection": {
+      "W2_apartments_CaptureOnly": 10,
+      "W2_apartments_Interior": 3026,
+      "W2_apartments_Openings": 41440,
+      "W2_apartments_Services": 1650,
+      "W2_apartments_Shell": 26712,
+      "W2_apartments_Site": 546,
+      "W2_apartments_Structure": 294
+    },
+    "largestObjects": [
+      {
+        "name": "W2_apartments__B0_front_wing_openings",
+        "tris": 15090
+      },
+      {
+        "name": "W2_apartments__B2_rear_wing_openings",
+        "tris": 11980
+      },
+      {
+        "name": "W2_apartments__B0_front_wing_shell",
+        "tris": 10280
+      },
+      {
+        "name": "W2_apartments__B1_west_wing_openings",
+        "tris": 9060
+      },
+      {
+        "name": "W2_apartments__B2_rear_wing_shell",
+        "tris": 7728
+      },
+      {
+        "name": "W2_apartments__B1_west_wing_shell",
+        "tris": 6360
+      },
+      {
+        "name": "W2_apartments__sign_name",
+        "tris": 2344
+      },
+      {
+        "name": "W2_apartments__interior_fitout",
+        "tris": 1782
+      }
+    ],
+    "lights": 4,
+    "materials": 28,
+    "stateSlots": [],
+    "interactive": 6,
+    "root": {
+      "name": "W2_apartments_ROOT",
+      "facility_id": "apartments",
+      "location": [
+        -3050.0,
+        -1571.0,
+        24.858
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W2/w2_apartments_01_rua.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_apartments_02_entrada.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_apartments_03_interior.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_apartments_04_tecnico.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_apartments_05_aerea.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_apartments_06_corte.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

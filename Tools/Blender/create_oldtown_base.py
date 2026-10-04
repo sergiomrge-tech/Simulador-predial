@@ -606,7 +606,9 @@ for o in list(hb.objects) + [e for e in hero_markers.objects]:
 # ---------------------------------------------------------------- W2 heroes: linked collection instances (LOD0), W1.5 massing kept as LOD1
 # Each W2 hero .blend keeps its world transform on its root, so an instance at the origin lands in place. The W1.5 hero
 # objects stay in the file (hidden in render, tagged LOD1) and keep their gameplay markers and IDs untouched.
-W2_HEROES = {"home.starter": "W2_home_starter.blend", "garage": "W2_garage.blend", "horizonte": "W2_horizonte.blend", "imperial": "W2_imperial.blend"}
+W2_HEROES = {"home.starter": "W2_home_starter.blend", "garage": "W2_garage.blend", "horizonte": "W2_horizonte.blend", "imperial": "W2_imperial.blend",
+             "apartments": "W2_apartments.blend", "grocery": "W2_grocery.blend", "restaurant": "W2_restaurant.blend", "workshop": "W2_workshop.blend",
+             "smalloffice": "W2_smalloffice.blend"}
 w2_coll = sa_bl.collection("OT_Heroes_W2_LOD0", layer_coll["Architecture"])
 STATS["w2_heroes_linked"] = []
 for hid, fn in W2_HEROES.items():

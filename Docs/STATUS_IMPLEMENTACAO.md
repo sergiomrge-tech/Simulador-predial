@@ -171,10 +171,12 @@ Preparação concluída no GitHub:
 - Relatório: `Docs/W2_CIDADE_ANTIGA_BASE_RELATORIO.md` (Gate D parcial PASS).
 - Atualização (2026-10-04):
   - Teatro Imperial W2 (123 mil tris: fachada clássica, pórtico, plateia com 2,4 mil poltronas, palco e urdimento, quadro antigo + retrofit inacabado);
-  - os quatro heróis W2 vinculados à base como instâncias de coleção (LOD0), com o massing W1.5 oculto como LOD1;
-  - 42 capturas.
+  - cinco heróis restantes pelo gerador genérico (`create_w2_hero_generic.py`);
+  - os **nove** heróis W2 vinculados à base como instâncias de coleção (LOD0), com o massing W1.5 oculto como LOD1;
+  - 73 capturas.
 - **Falta:**
-  - demais heróis (apartments, grocery, restaurant, workshop, smalloffice);
+  - revisão visual do usuário (gate da Cidade Antiga);
+  - refino autoral dos 5 heróis genéricos;
   - decals e desgaste;
   - estados G1–G4/H1–H4 modelados;
   - subsolo do Horizonte.

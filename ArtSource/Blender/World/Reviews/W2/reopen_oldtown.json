@@ -3,15 +3,15 @@
   "blend": "ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend",
   "blenderVersion": "5.2.1 LTS",
   "reopenedInFreshProcess": true,
-  "objectCount": 1922,
-  "meshCount": 1710,
+  "objectCount": 2160,
+  "meshCount": 1909,
   "collections": {
-    "OT_CidadeAntiga": 1436
+    "OT_CidadeAntiga": 1441
   },
   "checks": {
     "geometryNodesInstancers": 562,
-    "materials": 162,
-    "materialsWithTextureSlots": 158,
+    "materials": 304,
+    "materialsWithTextureSlots": 295,
     "heroes": 9,
     "stateSlots": 77,
     "states": [
@@ -27,12 +27,12 @@
       "H3",
       "H4"
     ],
-    "subcellObjects": 1313,
+    "subcellObjects": 1318,
     "subcells": 181,
     "familyVariants": 45,
     "gameplayMarkers": 300,
     "complexity": {
-      "meshTris": 2273396,
+      "meshTris": 2501426,
       "instancedTris": 22756842,
       "instances": 59574,
       "largestMesh": [
@@ -43,6 +43,7 @@
   },
   "missingData": [],
   "renders": [
+    "ArtSource/Blender/World/Reviews/W2/ot_03_cidade_antiga.jpg",
     "ArtSource/Blender/World/Reviews/W2/ot_04_cidade_antiga_obliqua.jpg",
     "ArtSource/Blender/World/Reviews/W2/ot_05_lar_inicial.jpg",
     "ArtSource/Blender/World/Reviews/W2/ot_06_oficina_aurora.jpg",

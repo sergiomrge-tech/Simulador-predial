@@ -105,14 +105,41 @@ Cada herói é gerado a partir de `oldtown_heroes_v1.json` (cômodos, entradas, 
 - **123 mil tris, 14 luzes.** Capturas: `w2_imperial_01…09`.
 
 ### Integração na base da Cidade Antiga
-- `create_oldtown_base.py` liga os quatro `.blend` W2 como **instâncias de coleção vinculadas** (`OT_Heroes_W2_LOD0`, objetos `W2I_<id>`, caminho relativo). As raízes já carregam a posição no mundo.
+- `create_oldtown_base.py` liga os **nove** `.blend` W2 como **instâncias de coleção vinculadas** (`OT_Heroes_W2_LOD0`, objetos `W2I_<id>`, caminho relativo). As raízes já carregam a posição no mundo.
 - O massing W1.5 de cada herói continua no arquivo, oculto no render e marcado `sa_lod = LOD1`. Os marcadores de gameplay (`GP_*`, `SLOT_*`) e os IDs não mudaram.
 - Câmeras, sol e placas de chão de captura ficam numa coleção `__SceneOnly` fora da coleção do herói, então não viajam com a instância.
 - `verify_world_v1_5.py` agora preserva o estado `hide_render` gravado (antes reexibia tudo e trazia o LOD1 de volta nas capturas).
 - Capturas `ot_04…08` mostram os heróis W2 dentro da cidade.
 
-### E. Demais heróis
-Os demais (apartments, grocery, restaurant, workshop, smalloffice) **ainda não foram iniciados** e continuam com a base W1.5.
+### E. Demais heróis (`create_w2_hero_generic.py --hero <id>`)
+Um gerador paramétrico deriva tudo do JSON:
+- volumes com várias alas, sem janelas nas faces compartilhadas;
+- tipo de cada entrada pela função (porta, porta de enrolar, passagem de veículo, portão de terreno);
+- vitrine no lado `shopfront`;
+- telhado (platibanda, duas águas, quatro águas, shed);
+- toldo, volumes secundários (câmara fria), condensadoras, vagas, pátios e muros.
+
+O térreo é equipado por função de cômodo:
+- quadro, medidores, sala técnica e rack → quadros e racks com marcador `GP_`;
+- salão → gôndolas (mercearia) ou mesas e cadeiras (restaurante);
+- cozinha → linha de bancadas e ilha inox;
+- banheiros → louças;
+- estações de trabalho → mesas;
+- boxes da oficina → elevadores automotivos de 2 colunas e quadro;
+- depósito → estantes;
+- recepção → balcão.
+
+Andares superiores ficam fechados (casca, janelas leves e cortinas).
+
+| Herói | Tris | Capturas |
+|---|---|---|
+| Residencial Vila Antiga (`apartments`) | 74 mil | `w2_apartments_01…06` |
+| Mercearia São Jorge (`grocery`) | 28 mil | `w2_grocery_01…06` |
+| Restaurante Dona Cida (`restaurant`) | ~45 mil | `w2_restaurant_01…06` |
+| Auto Elétrica Ferreira (`workshop`) | 23 mil | `w2_workshop_01…06` |
+| Escritório Contábil Paiva (`smalloffice`) | 44 mil | `w2_smalloffice_01…06` |
+
+Esses cinco têm nível de detalhe menor que o dos quatro heróis principais (gerador genérico, interiores simplificados) e são o candidato natural a refino autoral depois da revisão do usuário.
 
 ---
 
@@ -136,7 +163,7 @@ Medido pela mesma rotina (`verify_world_v1_5.py`, `checks.complexity`): tris das
 
 Heróis isolados: Lar 111 mil, Oficina 59 mil, Horizonte 171 mil, Teatro 123 mil tris. A maior peça única tem 34,5 mil tris (fachada do foyer do Teatro).
 
-Com os heróis W2 vinculados, os tris de meshes simples da base passam de 1,81 milhão para 2,27 milhões. A contagem inclui o LOD0 W2 vinculado e o LOD1 W1.5 oculto; o render usa só um dos dois por herói.
+Com os nove heróis W2 vinculados, os tris de meshes simples da base passam de 1,81 milhão para 2,50 milhões. A contagem inclui o LOD0 W2 vinculado e o LOD1 W1.5 oculto; o render usa só um dos dois por herói.
 
 **Plano de LOD:**
 - LOD0 = heróis W2.
@@ -149,7 +176,7 @@ Com os heróis W2 vinculados, os tris de meshes simples da base passam de 1,81 m
 ## 4. Validações
 
 - `validate_masterplan.py`: **PASS, 0 erros** (layout inalterado).
-- Reaberturas em processo novo, todas **PASS, 0 dados faltando** (incluindo as bibliotecas vinculadas): `W2_home_starter`, `W2_garage`, `W2_horizonte`, `W2_imperial`, Cidade Antiga base (1.922 objetos com os heróis vinculados) e kit.
+- Reaberturas em processo novo, todas **PASS, 0 dados faltando** (incluindo as bibliotecas vinculadas): `W2_home_starter`, `W2_garage`, `W2_horizonte`, `W2_imperial`, os 5 heróis genéricos, Cidade Antiga base (2.160 objetos com os 9 heróis vinculados) e kit.
 - Cada herói tem exatamente uma raiz, e todos os objetos são filhos dela. Escala métrica 1:1. Os slots H0–H4 e G0–G4 estão presentes. Nenhum objeto passa de 200 mil tris.
 
 ---
@@ -162,7 +189,7 @@ Com os heróis W2 vinculados, os tris de meshes simples da base passam de 1,81 m
 | Refino do kit e do ambiente urbano verificável | **PASS** — `w2_kit_detalhe`, contagens N3/N4 no relatório de geração |
 | N1/N3/N4 tratados ou medidos | **PASS (tratados, não encerrados)** — N1 +29 mil acessórios por regra; N3 esquinas curvas e rebaixos; N4 recuos com piso, floreiras e balizadores |
 | Arquivos reabrem sem dados faltando | **PASS** |
-| Capturas | **PASS** — 42 capturas em `ArtSource/Blender/World/Reviews/W2/` |
+| Capturas | **PASS** — 73 capturas em `ArtSource/Blender/World/Reviews/W2/` |
 | Complexidade documentada | **PASS** — seção 3 |
 | Relatório de continuidade | **PASS** — este documento + STATUS |
 
@@ -183,15 +210,15 @@ Com os heróis W2 vinculados, os tris de meshes simples da base passam de 1,81 m
   - acesso à garagem térrea pelo lado oeste, logo antes do início da rampa (adaptação do JSON, que sobrepõe as duas áreas).
 - Oficina em G0 propositalmente vazia; G1–G4 só como slots.
 - Árvores e arbustos continuam proxies (N2), céu do skyline continua estourado (N5), fora da Cidade Antiga continua massing (N6).
-- Demais heróis (item E) não foram iniciados.
+- Os 5 heróis do item E vêm do gerador genérico: fachadas regulares, interiores simplificados, cadeiras e mesas básicas.
 - Teatro: porão técnico e camarins internos não modelados; poltronas mescladas por bloco (instancing por poltrona fica para a Unity).
 
 ---
 
 ## 7. Próximo
 
-1. Demais heróis da Cidade Antiga com o mesmo pipeline (`sa_w2.HeroScene` + `sa_detail.Kit`), vinculados à base como os quatro primeiros.
-2. Revisão visual do usuário das capturas `w2_*` e `ot_*`.
+1. Revisão visual do usuário das capturas `w2_*` e `ot_*` (gate visual da Cidade Antiga).
+2. Refino autoral dos 5 heróis genéricos, começando pelos clientes do Capítulo I.
 3. Desgaste e decals procedurais (manchas de escorrimento, sujeira de rodapé, fiação aparente, cartazes) e vidro com transmissão.
 4. G1–G4 / H1–H4 modelados como variações de estado.
 5. Subsolo do Horizonte e prumadas hidráulicas completas para o contrato da bomba.
@@ -200,6 +227,7 @@ Reproduzir:
 
 ```
 blender -b --factory-startup --python Tools/Blender/create_w2_hero_{home,garage,horizonte,imperial}.py -- --root .   # antes da base (ela vincula os heróis)
+blender -b --factory-startup --python Tools/Blender/create_w2_hero_generic.py -- --root . --hero {apartments,grocery,restaurant,workshop,smalloffice}
 blender -b --factory-startup ArtSource/Blender/World/OldTown/Heroes/W2_<id>.blend --python Tools/Blender/verify_w2_hero.py -- --root .
 blender -b --factory-startup --python Tools/Blender/create_oldtown_base.py -- --root .
 blender -b --factory-startup ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend --python Tools/Blender/verify_world_v1_5.py -- --root . --mode oldtown --review W2

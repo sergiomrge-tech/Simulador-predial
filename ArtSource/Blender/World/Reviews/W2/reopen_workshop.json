@@ -1,0 +1,77 @@
+{
+  "hero": "workshop",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_workshop.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 39,
+  "checks": {
+    "meshObjects": 26,
+    "triangles": 22662,
+    "trianglesPerCollection": {
+      "W2_workshop_CaptureOnly": 10,
+      "W2_workshop_Interior": 3360,
+      "W2_workshop_Openings": 10580,
+      "W2_workshop_Services": 2508,
+      "W2_workshop_Shell": 5032,
+      "W2_workshop_Site": 1136,
+      "W2_workshop_Structure": 36
+    },
+    "largestObjects": [
+      {
+        "name": "W2_workshop__B0_workshop_hall_openings",
+        "tris": 5270
+      },
+      {
+        "name": "W2_workshop__sign_name",
+        "tris": 3040
+      },
+      {
+        "name": "W2_workshop__B0_workshop_hall_shell",
+        "tris": 1992
+      },
+      {
+        "name": "W2_workshop__qdc_quadro",
+        "tris": 1452
+      },
+      {
+        "name": "W2_workshop__qdc_boxes",
+        "tris": 1056
+      },
+      {
+        "name": "W2_workshop__door_reception",
+        "tris": 990
+      },
+      {
+        "name": "W2_workshop__door_room_reception__leaf",
+        "tris": 862
+      },
+      {
+        "name": "W2_workshop__door_room_depot__leaf",
+        "tris": 862
+      }
+    ],
+    "lights": 5,
+    "materials": 29,
+    "stateSlots": [],
+    "interactive": 8,
+    "root": {
+      "name": "W2_workshop_ROOT",
+      "facility_id": "workshop",
+      "location": [
+        -3198.0,
+        -2034.0,
+        30.053
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W2/w2_workshop_01_rua.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_workshop_02_entrada.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_workshop_03_interior.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_workshop_04_tecnico.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_workshop_05_aerea.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_workshop_06_corte.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

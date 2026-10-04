@@ -1,12 +1,12 @@
 {
   "blend": "ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objectCount": 1922,
+  "objectCount": 2160,
   "collectionObjectCounts": {
     "OT_Library": 110,
     "OT_Terrain": 180,
     "OT_Roads": 156,
-    "OT_Architecture": 407,
+    "OT_Architecture": 412,
     "OT_Infrastructure": 62,
     "OT_Props": 59,
     "OT_Vegetation": 130,
@@ -431,7 +431,12 @@
       "home.starter",
       "garage",
       "horizonte",
-      "imperial"
+      "imperial",
+      "apartments",
+      "grocery",
+      "restaurant",
+      "workshop",
+      "smalloffice"
     ],
     "accessoryInstances": 29381
   },
