@@ -6,23 +6,13 @@ O Claude Code pode avançar entre as etapas abaixo sem pedir confirmação a cad
 
 ## Ordem obrigatória
 
-### ETAPA A — Skills e ferramentas
-Executar integralmente a pesquisa e curadoria descrita em `Docs/CLAUDE_NEXT_TASK.md`.
+### ETAPA A — W1.5 Santa Aurora Foundation
 
-Gate A:
-- `Docs/SKILLS/` criado e preenchido;
-- `Tools/Skills/catalog.json` válido;
-- TOP 10 e TOP 5 definidos;
-- licenças/riscos documentados;
-- nada externo instalado sem aprovação;
-- commit + push;
-- working tree limpa.
+O Claude já está trabalhando nesta etapa. NÃO interromper para pesquisa de skills antes de concluir o masterplan.
 
-Ao passar o Gate A, seguir imediatamente para a Etapa B.
+Objetivo: fechar a fundação espacial do mundo e preparar a Cidade Antiga como primeira região de produção.
 
----
 
-### ETAPA B — W1.5 Santa Aurora Foundation
 
 Objetivo: fechar a fundação espacial do mundo e preparar a Cidade Antiga como primeira região de produção.
 
