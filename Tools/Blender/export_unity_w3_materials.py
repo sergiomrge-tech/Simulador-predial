@@ -50,11 +50,14 @@ for name in sorted(used):
     if texture_mode == "tint":
         tint = [min(1.0, rgba[0] * 1.18), min(1.0, rgba[1] * 1.18), min(1.0, rgba[2] * 1.18), rgba[3]]
 
-    maps = {}
+    maps = []
     normal_convention = None
     if texture_set and texture_set in tex_lib:
         info = tex_lib[texture_set]
-        maps = dict(info.get("maps", {}))
+        maps = [
+            {"channel": channel, "path": path}
+            for channel, path in sorted(info.get("maps", {}).items())
+        ]
         tile_m = float(info.get("tile_m", tile_m))
         normal_convention = info.get("normal_convention")
 
