@@ -261,27 +261,27 @@
       "front": "N",
       "street": "largo_imperial",
       "buildings": [
-        {"role": "foyer", "rect": [-2085, -2620, -2015, -2603], "floors": 3, "fh": 4.3, "ground_h": 4.3, "roof": "flat_parapet", "facade": "pedra_reboco_historico"},
-        {"role": "auditorium", "rect": [-2086, -2666, -2014, -2620], "floors": 1, "fh": 19.0, "ground_h": 19.0, "roof": "barrel", "facade": "pedra_reboco_historico"},
-        {"role": "fly_tower", "rect": [-2075, -2688, -2025, -2666], "floors": 1, "fh": 29.0, "ground_h": 29.0, "roof": "flat_parapet", "facade": "tijolo_aparente"},
+        {"role": "foyer", "rect": [-2085, -2620, -2015, -2609], "floors": 3, "fh": 4.3, "ground_h": 4.3, "roof": "flat_parapet", "facade": "pedra_reboco_historico"},
+        {"role": "auditorium", "rect": [-2086, -2666, -2014, -2620], "floors": 1, "fh": 19.0, "ground_h": 19.0, "roof": "gable_side", "facade": "pedra_reboco_historico"},
+        {"role": "fly_tower", "rect": [-2075, -2688, -2025, -2666], "floors": 1, "fh": 33.0, "ground_h": 33.0, "roof": "flat_parapet", "facade": "tijolo_aparente"},
         {"role": "backstage_dock", "rect": [-2085, -2698, -2015, -2688], "floors": 2, "fh": 4.5, "ground_h": 4.5, "roof": "flat_parapet", "facade": "tijolo_aparente"}
       ],
-      "portico": {"rect": [-2080, -2606.5, -2020, -2602], "columns": 8, "h": 12.0},
+      "portico": {"rect": [-2080, -2607.5, -2020, -2603], "columns": 8, "h": 12.0},
       "roof_items": [
         {"role": "hvac_unit_1", "rect": [-2070, -2650, -2062, -2644], "h": 2.2, "on": "auditorium"},
         {"role": "hvac_unit_2", "rect": [-2052, -2650, -2044, -2644], "h": 2.2, "on": "auditorium"},
         {"role": "hvac_unit_3", "rect": [-2034, -2650, -2026, -2644], "h": 2.2, "on": "auditorium"}
       ],
       "entrances": [
-        {"role": "main_portico", "p": [-2050, -2603], "facing": "N", "w": 6.0},
-        {"role": "box_office", "p": [-2072, -2603], "facing": "N", "w": 1.2},
+        {"role": "main_portico", "p": [-2050, -2609], "facing": "N", "w": 6.0},
+        {"role": "box_office", "p": [-2072, -2609], "facing": "N", "w": 1.2},
         {"role": "loading_dock", "p": [-2050, -2698], "facing": "S", "w": 5.0, "h": 4.5},
         {"role": "stage_door", "p": [-2014, -2675], "facing": "E", "w": 1.0},
         {"role": "technical_basement_hatch", "p": [-2089, -2650], "facing": "W", "w": 1.2}
       ],
       "service": [{"role": "rear_service_street", "street": "rua_porto"}, {"role": "east_service_path", "rect": [-2014, -2698, -2011, -2603]}],
       "parking": [{"role": "plaza_dropoff", "rect": [-2090, -2600, -2010, -2595], "kind": "dropoff"}, {"role": "dock_apron", "rect": [-2070, -2716, -2030, -2700], "kind": "truck"}],
-      "interior": {"rooms": [{"role": "foyer", "rect": [-2084.75, -2619.75, -2015.25, -2603.25]}, {"role": "bilheteria", "rect": [-2078, -2607, -2070, -2603.25]}, {"role": "plateia", "rect": [-2085.75, -2660, -2014.25, -2620]}, {"role": "palco", "rect": [-2075, -2680, -2025, -2660]}, {"role": "bastidores", "rect": [-2084.75, -2697.75, -2015.25, -2688]}, {"role": "cabine", "rect": [-2056, -2622, -2044, -2620]}, {"role": "quadro_antigo", "rect": [-2085.75, -2690, -2084, -2686]}]}
+      "interior": {"rooms": [{"role": "foyer", "rect": [-2084.75, -2619.75, -2015.25, -2609.25]}, {"role": "bilheteria", "rect": [-2078, -2613, -2070, -2609.25]}, {"role": "plateia", "rect": [-2085.75, -2660, -2014.25, -2620]}, {"role": "palco", "rect": [-2075, -2680, -2025, -2660]}, {"role": "bastidores", "rect": [-2084.75, -2697.75, -2015.25, -2688]}, {"role": "cabine", "rect": [-2056, -2622, -2044, -2620]}, {"role": "quadro_antigo", "rect": [-2085.75, -2690, -2084, -2686]}]}
     }
   ],
   "landmarks": [

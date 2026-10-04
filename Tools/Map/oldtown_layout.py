@@ -434,7 +434,8 @@ class OldTown:
             while x < x1 - 6:
                 z = z0 + 8
                 while z < z1 - 6:
-                    if rng.random() < .55:
+                    edge = min(x - x0, x1 - x, z - z0, z1 - z) < 14
+                    if rng.random() < (.45 if edge else .12):
                         pts["tree"].append((x + rng.uniform(-2, 2), z + rng.uniform(-2, 2), rng.uniform(0, 6.28)))
                     elif rng.random() < .25:
                         pts["bench"].append((x, z, rng.choice((0, math.pi / 2))))
