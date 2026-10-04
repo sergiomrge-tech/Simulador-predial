@@ -1,5 +1,6 @@
 {
   "schemaVersion": 1,
+  "revision": "W1.5",
   "worldMeters": [
     8000,
     8000
@@ -7,191 +8,238 @@
   "districts": 6,
   "campaignLocations": 24,
   "lifeLocations": 20,
-  "roads": 8,
+  "roads": 10,
+  "railways": 4,
+  "transitionZones": 8,
   "errors": [],
   "warnings": [],
   "layout": {
-    "roadLengthsKm": {
-      "R01": 7.66,
+    "revision": "W1.5",
+    "terrain": {
+      "minSurface": 2.6,
+      "maxSurface": 40.0,
+      "meanSurface": 20.4,
+      "drainageSurface": 4.7,
+      "drainageToCanalM": 218,
+      "technologyMean": 26.1,
+      "oldTownMean": 25.5,
+      "maxRoadGradePct": {
+        "R01.0": 2.11,
+        "R01.1": 2.54,
+        "R02": 2.75,
+        "R03.0": 3.1,
+        "R03.1": 2.69,
+        "R04.0": 1.51,
+        "R04.1": 5.64,
+        "R05.0": 1.64,
+        "R05.1": 2.78,
+        "R06": 2.52,
+        "R07": 3.11,
+        "R08": 2.21,
+        "R09": 2.31,
+        "R10": 2.52,
+        "rot.central": 1.36,
+        "rot.tecnologica": 1.55
+      }
+    },
+    "roads": {
+      "R01.0": 3.71,
+      "R01.1": 3.86,
       "R02": 6.81,
-      "R03": 3.96,
-      "R04": 4.04,
-      "R05": 7.35,
-      "R06": 3.23,
+      "R03.0": 3.71,
+      "R03.1": 0.17,
+      "R04.0": 0.87,
+      "R04.1": 3.08,
+      "R05.0": 4.82,
+      "R05.1": 2.45,
+      "R06": 3.56,
       "R07": 5.53,
-      "R08": 6.01
+      "R08": 5.93,
+      "R09": 7.71,
+      "R10": 1.95,
+      "rot.central": 0.26,
+      "rot.tecnologica": 0.26
     },
-    "localStreetEdges": {
-      "old": 1348,
-      "expansion": 1097,
-      "civic": 718,
-      "corporate": 916,
-      "industrial": 821,
-      "technology": 804
+    "roundabouts": [
+      "rot.central",
+      "rot.tecnologica"
+    ],
+    "railKm": {
+      "rail.linha_oeste": 6.98,
+      "rail.patio_porto_seco_a": 0.55,
+      "rail.patio_porto_seco_b": 0.54,
+      "rail.ramal_logistica": 0.37
     },
-    "localStreetKm": 319.8,
-    "droppedDisconnectedLocalEdges": 6,
-    "driveways": 44,
+    "streetKmByClass": {
+      "alley": 1.9,
+      "arterial_spec": 41.3,
+      "collector_spec": 13.4,
+      "industrial": 65.0,
+      "local": 482.2,
+      "main": 12.6,
+      "passage": 0.7
+    },
+    "driveways": 42,
     "access": {
       "garage": {
         "kind": "campaign",
-        "road": "R02",
-        "roadClass": "arterial",
-        "gap": 14.0
+        "road": "local.old",
+        "roadClass": "local",
+        "gap": 8.0
       },
       "horizonte": {
         "kind": "campaign",
         "road": "local.old",
         "roadClass": "local",
-        "gap": 6.5
+        "gap": 19.5
       },
       "apartments": {
         "kind": "campaign",
         "road": "local.old",
         "roadClass": "local",
-        "gap": 13.0
+        "gap": 2.8
       },
       "grocery": {
         "kind": "campaign",
-        "road": "local.old",
-        "roadClass": "local",
-        "gap": 20.0
+        "road": "alley.old",
+        "roadClass": "alley",
+        "gap": 2.5
       },
       "restaurant": {
         "kind": "campaign",
-        "road": "local.old",
-        "roadClass": "local",
-        "gap": 17.0
+        "road": "main.old",
+        "roadClass": "main",
+        "gap": 17.9
       },
       "workshop": {
         "kind": "campaign",
         "road": "local.old",
         "roadClass": "local",
-        "gap": 31.5
+        "gap": 0.2
       },
       "smalloffice": {
         "kind": "campaign",
         "road": "local.old",
         "roadClass": "local",
-        "gap": 32.0
+        "gap": 11.7
       },
       "imperial": {
         "kind": "campaign",
         "road": "local.old",
         "roadClass": "local",
-        "gap": 25.0
+        "gap": 19.1
       },
       "school": {
         "kind": "campaign",
         "road": "local.expansion",
         "roadClass": "local",
-        "gap": 24.0
+        "gap": 15.9
       },
       "recurringcondo": {
         "kind": "campaign",
         "road": "local.expansion",
         "roadClass": "local",
-        "gap": 14.0
+        "gap": 10.3
       },
       "lostcondo": {
         "kind": "campaign",
         "road": "local.expansion",
         "roadClass": "local",
-        "gap": 18.0
+        "gap": 14.3
       },
       "hotel": {
         "kind": "campaign",
         "road": "local.expansion",
         "roadClass": "local",
-        "gap": 12.0
+        "gap": 32.1
       },
       "smallhospital": {
         "kind": "campaign",
         "road": "local.expansion",
         "roadClass": "local",
-        "gap": 26.5
+        "gap": 10.8
       },
       "companyhq": {
         "kind": "campaign",
         "road": "local.expansion",
         "roadClass": "local",
-        "gap": 9.0
+        "gap": 10.6
       },
       "mall": {
         "kind": "campaign",
         "road": "local.corporate",
         "roadClass": "local",
-        "gap": 9.0
+        "gap": 1.0
       },
       "hospital0317": {
         "kind": "campaign",
         "road": "local.corporate",
         "roadClass": "local",
-        "gap": 24.0
+        "gap": 4.2
       },
       "blackouttower": {
         "kind": "campaign",
         "road": "local.corporate",
         "roadClass": "local",
-        "gap": 6.5
+        "gap": 1.7
       },
       "vertice": {
         "kind": "campaign",
         "road": "local.corporate",
         "roadClass": "local",
-        "gap": 29.0
+        "gap": 1.6
       },
       "logistics": {
         "kind": "campaign",
-        "road": "local.industrial",
-        "roadClass": "local",
-        "gap": 26.9
+        "road": "industrial.industrial",
+        "roadClass": "industrial",
+        "gap": 10.6
       },
       "factory": {
         "kind": "campaign",
-        "road": "local.industrial",
-        "roadClass": "local",
-        "gap": 24.0
+        "road": "industrial.industrial",
+        "roadClass": "industrial",
+        "gap": 1.8
       },
       "drainage": {
         "kind": "campaign",
-        "road": "local.industrial",
-        "roadClass": "local",
-        "gap": 39.0
+        "road": "industrial.industrial",
+        "roadClass": "industrial",
+        "gap": 5.7
       },
       "datacenter": {
         "kind": "campaign",
         "road": "local.technology",
         "roadClass": "local",
-        "gap": 9.0
+        "gap": 6.7
       },
       "smarttower": {
         "kind": "campaign",
         "road": "local.technology",
         "roadClass": "local",
-        "gap": 32.3
+        "gap": 29.1
       },
       "central": {
         "kind": "campaign",
-        "road": "R03",
-        "roadClass": "arterial",
-        "gap": 15.0
+        "road": "local.civic",
+        "roadClass": "local",
+        "gap": 0.3
       },
       "home.starter": {
         "kind": "life",
-        "road": "local.old",
-        "roadClass": "local",
-        "gap": 24.0
+        "road": "main.old",
+        "roadClass": "main",
+        "gap": 3.6
       },
       "home.apartment.01": {
         "kind": "life",
-        "road": "local.expansion",
+        "road": "local.T_old_exp",
         "roadClass": "local",
-        "gap": 54.0
+        "gap": 70.1
       },
       "home.apartment.02": {
         "kind": "life",
-        "road": "R03",
+        "road": "R03.0",
         "roadClass": "arterial",
         "gap": 25.0
       },
@@ -199,150 +247,321 @@
         "kind": "life",
         "road": "local.expansion",
         "roadClass": "local",
-        "gap": 22.0
+        "gap": 40.4
       },
       "home.house.02": {
         "kind": "life",
         "road": "local.old",
         "roadClass": "local",
-        "gap": 14.0
+        "gap": 12.7
       },
       "home.premium.01": {
         "kind": "life",
-        "road": "R04",
-        "roadClass": "arterial",
-        "gap": 59.5
+        "road": "local.technology",
+        "roadClass": "local",
+        "gap": 19.1
       },
       "supplier.tools": {
         "kind": "life",
-        "road": "local.old",
-        "roadClass": "local",
-        "gap": 44.0
+        "road": "main.old",
+        "roadClass": "main",
+        "gap": 10.9
       },
       "supplier.parts": {
         "kind": "life",
-        "road": "local.industrial",
-        "roadClass": "local",
-        "gap": 44.0
+        "road": "industrial.industrial",
+        "roadClass": "industrial",
+        "gap": 16.4
       },
       "supplier.electrical": {
         "kind": "life",
         "road": "local.old",
         "roadClass": "local",
-        "gap": 14.0
+        "gap": 13.0
       },
       "supplier.hydraulic": {
         "kind": "life",
-        "road": "local.expansion",
+        "road": "local.T_old_exp",
         "roadClass": "local",
-        "gap": 14.0
+        "gap": 14.2
       },
       "vehicles.used": {
         "kind": "life",
         "road": "local.old",
         "roadClass": "local",
-        "gap": 24.0
+        "gap": 2.2
       },
       "vehicles.commercial": {
         "kind": "life",
         "road": "local.expansion",
         "roadClass": "local",
-        "gap": 14.0
+        "gap": 10.7
       },
       "fuel.old": {
         "kind": "life",
         "road": "local.old",
         "roadClass": "local",
-        "gap": 16.4
+        "gap": 29.7
       },
       "fuel.north": {
         "kind": "life",
-        "road": "local.industrial",
+        "road": "local.T_ind_civic",
         "roadClass": "local",
-        "gap": 38.0
+        "gap": 13.8
       },
       "leisure.cafe": {
         "kind": "life",
         "road": "local.old",
         "roadClass": "local",
-        "gap": 64.0
+        "gap": 20.3
       },
       "leisure.gym": {
         "kind": "life",
         "road": "local.expansion",
         "roadClass": "local",
-        "gap": 34.0
+        "gap": 11.5
       },
       "leisure.cinema": {
         "kind": "life",
-        "road": "local.corporate",
-        "roadClass": "local",
-        "gap": 14.0
+        "road": "R06",
+        "roadClass": "arterial",
+        "gap": 25.5
       },
       "leisure.park": {
         "kind": "life",
         "road": "local.civic",
         "roadClass": "local",
-        "gap": 19.0
+        "gap": 2.6
       },
       "leisure.fishing": {
         "kind": "life",
-        "road": "R08",
-        "roadClass": "collector",
-        "gap": 117.6
+        "road": "industrial.industrial",
+        "roadClass": "industrial",
+        "gap": 87.3
       },
       "property.agency": {
         "kind": "life",
         "road": "local.expansion",
         "roadClass": "local",
-        "gap": 24.0
+        "gap": 13.1
       }
     },
-    "backgroundShells": {
-      "old": 170,
-      "expansion": 110,
-      "civic": 45,
-      "corporate": 65,
-      "industrial": 75,
-      "technology": 55
+    "buildingsByZone": {
+      "T_canal": 608,
+      "T_civic_corp": 158,
+      "T_corp_tech": 110,
+      "T_exp_civic": 247,
+      "T_exp_east": 2028,
+      "T_ind_civic": 247,
+      "T_old_exp": 1148,
+      "T_old_north": 1129,
+      "civic": 1181,
+      "corporate": 1787,
+      "expansion": 2328,
+      "industrial": 774,
+      "old": 13050,
+      "technology": 868
     },
-    "blockFabricVolumes": {
-      "old": 1689,
-      "expansion": 472,
-      "civic": 317,
-      "corporate": 616,
-      "industrial": 22,
-      "technology": 143
+    "coverage": {
+      "T_canal": 0.074,
+      "T_civic_corp": 0.207,
+      "T_corp_tech": 0.141,
+      "T_exp_civic": 0.218,
+      "T_exp_east": 0.209,
+      "T_ind_civic": 0.198,
+      "T_old_exp": 0.209,
+      "T_old_north": 0.209,
+      "civic": 0.221,
+      "corporate": 0.413,
+      "expansion": 0.209,
+      "industrial": 0.282,
+      "old": 0.281,
+      "technology": 0.218
     },
-    "industrialAccents": 10,
-    "keyDistancesMeters": {
-      "home.starter->garage": 206,
-      "garage->horizonte": 495,
-      "garage->imperial": 820,
-      "garage->recurringcondo": 3050,
-      "garage->factory": 4627,
-      "garage->mall": 5028,
-      "garage->datacenter": 7006,
-      "garage->central": 3890,
-      "home.starter->supplier.tools": 382,
-      "garage->vehicles.used": 806
+    "skylineFloors": {
+      "T_canal": {
+        "p10": 1,
+        "median": 1,
+        "p90": 2,
+        "max": 2,
+        "count": 608
+      },
+      "T_civic_corp": {
+        "p10": 1,
+        "median": 7,
+        "p90": 11,
+        "max": 25,
+        "count": 158
+      },
+      "T_corp_tech": {
+        "p10": 3,
+        "median": 7,
+        "p90": 14,
+        "max": 17,
+        "count": 110
+      },
+      "T_exp_civic": {
+        "p10": 1,
+        "median": 4,
+        "p90": 10,
+        "max": 12,
+        "count": 247
+      },
+      "T_exp_east": {
+        "p10": 1,
+        "median": 5,
+        "p90": 15,
+        "max": 17,
+        "count": 2028
+      },
+      "T_ind_civic": {
+        "p10": 1,
+        "median": 1,
+        "p90": 3,
+        "max": 4,
+        "count": 247
+      },
+      "T_old_exp": {
+        "p10": 1,
+        "median": 2,
+        "p90": 5,
+        "max": 8,
+        "count": 1148
+      },
+      "T_old_north": {
+        "p10": 1,
+        "median": 1,
+        "p90": 3,
+        "max": 4,
+        "count": 1129
+      },
+      "civic": {
+        "p10": 1,
+        "median": 4,
+        "p90": 10,
+        "max": 12,
+        "count": 1181
+      },
+      "corporate": {
+        "p10": 9,
+        "median": 16,
+        "p90": 26,
+        "max": 35,
+        "count": 1787
+      },
+      "expansion": {
+        "p10": 1,
+        "median": 5,
+        "p90": 15,
+        "max": 17,
+        "count": 2328
+      },
+      "industrial": {
+        "p10": 1,
+        "median": 1,
+        "p90": 1,
+        "max": 1,
+        "count": 774
+      },
+      "old": {
+        "p10": 1,
+        "median": 2,
+        "p90": 3,
+        "max": 6,
+        "count": 13050
+      },
+      "technology": {
+        "p10": 3,
+        "median": 9,
+        "p90": 19,
+        "max": 29,
+        "count": 868
+      }
     },
-    "districtAreaKm2": {
-      "old": 8.41,
-      "expansion": 7.83,
-      "civic": 5.06,
-      "corporate": 7.54,
-      "industrial": 9.3,
-      "technology": 8.1
+    "industrialComposition": {
+      "block": 774,
+      "chimney": 122,
+      "dock": 2979,
+      "office": 720,
+      "shed": 869,
+      "silo": 207,
+      "substation": 90,
+      "tank": 256
     },
-    "unassignedSubcellShare": 0.329,
-    "maxHeights": {
-      "old": 19.2,
-      "expansion": 42.0,
-      "civic": 36.0,
-      "corporate": 125.4,
-      "industrial": 54.0,
-      "technology": 106.4
+    "trees": 37294,
+    "unusedMacroCells": [],
+    "oldTown": {
+      "neighbourhoods": 9,
+      "streetKmByClass": {
+        "alley": 1.88,
+        "arterial": 5.65,
+        "local": 120.43,
+        "main": 12.56,
+        "passage": 0.72
+      },
+      "deadEnds": 157,
+      "alleys": 58,
+      "passages": 10,
+      "plazas": 6,
+      "stitchedSeams": 76,
+      "removed": {
+        "obstacles": 83,
+        "parallel": 141,
+        "merged_sides": 94,
+        "dead_end_cuts": 54
+      },
+      "prunedFragments": 15,
+      "orientationEntropy": 0.832,
+      "lots": 13872,
+      "lotsByFamily": {
+        "abandonada_reformada": 964,
+        "armazem": 475,
+        "casa_terrea": 3161,
+        "comercio_residencia": 2115,
+        "deposito": 686,
+        "oficina": 789,
+        "parking": 198,
+        "pequeno_comercial": 296,
+        "predio_3pav": 1254,
+        "predio_4a6": 426,
+        "sobrado_estreito": 2884,
+        "vacant": 624
+      },
+      "variantsUsed": 47,
+      "coreBuildings": 5067,
+      "coreCoverage": 0.302,
+      "floorsRange": [
+        1,
+        6
+      ],
+      "infrastructure": {
+        "pole": 1649,
+        "pole_transformer": 412,
+        "streetlight_head": 2061,
+        "manhole": 1049,
+        "storm_inlet": 2428,
+        "hydrant": 296,
+        "telecom_box": 687,
+        "electric_box": 2191,
+        "water_meter": 5067,
+        "street_sign": 353,
+        "stop_sign": 167,
+        "traffic_light": 28,
+        "tree": 2661,
+        "bench": 84,
+        "bollard": 224
+      }
+    },
+    "scale": {
+      "worldKm": [
+        8.0,
+        8.0
+      ],
+      "areaKm2": 64.0,
+      "diagonalKm": 11.31,
+      "walkAcrossMin": 44.4,
+      "sprintAcrossMin": 26.7,
+      "sprintDiagonalMin": 37.7
     }
   },
   "passed": true

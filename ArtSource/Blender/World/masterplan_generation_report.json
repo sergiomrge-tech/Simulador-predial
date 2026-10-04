@@ -1,100 +1,253 @@
 {
-  "blend": "ArtSource/Blender/World/SantaAurora_Masterplan_v1.blend",
+  "blend": "ArtSource/Blender/World/SantaAurora_Masterplan_v1_5.blend",
+  "previousRevisionKept": "ArtSource/Blender/World/SantaAurora_Masterplan_v1.blend",
   "blenderVersion": "5.2.1 LTS",
-  "schemaVersion": 1,
+  "revision": "W1.5",
   "units": "meters",
   "worldSizeMeters": [
     8000,
     8000
   ],
-  "districts": 6,
-  "campaignLocations": 24,
-  "lifeEconomyLocations": 20,
-  "roads": 8,
-  "macroCellMeters": 1000,
-  "subCellMeters": 250,
-  "objectCount": 874,
+  "objectCount": 525,
   "collectionObjectCounts": {
-    "00_Terrain": 2,
-    "01_Districts": 6,
-    "02_Roads": 16,
-    "03_Campaign_Locations": 97,
-    "04_Life_Economy_Locations": 20,
-    "05_Labels": 58,
-    "06_Streaming_Guides": 65,
-    "07_Skyline_Shells": 530,
-    "08_Cameras": 9,
-    "09_Streaming_Subgrid": 65,
-    "10_Block_Fabric": 6
+    "00_Terrain": 65,
+    "01_Water": 1,
+    "02_Roads": 80,
+    "03_Rail": 1,
+    "04_Fabric": 65,
+    "05_Campaign_Locations": 48,
+    "06_Life_Economy_Locations": 20,
+    "07_Vegetation": 63,
+    "08_Labels": 38,
+    "09_Streaming_Guides": 64,
+    "10_Cameras": 12,
+    "11_Streaming_Subgrid": 66,
+    "12_Library": 2
   },
+  "fabricVolumes": 34563,
+  "trees": 37294,
   "layout": {
-    "roadLengthsKm": {
-      "R01": 7.66,
+    "revision": "W1.5",
+    "terrain": {
+      "minSurface": 2.6,
+      "maxSurface": 40.0,
+      "meanSurface": 20.4,
+      "drainageSurface": 4.7,
+      "drainageToCanalM": 218,
+      "technologyMean": 26.1,
+      "oldTownMean": 25.5,
+      "maxRoadGradePct": {
+        "R01.0": 2.11,
+        "R01.1": 2.54,
+        "R02": 2.75,
+        "R03.0": 3.1,
+        "R03.1": 2.69,
+        "R04.0": 1.51,
+        "R04.1": 5.64,
+        "R05.0": 1.64,
+        "R05.1": 2.78,
+        "R06": 2.52,
+        "R07": 3.11,
+        "R08": 2.21,
+        "R09": 2.31,
+        "R10": 2.52,
+        "rot.central": 1.36,
+        "rot.tecnologica": 1.55
+      }
+    },
+    "roads": {
+      "R01.0": 3.71,
+      "R01.1": 3.86,
       "R02": 6.81,
-      "R03": 3.96,
-      "R04": 4.04,
-      "R05": 7.35,
-      "R06": 3.23,
+      "R03.0": 3.71,
+      "R03.1": 0.17,
+      "R04.0": 0.87,
+      "R04.1": 3.08,
+      "R05.0": 4.82,
+      "R05.1": 2.45,
+      "R06": 3.56,
       "R07": 5.53,
-      "R08": 6.01
+      "R08": 5.93,
+      "R09": 7.71,
+      "R10": 1.95,
+      "rot.central": 0.26,
+      "rot.tecnologica": 0.26
     },
-    "localStreetEdges": {
-      "old": 1348,
-      "expansion": 1097,
-      "civic": 718,
-      "corporate": 916,
-      "industrial": 821,
-      "technology": 804
+    "roundabouts": [
+      "rot.central",
+      "rot.tecnologica"
+    ],
+    "railKm": {
+      "rail.linha_oeste": 6.98,
+      "rail.patio_porto_seco_a": 0.55,
+      "rail.patio_porto_seco_b": 0.54,
+      "rail.ramal_logistica": 0.37
     },
-    "localStreetKm": 319.8,
-    "droppedDisconnectedLocalEdges": 6,
-    "driveways": 44,
-    "backgroundShells": {
-      "old": 170,
-      "expansion": 110,
-      "civic": 45,
-      "corporate": 65,
-      "industrial": 75,
-      "technology": 55
+    "streetKmByClass": {
+      "alley": 1.9,
+      "arterial_spec": 41.3,
+      "collector_spec": 13.4,
+      "industrial": 65.0,
+      "local": 482.2,
+      "main": 12.6,
+      "passage": 0.7
     },
-    "blockFabricVolumes": {
-      "old": 1689,
-      "expansion": 472,
-      "civic": 317,
-      "corporate": 616,
-      "industrial": 22,
-      "technology": 143
+    "driveways": 42,
+    "buildingsByZone": {
+      "T_canal": 608,
+      "T_civic_corp": 158,
+      "T_corp_tech": 110,
+      "T_exp_civic": 247,
+      "T_exp_east": 2028,
+      "T_ind_civic": 247,
+      "T_old_exp": 1148,
+      "T_old_north": 1129,
+      "civic": 1181,
+      "corporate": 1787,
+      "expansion": 2328,
+      "industrial": 774,
+      "old": 13050,
+      "technology": 868
     },
-    "industrialAccents": 10,
-    "keyDistancesMeters": {
-      "home.starter->garage": 206,
-      "garage->horizonte": 495,
-      "garage->imperial": 820,
-      "garage->recurringcondo": 3050,
-      "garage->factory": 4627,
-      "garage->mall": 5028,
-      "garage->datacenter": 7006,
-      "garage->central": 3890,
-      "home.starter->supplier.tools": 382,
-      "garage->vehicles.used": 806
+    "coverage": {
+      "T_canal": 0.074,
+      "T_civic_corp": 0.207,
+      "T_corp_tech": 0.141,
+      "T_exp_civic": 0.218,
+      "T_exp_east": 0.209,
+      "T_ind_civic": 0.198,
+      "T_old_exp": 0.209,
+      "T_old_north": 0.209,
+      "civic": 0.221,
+      "corporate": 0.413,
+      "expansion": 0.209,
+      "industrial": 0.282,
+      "old": 0.281,
+      "technology": 0.218
     },
-    "districtAreaKm2": {
-      "old": 8.41,
-      "expansion": 7.83,
-      "civic": 5.06,
-      "corporate": 7.54,
-      "industrial": 9.3,
-      "technology": 8.1
+    "skylineFloors": {
+      "T_canal": {
+        "p10": 1,
+        "median": 1,
+        "p90": 2,
+        "max": 2,
+        "count": 608
+      },
+      "T_civic_corp": {
+        "p10": 1,
+        "median": 7,
+        "p90": 11,
+        "max": 25,
+        "count": 158
+      },
+      "T_corp_tech": {
+        "p10": 3,
+        "median": 7,
+        "p90": 14,
+        "max": 17,
+        "count": 110
+      },
+      "T_exp_civic": {
+        "p10": 1,
+        "median": 4,
+        "p90": 10,
+        "max": 12,
+        "count": 247
+      },
+      "T_exp_east": {
+        "p10": 1,
+        "median": 5,
+        "p90": 15,
+        "max": 17,
+        "count": 2028
+      },
+      "T_ind_civic": {
+        "p10": 1,
+        "median": 1,
+        "p90": 3,
+        "max": 4,
+        "count": 247
+      },
+      "T_old_exp": {
+        "p10": 1,
+        "median": 2,
+        "p90": 5,
+        "max": 8,
+        "count": 1148
+      },
+      "T_old_north": {
+        "p10": 1,
+        "median": 1,
+        "p90": 3,
+        "max": 4,
+        "count": 1129
+      },
+      "civic": {
+        "p10": 1,
+        "median": 4,
+        "p90": 10,
+        "max": 12,
+        "count": 1181
+      },
+      "corporate": {
+        "p10": 9,
+        "median": 16,
+        "p90": 26,
+        "max": 35,
+        "count": 1787
+      },
+      "expansion": {
+        "p10": 1,
+        "median": 5,
+        "p90": 15,
+        "max": 17,
+        "count": 2328
+      },
+      "industrial": {
+        "p10": 1,
+        "median": 1,
+        "p90": 1,
+        "max": 1,
+        "count": 774
+      },
+      "old": {
+        "p10": 1,
+        "median": 2,
+        "p90": 3,
+        "max": 6,
+        "count": 13050
+      },
+      "technology": {
+        "p10": 3,
+        "median": 9,
+        "p90": 19,
+        "max": 29,
+        "count": 868
+      }
     },
-    "unassignedSubcellShare": 0.329,
-    "maxHeights": {
-      "old": 19.2,
-      "expansion": 42.0,
-      "civic": 36.0,
-      "corporate": 125.4,
-      "industrial": 54.0,
-      "technology": 106.4
+    "industrialComposition": {
+      "block": 774,
+      "chimney": 122,
+      "dock": 2979,
+      "office": 720,
+      "shed": 869,
+      "silo": 207,
+      "substation": 90,
+      "tank": 256
+    },
+    "trees": 37294,
+    "unusedMacroCells": [],
+    "scale": {
+      "worldKm": [
+        8.0,
+        8.0
+      ],
+      "areaKm2": 64.0,
+      "diagonalKm": 11.31,
+      "walkAcrossMin": 44.4,
+      "sprintAcrossMin": 26.7,
+      "sprintDiagonalMin": 37.7
     }
   },
-  "status": "generated-blockout-not-final-art"
+  "status": "W1.5 masterplan - planning geometry, not final art"
 }

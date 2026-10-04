@@ -1,0 +1,400 @@
+{
+  "blend": "ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objectCount": 1269,
+  "collectionObjectCounts": {
+    "OT_Library": 102,
+    "OT_Terrain": 180,
+    "OT_Roads": 154,
+    "OT_Architecture": 247,
+    "OT_Infrastructure": 62,
+    "OT_Props": 59,
+    "OT_Vegetation": 133,
+    "OT_Lighting": 60,
+    "OT_Gameplay": 262,
+    "OT_Cameras": 10
+  },
+  "subcells": 181,
+  "familyVariants": 45,
+  "variantFaces": {
+    "sob_a": {
+      "faces": 288,
+      "top_z": 7.94
+    },
+    "sob_b": {
+      "faces": 347,
+      "top_z": 8.24
+    },
+    "sob_c": {
+      "faces": 430,
+      "top_z": 7.19
+    },
+    "sob_d": {
+      "faces": 733,
+      "top_z": 9.9
+    },
+    "sob_e": {
+      "faces": 510,
+      "top_z": 8.54
+    },
+    "cas_a": {
+      "faces": 339,
+      "top_z": 4.28
+    },
+    "cas_b": {
+      "faces": 421,
+      "top_z": 4.94
+    },
+    "cas_c": {
+      "faces": 495,
+      "top_z": 4.6
+    },
+    "cas_d": {
+      "faces": 593,
+      "top_z": 4.94
+    },
+    "cas_e": {
+      "faces": 547,
+      "top_z": 5.24
+    },
+    "cr_a": {
+      "faces": 528,
+      "top_z": 7.9
+    },
+    "cr_b": {
+      "faces": 597,
+      "top_z": 9.54
+    },
+    "cr_c": {
+      "faces": 820,
+      "top_z": 11.1
+    },
+    "cr_d": {
+      "faces": 506,
+      "top_z": 8.1
+    },
+    "cr_e": {
+      "faces": 699,
+      "top_z": 12.24
+    },
+    "p3_a": {
+      "faces": 709,
+      "top_z": 9.9
+    },
+    "p3_b": {
+      "faces": 1005,
+      "top_z": 9.9
+    },
+    "p3_c": {
+      "faces": 1127,
+      "top_z": 11.24
+    },
+    "p3_d": {
+      "faces": 878,
+      "top_z": 10.9
+    },
+    "p46_a": {
+      "faces": 1323,
+      "top_z": 12.5
+    },
+    "p46_b": {
+      "faces": 1922,
+      "top_z": 16.5
+    },
+    "p46_c": {
+      "faces": 2231,
+      "top_z": 18.3
+    },
+    "p46_d": {
+      "faces": 2362,
+      "top_z": 16.7
+    },
+    "p46_e": {
+      "faces": 1656,
+      "top_z": 13.68
+    },
+    "ofi_a": {
+      "faces": 327,
+      "top_z": 8.0
+    },
+    "ofi_b": {
+      "faces": 341,
+      "top_z": 7.2
+    },
+    "ofi_c": {
+      "faces": 415,
+      "top_z": 8.2
+    },
+    "ofi_d": {
+      "faces": 417,
+      "top_z": 7.94
+    },
+    "arm_a": {
+      "faces": 432,
+      "top_z": 11.84
+    },
+    "arm_b": {
+      "faces": 470,
+      "top_z": 12.94
+    },
+    "arm_c": {
+      "faces": 446,
+      "top_z": 12.82
+    },
+    "arm_d": {
+      "faces": 546,
+      "top_z": 15.14
+    },
+    "dep_a": {
+      "faces": 420,
+      "top_z": 5.9
+    },
+    "dep_b": {
+      "faces": 327,
+      "top_z": 7.8
+    },
+    "dep_c": {
+      "faces": 417,
+      "top_z": 7.58
+    },
+    "dep_d": {
+      "faces": 478,
+      "top_z": 6.4
+    },
+    "pc_a": {
+      "faces": 548,
+      "top_z": 8.3
+    },
+    "pc_b": {
+      "faces": 910,
+      "top_z": 11.5
+    },
+    "pc_c": {
+      "faces": 862,
+      "top_z": 8.5
+    },
+    "pc_d": {
+      "faces": 1126,
+      "top_z": 11.7
+    },
+    "ab_a": {
+      "faces": 424,
+      "top_z": 6.8
+    },
+    "ab_b": {
+      "faces": 824,
+      "top_z": 9.9
+    },
+    "ab_c": {
+      "faces": 328,
+      "top_z": 6.8
+    },
+    "ab_d": {
+      "faces": 417,
+      "top_z": 8.08
+    },
+    "ab_e": {
+      "faces": 734,
+      "top_z": 9.9
+    }
+  },
+  "buildingInstances": 13050,
+  "infrastructureInstances": 13807,
+  "propInstances": 828,
+  "trees": 2661,
+  "streetLights": 2061,
+  "kitPieces": [
+    "KIT_Corner_Outer",
+    "KIT_Corner_Pilaster",
+    "KIT_Curb_2m",
+    "KIT_Curb_Corner_r3",
+    "KIT_Door_Double",
+    "KIT_Door_Single",
+    "KIT_Downpipe_3m",
+    "KIT_Eave_1m",
+    "KIT_Gate_Pedestrian_1m",
+    "KIT_Gate_Sliding_4m",
+    "KIT_Grille_Window_120",
+    "KIT_Gutter_1m",
+    "KIT_Molding_Cornice_1m",
+    "KIT_Molding_StringCourse_1m",
+    "KIT_Molding_WindowSurround_120",
+    "KIT_Muro_2m",
+    "KIT_Muro_Pilar",
+    "KIT_Railing_1m",
+    "KIT_Ramp_1to12",
+    "KIT_Roof_Corrugated_2m",
+    "KIT_Roof_Parapet_1m",
+    "KIT_Roof_Ridge_1m",
+    "KIT_Roof_Tile_Slope_2m",
+    "KIT_Sarjeta_2m",
+    "KIT_Sidewalk_Slab_2m",
+    "KIT_Stair_Entry_3",
+    "KIT_Stair_Flight_120",
+    "KIT_Wall_Balcony_3m",
+    "KIT_Wall_Door_2m",
+    "KIT_Wall_Plain_1m",
+    "KIT_Wall_Plain_2m",
+    "KIT_Wall_Plain_3m",
+    "KIT_Wall_RollUp_4m",
+    "KIT_Wall_Shopfront_4m",
+    "KIT_Wall_Window_2m",
+    "KIT_Wall_Window_3m_Grade",
+    "KIT_Window_120x120",
+    "KIT_Window_150x130",
+    "KIT_Window_60x50",
+    "KIT_Window_80x200"
+  ],
+  "props": [
+    "PROP_Bench",
+    "PROP_Bollard",
+    "PROP_ElectricBox",
+    "PROP_Hydrant",
+    "PROP_Manhole",
+    "PROP_Pole_Concrete",
+    "PROP_Pole_Transformer",
+    "PROP_StopSign",
+    "PROP_StormInlet",
+    "PROP_StreetSign",
+    "PROP_TelecomBox",
+    "PROP_TrafficLight",
+    "PROP_Tree_A",
+    "PROP_Tree_B",
+    "PROP_WaterMeter"
+  ],
+  "materials": [
+    "aco_pintado_cinza",
+    "aco_pintado_verde",
+    "agua_canal",
+    "aluminio",
+    "asfalto",
+    "asfalto_gasto",
+    "borracha",
+    "calcada",
+    "ceramica_piso",
+    "ceramica_telha",
+    "concreto",
+    "concreto_pintado",
+    "concreto_pintado_hero",
+    "ferrugem",
+    "folhagem",
+    "grama",
+    "lastro_ferroviario",
+    "madeira_crua",
+    "madeira_pintada",
+    "meio_fio",
+    "metal_galvanizado",
+    "pedra_reboco_historico",
+    "pintura_industrial",
+    "pintura_vermelha",
+    "plastico",
+    "reboco_antigo",
+    "reboco_antigo_hero",
+    "reboco_pastilha",
+    "reboco_pintado",
+    "reboco_pintado_hero",
+    "sinalizacao_viaria",
+    "telha_fibrocimento",
+    "telha_metalica",
+    "terra",
+    "tijolo_aparente",
+    "tijolo_pintado",
+    "tijolo_pintado_hero",
+    "trilho_aco",
+    "tronco",
+    "vidro",
+    "vidro_vitrine"
+  ],
+  "heroes": {
+    "home.starter": {
+      "ground_z": 27.49
+    },
+    "garage": {
+      "ground_z": 28.87
+    },
+    "horizonte": {
+      "ground_z": 30.78
+    },
+    "apartments": {
+      "ground_z": 24.86
+    },
+    "grocery": {
+      "ground_z": 28.13
+    },
+    "restaurant": {
+      "ground_z": 28.58
+    },
+    "workshop": {
+      "ground_z": 30.05
+    },
+    "smalloffice": {
+      "ground_z": 29.87
+    },
+    "imperial": {
+      "ground_z": 23.89
+    }
+  },
+  "layout": {
+    "neighbourhoods": 9,
+    "streetKmByClass": {
+      "alley": 1.88,
+      "arterial": 5.65,
+      "local": 120.43,
+      "main": 12.56,
+      "passage": 0.72
+    },
+    "deadEnds": 157,
+    "alleys": 58,
+    "passages": 10,
+    "plazas": 6,
+    "stitchedSeams": 76,
+    "removed": {
+      "obstacles": 83,
+      "parallel": 141,
+      "merged_sides": 94,
+      "dead_end_cuts": 54
+    },
+    "prunedFragments": 15,
+    "orientationEntropy": 0.832,
+    "lots": 13872,
+    "lotsByFamily": {
+      "abandonada_reformada": 964,
+      "armazem": 475,
+      "casa_terrea": 3161,
+      "comercio_residencia": 2115,
+      "deposito": 686,
+      "oficina": 789,
+      "parking": 198,
+      "pequeno_comercial": 296,
+      "predio_3pav": 1254,
+      "predio_4a6": 426,
+      "sobrado_estreito": 2884,
+      "vacant": 624
+    },
+    "variantsUsed": 47,
+    "coreBuildings": 5067,
+    "coreCoverage": 0.302,
+    "floorsRange": [
+      1,
+      6
+    ],
+    "infrastructure": {
+      "pole": 1649,
+      "pole_transformer": 412,
+      "streetlight_head": 2061,
+      "manhole": 1049,
+      "storm_inlet": 2428,
+      "hydrant": 296,
+      "telecom_box": 687,
+      "electric_box": 2191,
+      "water_meter": 5067,
+      "street_sign": 353,
+      "stop_sign": 167,
+      "traffic_light": 28,
+      "tree": 2661,
+      "bench": 84,
+      "bollard": 224
+    }
+  },
+  "status": "W1.5 production structure - not final art"
+}

@@ -1,0 +1,51 @@
+{
+  "mode": "masterplan",
+  "blend": "ArtSource/Blender/World/SantaAurora_Masterplan_v1_5.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "reopenedInFreshProcess": true,
+  "objectCount": 525,
+  "meshCount": 330,
+  "collections": {
+    "00_Terrain": 65,
+    "01_Water": 1,
+    "02_Roads": 80,
+    "03_Rail": 1,
+    "04_Fabric": 65,
+    "05_Campaign_Locations": 48,
+    "06_Life_Economy_Locations": 20,
+    "07_Vegetation": 63,
+    "08_Labels": 38,
+    "09_Streaming_Guides": 64,
+    "10_Cameras": 12,
+    "11_Streaming_Subgrid": 66,
+    "12_Library": 2
+  },
+  "checks": {
+    "geometryNodesInstancers": 63,
+    "materials": 26,
+    "materialsWithTextureSlots": 25,
+    "campaignObjects": 24,
+    "lifeObjects": 20,
+    "streamingCells": 64,
+    "terrainCells": 64,
+    "roadMarkers": 16
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W1_5/01_mundo_inteiro.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/02_mundo_obliquo.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/09_industrial.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/09b_industrial_baixo.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/10_empresarial.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/11_tecnologico.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/12_central.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/13_skyline.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/14_transicao_antiga_expansao.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/15_grid_streaming.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/16_relevo_drenagem.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/17_cidade_antiga_masterplan.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/18_expansao.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

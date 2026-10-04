@@ -1,0 +1,122 @@
+<title>Revisão W1.5 Santa Aurora</title>
+<style>
+:root{--bg:#eef0f2;--card:#f9fafb;--ink:#1a2128;--mut:#58636e;--line:#cfd5db;--acc:#b5600f;--ok:#2d7a4d;--warn:#9a6400}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#11161a;--card:#182027;--ink:#dde3e8;--mut:#98a4ae;--line:#2c363f;--acc:#e8913f;--ok:#6cc28d;--warn:#e0ab4b;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#11161a;--card:#182027;--ink:#dde3e8;--mut:#98a4ae;--line:#2c363f;--acc:#e8913f;--ok:#6cc28d;--warn:#e0ab4b;color-scheme:dark}
+*{box-sizing:border-box} body{background:var(--bg);color:var(--ink);font:15px/1.55 "Segoe UI",system-ui,sans-serif}
+.w{max-width:1300px;margin:0 auto;padding-inline:18px;padding-block:24px 60px;display:grid;gap:34px}
+h1{font-size:clamp(28px,4vw,42px);margin:0;letter-spacing:-.01em} h2{margin:0;font-size:24px} h3{margin:0 0 8px;font-size:17px}
+.tag{display:inline-block;padding:6px 12px;border:2px solid var(--warn);color:var(--warn);font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:13px}
+.lede{color:var(--mut);max-width:80ch;margin:6px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,560px),1fr));gap:22px}
+.pair{background:var(--card);border:1px solid var(--line);padding:12px} .pp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+figure{margin:0;min-width:0} img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#888}
+figcaption{font-size:12.5px;color:var(--mut);padding-top:4px} .pair p{margin:8px 0 0;font-size:14px}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
+code{font-family:Consolas,monospace;font-size:11.5px}
+.box{overflow-x:auto;border:1px solid var(--line);background:var(--card)} table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left} th{color:var(--mut);font-size:12px;text-transform:uppercase} td.n{text-align:right;font-variant-numeric:tabular-nums}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+.col{border-top:3px solid var(--line);padding-top:10px} .col.ok{border-color:var(--ok)} .col.warn{border-color:var(--warn)} .col ul{margin:0;padding-left:18px}
+.rules{border:2px solid var(--ink);padding:16px;background:var(--card)}
+</style>
+<div class="w">
+<header><span class="tag">W1.5 · base estrutural — não é arte final</span>
+<h1>Revisão W1.5 Santa Aurora</h1>
+<p class="lede">São 25 capturas reais do Blender 5.2.1 LTS, renderizadas depois de reabrir cada arquivo num processo novo, todas sem dados faltando: masterplan com 525 objetos, Cidade Antiga com 1269 objetos e 13872 lotes, e kit com 280 objetos. A validação estática passou com 0 erros.</p></header>
+<section><h2>W1 × W1.5</h2><div class="grid2">
+<article class="pair"><h3>Mundo inteiro 8×8 km</h3><div class="pp">
+<figure><img src="../W1/01_top_8km.jpg" alt="W1: Mundo inteiro 8×8 km" loading="lazy"><figcaption>W1</figcaption></figure>
+<figure><img src="01_mundo_inteiro.jpg" alt="W1.5: Mundo inteiro 8×8 km" loading="lazy"><figcaption>W1.5</figcaption></figure></div><p>Malha orgânica na Cidade Antiga, 8 zonas de transição, R09/R10, ferrovia, rotatórias, relevo com curvas de nível. Nenhuma célula de 1 km sem uso (W1 tinha 11).</p></article>
+<article class="pair"><h3>Cidade oblíqua</h3><div class="pp">
+<figure><img src="../W1/02_oblique_city.jpg" alt="W1: Cidade oblíqua" loading="lazy"><figcaption>W1</figcaption></figure>
+<figure><img src="02_mundo_obliquo.jpg" alt="W1.5: Cidade oblíqua" loading="lazy"><figcaption>W1.5</figcaption></figure></div><p>Tecido contínuo em toda a cidade (≈25,7 mil edificações no layout + campanha), skyline diferenciado por distrito.</p></article>
+<article class="pair"><h3>Cidade Antiga</h3><div class="pp">
+<figure><img src="../W1/03_cidade_antiga.jpg" alt="W1: Cidade Antiga" loading="lazy"><figcaption>W1</figcaption></figure>
+<figure><img src="03_cidade_antiga.jpg" alt="W1.5: Cidade Antiga" loading="lazy"><figcaption>W1.5</figcaption></figure></div><p>Grade de 180 m substituída por 9 bairros orgânicos com ruas curvas, becos, passagens, praças, estação e lotes por família.</p></article>
+<article class="pair"><h3>Industrial</h3><div class="pp">
+<figure><img src="../W1/05_industrial.jpg" alt="W1: Industrial" loading="lazy"><figcaption>W1</figcaption></figure>
+<figure><img src="09_industrial.jpg" alt="W1.5: Industrial" loading="lazy"><figcaption>W1.5</figcaption></figure></div><p>De 107 volumes para 869 galpões, 2.979 docas, 256 tanques, 207 silos, 122 chaminés, 90 subestações; ocupação 28%.</p></article>
+<article class="pair"><h3>Empresarial</h3><div class="pp">
+<figure><img src="../W1/06_corporate.jpg" alt="W1: Empresarial" loading="lazy"><figcaption>W1</figcaption></figure>
+<figure><img src="10_empresarial.jpg" alt="W1.5: Empresarial" loading="lazy"><figcaption>W1.5</figcaption></figure></div><p>Torres de 16 pav. (mediana) até 35, com pódio e fachada-cortina; ocupação 41%.</p></article>
+<article class="pair"><h3>Tecnológico</h3><div class="pp">
+<figure><img src="../W1/07_technology.jpg" alt="W1: Tecnológico" loading="lazy"><figcaption>W1</figcaption></figure>
+<figure><img src="11_tecnologico.jpg" alt="W1.5: Tecnológico" loading="lazy"><figcaption>W1.5</figcaption></figure></div><p>Platô elevado (+6 m sobre a média), campus com verdes planejados; mediana 9 pav., máx. 29.</p></article>
+<article class="pair"><h3>Santa Aurora Central</h3><div class="pp">
+<figure><img src="../W1/08_santa_aurora_central.jpg" alt="W1: Santa Aurora Central" loading="lazy"><figcaption>W1</figcaption></figure>
+<figure><img src="12_central.jpg" alt="W1.5: Santa Aurora Central" loading="lazy"><figcaption>W1.5</figcaption></figure></div><p>Rotatória da Central reúne R01/R03/R06; eixo institucional Expansão→Central.</p></article>
+<article class="pair"><h3>Skyline</h3><div class="pp">
+<figure><img src="../W1/09_skyline.jpg" alt="W1: Skyline" loading="lazy"><figcaption>W1</figcaption></figure>
+<figure><img src="13_skyline.jpg" alt="W1.5: Skyline" loading="lazy"><figcaption>W1.5</figcaption></figure></div><p>Empresarial/Tecnológico em fachada-cortina contra o branco da Expansão e o casario baixo.</p></article>
+<article class="pair"><h3>Grid de streaming</h3><div class="pp">
+<figure><img src="../W1/10_streaming_grid.jpg" alt="W1: Grid de streaming" loading="lazy"><figcaption>W1</figcaption></figure>
+<figure><img src="15_grid_streaming.jpg" alt="W1.5: Grid de streaming" loading="lazy"><figcaption>W1.5</figcaption></figure></div><p>Mesmas 64 células; Cidade Antiga já separada em 181 subcélulas × 8 camadas.</p></article>
+<article class="pair"><h3>Expansão</h3><div class="pp">
+<figure><img src="../W1/04_expansao.jpg" alt="W1: Expansão" loading="lazy"><figcaption>W1</figcaption></figure>
+<figure><img src="18_expansao.jpg" alt="W1.5: Expansão" loading="lazy"><figcaption>W1.5</figcaption></figure></div><p>Ligação direta com a Cidade Antiga (R09): desvio até a escola caiu de 3,43× para 1,13×.</p></article></div></section>
+<section><h2>As 25 capturas</h2><div class="shots">
+<figure class="shot"><a href="01_mundo_inteiro.jpg"><img src="01_mundo_inteiro.jpg" alt="Mundo inteiro" loading="lazy"></a>
+<figcaption><b>01</b> Mundo inteiro<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_World_Top</code></figcaption></figure>
+<figure class="shot"><a href="02_mundo_obliquo.jpg"><img src="02_mundo_obliquo.jpg" alt="Mundo oblíquo" loading="lazy"></a>
+<figcaption><b>02</b> Mundo oblíquo<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_World_Oblique</code></figcaption></figure>
+<figure class="shot"><a href="03_cidade_antiga.jpg"><img src="03_cidade_antiga.jpg" alt="Cidade Antiga (produção, topo)" loading="lazy"></a>
+<figcaption><b>03</b> Cidade Antiga (produção, topo)<br><code>SantaAurora_CidadeAntiga_Base_v1.blend · CAM_OT_Top</code></figcaption></figure>
+<figure class="shot"><a href="04_cidade_antiga_obliqua.jpg"><img src="04_cidade_antiga_obliqua.jpg" alt="Cidade Antiga oblíqua" loading="lazy"></a>
+<figcaption><b>04</b> Cidade Antiga oblíqua<br><code>SantaAurora_CidadeAntiga_Base_v1.blend · CAM_OT_Oblique</code></figcaption></figure>
+<figure class="shot"><a href="05_lar_inicial.jpg"><img src="05_lar_inicial.jpg" alt="Lar inicial — Ed. Santa Clara" loading="lazy"></a>
+<figcaption><b>05</b> Lar inicial — Ed. Santa Clara<br><code>SantaAurora_CidadeAntiga_Base_v1.blend · CAM_OT_Home_Exterior</code></figcaption></figure>
+<figure class="shot"><a href="05b_lar_inicial_corte.jpg"><img src="05b_lar_inicial_corte.jpg" alt="Lar inicial — corte do Apto 12 (H0)" loading="lazy"></a>
+<figcaption><b>05b</b> Lar inicial — corte do Apto 12 (H0)<br><code>SantaAurora_CidadeAntiga_Base_v1.blend · CAM_OT_Home_Cutaway</code></figcaption></figure>
+<figure class="shot"><a href="06_oficina_aurora.jpg"><img src="06_oficina_aurora.jpg" alt="Oficina Aurora" loading="lazy"></a>
+<figcaption><b>06</b> Oficina Aurora<br><code>SantaAurora_CidadeAntiga_Base_v1.blend · CAM_OT_Garage_Exterior</code></figcaption></figure>
+<figure class="shot"><a href="06b_oficina_aurora_corte.jpg"><img src="06b_oficina_aurora_corte.jpg" alt="Oficina Aurora — corte (G0)" loading="lazy"></a>
+<figcaption><b>06b</b> Oficina Aurora — corte (G0)<br><code>SantaAurora_CidadeAntiga_Base_v1.blend · CAM_OT_Garage_Cutaway</code></figcaption></figure>
+<figure class="shot"><a href="07_horizonte.jpg"><img src="07_horizonte.jpg" alt="Edifício Horizonte (vista da rua)" loading="lazy"></a>
+<figcaption><b>07</b> Edifício Horizonte (vista da rua)<br><code>SantaAurora_CidadeAntiga_Base_v1.blend · CAM_OT_Horizonte</code></figcaption></figure>
+<figure class="shot"><a href="08_teatro_imperial.jpg"><img src="08_teatro_imperial.jpg" alt="Teatro Imperial" loading="lazy"></a>
+<figcaption><b>08</b> Teatro Imperial<br><code>SantaAurora_CidadeAntiga_Base_v1.blend · CAM_OT_Imperial</code></figcaption></figure>
+<figure class="shot"><a href="09_industrial.jpg"><img src="09_industrial.jpg" alt="Industrial atualizado" loading="lazy"></a>
+<figcaption><b>09</b> Industrial atualizado<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_District_industrial</code></figcaption></figure>
+<figure class="shot"><a href="09b_industrial_baixo.jpg"><img src="09b_industrial_baixo.jpg" alt="Industrial — vista baixa" loading="lazy"></a>
+<figcaption><b>09b</b> Industrial — vista baixa<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_Industrial_Low</code></figcaption></figure>
+<figure class="shot"><a href="10_empresarial.jpg"><img src="10_empresarial.jpg" alt="Empresarial" loading="lazy"></a>
+<figcaption><b>10</b> Empresarial<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_District_corporate</code></figcaption></figure>
+<figure class="shot"><a href="11_tecnologico.jpg"><img src="11_tecnologico.jpg" alt="Tecnológico" loading="lazy"></a>
+<figcaption><b>11</b> Tecnológico<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_District_technology</code></figcaption></figure>
+<figure class="shot"><a href="12_central.jpg"><img src="12_central.jpg" alt="Central" loading="lazy"></a>
+<figcaption><b>12</b> Central<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_District_civic</code></figcaption></figure>
+<figure class="shot"><a href="13_skyline.jpg"><img src="13_skyline.jpg" alt="Skyline" loading="lazy"></a>
+<figcaption><b>13</b> Skyline<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_Skyline</code></figcaption></figure>
+<figure class="shot"><a href="14_transicao_antiga_expansao.jpg"><img src="14_transicao_antiga_expansao.jpg" alt="Transição Cidade Antiga → Expansão" loading="lazy"></a>
+<figcaption><b>14</b> Transição Cidade Antiga → Expansão<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_Transition_OldExp</code></figcaption></figure>
+<figure class="shot"><a href="15_grid_streaming.jpg"><img src="15_grid_streaming.jpg" alt="Grid de streaming 1 km / 250 m" loading="lazy"></a>
+<figcaption><b>15</b> Grid de streaming 1 km / 250 m<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_World_Top</code></figcaption></figure>
+<figure class="shot"><a href="16_relevo_drenagem.jpg"><img src="16_relevo_drenagem.jpg" alt="Relevo e drenagem (curvas 5/25 m)" loading="lazy"></a>
+<figcaption><b>16</b> Relevo e drenagem (curvas 5/25 m)<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_World_Top</code></figcaption></figure>
+<figure class="shot"><a href="17_cidade_antiga_masterplan.jpg"><img src="17_cidade_antiga_masterplan.jpg" alt="Cidade Antiga no masterplan" loading="lazy"></a>
+<figcaption><b>17</b> Cidade Antiga no masterplan<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_District_old</code></figcaption></figure>
+<figure class="shot"><a href="18_expansao.jpg"><img src="18_expansao.jpg" alt="Expansão" loading="lazy"></a>
+<figcaption><b>18</b> Expansão<br><code>SantaAurora_Masterplan_v1_5.blend · CAM_District_expansion</code></figcaption></figure>
+<figure class="shot"><a href="20_kit_modular.jpg"><img src="20_kit_modular.jpg" alt="Kit arquitetônico modular (bevel)" loading="lazy"></a>
+<figcaption><b>20</b> Kit arquitetônico modular (bevel)<br><code>SantaAurora_CidadeAntiga_Kit_v1.blend · CAM_Kit_Modular</code></figcaption></figure>
+<figure class="shot"><a href="21_kit_infraestrutura.jpg"><img src="21_kit_infraestrutura.jpg" alt="Infraestrutura urbana provisória" loading="lazy"></a>
+<figcaption><b>21</b> Infraestrutura urbana provisória<br><code>SantaAurora_CidadeAntiga_Kit_v1.blend · CAM_Kit_Infra</code></figcaption></figure>
+<figure class="shot"><a href="22_familias_edificacao.jpg"><img src="22_familias_edificacao.jpg" alt="47 variantes / 10 famílias" loading="lazy"></a>
+<figcaption><b>22</b> 47 variantes / 10 famílias<br><code>SantaAurora_CidadeAntiga_Kit_v1.blend · CAM_Kit_Families</code></figcaption></figure>
+<figure class="shot"><a href="23_materiais_pbr.jpg"><img src="23_materiais_pbr.jpg" alt="Biblioteca PBR procedural (37)" loading="lazy"></a>
+<figcaption><b>23</b> Biblioteca PBR procedural (37)<br><code>SantaAurora_CidadeAntiga_Kit_v1.blend · CAM_Kit_Materials</code></figcaption></figure></div></section>
+<section class="grid2">
+<div><h2>Escala e deslocamento</h2><p class="lede">Os tempos usam as velocidades do protótipo (3 m/s andando, 5 m/s correndo) e carro urbano a 30 km/h. Atravessar a cidade leva 44.4 min andando e 26.7 min correndo; a diagonal correndo leva 37.7 min.</p>
+<div class="box"><table><thead><tr><th>Do lar até</th><th class=n>km</th><th class=n>a pé</th><th class=n>correndo</th><th class=n>carro</th></tr></thead><tbody><tr><td>garage</td><td class=n>0.4</td><td class=n>2</td><td class=n>1</td><td class=n>1</td></tr><tr><td>supplier.tools</td><td class=n>0.4</td><td class=n>2</td><td class=n>1</td><td class=n>1</td></tr><tr><td>vehicles.used</td><td class=n>0.9</td><td class=n>5</td><td class=n>3</td><td class=n>2</td></tr><tr><td>horizonte</td><td class=n>1.0</td><td class=n>6</td><td class=n>3</td><td class=n>2</td></tr><tr><td>grocery</td><td class=n>1.1</td><td class=n>6</td><td class=n>4</td><td class=n>2</td></tr><tr><td>imperial</td><td class=n>1.4</td><td class=n>8</td><td class=n>5</td><td class=n>3</td></tr><tr><td>school</td><td class=n>2.6</td><td class=n>14</td><td class=n>9</td><td class=n>5</td></tr><tr><td>recurringcondo</td><td class=n>3.4</td><td class=n>19</td><td class=n>11</td><td class=n>7</td></tr><tr><td>central</td><td class=n>5.5</td><td class=n>31</td><td class=n>18</td><td class=n>11</td></tr><tr><td>hospital0317</td><td class=n>7.7</td><td class=n>43</td><td class=n>26</td><td class=n>16</td></tr><tr><td>datacenter</td><td class=n>8.6</td><td class=n>48</td><td class=n>28</td><td class=n>17</td></tr><tr><td>smarttower</td><td class=n>8.9</td><td class=n>50</td><td class=n>30</td><td class=n>18</td></tr></tbody></table></div></div>
+<div><h2>Skyline e ocupação</h2><p class="lede">Pavimentos dos edifícios principais por zona e ocupação do solo.</p>
+<div class="box"><table><thead><tr><th>Zona</th><th class=n>p10</th><th class=n>mediana</th><th class=n>p90</th><th class=n>máx</th><th class=n>ocup.</th></tr></thead><tbody><tr><td>T_canal</td><td class=n>1</td><td class=n>1</td><td class=n>2</td><td class=n>2</td><td class=n>7%</td></tr><tr><td>T_civic_corp</td><td class=n>1</td><td class=n>7</td><td class=n>11</td><td class=n>25</td><td class=n>21%</td></tr><tr><td>T_corp_tech</td><td class=n>3</td><td class=n>7</td><td class=n>14</td><td class=n>17</td><td class=n>14%</td></tr><tr><td>T_exp_civic</td><td class=n>1</td><td class=n>4</td><td class=n>10</td><td class=n>12</td><td class=n>22%</td></tr><tr><td>T_exp_east</td><td class=n>1</td><td class=n>5</td><td class=n>15</td><td class=n>17</td><td class=n>21%</td></tr><tr><td>T_ind_civic</td><td class=n>1</td><td class=n>1</td><td class=n>3</td><td class=n>4</td><td class=n>20%</td></tr><tr><td>T_old_exp</td><td class=n>1</td><td class=n>2</td><td class=n>5</td><td class=n>8</td><td class=n>21%</td></tr><tr><td>T_old_north</td><td class=n>1</td><td class=n>1</td><td class=n>3</td><td class=n>4</td><td class=n>21%</td></tr><tr><td>civic</td><td class=n>1</td><td class=n>4</td><td class=n>10</td><td class=n>12</td><td class=n>22%</td></tr><tr><td>corporate</td><td class=n>9</td><td class=n>16</td><td class=n>26</td><td class=n>35</td><td class=n>41%</td></tr><tr><td>expansion</td><td class=n>1</td><td class=n>5</td><td class=n>15</td><td class=n>17</td><td class=n>21%</td></tr><tr><td>industrial</td><td class=n>1</td><td class=n>1</td><td class=n>1</td><td class=n>1</td><td class=n>28%</td></tr><tr><td>old</td><td class=n>1</td><td class=n>2</td><td class=n>3</td><td class=n>6</td><td class=n>28%</td></tr><tr><td>technology</td><td class=n>3</td><td class=n>9</td><td class=n>19</td><td class=n>29</td><td class=n>22%</td></tr></tbody></table></div></div>
+</section>
+<section><h2>Relevo</h2><p class="lede">A superfície vai de 2.6 a 40.0 m, com média de 20.4 m. A casa de drenagem fica a 4.7 m, a 218 m do canal. O Tecnológico tem média de 26.1 m e a Cidade Antiga de 25.5 m. A rampa máxima nas vias é de 5.64%, dentro do limite para dirigir. Os taludes ficam no canal, na borda do platô e na bacia de retenção murada.</p></section>
+<section><h2>Situação</h2><div class="cols">
+<div class="col ok"><h3>Pronto como base</h3><ul><li>Masterplan inteiro com estrutura urbana coerente, transições e nenhuma célula vazia</li><li>Malha orgânica da Cidade Antiga: 157 ruas sem saída, 58 becos, 10 passagens, 6 praças, entropia de orientação 0.832</li><li>Footprints, entradas, serviço e estacionamento definitivos dos 9 heróis e do lar</li><li>Pontos de estado H0–H4 e G0–G4</li><li>Organização em 8 camadas × 181 subcélulas, com manifesto para a Unity</li></ul></div>
+<div class="col warn"><h3>Ainda blockout ou provisório</h3><ul><li>Masterplan fora da Cidade Antiga em massing (caixas)</li><li>Famílias de fundo em LOD1 sem bevel</li><li>Árvores-proxy</li><li>Infraestrutura provisória em escala correta</li><li>Proxies H0/G0</li><li>Interiores só onde validam espaço</li></ul></div>
+<div class="col warn"><h3>Precisa de arte final (W3/W4)</h3><ul><li>Texturas PBR autorais nos slots já criados</li><li>Decals</li><li>Clutter funcional</li><li>LOD0 final dos heróis</li><li>Vegetação autoral com LOD</li><li>Iluminação interior</li><li>Mobiliário dos estados</li><li>Integração FBX → Unity por subcélula</li></ul></div>
+</div></section>
+<aside class="rules"><b>Regras mantidas.</b> O low-poly só existe como blockout temporário; nenhuma área final pode ficar assim. VEIN é referência de escala visual, realismo, densidade, materialidade, iluminação, atmosfera e clutter. Nenhum asset, mapa, prédio, textura, personagem ou layout dele é copiado. Santa Aurora é original.</aside>
+</div>

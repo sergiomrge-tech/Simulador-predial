@@ -1,0 +1,33 @@
+{
+  "mode": "kit",
+  "blend": "ArtSource/Blender/Kits/SantaAurora_CidadeAntiga_Kit_v1.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "reopenedInFreshProcess": true,
+  "objectCount": 280,
+  "meshCount": 138,
+  "collections": {
+    "KIT_Modular": 40,
+    "KIT_Infraestrutura": 15,
+    "KIT_Familias": 45,
+    "KIT_Materiais": 37,
+    "KIT_Labels": 138,
+    "KIT_Cameras": 5
+  },
+  "checks": {
+    "geometryNodesInstancers": 0,
+    "materials": 37,
+    "materialsWithTextureSlots": 37,
+    "kitPieces": 40,
+    "props": 15,
+    "assetsMarked": 100
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W1_5/20_kit_modular.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/21_kit_infraestrutura.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/22_familias_edificacao.jpg",
+    "ArtSource/Blender/World/Reviews/W1_5/23_materiais_pbr.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

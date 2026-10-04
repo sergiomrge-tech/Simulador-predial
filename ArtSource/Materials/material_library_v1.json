@@ -1,0 +1,673 @@
+{
+  "schemaVersion": 1,
+  "stage": "W1.5 - estrutura da biblioteca PBR (procedural base, não final)",
+  "channels": [
+    "BaseColor",
+    "Normal",
+    "Roughness",
+    "Metallic",
+    "AO"
+  ],
+  "textureNaming": "ArtSource/Textures/<material>/<material>_<Channel>.png (BaseColor sRGB; Normal OpenGL; Roughness/Metallic/AO lineares)",
+  "texelDensityTargets": {
+    "hero_props": 1024,
+    "near_props": "512-1024",
+    "architecture": "256-512",
+    "background": "LOD/proxy"
+  },
+  "rules": [
+    "Nenhum material flat como solução final",
+    "Variação por instância e por escala",
+    "Decals obrigatórios em ambientes finais (W3/W4)"
+  ],
+  "materials": {
+    "concreto": {
+      "family": "concreto",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.78,
+        0.95
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/concreto/concreto_BaseColor.png",
+        "Normal": "ArtSource/Textures/concreto/concreto_Normal.png",
+        "Roughness": "ArtSource/Textures/concreto/concreto_Roughness.png",
+        "Metallic": "ArtSource/Textures/concreto/concreto_Metallic.png",
+        "AO": "ArtSource/Textures/concreto/concreto_AO.png"
+      }
+    },
+    "concreto_pintado": {
+      "family": "concreto",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.7,
+        0.88
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/concreto_pintado/concreto_pintado_BaseColor.png",
+        "Normal": "ArtSource/Textures/concreto_pintado/concreto_pintado_Normal.png",
+        "Roughness": "ArtSource/Textures/concreto_pintado/concreto_pintado_Roughness.png",
+        "Metallic": "ArtSource/Textures/concreto_pintado/concreto_pintado_Metallic.png",
+        "AO": "ArtSource/Textures/concreto_pintado/concreto_pintado_AO.png"
+      }
+    },
+    "reboco_antigo": {
+      "family": "reboco",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.8,
+        0.95
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/reboco_antigo/reboco_antigo_BaseColor.png",
+        "Normal": "ArtSource/Textures/reboco_antigo/reboco_antigo_Normal.png",
+        "Roughness": "ArtSource/Textures/reboco_antigo/reboco_antigo_Roughness.png",
+        "Metallic": "ArtSource/Textures/reboco_antigo/reboco_antigo_Metallic.png",
+        "AO": "ArtSource/Textures/reboco_antigo/reboco_antigo_AO.png"
+      }
+    },
+    "reboco_pintado": {
+      "family": "reboco",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.72,
+        0.9
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/reboco_pintado/reboco_pintado_BaseColor.png",
+        "Normal": "ArtSource/Textures/reboco_pintado/reboco_pintado_Normal.png",
+        "Roughness": "ArtSource/Textures/reboco_pintado/reboco_pintado_Roughness.png",
+        "Metallic": "ArtSource/Textures/reboco_pintado/reboco_pintado_Metallic.png",
+        "AO": "ArtSource/Textures/reboco_pintado/reboco_pintado_AO.png"
+      }
+    },
+    "reboco_pastilha": {
+      "family": "reboco",
+      "pattern": "tiles",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.45,
+        0.7
+      ],
+      "texelDensity": 1024,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/reboco_pastilha/reboco_pastilha_BaseColor.png",
+        "Normal": "ArtSource/Textures/reboco_pastilha/reboco_pastilha_Normal.png",
+        "Roughness": "ArtSource/Textures/reboco_pastilha/reboco_pastilha_Roughness.png",
+        "Metallic": "ArtSource/Textures/reboco_pastilha/reboco_pastilha_Metallic.png",
+        "AO": "ArtSource/Textures/reboco_pastilha/reboco_pastilha_AO.png"
+      }
+    },
+    "pedra_reboco_historico": {
+      "family": "reboco",
+      "pattern": "tiles",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.75,
+        0.92
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/pedra_reboco_historico/pedra_reboco_historico_BaseColor.png",
+        "Normal": "ArtSource/Textures/pedra_reboco_historico/pedra_reboco_historico_Normal.png",
+        "Roughness": "ArtSource/Textures/pedra_reboco_historico/pedra_reboco_historico_Roughness.png",
+        "Metallic": "ArtSource/Textures/pedra_reboco_historico/pedra_reboco_historico_Metallic.png",
+        "AO": "ArtSource/Textures/pedra_reboco_historico/pedra_reboco_historico_AO.png"
+      }
+    },
+    "tijolo_aparente": {
+      "family": "tijolo",
+      "pattern": "brick",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.8,
+        0.95
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/tijolo_aparente/tijolo_aparente_BaseColor.png",
+        "Normal": "ArtSource/Textures/tijolo_aparente/tijolo_aparente_Normal.png",
+        "Roughness": "ArtSource/Textures/tijolo_aparente/tijolo_aparente_Roughness.png",
+        "Metallic": "ArtSource/Textures/tijolo_aparente/tijolo_aparente_Metallic.png",
+        "AO": "ArtSource/Textures/tijolo_aparente/tijolo_aparente_AO.png"
+      }
+    },
+    "tijolo_pintado": {
+      "family": "tijolo",
+      "pattern": "brick",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.7,
+        0.88
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/tijolo_pintado/tijolo_pintado_BaseColor.png",
+        "Normal": "ArtSource/Textures/tijolo_pintado/tijolo_pintado_Normal.png",
+        "Roughness": "ArtSource/Textures/tijolo_pintado/tijolo_pintado_Roughness.png",
+        "Metallic": "ArtSource/Textures/tijolo_pintado/tijolo_pintado_Metallic.png",
+        "AO": "ArtSource/Textures/tijolo_pintado/tijolo_pintado_AO.png"
+      }
+    },
+    "asfalto": {
+      "family": "asfalto",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.82,
+        0.96
+      ],
+      "texelDensity": 256,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/asfalto/asfalto_BaseColor.png",
+        "Normal": "ArtSource/Textures/asfalto/asfalto_Normal.png",
+        "Roughness": "ArtSource/Textures/asfalto/asfalto_Roughness.png",
+        "Metallic": "ArtSource/Textures/asfalto/asfalto_Metallic.png",
+        "AO": "ArtSource/Textures/asfalto/asfalto_AO.png"
+      }
+    },
+    "asfalto_gasto": {
+      "family": "asfalto",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.85,
+        0.98
+      ],
+      "texelDensity": 256,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/asfalto_gasto/asfalto_gasto_BaseColor.png",
+        "Normal": "ArtSource/Textures/asfalto_gasto/asfalto_gasto_Normal.png",
+        "Roughness": "ArtSource/Textures/asfalto_gasto/asfalto_gasto_Roughness.png",
+        "Metallic": "ArtSource/Textures/asfalto_gasto/asfalto_gasto_Metallic.png",
+        "AO": "ArtSource/Textures/asfalto_gasto/asfalto_gasto_AO.png"
+      }
+    },
+    "calcada": {
+      "family": "concreto",
+      "pattern": "tiles",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.8,
+        0.95
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/calcada/calcada_BaseColor.png",
+        "Normal": "ArtSource/Textures/calcada/calcada_Normal.png",
+        "Roughness": "ArtSource/Textures/calcada/calcada_Roughness.png",
+        "Metallic": "ArtSource/Textures/calcada/calcada_Metallic.png",
+        "AO": "ArtSource/Textures/calcada/calcada_AO.png"
+      }
+    },
+    "meio_fio": {
+      "family": "concreto",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.7,
+        0.9
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/meio_fio/meio_fio_BaseColor.png",
+        "Normal": "ArtSource/Textures/meio_fio/meio_fio_Normal.png",
+        "Roughness": "ArtSource/Textures/meio_fio/meio_fio_Roughness.png",
+        "Metallic": "ArtSource/Textures/meio_fio/meio_fio_Metallic.png",
+        "AO": "ArtSource/Textures/meio_fio/meio_fio_AO.png"
+      }
+    },
+    "metal_galvanizado": {
+      "family": "metal",
+      "pattern": "noise",
+      "metallic": 1.0,
+      "roughnessRange": [
+        0.3,
+        0.55
+      ],
+      "texelDensity": 1024,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/metal_galvanizado/metal_galvanizado_BaseColor.png",
+        "Normal": "ArtSource/Textures/metal_galvanizado/metal_galvanizado_Normal.png",
+        "Roughness": "ArtSource/Textures/metal_galvanizado/metal_galvanizado_Roughness.png",
+        "Metallic": "ArtSource/Textures/metal_galvanizado/metal_galvanizado_Metallic.png",
+        "AO": "ArtSource/Textures/metal_galvanizado/metal_galvanizado_AO.png"
+      }
+    },
+    "aco_pintado_verde": {
+      "family": "aco_pintado",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.4,
+        0.65
+      ],
+      "texelDensity": 1024,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/aco_pintado_verde/aco_pintado_verde_BaseColor.png",
+        "Normal": "ArtSource/Textures/aco_pintado_verde/aco_pintado_verde_Normal.png",
+        "Roughness": "ArtSource/Textures/aco_pintado_verde/aco_pintado_verde_Roughness.png",
+        "Metallic": "ArtSource/Textures/aco_pintado_verde/aco_pintado_verde_Metallic.png",
+        "AO": "ArtSource/Textures/aco_pintado_verde/aco_pintado_verde_AO.png"
+      }
+    },
+    "aco_pintado_cinza": {
+      "family": "aco_pintado",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.4,
+        0.65
+      ],
+      "texelDensity": 1024,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/aco_pintado_cinza/aco_pintado_cinza_BaseColor.png",
+        "Normal": "ArtSource/Textures/aco_pintado_cinza/aco_pintado_cinza_Normal.png",
+        "Roughness": "ArtSource/Textures/aco_pintado_cinza/aco_pintado_cinza_Roughness.png",
+        "Metallic": "ArtSource/Textures/aco_pintado_cinza/aco_pintado_cinza_Metallic.png",
+        "AO": "ArtSource/Textures/aco_pintado_cinza/aco_pintado_cinza_AO.png"
+      }
+    },
+    "ferrugem": {
+      "family": "ferrugem",
+      "pattern": "noise",
+      "metallic": 0.3,
+      "roughnessRange": [
+        0.75,
+        0.95
+      ],
+      "texelDensity": 1024,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/ferrugem/ferrugem_BaseColor.png",
+        "Normal": "ArtSource/Textures/ferrugem/ferrugem_Normal.png",
+        "Roughness": "ArtSource/Textures/ferrugem/ferrugem_Roughness.png",
+        "Metallic": "ArtSource/Textures/ferrugem/ferrugem_Metallic.png",
+        "AO": "ArtSource/Textures/ferrugem/ferrugem_AO.png"
+      }
+    },
+    "aluminio": {
+      "family": "metal",
+      "pattern": "noise",
+      "metallic": 0.95,
+      "roughnessRange": [
+        0.28,
+        0.45
+      ],
+      "texelDensity": 1024,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/aluminio/aluminio_BaseColor.png",
+        "Normal": "ArtSource/Textures/aluminio/aluminio_Normal.png",
+        "Roughness": "ArtSource/Textures/aluminio/aluminio_Roughness.png",
+        "Metallic": "ArtSource/Textures/aluminio/aluminio_Metallic.png",
+        "AO": "ArtSource/Textures/aluminio/aluminio_AO.png"
+      }
+    },
+    "madeira_pintada": {
+      "family": "madeira",
+      "pattern": "wave",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.55,
+        0.8
+      ],
+      "texelDensity": 1024,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/madeira_pintada/madeira_pintada_BaseColor.png",
+        "Normal": "ArtSource/Textures/madeira_pintada/madeira_pintada_Normal.png",
+        "Roughness": "ArtSource/Textures/madeira_pintada/madeira_pintada_Roughness.png",
+        "Metallic": "ArtSource/Textures/madeira_pintada/madeira_pintada_Metallic.png",
+        "AO": "ArtSource/Textures/madeira_pintada/madeira_pintada_AO.png"
+      }
+    },
+    "madeira_crua": {
+      "family": "madeira",
+      "pattern": "wave",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.65,
+        0.85
+      ],
+      "texelDensity": 1024,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/madeira_crua/madeira_crua_BaseColor.png",
+        "Normal": "ArtSource/Textures/madeira_crua/madeira_crua_Normal.png",
+        "Roughness": "ArtSource/Textures/madeira_crua/madeira_crua_Roughness.png",
+        "Metallic": "ArtSource/Textures/madeira_crua/madeira_crua_Metallic.png",
+        "AO": "ArtSource/Textures/madeira_crua/madeira_crua_AO.png"
+      }
+    },
+    "vidro": {
+      "family": "vidro",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.04,
+        0.12
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/vidro/vidro_BaseColor.png",
+        "Normal": "ArtSource/Textures/vidro/vidro_Normal.png",
+        "Roughness": "ArtSource/Textures/vidro/vidro_Roughness.png",
+        "Metallic": "ArtSource/Textures/vidro/vidro_Metallic.png",
+        "AO": "ArtSource/Textures/vidro/vidro_AO.png"
+      }
+    },
+    "vidro_vitrine": {
+      "family": "vidro",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.03,
+        0.08
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/vidro_vitrine/vidro_vitrine_BaseColor.png",
+        "Normal": "ArtSource/Textures/vidro_vitrine/vidro_vitrine_Normal.png",
+        "Roughness": "ArtSource/Textures/vidro_vitrine/vidro_vitrine_Roughness.png",
+        "Metallic": "ArtSource/Textures/vidro_vitrine/vidro_vitrine_Metallic.png",
+        "AO": "ArtSource/Textures/vidro_vitrine/vidro_vitrine_AO.png"
+      }
+    },
+    "ceramica_telha": {
+      "family": "ceramica",
+      "pattern": "tiles",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.7,
+        0.92
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/ceramica_telha/ceramica_telha_BaseColor.png",
+        "Normal": "ArtSource/Textures/ceramica_telha/ceramica_telha_Normal.png",
+        "Roughness": "ArtSource/Textures/ceramica_telha/ceramica_telha_Roughness.png",
+        "Metallic": "ArtSource/Textures/ceramica_telha/ceramica_telha_Metallic.png",
+        "AO": "ArtSource/Textures/ceramica_telha/ceramica_telha_AO.png"
+      }
+    },
+    "ceramica_piso": {
+      "family": "ceramica",
+      "pattern": "tiles",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.25,
+        0.45
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/ceramica_piso/ceramica_piso_BaseColor.png",
+        "Normal": "ArtSource/Textures/ceramica_piso/ceramica_piso_Normal.png",
+        "Roughness": "ArtSource/Textures/ceramica_piso/ceramica_piso_Roughness.png",
+        "Metallic": "ArtSource/Textures/ceramica_piso/ceramica_piso_Metallic.png",
+        "AO": "ArtSource/Textures/ceramica_piso/ceramica_piso_AO.png"
+      }
+    },
+    "telha_fibrocimento": {
+      "family": "cobertura",
+      "pattern": "corrugated",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.8,
+        0.95
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/telha_fibrocimento/telha_fibrocimento_BaseColor.png",
+        "Normal": "ArtSource/Textures/telha_fibrocimento/telha_fibrocimento_Normal.png",
+        "Roughness": "ArtSource/Textures/telha_fibrocimento/telha_fibrocimento_Roughness.png",
+        "Metallic": "ArtSource/Textures/telha_fibrocimento/telha_fibrocimento_Metallic.png",
+        "AO": "ArtSource/Textures/telha_fibrocimento/telha_fibrocimento_AO.png"
+      }
+    },
+    "telha_metalica": {
+      "family": "cobertura",
+      "pattern": "corrugated",
+      "metallic": 0.9,
+      "roughnessRange": [
+        0.35,
+        0.6
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/telha_metalica/telha_metalica_BaseColor.png",
+        "Normal": "ArtSource/Textures/telha_metalica/telha_metalica_Normal.png",
+        "Roughness": "ArtSource/Textures/telha_metalica/telha_metalica_Roughness.png",
+        "Metallic": "ArtSource/Textures/telha_metalica/telha_metalica_Metallic.png",
+        "AO": "ArtSource/Textures/telha_metalica/telha_metalica_AO.png"
+      }
+    },
+    "plastico": {
+      "family": "plastico",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.35,
+        0.55
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/plastico/plastico_BaseColor.png",
+        "Normal": "ArtSource/Textures/plastico/plastico_Normal.png",
+        "Roughness": "ArtSource/Textures/plastico/plastico_Roughness.png",
+        "Metallic": "ArtSource/Textures/plastico/plastico_Metallic.png",
+        "AO": "ArtSource/Textures/plastico/plastico_AO.png"
+      }
+    },
+    "borracha": {
+      "family": "borracha",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.85,
+        0.97
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/borracha/borracha_BaseColor.png",
+        "Normal": "ArtSource/Textures/borracha/borracha_Normal.png",
+        "Roughness": "ArtSource/Textures/borracha/borracha_Roughness.png",
+        "Metallic": "ArtSource/Textures/borracha/borracha_Metallic.png",
+        "AO": "ArtSource/Textures/borracha/borracha_AO.png"
+      }
+    },
+    "pintura_industrial": {
+      "family": "pintura",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.45,
+        0.7
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/pintura_industrial/pintura_industrial_BaseColor.png",
+        "Normal": "ArtSource/Textures/pintura_industrial/pintura_industrial_Normal.png",
+        "Roughness": "ArtSource/Textures/pintura_industrial/pintura_industrial_Roughness.png",
+        "Metallic": "ArtSource/Textures/pintura_industrial/pintura_industrial_Metallic.png",
+        "AO": "ArtSource/Textures/pintura_industrial/pintura_industrial_AO.png"
+      }
+    },
+    "sinalizacao_viaria": {
+      "family": "pintura",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.55,
+        0.8
+      ],
+      "texelDensity": 256,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/sinalizacao_viaria/sinalizacao_viaria_BaseColor.png",
+        "Normal": "ArtSource/Textures/sinalizacao_viaria/sinalizacao_viaria_Normal.png",
+        "Roughness": "ArtSource/Textures/sinalizacao_viaria/sinalizacao_viaria_Roughness.png",
+        "Metallic": "ArtSource/Textures/sinalizacao_viaria/sinalizacao_viaria_Metallic.png",
+        "AO": "ArtSource/Textures/sinalizacao_viaria/sinalizacao_viaria_AO.png"
+      }
+    },
+    "agua_canal": {
+      "family": "agua",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.03,
+        0.1
+      ],
+      "texelDensity": 256,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/agua_canal/agua_canal_BaseColor.png",
+        "Normal": "ArtSource/Textures/agua_canal/agua_canal_Normal.png",
+        "Roughness": "ArtSource/Textures/agua_canal/agua_canal_Roughness.png",
+        "Metallic": "ArtSource/Textures/agua_canal/agua_canal_Metallic.png",
+        "AO": "ArtSource/Textures/agua_canal/agua_canal_AO.png"
+      }
+    },
+    "grama": {
+      "family": "terreno",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.85,
+        0.98
+      ],
+      "texelDensity": 256,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/grama/grama_BaseColor.png",
+        "Normal": "ArtSource/Textures/grama/grama_Normal.png",
+        "Roughness": "ArtSource/Textures/grama/grama_Roughness.png",
+        "Metallic": "ArtSource/Textures/grama/grama_Metallic.png",
+        "AO": "ArtSource/Textures/grama/grama_AO.png"
+      }
+    },
+    "terra": {
+      "family": "terreno",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.88,
+        0.98
+      ],
+      "texelDensity": 256,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/terra/terra_BaseColor.png",
+        "Normal": "ArtSource/Textures/terra/terra_Normal.png",
+        "Roughness": "ArtSource/Textures/terra/terra_Roughness.png",
+        "Metallic": "ArtSource/Textures/terra/terra_Metallic.png",
+        "AO": "ArtSource/Textures/terra/terra_AO.png"
+      }
+    },
+    "lastro_ferroviario": {
+      "family": "terreno",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.9,
+        0.99
+      ],
+      "texelDensity": 256,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/lastro_ferroviario/lastro_ferroviario_BaseColor.png",
+        "Normal": "ArtSource/Textures/lastro_ferroviario/lastro_ferroviario_Normal.png",
+        "Roughness": "ArtSource/Textures/lastro_ferroviario/lastro_ferroviario_Roughness.png",
+        "Metallic": "ArtSource/Textures/lastro_ferroviario/lastro_ferroviario_Metallic.png",
+        "AO": "ArtSource/Textures/lastro_ferroviario/lastro_ferroviario_AO.png"
+      }
+    },
+    "trilho_aco": {
+      "family": "metal",
+      "pattern": "noise",
+      "metallic": 0.9,
+      "roughnessRange": [
+        0.35,
+        0.7
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/trilho_aco/trilho_aco_BaseColor.png",
+        "Normal": "ArtSource/Textures/trilho_aco/trilho_aco_Normal.png",
+        "Roughness": "ArtSource/Textures/trilho_aco/trilho_aco_Roughness.png",
+        "Metallic": "ArtSource/Textures/trilho_aco/trilho_aco_Metallic.png",
+        "AO": "ArtSource/Textures/trilho_aco/trilho_aco_AO.png"
+      }
+    },
+    "folhagem": {
+      "family": "vegetacao",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.65,
+        0.85
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/folhagem/folhagem_BaseColor.png",
+        "Normal": "ArtSource/Textures/folhagem/folhagem_Normal.png",
+        "Roughness": "ArtSource/Textures/folhagem/folhagem_Roughness.png",
+        "Metallic": "ArtSource/Textures/folhagem/folhagem_Metallic.png",
+        "AO": "ArtSource/Textures/folhagem/folhagem_AO.png"
+      }
+    },
+    "tronco": {
+      "family": "vegetacao",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.85,
+        0.97
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/tronco/tronco_BaseColor.png",
+        "Normal": "ArtSource/Textures/tronco/tronco_Normal.png",
+        "Roughness": "ArtSource/Textures/tronco/tronco_Roughness.png",
+        "Metallic": "ArtSource/Textures/tronco/tronco_Metallic.png",
+        "AO": "ArtSource/Textures/tronco/tronco_AO.png"
+      }
+    }
+  }
+}

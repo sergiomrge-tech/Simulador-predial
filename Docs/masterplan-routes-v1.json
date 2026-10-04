@@ -1,958 +1,1045 @@
 {
   "speedsKmh": {
-    "walk": 5.0,
+    "walk": 10.8,
+    "sprint": 18.0,
     "v0_initial": 15.0,
     "car_urban": 30.0
   },
-  "note": "real-world equivalent minutes; game time scale not defined yet",
+  "note": "real-world equivalent minutes; game time scale not defined yet; walk/sprint use the prototype controller speeds",
   "origins": {
     "garage": {
+      "supplier.tools": {
+        "district": "old",
+        "networkM": 355,
+        "straightM": 278,
+        "detour": 1.28,
+        "minutes": {
+          "walk": 2.0,
+          "sprint": 1.2,
+          "v0_initial": 1.4,
+          "car_urban": 0.7
+        }
+      },
       "home.starter": {
         "district": "old",
-        "networkM": 393,
+        "networkM": 391,
         "straightM": 206,
-        "detour": 1.91,
+        "detour": 1.9,
         "minutes": {
-          "walk": 4.7,
+          "walk": 2.2,
+          "sprint": 1.3,
           "v0_initial": 1.6,
           "car_urban": 0.8
         }
       },
-      "supplier.tools": {
+      "leisure.cafe": {
         "district": "old",
-        "networkM": 435,
-        "straightM": 278,
-        "detour": 1.56,
+        "networkM": 631,
+        "straightM": 515,
+        "detour": 1.23,
         "minutes": {
-          "walk": 5.2,
-          "v0_initial": 1.7,
-          "car_urban": 0.9
-        }
-      },
-      "workshop": {
-        "district": "old",
-        "networkM": 672,
-        "straightM": 510,
-        "detour": 1.32,
-        "minutes": {
-          "walk": 8.1,
-          "v0_initial": 2.7,
+          "walk": 3.5,
+          "sprint": 2.1,
+          "v0_initial": 2.5,
           "car_urban": 1.3
         }
       },
       "horizonte": {
         "district": "old",
-        "networkM": 756,
+        "networkM": 699,
         "straightM": 495,
-        "detour": 1.53,
+        "detour": 1.41,
         "minutes": {
-          "walk": 9.1,
-          "v0_initial": 3.0,
-          "car_urban": 1.5
+          "walk": 3.9,
+          "sprint": 2.3,
+          "v0_initial": 2.8,
+          "car_urban": 1.4
         }
       },
-      "leisure.cafe": {
+      "workshop": {
         "district": "old",
-        "networkM": 773,
-        "straightM": 515,
-        "detour": 1.5,
+        "networkM": 721,
+        "straightM": 510,
+        "detour": 1.41,
         "minutes": {
-          "walk": 9.3,
-          "v0_initial": 3.1,
-          "car_urban": 1.5
-        }
-      },
-      "apartments": {
-        "district": "old",
-        "networkM": 946,
-        "straightM": 695,
-        "detour": 1.36,
-        "minutes": {
-          "walk": 11.4,
-          "v0_initial": 3.8,
-          "car_urban": 1.9
+          "walk": 4.0,
+          "sprint": 2.4,
+          "v0_initial": 2.9,
+          "car_urban": 1.4
         }
       },
       "grocery": {
         "district": "old",
-        "networkM": 949,
+        "networkM": 836,
         "straightM": 681,
-        "detour": 1.39,
+        "detour": 1.23,
         "minutes": {
-          "walk": 11.4,
-          "v0_initial": 3.8,
-          "car_urban": 1.9
-        }
-      },
-      "vehicles.used": {
-        "district": "old",
-        "networkM": 1145,
-        "straightM": 806,
-        "detour": 1.42,
-        "minutes": {
-          "walk": 13.7,
-          "v0_initial": 4.6,
-          "car_urban": 2.3
-        }
-      },
-      "smalloffice": {
-        "district": "old",
-        "networkM": 1152,
-        "straightM": 886,
-        "detour": 1.3,
-        "minutes": {
-          "walk": 13.8,
-          "v0_initial": 4.6,
-          "car_urban": 2.3
-        }
-      },
-      "imperial": {
-        "district": "old",
-        "networkM": 1196,
-        "straightM": 820,
-        "detour": 1.46,
-        "minutes": {
-          "walk": 14.4,
-          "v0_initial": 4.8,
-          "car_urban": 2.4
-        }
-      },
-      "restaurant": {
-        "district": "old",
-        "networkM": 1366,
-        "straightM": 920,
-        "detour": 1.48,
-        "minutes": {
-          "walk": 16.4,
-          "v0_initial": 5.5,
-          "car_urban": 2.7
+          "walk": 4.6,
+          "sprint": 2.8,
+          "v0_initial": 3.3,
+          "car_urban": 1.7
         }
       },
       "supplier.electrical": {
         "district": "old",
-        "networkM": 1515,
+        "networkM": 1069,
         "straightM": 922,
-        "detour": 1.64,
+        "detour": 1.16,
         "minutes": {
-          "walk": 18.2,
-          "v0_initial": 6.1,
-          "car_urban": 3.0
+          "walk": 5.9,
+          "sprint": 3.6,
+          "v0_initial": 4.3,
+          "car_urban": 2.1
+        }
+      },
+      "restaurant": {
+        "district": "old",
+        "networkM": 1190,
+        "straightM": 920,
+        "detour": 1.29,
+        "minutes": {
+          "walk": 6.6,
+          "sprint": 4.0,
+          "v0_initial": 4.8,
+          "car_urban": 2.4
+        }
+      },
+      "smalloffice": {
+        "district": "old",
+        "networkM": 1261,
+        "straightM": 886,
+        "detour": 1.42,
+        "minutes": {
+          "walk": 7.0,
+          "sprint": 4.2,
+          "v0_initial": 5.0,
+          "car_urban": 2.5
+        }
+      },
+      "vehicles.used": {
+        "district": "old",
+        "networkM": 1261,
+        "straightM": 806,
+        "detour": 1.56,
+        "minutes": {
+          "walk": 7.0,
+          "sprint": 4.2,
+          "v0_initial": 5.0,
+          "car_urban": 2.5
+        }
+      },
+      "apartments": {
+        "district": "old",
+        "networkM": 1341,
+        "straightM": 695,
+        "detour": 1.93,
+        "minutes": {
+          "walk": 7.4,
+          "sprint": 4.5,
+          "v0_initial": 5.4,
+          "car_urban": 2.7
+        }
+      },
+      "imperial": {
+        "district": "old",
+        "networkM": 1399,
+        "straightM": 820,
+        "detour": 1.71,
+        "minutes": {
+          "walk": 7.8,
+          "sprint": 4.7,
+          "v0_initial": 5.6,
+          "car_urban": 2.8
         }
       },
       "fuel.old": {
         "district": "old",
-        "networkM": 2492,
+        "networkM": 1963,
         "straightM": 1699,
-        "detour": 1.47,
+        "detour": 1.16,
         "minutes": {
-          "walk": 29.9,
-          "v0_initial": 10.0,
-          "car_urban": 5.0
+          "walk": 10.9,
+          "sprint": 6.5,
+          "v0_initial": 7.9,
+          "car_urban": 3.9
         }
       },
       "home.house.02": {
         "district": "old",
-        "networkM": 2505,
+        "networkM": 2397,
         "straightM": 1741,
-        "detour": 1.44,
+        "detour": 1.38,
         "minutes": {
-          "walk": 30.1,
+          "walk": 13.3,
+          "sprint": 8.0,
+          "v0_initial": 9.6,
+          "car_urban": 4.8
+        }
+      },
+      "supplier.hydraulic": {
+        "district": "expansion",
+        "networkM": 2438,
+        "straightM": 1978,
+        "detour": 1.23,
+        "minutes": {
+          "walk": 13.5,
+          "sprint": 8.1,
+          "v0_initial": 9.8,
+          "car_urban": 4.9
+        }
+      },
+      "school": {
+        "district": "expansion",
+        "networkM": 2498,
+        "straightM": 2220,
+        "detour": 1.13,
+        "minutes": {
+          "walk": 13.9,
+          "sprint": 8.3,
           "v0_initial": 10.0,
           "car_urban": 5.0
         }
       },
-      "fuel.north": {
-        "district": "industrial",
-        "networkM": 4310,
-        "straightM": 3335,
-        "detour": 1.29,
+      "home.apartment.01": {
+        "district": "expansion",
+        "networkM": 2626,
+        "straightM": 1973,
+        "detour": 1.33,
         "minutes": {
-          "walk": 51.7,
-          "v0_initial": 17.2,
+          "walk": 14.6,
+          "sprint": 8.8,
+          "v0_initial": 10.5,
+          "car_urban": 5.3
+        }
+      },
+      "property.agency": {
+        "district": "expansion",
+        "networkM": 2910,
+        "straightM": 2502,
+        "detour": 1.16,
+        "minutes": {
+          "walk": 16.2,
+          "sprint": 9.7,
+          "v0_initial": 11.6,
+          "car_urban": 5.8
+        }
+      },
+      "recurringcondo": {
+        "district": "expansion",
+        "networkM": 3302,
+        "straightM": 3050,
+        "detour": 1.08,
+        "minutes": {
+          "walk": 18.3,
+          "sprint": 11.0,
+          "v0_initial": 13.2,
+          "car_urban": 6.6
+        }
+      },
+      "smallhospital": {
+        "district": "expansion",
+        "networkM": 3558,
+        "straightM": 2610,
+        "detour": 1.36,
+        "minutes": {
+          "walk": 19.8,
+          "sprint": 11.9,
+          "v0_initial": 14.2,
+          "car_urban": 7.1
+        }
+      },
+      "home.apartment.02": {
+        "district": "expansion",
+        "networkM": 3826,
+        "straightM": 3020,
+        "detour": 1.27,
+        "minutes": {
+          "walk": 21.3,
+          "sprint": 12.8,
+          "v0_initial": 15.3,
+          "car_urban": 7.7
+        }
+      },
+      "leisure.gym": {
+        "district": "expansion",
+        "networkM": 3860,
+        "straightM": 3606,
+        "detour": 1.07,
+        "minutes": {
+          "walk": 21.4,
+          "sprint": 12.9,
+          "v0_initial": 15.4,
+          "car_urban": 7.7
+        }
+      },
+      "companyhq": {
+        "district": "expansion",
+        "networkM": 4116,
+        "straightM": 3833,
+        "detour": 1.07,
+        "minutes": {
+          "walk": 22.9,
+          "sprint": 13.7,
+          "v0_initial": 16.5,
+          "car_urban": 8.2
+        }
+      },
+      "hotel": {
+        "district": "expansion",
+        "networkM": 4164,
+        "straightM": 3396,
+        "detour": 1.23,
+        "minutes": {
+          "walk": 23.1,
+          "sprint": 13.9,
+          "v0_initial": 16.7,
+          "car_urban": 8.3
+        }
+      },
+      "logistics": {
+        "district": "industrial",
+        "networkM": 4283,
+        "straightM": 3827,
+        "detour": 1.12,
+        "minutes": {
+          "walk": 23.8,
+          "sprint": 14.3,
+          "v0_initial": 17.1,
           "car_urban": 8.6
         }
       },
       "supplier.parts": {
         "district": "industrial",
-        "networkM": 4353,
+        "networkM": 4366,
         "straightM": 3496,
         "detour": 1.25,
         "minutes": {
-          "walk": 52.2,
-          "v0_initial": 17.4,
+          "walk": 24.3,
+          "sprint": 14.6,
+          "v0_initial": 17.5,
           "car_urban": 8.7
-        }
-      },
-      "factory": {
-        "district": "industrial",
-        "networkM": 4642,
-        "straightM": 4627,
-        "detour": 1.0,
-        "minutes": {
-          "walk": 55.7,
-          "v0_initial": 18.6,
-          "car_urban": 9.3
-        }
-      },
-      "logistics": {
-        "district": "industrial",
-        "networkM": 4824,
-        "straightM": 3827,
-        "detour": 1.26,
-        "minutes": {
-          "walk": 57.9,
-          "v0_initial": 19.3,
-          "car_urban": 9.6
-        }
-      },
-      "central": {
-        "district": "civic",
-        "networkM": 4887,
-        "straightM": 3890,
-        "detour": 1.26,
-        "minutes": {
-          "walk": 58.6,
-          "v0_initial": 19.5,
-          "car_urban": 9.8
         }
       },
       "leisure.park": {
         "district": "civic",
-        "networkM": 5320,
+        "networkM": 4418,
         "straightM": 3800,
-        "detour": 1.4,
+        "detour": 1.16,
         "minutes": {
-          "walk": 63.8,
-          "v0_initial": 21.3,
-          "car_urban": 10.6
-        }
-      },
-      "smallhospital": {
-        "district": "expansion",
-        "networkM": 6166,
-        "straightM": 2610,
-        "detour": 2.36,
-        "minutes": {
-          "walk": 74.0,
-          "v0_initial": 24.7,
-          "car_urban": 12.3
-        }
-      },
-      "drainage": {
-        "district": "industrial",
-        "networkM": 6483,
-        "straightM": 5451,
-        "detour": 1.19,
-        "minutes": {
-          "walk": 77.8,
-          "v0_initial": 25.9,
-          "car_urban": 13.0
-        }
-      },
-      "vertice": {
-        "district": "corporate",
-        "networkM": 6889,
-        "straightM": 5284,
-        "detour": 1.3,
-        "minutes": {
-          "walk": 82.7,
-          "v0_initial": 27.6,
-          "car_urban": 13.8
-        }
-      },
-      "property.agency": {
-        "district": "expansion",
-        "networkM": 6892,
-        "straightM": 2502,
-        "detour": 2.75,
-        "minutes": {
-          "walk": 82.7,
-          "v0_initial": 27.6,
-          "car_urban": 13.8
-        }
-      },
-      "leisure.cinema": {
-        "district": "corporate",
-        "networkM": 6894,
-        "straightM": 4747,
-        "detour": 1.45,
-        "minutes": {
-          "walk": 82.7,
-          "v0_initial": 27.6,
-          "car_urban": 13.8
-        }
-      },
-      "recurringcondo": {
-        "district": "expansion",
-        "networkM": 6929,
-        "straightM": 3050,
-        "detour": 2.27,
-        "minutes": {
-          "walk": 83.2,
-          "v0_initial": 27.7,
-          "car_urban": 13.9
-        }
-      },
-      "mall": {
-        "district": "corporate",
-        "networkM": 7057,
-        "straightM": 5028,
-        "detour": 1.4,
-        "minutes": {
-          "walk": 84.7,
-          "v0_initial": 28.2,
-          "car_urban": 14.1
+          "walk": 24.5,
+          "sprint": 14.7,
+          "v0_initial": 17.7,
+          "car_urban": 8.8
         }
       },
       "lostcondo": {
         "district": "expansion",
-        "networkM": 7089,
+        "networkM": 4590,
         "straightM": 3667,
-        "detour": 1.93,
+        "detour": 1.25,
         "minutes": {
-          "walk": 85.1,
-          "v0_initial": 28.4,
-          "car_urban": 14.2
-        }
-      },
-      "home.apartment.01": {
-        "district": "expansion",
-        "networkM": 7262,
-        "straightM": 1973,
-        "detour": 3.68,
-        "minutes": {
-          "walk": 87.1,
-          "v0_initial": 29.0,
-          "car_urban": 14.5
-        }
-      },
-      "school": {
-        "district": "expansion",
-        "networkM": 7620,
-        "straightM": 2220,
-        "detour": 3.43,
-        "minutes": {
-          "walk": 91.4,
-          "v0_initial": 30.5,
-          "car_urban": 15.2
-        }
-      },
-      "blackouttower": {
-        "district": "corporate",
-        "networkM": 7635,
-        "straightM": 6224,
-        "detour": 1.23,
-        "minutes": {
-          "walk": 91.6,
-          "v0_initial": 30.5,
-          "car_urban": 15.3
-        }
-      },
-      "leisure.gym": {
-        "district": "expansion",
-        "networkM": 7759,
-        "straightM": 3606,
-        "detour": 2.15,
-        "minutes": {
-          "walk": 93.1,
-          "v0_initial": 31.0,
-          "car_urban": 15.5
-        }
-      },
-      "home.apartment.02": {
-        "district": "expansion",
-        "networkM": 7787,
-        "straightM": 3020,
-        "detour": 2.58,
-        "minutes": {
-          "walk": 93.4,
-          "v0_initial": 31.1,
-          "car_urban": 15.6
-        }
-      },
-      "hospital0317": {
-        "district": "corporate",
-        "networkM": 8022,
-        "straightM": 5689,
-        "detour": 1.41,
-        "minutes": {
-          "walk": 96.3,
-          "v0_initial": 32.1,
-          "car_urban": 16.0
-        }
-      },
-      "leisure.fishing": {
-        "district": "industrial",
-        "networkM": 8042,
-        "straightM": 4689,
-        "detour": 1.72,
-        "minutes": {
-          "walk": 96.5,
-          "v0_initial": 32.2,
-          "car_urban": 16.1
-        }
-      },
-      "companyhq": {
-        "district": "expansion",
-        "networkM": 8224,
-        "straightM": 3833,
-        "detour": 2.15,
-        "minutes": {
-          "walk": 98.7,
-          "v0_initial": 32.9,
-          "car_urban": 16.4
-        }
-      },
-      "supplier.hydraulic": {
-        "district": "expansion",
-        "networkM": 8342,
-        "straightM": 1978,
-        "detour": 4.22,
-        "minutes": {
-          "walk": 100.1,
-          "v0_initial": 33.4,
-          "car_urban": 16.7
-        }
-      },
-      "datacenter": {
-        "district": "technology",
-        "networkM": 8609,
-        "straightM": 7006,
-        "detour": 1.23,
-        "minutes": {
-          "walk": 103.3,
-          "v0_initial": 34.4,
-          "car_urban": 17.2
-        }
-      },
-      "hotel": {
-        "district": "expansion",
-        "networkM": 8799,
-        "straightM": 3396,
-        "detour": 2.59,
-        "minutes": {
-          "walk": 105.6,
-          "v0_initial": 35.2,
-          "car_urban": 17.6
+          "walk": 25.5,
+          "sprint": 15.3,
+          "v0_initial": 18.4,
+          "car_urban": 9.2
         }
       },
       "vehicles.commercial": {
         "district": "expansion",
-        "networkM": 8853,
+        "networkM": 4773,
         "straightM": 4051,
-        "detour": 2.19,
+        "detour": 1.18,
         "minutes": {
-          "walk": 106.2,
-          "v0_initial": 35.4,
-          "car_urban": 17.7
-        }
-      },
-      "smarttower": {
-        "district": "technology",
-        "networkM": 8899,
-        "straightM": 7087,
-        "detour": 1.26,
-        "minutes": {
-          "walk": 106.8,
-          "v0_initial": 35.6,
-          "car_urban": 17.8
+          "walk": 26.5,
+          "sprint": 15.9,
+          "v0_initial": 19.1,
+          "car_urban": 9.5
         }
       },
       "home.house.01": {
         "district": "expansion",
-        "networkM": 9069,
+        "networkM": 4966,
         "straightM": 3937,
-        "detour": 2.3,
+        "detour": 1.26,
         "minutes": {
-          "walk": 108.8,
-          "v0_initial": 36.3,
-          "car_urban": 18.1
+          "walk": 27.6,
+          "sprint": 16.6,
+          "v0_initial": 19.9,
+          "car_urban": 9.9
+        }
+      },
+      "factory": {
+        "district": "industrial",
+        "networkM": 5219,
+        "straightM": 4627,
+        "detour": 1.13,
+        "minutes": {
+          "walk": 29.0,
+          "sprint": 17.4,
+          "v0_initial": 20.9,
+          "car_urban": 10.4
+        }
+      },
+      "central": {
+        "district": "civic",
+        "networkM": 5239,
+        "straightM": 3890,
+        "detour": 1.35,
+        "minutes": {
+          "walk": 29.1,
+          "sprint": 17.5,
+          "v0_initial": 21.0,
+          "car_urban": 10.5
+        }
+      },
+      "fuel.north": {
+        "district": "industrial",
+        "networkM": 5376,
+        "straightM": 3335,
+        "detour": 1.61,
+        "minutes": {
+          "walk": 29.9,
+          "sprint": 17.9,
+          "v0_initial": 21.5,
+          "car_urban": 10.8
+        }
+      },
+      "leisure.fishing": {
+        "district": "industrial",
+        "networkM": 5855,
+        "straightM": 4689,
+        "detour": 1.25,
+        "minutes": {
+          "walk": 32.5,
+          "sprint": 19.5,
+          "v0_initial": 23.4,
+          "car_urban": 11.7
+        }
+      },
+      "leisure.cinema": {
+        "district": "corporate",
+        "networkM": 5917,
+        "straightM": 4747,
+        "detour": 1.25,
+        "minutes": {
+          "walk": 32.9,
+          "sprint": 19.7,
+          "v0_initial": 23.7,
+          "car_urban": 11.8
+        }
+      },
+      "mall": {
+        "district": "corporate",
+        "networkM": 6358,
+        "straightM": 5028,
+        "detour": 1.26,
+        "minutes": {
+          "walk": 35.3,
+          "sprint": 21.2,
+          "v0_initial": 25.4,
+          "car_urban": 12.7
+        }
+      },
+      "vertice": {
+        "district": "corporate",
+        "networkM": 6674,
+        "straightM": 5284,
+        "detour": 1.26,
+        "minutes": {
+          "walk": 37.1,
+          "sprint": 22.2,
+          "v0_initial": 26.7,
+          "car_urban": 13.3
+        }
+      },
+      "drainage": {
+        "district": "industrial",
+        "networkM": 6869,
+        "straightM": 5451,
+        "detour": 1.26,
+        "minutes": {
+          "walk": 38.2,
+          "sprint": 22.9,
+          "v0_initial": 27.5,
+          "car_urban": 13.7
+        }
+      },
+      "blackouttower": {
+        "district": "corporate",
+        "networkM": 7425,
+        "straightM": 6224,
+        "detour": 1.19,
+        "minutes": {
+          "walk": 41.2,
+          "sprint": 24.7,
+          "v0_initial": 29.7,
+          "car_urban": 14.8
+        }
+      },
+      "hospital0317": {
+        "district": "corporate",
+        "networkM": 7453,
+        "straightM": 5689,
+        "detour": 1.31,
+        "minutes": {
+          "walk": 41.4,
+          "sprint": 24.8,
+          "v0_initial": 29.8,
+          "car_urban": 14.9
+        }
+      },
+      "datacenter": {
+        "district": "technology",
+        "networkM": 8268,
+        "straightM": 7006,
+        "detour": 1.18,
+        "minutes": {
+          "walk": 45.9,
+          "sprint": 27.6,
+          "v0_initial": 33.1,
+          "car_urban": 16.5
+        }
+      },
+      "smarttower": {
+        "district": "technology",
+        "networkM": 8633,
+        "straightM": 7087,
+        "detour": 1.22,
+        "minutes": {
+          "walk": 48.0,
+          "sprint": 28.8,
+          "v0_initial": 34.5,
+          "car_urban": 17.3
         }
       },
       "home.premium.01": {
         "district": "technology",
-        "networkM": 9478,
+        "networkM": 9040,
         "straightM": 8039,
-        "detour": 1.18,
+        "detour": 1.12,
         "minutes": {
-          "walk": 113.7,
-          "v0_initial": 37.9,
-          "car_urban": 19.0
+          "walk": 50.2,
+          "sprint": 30.1,
+          "v0_initial": 36.2,
+          "car_urban": 18.1
         }
       }
     },
     "home.starter": {
       "garage": {
         "district": "old",
-        "networkM": 393,
+        "networkM": 391,
         "straightM": 206,
-        "detour": 1.91,
+        "detour": 1.9,
         "minutes": {
-          "walk": 4.7,
+          "walk": 2.2,
+          "sprint": 1.3,
           "v0_initial": 1.6,
           "car_urban": 0.8
         }
       },
       "supplier.tools": {
         "district": "old",
-        "networkM": 470,
+        "networkM": 434,
         "straightM": 382,
-        "detour": 1.23,
+        "detour": 1.14,
         "minutes": {
-          "walk": 5.6,
-          "v0_initial": 1.9,
+          "walk": 2.4,
+          "sprint": 1.4,
+          "v0_initial": 1.7,
           "car_urban": 0.9
         }
       },
       "workshop": {
         "district": "old",
-        "networkM": 638,
+        "networkM": 633,
         "straightM": 410,
-        "detour": 1.56,
+        "detour": 1.54,
         "minutes": {
-          "walk": 7.7,
-          "v0_initial": 2.6,
+          "walk": 3.5,
+          "sprint": 2.1,
+          "v0_initial": 2.5,
           "car_urban": 1.3
         }
       },
       "vehicles.used": {
         "district": "old",
-        "networkM": 870,
+        "networkM": 900,
         "straightM": 604,
-        "detour": 1.44,
+        "detour": 1.49,
         "minutes": {
-          "walk": 10.4,
-          "v0_initial": 3.5,
-          "car_urban": 1.7
+          "walk": 5.0,
+          "sprint": 3.0,
+          "v0_initial": 3.6,
+          "car_urban": 1.8
         }
       },
-      "apartments": {
+      "leisure.cafe": {
         "district": "old",
-        "networkM": 913,
-        "straightM": 754,
-        "detour": 1.21,
+        "networkM": 903,
+        "straightM": 710,
+        "detour": 1.27,
         "minutes": {
-          "walk": 11.0,
-          "v0_initial": 3.7,
+          "walk": 5.0,
+          "sprint": 3.0,
+          "v0_initial": 3.6,
           "car_urban": 1.8
         }
       },
       "horizonte": {
         "district": "old",
-        "networkM": 1032,
+        "networkM": 983,
         "straightM": 700,
-        "detour": 1.47,
+        "detour": 1.4,
         "minutes": {
-          "walk": 12.4,
-          "v0_initial": 4.1,
-          "car_urban": 2.1
-        }
-      },
-      "leisure.cafe": {
-        "district": "old",
-        "networkM": 1050,
-        "straightM": 710,
-        "detour": 1.48,
-        "minutes": {
-          "walk": 12.6,
-          "v0_initial": 4.2,
-          "car_urban": 2.1
+          "walk": 5.5,
+          "sprint": 3.3,
+          "v0_initial": 3.9,
+          "car_urban": 2.0
         }
       },
       "grocery": {
         "district": "old",
-        "networkM": 1226,
+        "networkM": 1090,
         "straightM": 848,
-        "detour": 1.45,
+        "detour": 1.29,
         "minutes": {
-          "walk": 14.7,
-          "v0_initial": 4.9,
-          "car_urban": 2.5
-        }
-      },
-      "imperial": {
-        "district": "old",
-        "networkM": 1231,
-        "straightM": 891,
-        "detour": 1.38,
-        "minutes": {
-          "walk": 14.8,
-          "v0_initial": 4.9,
-          "car_urban": 2.5
-        }
-      },
-      "smalloffice": {
-        "district": "old",
-        "networkM": 1429,
-        "straightM": 1079,
-        "detour": 1.32,
-        "minutes": {
-          "walk": 17.1,
-          "v0_initial": 5.7,
-          "car_urban": 2.9
+          "walk": 6.1,
+          "sprint": 3.6,
+          "v0_initial": 4.4,
+          "car_urban": 2.2
         }
       },
       "supplier.electrical": {
         "district": "old",
-        "networkM": 1550,
+        "networkM": 1148,
         "straightM": 1062,
-        "detour": 1.46,
+        "detour": 1.08,
         "minutes": {
-          "walk": 18.6,
-          "v0_initial": 6.2,
-          "car_urban": 3.1
+          "walk": 6.4,
+          "sprint": 3.8,
+          "v0_initial": 4.6,
+          "car_urban": 2.3
+        }
+      },
+      "smalloffice": {
+        "district": "old",
+        "networkM": 1362,
+        "straightM": 1079,
+        "detour": 1.26,
+        "minutes": {
+          "walk": 7.6,
+          "sprint": 4.5,
+          "v0_initial": 5.4,
+          "car_urban": 2.7
+        }
+      },
+      "imperial": {
+        "district": "old",
+        "networkM": 1449,
+        "straightM": 891,
+        "detour": 1.63,
+        "minutes": {
+          "walk": 8.1,
+          "sprint": 4.8,
+          "v0_initial": 5.8,
+          "car_urban": 2.9
         }
       },
       "restaurant": {
         "district": "old",
-        "networkM": 1643,
+        "networkM": 1462,
         "straightM": 1122,
-        "detour": 1.46,
+        "detour": 1.3,
         "minutes": {
-          "walk": 19.7,
-          "v0_initial": 6.6,
-          "car_urban": 3.3
+          "walk": 8.1,
+          "sprint": 4.9,
+          "v0_initial": 5.8,
+          "car_urban": 2.9
         }
       },
-      "home.house.02": {
+      "apartments": {
         "district": "old",
-        "networkM": 2540,
-        "straightM": 1795,
-        "detour": 1.42,
+        "networkM": 1529,
+        "straightM": 754,
+        "detour": 2.03,
         "minutes": {
-          "walk": 30.5,
-          "v0_initial": 10.2,
-          "car_urban": 5.1
+          "walk": 8.5,
+          "sprint": 5.1,
+          "v0_initial": 6.1,
+          "car_urban": 3.1
         }
       },
       "fuel.old": {
         "district": "old",
-        "networkM": 2769,
+        "networkM": 2248,
         "straightM": 1903,
-        "detour": 1.46,
+        "detour": 1.18,
         "minutes": {
-          "walk": 33.2,
-          "v0_initial": 11.1,
-          "car_urban": 5.5
+          "walk": 12.5,
+          "sprint": 7.5,
+          "v0_initial": 9.0,
+          "car_urban": 4.5
         }
       },
-      "fuel.north": {
-        "district": "industrial",
-        "networkM": 4587,
-        "straightM": 3520,
-        "detour": 1.3,
+      "home.house.02": {
+        "district": "old",
+        "networkM": 2477,
+        "straightM": 1795,
+        "detour": 1.38,
         "minutes": {
-          "walk": 55.0,
-          "v0_initial": 18.3,
-          "car_urban": 9.2
-        }
-      },
-      "supplier.parts": {
-        "district": "industrial",
-        "networkM": 4630,
-        "straightM": 3668,
-        "detour": 1.26,
-        "minutes": {
-          "walk": 55.6,
-          "v0_initial": 18.5,
-          "car_urban": 9.3
-        }
-      },
-      "logistics": {
-        "district": "industrial",
-        "networkM": 4829,
-        "straightM": 3941,
-        "detour": 1.23,
-        "minutes": {
-          "walk": 57.9,
-          "v0_initial": 19.3,
-          "car_urban": 9.7
-        }
-      },
-      "factory": {
-        "district": "industrial",
-        "networkM": 4919,
-        "straightM": 4776,
-        "detour": 1.03,
-        "minutes": {
-          "walk": 59.0,
-          "v0_initial": 19.7,
-          "car_urban": 9.8
-        }
-      },
-      "central": {
-        "district": "civic",
-        "networkM": 5164,
-        "straightM": 4094,
-        "detour": 1.26,
-        "minutes": {
-          "walk": 62.0,
-          "v0_initial": 20.7,
-          "car_urban": 10.3
-        }
-      },
-      "leisure.park": {
-        "district": "civic",
-        "networkM": 5597,
-        "straightM": 3997,
-        "detour": 1.4,
-        "minutes": {
-          "walk": 67.2,
-          "v0_initial": 22.4,
-          "car_urban": 11.2
-        }
-      },
-      "smallhospital": {
-        "district": "expansion",
-        "networkM": 6443,
-        "straightM": 2806,
-        "detour": 2.3,
-        "minutes": {
-          "walk": 77.3,
-          "v0_initial": 25.8,
-          "car_urban": 12.9
-        }
-      },
-      "drainage": {
-        "district": "industrial",
-        "networkM": 6760,
-        "straightM": 5623,
-        "detour": 1.2,
-        "minutes": {
-          "walk": 81.1,
-          "v0_initial": 27.0,
-          "car_urban": 13.5
-        }
-      },
-      "vertice": {
-        "district": "corporate",
-        "networkM": 7166,
-        "straightM": 5487,
-        "detour": 1.31,
-        "minutes": {
-          "walk": 86.0,
-          "v0_initial": 28.7,
-          "car_urban": 14.3
-        }
-      },
-      "property.agency": {
-        "district": "expansion",
-        "networkM": 7169,
-        "straightM": 2670,
-        "detour": 2.69,
-        "minutes": {
-          "walk": 86.0,
-          "v0_initial": 28.7,
-          "car_urban": 14.3
-        }
-      },
-      "leisure.cinema": {
-        "district": "corporate",
-        "networkM": 7171,
-        "straightM": 4946,
-        "detour": 1.45,
-        "minutes": {
-          "walk": 86.0,
-          "v0_initial": 28.7,
-          "car_urban": 14.3
-        }
-      },
-      "recurringcondo": {
-        "district": "expansion",
-        "networkM": 7206,
-        "straightM": 3213,
-        "detour": 2.24,
-        "minutes": {
-          "walk": 86.5,
-          "v0_initial": 28.8,
-          "car_urban": 14.4
-        }
-      },
-      "mall": {
-        "district": "corporate",
-        "networkM": 7334,
-        "straightM": 5223,
-        "detour": 1.4,
-        "minutes": {
-          "walk": 88.0,
-          "v0_initial": 29.3,
-          "car_urban": 14.7
-        }
-      },
-      "lostcondo": {
-        "district": "expansion",
-        "networkM": 7366,
-        "straightM": 3840,
-        "detour": 1.92,
-        "minutes": {
-          "walk": 88.4,
-          "v0_initial": 29.5,
-          "car_urban": 14.7
-        }
-      },
-      "home.apartment.01": {
-        "district": "expansion",
-        "networkM": 7539,
-        "straightM": 2153,
-        "detour": 3.5,
-        "minutes": {
-          "walk": 90.5,
-          "v0_initial": 30.2,
-          "car_urban": 15.1
-        }
-      },
-      "school": {
-        "district": "expansion",
-        "networkM": 7897,
-        "straightM": 2366,
-        "detour": 3.34,
-        "minutes": {
-          "walk": 94.8,
-          "v0_initial": 31.6,
-          "car_urban": 15.8
-        }
-      },
-      "blackouttower": {
-        "district": "corporate",
-        "networkM": 7912,
-        "straightM": 6423,
-        "detour": 1.23,
-        "minutes": {
-          "walk": 94.9,
-          "v0_initial": 31.6,
-          "car_urban": 15.8
-        }
-      },
-      "leisure.gym": {
-        "district": "expansion",
-        "networkM": 8036,
-        "straightM": 3761,
-        "detour": 2.14,
-        "minutes": {
-          "walk": 96.4,
-          "v0_initial": 32.1,
-          "car_urban": 16.1
-        }
-      },
-      "home.apartment.02": {
-        "district": "expansion",
-        "networkM": 8064,
-        "straightM": 3133,
-        "detour": 2.57,
-        "minutes": {
-          "walk": 96.8,
-          "v0_initial": 32.3,
-          "car_urban": 16.1
-        }
-      },
-      "hospital0317": {
-        "district": "corporate",
-        "networkM": 8299,
-        "straightM": 5874,
-        "detour": 1.41,
-        "minutes": {
-          "walk": 99.6,
-          "v0_initial": 33.2,
-          "car_urban": 16.6
-        }
-      },
-      "leisure.fishing": {
-        "district": "industrial",
-        "networkM": 8319,
-        "straightM": 4870,
-        "detour": 1.71,
-        "minutes": {
-          "walk": 99.8,
-          "v0_initial": 33.3,
-          "car_urban": 16.6
-        }
-      },
-      "companyhq": {
-        "district": "expansion",
-        "networkM": 8501,
-        "straightM": 3977,
-        "detour": 2.14,
-        "minutes": {
-          "walk": 102.0,
-          "v0_initial": 34.0,
-          "car_urban": 17.0
+          "walk": 13.8,
+          "sprint": 8.3,
+          "v0_initial": 9.9,
+          "car_urban": 5.0
         }
       },
       "supplier.hydraulic": {
         "district": "expansion",
-        "networkM": 8619,
+        "networkM": 2518,
         "straightM": 2089,
-        "detour": 4.13,
+        "detour": 1.21,
         "minutes": {
-          "walk": 103.4,
-          "v0_initial": 34.5,
-          "car_urban": 17.2
+          "walk": 14.0,
+          "sprint": 8.4,
+          "v0_initial": 10.1,
+          "car_urban": 5.0
         }
       },
-      "datacenter": {
-        "district": "technology",
-        "networkM": 8886,
-        "straightM": 7212,
-        "detour": 1.23,
+      "school": {
+        "district": "expansion",
+        "networkM": 2578,
+        "straightM": 2366,
+        "detour": 1.09,
         "minutes": {
-          "walk": 106.6,
-          "v0_initial": 35.5,
-          "car_urban": 17.8
+          "walk": 14.3,
+          "sprint": 8.6,
+          "v0_initial": 10.3,
+          "car_urban": 5.2
+        }
+      },
+      "home.apartment.01": {
+        "district": "expansion",
+        "networkM": 2705,
+        "straightM": 2153,
+        "detour": 1.26,
+        "minutes": {
+          "walk": 15.0,
+          "sprint": 9.0,
+          "v0_initial": 10.8,
+          "car_urban": 5.4
+        }
+      },
+      "property.agency": {
+        "district": "expansion",
+        "networkM": 2990,
+        "straightM": 2670,
+        "detour": 1.12,
+        "minutes": {
+          "walk": 16.6,
+          "sprint": 10.0,
+          "v0_initial": 12.0,
+          "car_urban": 6.0
+        }
+      },
+      "recurringcondo": {
+        "district": "expansion",
+        "networkM": 3382,
+        "straightM": 3213,
+        "detour": 1.05,
+        "minutes": {
+          "walk": 18.8,
+          "sprint": 11.3,
+          "v0_initial": 13.5,
+          "car_urban": 6.8
+        }
+      },
+      "smallhospital": {
+        "district": "expansion",
+        "networkM": 3638,
+        "straightM": 2806,
+        "detour": 1.3,
+        "minutes": {
+          "walk": 20.2,
+          "sprint": 12.1,
+          "v0_initial": 14.6,
+          "car_urban": 7.3
+        }
+      },
+      "home.apartment.02": {
+        "district": "expansion",
+        "networkM": 3906,
+        "straightM": 3133,
+        "detour": 1.25,
+        "minutes": {
+          "walk": 21.7,
+          "sprint": 13.0,
+          "v0_initial": 15.6,
+          "car_urban": 7.8
+        }
+      },
+      "leisure.gym": {
+        "district": "expansion",
+        "networkM": 3940,
+        "straightM": 3761,
+        "detour": 1.05,
+        "minutes": {
+          "walk": 21.9,
+          "sprint": 13.1,
+          "v0_initial": 15.8,
+          "car_urban": 7.9
+        }
+      },
+      "companyhq": {
+        "district": "expansion",
+        "networkM": 4195,
+        "straightM": 3977,
+        "detour": 1.05,
+        "minutes": {
+          "walk": 23.3,
+          "sprint": 14.0,
+          "v0_initial": 16.8,
+          "car_urban": 8.4
         }
       },
       "hotel": {
         "district": "expansion",
-        "networkM": 9076,
+        "networkM": 4244,
         "straightM": 3524,
-        "detour": 2.58,
+        "detour": 1.2,
         "minutes": {
-          "walk": 108.9,
-          "v0_initial": 36.3,
-          "car_urban": 18.2
+          "walk": 23.6,
+          "sprint": 14.1,
+          "v0_initial": 17.0,
+          "car_urban": 8.5
+        }
+      },
+      "logistics": {
+        "district": "industrial",
+        "networkM": 4471,
+        "straightM": 3941,
+        "detour": 1.13,
+        "minutes": {
+          "walk": 24.8,
+          "sprint": 14.9,
+          "v0_initial": 17.9,
+          "car_urban": 8.9
+        }
+      },
+      "supplier.parts": {
+        "district": "industrial",
+        "networkM": 4554,
+        "straightM": 3668,
+        "detour": 1.24,
+        "minutes": {
+          "walk": 25.3,
+          "sprint": 15.2,
+          "v0_initial": 18.2,
+          "car_urban": 9.1
+        }
+      },
+      "lostcondo": {
+        "district": "expansion",
+        "networkM": 4670,
+        "straightM": 3840,
+        "detour": 1.22,
+        "minutes": {
+          "walk": 25.9,
+          "sprint": 15.6,
+          "v0_initial": 18.7,
+          "car_urban": 9.3
+        }
+      },
+      "leisure.park": {
+        "district": "civic",
+        "networkM": 4703,
+        "straightM": 3997,
+        "detour": 1.18,
+        "minutes": {
+          "walk": 26.1,
+          "sprint": 15.7,
+          "v0_initial": 18.8,
+          "car_urban": 9.4
         }
       },
       "vehicles.commercial": {
         "district": "expansion",
-        "networkM": 9130,
+        "networkM": 4853,
         "straightM": 4182,
-        "detour": 2.18,
+        "detour": 1.16,
         "minutes": {
-          "walk": 109.6,
-          "v0_initial": 36.5,
-          "car_urban": 18.3
-        }
-      },
-      "smarttower": {
-        "district": "technology",
-        "networkM": 9176,
-        "straightM": 7292,
-        "detour": 1.26,
-        "minutes": {
-          "walk": 110.1,
-          "v0_initial": 36.7,
-          "car_urban": 18.4
+          "walk": 27.0,
+          "sprint": 16.2,
+          "v0_initial": 19.4,
+          "car_urban": 9.7
         }
       },
       "home.house.01": {
         "district": "expansion",
-        "networkM": 9346,
+        "networkM": 5046,
         "straightM": 4054,
-        "detour": 2.31,
+        "detour": 1.24,
         "minutes": {
-          "walk": 112.2,
-          "v0_initial": 37.4,
-          "car_urban": 18.7
+          "walk": 28.0,
+          "sprint": 16.8,
+          "v0_initial": 20.2,
+          "car_urban": 10.1
+        }
+      },
+      "factory": {
+        "district": "industrial",
+        "networkM": 5407,
+        "straightM": 4776,
+        "detour": 1.13,
+        "minutes": {
+          "walk": 30.0,
+          "sprint": 18.0,
+          "v0_initial": 21.6,
+          "car_urban": 10.8
+        }
+      },
+      "central": {
+        "district": "civic",
+        "networkM": 5523,
+        "straightM": 4094,
+        "detour": 1.35,
+        "minutes": {
+          "walk": 30.7,
+          "sprint": 18.4,
+          "v0_initial": 22.1,
+          "car_urban": 11.0
+        }
+      },
+      "fuel.north": {
+        "district": "industrial",
+        "networkM": 5564,
+        "straightM": 3520,
+        "detour": 1.58,
+        "minutes": {
+          "walk": 30.9,
+          "sprint": 18.5,
+          "v0_initial": 22.3,
+          "car_urban": 11.1
+        }
+      },
+      "leisure.fishing": {
+        "district": "industrial",
+        "networkM": 6043,
+        "straightM": 4870,
+        "detour": 1.24,
+        "minutes": {
+          "walk": 33.6,
+          "sprint": 20.1,
+          "v0_initial": 24.2,
+          "car_urban": 12.1
+        }
+      },
+      "leisure.cinema": {
+        "district": "corporate",
+        "networkM": 6202,
+        "straightM": 4946,
+        "detour": 1.25,
+        "minutes": {
+          "walk": 34.5,
+          "sprint": 20.7,
+          "v0_initial": 24.8,
+          "car_urban": 12.4
+        }
+      },
+      "mall": {
+        "district": "corporate",
+        "networkM": 6643,
+        "straightM": 5223,
+        "detour": 1.27,
+        "minutes": {
+          "walk": 36.9,
+          "sprint": 22.1,
+          "v0_initial": 26.6,
+          "car_urban": 13.3
+        }
+      },
+      "vertice": {
+        "district": "corporate",
+        "networkM": 6959,
+        "straightM": 5487,
+        "detour": 1.27,
+        "minutes": {
+          "walk": 38.7,
+          "sprint": 23.2,
+          "v0_initial": 27.8,
+          "car_urban": 13.9
+        }
+      },
+      "drainage": {
+        "district": "industrial",
+        "networkM": 7057,
+        "straightM": 5623,
+        "detour": 1.26,
+        "minutes": {
+          "walk": 39.2,
+          "sprint": 23.5,
+          "v0_initial": 28.2,
+          "car_urban": 14.1
+        }
+      },
+      "blackouttower": {
+        "district": "corporate",
+        "networkM": 7710,
+        "straightM": 6423,
+        "detour": 1.2,
+        "minutes": {
+          "walk": 42.8,
+          "sprint": 25.7,
+          "v0_initial": 30.8,
+          "car_urban": 15.4
+        }
+      },
+      "hospital0317": {
+        "district": "corporate",
+        "networkM": 7738,
+        "straightM": 5874,
+        "detour": 1.32,
+        "minutes": {
+          "walk": 43.0,
+          "sprint": 25.8,
+          "v0_initial": 31.0,
+          "car_urban": 15.5
+        }
+      },
+      "datacenter": {
+        "district": "technology",
+        "networkM": 8552,
+        "straightM": 7212,
+        "detour": 1.19,
+        "minutes": {
+          "walk": 47.5,
+          "sprint": 28.5,
+          "v0_initial": 34.2,
+          "car_urban": 17.1
+        }
+      },
+      "smarttower": {
+        "district": "technology",
+        "networkM": 8918,
+        "straightM": 7292,
+        "detour": 1.22,
+        "minutes": {
+          "walk": 49.5,
+          "sprint": 29.7,
+          "v0_initial": 35.7,
+          "car_urban": 17.8
         }
       },
       "home.premium.01": {
         "district": "technology",
-        "networkM": 9755,
+        "networkM": 9325,
         "straightM": 8245,
-        "detour": 1.18,
+        "detour": 1.13,
         "minutes": {
-          "walk": 117.1,
-          "v0_initial": 39.0,
-          "car_urban": 19.5
+          "walk": 51.8,
+          "sprint": 31.1,
+          "v0_initial": 37.3,
+          "car_urban": 18.7
         }
       }
     }
