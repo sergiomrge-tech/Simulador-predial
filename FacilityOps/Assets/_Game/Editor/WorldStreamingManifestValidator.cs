@@ -46,6 +46,8 @@ namespace FacilityOps.Editor
             if (errors.Count > 0)
                 Fail(errors);
 
+            ValidateStreamingIdRoundTrip(errors);
+
             string manifest = File.ReadAllText(manifestPath);
             string heroRegistry = File.ReadAllText(heroesPath);
             string report = File.ReadAllText(reportPath);
@@ -116,6 +118,35 @@ namespace FacilityOps.Editor
             Debug.Log(
                 $"Streaming manifest validated: schema=1, subcells={subcellKeys.Count}, lots={lotIds.Count}, heroes={expectedHeroes.Length}. " +
                 "No files were modified.");
+        }
+
+        private static void ValidateStreamingIdRoundTrip(List<string> errors)
+        {
+            for (int macroX = 0; macroX < WorldStreamingId.MacroCellCountPerAxis; macroX++)
+            for (int macroZ = 0; macroZ < WorldStreamingId.MacroCellCountPerAxis; macroZ++)
+            for (int subX = 0; subX < WorldStreamingId.SubcellsPerMacroAxis; subX++)
+            for (int subZ = 0; subZ < WorldStreamingId.SubcellsPerMacroAxis; subZ++)
+            {
+                var expected = new WorldStreamingId(macroX, macroZ, subX, subZ);
+                if (!WorldStreamingId.TryParse(expected.Name, out var parsed) || parsed != expected)
+                {
+                    errors.Add("Streaming id parse round-trip failed: " + expected.Name);
+                    return;
+                }
+
+                Vector2 center = expected.WorldCenterXZ;
+                var fromPosition = WorldStreamingId.FromWorldPosition(center.x, center.y);
+                if (fromPosition != expected)
+                {
+                    errors.Add("Streaming id coordinate round-trip failed: " + expected.Name);
+                    return;
+                }
+            }
+
+            if (WorldStreamingId.TryParse("SA_M08_00_S00_00", out _) ||
+                WorldStreamingId.TryParse("SA_M00_00_S04_00", out _) ||
+                WorldStreamingId.TryParse("not-a-cell", out _))
+                errors.Add("Streaming id parser accepted an out-of-range or malformed id.");
         }
 
         private static string ExtractNamedArray(string json, string property)
