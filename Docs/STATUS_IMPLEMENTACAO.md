@@ -240,3 +240,14 @@ Preparação concluída no GitHub:
 - **Validações:** recorte e 9 heróis reabertos PASS (6 heróis sem render por falha de GPU do ambiente); masterplan e rotas PASS; IDs/GP_/SLOT_/PROXY_ idênticos; 13.003 lotes, 181 subcélulas.
 - **Desempenho:** meshTris do recorte 2,70 M → 8,53 M (carros LOD0 como duplicatas); a mitigação via LOD Group fica para a integração Unity.
 - **Gate W3.1: PARTIAL PASS.** Os carros ainda são facetados de perto, a vista aérea segue repetitiva e os taludes são baixos (≤ 1,18 m pelo relevo validado). Ver `Docs/W3_1_VISUAL_POLISH_GATE.md`.
+
+## Checkpoint — W3.2 Cidade Antiga Final Visual Gate (2026-10-04)
+
+- Mesmo recorte de 15 subcélulas; Unity, C#, saves, masterplan, cotas, os 9 arquivos de herói e `gpt/unity-world-integration` não foram tocados.
+- **Carros:** LOD0 reescrito (carroceria e estufa loftadas, vidro translúcido com interior mínimo, rodas com raios, lâmpadas com volume): 11–16 mil tris; LOD1 ~1,9 mil; LOD0 só perto das câmeras de altura humana no Blender (314 de 889). Famílias, IDs, distribuição e proxies preservados.
+- **Telhados/volumes:** kit `sa_roofs.py` + 7 acabamentos de laje; 1.412 peças e 440 lajes coloridas por seed de lote/quarteirão e caráter de bairro.
+- **Decals:** máscara de fachada a partir das aberturas reais; nenhum decal sobre vitrine, janela ou porta.
+- **Interiores:** preenchimentos dos heróis recriados no slice (`hero_interior_fills_w32.json`) e 4 volumes de irradiância assados.
+- **Capturas:** 21 arquivos em `ArtSource/Blender/World/Reviews/W3_2/` (inclui comparações W3.1 × W3.2). Relatório: `Docs/W3_2_FINAL_VISUAL_GATE.md`.
+- **Validações:** slice reaberto PASS; masterplan e rotas PASS; IDs/`GP_`/`SLOT_`/`PROXY_`/âncoras/instâncias idênticos aos do W3.1; 13.003 lotes, 15 subcélulas, 9 heróis. meshTris 8,45 M, instancedTris 32,5 M, `.blend` 24,7 MB.
+- **Gate W3.2: PARTIAL PASS.** O Lar (Apto 12 vazio) não lê como ocupado por fora; a aérea melhorou mas as massas das famílias W2 ainda se repetem.

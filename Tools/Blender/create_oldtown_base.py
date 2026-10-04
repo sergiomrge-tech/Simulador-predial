@@ -126,9 +126,13 @@ bpy.data.collections.remove(props_coll_tmp)
 fam_tmp = sa_bl.collection("OT_Lib_Families_tmp", library, hide_render=True)
 fam_objs = []
 variant_stats = {}
+FRONT_META = {}
+FRONT_OPS = {}                                  # W3.2: front-facade openings per variant (decal mask)
 for k, v in enumerate(OLDTOWN_VARIANTS):
     mb = sa_bl.MeshBuilder()
     top_z = sa_arch.building_mesh(mb, v, k, detail="lod0" if SLICE else "lod1")
+    FRONT_OPS[v["id"]] = [(z0_, z1_, ops_) for z0_, z1_, ops_ in sa_arch.LAST_FRONT]
+    FRONT_META[v["id"]] = dict(sa_arch.LAST_META)
     o = mb.to_object("FAM_" + v["id"], [lib[n] for n in sa_arch.variant_materials(v, k)], fam_tmp)
     sa_bl.props(o, sa_family=v["family"], sa_variant=v["id"], footprint_m=[v["w"], v["d"]], floors=v["floors"], height_m=v["height"],
                 roof=v["roof"], sa_stage="W1.5 famÃ­lia de massing (LOD1 base; LOD0 final pendente)")
@@ -770,6 +774,14 @@ if SLICE:
                 "w31_anexo": ["concreto_pintado", "telha_fibrocimento", "aluminio", "vidro"], "w31_portao": ["aco_pintado_cinza", "aco_pintado_verde"],
                 "w31_cond_rack": ["aco_pintado_cinza", "plastico_branco", "borracha_preta"], "w31_grade_janela": ["aco_pintado_cinza"]})
     ACC_MATS.update(W31)
+    import sa_roofs  # noqa: E402
+    ACC_MATS.update(sa_roofs.PIECES)                  # W3.2 roof / rooftop volume kit
+    LAJE_COL = {"manta": "ferrugem", "oxido": "aco_pintado_vermelho", "verde": "aco_pintado_verde", "branco": "plastico_branco",
+                "azul": "plastico_azul", "fibro": "telha_fibrocimento", "ceramica": "piso_ceramico_bege"}
+    for _v32 in OLDTOWN_VARIANTS:
+        if _v32["roof"] == "flat_parapet":
+            for _c32, _m32 in LAJE_COL.items():
+                ACC_MATS[f"w32_laje_{_v32['id']}_{_c32}"] = [_m32]
     _base_acc_piece = acc_piece
 
     def _w31_piece(kind):
@@ -850,6 +862,16 @@ if SLICE:
     def acc_piece(kind):  # noqa: F811
         if kind.startswith("w31_"):
             return _w31_piece(kind)
+        if kind.startswith("w32_laje_"):
+            _vid = kind[len("w32_laje_"):].rsplit("_", 1)[0]
+            _vv = next(x_ for x_ in OLDTOWN_VARIANTS if x_["id"] == _vid)
+            _mb = sa_bl.MeshBuilder()
+            _mb.box(0, 0, 0, _vv["w"] - .7, _vv["d"] - .7, .035, 0)
+            _o = sa_bl.bevelled_object("ACC_" + kind, _mb, [lib[ACC_MATS[kind][0]]], library, bevel=.004)
+            sa_bl.props(_o, sa_stage="W3.2 revestimento de laje (cor por quarteirão)")
+            return _o
+        if kind.startswith("w32_"):
+            return sa_roofs.build(kind, lib, library)
         if kind not in ("trashbag", "pallet", "cone", "plate"):
             return _base_acc_piece(kind)
         mb = sa_bl.MeshBuilder()
@@ -940,6 +962,33 @@ def place(lot, kind, lx, ly, lz, rot_extra=0.0, scl=1.0):
 
 
 lot_z = {}
+sa_roofs_cols = ("manta", "oxido", "verde", "branco", "azul", "fibro", "ceramica")
+W32_POS = []                                     # W3.2 roof-piece positions (aerial camera choice)
+W32_SIGN_LOTS = set()
+
+
+def facade_free(v, wd, zlo, zhi, margin=.2):
+    """W3.2 facade mask: lot-frame x centres where a decal (width wd, z range zlo..zhi) touches no front opening (door, window,
+    shop glass, roll-up door, shutter box). Decals go on solid wall, piers and parapets only, never over glazing."""
+    w = v["w"]
+    spans = []
+    for _z0, _z1, ops_ in FRONT_OPS.get(v["id"], []):
+        for o_ in ops_:
+            zt_ = o_["zt"] + (.5 if o_["kind"] in ("shopfront", "rollup") else .12)
+            if zt_ > zlo and o_["zb"] - .12 < zhi:
+                spans.append((o_["u0"] - margin, o_["u1"] + margin))
+    out, x_ = [], wd / 2 + .15
+    while x_ <= w - wd / 2 - .15:
+        if all(x_ + wd / 2 <= a_ or x_ - wd / 2 >= b_ for a_, b_ in spans):
+            out.append(x_ - w / 2)
+        x_ += .1
+    return out
+
+
+def pick_free(cands, r):
+    return cands[int(r * len(cands)) % len(cands)] if cands else None
+
+
 for lot in ot.lots:
     if lot["family"] in ("vacant", "parking") or lot["variant"] not in VAR:
         continue
@@ -1000,7 +1049,9 @@ if SLICE:
         H = v["height"]
         lotw_ = lot["obb"].hw * 2
         if (commerce or v["family"] == "abandonada_reformada") and roll(0) < .2:
-            place(lot, f"poster{int(roll(1) * 4) % 4}", (roll(2) - .5) * (w - 1.2), -d / 2 - .01, 0.0)
+            xp0_ = pick_free(facade_free(v, 1.0, 1.1, 1.9), roll(2))
+            if xp0_ is not None:
+                place(lot, f"poster{int(roll(1) * 4) % 4}", xp0_, -d / 2 - .01, 0.0)
         if (commerce or roll(3) < .15) and roll(4) < .5:
             for k in range(1 + int(roll(5) * 2)):
                 place(lot, "trashbag", w / 2 - .6 - k * .7, -d / 2 - sb - .45, 0.0, rot_extra=roll(6 + k) * 6)
@@ -1014,7 +1065,7 @@ if SLICE:
         clad = ("pastilha", "ceramica", "azulejo", "granito", "verde", "tijolo")[theme]
         wcls = max([c_ for c_ in (3, 5, 7, 9) if c_ <= w - .4] or [0])
         gh_ = v["ground_h"]
-        if wcls and v["family"] not in ("armazem", "deposito", "oficina") and roll(80) < (.45 if theme in (0, 1, 2) else .22):
+        if wcls and v["family"] not in ("armazem", "deposito", "oficina") and not commerce and roll(80) < (.45 if theme in (0, 1, 2) else .22):
             ck = clad if roll(81) < .75 else ("pastilha", "ceramica", "azulejo", "granito", "verde", "tijolo")[int(roll(82) * 6) % 6]
             place(lot, f"w31_reforma{wcls}_{ck}", 0.0, -d / 2 - .002, 0.0, scl=min(1.0, (gh_ - .25) / 2.7) if gh_ < 2.95 else 1.0)
         if (commerce or resid_) and gh_ >= 2.9 and roll(83) < .35:
@@ -1036,32 +1087,142 @@ if SLICE:
         if resid_ and roll(104) < .35:
             for k in range(1 + int(roll(105) * 2)):
                 place(lot, "w31_grade_janela", (roll(106 + k) - .5) * max(0, w - 1.6), -d / 2 - .04, .95)
-        # W3.1 authored decals: shop signs, lambe-lambe clusters, glue scraps, graffiti, labels, house numbers, peeling paint
+        # W3.2 roof variety (aerial repetition breaker): per lot + per ~60 m block seed, weighted by neighbourhood character.
+        cc_ = HOOD_CHAR.get(lot.get("hood"), "")
+        low_ = cc_.startswith(("residential", "mixed_low"))
+        core_ = cc_.startswith("core")
+        work_ = cc_ in ("workshops", "depots")
+        troof = zlib.crc32(f"roof{bx_}:{by_}".encode()) % 5                  # block roof habit: 0 colonial, 1 fibro, 2 metal, 3 mixed, 4 plain
+        wr_ = max([c_ for c_ in sa_roofs.CW if c_ <= w - 1.2] or [0])
+        flat_ = v["roof"] == "flat_parapet"
+        n_roof = 0
+
+        def _rp(kind_, lx_, ly_, lz_, **kw_):
+            global n_roof
+            place(lot, kind_, lx_, ly_, lz_, **kw_)
+            W32_POS.append((lot['obb'].c[0], lot['obb'].c[1]))
+            n_roof += 1
+            STATS["w32_roof_pieces"] = STATS.get("w32_roof_pieces", 0) + 1
+        if flat_ and roll(240) < (.62 if troof != 4 else .3):
+            lc_ = {0: ("oxido", "manta", "verde"), 1: ("fibro", "branco", "manta"), 2: ("azul", "branco", "oxido"), 3: ("verde", "oxido", "ceramica", "branco"),
+                   4: ("manta", "branco")}[troof]
+            lk_ = lc_[int(roll(241) * 97) % len(lc_)] if roll(242) < .8 else tuple(sa_roofs_cols)[int(roll(243) * 97) % len(sa_roofs_cols)]
+            place(lot, f"w32_laje_{v['id']}_{lk_}", 0.0, 0.0, H - .1 + .012)
+            STATS["w32_laje_colours"] = STATS.get("w32_laje_colours", {})
+            STATS["w32_laje_colours"][lk_] = STATS["w32_laje_colours"].get(lk_, 0) + 1
+        if flat_ and wr_ and d >= 9:
+            pc_ = {"colonial": .22 if low_ else .09, "fibro": .24 if low_ else .10, "metal": .16 if work_ else .05}
+            if troof == 0:
+                pc_["colonial"] += .22
+            elif troof == 1:
+                pc_["fibro"] += .22
+            elif troof == 2:
+                pc_["metal"] += .2
+            elif troof == 4:
+                pc_ = {k_: v_ * .3 for k_, v_ in pc_.items()}
+            rr_ = roll(200)
+            ry_ = d / 2 - (2.5 if rr_ < pc_["colonial"] else 2.4)
+            if rr_ < pc_["colonial"]:
+                _rp(f"w32_colonial{wr_}", (roll(201) - .5) * max(0, w - wr_ - 1.0), ry_, H - .1)
+            elif rr_ < pc_["colonial"] + pc_["fibro"]:
+                _rp(f"w32_fibro{wr_}", (roll(201) - .5) * max(0, w - wr_ - 1.0), ry_, H - .1)
+            elif rr_ < pc_["colonial"] + pc_["fibro"] + pc_["metal"]:
+                _rp(f"w32_metal{wr_}", (roll(201) - .5) * max(0, w - wr_ - 1.0), ry_, H - .1)
+            if wr_ >= 6 and roll(202) < (.30 if cc_ == "core_stately" else .14 if core_ else .08):
+                _rp(f"w32_platibanda_curva{wr_}", 0.0, -d / 2, H + .85)
+            elif wr_ >= 6 and roll(203) < (.20 if core_ else .12):
+                _rp(f"w32_platibanda_alta{wr_}", 0.0, -d / 2, H + .85)
+            elif wr_ >= 6 and roll(204) < .14:
+                _rp(f"w32_platibanda_degrau{wr_}", 0.0, -d / 2, H + .85)
+        if flat_ and n_roof < 2:
+            if roll(205) < (.22 if low_ else .08):
+                _rp("w32_caixa_pequena", (roll(206) - .5) * (w - 2.4), (roll(207) - .5) * (d - 3) * .4, H + .05)
+            elif roll(208) < .09 and w >= 5:
+                _rp("w32_caixa_torre", (roll(209) - .5) * (w - 3), -d / 4 + (roll(210) - .5) * 2, H + .05)
+            if v["floors"] >= 3 and resid_ and roll(211) < .35:
+                _rp("w32_casa_escada", (w / 2 - 1.9) * (1 if roll(212) < .5 else -1), d / 2 - 2.0, H + .05)
+            if roll(213) < (.16 if (core_ or work_) else .07):
+                _rp("w32_claraboia" if roll(214) < .65 else "w32_claraboia_grande", (roll(215) - .5) * (w - 3.4), (roll(216) - .5) * (d - 4) * .4, H + .05)
+            if low_ and resid_ and roll(217) < .22:
+                _rp("w32_varal", (roll(218) - .5) * (w - 4), d * .05, H + .05)
+            if roll(219) < (.22 if work_ or commerce else .08):
+                _rp("w32_exaustor", (roll(220) - .5) * (w - 2.4), (roll(221) - .5) * (d - 3) * .5, H + .05)
+            if w >= 8 and roll(222) < (.2 if cc_ == "core_stately" else .1):
+                _rp("w32_vol_tecnico", (roll(223) - .5) * (w - 5), d / 2 - 2.4, H + .05)
+            if resid_ and w >= 6 and roll(224) < .1:
+                _rp("w32_solar_fileira", (roll(225) - .5) * (w - 4), d * .1, H + .05)
+            if (core_ or commerce) and w >= 6 and roll(226) < .12:
+                _rp("w32_condensadoras", (roll(227) - .5) * (w - 4), (roll(228) - .1) * (d - 3) * .4, H + .05)
+        elif not flat_:
+            if v["roof"] in ("gable_side", "gable_front", "hip") and roll(229) < (.2 if low_ else .1):
+                _rp("w32_chamine", (roll(230) - .5) * (w - 2), (roll(231) - .5) * (d - 3), H + .35)
+            elif v["roof"] in ("shed_metal", "gable_metal", "sawtooth", "barrel") and roll(232) < .35:
+                _rp("w32_exaustor", (roll(233) - .5) * (w - 3), (roll(234) - .5) * (d - 3) * .6, H + (.5 if v["roof"] != "barrel" else 1.2))
+        if resid_ and v["family"] in ("casa_terrea", "sobrado_estreito") and wr_ and lot["obb"].hd * 2 - d > 3.4 and roll(235) < (.28 if low_ else .1) and "w31_anexo" not in LOT_ACC.get(lot["id"], []):
+            _rp(f"w32_puxadinho{wr_}", (roll(236) - .5) * max(0, w - wr_ - .6), d / 2, 0.0)
+        # W3.2 authored decals on solid wall only (facade mask): shop signs on the sign band or the wall above the storefront,
+        # poster clusters / graffiti / labels on piers and blank wall, never over doors, windows, shop glass or roll-up doors.
         fz = -d / 2
+        DSZ = {k_: DECAL_META[k_]["size_m"] for k_ in DECAL_META}
         old_fabric = v["family"] in ("abandonada_reformada", "armazem", "deposito", "oficina") or HOOD_CHAR.get(lot.get("hood"), "").startswith("core")
-        if commerce and v["ground_h"] >= 3.0 and roll(40) < .7:
-            place(lot, "dc_" + DC["sign"][int(roll(41) * 997) % len(DC["sign"])], (roll(42) - .5) * max(0, w - 3.0), fz - .025, v["ground_h"] - .72)
+        gh2 = v["ground_h"]
+        meta_ = FRONT_META.get(v["id"], {})
+        if commerce and gh2 >= 3.0 and roll(40) < .7:
+            did = DC["sign"][int(roll(41) * 997) % len(DC["sign"])]
+            if "sign" in meta_:
+                su0, su1, sz0, _sz1 = meta_["sign"]
+                place(lot, "dc_" + did, (roll(42) - .5) * max(0, (su1 - su0) - DSZ[did][0]) + (su0 + su1) / 2 - w / 2, fz - .125, sz0 + .0)
+                W32_SIGN_LOTS.add(lot["id"])
+                STATS["w32_signs_on_band"] = STATS.get("w32_signs_on_band", 0) + 1
+            else:
+                xs_ = pick_free(facade_free(v, DSZ[did][0], gh2 + .12, gh2 + .78), roll(42))
+                if xs_ is not None:
+                    place(lot, "dc_" + did, xs_, fz - .025, gh2 + .16)
+                    STATS["w32_signs_on_wall"] = STATS.get("w32_signs_on_wall", 0) + 1
+                else:
+                    STATS["w32_decals_rejected_glass"] = STATS.get("w32_decals_rejected_glass", 0) + 1
         if (commerce or v["family"] in ("abandonada_reformada", "armazem", "deposito")) and roll(43) < .55:
             n_ = 1 + int(roll(44) * 3)
-            x_ = (w / 2 - .8) * (1 if roll(45) < .5 else -1)
-            for k in range(n_):
-                place(lot, "dc_" + DC["poster"][int(roll(46 + k) * 997) % len(DC["poster"])], x_ - (k * .62) * (1 if x_ > 0 else -1),
-                      fz - .018 - k * .002, 1.25 + (roll(50 + k) - .5) * .25)
-            if roll(54) < .6:
-                place(lot, "dc_restos_cartaz", x_ - n_ * .62 * (1 if x_ > 0 else -1), fz - .016, 1.0 + roll(55) * .4)
+            names_ = [DC["poster"][int(roll(46 + k) * 997) % len(DC["poster"])] for k in range(n_)]
+            wtot = sum(DSZ[n][0] + .04 for n in names_)
+            xc_ = pick_free(facade_free(v, wtot + .1, 1.1, 2.2), roll(45))
+            if xc_ is not None:
+                x_ = xc_ - wtot / 2
+                for k, nm_ in enumerate(names_):
+                    place(lot, "dc_" + nm_, x_ + DSZ[nm_][0] / 2, fz - .018 - k * .002, 1.25 + (roll(50 + k) - .5) * .25)
+                    x_ += DSZ[nm_][0] + .04
+                if roll(54) < .6 and xc_ + wtot / 2 + .7 < w / 2 - .2:
+                    place(lot, "dc_restos_cartaz", xc_ + wtot / 2 + .6, fz - .016, 1.0 + roll(55) * .4)
+            else:
+                STATS["w32_decals_rejected_glass"] = STATS.get("w32_decals_rejected_glass", 0) + 1
         if v["family"] in ("abandonada_reformada", "armazem", "deposito", "oficina") and roll(56) < .6:
-            place(lot, "dc_" + DC["graffiti"][int(roll(57) * 997) % len(DC["graffiti"])], (roll(58) - .5) * max(0, w - 2.4), fz - .022, .25 + roll(59) * .3)
+            did = DC["graffiti"][int(roll(57) * 997) % len(DC["graffiti"])]
+            xg_ = pick_free(facade_free(v, DSZ[did][0], .2, .2 + DSZ[did][1]), roll(58))
+            if xg_ is not None:
+                place(lot, "dc_" + did, xg_, fz - .022, .2)
         elif roll(60) < .14:
-            place(lot, "dc_grafite_tags", (roll(61) - .5) * max(0, w - 1.8), fz - .022, .4 + roll(62) * .5)
+            xg_ = pick_free(facade_free(v, 1.6, .3, 1.0), roll(61))
+            if xg_ is not None:
+                place(lot, "dc_grafite_tags", xg_, fz - .022, .3)
         if (old_fabric or roll(63) < .25) and roll(64) < .6:
             for k in range(1 + int(roll(65) * 2)):
-                place(lot, "dc_tinta_descascando", (roll(66 + k) - .5) * max(0, w - 1.2), fz - .012, .3 + roll(68 + k) * (min(H, 6) - 1.4))
+                zp_ = .3 + roll(68 + k) * (min(H, 6) - 1.4)
+                xp_ = pick_free(facade_free(v, 1.0, zp_, zp_ + .8), roll(66 + k))
+                if xp_ is not None:
+                    place(lot, "dc_tinta_descascando", xp_, fz - .012, zp_)
         if resid_ and roll(70) < .45:
-            place(lot, "dc_etiqueta_numero", (w / 2 - .45) * (1 if roll(71) < .5 else -1), fz - .014, 2.05)
+            xn_ = pick_free(facade_free(v, .32, 2.05, 2.25, margin=.1), roll(71))
+            if xn_ is not None:
+                place(lot, "dc_etiqueta_numero", xn_, fz - .014, 2.05)
         if roll(72) < .12:
-            place(lot, "dc_etiqueta_perigo", (w / 2 - .5) * (1 if roll(73) < .5 else -1), fz - .014, 1.3)
+            xl_ = pick_free(facade_free(v, .3, 1.3, 1.7, margin=.1), roll(73))
+            if xl_ is not None:
+                place(lot, "dc_etiqueta_perigo", xl_, fz - .014, 1.3)
         if "big_door" in v["tags"] and roll(74) < .45:
-            place(lot, "dc_estencil_nao_estacione", 0.0, fz - .02, 2.45 if v["ground_h"] >= 3.2 else .9)
+            zz_ = 2.45 if v["ground_h"] >= 3.2 else .9
+            xs_ = pick_free(facade_free(v, 1.4, zz_, zz_ + .35), roll(75))
+            if xs_ is not None:
+                place(lot, "dc_estencil_nao_estacione", xs_, fz - .02, zz_)
     cone_sites = 0
     for (x, y, rot) in ot.points.get("manhole", []):
         if in_slice_pt((x, y)) and (int(abs(x) * 7 + abs(y) * 3) % 9) == 0:
@@ -1212,6 +1373,35 @@ for hid, fn in W2_HEROES.items():
         o.hide_render = True
         o["sa_lod"] = "LOD1 (massing W1.5; LOD0 = W2I_" + hid + ")"
     STATS["w2_heroes_linked"].append(hid)
+
+# W3.2: the hero files keep their interior fills in a scene-only collection that is not part of the linked W2_<id> collection, so a
+# slice that only instances the hero gets the practical lamps but no fill. Recreate the fills (dumped by dump_hero_fills.py) as slice
+# scene lights, one per fill, shadow-casting so nothing leaks through walls. No sun is copied (the slice has its own).
+if SLICE:
+    from mathutils import Matrix as _Mx  # noqa: E402
+    _fills_path = root / "ArtSource" / "Blender" / "World" / "OldTown" / "hero_interior_fills_w32.json"
+    fill_coll = sa_bl.collection("OT_Hero_InteriorFills", layer_coll["Lighting"])
+    n_fill = 0
+    if _fills_path.exists():
+        for hid_, fl_ in json.loads(_fills_path.read_text(encoding="utf-8")).items():
+            if hid_ not in ("home.starter", "garage", "horizonte", "grocery") or hid_ not in STATS["w2_heroes_linked"]:
+                continue                                  # shadow-casting local lights are limited (EEVEE shadow buffer): main 4 heroes only
+            for f_ in fl_:
+                ld_ = bpy.data.lights.new(f_["name"], f_["type"])
+                ld_.energy, ld_.color = f_["energy"], f_["color"]
+                if f_["type"] == "AREA":
+                    ld_.shape, ld_.size, ld_.size_y = f_["shape"], f_["size"], f_["size_y"]
+                try:
+                    ld_.use_shadow = f_["shadow"]
+                except AttributeError:
+                    pass
+                lo_ = bpy.data.objects.new(f_["name"] + "_slice", ld_)
+                fill_coll.objects.link(lo_)
+                lo_.matrix_world = _Mx(f_["matrix"])
+                lo_["sa_stage"] = "W3.2 preenchimento interior do herói recriado no slice (cena; sem sol, com sombra)"
+                lo_["hero"] = hid_
+                n_fill += 1
+    STATS["w32_hero_fill_lights"] = n_fill
 
 # ---------------------------------------------------------------- infrastructure, props, vegetation, lighting
 infra_pts, prop_pts, tree_pts, light_pts = {}, {}, {}, {}
@@ -1686,10 +1876,10 @@ if SLICE:
     import sa_vehicles  # noqa: E402
     veh_lib = sa_bl.collection("OT_Lib_Vehicles", library, hide_render=True)
     veh_lods = sa_bl.collection("OT_Lib_Vehicles_LODs", library, hide_render=True)
-    VEH = {}
+    VEH, VEH1, VEH_OBJS = {}, {}, []
     for (fam_, pk_, worn_) in sa_vehicles.LIBRARY:
         VEH[(fam_, pk_, worn_)] = sa_vehicles.build(fam_, lib, veh_lib, pk_, worn_)
-        sa_vehicles.build(fam_, lib, veh_lods, pk_, worn_, lod=1)
+        VEH1[(fam_, pk_, worn_)] = sa_vehicles.build(fam_, lib, veh_lods, pk_, worn_, lod=1)
     for fam_ in sa_vehicles.FAMILIES:
         sa_vehicles.proxy(fam_, lib, veh_lods)
     _new = [k for k in VEH if not k[2] and k[0] not in ("van", "picape")]
@@ -1742,6 +1932,7 @@ if SLICE:
                     vo.location = (q_[0], q_[1], zs(*q_) + ROAD_LIFT - .01)
                     vo.rotation_euler = (0.0, -pitch_, head_)
                     register("Props", vo.name, sub, vo, sa_kind="vehicle", vehicle=src_.name, sa_lod="LOD0 (LOD1/proxy em OT_Lib_Vehicles_LODs)")
+                    VEH_OBJS.append((vo, key_))
                     veh_count[key_[0]] = veh_count.get(key_[0], 0) + 1
                     EDGE_CARS.setdefault(eid, []).append((q_, key_, side_))
                     parked += 1
@@ -1920,6 +2111,116 @@ if SLICE:
         return o_[0] * _sun[0] + o_[1] * _sun[1] > .25
     _var = lambda l_: sum(1 for k_ in LOT_ACC.get(l_["id"], []) if k_.startswith("w31_"))
     _dec = lambda l_: sum(1 for k_ in LOT_ACC.get(l_["id"], []) if k_.startswith("dc_"))
+    # ---------------- W3.2 cameras: close-up cars (3-5 m), human-height streets, roofs, shop facade
+    from mathutils import Vector as _V  # noqa: E402
+
+    def _car_cam(name, fams, nth=1, dist_=3.6, along=2.6, h=1.5):
+        seen = 0
+        for eid_, lst_ in sorted(EDGE_CARS.items()):
+            if g.edges[eid_]["cls"] not in ("local", "main", "arterial"):
+                continue
+            a_, b_ = g.seg(eid_)
+            u_ = norm(vsub(b_, a_))
+            n_ = perp(u_)
+            for (q_, key_, sd_) in lst_:
+                if key_[0] not in fams or any(dist(q_, t_[1]) < 25 for t_ in TALUDE_SITES):
+                    continue
+                if any(dist(q_, (hh_["lot"][0], hh_["lot"][1])) < 12 for hh_ in ot.data["heroes"]):
+                    continue
+                seen += 1
+                if seen < nth:
+                    continue
+                tow = (-n_[0] * sd_, -n_[1] * sd_)
+                cp_ = (q_[0] + tow[0] * dist_ + u_[0] * along, q_[1] + tow[1] * dist_ + u_[1] * along)
+                cam(name, (cp_[0], cp_[1], zs(*cp_) + h), target=(q_[0], q_[1], zs(*q_) + .75), lens=26)
+                STATS.setdefault("w32_car_cams", {})[name] = {"family": key_[0], "paint": key_[1], "dist_m": round(dist(cp_, q_), 2)}
+                return
+    _car_cam("CAM_W32_Hatch", ("hatch",), nth=3)
+    _car_cam("CAM_W32_Sedan", ("sedan",), nth=2)
+    _car_cam("CAM_W32_Suv", ("suv",), nth=1)
+    _car_cam("CAM_W32_Van", ("van", "picape"), nth=1, dist_=4.0, along=2.8)
+
+    def _street_cam(name, lots_, avoid=()):
+        """Human-height view standing in the carriageway: parked car at 3-5.5 m, another at 9-16 m, shop facade with sign/decals,
+        trees and kerb in frame. Candidates sampled along every parked street; best score wins."""
+        tree_pts_ = [(t_[0], t_[1]) for t_ in ot.street_trees if in_slice_pt((t_[0], t_[1]))]
+        best_ = None
+        for eid_, e_ in sorted(g.edges.items()):
+            if e_["cls"] not in ("local", "main") or eid_ not in EDGE_CARS:
+                continue
+            a_, b_ = g.seg(eid_)
+            L_ = dist(a_, b_)
+            u0_ = norm(vsub(b_, a_))
+            for sgn_ in (1, -1):
+                u_ = (u0_[0] * sgn_, u0_[1] * sgn_)
+                n_ = perp(u_)
+                p0_ = a_ if sgn_ > 0 else b_
+                t_ = 8.0
+                while t_ < L_ - 30:
+                    for lat_ in (-.9, .9):
+                        cp_ = (p0_[0] + u_[0] * t_ + n_[0] * lat_, p0_[1] + u_[1] * t_ + n_[1] * lat_)
+                        if not in_slice_pt(cp_, -30) or any(dist(cp_, a2_) < 55 for a2_ in avoid):
+                            continue
+                        near = far = 0
+                        blocked = False
+                        for vo_, _k in VEH_OBJS:
+                            dx_, dy_ = vo_.location.x - cp_[0], vo_.location.y - cp_[1]
+                            dd_ = math.hypot(dx_, dy_)
+                            if dd_ < 2.6:
+                                blocked = True
+                                break
+                            if dd_ > 17 or abs(math.atan2(dx_ * u_[1] - dy_ * u_[0], dx_ * u_[0] + dy_ * u_[1])) > .42:
+                                continue
+                            near += 3.4 <= dd_ <= 5.6
+                            far += 9.0 <= dd_ <= 16.0
+                        if blocked or not near or not far:
+                            continue
+                        sc_ = min(near, 2) * 5 + min(far, 2) * 3
+                        for l_ in lots_:
+                            f_ = l_["front"]
+                            dx_, dy_ = f_[0] - cp_[0], f_[1] - cp_[1]
+                            dd_ = math.hypot(dx_, dy_)
+                            if 6 < dd_ < 32 and abs(math.atan2(dx_ * u_[1] - dy_ * u_[0], dx_ * u_[0] + dy_ * u_[1])) < .7:
+                                sc_ += (4 if l_["id"] in W32_SIGN_LOTS else 0) + _dec(l_) * 2 + _var(l_) * .5
+                        sc_ += min(4, sum(1 for tp_ in tree_pts_ if 3 < dist(tp_, cp_) < 22)) * 1.5
+                        if best_ is None or sc_ > best_[0]:
+                            best_ = (sc_, cp_, u_, eid_)
+                    t_ += 7.0
+        if best_:
+            sc_, cp_, u_, eid_ = best_
+            tq_ = (cp_[0] + u_[0] * 40, cp_[1] + u_[1] * 40)
+            cam(name, (cp_[0], cp_[1], zs(*cp_) + 1.65), target=(tq_[0], tq_[1], zs(*tq_) + 2.0), lens=24)
+            STATS.setdefault("w32_street_cams", {})[name] = {"edge": str(eid_), "score": round(sc_, 1)}
+            return cp_
+    cand_s = [l_ for l_ in ot.lots if l_.get("front") and in_slice_pt(l_["obb"].c, -25) and l_["id"] in LOT_ACC and l_["family"] not in ("vacant", "parking")]
+    comm_s = [l_ for l_ in cand_s if l_["variant"] in VAR and ("shop" in VAR[l_["variant"]]["tags"] or VAR[l_["variant"]]["family"] in ("comercio_residencia", "pequeno_comercial"))]
+    pa_ = _street_cam("CAM_W32_Rua_A", cand_s)
+    _street_cam("CAM_W32_Rua_B", cand_s, avoid=[pa_] if pa_ else ())
+    # shop facade: lot with a storefront + sign + posters, seen from the sidewalk
+    shop_l = [l_ for l_ in comm_s if any(o_["kind"] == "shopfront" for _a, _b, ops_ in FRONT_OPS.get(l_["variant"], []) for o_ in ops_)]
+    if shop_l:
+        fl2 = max(shop_l, key=lambda l_: (4 if l_["id"] in W32_SIGN_LOTS else 0) + _dec(l_) * 2 + _var(l_) + (_lit(l_) * 3))
+        _lot_cam("CAM_W32_Fachada", fl2, back=7.5, side=2.5, h=1.65, th=2.0, lens=24)
+        STATS["w32_facade_lot"] = fl2["id"]
+    # roofs: densest 90 m cell of W3.2 roof pieces
+    if W32_POS:
+        import collections as _c3
+        cc3 = _c3.Counter((int(x_ // 90), int(y_ // 90)) for x_, y_ in W32_POS if in_slice_pt((x_, y_), -60))
+        (gx_, gy_), n3 = max(cc3.items(), key=lambda kv: kv[1])
+        cx3, cy3 = (gx_ + .5) * 90, (gy_ + .5) * 90
+        zc3 = zs(cx3, cy3)
+        cam("CAM_W32_Aereo_Telhados", (cx3 - 70, cy3 - 110, zc3 + 120), target=(cx3, cy3, zc3 + 5), lens=32)
+        cam("CAM_W32_Quadra_Obliqua", (cx3 - 20, cy3 - 70, zc3 + 38), target=(cx3, cy3, zc3 + 6), lens=30)
+        STATS["w32_roof_cell"] = {"cell": [cx3, cy3], "pieces": n3}
+    # hero exteriors: eye-height views from the street toward the openings that carry the interiors (gate, lobby, storefront, Apto 12 windows)
+    def _hero_ext(name, loc, rz, lens, back, pitch=90.0):
+        fw_ = (-math.sin(rz), math.cos(rz))
+        c_ = cam(name, (loc[0] - fw_[0] * back, loc[1] - fw_[1] * back, loc[2]), rot=(math.radians(pitch), 0, rz), lens=lens)
+        return c_
+    cam("CAM_W32_Lar", (-2856.0, -2250.0, hz["home.starter"] + 1.7), target=(-2860.2, -2259.4, hz["home.starter"] + 3.4), lens=30)
+    _hero_ext("CAM_W32_Oficina", (-2713.5, -2154.5, 22.26), -0.8961, 20, 3.0)
+    _hero_ext("CAM_W32_Horizonte", (-2346.0, -1832.0, 28.55), 0.3029, 18, 2.5)
+    _hero_ext("CAM_W32_Mercearia", (-2599.0, -1483.5, 26.42), -0.9601, 20, 2.2)
     cand = [l_ for l_ in ot.lots if l_.get("front") and in_slice_pt(l_["obb"].c, -15) and l_["id"] in LOT_ACC and _lit(l_)]
     if cand:
         # block view: lot whose ~45 m neighbourhood holds the most variant pieces
@@ -1965,6 +2266,21 @@ if SLICE:
         cam("CAM_W3_Vegetacao", (cpos[0], cpos[1], zs(*cpos) + 1.7), target=(b[0], b[1], zs(*b) + 3.0), lens=24)
     mz = zs(-2620, -1650)
     cam("CAM_W3_Clutter", (-2617, -1665, mz + 1.7), target=(-2626, -1560, zs(-2626, -1560) + 2.4), lens=24)
+if SLICE and "VEH_OBJS" in globals():
+    # W3.2 LOD policy for the Blender slice: LOD0 (~17k tris) only within 70 m of the human-height review cameras and the hero fronts;
+    # every other parked car uses the shared LOD1 mesh. In Unity this is the LOD Group (LOD0 <= ~25 m, LOD1 to ~80 m, then proxy).
+    _skip = ("Aereo", "Corredor", "Oblique", "Top", "Cells", "Cutaway", "Alto_Aurora", "Panorama", "Residencial", "Quadra_Aerea")
+    _focus = [(c_.location.x, c_.location.y) for c_ in cams.objects if c_.type == "CAMERA" and not any(k_ in c_.name for k_ in _skip)]
+    n0 = n1 = 0
+    for vo_, key_ in VEH_OBJS:
+        if any((vo_.location.x - fx_) ** 2 + (vo_.location.y - fy_) ** 2 < 70.0 ** 2 for fx_, fy_ in _focus):
+            n0 += 1
+        else:
+            vo_.data = VEH1[key_].data
+            vo_["sa_lod"] = "LOD1 (LOD0 em OT_Lib_Vehicles; troca por distância no Unity)"
+            n1 += 1
+    STATS["w32_vehicles_lod0"], STATS["w32_vehicles_lod1"] = n0, n1
+    STATS["w32_vehicle_lod1_tris"] = {o.name: sum(len(p_.vertices) - 2 for p_ in o.data.polygons) for o in VEH1.values()}
 scene.camera = bpy.data.objects["CAM_OT_Oblique"]
 
 scene["facility_world"] = "Santa Aurora"
@@ -2004,6 +2320,17 @@ if SLICE:
     out_dir = out_dir / "W3"
     out_dir.mkdir(parents=True, exist_ok=True)
     blend = out_dir / "SantaAurora_W3_VerticalSlice.blend"
+if SLICE:
+    # W3.2: occluded bounced light for the 4 main heroes seen from the street (Unity equivalent: Adaptive Probe Volume per hero).
+    # The hero files bake their own volumes, but those objects are scene-only and do not travel with the linked collection.
+    import sa_w2 as _w2m  # noqa: E402
+    STATS["w32_slice_probes"] = []
+    for hid_ in ("home.starter", "garage", "horizonte", "grocery"):
+        io_ = bpy.data.objects.get(f"W2I_{hid_}")
+        if io_ is not None and io_.instance_collection is not None:
+            po_ = _w2m.bake_interior_probe(io_.instance_collection, fill_coll, hid_)
+            if po_ is not None:
+                STATS["w32_slice_probes"].append(hid_)
 bpy.ops.wm.save_as_mainfile(filepath=str(blend), compress=True)
 
 manifest_out = {
