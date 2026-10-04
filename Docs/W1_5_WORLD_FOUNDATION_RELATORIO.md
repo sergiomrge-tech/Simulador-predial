@@ -4,7 +4,8 @@
 **Blender:** 5.2.1 LTS (headless, `C:\Program Files\Blender Foundation\Blender 5.2\blender.exe`)
 **Branch:** `claude/w1-masterplan` (sem merge no `main`)
 **Status:** base estrutural concluída e verificada. **Não é arte final.** A aprovação visual é do usuário.
-**Review sheet:** `ArtSource/Blender/World/Reviews/W1_5/review_sheet.html` (W1 × W1.5 + 25 capturas reais)
+**Review sheet:** `ArtSource/Blender/World/Reviews/W1_5/review_sheet.html` (W1 × W1.5 + 26 capturas reais)
+**Gates da Etapa C:** `Docs/W1_5_REVISAO_GATES.md`
 
 ---
 
@@ -24,8 +25,8 @@ Todo o layout é determinístico. A mesma base Python (`Tools/Map/`) alimenta o 
 
 | Arquivo | Conteúdo | Objetos |
 |---|---|---:|
-| `ArtSource/Blender/World/SantaAurora_Masterplan_v1_5.blend` | cidade inteira 8×8 km (massing + relevo + vias) | 525 |
-| `ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend` | Cidade Antiga, base de produção | 1.269 |
+| `ArtSource/Blender/World/SantaAurora_Masterplan_v1_5.blend` | cidade inteira 8×8 km (massing + relevo + vias) | 526 |
+| `ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend` | Cidade Antiga, base de produção | 1.267 |
 | `ArtSource/Blender/Kits/SantaAurora_CidadeAntiga_Kit_v1.blend` | kit modular, infraestrutura, famílias, materiais (assets marcados) | 280 |
 | `ArtSource/Blender/World/SantaAurora_Masterplan_v1.blend` | W1, mantido intacto para comparação | — |
 
@@ -57,7 +58,7 @@ Relatórios gerados:
 - 9 bairros com orientação, tamanho de quadra e deformação próprios: Largo da Estação, Vila Horizonte, Bairro Imperial, Oficinas, Alto da Aurora, Mercado Norte, Leste Antigo, Porto Seco e Vila Sul.
 - 7 ruas principais desenhadas à mão, para que todo herói tenha frente para uma rua. Somam-se R02, R09 e a ferrovia histórica com a Estação Velha e o pátio do porto seco.
 - 157 ruas sem saída, 58 becos, 10 passagens, 6 praças e 76 costuras entre bairros. Entropia de orientação 0,83 (a grade do W1 era 0,0).
-- 13.872 lotes em 10 famílias e 47 variantes; ocupação do núcleo de 30%.
+- 13.865 lotes em 10 famílias e 47 variantes; ocupação do núcleo de 30%. Os recuos frontais dos heróis ficam reservados e pavimentados até a rua (correção da Etapa C).
 
 ### 2.3 Transições (`transitionZones` no spec)
 8 zonas:
@@ -75,7 +76,7 @@ Relatórios gerados:
 ### 2.4 Industrial
 - De 107 volumes no W1 para 869 galpões, 2.979 docas, 720 escritórios, 256 tanques, 207 silos, 122 chaminés e 90 subestações.
 - Pátios, estacionamento de caminhões e ramal ferroviário da logística.
-- Ocupação de 28%.
+- Ocupação de 27,7%.
 
 ### 2.5 Rede viária
 - Arteriais com curvas de raio de 160 m e coletoras de 90 m.
@@ -117,7 +118,7 @@ Relatórios gerados:
   - 353 placas de rua, 167 placas de pare, 28 semáforos;
   - 84 bancos, 224 frades;
   - 2.661 árvores-proxy e 2.061 pontos de iluminação.
-- 13.050 edificações instanciadas por Geometry Nodes a partir de 47 variantes, com variação de cor por instância.
+- 13.003 edificações instanciadas por Geometry Nodes a partir de 47 variantes, com variação de cor por instância.
 - Streaming: 8 camadas (Terrain, Roads, Architecture, Infrastructure, Props, Vegetation, Lighting, Gameplay) × 181 subcélulas `SA_Mxx_yy_Sxx_yy`. Manifesto com cada lote (variante, posição, rotação, subcélula) pronto para a integração na Unity.
 
 ### 2.9 Hero locations (Partes 4 a 7)

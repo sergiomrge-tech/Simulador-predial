@@ -149,3 +149,9 @@ Preparação concluída no GitHub:
 - Nada instalado, nenhum código externo executado, nenhuma credencial armazenada. MCPs de Blender/GitHub marcados DO_NOT_INSTALL; unity-mcp REVIEW_REQUIRED para a W5.
 - TOP 10 e TOP 5 em `Docs/SKILLS/22_RECOMENDACOES.md`.
 
+## Checkpoint — Etapa C: revisão visual e gates W1.5 (2026-10-03)
+
+- Revisão crítica em `Docs/W1_5_REVISAO_GATES.md`: 10 critérios PASS, **nenhum BLOCKED**, 7 NEEDS_FIX subjetivos registrados para W2/W3.
+- Corrigido: lotes de fundo que tapavam a fachada dos heróis (recuos frontais reservados e pavimentados, com nova checagem no validador), câmera da fachada do Horizonte e câmera do lar. Pipeline completo rerodado (3/3 reaberturas PASS, 26 capturas).
+- Próximo: Etapa D — W2 Cidade Antiga Base.
+
