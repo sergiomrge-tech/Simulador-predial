@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Unity vertical slice pilot corridor",
+  "heroIds": [
+    "home.starter",
+    "garage",
+    "horizonte",
+    "grocery"
+  ],
+  "anchors": {
+    "home.starter": {
+      "position": [-2860.0, -2280.0],
+      "globalCell": [4, 6],
+      "subcell": "SA_M01_01_S00_02"
+    },
+    "garage": {
+      "position": [-2700.0, -2150.0],
+      "globalCell": [5, 7],
+      "subcell": "SA_M01_01_S01_03"
+    },
+    "horizonte": {
+      "position": [-2350.0, -1800.0],
+      "globalCell": [6, 8],
+      "subcell": "SA_M01_02_S02_00"
+    },
+    "grocery": {
+      "position": [-2580.0, -1480.0],
+      "globalCell": [5, 10],
+      "subcell": "SA_M01_02_S01_02"
+    }
+  },
+  "boundsGlobalCells": {
+    "x": [4, 6],
+    "z": [6, 10]
+  },
+  "dimensionsInSubcells": [3, 5],
+  "dimensionsMeters": [750, 1250],
+  "cellCount": 15,
+  "cells": [
+    "SA_M01_01_S00_02",
+    "SA_M01_01_S01_02",
+    "SA_M01_01_S02_02",
+    "SA_M01_01_S00_03",
+    "SA_M01_01_S01_03",
+    "SA_M01_01_S02_03",
+    "SA_M01_02_S00_00",
+    "SA_M01_02_S01_00",
+    "SA_M01_02_S02_00",
+    "SA_M01_02_S00_01",
+    "SA_M01_02_S01_01",
+    "SA_M01_02_S02_01",
+    "SA_M01_02_S00_02",
+    "SA_M01_02_S01_02",
+    "SA_M01_02_S02_02"
+  ]
+}
