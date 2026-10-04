@@ -23,6 +23,9 @@ namespace FacilityOps
         private float nextRefresh;
         private WorldStreamingId currentCell;
         private bool hasCurrentCell;
+        private HashSet<WorldStreamingId> desiredLoads = new HashSet<WorldStreamingId>();
+        private HashSet<WorldStreamingId> desiredKeep = new HashSet<WorldStreamingId>();
+        private readonly List<WorldStreamingId> unloadScratch = new List<WorldStreamingId>();
 
         private void OnEnable()
         {
@@ -44,9 +47,15 @@ namespace FacilityOps
         public WorldStreamingId CurrentCell => currentCell;
         public bool HasCurrentCell => hasCurrentCell;
         public IReadOnlyCollection<WorldStreamingId> LoadedCells => loaded;
-        public bool IsLoaded(WorldStreamingId id) => loaded.Contains(id);
+        public bool IsLoaded(WorldStreamingId id) => loaded.Contains(id) && !pendingUnloads.Contains(id);
         public int PendingLoadCount => pendingLoads.Count;
         public int PendingUnloadCount => pendingUnloads.Count;
+        public double LastLoadMilliseconds { get; private set; }
+        public double LastUnloadMilliseconds { get; private set; }
+        public double MaxLoadMilliseconds { get; private set; }
+        public double MaxUnloadMilliseconds { get; private set; }
+        public int TotalLoads { get; private set; }
+        public int TotalUnloads { get; private set; }
 
         private void Update()
         {
@@ -58,30 +67,29 @@ namespace FacilityOps
                 trackedTransform.position.x,
                 trackedTransform.position.z);
 
-            if (hasCurrentCell && nextCell == currentCell)
-                return;
-
-            currentCell = nextCell;
-            hasCurrentCell = true;
             Refresh(nextCell);
         }
 
         public void Refresh(WorldStreamingId center)
         {
+            if (!center.IsInWorldBounds)
+                throw new System.ArgumentOutOfRangeException(nameof(center));
+            if (!hasCurrentCell || center != currentCell)
+            {
+                currentCell = center;
+                hasCurrentCell = true;
+                desiredLoads = WorldStreamingPolicy.BuildLoadSet(center);
+                desiredKeep = WorldStreamingPolicy.BuildKeepSet(center);
+            }
             RebuildLoadedIndex();
-
-            var loadSet = WorldStreamingPolicy.BuildLoadSet(center);
-            var keepSet = WorldStreamingPolicy.BuildKeepSet(center);
-
-            foreach (var cell in loadSet)
+            EnsureLoaded(center);
+            foreach (var cell in desiredLoads)
                 EnsureLoaded(cell);
-
-            var unload = new List<WorldStreamingId>();
+            unloadScratch.Clear();
             foreach (var cell in loaded)
-                if (!keepSet.Contains(cell))
-                    unload.Add(cell);
-
-            foreach (var cell in unload)
+                if (!desiredKeep.Contains(cell))
+                    unloadScratch.Add(cell);
+            foreach (var cell in unloadScratch)
                 EnsureUnloaded(cell);
         }
 
@@ -98,15 +106,25 @@ namespace FacilityOps
 
         private void EnsureLoaded(WorldStreamingId id)
         {
-            if (loaded.Contains(id) || pendingLoads.Contains(id))
+            if (loaded.Contains(id) || pendingLoads.Contains(id) || pendingUnloads.Contains(id))
                 return;
+            // Bound activation/memory spikes. Refresh retries the remaining desired cells.
+            if (pendingLoads.Count >= 2) return;
 
             string sceneName = WorldStreamingSceneNaming.SceneName(id);
             if (!Application.CanStreamedLevelBeLoaded(sceneName))
                 return;
 
             pendingLoads.Add(id);
-            AsyncOperation op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            double started = Time.realtimeSinceStartupAsDouble;
+            AsyncOperation op;
+            try { op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive); }
+            catch (System.Exception ex)
+            {
+                pendingLoads.Remove(id);
+                Debug.LogError("WORLD CELL LOAD FAILED: " + sceneName + " / " + ex);
+                return;
+            }
             if (op == null)
             {
                 pendingLoads.Remove(id);
@@ -115,10 +133,16 @@ namespace FacilityOps
 
             op.completed += _ =>
             {
+                if (this == null) return;
                 pendingLoads.Remove(id);
+                LastLoadMilliseconds = (Time.realtimeSinceStartupAsDouble - started) * 1000d;
+                MaxLoadMilliseconds = System.Math.Max(MaxLoadMilliseconds, LastLoadMilliseconds);
+                TotalLoads++;
                 Scene scene = SceneManager.GetSceneByName(sceneName);
                 if (scene.IsValid() && scene.isLoaded)
                     loaded.Add(id);
+                if (hasCurrentCell && !desiredKeep.Contains(id))
+                    EnsureUnloaded(id);
             };
         }
 
@@ -136,7 +160,15 @@ namespace FacilityOps
             }
 
             pendingUnloads.Add(id);
-            AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
+            double started = Time.realtimeSinceStartupAsDouble;
+            AsyncOperation op;
+            try { op = SceneManager.UnloadSceneAsync(scene); }
+            catch (System.Exception ex)
+            {
+                pendingUnloads.Remove(id);
+                Debug.LogError("WORLD CELL UNLOAD FAILED: " + sceneName + " / " + ex);
+                return;
+            }
             if (op == null)
             {
                 pendingUnloads.Remove(id);
@@ -145,8 +177,14 @@ namespace FacilityOps
 
             op.completed += _ =>
             {
+                if (this == null) return;
                 pendingUnloads.Remove(id);
+                LastUnloadMilliseconds = (Time.realtimeSinceStartupAsDouble - started) * 1000d;
+                MaxUnloadMilliseconds = System.Math.Max(MaxUnloadMilliseconds, LastUnloadMilliseconds);
+                TotalUnloads++;
                 loaded.Remove(id);
+                if (hasCurrentCell && desiredLoads.Contains(id))
+                    EnsureLoaded(id);
             };
         }
     }

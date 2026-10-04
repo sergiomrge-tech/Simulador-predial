@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "cell": "SA_M01_02_S01_02",
+  "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "axisContract": {
+    "fbxForward": "-Z",
+    "fbxUp": "Y",
+    "expectedUnity": "X east, Y up, Z north",
+    "requiresFirstCellScaleAxisValidation": true
+  },
+  "layers": [
+    {
+      "layer": "Terrain",
+      "status": "EXPORTED",
+      "file": "Terrain.fbx",
+      "fileBytes": 217036,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2752.0,
+          -1500.0,
+          16.884828567504883
+        ],
+        "max": [
+          -2500.0,
+          -1252.0,
+          33.82917404174805
+        ]
+      }
+    },
+    {
+      "layer": "Roads",
+      "status": "EXPORTED",
+      "file": "Roads.fbx",
+      "fileBytes": 404252,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2760.0,
+          -1518.61376953125,
+          14.917903900146484
+        ],
+        "max": [
+          -2486.595458984375,
+          -1237.9310302734375,
+          33.0844612121582
+        ]
+      }
+    },
+    {
+      "layer": "Architecture",
+      "status": "EXPORTED",
+      "file": "Architecture.fbx",
+      "fileBytes": 4439484,
+      "sourceObjects": 10,
+      "exportedObjects": 3,
+      "linkedInstancesExcluded": [
+        {
+          "object": "W2I_grocery",
+          "collection": "W2_grocery",
+          "facilityId": "grocery",
+          "source": "Heroes/W2_grocery.blend"
+        }
+      ],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2745.830078125,
+          -1509.260009765625,
+          15.649574279785156
+        ],
+        "max": [
+          -2496.88427734375,
+          -1244.5577392578125,
+          46.7316780090332
+        ]
+      }
+    },
+    {
+      "layer": "Infrastructure",
+      "status": "EXPORTED",
+      "file": "Infrastructure.fbx",
+      "fileBytes": 2792428,
+      "sourceObjects": 2,
+      "exportedObjects": 2,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2757.569580078125,
+          -1511.597412109375,
+          17.020368576049805
+        ],
+        "max": [
+          -2492.933837890625,
+          -1239.908935546875,
+          42.878814697265625
+        ]
+      }
+    },
+    {
+      "layer": "Props",
+      "status": "EXPORTED",
+      "file": "Props.fbx",
+      "fileBytes": 242348,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2739.281494140625,
+          -1456.4229736328125,
+          17.322490692138672
+        ],
+        "max": [
+          -2521.401123046875,
+          -1259.418212890625,
+          32.14419174194336
+        ]
+      }
+    },
+    {
+      "layer": "Vegetation",
+      "status": "EXPORTED",
+      "file": "Vegetation.fbx",
+      "fileBytes": 1397644,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2749.492919921875,
+          -1500.2000732421875,
+          16.984203338623047
+        ],
+        "max": [
+          -2499.73193359375,
+          -1250.0316162109375,
+          34.26201248168945
+        ]
+      }
+    }
+  ],
+  "linkedHeroInstancesExcluded": [
+    {
+      "object": "W2I_grocery",
+      "collection": "W2_grocery",
+      "facilityId": "grocery",
+      "source": "Heroes/W2_grocery.blend"
+    }
+  ],
+  "gameplayExport": "Use Tools/Blender/export_unity_gameplay_markers.py",
+  "sourceBlendModified": false
+}

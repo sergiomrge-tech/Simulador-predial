@@ -24,6 +24,9 @@ from pathlib import Path
 
 import bpy
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from unity_export_staging import stage_meshes, bounds, cleanup
+
 CELL_RE = re.compile(r"^SA_M(\d{2})_(\d{2})_S(\d{2})_(\d{2})$")
 STATIC_LAYERS = (
     "Terrain",
@@ -81,6 +84,11 @@ def selected_exportable(objects):
 def export_layer(layer: str, objects, out_dir: Path):
     exportable, linked, unsupported = selected_exportable(objects)
 
+    # W1 hero volumes overlap the linked W2 hero and would obstruct its doors.
+    # The authored hero is exported independently, including its gameplay data.
+    exportable = [o for o in exportable if not o.get('facility_id')
+                  and not o.name.startswith(('HERO_', 'GP_', 'SLOT_', 'PROXY_'))]
+
     bpy.ops.object.select_all(action="DESELECT")
     for obj in exportable:
         try:
@@ -94,11 +102,17 @@ def export_layer(layer: str, objects, out_dir: Path):
     error = None
 
     if exportable:
+        staged, groups = [], []
         try:
+            staged, groups = stage_meshes(exportable)
+            bpy.ops.object.select_all(action="DESELECT")
+            for obj in staged:
+                obj.select_set(True)
+            source_bounds = bounds(staged)
             bpy.ops.export_scene.fbx(
                 filepath=str(output),
                 use_selection=True,
-                object_types={"MESH", "CURVE", "SURFACE", "FONT", "META", "EMPTY"},
+                object_types={"MESH"},
                 use_mesh_modifiers=True,
                 use_mesh_modifiers_render=True,
                 use_custom_props=True,
@@ -115,6 +129,8 @@ def export_layer(layer: str, objects, out_dir: Path):
         except Exception as exc:
             status = "FAIL"
             error = repr(exc)
+        finally:
+            cleanup(staged, groups)
 
     return {
         "layer": layer,
@@ -126,6 +142,7 @@ def export_layer(layer: str, objects, out_dir: Path):
         "linkedInstancesExcluded": linked,
         "unsupportedExcluded": unsupported,
         "error": error,
+        "blenderBounds": source_bounds if status == 'EXPORTED' else None,
     }
 
 

@@ -42,9 +42,11 @@ namespace FacilityOps
         {
             string[] args = Environment.GetCommandLineArgs();
             IsSmokeTest = Array.IndexOf(args, "-facilitySmoke") >= 0;
-            SavePath = IsSmokeTest ? Path.Combine(Application.dataPath, "..", "QA", "smoke-career.json") : SaveService.DefaultPath;
+            bool worldQa = Array.IndexOf(args, "-worldSliceQa") >= 0;
+            SavePath = worldQa ? Path.Combine(Application.dataPath, "..", "QA", "world-slice-career.json") :
+                IsSmokeTest ? Path.Combine(Application.dataPath, "..", "QA", "smoke-career.json") : SaveService.DefaultPath;
             CareerData data;
-            try { data = IsSmokeTest ? new CareerData() : SaveService.Load(SavePath); }
+            try { data = IsSmokeTest || worldQa ? new CareerData() : SaveService.Load(SavePath); }
             catch (Exception e) { data = new CareerData(); canSave = false; SaveError = e.Message; }
             Session = new ServiceSession(data);
             var catalog = Resources.Load<TextAsset>("World/campaign");

@@ -1,0 +1,2087 @@
+{
+  "schemaVersion": 1,
+  "name": "home.starter",
+  "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "coordinateContract": "Blender X->Unity X, Blender Y->Unity Z, Blender Z->Unity Y",
+  "orientationContract": "Quaternion.LookRotation(forward, up)",
+  "markerCount": 54,
+  "duplicateNames": [],
+  "markers": [
+    {
+      "name": "GP_home.starter__entrance__main",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "entrance",
+      "layer": "Gameplay",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        -2860.0,
+        16.58,
+        -2270.5
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.2,
+        2.2,
+        0.3
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "entrance",
+        "role": "main",
+        "facing": "N",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "GP_home.starter__parking__forecourt_stall_1",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "parking",
+      "layer": "Gameplay",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        -2868.25,
+        16.58,
+        -2267.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        2.5,
+        1.5,
+        5.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "parking",
+        "role": "forecourt_stall_1",
+        "vehicle": "car",
+        "stalls": 1,
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "GP_home.starter__parking__forecourt_stall_2",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "parking",
+      "layer": "Gameplay",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        -2865.75,
+        16.58,
+        -2267.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        2.5,
+        1.5,
+        5.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "parking",
+        "role": "forecourt_stall_2",
+        "vehicle": "car",
+        "stalls": 1,
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "GP_home.starter__service__side_passage",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "service",
+      "layer": "Gameplay",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        -2868.5,
+        16.58,
+        -2280.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        3.0,
+        3.0,
+        20.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "service",
+        "role": "side_passage",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "GP_home.starter__spawn",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "player_spawn",
+      "layer": "Gameplay",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        -2863.899902,
+        19.68,
+        -2274.350098
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "player_spawn",
+        "area_m2": 41.0,
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "HERO_home.starter",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "hero_anchor",
+      "layer": "Gameplay",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        -2860.0,
+        16.58,
+        -2280.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        20.0,
+        1.0,
+        20.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "hero_anchor",
+        "name_pt": "Edifício Santa Clara — kitnet inicial (Apto 12)",
+        "front": "N",
+        "street": "rua_oficinas",
+        "stage": "S1 arquitetura base",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "HERO_home.starter__details",
+      "type": "MESH",
+      "facilityId": "home.starter",
+      "kind": null,
+      "layer": "Architecture",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Architecture",
+        "sa_part": "details",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02",
+        "sa_lod": "LOD1 (massing W1.5; LOD0 = W2I_home.starter)"
+      }
+    },
+    {
+      "name": "HERO_home.starter__lot_platform",
+      "type": "MESH",
+      "facilityId": "home.starter",
+      "kind": null,
+      "layer": "Architecture",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Architecture",
+        "sa_part": "lot_platform",
+        "ground_z": 16.58,
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02",
+        "sa_lod": "LOD1 (massing W1.5; LOD0 = W2I_home.starter)"
+      }
+    },
+    {
+      "name": "HERO_home.starter__parking",
+      "type": "MESH",
+      "facilityId": "home.starter",
+      "kind": null,
+      "layer": "Architecture",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Architecture",
+        "sa_part": "parking",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02",
+        "sa_lod": "LOD1 (massing W1.5; LOD0 = W2I_home.starter)"
+      }
+    },
+    {
+      "name": "HERO_home.starter__residential_block__F00",
+      "type": "MESH",
+      "facilityId": "home.starter",
+      "kind": null,
+      "layer": "Architecture",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Architecture",
+        "sa_part": "residential_block",
+        "floor_index": 0,
+        "floor_z": 16.58,
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02",
+        "sa_lod": "LOD1 (massing W1.5; LOD0 = W2I_home.starter)"
+      }
+    },
+    {
+      "name": "HERO_home.starter__residential_block__F01",
+      "type": "MESH",
+      "facilityId": "home.starter",
+      "kind": null,
+      "layer": "Architecture",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Architecture",
+        "sa_part": "residential_block",
+        "floor_index": 1,
+        "floor_z": 19.58,
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02",
+        "sa_lod": "LOD1 (massing W1.5; LOD0 = W2I_home.starter)"
+      }
+    },
+    {
+      "name": "HERO_home.starter__residential_block__F02",
+      "type": "MESH",
+      "facilityId": "home.starter",
+      "kind": null,
+      "layer": "Architecture",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Architecture",
+        "sa_part": "residential_block",
+        "floor_index": 2,
+        "floor_z": 22.58,
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02",
+        "sa_lod": "LOD1 (massing W1.5; LOD0 = W2I_home.starter)"
+      }
+    },
+    {
+      "name": "HERO_home.starter__residential_block__F03",
+      "type": "MESH",
+      "facilityId": "home.starter",
+      "kind": null,
+      "layer": "Architecture",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Architecture",
+        "sa_part": "residential_block",
+        "floor_index": 3,
+        "floor_z": 25.58,
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02",
+        "sa_lod": "LOD1 (massing W1.5; LOD0 = W2I_home.starter)"
+      }
+    },
+    {
+      "name": "HERO_home.starter__residential_block__ROOF",
+      "type": "MESH",
+      "facilityId": "home.starter",
+      "kind": null,
+      "layer": "Architecture",
+      "state": null,
+      "item": null,
+      "note": null,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Architecture",
+        "sa_part": "residential_block_roof",
+        "roof_top_z": 29.48,
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02",
+        "sa_lod": "LOD1 (massing W1.5; LOD0 = W2I_home.starter)"
+      }
+    },
+    {
+      "name": "PROXY_home.starter__H0",
+      "type": "MESH",
+      "facilityId": "home.starter",
+      "kind": "state_proxy",
+      "layer": "Gameplay",
+      "state": "H0",
+      "item": null,
+      "note": "Proxies de blockout para validar espaço; mobiliário final é arte W3/W4",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_proxy",
+        "state": "H0",
+        "sa_blockout": true,
+        "note": "Proxies de blockout para validar espaço; mobiliário final é arte W3/W4",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02",
+        "sa_lod": "LOD1 (massing W1.5; LOD0 = W2I_home.starter)"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__ALL__maleta_guto",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "permanent_item",
+      "layer": "Gameplay",
+      "state": null,
+      "item": "maleta_guto",
+      "note": "Elemento permanente: primeira maleta de Guto",
+      "position": [
+        -2862.399902,
+        20.540001,
+        -2276.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.45,
+        0.12,
+        0.3
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "permanent_item",
+        "item": "maleta_guto",
+        "note": "Elemento permanente: primeira maleta de Guto",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H0__bare_bulb",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H0",
+      "item": "bare_bulb",
+      "note": null,
+      "position": [
+        -2863.899902,
+        19.68,
+        -2273.300049
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.12,
+        0.2,
+        0.12
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H0",
+        "item": "bare_bulb",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H0__boxes",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H0",
+      "item": "boxes",
+      "note": null,
+      "position": [
+        -2862.0,
+        19.83,
+        -2272.199951
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.8,
+        0.5,
+        0.6
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H0",
+        "item": "boxes",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H0__mattress_floor",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H0",
+      "item": "mattress_floor",
+      "note": null,
+      "position": [
+        -2865.899902,
+        19.67,
+        -2273.199951
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.9
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H0",
+        "item": "mattress_floor",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H0__old_chair",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H0",
+      "item": "old_chair",
+      "note": null,
+      "position": [
+        -2862.300049,
+        20.030001,
+        -2274.600098
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.45,
+        0.9,
+        0.45
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H0",
+        "item": "old_chair",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H1__bed",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H1",
+      "item": "bed",
+      "note": null,
+      "position": [
+        -2865.949951,
+        19.855001,
+        -2272.850098
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.4,
+        0.55,
+        1.95
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H1",
+        "item": "bed",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H1__ceiling_lamp",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H1",
+      "item": "ceiling_lamp",
+      "note": null,
+      "position": [
+        -2863.899902,
+        19.705,
+        -2273.300049
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.25,
+        0.4
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H1",
+        "item": "ceiling_lamp",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H1__small_table",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H1",
+      "item": "small_table",
+      "note": null,
+      "position": [
+        -2863.199951,
+        19.955,
+        -2275.199951
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.8,
+        0.75,
+        0.6
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H1",
+        "item": "small_table",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H1__wardrobe",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H1",
+      "item": "wardrobe",
+      "note": null,
+      "position": [
+        -2866.399902,
+        20.58,
+        -2275.300049
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.6,
+        2.0,
+        1.2
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H1",
+        "item": "wardrobe",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H2__fridge",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H2",
+      "item": "fridge",
+      "note": null,
+      "position": [
+        -2862.0,
+        20.380001,
+        -2277.600098
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.6,
+        1.6,
+        0.65
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H2",
+        "item": "fridge",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H2__stove",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H2",
+      "item": "stove",
+      "note": null,
+      "position": [
+        -2863.399902,
+        20.005001,
+        -2277.649902
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.55,
+        0.85,
+        0.6
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H2",
+        "item": "stove",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H2__tv_small",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H2",
+      "item": "tv_small",
+      "note": null,
+      "position": [
+        -2864.600098,
+        20.055,
+        -2271.100098
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.9,
+        0.95,
+        0.35
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H2",
+        "item": "tv_small",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H3__curtains",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H3",
+      "item": "curtains",
+      "note": null,
+      "position": [
+        -2864.699951,
+        20.380001,
+        -2270.899902
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.9,
+        1.6,
+        0.1
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H3",
+        "item": "curtains",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H3__office_chair",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H3",
+      "item": "office_chair",
+      "note": null,
+      "position": [
+        -2862.0,
+        20.130001,
+        -2271.800049
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.6,
+        1.1,
+        0.6
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H3",
+        "item": "office_chair",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H3__pc_desk",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H3",
+      "item": "pc_desk",
+      "note": null,
+      "position": [
+        -2861.899902,
+        19.960001,
+        -2271.050049
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.3,
+        0.76,
+        0.6
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H3",
+        "item": "pc_desk",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H3__shelf",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H3",
+      "item": "shelf",
+      "note": null,
+      "position": [
+        -2861.300049,
+        20.480001,
+        -2273.600098
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.35,
+        1.8,
+        1.0
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H3",
+        "item": "shelf",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H4__collection_display",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H4",
+      "item": "collection_display",
+      "note": null,
+      "position": [
+        -2861.300049,
+        20.380001,
+        -2275.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        1.6,
+        0.8
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H4",
+        "item": "collection_display",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H4__decor_shelves",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H4",
+      "item": "decor_shelves",
+      "note": null,
+      "position": [
+        -2866.550049,
+        20.530001,
+        -2271.600098
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.3,
+        1.9,
+        1.2
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H4",
+        "item": "decor_shelves",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H4__plant",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H4",
+      "item": "plant",
+      "note": null,
+      "position": [
+        -2866.300049,
+        20.130001,
+        -2271.0
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        1.1,
+        0.4
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H4",
+        "item": "plant",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "SLOT_home.starter__H4__rug",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H4",
+      "item": "rug",
+      "note": null,
+      "position": [
+        -2864.0,
+        19.59,
+        -2273.399902
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        0.05,
+        1.4
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_layer": "Gameplay",
+        "sa_kind": "state_slot",
+        "state": "H4",
+        "item": "rug",
+        "sa_cell": "SA_M01_01",
+        "sa_subcell": "SA_M01_01_S00_02"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H0__bare_bulb",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H0",
+      "item": "bare_bulb",
+      "note": null,
+      "position": [
+        -2863.899902,
+        19.83,
+        -2273.300049
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.06,
+        0.1,
+        0.06
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H0",
+        "item": "bare_bulb",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H0__boxes",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H0",
+      "item": "boxes",
+      "note": null,
+      "position": [
+        -2862.0,
+        19.98,
+        -2272.199951
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.25,
+        0.3
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H0",
+        "item": "boxes",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H0__mattress_floor",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H0",
+      "item": "mattress_floor",
+      "note": null,
+      "position": [
+        -2865.899902,
+        19.82,
+        -2273.199951
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.45,
+        0.09,
+        0.95
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H0",
+        "item": "mattress_floor",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H0__old_chair",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H0",
+      "item": "old_chair",
+      "note": null,
+      "position": [
+        -2862.300049,
+        20.18,
+        -2274.600098
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.225,
+        0.45,
+        0.225
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H0",
+        "item": "old_chair",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H1__bed",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H1",
+      "item": "bed",
+      "note": null,
+      "position": [
+        -2865.949951,
+        20.004999,
+        -2272.850098
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.7,
+        0.275,
+        0.975
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H1",
+        "item": "bed",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H1__ceiling_lamp",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H1",
+      "item": "ceiling_lamp",
+      "note": null,
+      "position": [
+        -2863.899902,
+        19.855,
+        -2273.300049
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        0.125,
+        0.2
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H1",
+        "item": "ceiling_lamp",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H1__small_table",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H1",
+      "item": "small_table",
+      "note": null,
+      "position": [
+        -2863.199951,
+        20.105,
+        -2275.199951
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.375,
+        0.3
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H1",
+        "item": "small_table",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H1__wardrobe",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H1",
+      "item": "wardrobe",
+      "note": null,
+      "position": [
+        -2866.399902,
+        20.73,
+        -2275.300049
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.3,
+        1.0,
+        0.6
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H1",
+        "item": "wardrobe",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H2__fridge",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H2",
+      "item": "fridge",
+      "note": null,
+      "position": [
+        -2862.0,
+        20.530001,
+        -2277.600098
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.3,
+        0.8,
+        0.325
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H2",
+        "item": "fridge",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H2__stove",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H2",
+      "item": "stove",
+      "note": null,
+      "position": [
+        -2863.399902,
+        20.155001,
+        -2277.649902
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.275,
+        0.425,
+        0.3
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H2",
+        "item": "stove",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H2__tv_small",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H2",
+      "item": "tv_small",
+      "note": null,
+      "position": [
+        -2864.600098,
+        20.205,
+        -2271.100098
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.45,
+        0.475,
+        0.175
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H2",
+        "item": "tv_small",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H3__curtains",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H3",
+      "item": "curtains",
+      "note": null,
+      "position": [
+        -2864.699951,
+        20.530001,
+        -2270.899902
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.95,
+        0.8,
+        0.05
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H3",
+        "item": "curtains",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H3__office_chair",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H3",
+      "item": "office_chair",
+      "note": null,
+      "position": [
+        -2862.0,
+        20.280001,
+        -2271.800049
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.3,
+        0.55,
+        0.3
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H3",
+        "item": "office_chair",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H3__pc_desk",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H3",
+      "item": "pc_desk",
+      "note": null,
+      "position": [
+        -2861.899902,
+        20.110001,
+        -2271.050049
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.65,
+        0.38,
+        0.3
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H3",
+        "item": "pc_desk",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H3__shelf",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H3",
+      "item": "shelf",
+      "note": null,
+      "position": [
+        -2861.300049,
+        20.630001,
+        -2273.600098
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.175,
+        0.9,
+        0.5
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H3",
+        "item": "shelf",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H4__collection_display",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H4",
+      "item": "collection_display",
+      "note": null,
+      "position": [
+        -2861.300049,
+        20.530001,
+        -2275.0
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        0.8,
+        0.4
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H4",
+        "item": "collection_display",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H4__decor_shelves",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H4",
+      "item": "decor_shelves",
+      "note": null,
+      "position": [
+        -2866.550049,
+        20.68,
+        -2271.600098
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.15,
+        0.95,
+        0.6
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H4",
+        "item": "decor_shelves",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H4__plant",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H4",
+      "item": "plant",
+      "note": null,
+      "position": [
+        -2866.300049,
+        20.280001,
+        -2271.0
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        0.55,
+        0.2
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H4",
+        "item": "plant",
+        "sa_layer": "Gameplay"
+      }
+    },
+    {
+      "name": "W2_SLOT_home__H4__rug",
+      "type": "EMPTY",
+      "facilityId": "home.starter",
+      "kind": "state_slot",
+      "layer": "Gameplay",
+      "state": "H4",
+      "item": "rug",
+      "note": null,
+      "position": [
+        -2864.0,
+        19.74,
+        -2273.399902
+      ],
+      "forward": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        0.025,
+        0.7
+      ],
+      "custom": {
+        "facility_id": "home.starter",
+        "sa_kind": "state_slot",
+        "state": "H4",
+        "item": "rug",
+        "sa_layer": "Gameplay"
+      }
+    }
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "cell": "SA_M01_01_S00_03",
+  "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "axisContract": {
+    "fbxForward": "-Z",
+    "fbxUp": "Y",
+    "expectedUnity": "X east, Y up, Z north",
+    "requiresFirstCellScaleAxisValidation": true
+  },
+  "layers": [
+    {
+      "layer": "Terrain",
+      "status": "EXPORTED",
+      "file": "Terrain.fbx",
+      "fileBytes": 223580,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -3000.0,
+          -2252.0,
+          16.921062469482422
+        ],
+        "max": [
+          -2752.0,
+          -2000.0,
+          34.454978942871094
+        ]
+      }
+    },
+    {
+      "layer": "Roads",
+      "status": "EXPORTED",
+      "file": "Roads.fbx",
+      "fileBytes": 262012,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -3032.078125,
+          -2258.2216796875,
+          16.833606719970703
+        ],
+        "max": [
+          -2740.359619140625,
+          -1992.0130615234375,
+          34.66311264038086
+        ]
+      }
+    },
+    {
+      "layer": "Architecture",
+      "status": "EXPORTED",
+      "file": "Architecture.fbx",
+      "fileBytes": 4604764,
+      "sourceObjects": 3,
+      "exportedObjects": 3,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -3004.4423828125,
+          -2253.64013671875,
+          15.57796859741211
+        ],
+        "max": [
+          -2758.507568359375,
+          -2004.327392578125,
+          47.249732971191406
+        ]
+      }
+    },
+    {
+      "layer": "Infrastructure",
+      "status": "EXPORTED",
+      "file": "Infrastructure.fbx",
+      "fileBytes": 3008716,
+      "sourceObjects": 2,
+      "exportedObjects": 2,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -3019.5068359375,
+          -2252.3798828125,
+          18.223146438598633
+        ],
+        "max": [
+          -2749.439697265625,
+          -1991.4781494140625,
+          43.62821578979492
+        ]
+      }
+    },
+    {
+      "layer": "Props",
+      "status": "EXPORTED",
+      "file": "Props.fbx",
+      "fileBytes": 136588,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2968.419921875,
+          -2167.9345703125,
+          20.287738800048828
+        ],
+        "max": [
+          -2758.15234375,
+          -2003.453857421875,
+          36.924686431884766
+        ]
+      }
+    },
+    {
+      "layer": "Vegetation",
+      "status": "EXPORTED",
+      "file": "Vegetation.fbx",
+      "fileBytes": 1345852,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -3000.914306640625,
+          -2250.129638671875,
+          17.48076820373535
+        ],
+        "max": [
+          -2750.4619140625,
+          -2000.0247802734375,
+          40.72798538208008
+        ]
+      }
+    }
+  ],
+  "linkedHeroInstancesExcluded": [],
+  "gameplayExport": "Use Tools/Blender/export_unity_gameplay_markers.py",
+  "sourceBlendModified": false
+}

@@ -8,5 +8,53 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/Scenes/Bootstrap.unity
     guid: 5ddf24c8029459444b85a48dcbc99025
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_01_S00_02/SA_Cell_SA_M01_01_S00_02.unity
+    guid: 92d56f518a897d74184ddc54e0c7bfc3
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_01_S00_03/SA_Cell_SA_M01_01_S00_03.unity
+    guid: 433c19c0a6f08ae4fb144eb93c4fcf3f
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_01_S01_02/SA_Cell_SA_M01_01_S01_02.unity
+    guid: dba762779c312e8409f827b2281cb574
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_01_S01_03/SA_Cell_SA_M01_01_S01_03.unity
+    guid: 7b846319e9917084fb80a6f5d6db4f76
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_01_S02_02/SA_Cell_SA_M01_01_S02_02.unity
+    guid: f2b619c2f475da042a8321be334e5c65
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_01_S02_03/SA_Cell_SA_M01_01_S02_03.unity
+    guid: adc1201ac71c86d4fb9c088f0da4fc33
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_02_S00_00/SA_Cell_SA_M01_02_S00_00.unity
+    guid: e1fc1dc0830b21b4186825c50c848b9b
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_02_S00_01/SA_Cell_SA_M01_02_S00_01.unity
+    guid: b87adca22c068a64790d82a4c0eff80e
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_02_S00_02/SA_Cell_SA_M01_02_S00_02.unity
+    guid: 7afdbdf30c8668c43a757b968482235c
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_02_S01_00/SA_Cell_SA_M01_02_S01_00.unity
+    guid: 035a4eb0c328b094b8e469776f51b329
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_02_S01_01/SA_Cell_SA_M01_02_S01_01.unity
+    guid: c3270f248de72d846810d8c426b5904e
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_02_S01_02/SA_Cell_SA_M01_02_S01_02.unity
+    guid: dd4ba4e7e61d871459880f06ad7f3eca
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_02_S02_00/SA_Cell_SA_M01_02_S02_00.unity
+    guid: b49c56d1b8b50f045ac9fde916e2cb2c
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_02_S02_01/SA_Cell_SA_M01_02_S02_01.unity
+    guid: 4d5d02314a7c3c24c93f0104788cba35
+  - enabled: 1
+    path: Assets/_Game/World/SantaAurora/OldTown/Cells/SA_M01_02_S02_02/SA_Cell_SA_M01_02_S02_02.unity
+    guid: 5eaf896c5659ee64c95810a86a5b8480
+  - enabled: 1
+    path: Assets/_Game/Scenes/WorldSliceBootstrap.unity
+    guid: 8904930e49c2f45458ecec7380fad7e9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

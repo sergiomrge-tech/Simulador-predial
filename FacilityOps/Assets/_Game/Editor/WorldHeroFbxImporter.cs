@@ -91,8 +91,7 @@ namespace FacilityOps.Editor
 
             WorldCellRoot[] roots =
                 UnityEngine.Object.FindObjectsByType<WorldCellRoot>(
-                    FindObjectsInactive.Include,
-                    FindObjectsSortMode.None);
+                    FindObjectsInactive.Include);
 
             if (roots.Length != 1)
                 throw new InvalidOperationException(
@@ -198,6 +197,9 @@ namespace FacilityOps.Editor
             instance.transform.SetParent(
                 architecture,
                 true);
+            var axisCorrection = Quaternion.Euler(0f, 180f, 0f);
+            instance.transform.position = axisCorrection * instance.transform.position;
+            instance.transform.rotation = axisCorrection * instance.transform.rotation;
 
             var tag =
                 instance.GetComponent<WorldHeroInstance>();

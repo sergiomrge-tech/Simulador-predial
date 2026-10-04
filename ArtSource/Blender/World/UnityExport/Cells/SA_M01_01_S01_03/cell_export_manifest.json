@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "cell": "SA_M01_01_S01_03",
+  "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "axisContract": {
+    "fbxForward": "-Z",
+    "fbxUp": "Y",
+    "expectedUnity": "X east, Y up, Z north",
+    "requiresFirstCellScaleAxisValidation": true
+  },
+  "layers": [
+    {
+      "layer": "Terrain",
+      "status": "EXPORTED",
+      "file": "Terrain.fbx",
+      "fileBytes": 219516,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2752.0,
+          -2252.0,
+          17.601028442382812
+        ],
+        "max": [
+          -2500.0,
+          -2000.0,
+          32.1391487121582
+        ]
+      }
+    },
+    {
+      "layer": "Roads",
+      "status": "EXPORTED",
+      "file": "Roads.fbx",
+      "fileBytes": 333548,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2760.0,
+          -2274.13623046875,
+          15.693145751953125
+        ],
+        "max": [
+          -2473.365478515625,
+          -1983.94287109375,
+          31.868783950805664
+        ]
+      }
+    },
+    {
+      "layer": "Architecture",
+      "status": "EXPORTED",
+      "file": "Architecture.fbx",
+      "fileBytes": 4164924,
+      "sourceObjects": 9,
+      "exportedObjects": 3,
+      "linkedInstancesExcluded": [
+        {
+          "object": "W2I_garage",
+          "collection": "W2_garage",
+          "facilityId": "garage",
+          "source": "Heroes/W2_garage.blend"
+        }
+      ],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2745.830078125,
+          -2262.9267578125,
+          16.420278549194336
+        ],
+        "max": [
+          -2490.976318359375,
+          -1990.352294921875,
+          49.20900344848633
+        ]
+      }
+    },
+    {
+      "layer": "Infrastructure",
+      "status": "EXPORTED",
+      "file": "Infrastructure.fbx",
+      "fileBytes": 2187676,
+      "sourceObjects": 2,
+      "exportedObjects": 2,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2757.719970703125,
+          -2244.94140625,
+          17.919540405273438
+        ],
+        "max": [
+          -2483.3798828125,
+          -1990.8316650390625,
+          40.79816436767578
+        ]
+      }
+    },
+    {
+      "layer": "Props",
+      "status": "EXPORTED",
+      "file": "Props.fbx",
+      "fileBytes": 115468,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2747.20263671875,
+          -2248.78369140625,
+          17.861448287963867
+        ],
+        "max": [
+          -2522.4404296875,
+          -2063.819091796875,
+          34.50418472290039
+        ]
+      }
+    },
+    {
+      "layer": "Vegetation",
+      "status": "EXPORTED",
+      "file": "Vegetation.fbx",
+      "fileBytes": 1419628,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2750.06640625,
+          -2250.069580078125,
+          17.692996978759766
+        ],
+        "max": [
+          -2500.047607421875,
+          -2000.12353515625,
+          38.206871032714844
+        ]
+      }
+    }
+  ],
+  "linkedHeroInstancesExcluded": [
+    {
+      "object": "W2I_garage",
+      "collection": "W2_garage",
+      "facilityId": "garage",
+      "source": "Heroes/W2_garage.blend"
+    }
+  ],
+  "gameplayExport": "Use Tools/Blender/export_unity_gameplay_markers.py",
+  "sourceBlendModified": false
+}

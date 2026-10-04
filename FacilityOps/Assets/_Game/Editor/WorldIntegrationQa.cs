@@ -40,6 +40,8 @@ namespace FacilityOps.Editor
 
                 WorldCellSceneValidator.ValidatePilotScenes();
                 checks.Add("pilot_scene_structure");
+                WorldCellBuildSettingsUtility.ValidateCellScenesInBuildSettings();
+                checks.Add("pilot_build_settings");
 
                 ProjectBuilder.RunRules();
                 checks.Add("existing_gameplay_rules");
@@ -70,6 +72,7 @@ namespace FacilityOps.Editor
 
         public static string[] PilotScenePaths()
         {
+            if (!AssetDatabase.IsValidFolder(SceneRoot)) return Array.Empty<string>();
             return AssetDatabase.FindAssets("t:Scene", new[] { SceneRoot })
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .Where(path =>

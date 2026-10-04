@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "blend": "C:\\Users\\sergi\\Documents\\ChatGPT\\projeto Steam Simulador Predial\\UnityValidation\\ArtSource\\Blender\\World\\OldTown\\W3\\SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "cell": "SA_M01_02_S01_02",
+  "sourceManifest": "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json",
+  "objects": 24,
+  "objectTypes": {
+    "EMPTY": 7,
+    "MESH": 17
+  },
+  "modifiers": {
+    "NODES": 5
+  },
+  "layers": {
+    "Architecture": {
+      "objects": 10,
+      "types": {
+        "EMPTY": 1,
+        "MESH": 9
+      },
+      "meshTris": 33672,
+      "manifestObjects": 4
+    },
+    "Gameplay": {
+      "objects": 7,
+      "types": {
+        "EMPTY": 6,
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Infrastructure": {
+      "objects": 2,
+      "types": {
+        "MESH": 2
+      },
+      "meshTris": 4644,
+      "manifestObjects": 2
+    },
+    "Lighting": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Props": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Roads": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 10578,
+      "manifestObjects": 1
+    },
+    "Terrain": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 7688,
+      "manifestObjects": 1
+    },
+    "Vegetation": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    }
+  },
+  "meshTris": 56582,
+  "largestMesh": {
+    "name": "HERO_grocery__shop__F00",
+    "tris": 20596
+  },
+  "geometryNodesObjects": [
+    "OT_Accessories_SA_M01_02_S01_02",
+    "OT_Architecture_SA_M01_02_S01_02",
+    "OT_Infrastructure_SA_M01_02_S01_02",
+    "OT_Props_SA_M01_02_S01_02",
+    "OT_Vegetation_SA_M01_02_S01_02"
+  ],
+  "collectionInstances": [
+    {
+      "object": "W2I_grocery",
+      "collection": "W2_grocery",
+      "facility_id": "grocery"
+    }
+  ],
+  "gameplayMarkers": [
+    {
+      "name": "GP_grocery__entrance__loading_door",
+      "type": "EMPTY",
+      "facility_id": "grocery",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_grocery__entrance__residence_upper",
+      "type": "EMPTY",
+      "facility_id": "grocery",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_grocery__entrance__shop_main",
+      "type": "EMPTY",
+      "facility_id": "grocery",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_grocery__parking__street_bays",
+      "type": "EMPTY",
+      "facility_id": "grocery",
+      "kind": "parking"
+    },
+    {
+      "name": "GP_grocery__service__loading_yard",
+      "type": "EMPTY",
+      "facility_id": "grocery",
+      "kind": "service"
+    },
+    {
+      "name": "HERO_grocery",
+      "type": "EMPTY",
+      "facility_id": "grocery",
+      "kind": "hero_anchor"
+    },
+    {
+      "name": "OT_Gameplay_Lots_SA_M01_02_S01_02",
+      "type": "MESH",
+      "facility_id": null,
+      "kind": null
+    }
+  ],
+  "facilityIds": [
+    "grocery"
+  ],
+  "missingManifestObjects": [],
+  "unexpectedCellObjects": [
+    "GP_grocery__entrance__loading_door",
+    "GP_grocery__entrance__residence_upper",
+    "GP_grocery__entrance__shop_main",
+    "GP_grocery__parking__street_bays",
+    "GP_grocery__service__loading_yard",
+    "HERO_grocery",
+    "HERO_grocery__details",
+    "HERO_grocery__lot_platform",
+    "HERO_grocery__parking",
+    "HERO_grocery__shop__F00",
+    "HERO_grocery__shop__F01",
+    "HERO_grocery__shop__ROOF"
+  ],
+  "errors": [],
+  "warnings": [
+    "12 cell-tagged objects are not listed in manifest",
+    "Geometry Nodes present: export must evaluate/realize geometry in a staging copy, never destructively in source",
+    "Linked collection instances present: hero assets should remain separate prefab sources instead of being blindly baked into static cell FBX"
+  ],
+  "exportPolicy": {
+    "staticMeshLayers": [
+      "Terrain",
+      "Roads",
+      "Architecture",
+      "Infrastructure",
+      "Props",
+      "Vegetation"
+    ],
+    "separateDataLayers": [
+      "Gameplay",
+      "Lighting"
+    ],
+    "linkedHeroesSeparatePrefab": true,
+    "sourceBlendMustRemainUnmodified": true
+  }
+}

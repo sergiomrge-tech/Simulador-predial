@@ -1,0 +1,3443 @@
+{
+  "schemaVersion": 1,
+  "stage": "W3",
+  "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
+  "materialCount": 85,
+  "textureLibrary": "ArtSource/Textures/texture_library_w3.json",
+  "materials": [
+    {
+      "name": "aco_inox",
+      "baseName": "aco_inox",
+      "family": "metal",
+      "textureSet": "galvanizado",
+      "textureMode": "tint",
+      "tileMeters": 1.0,
+      "tint": [
+        0.767,
+        0.7788,
+        0.7906,
+        1.0
+      ],
+      "diffuseColor": [
+        0.65,
+        0.66,
+        0.67,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Height.jpg"
+        },
+        {
+          "channel": "Metallic",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Metallic.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/galvanizado)"
+    },
+    {
+      "name": "aco_pintado_cinza",
+      "baseName": "aco_pintado_cinza",
+      "family": "aco_pintado",
+      "textureSet": "aco_pintado",
+      "textureMode": "tint",
+      "tileMeters": 1.0,
+      "tint": [
+        0.3776,
+        0.4012,
+        0.42479999999999996,
+        1.0
+      ],
+      "diffuseColor": [
+        0.32,
+        0.34,
+        0.36,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Height.jpg"
+        },
+        {
+          "channel": "Metallic",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Metallic.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/aco_pintado)"
+    },
+    {
+      "name": "aco_pintado_verde",
+      "baseName": "aco_pintado_verde",
+      "family": "aco_pintado",
+      "textureSet": "aco_pintado",
+      "textureMode": "tint",
+      "tileMeters": 1.0,
+      "tint": [
+        0.12389999999999998,
+        0.295,
+        0.1888,
+        1.0
+      ],
+      "diffuseColor": [
+        0.105,
+        0.25,
+        0.16,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Height.jpg"
+        },
+        {
+          "channel": "Metallic",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Metallic.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/aco_pintado)"
+    },
+    {
+      "name": "aco_pintado_vermelho",
+      "baseName": "aco_pintado_vermelho",
+      "family": "aco_pintado",
+      "textureSet": "aco_pintado",
+      "textureMode": "tint",
+      "tileMeters": 1.0,
+      "tint": [
+        0.649,
+        0.0767,
+        0.059,
+        1.0
+      ],
+      "diffuseColor": [
+        0.55,
+        0.065,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Height.jpg"
+        },
+        {
+          "channel": "Metallic",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Metallic.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/aco_pintado)"
+    },
+    {
+      "name": "agua_canal",
+      "baseName": "agua_canal",
+      "family": "agua",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.04,
+        0.09,
+        0.1,
+        1.0
+      ],
+      "diffuseColor": [
+        0.04,
+        0.09,
+        0.1,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "aluminio",
+      "baseName": "aluminio",
+      "family": "metal",
+      "textureSet": "galvanizado",
+      "textureMode": "tint",
+      "tileMeters": 1.0,
+      "tint": [
+        0.7906,
+        0.8024,
+        0.8141999999999999,
+        1.0
+      ],
+      "diffuseColor": [
+        0.67,
+        0.68,
+        0.69,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Height.jpg"
+        },
+        {
+          "channel": "Metallic",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Metallic.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/galvanizado)"
+    },
+    {
+      "name": "ardosia",
+      "baseName": "ardosia",
+      "family": "pedra",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.13,
+        0.14,
+        0.14,
+        1.0
+      ],
+      "diffuseColor": [
+        0.13,
+        0.14,
+        0.14,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "asfalto",
+      "baseName": "asfalto",
+      "family": "asfalto",
+      "textureSet": "asfalto",
+      "textureMode": "raw",
+      "tileMeters": 4.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.08,
+        0.08,
+        0.085,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/asfalto/asfalto_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/asfalto/asfalto_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/asfalto/asfalto_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/asfalto/asfalto_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/asfalto/asfalto_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/asfalto)"
+    },
+    {
+      "name": "asfalto_gasto",
+      "baseName": "asfalto_gasto",
+      "family": "asfalto",
+      "textureSet": "asfalto",
+      "textureMode": "tint",
+      "tileMeters": 4.0,
+      "tint": [
+        0.1534,
+        0.1534,
+        0.15635,
+        1.0
+      ],
+      "diffuseColor": [
+        0.13,
+        0.13,
+        0.1325,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/asfalto/asfalto_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/asfalto/asfalto_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/asfalto/asfalto_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/asfalto/asfalto_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/asfalto/asfalto_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/asfalto)"
+    },
+    {
+      "name": "azulejo_branco",
+      "baseName": "azulejo_branco",
+      "family": "ceramica",
+      "textureSet": "ceramica",
+      "textureMode": "tint",
+      "tileMeters": 1.2,
+      "tint": [
+        0.9911999999999999,
+        1.0,
+        0.9911999999999999,
+        1.0
+      ],
+      "diffuseColor": [
+        0.84,
+        0.85,
+        0.84,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/ceramica/ceramica_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/ceramica/ceramica_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/ceramica/ceramica_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/ceramica/ceramica_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/ceramica/ceramica_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/ceramica)"
+    },
+    {
+      "name": "borracha_preta",
+      "baseName": "borracha_preta",
+      "family": "borracha",
+      "textureSet": "borracha",
+      "textureMode": "raw",
+      "tileMeters": 0.5,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.04,
+        0.04,
+        0.04,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/borracha/borracha_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/borracha/borracha_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/borracha/borracha_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/borracha/borracha_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/borracha/borracha_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/borracha)"
+    },
+    {
+      "name": "calcada",
+      "baseName": "calcada",
+      "family": "concreto",
+      "textureSet": "ladrilho",
+      "textureMode": "raw",
+      "tileMeters": 1.2,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.54,
+        0.52,
+        0.495,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/ladrilho/ladrilho_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/ladrilho/ladrilho_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/ladrilho/ladrilho_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/ladrilho/ladrilho_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/ladrilho/ladrilho_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/ladrilho)"
+    },
+    {
+      "name": "ceramica_piso",
+      "baseName": "ceramica_piso",
+      "family": "ceramica",
+      "textureSet": "ceramica",
+      "textureMode": "tint",
+      "tileMeters": 1.2,
+      "tint": [
+        0.767,
+        0.7198,
+        0.649,
+        1.0
+      ],
+      "diffuseColor": [
+        0.65,
+        0.61,
+        0.55,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/ceramica/ceramica_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/ceramica/ceramica_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/ceramica/ceramica_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/ceramica/ceramica_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/ceramica/ceramica_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/ceramica)"
+    },
+    {
+      "name": "ceramica_telha",
+      "baseName": "ceramica_telha",
+      "family": "ceramica",
+      "textureSet": "telha",
+      "textureMode": "raw",
+      "tileMeters": 1.2,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.49,
+        0.22,
+        0.135,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/telha/telha_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/telha/telha_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/telha/telha_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/telha/telha_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/telha/telha_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/telha)"
+    },
+    {
+      "name": "cimentado",
+      "baseName": "cimentado",
+      "family": "concreto",
+      "textureSet": "concreto",
+      "textureMode": "tint",
+      "tileMeters": 2.0,
+      "tint": [
+        0.59,
+        0.5781999999999999,
+        0.5487,
+        1.0
+      ],
+      "diffuseColor": [
+        0.5,
+        0.49,
+        0.465,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/concreto/concreto_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/concreto/concreto_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/concreto/concreto_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/concreto/concreto_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/concreto/concreto_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/concreto)"
+    },
+    {
+      "name": "concreto",
+      "baseName": "concreto",
+      "family": "concreto",
+      "textureSet": "concreto",
+      "textureMode": "raw",
+      "tileMeters": 2.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.49,
+        0.48,
+        0.455,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/concreto/concreto_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/concreto/concreto_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/concreto/concreto_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/concreto/concreto_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/concreto/concreto_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/concreto)"
+    },
+    {
+      "name": "concreto_aparente",
+      "baseName": "concreto_aparente",
+      "family": "concreto",
+      "textureSet": "concreto",
+      "textureMode": "raw",
+      "tileMeters": 2.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.49,
+        0.48,
+        0.455,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/concreto/concreto_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/concreto/concreto_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/concreto/concreto_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/concreto/concreto_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/concreto/concreto_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/concreto)"
+    },
+    {
+      "name": "concreto_pintado",
+      "baseName": "concreto_pintado",
+      "family": "concreto",
+      "textureSet": "reboco",
+      "textureMode": "tint",
+      "tileMeters": 2.0,
+      "tint": [
+        0.7552,
+        0.7434,
+        0.6902999999999999,
+        1.0
+      ],
+      "diffuseColor": [
+        0.64,
+        0.63,
+        0.585,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/reboco/reboco_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/reboco/reboco_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/reboco/reboco_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/reboco/reboco_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/reboco/reboco_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/reboco)"
+    },
+    {
+      "name": "concreto_pintado_hero",
+      "baseName": "concreto_pintado",
+      "family": "concreto",
+      "textureSet": "reboco",
+      "textureMode": "tint",
+      "tileMeters": 2.0,
+      "tint": [
+        0.7552,
+        0.7434,
+        0.6902999999999999,
+        1.0
+      ],
+      "diffuseColor": [
+        0.64,
+        0.63,
+        0.585,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/reboco/reboco_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/reboco/reboco_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/reboco/reboco_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/reboco/reboco_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/reboco/reboco_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/reboco)"
+    },
+    {
+      "name": "decal_ferrugem",
+      "baseName": "decal_ferrugem",
+      "family": "decal",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.3,
+        0.13,
+        0.05,
+        1.0
+      ],
+      "diffuseColor": [
+        0.3,
+        0.13,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.8,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "decal procedural W2.5"
+    },
+    {
+      "name": "decal_oleo",
+      "baseName": "decal_oleo",
+      "family": "decal",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.025,
+        0.025,
+        0.03,
+        1.0
+      ],
+      "diffuseColor": [
+        0.025,
+        0.025,
+        0.03,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.25,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "decal procedural W2.5"
+    },
+    {
+      "name": "decal_pneu",
+      "baseName": "decal_pneu",
+      "family": "decal",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.02,
+        0.02,
+        0.022,
+        1.0
+      ],
+      "diffuseColor": [
+        0.02,
+        0.02,
+        0.022,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "decal procedural W2.5"
+    },
+    {
+      "name": "decal_sujeira",
+      "baseName": "decal_sujeira",
+      "family": "decal",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.18,
+        0.15,
+        0.11,
+        1.0
+      ],
+      "diffuseColor": [
+        0.18,
+        0.15,
+        0.11,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.95,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "decal procedural W2.5"
+    },
+    {
+      "name": "decal_umidade",
+      "baseName": "decal_umidade",
+      "family": "decal",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.16,
+        0.15,
+        0.11,
+        1.0
+      ],
+      "diffuseColor": [
+        0.16,
+        0.15,
+        0.11,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "decal procedural W2.5"
+    },
+    {
+      "name": "dourado_velho",
+      "baseName": "dourado_velho",
+      "family": "metal",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.44,
+        0.335,
+        0.15,
+        1.0
+      ],
+      "diffuseColor": [
+        0.44,
+        0.335,
+        0.15,
+        1.0
+      ],
+      "metallic": 0.8,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "ferrugem",
+      "baseName": "ferrugem",
+      "family": "ferrugem",
+      "textureSet": "ferrugem",
+      "textureMode": "raw",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.335,
+        0.155,
+        0.07,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/ferrugem/ferrugem_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/ferrugem/ferrugem_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/ferrugem/ferrugem_Height.jpg"
+        },
+        {
+          "channel": "Metallic",
+          "path": "ArtSource/Textures/ferrugem/ferrugem_Metallic.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/ferrugem/ferrugem_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/ferrugem/ferrugem_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/ferrugem)"
+    },
+    {
+      "name": "flores_ipe_amarelo",
+      "baseName": "flores_ipe_amarelo",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.69,
+        0.535,
+        0.08,
+        1.0
+      ],
+      "diffuseColor": [
+        0.69,
+        0.535,
+        0.08,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "flores_ipe_rosa",
+      "baseName": "flores_ipe_rosa",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.61,
+        0.28,
+        0.45,
+        1.0
+      ],
+      "diffuseColor": [
+        0.61,
+        0.28,
+        0.45,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "folha_arbusto",
+      "baseName": "folha_arbusto",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.07,
+        0.17,
+        0.05,
+        1.0
+      ],
+      "diffuseColor": [
+        0.07,
+        0.17,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_arbusto_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folha_erva",
+      "baseName": "folha_erva",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.12,
+        0.22,
+        0.05,
+        1.0
+      ],
+      "diffuseColor": [
+        0.12,
+        0.22,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_erva_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folha_grama",
+      "baseName": "folha_grama",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.16,
+        0.25,
+        0.06,
+        1.0
+      ],
+      "diffuseColor": [
+        0.16,
+        0.25,
+        0.06,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_grama_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folha_ipe",
+      "baseName": "folha_ipe",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.18,
+        0.28,
+        0.08,
+        1.0
+      ],
+      "diffuseColor": [
+        0.18,
+        0.28,
+        0.08,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_ipe_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folha_ipe_flor",
+      "baseName": "folha_ipe_flor",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.8,
+        0.62,
+        0.08,
+        1.0
+      ],
+      "diffuseColor": [
+        0.8,
+        0.62,
+        0.08,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_ipe_flor_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folha_ipe_rosa_flor",
+      "baseName": "folha_ipe_rosa_flor",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.7,
+        0.3,
+        0.5,
+        1.0
+      ],
+      "diffuseColor": [
+        0.7,
+        0.3,
+        0.5,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_ipe_rosa_flor_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folha_jovem",
+      "baseName": "folha_jovem",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.12,
+        0.24,
+        0.06,
+        1.0
+      ],
+      "diffuseColor": [
+        0.12,
+        0.24,
+        0.06,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_jovem_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folha_mangueira",
+      "baseName": "folha_mangueira",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.04,
+        0.11,
+        0.04,
+        1.0
+      ],
+      "diffuseColor": [
+        0.04,
+        0.11,
+        0.04,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_mangueira_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folha_oiti",
+      "baseName": "folha_oiti",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.06,
+        0.16,
+        0.05,
+        1.0
+      ],
+      "diffuseColor": [
+        0.06,
+        0.16,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_oiti_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folha_palmeira_frond",
+      "baseName": "folha_palmeira_frond",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.14,
+        0.25,
+        0.07,
+        1.0
+      ],
+      "diffuseColor": [
+        0.14,
+        0.25,
+        0.07,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_palmeira_frond_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folha_sibipiruna",
+      "baseName": "folha_sibipiruna",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.16,
+        0.26,
+        0.07,
+        1.0
+      ],
+      "diffuseColor": [
+        0.16,
+        0.26,
+        0.07,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": true,
+      "maps": [
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Blender/World/UnityExport/Textures/folha_sibipiruna_BaseColorAlpha.png"
+        }
+      ],
+      "normalConvention": null,
+      "status": "W3 vegetação de produção: máscara alpha procedural própria"
+    },
+    {
+      "name": "folhagem",
+      "baseName": "folhagem",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.13,
+        0.225,
+        0.08,
+        1.0
+      ],
+      "diffuseColor": [
+        0.13,
+        0.225,
+        0.08,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "folhagem_clara",
+      "baseName": "folhagem_clara",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.25,
+        0.35,
+        0.11,
+        1.0
+      ],
+      "diffuseColor": [
+        0.25,
+        0.35,
+        0.11,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "folhagem_manga",
+      "baseName": "folhagem_manga",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.055,
+        0.13,
+        0.05,
+        1.0
+      ],
+      "diffuseColor": [
+        0.055,
+        0.13,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "folhagem_oiti",
+      "baseName": "folhagem_oiti",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.08,
+        0.185,
+        0.06,
+        1.0
+      ],
+      "diffuseColor": [
+        0.08,
+        0.185,
+        0.06,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "folhagem_palmeira",
+      "baseName": "folhagem_palmeira",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.15,
+        0.26,
+        0.085,
+        1.0
+      ],
+      "diffuseColor": [
+        0.15,
+        0.26,
+        0.085,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "grama",
+      "baseName": "grama",
+      "family": "terreno",
+      "textureSet": "grama",
+      "textureMode": "raw",
+      "tileMeters": 2.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.165,
+        0.25,
+        0.09,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/grama/grama_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/grama/grama_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/grama/grama_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/grama/grama_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/grama/grama_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/grama)"
+    },
+    {
+      "name": "granito",
+      "baseName": "granito",
+      "family": "pedra",
+      "textureSet": "granito",
+      "textureMode": "raw",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.17,
+        0.155,
+        0.15,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/granito/granito_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/granito/granito_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/granito/granito_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/granito/granito_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/granito/granito_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/granito)"
+    },
+    {
+      "name": "lampada_emissiva",
+      "baseName": "lampada_emissiva",
+      "family": "",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        0.9,
+        0.7,
+        1.0
+      ],
+      "diffuseColor": [
+        1.0,
+        0.9,
+        0.7,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "emissivo de teste (W2)"
+    },
+    {
+      "name": "lona_obra",
+      "baseName": "lona_obra",
+      "family": "tecido",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.26,
+        0.315,
+        0.29,
+        1.0
+      ],
+      "diffuseColor": [
+        0.26,
+        0.315,
+        0.29,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "louca_sanitaria",
+      "baseName": "louca_sanitaria",
+      "family": "ceramica",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.89,
+        0.89,
+        0.87,
+        1.0
+      ],
+      "diffuseColor": [
+        0.89,
+        0.89,
+        0.87,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "madeira_crua",
+      "baseName": "madeira_crua",
+      "family": "madeira",
+      "textureSet": "madeira",
+      "textureMode": "tint",
+      "tileMeters": 1.0,
+      "tint": [
+        0.48379999999999995,
+        0.33629999999999993,
+        0.21239999999999998,
+        1.0
+      ],
+      "diffuseColor": [
+        0.41,
+        0.285,
+        0.18,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/madeira/madeira_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/madeira/madeira_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/madeira/madeira_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/madeira/madeira_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/madeira/madeira_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/madeira)"
+    },
+    {
+      "name": "madeira_palco",
+      "baseName": "madeira_palco",
+      "family": "madeira",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.165,
+        0.115,
+        0.075,
+        1.0
+      ],
+      "diffuseColor": [
+        0.165,
+        0.115,
+        0.075,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "madeira_pintada",
+      "baseName": "madeira_pintada",
+      "family": "madeira",
+      "textureSet": "madeira",
+      "textureMode": "tint",
+      "tileMeters": 1.0,
+      "tint": [
+        0.3776,
+        0.2065,
+        0.12389999999999998,
+        1.0
+      ],
+      "diffuseColor": [
+        0.32,
+        0.175,
+        0.105,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/madeira/madeira_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/madeira/madeira_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/madeira/madeira_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/madeira/madeira_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/madeira/madeira_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/madeira)"
+    },
+    {
+      "name": "meio_fio",
+      "baseName": "meio_fio",
+      "family": "concreto",
+      "textureSet": "meio_fio",
+      "textureMode": "raw",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.59,
+        0.58,
+        0.555,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/meio_fio/meio_fio_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/meio_fio/meio_fio_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/meio_fio/meio_fio_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/meio_fio/meio_fio_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/meio_fio/meio_fio_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/meio_fio)"
+    },
+    {
+      "name": "metal_galvanizado",
+      "baseName": "metal_galvanizado",
+      "family": "metal",
+      "textureSet": "galvanizado",
+      "textureMode": "raw",
+      "tileMeters": 1.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.56,
+        0.57,
+        0.58,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Height.jpg"
+        },
+        {
+          "channel": "Metallic",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Metallic.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/galvanizado/galvanizado_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/galvanizado)"
+    },
+    {
+      "name": "papelao",
+      "baseName": "papelao",
+      "family": "papel",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.57,
+        0.435,
+        0.265,
+        1.0
+      ],
+      "diffuseColor": [
+        0.57,
+        0.435,
+        0.265,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "parede_pintada",
+      "baseName": "parede_pintada",
+      "family": "reboco",
+      "textureSet": "reboco",
+      "textureMode": "tint",
+      "tileMeters": 2.0,
+      "tint": [
+        0.9558,
+        0.9322,
+        0.8613999999999999,
+        1.0
+      ],
+      "diffuseColor": [
+        0.81,
+        0.79,
+        0.73,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/reboco/reboco_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/reboco/reboco_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/reboco/reboco_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/reboco/reboco_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/reboco/reboco_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/reboco)"
+    },
+    {
+      "name": "pedra_portuguesa",
+      "baseName": "pedra_portuguesa",
+      "family": "pavimento",
+      "textureSet": "pedra_portuguesa",
+      "textureMode": "raw",
+      "tileMeters": 2.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.5,
+        0.485,
+        0.46,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/pedra_portuguesa)"
+    },
+    {
+      "name": "pedra_reboco_historico",
+      "baseName": "pedra_reboco_historico",
+      "family": "reboco",
+      "textureSet": "reboco",
+      "textureMode": "tint",
+      "tileMeters": 2.0,
+      "tint": [
+        0.8495999999999999,
+        0.8024,
+        0.7139,
+        1.0
+      ],
+      "diffuseColor": [
+        0.72,
+        0.68,
+        0.605,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/reboco/reboco_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/reboco/reboco_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/reboco/reboco_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/reboco/reboco_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/reboco/reboco_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/reboco)"
+    },
+    {
+      "name": "pintura_industrial",
+      "baseName": "pintura_industrial",
+      "family": "pintura",
+      "textureSet": "aco_pintado",
+      "textureMode": "tint",
+      "tileMeters": 1.0,
+      "tint": [
+        0.9145,
+        0.6961999999999999,
+        0.0767,
+        1.0
+      ],
+      "diffuseColor": [
+        0.775,
+        0.59,
+        0.065,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Height.jpg"
+        },
+        {
+          "channel": "Metallic",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Metallic.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/aco_pintado/aco_pintado_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/aco_pintado)"
+    },
+    {
+      "name": "pintura_vermelha",
+      "baseName": "pintura_vermelha",
+      "family": "pintura",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.55,
+        0.065,
+        0.05,
+        1.0
+      ],
+      "diffuseColor": [
+        0.55,
+        0.065,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "piso_ceramico_bege",
+      "baseName": "piso_ceramico_bege",
+      "family": "ceramica",
+      "textureSet": "ceramica",
+      "textureMode": "tint",
+      "tileMeters": 1.2,
+      "tint": [
+        0.7788,
+        0.6902999999999999,
+        0.5546,
+        1.0
+      ],
+      "diffuseColor": [
+        0.66,
+        0.585,
+        0.47,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/ceramica/ceramica_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/ceramica/ceramica_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/ceramica/ceramica_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/ceramica/ceramica_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/ceramica/ceramica_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/ceramica)"
+    },
+    {
+      "name": "piso_intertravado",
+      "baseName": "piso_intertravado",
+      "family": "pavimento",
+      "textureSet": "intertravado",
+      "textureMode": "raw",
+      "tileMeters": 1.2,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.45,
+        0.395,
+        0.36,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/intertravado/intertravado_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/intertravado/intertravado_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/intertravado/intertravado_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/intertravado/intertravado_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/intertravado/intertravado_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/intertravado)"
+    },
+    {
+      "name": "plastico",
+      "baseName": "plastico",
+      "family": "plastico",
+      "textureSet": "plastico",
+      "textureMode": "tint",
+      "tileMeters": 0.5,
+      "tint": [
+        0.9204,
+        0.9204,
+        0.8967999999999999,
+        1.0
+      ],
+      "diffuseColor": [
+        0.78,
+        0.78,
+        0.76,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/plastico/plastico_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/plastico/plastico_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/plastico/plastico_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/plastico/plastico_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/plastico/plastico_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/plastico)"
+    },
+    {
+      "name": "plastico_azul",
+      "baseName": "plastico_azul",
+      "family": "plastico",
+      "textureSet": "plastico",
+      "textureMode": "tint",
+      "tileMeters": 0.5,
+      "tint": [
+        0.12389999999999998,
+        0.3186,
+        0.59,
+        1.0
+      ],
+      "diffuseColor": [
+        0.105,
+        0.27,
+        0.5,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/plastico/plastico_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/plastico/plastico_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/plastico/plastico_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/plastico/plastico_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/plastico/plastico_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/plastico)"
+    },
+    {
+      "name": "plastico_branco",
+      "baseName": "plastico_branco",
+      "family": "plastico",
+      "textureSet": "plastico",
+      "textureMode": "tint",
+      "tileMeters": 0.5,
+      "tint": [
+        1.0,
+        1.0,
+        0.9675999999999999,
+        1.0
+      ],
+      "diffuseColor": [
+        0.86,
+        0.85,
+        0.82,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/plastico/plastico_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/plastico/plastico_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/plastico/plastico_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/plastico/plastico_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/plastico/plastico_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/plastico)"
+    },
+    {
+      "name": "reboco_antigo",
+      "baseName": "reboco_antigo",
+      "family": "reboco",
+      "textureSet": "reboco",
+      "textureMode": "tint",
+      "tileMeters": 2.0,
+      "tint": [
+        0.826,
+        0.708,
+        0.5428,
+        1.0
+      ],
+      "diffuseColor": [
+        0.7,
+        0.6,
+        0.46,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/reboco/reboco_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/reboco/reboco_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/reboco/reboco_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/reboco/reboco_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/reboco/reboco_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/reboco)"
+    },
+    {
+      "name": "reboco_antigo_hero",
+      "baseName": "reboco_antigo",
+      "family": "reboco",
+      "textureSet": "reboco",
+      "textureMode": "tint",
+      "tileMeters": 2.0,
+      "tint": [
+        0.826,
+        0.708,
+        0.5428,
+        1.0
+      ],
+      "diffuseColor": [
+        0.7,
+        0.6,
+        0.46,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/reboco/reboco_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/reboco/reboco_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/reboco/reboco_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/reboco/reboco_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/reboco/reboco_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/reboco)"
+    },
+    {
+      "name": "reboco_pastilha",
+      "baseName": "reboco_pastilha",
+      "family": "reboco",
+      "textureSet": "pastilha",
+      "textureMode": "tint",
+      "tileMeters": 0.6,
+      "tint": [
+        0.8024,
+        0.7552,
+        0.6725999999999999,
+        1.0
+      ],
+      "diffuseColor": [
+        0.68,
+        0.64,
+        0.57,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/pastilha/pastilha_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/pastilha/pastilha_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/pastilha/pastilha_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/pastilha/pastilha_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/pastilha/pastilha_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/pastilha)"
+    },
+    {
+      "name": "reboco_pintado",
+      "baseName": "reboco_pintado",
+      "family": "reboco",
+      "textureSet": "reboco",
+      "textureMode": "tint",
+      "tileMeters": 2.0,
+      "tint": [
+        0.885,
+        0.7198,
+        0.5192,
+        1.0
+      ],
+      "diffuseColor": [
+        0.75,
+        0.61,
+        0.44,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/reboco/reboco_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/reboco/reboco_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/reboco/reboco_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/reboco/reboco_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/reboco/reboco_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/reboco)"
+    },
+    {
+      "name": "reboco_pintado_hero",
+      "baseName": "reboco_pintado",
+      "family": "reboco",
+      "textureSet": "reboco",
+      "textureMode": "tint",
+      "tileMeters": 2.0,
+      "tint": [
+        0.885,
+        0.7198,
+        0.5192,
+        1.0
+      ],
+      "diffuseColor": [
+        0.75,
+        0.61,
+        0.44,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/reboco/reboco_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/reboco/reboco_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/reboco/reboco_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/reboco/reboco_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/reboco/reboco_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/reboco)"
+    },
+    {
+      "name": "sinalizacao_viaria",
+      "baseName": "sinalizacao_viaria",
+      "family": "pintura",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.78,
+        0.78,
+        0.74,
+        1.0
+      ],
+      "diffuseColor": [
+        0.78,
+        0.78,
+        0.74,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "tecido_colchao",
+      "baseName": "tecido_colchao",
+      "family": "tecido",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.56,
+        0.6,
+        0.66,
+        1.0
+      ],
+      "diffuseColor": [
+        0.56,
+        0.6,
+        0.66,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "tecido_lencol",
+      "baseName": "tecido_lencol",
+      "family": "tecido",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.77,
+        0.75,
+        0.69,
+        1.0
+      ],
+      "diffuseColor": [
+        0.77,
+        0.75,
+        0.69,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "telha_fibrocimento",
+      "baseName": "telha_fibrocimento",
+      "family": "cobertura",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.51,
+        0.51,
+        0.495,
+        1.0
+      ],
+      "diffuseColor": [
+        0.51,
+        0.51,
+        0.495,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "telha_metalica",
+      "baseName": "telha_metalica",
+      "family": "cobertura",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.5,
+        0.515,
+        0.525,
+        1.0
+      ],
+      "diffuseColor": [
+        0.5,
+        0.515,
+        0.525,
+        1.0
+      ],
+      "metallic": 0.9,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "terra",
+      "baseName": "terra",
+      "family": "terreno",
+      "textureSet": "terra",
+      "textureMode": "raw",
+      "tileMeters": 2.0,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.305,
+        0.235,
+        0.16,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/terra/terra_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/terra/terra_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/terra/terra_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/terra/terra_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/terra/terra_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/terra)"
+    },
+    {
+      "name": "terreno_w3",
+      "baseName": "terreno_w3",
+      "family": "terreno",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.3,
+        0.3,
+        0.18,
+        1.0
+      ],
+      "diffuseColor": [
+        0.3,
+        0.3,
+        0.18,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "W3 terreno: blend grama/terra/cascalho/concreto por declividade + ruído (texturas autorais)"
+    },
+    {
+      "name": "tijolo_aparente",
+      "baseName": "tijolo_aparente",
+      "family": "tijolo",
+      "textureSet": "tijolo",
+      "textureMode": "raw",
+      "tileMeters": 1.2,
+      "tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "diffuseColor": [
+        0.46,
+        0.205,
+        0.13,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/tijolo/tijolo_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/tijolo/tijolo_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/tijolo/tijolo_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/tijolo/tijolo_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/tijolo/tijolo_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/tijolo)"
+    },
+    {
+      "name": "tijolo_pintado",
+      "baseName": "tijolo_pintado",
+      "family": "tijolo",
+      "textureSet": "tijolo",
+      "textureMode": "tint",
+      "tileMeters": 1.2,
+      "tint": [
+        0.8495999999999999,
+        0.7788,
+        0.6902999999999999,
+        1.0
+      ],
+      "diffuseColor": [
+        0.72,
+        0.66,
+        0.585,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/tijolo/tijolo_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/tijolo/tijolo_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/tijolo/tijolo_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/tijolo/tijolo_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/tijolo/tijolo_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/tijolo)"
+    },
+    {
+      "name": "tijolo_pintado_hero",
+      "baseName": "tijolo_pintado",
+      "family": "tijolo",
+      "textureSet": "tijolo",
+      "textureMode": "tint",
+      "tileMeters": 1.2,
+      "tint": [
+        0.8495999999999999,
+        0.7788,
+        0.6902999999999999,
+        1.0
+      ],
+      "diffuseColor": [
+        0.72,
+        0.66,
+        0.585,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [
+        {
+          "channel": "AO",
+          "path": "ArtSource/Textures/tijolo/tijolo_AO.jpg"
+        },
+        {
+          "channel": "BaseColor",
+          "path": "ArtSource/Textures/tijolo/tijolo_BaseColor.jpg"
+        },
+        {
+          "channel": "Height",
+          "path": "ArtSource/Textures/tijolo/tijolo_Height.jpg"
+        },
+        {
+          "channel": "Normal",
+          "path": "ArtSource/Textures/tijolo/tijolo_Normal.jpg"
+        },
+        {
+          "channel": "Roughness",
+          "path": "ArtSource/Textures/tijolo/tijolo_Roughness.jpg"
+        }
+      ],
+      "normalConvention": "OpenGL (Y+), espaço tangente",
+      "status": "W3 produção: texturas PBR autorais (ArtSource/Textures/tijolo)"
+    },
+    {
+      "name": "tronco",
+      "baseName": "tronco",
+      "family": "vegetacao",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.25,
+        0.19,
+        0.14,
+        1.0
+      ],
+      "diffuseColor": [
+        0.25,
+        0.19,
+        0.14,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "veludo_vermelho",
+      "baseName": "veludo_vermelho",
+      "family": "tecido",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.36,
+        0.04,
+        0.05,
+        1.0
+      ],
+      "diffuseColor": [
+        0.36,
+        0.04,
+        0.05,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "alpha": 1.0,
+      "ior": 1.5,
+      "isGlass": false,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "procedural_base_W1.5 (texturas PBR autorais pendentes: W3)"
+    },
+    {
+      "name": "vidro",
+      "baseName": "vidro",
+      "family": "vidro",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.03,
+        0.04,
+        0.045,
+        1.0
+      ],
+      "diffuseColor": [
+        0.03,
+        0.04,
+        0.045,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.02,
+      "alpha": 0.16,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "W3 vidro funcional (Fresnel/alpha, sombra transparente)"
+    },
+    {
+      "name": "vidro_fachada",
+      "baseName": "vidro_fachada",
+      "family": "vidro",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.025,
+        0.03,
+        0.035,
+        1.0
+      ],
+      "diffuseColor": [
+        0.025,
+        0.03,
+        0.035,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.04,
+      "alpha": 0.86,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "W3 vidro funcional (Fresnel/alpha, sombra transparente)"
+    },
+    {
+      "name": "vidro_vitrine",
+      "baseName": "vidro_vitrine",
+      "family": "vidro",
+      "textureSet": "",
+      "textureMode": "",
+      "tileMeters": 1.0,
+      "tint": [
+        0.04,
+        0.05,
+        0.055,
+        1.0
+      ],
+      "diffuseColor": [
+        0.04,
+        0.05,
+        0.055,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.015,
+      "alpha": 0.12,
+      "ior": 1.5,
+      "isGlass": true,
+      "isCutout": false,
+      "maps": [],
+      "normalConvention": null,
+      "status": "W3 vidro funcional (Fresnel/alpha, sombra transparente)"
+    }
+  ]
+}

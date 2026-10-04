@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FacilityOps
 {
@@ -49,7 +50,7 @@ namespace FacilityOps
                 yield break;
 
             if (game == null)
-                game = FindFirstObjectByType<GameRuntime>();
+                game = FindAnyObjectByType<GameRuntime>();
             if (streamService == null)
                 streamService = GetComponent<WorldStreamService>();
 
@@ -58,6 +59,7 @@ namespace FacilityOps
                 Fail("World slice bridge requires GameRuntime and WorldStreamService.");
                 yield break;
             }
+            SceneManager.sceneLoaded += OnCellLoaded;
 
             float playerDeadline = Time.realtimeSinceStartup + 10f;
             while (game.Player == null && Time.realtimeSinceStartup < playerDeadline)
@@ -109,6 +111,8 @@ namespace FacilityOps
                 "O gameplay autoral ainda usa o runtime compatível enquanto a integração dos markers é validada.");
 
             Active = true;
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-worldSliceQaTour") >= 0 && debugOverlay != null)
+                StartCoroutine(gameObject.AddComponent<WorldSliceQaTour>().Run(game, streamService, debugOverlay));
             Debug.Log(
                 "WORLD SLICE BRIDGE ACTIVE: " +
                 homeCell.Name +
@@ -126,7 +130,7 @@ namespace FacilityOps
                 return;
 
             lastProceduralRoot = currentRoot;
-            currentRoot.SetActive(false);
+            game.SetTablet(true);
 
             // Stop automatic position-driven refresh before the procedural runtime's
             // temporary small-coordinate teleport can pull in the wrong part of town.
@@ -180,6 +184,8 @@ namespace FacilityOps
             }
 
             game.Player.Teleport(destination, markerYaw);
+            if (game.World?.Root != null) game.World.Root.SetActive(false);
+            game.SetTablet(false);
             streamService.StreamingEnabled = true;
             routing = null;
 
@@ -191,6 +197,7 @@ namespace FacilityOps
 
         private string ResolveRuntimeFacility()
         {
+            if (game.PreviewLocation != null) return game.PreviewLocation.id;
             if (game.AtOffice)
                 return "garage";
 
@@ -213,8 +220,7 @@ namespace FacilityOps
             out WorldGameplayMarker found)
         {
             WorldGameplayMarker[] markers = UnityEngine.Object.FindObjectsByType<WorldGameplayMarker>(
-                FindObjectsInactive.Exclude,
-                FindObjectsSortMode.None);
+                FindObjectsInactive.Exclude);
 
             foreach (WorldGameplayMarker marker in markers)
             {
@@ -235,7 +241,31 @@ namespace FacilityOps
         {
             LastError = message;
             Active = false;
+            if (streamService != null) streamService.StreamingEnabled = false;
+            if (game?.World?.Root != null) game.World.Root.SetActive(true);
             Debug.LogError("WORLD SLICE BRIDGE: " + message);
+        }
+
+        private void OnDestroy() => SceneManager.sceneLoaded -= OnCellLoaded;
+
+        private void OnCellLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // Bind the existing authored panel collider to the preserved QD-01
+            // station logic. No proxy mesh, marker relocation or save schema change.
+            foreach (var root in scene.GetRootGameObjects())
+                foreach (var marker in root.GetComponentsInChildren<WorldGameplayMarker>())
+                {
+                    if (marker.FacilityId != "horizonte" ||
+                        !marker.MarkerName.EndsWith("GP_quadro_tecnico", StringComparison.Ordinal)) continue;
+                    foreach (var collider in root.GetComponentsInChildren<MeshCollider>())
+                        if (collider.name.EndsWith("W2_horizonte__F03_quadro_tecnico", StringComparison.Ordinal))
+                        {
+                            var station = collider.GetComponent<TechnicalStation>();
+                            if (station == null) station = collider.gameObject.AddComponent<TechnicalStation>();
+                            station.id = StationId.Distribution;
+                            station.label = "QD-01 / QUADRO TÉCNICO";
+                        }
+                }
         }
     }
 }

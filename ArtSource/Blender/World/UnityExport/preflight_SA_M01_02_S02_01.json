@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "blend": "C:\\Users\\sergi\\Documents\\ChatGPT\\projeto Steam Simulador Predial\\UnityValidation\\ArtSource\\Blender\\World\\OldTown\\W3\\SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "cell": "SA_M01_02_S02_01",
+  "sourceManifest": "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json",
+  "objects": 12,
+  "objectTypes": {
+    "MESH": 12
+  },
+  "modifiers": {
+    "NODES": 5
+  },
+  "layers": {
+    "Architecture": {
+      "objects": 4,
+      "types": {
+        "MESH": 4
+      },
+      "meshTris": 7504,
+      "manifestObjects": 4
+    },
+    "Gameplay": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Infrastructure": {
+      "objects": 2,
+      "types": {
+        "MESH": 2
+      },
+      "meshTris": 5940,
+      "manifestObjects": 2
+    },
+    "Lighting": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Props": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Roads": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 6964,
+      "manifestObjects": 1
+    },
+    "Terrain": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 7812,
+      "manifestObjects": 1
+    },
+    "Vegetation": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    }
+  },
+  "meshTris": 28220,
+  "largestMesh": {
+    "name": "OT_Terrain_SA_M01_02_S02_01",
+    "tris": 7812
+  },
+  "geometryNodesObjects": [
+    "OT_Accessories_SA_M01_02_S02_01",
+    "OT_Architecture_SA_M01_02_S02_01",
+    "OT_Infrastructure_SA_M01_02_S02_01",
+    "OT_Props_SA_M01_02_S02_01",
+    "OT_Vegetation_SA_M01_02_S02_01"
+  ],
+  "collectionInstances": [],
+  "gameplayMarkers": [
+    {
+      "name": "OT_Gameplay_Lots_SA_M01_02_S02_01",
+      "type": "MESH",
+      "facility_id": null,
+      "kind": null
+    }
+  ],
+  "facilityIds": [
+    "leisure.cafe"
+  ],
+  "missingManifestObjects": [],
+  "unexpectedCellObjects": [],
+  "errors": [],
+  "warnings": [
+    "Geometry Nodes present: export must evaluate/realize geometry in a staging copy, never destructively in source"
+  ],
+  "exportPolicy": {
+    "staticMeshLayers": [
+      "Terrain",
+      "Roads",
+      "Architecture",
+      "Infrastructure",
+      "Props",
+      "Vegetation"
+    ],
+    "separateDataLayers": [
+      "Gameplay",
+      "Lighting"
+    ],
+    "linkedHeroesSeparatePrefab": true,
+    "sourceBlendMustRemainUnmodified": true
+  }
+}

@@ -76,6 +76,14 @@ namespace FacilityOps.Editor
             if (catalog.markerCount != catalog.markers.Length)
                 throw new InvalidDataException(
                     $"Marker count mismatch in {path}: header={catalog.markerCount}, records={catalog.markers.Length}");
+            var names = new System.Collections.Generic.HashSet<string>(StringComparer.Ordinal);
+            foreach (var record in catalog.markers)
+            {
+                ValidateRecord(record, path);
+                if (!names.Add(record.name)) throw new InvalidDataException("Duplicate marker: " + record.name);
+                if (Vector3.Cross(Vec(record.forward), Vec(record.up)).sqrMagnitude < .0001f)
+                    throw new InvalidDataException("Degenerate marker basis: " + record.name);
+            }
 
             int created = 0;
             Undo.IncrementCurrentGroup();
@@ -140,8 +148,7 @@ namespace FacilityOps.Editor
         private static Transform ResolveGameplayParent()
         {
             WorldCellRoot[] roots = UnityEngine.Object.FindObjectsByType<WorldCellRoot>(
-                FindObjectsInactive.Include,
-                FindObjectsSortMode.None);
+                FindObjectsInactive.Include);
 
             if (roots.Length != 1)
                 return null;
@@ -157,7 +164,8 @@ namespace FacilityOps.Editor
                 throw new InvalidDataException("Marker has invalid transform arrays: " + record.name);
         }
 
-        private static bool ValidVec(float[] value) => value != null && value.Length == 3;
+        private static bool ValidVec(float[] value) => value != null && value.Length == 3 &&
+            Array.TrueForAll(value, v => !float.IsNaN(v) && !float.IsInfinity(v));
 
         private static Vector3 Vec(float[] value) => new Vector3(value[0], value[1], value[2]);
 

@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "blend": "C:\\Users\\sergi\\Documents\\ChatGPT\\projeto Steam Simulador Predial\\UnityValidation\\ArtSource\\Blender\\World\\OldTown\\W3\\SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "cell": "SA_M01_01_S00_02",
+  "sourceManifest": "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json",
+  "objects": 47,
+  "objectTypes": {
+    "EMPTY": 27,
+    "MESH": 20
+  },
+  "modifiers": {
+    "NODES": 5
+  },
+  "layers": {
+    "Architecture": {
+      "objects": 12,
+      "types": {
+        "EMPTY": 1,
+        "MESH": 11
+      },
+      "meshTris": 45620,
+      "manifestObjects": 4
+    },
+    "Gameplay": {
+      "objects": 28,
+      "types": {
+        "EMPTY": 26,
+        "MESH": 2
+      },
+      "meshTris": 396,
+      "manifestObjects": 1
+    },
+    "Infrastructure": {
+      "objects": 2,
+      "types": {
+        "MESH": 2
+      },
+      "meshTris": 4860,
+      "manifestObjects": 2
+    },
+    "Lighting": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Props": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Roads": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 5892,
+      "manifestObjects": 1
+    },
+    "Terrain": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 7688,
+      "manifestObjects": 1
+    },
+    "Vegetation": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    }
+  },
+  "meshTris": 64456,
+  "largestMesh": {
+    "name": "HERO_home.starter__residential_block__F00",
+    "tris": 17766
+  },
+  "geometryNodesObjects": [
+    "OT_Accessories_SA_M01_01_S00_02",
+    "OT_Architecture_SA_M01_01_S00_02",
+    "OT_Infrastructure_SA_M01_01_S00_02",
+    "OT_Props_SA_M01_01_S00_02",
+    "OT_Vegetation_SA_M01_01_S00_02"
+  ],
+  "collectionInstances": [
+    {
+      "object": "W2I_home.starter",
+      "collection": "W2_home.starter",
+      "facility_id": "home.starter"
+    }
+  ],
+  "gameplayMarkers": [
+    {
+      "name": "GP_home.starter__entrance__main",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_home.starter__parking__forecourt_stall_1",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "parking"
+    },
+    {
+      "name": "GP_home.starter__parking__forecourt_stall_2",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "parking"
+    },
+    {
+      "name": "GP_home.starter__service__side_passage",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "service"
+    },
+    {
+      "name": "GP_home.starter__spawn",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "player_spawn"
+    },
+    {
+      "name": "HERO_home.starter",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "hero_anchor"
+    },
+    {
+      "name": "OT_Gameplay_Lots_SA_M01_01_S00_02",
+      "type": "MESH",
+      "facility_id": null,
+      "kind": null
+    },
+    {
+      "name": "PROXY_home.starter__H0",
+      "type": "MESH",
+      "facility_id": "home.starter",
+      "kind": "state_proxy"
+    },
+    {
+      "name": "SLOT_home.starter__ALL__maleta_guto",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "permanent_item"
+    },
+    {
+      "name": "SLOT_home.starter__H0__bare_bulb",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H0__boxes",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H0__mattress_floor",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H0__old_chair",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H1__bed",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H1__ceiling_lamp",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H1__small_table",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H1__wardrobe",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H2__fridge",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H2__stove",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H2__tv_small",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H3__curtains",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H3__office_chair",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H3__pc_desk",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H3__shelf",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H4__collection_display",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H4__decor_shelves",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H4__plant",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_home.starter__H4__rug",
+      "type": "EMPTY",
+      "facility_id": "home.starter",
+      "kind": "state_slot"
+    }
+  ],
+  "facilityIds": [
+    "home.starter"
+  ],
+  "missingManifestObjects": [],
+  "unexpectedCellObjects": [
+    "GP_home.starter__entrance__main",
+    "GP_home.starter__parking__forecourt_stall_1",
+    "GP_home.starter__parking__forecourt_stall_2",
+    "GP_home.starter__service__side_passage",
+    "GP_home.starter__spawn",
+    "HERO_home.starter",
+    "HERO_home.starter__details",
+    "HERO_home.starter__lot_platform",
+    "HERO_home.starter__parking",
+    "HERO_home.starter__residential_block__F00",
+    "HERO_home.starter__residential_block__F01",
+    "HERO_home.starter__residential_block__F02",
+    "HERO_home.starter__residential_block__F03",
+    "HERO_home.starter__residential_block__ROOF",
+    "PROXY_home.starter__H0",
+    "SLOT_home.starter__ALL__maleta_guto",
+    "SLOT_home.starter__H0__bare_bulb",
+    "SLOT_home.starter__H0__boxes",
+    "SLOT_home.starter__H0__mattress_floor",
+    "SLOT_home.starter__H0__old_chair",
+    "SLOT_home.starter__H1__bed",
+    "SLOT_home.starter__H1__ceiling_lamp",
+    "SLOT_home.starter__H1__small_table",
+    "SLOT_home.starter__H1__wardrobe",
+    "SLOT_home.starter__H2__fridge",
+    "SLOT_home.starter__H2__stove",
+    "SLOT_home.starter__H2__tv_small",
+    "SLOT_home.starter__H3__curtains",
+    "SLOT_home.starter__H3__office_chair",
+    "SLOT_home.starter__H3__pc_desk",
+    "SLOT_home.starter__H3__shelf",
+    "SLOT_home.starter__H4__collection_display",
+    "SLOT_home.starter__H4__decor_shelves",
+    "SLOT_home.starter__H4__plant",
+    "SLOT_home.starter__H4__rug"
+  ],
+  "errors": [],
+  "warnings": [
+    "35 cell-tagged objects are not listed in manifest",
+    "Geometry Nodes present: export must evaluate/realize geometry in a staging copy, never destructively in source",
+    "Linked collection instances present: hero assets should remain separate prefab sources instead of being blindly baked into static cell FBX"
+  ],
+  "exportPolicy": {
+    "staticMeshLayers": [
+      "Terrain",
+      "Roads",
+      "Architecture",
+      "Infrastructure",
+      "Props",
+      "Vegetation"
+    ],
+    "separateDataLayers": [
+      "Gameplay",
+      "Lighting"
+    ],
+    "linkedHeroesSeparatePrefab": true,
+    "sourceBlendMustRemainUnmodified": true
+  }
+}

@@ -12,8 +12,7 @@ namespace FacilityOps.Editor
         public static void StampActiveCell()
         {
             WorldCellRoot[] roots = UnityEngine.Object.FindObjectsByType<WorldCellRoot>(
-                FindObjectsInactive.Include,
-                FindObjectsSortMode.None);
+                FindObjectsInactive.Include);
 
             if (roots.Length != 1)
                 throw new InvalidOperationException(
@@ -52,7 +51,7 @@ namespace FacilityOps.Editor
             stamp.Configure(
                 root.CellId,
                 Environment.GetEnvironmentVariable("FACILITY_SOURCE_REVISION") ?? "local",
-                "SantaAurora_CidadeAntiga_Base_v1.blend",
+                "ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
                 CountImportedObjects(root),
                 renderers.Length,
                 colliders.Length,

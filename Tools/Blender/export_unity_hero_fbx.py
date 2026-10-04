@@ -18,6 +18,9 @@ from pathlib import Path
 
 import bpy
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from unity_export_staging import stage_meshes, bounds, cleanup
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--root", required=True)
 parser.add_argument("--hero", required=True)
@@ -114,10 +117,15 @@ bpy.context.view_layer.objects.active = hero_root
 status = "PASS"
 error = None
 try:
+    staged, groups = stage_meshes(visual)
+    bpy.ops.object.select_all(action="DESELECT")
+    for obj in staged:
+        obj.select_set(True)
+    source_bounds = bounds(staged)
     bpy.ops.export_scene.fbx(
         filepath=str(fbx),
         use_selection=True,
-        object_types={"MESH", "CURVE", "SURFACE", "FONT", "META", "EMPTY"},
+        object_types={"MESH"},
         use_mesh_modifiers=True,
         use_mesh_modifiers_render=True,
         use_custom_props=True,
@@ -133,6 +141,8 @@ try:
 except Exception as exc:
     status = "FAIL"
     error = repr(exc)
+finally:
+    cleanup(staged if 'staged' in globals() else [], groups if 'groups' in globals() else [])
 
 world = hero_root.matrix_world.translation
 manifest = {
@@ -150,6 +160,7 @@ manifest = {
     "excluded": excluded,
     "gameplayMarkers": f"ArtSource/Blender/World/UnityExport/Markers/{hero}.markers.json",
     "error": error,
+    "blenderBounds": source_bounds if status == 'PASS' else None,
 }
 (out_dir / "hero_export_manifest.json").write_text(
     json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",

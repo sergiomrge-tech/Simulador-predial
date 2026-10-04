@@ -73,8 +73,7 @@ namespace FacilityOps.Editor
                 throw new InvalidDataException("Invalid cell id in export manifest: " + manifest.cell);
 
             WorldCellRoot[] roots = UnityEngine.Object.FindObjectsByType<WorldCellRoot>(
-                FindObjectsInactive.Include,
-                FindObjectsSortMode.None);
+                FindObjectsInactive.Include);
 
             if (roots.Length != 1)
                 throw new InvalidOperationException(
@@ -154,6 +153,12 @@ namespace FacilityOps.Editor
                 Undo.RegisterCreatedObjectUndo(instance, "Import world cell FBX");
                 instance.name = instanceName;
                 instance.transform.SetParent(layerRoot, true);
+                // Blender's right-handed -Z/Y FBX arrives with X/Z reversed in
+                // Unity 6000.6.2f1. Apply the measured world-origin correction;
+                // the pipeline checks source bounds independently after import.
+                var axisCorrection = Quaternion.Euler(0f, 180f, 0f);
+                instance.transform.position = axisCorrection * instance.transform.position;
+                instance.transform.rotation = axisCorrection * instance.transform.rotation;
                 importedLayers++;
             }
 

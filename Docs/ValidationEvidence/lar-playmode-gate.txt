@@ -1,0 +1,7 @@
+PASS
+Unity=6000.6.2f1
+Initial=(-2860.0000, 17.6500, -2266.0000)
+Grounded=(-2860.0000, 16.7725, -2266.0000)
+Walked=(-2852.8000, 16.8328, -2266.0000)
+Real CharacterController.Move in Play Mode. No player career loaded or saved.
+Editor integration run; these frame times are not a standalone performance claim.

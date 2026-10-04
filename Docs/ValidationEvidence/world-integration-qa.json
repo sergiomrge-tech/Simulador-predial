@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "status": "PASS",
+    "unityVersion": "6000.6.2f1",
+    "utc": "2026-10-04T20:18:04.3791289Z",
+    "pilotSceneCount": 15,
+    "checks": [
+        "streaming_manifest",
+        "pilot_scene_count",
+        "pilot_scene_structure",
+        "pilot_build_settings",
+        "existing_gameplay_rules"
+    ],
+    "error": ""
+}

@@ -1,0 +1,183 @@
+{
+    "status": "PASS",
+    "fingerprint": "8CA12E31DD68160B098E04085B14D7FCFEB0EA2D72653A03263F15A0B9E3702F",
+    "unityVersion": "6000.6.2f1",
+    "device": "NVIDIA GeForce RTX 4060 Ti",
+    "scope": "Unity Editor Play Mode; timed teleport/load cycles, CharacterController gravity and corridor walk. Not a continuous town walk or standalone benchmark.",
+    "panelCollider": "EXPORT_W2_horizonte__F03_quadro_tecnico",
+    "interaction": "TechnicalStation",
+    "initialRootPreserved": true,
+    "initialLoadReady": true,
+    "uniqueScenes": true,
+    "panelReachable": true,
+    "samples": [
+        {
+            "location": "home.starter",
+            "grounded": {
+                "x": -2860.0,
+                "y": 16.772502899169922,
+                "z": -2266.0
+            },
+            "cells": 4,
+            "scenes": 5,
+            "loads": 4,
+            "unloads": 0,
+            "fps": 60.001338958740234,
+            "maxFrameMs": 150.5052032470703,
+            "loadMs": 678.0084999999989,
+            "unloadMs": 0.0,
+            "memoryBytes": 713064797,
+            "reservedBytes": 1568448512,
+            "gcBytes": 119457,
+            "drawCalls": 0,
+            "visibleTriangles": 0
+        },
+        {
+            "location": "garage",
+            "grounded": {
+                "x": -2710.0,
+                "y": 20.688276290893555,
+                "z": -2150.0
+            },
+            "cells": 9,
+            "scenes": 10,
+            "loads": 9,
+            "unloads": 0,
+            "fps": 59.99920654296875,
+            "maxFrameMs": 633.7677001953125,
+            "loadMs": 678.0084999999989,
+            "unloadMs": 0.0,
+            "memoryBytes": 1052639273,
+            "reservedBytes": 1836949504,
+            "gcBytes": 114238,
+            "drawCalls": 0,
+            "visibleTriangles": 0
+        },
+        {
+            "location": "horizonte",
+            "grounded": {
+                "x": -2350.0,
+                "y": 27.051223754882813,
+                "z": -1831.0
+            },
+            "cells": 11,
+            "scenes": 12,
+            "loads": 11,
+            "unloads": 0,
+            "fps": 60.00211715698242,
+            "maxFrameMs": 633.7677001953125,
+            "loadMs": 678.0084999999989,
+            "unloadMs": 0.0,
+            "memoryBytes": 1155351624,
+            "reservedBytes": 2105450496,
+            "gcBytes": 111782,
+            "drawCalls": 0,
+            "visibleTriangles": 0
+        },
+        {
+            "location": "grocery",
+            "grounded": {
+                "x": -2598.0,
+                "y": 24.69923973083496,
+                "z": -1480.0
+            },
+            "cells": 9,
+            "scenes": 10,
+            "loads": 15,
+            "unloads": 6,
+            "fps": 60.00819778442383,
+            "maxFrameMs": 633.7677001953125,
+            "loadMs": 678.0084999999989,
+            "unloadMs": 369.33619999999934,
+            "memoryBytes": 1350664941,
+            "reservedBytes": 2373951488,
+            "gcBytes": 112089,
+            "drawCalls": 0,
+            "visibleTriangles": 0
+        },
+        {
+            "location": "home.starter",
+            "grounded": {
+                "x": -2860.0,
+                "y": 16.772502899169922,
+                "z": -2266.0
+            },
+            "cells": 7,
+            "scenes": 8,
+            "loads": 19,
+            "unloads": 12,
+            "fps": 59.99967575073242,
+            "maxFrameMs": 633.7677001953125,
+            "loadMs": 678.0084999999989,
+            "unloadMs": 369.33619999999934,
+            "memoryBytes": 1364006146,
+            "reservedBytes": 2373951488,
+            "gcBytes": 117308,
+            "drawCalls": 0,
+            "visibleTriangles": 0
+        },
+        {
+            "location": "horizonte",
+            "grounded": {
+                "x": -2350.0,
+                "y": 27.051223754882813,
+                "z": -1831.0
+            },
+            "cells": 10,
+            "scenes": 11,
+            "loads": 22,
+            "unloads": 12,
+            "fps": 59.99958038330078,
+            "maxFrameMs": 633.7677001953125,
+            "loadMs": 678.0084999999989,
+            "unloadMs": 369.33619999999934,
+            "memoryBytes": 1372684919,
+            "reservedBytes": 2373951488,
+            "gcBytes": 98581,
+            "drawCalls": 0,
+            "visibleTriangles": 0
+        },
+        {
+            "location": "home.starter",
+            "grounded": {
+                "x": -2860.0,
+                "y": 16.772502899169922,
+                "z": -2266.0
+            },
+            "cells": 8,
+            "scenes": 9,
+            "loads": 22,
+            "unloads": 14,
+            "fps": 59.99814224243164,
+            "maxFrameMs": 633.7677001953125,
+            "loadMs": 678.0084999999989,
+            "unloadMs": 369.33619999999934,
+            "memoryBytes": 1372502593,
+            "reservedBytes": 2373951488,
+            "gcBytes": 161516,
+            "drawCalls": 0,
+            "visibleTriangles": 0
+        },
+        {
+            "location": "horizonte.quadro",
+            "grounded": {
+                "x": -2345.7353515625,
+                "y": 37.14100646972656,
+                "z": -1800.30322265625
+            },
+            "cells": 9,
+            "scenes": 11,
+            "loads": 23,
+            "unloads": 14,
+            "fps": 50.47527313232422,
+            "maxFrameMs": 633.7677001953125,
+            "loadMs": 678.0084999999989,
+            "unloadMs": 369.33619999999934,
+            "memoryBytes": 1382306708,
+            "reservedBytes": 2373951488,
+            "gcBytes": 864725,
+            "drawCalls": 0,
+            "visibleTriangles": 0
+        }
+    ]
+}

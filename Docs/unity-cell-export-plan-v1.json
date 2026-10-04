@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json",
+  "sourceCorridor": "Docs/unity-vertical-slice-corridor-v1.json",
+  "cells": [
+    {
+      "cell": "SA_M01_01_S00_02",
+      "unityScene": "SA_Cell_SA_M01_01_S00_02",
+      "heroes": [
+        "home.starter"
+      ],
+      "lots": 80,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 4,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_01_S00_02.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_01_S01_02",
+      "unityScene": "SA_Cell_SA_M01_01_S01_02",
+      "heroes": [],
+      "lots": 82,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 3,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_01_S01_02.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_01_S02_02",
+      "unityScene": "SA_Cell_SA_M01_01_S02_02",
+      "heroes": [],
+      "lots": 108,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 4,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_01_S02_02.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_01_S00_03",
+      "unityScene": "SA_Cell_SA_M01_01_S00_03",
+      "heroes": [],
+      "lots": 105,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 3,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_01_S00_03.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_01_S01_03",
+      "unityScene": "SA_Cell_SA_M01_01_S01_03",
+      "heroes": [
+        "garage"
+      ],
+      "lots": 95,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 4,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_01_S01_03.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_01_S02_03",
+      "unityScene": "SA_Cell_SA_M01_01_S02_03",
+      "heroes": [],
+      "lots": 120,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 3,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_01_S02_03.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_02_S00_00",
+      "unityScene": "SA_Cell_SA_M01_02_S00_00",
+      "heroes": [],
+      "lots": 112,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 3,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_02_S00_00.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_02_S01_00",
+      "unityScene": "SA_Cell_SA_M01_02_S01_00",
+      "heroes": [],
+      "lots": 131,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 3,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_02_S01_00.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_02_S02_00",
+      "unityScene": "SA_Cell_SA_M01_02_S02_00",
+      "heroes": [
+        "horizonte"
+      ],
+      "lots": 103,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 4,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_02_S02_00.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_02_S00_01",
+      "unityScene": "SA_Cell_SA_M01_02_S00_01",
+      "heroes": [],
+      "lots": 108,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 3,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_02_S00_01.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_02_S01_01",
+      "unityScene": "SA_Cell_SA_M01_02_S01_01",
+      "heroes": [],
+      "lots": 111,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 3,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_02_S01_01.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_02_S02_01",
+      "unityScene": "SA_Cell_SA_M01_02_S02_01",
+      "heroes": [],
+      "lots": 129,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 4,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_02_S02_01.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_02_S00_02",
+      "unityScene": "SA_Cell_SA_M01_02_S00_02",
+      "heroes": [],
+      "lots": 108,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 3,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_02_S00_02.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_02_S01_02",
+      "unityScene": "SA_Cell_SA_M01_02_S01_02",
+      "heroes": [
+        "grocery"
+      ],
+      "lots": 97,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 4,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_02_S01_02.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    },
+    {
+      "cell": "SA_M01_02_S02_02",
+      "unityScene": "SA_Cell_SA_M01_02_S02_02",
+      "heroes": [],
+      "lots": 117,
+      "layers": {
+        "Terrain": 1,
+        "Roads": 1,
+        "Architecture": 3,
+        "Infrastructure": 2,
+        "Props": 1,
+        "Vegetation": 1,
+        "Lighting": 1,
+        "Gameplay": 1
+      },
+      "preflightReport": "ArtSource/Blender/World/UnityExport/preflight_SA_M01_02_S02_02.json",
+      "staticExportLayers": [
+        "Terrain",
+        "Roads",
+        "Architecture",
+        "Infrastructure",
+        "Props",
+        "Vegetation"
+      ],
+      "separateDataLayers": [
+        "Gameplay",
+        "Lighting"
+      ]
+    }
+  ],
+  "cellCount": 15,
+  "rules": {
+    "blenderToUnityAxis": "X->X, Y->Z, Z->Y",
+    "metersToUnityUnits": 1.0,
+    "linkedHeroesSeparatePrefab": true,
+    "gameplayMarkersSeparateData": true,
+    "doNotModifySourceBlend": true
+  }
+}

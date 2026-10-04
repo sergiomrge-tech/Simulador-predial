@@ -14,6 +14,56 @@ import sys
 from pathlib import Path
 
 import bpy
+import numpy as np
+
+
+def bake_leaf_alpha(material, root):
+    """Bake the authored procedural cutout in a disposable material/plane."""
+    copied = material.copy()
+    nt = copied.node_tree
+    output = next(n for n in nt.nodes if n.type == 'OUTPUT_MATERIAL')
+    cut = next((n for n in nt.nodes if n.type == 'MIX_SHADER' and n.inputs[0].is_linked
+                and any(l.from_node.type == 'BSDF_TRANSPARENT' for l in n.inputs[1].links)), None)
+    if cut is None:
+        bpy.data.materials.remove(copied)
+        return None
+    emission = nt.nodes.new('ShaderNodeEmission')
+    nt.links.new(cut.inputs[0].links[0].from_socket, emission.inputs['Color'])
+    nt.links.new(emission.outputs[0], output.inputs['Surface'])
+    image = bpy.data.images.new('UNITY_ALPHA_' + material.name, width=256, height=256, alpha=True)
+    image.colorspace_settings.name = 'Non-Color'
+    target = nt.nodes.new('ShaderNodeTexImage')
+    target.image = image
+    nt.nodes.active = target
+    bpy.ops.object.select_all(action='DESELECT')
+    bpy.ops.mesh.primitive_plane_add(size=2)
+    plane = bpy.context.object
+    plane.data.materials.append(copied)
+    scene = bpy.context.scene
+    original_engine = scene.render.engine
+    scene.render.engine = 'CYCLES'
+    scene.cycles.device = 'CPU'
+    scene.cycles.samples = 1
+    try:
+        bpy.ops.object.bake(type='EMIT', margin=0)
+        pixels = np.array(image.pixels[:], dtype=np.float32).reshape(-1, 4)
+        pixels[:, 3] = pixels[:, 0]
+        pixels[:, :3] = 1.0
+        image.pixels.foreach_set(pixels.ravel())
+        folder = root / 'ArtSource/Blender/World/UnityExport/Textures'
+        folder.mkdir(parents=True, exist_ok=True)
+        path = folder / (material.name + '_BaseColorAlpha.png')
+        image.filepath_raw = str(path)
+        image.file_format = 'PNG'
+        image.save()
+        return path.relative_to(root).as_posix()
+    finally:
+        scene.render.engine = original_engine
+        mesh = plane.data
+        bpy.data.objects.remove(plane, do_unlink=True)
+        bpy.data.meshes.remove(mesh)
+        bpy.data.materials.remove(copied)
+        bpy.data.images.remove(image)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--root", required=True)
@@ -25,6 +75,9 @@ tex_lib_path = root / "ArtSource" / "Textures" / "texture_library_w3.json"
 tex_lib = json.loads(tex_lib_path.read_text(encoding="utf-8"))["sets"]
 
 used = set()
+# Geometry Nodes and linked collections reference materials that do not appear
+# in the instancer's own slots. Include the material datablocks of those sources.
+used.update(m.name for m in bpy.data.materials if m.users > 0)
 for obj in bpy.data.objects:
     if obj.type != "MESH" or obj.data is None:
         continue
@@ -60,6 +113,15 @@ for name in sorted(used):
         ]
         tile_m = float(info.get("tile_m", tile_m))
         normal_convention = info.get("normal_convention")
+    if not maps:
+        tint = rgba[:]
+    is_cutout = False
+    if family == 'vegetacao' and name.startswith('folha_'):
+        alpha_path = bake_leaf_alpha(mat, root)
+        if alpha_path:
+            maps = [{'channel': 'BaseColor', 'path': alpha_path}]
+            tile_m = 1.0
+            is_cutout = True
 
     principled = None
     if mat.use_nodes and mat.node_tree is not None:
@@ -101,6 +163,7 @@ for name in sorted(used):
         "alpha": round(alpha, 6),
         "ior": round(ior, 6),
         "isGlass": is_glass,
+        "isCutout": is_cutout,
         "maps": maps,
         "normalConvention": normal_convention,
         "status": status,

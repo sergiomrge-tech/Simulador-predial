@@ -2,7 +2,10 @@
   "name": "FacilityOps.WorldStreaming.Tests",
   "rootNamespace": "FacilityOps.Tests",
   "references": [
-    "FacilityOps.Runtime"
+    "FacilityOps.Runtime",
+    "FacilityOps.Editor",
+    "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.RenderPipelines.Core.Runtime"
   ],
   "includePlatforms": [
     "Editor"

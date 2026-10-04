@@ -1,0 +1,361 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "blend": "C:\\Users\\sergi\\Documents\\ChatGPT\\projeto Steam Simulador Predial\\UnityValidation\\ArtSource\\Blender\\World\\OldTown\\W3\\SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "cell": "SA_M01_01_S01_03",
+  "sourceManifest": "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json",
+  "objects": 48,
+  "objectTypes": {
+    "EMPTY": 31,
+    "MESH": 17
+  },
+  "modifiers": {
+    "NODES": 5
+  },
+  "layers": {
+    "Architecture": {
+      "objects": 9,
+      "types": {
+        "EMPTY": 1,
+        "MESH": 8
+      },
+      "meshTris": 10982,
+      "manifestObjects": 4
+    },
+    "Gameplay": {
+      "objects": 32,
+      "types": {
+        "EMPTY": 30,
+        "MESH": 2
+      },
+      "meshTris": 396,
+      "manifestObjects": 1
+    },
+    "Infrastructure": {
+      "objects": 2,
+      "types": {
+        "MESH": 2
+      },
+      "meshTris": 3240,
+      "manifestObjects": 2
+    },
+    "Lighting": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Props": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Roads": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 8442,
+      "manifestObjects": 1
+    },
+    "Terrain": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 7812,
+      "manifestObjects": 1
+    },
+    "Vegetation": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    }
+  },
+  "meshTris": 30872,
+  "largestMesh": {
+    "name": "HERO_garage__workshop_shed__F00",
+    "tris": 10090
+  },
+  "geometryNodesObjects": [
+    "OT_Accessories_SA_M01_01_S01_03",
+    "OT_Architecture_SA_M01_01_S01_03",
+    "OT_Infrastructure_SA_M01_01_S01_03",
+    "OT_Props_SA_M01_01_S01_03",
+    "OT_Vegetation_SA_M01_01_S01_03"
+  ],
+  "collectionInstances": [
+    {
+      "object": "W2I_garage",
+      "collection": "W2_garage",
+      "facility_id": "garage"
+    }
+  ],
+  "gameplayMarkers": [
+    {
+      "name": "GP_garage__entrance__pedestrian_reception",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_garage__entrance__rear_storage_door",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_garage__entrance__vehicle_gate_rollup",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_garage__parking__stall_1",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "parking"
+    },
+    {
+      "name": "GP_garage__parking__stall_2",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "parking"
+    },
+    {
+      "name": "GP_garage__parking__stall_3",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "parking"
+    },
+    {
+      "name": "GP_garage__parking__utility_van_bay_inside",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "parking"
+    },
+    {
+      "name": "GP_garage__service__side_yard",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "service"
+    },
+    {
+      "name": "GP_garage__service__utility_vehicle_access",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "service"
+    },
+    {
+      "name": "HERO_garage",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "hero_anchor"
+    },
+    {
+      "name": "OT_Gameplay_Lots_SA_M01_01_S01_03",
+      "type": "MESH",
+      "facility_id": null,
+      "kind": null
+    },
+    {
+      "name": "PROXY_garage__G0",
+      "type": "MESH",
+      "facility_id": "garage",
+      "kind": "state_proxy"
+    },
+    {
+      "name": "SLOT_garage__ALL__maleta_guto_original",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "permanent_item"
+    },
+    {
+      "name": "SLOT_garage__G0__boxes",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G0__job_board",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G0__old_bench",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G0__old_pc_folding_table",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G0__single_shelf",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G1__parts_bins",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G1__shelving_a",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G1__shelving_b",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G2__compressor",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G2__pegboard",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G2__pro_bench",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G2__vise",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G3__filing_cabinet",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G3__mezzanine_stair",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G3__office_desk",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G4__facade_sign",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G4__rack_storage",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G4__second_bench",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    },
+    {
+      "name": "SLOT_garage__G4__van_tool_station",
+      "type": "EMPTY",
+      "facility_id": "garage",
+      "kind": "state_slot"
+    }
+  ],
+  "facilityIds": [
+    "garage"
+  ],
+  "missingManifestObjects": [],
+  "unexpectedCellObjects": [
+    "GP_garage__entrance__pedestrian_reception",
+    "GP_garage__entrance__rear_storage_door",
+    "GP_garage__entrance__vehicle_gate_rollup",
+    "GP_garage__parking__stall_1",
+    "GP_garage__parking__stall_2",
+    "GP_garage__parking__stall_3",
+    "GP_garage__parking__utility_van_bay_inside",
+    "GP_garage__service__side_yard",
+    "GP_garage__service__utility_vehicle_access",
+    "HERO_garage",
+    "HERO_garage__details",
+    "HERO_garage__lot_platform",
+    "HERO_garage__parking",
+    "HERO_garage__workshop_shed__F00",
+    "HERO_garage__workshop_shed__ROOF",
+    "PROXY_garage__G0",
+    "SLOT_garage__ALL__maleta_guto_original",
+    "SLOT_garage__G0__boxes",
+    "SLOT_garage__G0__job_board",
+    "SLOT_garage__G0__old_bench",
+    "SLOT_garage__G0__old_pc_folding_table",
+    "SLOT_garage__G0__single_shelf",
+    "SLOT_garage__G1__parts_bins",
+    "SLOT_garage__G1__shelving_a",
+    "SLOT_garage__G1__shelving_b",
+    "SLOT_garage__G2__compressor",
+    "SLOT_garage__G2__pegboard",
+    "SLOT_garage__G2__pro_bench",
+    "SLOT_garage__G2__vise",
+    "SLOT_garage__G3__filing_cabinet",
+    "SLOT_garage__G3__mezzanine_stair",
+    "SLOT_garage__G3__office_desk",
+    "SLOT_garage__G4__facade_sign",
+    "SLOT_garage__G4__rack_storage",
+    "SLOT_garage__G4__second_bench",
+    "SLOT_garage__G4__van_tool_station"
+  ],
+  "errors": [],
+  "warnings": [
+    "36 cell-tagged objects are not listed in manifest",
+    "Geometry Nodes present: export must evaluate/realize geometry in a staging copy, never destructively in source",
+    "Linked collection instances present: hero assets should remain separate prefab sources instead of being blindly baked into static cell FBX"
+  ],
+  "exportPolicy": {
+    "staticMeshLayers": [
+      "Terrain",
+      "Roads",
+      "Architecture",
+      "Infrastructure",
+      "Props",
+      "Vegetation"
+    ],
+    "separateDataLayers": [
+      "Gameplay",
+      "Lighting"
+    ],
+    "linkedHeroesSeparatePrefab": true,
+    "sourceBlendMustRemainUnmodified": true
+  }
+}

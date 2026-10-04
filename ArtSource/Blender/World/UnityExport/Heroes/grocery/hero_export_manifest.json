@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "hero": "grocery",
+  "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/Heroes/W2_grocery.blend",
+  "rootObject": "W2_grocery_ROOT",
+  "cell": "SA_M01_02_S01_02",
+  "blenderWorldPosition": [
+    -2584.0,
+    -1480.0,
+    24.769375
+  ],
+  "unityWorldPosition": [
+    -2584.0,
+    24.769375,
+    -1480.0
+  ],
+  "fbx": "grocery.fbx",
+  "fileBytes": 1780380,
+  "exportedObjects": 59,
+  "excluded": [
+    {
+      "name": "W2_grocery__fridge_light__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_grocery__GP_quadro",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_grocery__light_caixa__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_grocery__light_copa__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_grocery__light_estoque__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_grocery__light_salao__light",
+      "reason": "light"
+    }
+  ],
+  "gameplayMarkers": "ArtSource/Blender/World/UnityExport/Markers/grocery.markers.json",
+  "error": null,
+  "blenderBounds": {
+    "min": [
+      -2664.0,
+      -1560.0,
+      23.369375228881836
+    ],
+    "max": [
+      -2504.0,
+      -1400.0,
+      33.069374084472656
+    ]
+  }
+}

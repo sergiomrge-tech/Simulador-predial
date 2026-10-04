@@ -30,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
     p.add_argument("--root", required=True)
     p.add_argument("--name", required=True)
+    p.add_argument("--facility", default="")
     p.add_argument("--output", default="")
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     return p.parse_args(argv)
@@ -97,7 +98,8 @@ def record(obj) -> dict:
 def main() -> int:
     opt = parse_args()
     root = Path(opt.root).resolve()
-    markers = sorted((o for o in bpy.data.objects if is_marker(o)), key=lambda o: o.name)
+    markers = sorted((o for o in bpy.data.objects if is_marker(o)
+                      and (not opt.facility or o.get('facility_id') == opt.facility)), key=lambda o: o.name)
 
     duplicate_names = []
     seen = set()

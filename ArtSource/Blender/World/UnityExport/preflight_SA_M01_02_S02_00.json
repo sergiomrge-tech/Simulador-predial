@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "blend": "C:\\Users\\sergi\\Documents\\ChatGPT\\projeto Steam Simulador Predial\\UnityValidation\\ArtSource\\Blender\\World\\OldTown\\W3\\SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "cell": "SA_M01_02_S02_00",
+  "sourceManifest": "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json",
+  "objects": 37,
+  "objectTypes": {
+    "EMPTY": 11,
+    "MESH": 26
+  },
+  "modifiers": {
+    "NODES": 5
+  },
+  "layers": {
+    "Architecture": {
+      "objects": 19,
+      "types": {
+        "EMPTY": 1,
+        "MESH": 18
+      },
+      "meshTris": 289056,
+      "manifestObjects": 4
+    },
+    "Gameplay": {
+      "objects": 11,
+      "types": {
+        "EMPTY": 10,
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Infrastructure": {
+      "objects": 2,
+      "types": {
+        "MESH": 2
+      },
+      "meshTris": 6480,
+      "manifestObjects": 2
+    },
+    "Lighting": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Props": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    },
+    "Roads": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 7766,
+      "manifestObjects": 1
+    },
+    "Terrain": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 7688,
+      "manifestObjects": 1
+    },
+    "Vegetation": {
+      "objects": 1,
+      "types": {
+        "MESH": 1
+      },
+      "meshTris": 0,
+      "manifestObjects": 1
+    }
+  },
+  "meshTris": 310990,
+  "largestMesh": {
+    "name": "HERO_horizonte__residential_tower__F00",
+    "tris": 23706
+  },
+  "geometryNodesObjects": [
+    "OT_Accessories_SA_M01_02_S02_00",
+    "OT_Architecture_SA_M01_02_S02_00",
+    "OT_Infrastructure_SA_M01_02_S02_00",
+    "OT_Props_SA_M01_02_S02_00",
+    "OT_Vegetation_SA_M01_02_S02_00"
+  ],
+  "collectionInstances": [
+    {
+      "object": "W2I_horizonte",
+      "collection": "W2_horizonte",
+      "facility_id": "horizonte"
+    }
+  ],
+  "gameplayMarkers": [
+    {
+      "name": "GP_horizonte__entrance__intercom",
+      "type": "EMPTY",
+      "facility_id": "horizonte",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_horizonte__entrance__lobby",
+      "type": "EMPTY",
+      "facility_id": "horizonte",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_horizonte__entrance__meters_room_external",
+      "type": "EMPTY",
+      "facility_id": "horizonte",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_horizonte__entrance__pedestrian_gate",
+      "type": "EMPTY",
+      "facility_id": "horizonte",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_horizonte__entrance__vehicle_gate",
+      "type": "EMPTY",
+      "facility_id": "horizonte",
+      "kind": "entrance"
+    },
+    {
+      "name": "GP_horizonte__parking__basement_garage",
+      "type": "EMPTY",
+      "facility_id": "horizonte",
+      "kind": "parking"
+    },
+    {
+      "name": "GP_horizonte__parking__ground_garage",
+      "type": "EMPTY",
+      "facility_id": "horizonte",
+      "kind": "parking"
+    },
+    {
+      "name": "GP_horizonte__service__driveway_to_garage",
+      "type": "EMPTY",
+      "facility_id": "horizonte",
+      "kind": "service"
+    },
+    {
+      "name": "GP_horizonte__service__garage_ramp_down",
+      "type": "EMPTY",
+      "facility_id": "horizonte",
+      "kind": "service"
+    },
+    {
+      "name": "HERO_horizonte",
+      "type": "EMPTY",
+      "facility_id": "horizonte",
+      "kind": "hero_anchor"
+    },
+    {
+      "name": "OT_Gameplay_Lots_SA_M01_02_S02_00",
+      "type": "MESH",
+      "facility_id": null,
+      "kind": null
+    }
+  ],
+  "facilityIds": [
+    "horizonte"
+  ],
+  "missingManifestObjects": [],
+  "unexpectedCellObjects": [
+    "GP_horizonte__entrance__intercom",
+    "GP_horizonte__entrance__lobby",
+    "GP_horizonte__entrance__meters_room_external",
+    "GP_horizonte__entrance__pedestrian_gate",
+    "GP_horizonte__entrance__vehicle_gate",
+    "GP_horizonte__parking__basement_garage",
+    "GP_horizonte__parking__ground_garage",
+    "GP_horizonte__service__driveway_to_garage",
+    "GP_horizonte__service__garage_ramp_down",
+    "HERO_horizonte",
+    "HERO_horizonte__details",
+    "HERO_horizonte__lot_platform",
+    "HERO_horizonte__residential_tower__F00",
+    "HERO_horizonte__residential_tower__F01",
+    "HERO_horizonte__residential_tower__F02",
+    "HERO_horizonte__residential_tower__F03",
+    "HERO_horizonte__residential_tower__F04",
+    "HERO_horizonte__residential_tower__F05",
+    "HERO_horizonte__residential_tower__F06",
+    "HERO_horizonte__residential_tower__F07",
+    "HERO_horizonte__residential_tower__F08",
+    "HERO_horizonte__residential_tower__F09",
+    "HERO_horizonte__residential_tower__F10",
+    "HERO_horizonte__residential_tower__F11",
+    "HERO_horizonte__residential_tower__ROOF"
+  ],
+  "errors": [],
+  "warnings": [
+    "25 cell-tagged objects are not listed in manifest",
+    "Geometry Nodes present: export must evaluate/realize geometry in a staging copy, never destructively in source",
+    "Linked collection instances present: hero assets should remain separate prefab sources instead of being blindly baked into static cell FBX"
+  ],
+  "exportPolicy": {
+    "staticMeshLayers": [
+      "Terrain",
+      "Roads",
+      "Architecture",
+      "Infrastructure",
+      "Props",
+      "Vegetation"
+    ],
+    "separateDataLayers": [
+      "Gameplay",
+      "Lighting"
+    ],
+    "linkedHeroesSeparatePrefab": true,
+    "sourceBlendMustRemainUnmodified": true
+  }
+}

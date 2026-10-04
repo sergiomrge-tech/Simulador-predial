@@ -17,6 +17,7 @@ namespace FacilityOps.Editor
         public static void Build()
         {
             WorldIntegrationQa.RunPilotGate(false);
+            WorldSliceBuildGate.RequirePassed();
 
             if (AssetDatabase.LoadAssetAtPath<SceneAsset>(BootstrapScene) == null)
                 throw new BuildFailedException("Bootstrap scene missing: " + BootstrapScene);

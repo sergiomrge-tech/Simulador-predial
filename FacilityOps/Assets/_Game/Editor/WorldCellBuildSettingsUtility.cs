@@ -27,11 +27,7 @@ namespace FacilityOps.Editor
 
             if (cellScenes.Length == 0)
             {
-                EditorUtility.DisplayDialog(
-                    "Facility Ops",
-                    "No generated cell scenes were found. Create the pilot scene scaffolds first.",
-                    "OK");
-                return;
+                throw new InvalidOperationException("No generated cell scenes found.");
             }
 
             var existing = EditorBuildSettings.scenes.ToList();
@@ -43,7 +39,10 @@ namespace FacilityOps.Editor
             foreach (string path in cellScenes)
             {
                 if (existingPaths.Contains(path))
+                {
+                    foreach (var scene in existing.Where(s => s.path == path)) scene.enabled = true;
                     continue;
+                }
 
                 existing.Add(new EditorBuildSettingsScene(path, true));
                 existingPaths.Add(path);
@@ -65,6 +64,7 @@ namespace FacilityOps.Editor
                 StringComparer.Ordinal);
 
             string[] guids = AssetDatabase.FindAssets("t:Scene", new[] { SceneRoot });
+            if (guids.Length != 15) errors.Add("Expected exactly 15 pilot scenes in Build Settings validation.");
             foreach (string guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);

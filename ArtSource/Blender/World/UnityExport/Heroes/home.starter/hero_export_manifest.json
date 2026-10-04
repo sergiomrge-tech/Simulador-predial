@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "hero": "home.starter",
+  "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/Heroes/W2_home_starter.blend",
+  "rootObject": "W2_home.starter_ROOT",
+  "cell": "SA_M01_01_S00_02",
+  "blenderWorldPosition": [
+    -2860.0,
+    -2280.0,
+    16.58
+  ],
+  "unityWorldPosition": [
+    -2860.0,
+    16.58,
+    -2280.0
+  ],
+  "fbx": "home_starter.fbx",
+  "fileBytes": 3377308,
+  "exportedObjects": 155,
+  "excluded": [
+    {
+      "name": "W2_home__apto12_bath_light__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_home__apto12_bulb__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_home__corridor_light_F0_-0.2__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_home__corridor_light_F0_-6.5__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_home__corridor_light_F1_-0.2__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_home__corridor_light_F1_-6.5__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_home__corridor_light_F2_-0.2__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_home__corridor_light_F2_-6.5__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_home__corridor_light_F3_-0.2__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_home__corridor_light_F3_-6.5__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_SLOT_home__H0__bare_bulb",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H0__boxes",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H0__mattress_floor",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H0__old_chair",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H1__bed",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H1__ceiling_lamp",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H1__small_table",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H1__wardrobe",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H2__fridge",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H2__stove",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H2__tv_small",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H3__curtains",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H3__office_chair",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H3__pc_desk",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H3__shelf",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H4__collection_display",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H4__decor_shelves",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H4__plant",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_home__H4__rug",
+      "reason": "gameplay"
+    }
+  ],
+  "gameplayMarkers": "ArtSource/Blender/World/UnityExport/Markers/home.starter.markers.json",
+  "error": null,
+  "blenderBounds": {
+    "min": [
+      -2895.0,
+      -2315.0,
+      15.380000114440918
+    ],
+    "max": [
+      -2825.0,
+      -2245.0,
+      30.31999969482422
+    ]
+  }
+}

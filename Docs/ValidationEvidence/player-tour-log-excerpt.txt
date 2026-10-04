@@ -1,0 +1,13 @@
+Initialize engine version: 6000.6.2f1 (770e33f6875c)
+    Renderer: NVIDIA GeForce RTX 4060 Ti (ID=0x2803)
+UnityEngine.Rendering.Universal.UniversalRenderer:.ctor (UnityEngine.Rendering.Universal.UniversalRendererData) (at ./Library/PackageCache/com.unity.render-pipelines.universal@1e1cf3dcbd40/Runtime/UniversalRenderer.cs:42
+UnityEngine.Rendering.Universal.UniversalRenderer:.ctor (UnityEngine.Rendering.Universal.UniversalRendererData) (at ./Library/PackageCache/com.unity.render-pipelines.universal@1e1cf3dcbd40/Runtime/UniversalRenderer.cs:42
+UnityEngine.Rendering.Universal.UniversalRenderer:.ctor (UnityEngine.Rendering.Universal.UniversalRendererData) (at ./Library/PackageCache/com.unity.render-pipelines.universal@1e1cf3dcbd40/Runtime/UniversalRenderer.cs:42
+UnityEngine.Rendering.Universal.UniversalRenderer:.ctor (UnityEngine.Rendering.Universal.UniversalRendererData) (at ./Library/PackageCache/com.unity.render-pipelines.universal@1e1cf3dcbd40/Runtime/UniversalRenderer.cs:42
+WORLD SLICE BRIDGE ACTIVE: SA_M01_01_S00_02 @ (-2860.00, 17.65, -2266.00)
+WORLD TOUR SAMPLE: {"location":"home.starter","cells":4,"loads":4,"unloads":0,"frames":481,"seconds":8.018095970153809,"avgFps":59.99745559692383,"p99FrameMs":16.69049835205078,"maxFrameMs":16.754301071166992,"streamInMa
+WORLD TOUR SAMPLE: {"location":"garage","cells":9,"loads":9,"unloads":0,"frames":480,"seconds":8.000585556030273,"avgFps":59.99614715576172,"p99FrameMs":16.687103271484375,"maxFrameMs":16.905500411987305,"streamInMaxFram
+WORLD TOUR SAMPLE: {"location":"horizonte","cells":11,"loads":11,"unloads":0,"frames":480,"seconds":8.002086639404297,"avgFps":59.984840393066406,"p99FrameMs":16.780902862548828,"maxFrameMs":17.263399124145508,"streamInM
+WORLD TOUR SAMPLE: {"location":"grocery","cells":9,"loads":15,"unloads":6,"frames":480,"seconds":8.0003662109375,"avgFps":59.99831008911133,"p99FrameMs":16.676898956298828,"maxFrameMs":16.83270263671875,"streamInMaxFrame
+WORLD TOUR SAMPLE: {"location":"home.starter","cells":7,"loads":19,"unloads":12,"frames":480,"seconds":8.001754760742188,"avgFps":59.98808670043945,"p99FrameMs":16.685401916503906,"maxFrameMs":17.514795303344727,"streamI
+WORLD TOUR DONE: C:/Users/sergi/AppData/LocalLow/OficinaAurora/Facility Ops Prototype\world-tour-qa.json

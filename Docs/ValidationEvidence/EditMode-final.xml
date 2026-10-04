@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="26" result="Skipped:Ignored" total="26" passed="24" failed="0" inconclusive="0" skipped="2" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:46Z" duration="23,525272">
+  <test-suite type="TestSuite" id="1000" name="Facility Ops Prototype" fullname="Facility Ops Prototype" runstate="Runnable" testcasecount="26" result="Skipped" label="Ignored" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:46Z" duration="23.525272" total="26" passed="24" failed="0" inconclusive="0" skipped="2" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <reason>
+      <message><![CDATA[One or more child tests were ignored]]></message>
+    </reason>
+    <test-suite type="Assembly" id="1039" name="FacilityOps.WorldStreaming.Tests.dll" fullname="C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/FacilityOps/Library/ScriptAssemblies/FacilityOps.WorldStreaming.Tests.dll" runstate="Runnable" testcasecount="26" result="Skipped" label="Ignored" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:46Z" duration="23.517074" total="26" passed="24" failed="0" inconclusive="0" skipped="2" asserts="0">
+      <properties>
+        <property name="_PID" value="32564" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <reason>
+        <message><![CDATA[One or more child tests were ignored]]></message>
+      </reason>
+      <test-suite type="TestSuite" id="1040" name="FacilityOps" fullname="FacilityOps" runstate="Runnable" testcasecount="26" result="Skipped" label="Ignored" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:46Z" duration="23.516612" total="26" passed="24" failed="0" inconclusive="0" skipped="2" asserts="0">
+        <properties />
+        <reason>
+          <message><![CDATA[One or more child tests were ignored]]></message>
+        </reason>
+        <test-suite type="TestSuite" id="1041" name="Tests" fullname="FacilityOps.Tests" runstate="Runnable" testcasecount="26" result="Skipped" label="Ignored" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:46Z" duration="23.516415" total="26" passed="24" failed="0" inconclusive="0" skipped="2" asserts="0">
+          <properties />
+          <reason>
+            <message><![CDATA[One or more child tests were ignored]]></message>
+          </reason>
+          <test-suite type="TestFixture" id="1001" name="WorldCellRootTests" fullname="FacilityOps.Tests.WorldCellRootTests" classname="FacilityOps.Tests.WorldCellRootTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.031488" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1002" name="Configure_Preserves_Stable_Cell_Metadata" fullname="FacilityOps.Tests.WorldCellRootTests.Configure_Preserves_Stable_Cell_Metadata" methodname="Configure_Preserves_Stable_Cell_Metadata" classname="FacilityOps.Tests.WorldCellRootTests" runstate="Runnable" seed="1436462411" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.017465" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1003" name="WorldGameplayMarkerTests" fullname="FacilityOps.Tests.WorldGameplayMarkerTests" classname="FacilityOps.Tests.WorldGameplayMarkerTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.001959" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1004" name="Configure_Preserves_Blender_Marker_Contract" fullname="FacilityOps.Tests.WorldGameplayMarkerTests.Configure_Preserves_Blender_Marker_Contract" methodname="Configure_Preserves_Blender_Marker_Contract" classname="FacilityOps.Tests.WorldGameplayMarkerTests" runstate="Runnable" seed="1359215472" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.000705" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1005" name="WorldMarkerImportValidationTests" fullname="FacilityOps.Tests.WorldMarkerImportValidationTests" classname="FacilityOps.Tests.WorldMarkerImportValidationTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.011156" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1006" name="Duplicate_Marker_Catalog_Is_Rejected_Before_Mutating_Gameplay" fullname="FacilityOps.Tests.WorldMarkerImportValidationTests.Duplicate_Marker_Catalog_Is_Rejected_Before_Mutating_Gameplay" methodname="Duplicate_Marker_Catalog_Is_Rejected_Before_Mutating_Gameplay" classname="FacilityOps.Tests.WorldMarkerImportValidationTests" runstate="Runnable" seed="1846363843" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.010440" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1007" name="WorldSliceDestinationRegistryTests" fullname="FacilityOps.Tests.WorldSliceDestinationRegistryTests" classname="FacilityOps.Tests.WorldSliceDestinationRegistryTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.003765" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1013" name="Horizonte_Prefers_Authoritative_Blender_Spawn_Marker" fullname="FacilityOps.Tests.WorldSliceDestinationRegistryTests.Horizonte_Prefers_Authoritative_Blender_Spawn_Marker" methodname="Horizonte_Prefers_Authoritative_Blender_Spawn_Marker" classname="FacilityOps.Tests.WorldSliceDestinationRegistryTests" runstate="Runnable" seed="1501735014" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.000784" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1012" name="Pilot_Destinations_Map_To_Approved_Cells" fullname="FacilityOps.Tests.WorldSliceDestinationRegistryTests.Pilot_Destinations_Map_To_Approved_Cells" classname="FacilityOps.Tests.WorldSliceDestinationRegistryTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.001417" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1008" name="Pilot_Destinations_Map_To_Approved_Cells(&quot;home.starter&quot;,&quot;SA_M01_01_S00_02&quot;)" fullname="FacilityOps.Tests.WorldSliceDestinationRegistryTests.Pilot_Destinations_Map_To_Approved_Cells(&quot;home.starter&quot;,&quot;SA_M01_01_S00_02&quot;)" methodname="Pilot_Destinations_Map_To_Approved_Cells" classname="FacilityOps.Tests.WorldSliceDestinationRegistryTests" runstate="Runnable" seed="324454373" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.000590" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1009" name="Pilot_Destinations_Map_To_Approved_Cells(&quot;garage&quot;,&quot;SA_M01_01_S01_03&quot;)" fullname="FacilityOps.Tests.WorldSliceDestinationRegistryTests.Pilot_Destinations_Map_To_Approved_Cells(&quot;garage&quot;,&quot;SA_M01_01_S01_03&quot;)" methodname="Pilot_Destinations_Map_To_Approved_Cells" classname="FacilityOps.Tests.WorldSliceDestinationRegistryTests" runstate="Runnable" seed="867351964" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.000066" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1010" name="Pilot_Destinations_Map_To_Approved_Cells(&quot;horizonte&quot;,&quot;SA_M01_02_S02_00&quot;)" fullname="FacilityOps.Tests.WorldSliceDestinationRegistryTests.Pilot_Destinations_Map_To_Approved_Cells(&quot;horizonte&quot;,&quot;SA_M01_02_S02_00&quot;)" methodname="Pilot_Destinations_Map_To_Approved_Cells" classname="FacilityOps.Tests.WorldSliceDestinationRegistryTests" runstate="Runnable" seed="577412243" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.000045" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1011" name="Pilot_Destinations_Map_To_Approved_Cells(&quot;grocery&quot;,&quot;SA_M01_02_S01_02&quot;)" fullname="FacilityOps.Tests.WorldSliceDestinationRegistryTests.Pilot_Destinations_Map_To_Approved_Cells(&quot;grocery&quot;,&quot;SA_M01_02_S01_02&quot;)" methodname="Pilot_Destinations_Map_To_Approved_Cells" classname="FacilityOps.Tests.WorldSliceDestinationRegistryTests" runstate="Runnable" seed="1760449460" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.000042" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1014" name="Unknown_Facility_Is_Not_Silently_Routed" fullname="FacilityOps.Tests.WorldSliceDestinationRegistryTests.Unknown_Facility_Is_Not_Silently_Routed" methodname="Unknown_Facility_Is_Not_Silently_Routed" classname="FacilityOps.Tests.WorldSliceDestinationRegistryTests" runstate="Runnable" seed="1441648761" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.000293" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1015" name="WorldSliceLarGateTests" fullname="FacilityOps.Tests.WorldSliceLarGateTests" classname="FacilityOps.Tests.WorldSliceLarGateTests" runstate="Runnable" testcasecount="1" result="Skipped" label="Ignored" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.007773" total="1" passed="0" failed="0" inconclusive="0" skipped="1" asserts="0">
+            <properties />
+            <reason>
+              <message><![CDATA[One or more child tests were ignored]]></message>
+            </reason>
+            <test-case id="1016" name="Lar_Imported_Player_Grounds_And_Walks_On_Street" fullname="FacilityOps.Tests.WorldSliceLarGateTests.Lar_Imported_Player_Grounds_And_Walks_On_Street" methodname="Lar_Imported_Player_Grounds_And_Walks_On_Street" classname="FacilityOps.Tests.WorldSliceLarGateTests" runstate="Runnable" seed="260732191" result="Skipped" label="Ignored" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.007107" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <reason>
+                <message><![CDATA[Opt-in integration gate: set FACILITY_LAR_QA=1 after ImportLar.]]></message>
+              </reason>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1017" name="WorldSliceNormalModeTests" fullname="FacilityOps.Tests.WorldSliceNormalModeTests" classname="FacilityOps.Tests.WorldSliceNormalModeTests" runstate="Runnable" testcasecount="1" result="Skipped" label="Ignored" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.001171" total="1" passed="0" failed="0" inconclusive="0" skipped="1" asserts="0">
+            <properties />
+            <reason>
+              <message><![CDATA[One or more child tests were ignored]]></message>
+            </reason>
+            <test-case id="1018" name="Without_WorldSlice_Procedural_Runtime_Remains_Active" fullname="FacilityOps.Tests.WorldSliceNormalModeTests.Without_WorldSlice_Procedural_Runtime_Remains_Active" methodname="Without_WorldSlice_Procedural_Runtime_Remains_Active" classname="FacilityOps.Tests.WorldSliceNormalModeTests" runstate="Runnable" seed="257506444" result="Skipped" label="Ignored" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:23Z" duration="0.000787" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <reason>
+                <message><![CDATA[Opt-in normal-mode Play Mode regression gate.]]></message>
+              </reason>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1019" name="WorldSliceRuntimeGateTests" fullname="FacilityOps.Tests.WorldSliceRuntimeGateTests" classname="FacilityOps.Tests.WorldSliceRuntimeGateTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:42Z" duration="19.122358" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1020" name="Streamed_Corridor_And_Horizonte_Physical_Gate" fullname="FacilityOps.Tests.WorldSliceRuntimeGateTests.Streamed_Corridor_And_Horizonte_Physical_Gate" methodname="Streamed_Corridor_And_Horizonte_Physical_Gate" classname="FacilityOps.Tests.WorldSliceRuntimeGateTests" runstate="Runnable" seed="6078614" result="Passed" start-time="2026-10-04 20:17:23Z" end-time="2026-10-04 20:17:42Z" duration="19.121860" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="600000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[WORLD SLICE BRIDGE ACTIVE: SA_M01_01_S00_02 @ (-2860.00, 17.65, -2266.00)
+WORLD RUNTIME QA SAMPLE: {"location":"home.starter","grounded":{"x":-2860.0,"y":16.772502899169922,"z":-2266.0},"cells":4,"scenes":5,"loads":4,"unloads":0,"fps":60.001338958740234,"maxFrameMs":150.5052032470703,"loadMs":678.0084999999989,"unloadMs":0.0,"memoryBytes":713064797,"reservedBytes":1568448512,"gcBytes":119457,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"garage","grounded":{"x":-2710.0,"y":20.688276290893555,"z":-2150.0},"cells":9,"scenes":10,"loads":9,"unloads":0,"fps":59.99920654296875,"maxFrameMs":633.7677001953125,"loadMs":678.0084999999989,"unloadMs":0.0,"memoryBytes":1052639273,"reservedBytes":1836949504,"gcBytes":114238,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"horizonte","grounded":{"x":-2350.0,"y":27.051223754882813,"z":-1831.0},"cells":11,"scenes":12,"loads":11,"unloads":0,"fps":60.00211715698242,"maxFrameMs":633.7677001953125,"loadMs":678.0084999999989,"unloadMs":0.0,"memoryBytes":1155351624,"reservedBytes":2105450496,"gcBytes":111782,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"grocery","grounded":{"x":-2598.0,"y":24.69923973083496,"z":-1480.0},"cells":9,"scenes":10,"loads":15,"unloads":6,"fps":60.00819778442383,"maxFrameMs":633.7677001953125,"loadMs":678.0084999999989,"unloadMs":369.33619999999934,"memoryBytes":1350664941,"reservedBytes":2373951488,"gcBytes":112089,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"home.starter","grounded":{"x":-2860.0,"y":16.772502899169922,"z":-2266.0},"cells":7,"scenes":8,"loads":19,"unloads":12,"fps":59.99967575073242,"maxFrameMs":633.7677001953125,"loadMs":678.0084999999989,"unloadMs":369.33619999999934,"memoryBytes":1364006146,"reservedBytes":2373951488,"gcBytes":117308,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"horizonte","grounded":{"x":-2350.0,"y":27.051223754882813,"z":-1831.0},"cells":10,"scenes":11,"loads":22,"unloads":12,"fps":59.99958038330078,"maxFrameMs":633.7677001953125,"loadMs":678.0084999999989,"unloadMs":369.33619999999934,"memoryBytes":1372684919,"reservedBytes":2373951488,"gcBytes":98581,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"home.starter","grounded":{"x":-2860.0,"y":16.772502899169922,"z":-2266.0},"cells":8,"scenes":9,"loads":22,"unloads":14,"fps":59.99814224243164,"maxFrameMs":633.7677001953125,"loadMs":678.0084999999989,"unloadMs":369.33619999999934,"memoryBytes":1372502593,"reservedBytes":2373951488,"gcBytes":161516,"drawCalls":0,"visibleTriangles":0}
+WORLD SLICE ROUTE: horizonte -> SA_M01_02_S02_00 @ (-2361.00, 37.95, -1800.00)
+WORLD RUNTIME QA: PASS
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1021" name="WorldSliceStairWalkGateTests" fullname="FacilityOps.Tests.WorldSliceStairWalkGateTests" classname="FacilityOps.Tests.WorldSliceStairWalkGateTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-04 20:17:42Z" end-time="2026-10-04 20:17:46Z" duration="4.321712" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1022" name="Horizonte_Street_To_Quadro_Over_Authored_Stairs_With_CharacterController" fullname="FacilityOps.Tests.WorldSliceStairWalkGateTests.Horizonte_Street_To_Quadro_Over_Authored_Stairs_With_CharacterController" methodname="Horizonte_Street_To_Quadro_Over_Authored_Stairs_With_CharacterController" classname="FacilityOps.Tests.WorldSliceStairWalkGateTests" runstate="Runnable" seed="1798979157" result="Passed" start-time="2026-10-04 20:17:42Z" end-time="2026-10-04 20:17:46Z" duration="4.321203" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="900000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[WORLD SLICE BRIDGE ACTIVE: SA_M01_01_S00_02 @ (-2860.00, 17.65, -2266.00)
+WORLD SLICE ROUTE: horizonte -> SA_M01_02_S02_00 @ (-2361.00, 37.95, -1800.00)
+WORLD STAIR WALK QA: PASS {"status":"PASS","fingerprint":"8CA12E31DD68160B098E04085B14D7FCFEB0EA2D72653A03263F15A0B9E3702F","unityVersion":"6000.6.2f1","device":"NVIDIA GeForce RTX 4060 Ti","scope":"Unity Editor Play Mode: FirstPersonController CharacterController driven frame by frame (3 m/s, gravity -20) along the street->panel line over authored colliders. Editor, not a standalone benchmark.","interaction":"TechnicalStation","failure":"","pathCorners":386,"frames":3599,"airborneFrames":5,"maxAirborneStreak":4,"penetrationFrames":0,"stuckWindows":0,"pathLength":185.01004028320313,"seconds":59.98258972167969,"maxFloorGap":0.5729141235351563,"finalDistanceToTarget":0.29947906732559204,"maxHeight":10.089786529541016,"start":{"x":-2350.0,"y":27.051223754882813,"z":-1831.0},"target":{"x":-2345.5,"y":37.05101013183594,"z":-1800.300048828125},"end":{"x":-2345.755859375,"y":37.14100646972656,"z":-1800.1444091796875},"milestones":[{"name":"escada: primeiros degraus","seconds":52.49937057495117,"position":{"x":-2347.14990234375,"y":27.236967086791992,"z":-1797.7698974609375}},{"name":"escada: patamar do 1º andar (meio da subida)","seconds":53.666019439697266,"position":{"x":-2347.652099609375,"y":29.360137939453125,"z":-1794.6348876953125}},{"name":"chegada ao 1º pavimento","seconds":54.63267135620117,"position":{"x":-2347.67138671875,"y":31.267980575561523,"z":-1797.4085693359375}},{"name":"chegada ao piso do prólogo (4º andar)","seconds":58.48261260986328,"position":{"x":-2347.870849609375,"y":36.77528762817383,"z":-1796.4959716796875}}]}
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1023" name="WorldStreamingIdTests" fullname="FacilityOps.Tests.WorldStreamingIdTests" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.012010" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1033" name="Cell_Center_RoundTrips_Through_Position" fullname="FacilityOps.Tests.WorldStreamingIdTests.Cell_Center_RoundTrips_Through_Position" methodname="Cell_Center_RoundTrips_Through_Position" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" seed="1758575866" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.001914" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1031" name="Parse_Rejects_Invalid_Cell_Ids" fullname="FacilityOps.Tests.WorldStreamingIdTests.Parse_Rejects_Invalid_Cell_Ids" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.001337" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1025" name="Parse_Rejects_Invalid_Cell_Ids(&quot;SA_M08_00_S00_00&quot;)" fullname="FacilityOps.Tests.WorldStreamingIdTests.Parse_Rejects_Invalid_Cell_Ids(&quot;SA_M08_00_S00_00&quot;)" methodname="Parse_Rejects_Invalid_Cell_Ids" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" seed="1417767133" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000290" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1026" name="Parse_Rejects_Invalid_Cell_Ids(&quot;SA_M00_08_S00_00&quot;)" fullname="FacilityOps.Tests.WorldStreamingIdTests.Parse_Rejects_Invalid_Cell_Ids(&quot;SA_M00_08_S00_00&quot;)" methodname="Parse_Rejects_Invalid_Cell_Ids" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" seed="1434204668" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000067" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1027" name="Parse_Rejects_Invalid_Cell_Ids(&quot;SA_M00_00_S04_00&quot;)" fullname="FacilityOps.Tests.WorldStreamingIdTests.Parse_Rejects_Invalid_Cell_Ids(&quot;SA_M00_00_S04_00&quot;)" methodname="Parse_Rejects_Invalid_Cell_Ids" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" seed="466182455" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000048" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1028" name="Parse_Rejects_Invalid_Cell_Ids(&quot;SA_M00_00_S00_04&quot;)" fullname="FacilityOps.Tests.WorldStreamingIdTests.Parse_Rejects_Invalid_Cell_Ids(&quot;SA_M00_00_S00_04&quot;)" methodname="Parse_Rejects_Invalid_Cell_Ids" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" seed="407201462" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000048" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1029" name="Parse_Rejects_Invalid_Cell_Ids(&quot;SA_M1_00_S00_00&quot;)" fullname="FacilityOps.Tests.WorldStreamingIdTests.Parse_Rejects_Invalid_Cell_Ids(&quot;SA_M1_00_S00_00&quot;)" methodname="Parse_Rejects_Invalid_Cell_Ids" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" seed="1195931711" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000043" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1030" name="Parse_Rejects_Invalid_Cell_Ids(&quot;not-a-cell&quot;)" fullname="FacilityOps.Tests.WorldStreamingIdTests.Parse_Rejects_Invalid_Cell_Ids(&quot;not-a-cell&quot;)" methodname="Parse_Rejects_Invalid_Cell_Ids" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" seed="34758635" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000043" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1024" name="Parse_RoundTrips_All_1024_Subcells" fullname="FacilityOps.Tests.WorldStreamingIdTests.Parse_RoundTrips_All_1024_Subcells" methodname="Parse_RoundTrips_All_1024_Subcells" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" seed="1057008206" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.007832" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1032" name="World_Position_Maps_To_Expected_Hero_Cells" fullname="FacilityOps.Tests.WorldStreamingIdTests.World_Position_Maps_To_Expected_Hero_Cells" methodname="World_Position_Maps_To_Expected_Hero_Cells" classname="FacilityOps.Tests.WorldStreamingIdTests" runstate="Runnable" seed="21957419" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000224" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1034" name="WorldStreamingPolicyTests" fullname="FacilityOps.Tests.WorldStreamingPolicyTests" classname="FacilityOps.Tests.WorldStreamingPolicyTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.001381" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1036" name="Interior_Keep_Set_Is_Five_By_Five" fullname="FacilityOps.Tests.WorldStreamingPolicyTests.Interior_Keep_Set_Is_Five_By_Five" methodname="Interior_Keep_Set_Is_Five_By_Five" classname="FacilityOps.Tests.WorldStreamingPolicyTests" runstate="Runnable" seed="1843934573" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000196" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1035" name="Interior_Load_Set_Is_Three_By_Three" fullname="FacilityOps.Tests.WorldStreamingPolicyTests.Interior_Load_Set_Is_Three_By_Three" methodname="Interior_Load_Set_Is_Three_By_Three" classname="FacilityOps.Tests.WorldStreamingPolicyTests" runstate="Runnable" seed="847682046" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000182" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1038" name="Scene_Name_RoundTrips" fullname="FacilityOps.Tests.WorldStreamingPolicyTests.Scene_Name_RoundTrips" methodname="Scene_Name_RoundTrips" classname="FacilityOps.Tests.WorldStreamingPolicyTests" runstate="Runnable" seed="803232227" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000193" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1037" name="World_Corner_Clips_Neighborhood_To_Bounds" fullname="FacilityOps.Tests.WorldStreamingPolicyTests.World_Corner_Clips_Neighborhood_To_Bounds" methodname="World_Corner_Clips_Neighborhood_To_Bounds" classname="FacilityOps.Tests.WorldStreamingPolicyTests" runstate="Runnable" seed="552909676" result="Passed" start-time="2026-10-04 20:17:46Z" end-time="2026-10-04 20:17:46Z" duration="0.000176" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/sergi/AppData/LocalLow/OficinaAurora/Facility Ops Prototype\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -36,6 +36,7 @@ namespace FacilityOps.Editor
             public float alpha = 1f;
             public float ior = 1.5f;
             public bool isGlass;
+            public bool isCutout;
             public MapRecord[] maps;
             public string normalConvention;
             public string status;
@@ -292,6 +293,17 @@ namespace FacilityOps.Editor
                 ConfigureGlass(material, record, tint);
             else
                 ConfigureOpaque(material, tint);
+            material.SetFloat("_AlphaClip", record.isCutout ? 1f : 0f);
+            if (record.isCutout)
+            {
+                material.EnableKeyword("_ALPHATEST_ON");
+                material.SetFloat("_Cutoff", .5f);
+                material.SetFloat("_Cull", (float)CullMode.Off);
+                material.SetOverrideTag("RenderType", "TransparentCutout");
+                material.renderQueue = (int)RenderQueue.AlphaTest;
+                material.doubleSidedGI = true;
+            }
+            else material.DisableKeyword("_ALPHATEST_ON");
         }
 
         private static void ConfigureOpaque(

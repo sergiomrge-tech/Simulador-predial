@@ -25,8 +25,7 @@ namespace FacilityOps.Editor
         public static void BuildActiveCellQaColliders()
         {
             WorldCellRoot[] roots = UnityEngine.Object.FindObjectsByType<WorldCellRoot>(
-                FindObjectsInactive.Include,
-                FindObjectsSortMode.None);
+                FindObjectsInactive.Include);
 
             if (roots.Length != 1)
                 throw new InvalidOperationException(

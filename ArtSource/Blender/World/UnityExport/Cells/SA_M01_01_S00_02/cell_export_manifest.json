@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "cell": "SA_M01_01_S00_02",
+  "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "axisContract": {
+    "fbxForward": "-Z",
+    "fbxUp": "Y",
+    "expectedUnity": "X east, Y up, Z north",
+    "requiresFirstCellScaleAxisValidation": true
+  },
+  "layers": [
+    {
+      "layer": "Terrain",
+      "status": "EXPORTED",
+      "file": "Terrain.fbx",
+      "fileBytes": 218124,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -3000.0,
+          -2500.0,
+          16.24101448059082
+        ],
+        "max": [
+          -2752.0,
+          -2252.0,
+          27.65192985534668
+        ]
+      }
+    },
+    {
+      "layer": "Roads",
+      "status": "EXPORTED",
+      "file": "Roads.fbx",
+      "fileBytes": 280188,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -3002.29150390625,
+          -2490.301513671875,
+          15.853063583374023
+        ],
+        "max": [
+          -2744.673828125,
+          -2246.590576171875,
+          27.115520477294922
+        ]
+      }
+    },
+    {
+      "layer": "Architecture",
+      "status": "EXPORTED",
+      "file": "Architecture.fbx",
+      "fileBytes": 3261628,
+      "sourceObjects": 12,
+      "exportedObjects": 3,
+      "linkedInstancesExcluded": [
+        {
+          "object": "W2I_home.starter",
+          "collection": "W2_home.starter",
+          "facilityId": "home.starter",
+          "source": "Heroes/W2_home_starter.blend"
+        }
+      ],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -3007.691162109375,
+          -2506.70556640625,
+          15.425228118896484
+        ],
+        "max": [
+          -2758.545654296875,
+          -2249.740966796875,
+          37.399288177490234
+        ]
+      }
+    },
+    {
+      "layer": "Infrastructure",
+      "status": "EXPORTED",
+      "file": "Infrastructure.fbx",
+      "fileBytes": 2610572,
+      "sourceObjects": 2,
+      "exportedObjects": 2,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2998.842041015625,
+          -2492.310791015625,
+          16.772541046142578
+        ],
+        "max": [
+          -2739.146484375,
+          -2240.250732421875,
+          35.44940948486328
+        ]
+      }
+    },
+    {
+      "layer": "Props",
+      "status": "EXPORTED",
+      "file": "Props.fbx",
+      "fileBytes": 135580,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -2959.46044921875,
+          -2490.764404296875,
+          17.609025955200195
+        ],
+        "max": [
+          -2761.126220703125,
+          -2250.40283203125,
+          26.521326065063477
+        ]
+      }
+    },
+    {
+      "layer": "Vegetation",
+      "status": "EXPORTED",
+      "file": "Vegetation.fbx",
+      "fileBytes": 1034460,
+      "sourceObjects": 1,
+      "exportedObjects": 1,
+      "linkedInstancesExcluded": [],
+      "unsupportedExcluded": [],
+      "error": null,
+      "blenderBounds": {
+        "min": [
+          -3000.06396484375,
+          -2500.083984375,
+          16.241058349609375
+        ],
+        "max": [
+          -2750.56494140625,
+          -2249.822265625,
+          31.259719848632812
+        ]
+      }
+    }
+  ],
+  "linkedHeroInstancesExcluded": [
+    {
+      "object": "W2I_home.starter",
+      "collection": "W2_home.starter",
+      "facilityId": "home.starter",
+      "source": "Heroes/W2_home_starter.blend"
+    }
+  ],
+  "gameplayExport": "Use Tools/Blender/export_unity_gameplay_markers.py",
+  "sourceBlendModified": false
+}

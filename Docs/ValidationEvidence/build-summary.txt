@@ -1,0 +1,9 @@
+Facility Ops — Cidade Antiga Vertical Slice v0.1
+Unity: 6000.6.2f1
+Scenes: 16
+Size bytes: 681322752
+Build time: 00:00:19.9156644
+Warnings: 3
+Errors: 0
+Runtime mode: -worldSlice
+Launcher: Jogar_CidadeAntiga.bat

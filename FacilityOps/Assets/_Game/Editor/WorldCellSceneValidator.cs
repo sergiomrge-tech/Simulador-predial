@@ -28,12 +28,11 @@ namespace FacilityOps.Editor
 
             if (guids.Length == 0)
             {
-                Debug.Log("PILOT CELL SCENES: no scaffolds generated yet; validation skipped.");
-                return;
+                throw new BuildFailedException("Pilot cell scenes are missing.");
             }
 
-            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
-                return;
+            if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                throw new BuildFailedException("Pilot scene validation cancelled.");
 
             Scene active = SceneManager.GetActiveScene();
             string activePath = active.path;
@@ -52,7 +51,7 @@ namespace FacilityOps.Editor
                     }
 
                     Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
-                    WorldCellRoot[] roots = UnityEngine.Object.FindObjectsByType<WorldCellRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+                    WorldCellRoot[] roots = UnityEngine.Object.FindObjectsByType<WorldCellRoot>(FindObjectsInactive.Include);
 
                     if (roots.Length != 1)
                     {
@@ -61,6 +60,13 @@ namespace FacilityOps.Editor
                     }
 
                     WorldCellRoot root = roots[0];
+                    foreach (var go in scene.GetRootGameObjects())
+                        foreach (var child in go.GetComponentsInChildren<Transform>(true))
+                            if (GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(child.gameObject) > 0)
+                                errors.Add(file + ": missing script on " + child.name);
+                    foreach (var renderer in root.GetComponentsInChildren<Renderer>(true))
+                        if (Array.Exists(renderer.sharedMaterials, m => m == null || m.shader == null))
+                            errors.Add(file + ": missing material/shader on " + renderer.name);
                     if (!root.TryGetStreamingId(out var actualId))
                     {
                         errors.Add(file + ": metadata has invalid cell id " + root.CellId);
@@ -109,6 +115,9 @@ namespace FacilityOps.Editor
 
                     if (stamp.EstimatedTriangles <= 0)
                         errors.Add(file + ": imported cell triangle estimate is empty");
+                    if (stamp.ImportedRendererCount != root.GetComponentsInChildren<Renderer>(true).Length ||
+                        stamp.ImportedColliderCount != root.GetComponentsInChildren<Collider>(true).Length)
+                        errors.Add(file + ": stale content stamp");
                 }
             }
             finally

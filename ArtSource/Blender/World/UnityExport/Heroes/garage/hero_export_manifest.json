@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "hero": "garage",
+  "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/Heroes/W2_garage.blend",
+  "rootObject": "W2_garage_ROOT",
+  "cell": "SA_M01_01_S01_03",
+  "blenderWorldPosition": [
+    -2695.0,
+    -2147.0,
+    20.608274
+  ],
+  "unityWorldPosition": [
+    -2695.0,
+    20.608274,
+    -2147.0
+  ],
+  "fbx": "garage.fbx",
+  "fileBytes": 1699644,
+  "exportedObjects": 72,
+  "excluded": [
+    {
+      "name": "W2_garage__bath_light__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_garage__lamp_+10_+4__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_garage__lamp_+10_-4__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_garage__lamp_+3_+4__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_garage__lamp_+3_-4__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_garage__lamp_-4_+4__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_garage__lamp_-4_-4__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_SLOT_garage__ALL__maleta_guto_original",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G0__boxes",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G0__job_board",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G0__old_bench",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G0__old_pc_folding_table",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G0__single_shelf",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G1__parts_bins",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G1__shelving_a",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G1__shelving_b",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G2__compressor",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G2__pegboard",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G2__pro_bench",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G2__vise",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G3__filing_cabinet",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G3__mezzanine_stair",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G3__office_desk",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G4__facade_sign",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G4__rack_storage",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G4__second_bench",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_SLOT_garage__G4__van_tool_station",
+      "reason": "gameplay"
+    }
+  ],
+  "gameplayMarkers": "ArtSource/Blender/World/UnityExport/Markers/garage.markers.json",
+  "error": null,
+  "blenderBounds": {
+    "min": [
+      -2740.0,
+      -2192.0,
+      19.358274459838867
+    ],
+    "max": [
+      -2650.0,
+      -2102.0,
+      27.868274688720703
+    ]
+  }
+}

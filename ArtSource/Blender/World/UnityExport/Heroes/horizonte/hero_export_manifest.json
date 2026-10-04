@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "hero": "horizonte",
+  "sourceBlend": "C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/ArtSource/Blender/World/OldTown/Heroes/W2_horizonte.blend",
+  "rootObject": "W2_horizonte_ROOT",
+  "cell": "SA_M01_02_S02_00",
+  "blenderWorldPosition": [
+    -2350.0,
+    -1796.0,
+    26.901011
+  ],
+  "unityWorldPosition": [
+    -2350.0,
+    26.901011,
+    -1796.0
+  ],
+  "fbx": "horizonte.fbx",
+  "fileBytes": 4426668,
+  "exportedObjects": 148,
+  "excluded": [
+    {
+      "name": "W2_horizonte__F00_lobby_light_0__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__F00_lobby_light_1__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__F00_lobby_light_2__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__F00_lobby_light_3__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__F00_lobby_light_4__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__F00_meters_light__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__F00_pump_light__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__F03_corridor_light_0__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__F03_corridor_light_1__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__F03_corridor_light_2__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__F03_corridor_light_3__light",
+      "reason": "light"
+    },
+    {
+      "name": "W2_horizonte__GP_prologue_spawn_corridor",
+      "reason": "gameplay"
+    },
+    {
+      "name": "W2_horizonte__GP_quadro_tecnico",
+      "reason": "gameplay"
+    }
+  ],
+  "gameplayMarkers": "ArtSource/Blender/World/UnityExport/Markers/horizonte.markers.json",
+  "error": null,
+  "blenderBounds": {
+    "min": [
+      -2410.0,
+      -1856.0,
+      22.50101089477539
+    ],
+    "max": [
+      -2290.0,
+      -1736.0,
+      70.10101318359375
+    ]
+  }
+}

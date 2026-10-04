@@ -38,7 +38,7 @@ namespace FacilityOps.Editor
             try
             {
                 Scene scene = EditorSceneManager.OpenScene(SliceBootstrap, OpenSceneMode.Single);
-                GameRuntime game = Object.FindFirstObjectByType<GameRuntime>();
+                GameRuntime game = Object.FindAnyObjectByType<GameRuntime>();
                 if (game == null)
                     throw new MissingReferenceException("WorldSliceBootstrap requires one GameRuntime.");
 
@@ -60,6 +60,18 @@ namespace FacilityOps.Editor
 
                 bridge.Configure(game, service, overlay);
                 overlay.StreamService = service;
+                // The procedural sun belongs to WorldBuilder.Root and is hidden
+                // with that root. Keep slice illumination in the global bootstrap.
+                Transform sunTransform = rig.transform.Find("World Slice Sun");
+                if (sunTransform == null)
+                {
+                    var sun = new GameObject("World Slice Sun");
+                    sun.transform.SetParent(rig.transform, false);
+                    sun.transform.rotation = Quaternion.Euler(50f, -25f, 0f);
+                    var light = sun.AddComponent<Light>();
+                    light.type = LightType.Directional; light.intensity = 1.2f;
+                    light.color = new Color(1f, .95f, .85f); light.shadows = LightShadows.Soft;
+                }
 
                 EditorUtility.SetDirty(rig);
                 EditorSceneManager.MarkSceneDirty(scene);

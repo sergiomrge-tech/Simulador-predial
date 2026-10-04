@@ -318,14 +318,17 @@ class Kit:
         mb.box(0, -.005, 1.65, .25, .01, .25, 2)
         return self.obj(name, mb, ["aco_pintado_vermelho", "borracha_preta", "pintura_industrial"], loc, rot, bevel=.004, sa_kind="extinguisher")
 
-    def stair_u(self, name, width, run_len, rise_total, loc, rot, steps_per_flight=9):
+    def stair_u(self, name, width, run_len, rise_total, loc, rot, steps_per_flight=9, hollow=False):
         """U stair: flight 1 along +X at y in [0,width], landing, flight 2 back along -X at y in [width+.1, 2*width+.1]."""
         mb = MeshBuilder()
         n = steps_per_flight
         r = rise_total / (2 * n)
         t = run_len / n
         for k in range(n):
-            mb.box((k + .5) * t, width / 2, 0, t, width, (k + 1) * r, 0)
+            if hollow:                                   # stepped soffit: head room above the flight stays one storey minus the tread, not (storey - rise so far)
+                mb.box((k + .5) * t, width / 2, k * r, t, width, r, 0)
+            else:
+                mb.box((k + .5) * t, width / 2, 0, t, width, (k + 1) * r, 0)
         land = 1.2
         mb.box(run_len + land / 2, width + .05, n * r - .18, land, 2 * width + .1, .18, 0)
         for k in range(n):
