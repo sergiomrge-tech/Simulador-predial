@@ -1,0 +1,87 @@
+{
+  "stairs": {
+    "W2_horizonte__stair_F00": {
+      "samples": 80,
+      "worstHeadRoomM": 2.967,
+      "samplesBelowRequired": 0,
+      "ok": true
+    },
+    "W2_horizonte__stair_F01": {
+      "samples": 80,
+      "worstHeadRoomM": 2.97,
+      "samplesBelowRequired": 0,
+      "ok": true
+    },
+    "W2_horizonte__stair_F02": {
+      "samples": 80,
+      "worstHeadRoomM": 2.97,
+      "samplesBelowRequired": 0,
+      "ok": true
+    },
+    "W2_horizonte__stair_F03": {
+      "samples": 80,
+      "worstHeadRoomM": 2.97,
+      "samplesBelowRequired": 0,
+      "ok": true
+    },
+    "W2_horizonte__stair_F04": {
+      "samples": 80,
+      "worstHeadRoomM": 2.97,
+      "samplesBelowRequired": 0,
+      "ok": true
+    },
+    "W2_horizonte__stair_F05": {
+      "samples": 80,
+      "worstHeadRoomM": 2.97,
+      "samplesBelowRequired": 0,
+      "ok": true
+    },
+    "W2_horizonte__stair_F06": {
+      "samples": 80,
+      "worstHeadRoomM": 2.97,
+      "samplesBelowRequired": 0,
+      "ok": true
+    },
+    "W2_horizonte__stair_F07": {
+      "samples": 80,
+      "worstHeadRoomM": 2.97,
+      "samplesBelowRequired": 0,
+      "ok": true
+    },
+    "W2_horizonte__stair_F08": {
+      "samples": 80,
+      "worstHeadRoomM": 2.97,
+      "samplesBelowRequired": 0,
+      "ok": true
+    },
+    "W2_horizonte__stair_F09": {
+      "samples": 80,
+      "worstHeadRoomM": 2.97,
+      "samplesBelowRequired": 0,
+      "ok": true
+    },
+    "W2_horizonte__stair_F10": {
+      "samples": 80,
+      "worstHeadRoomM": 2.82,
+      "samplesBelowRequired": 0,
+      "ok": true
+    }
+  },
+  "doors": {
+    "W2_horizonte__F00_stair_door__frame": {
+      "raysBlocked": 0,
+      "raysTested": 42,
+      "openingHeightAtCentreM": 2.415,
+      "ok": true
+    },
+    "W2_horizonte__F03_stair_door__frame": {
+      "raysBlocked": 0,
+      "raysTested": 42,
+      "openingHeightAtCentreM": 2.415,
+      "ok": true
+    }
+  },
+  "errors": [],
+  "passed": true,
+  "headRoomRequiredM": 1.9
+}

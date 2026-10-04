@@ -1,0 +1,78 @@
+{
+  "mode": "w32",
+  "blend": "ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "reopenedInFreshProcess": true,
+  "objectCount": 3416,
+  "meshCount": 2264,
+  "collections": {
+    "OT_CidadeAntiga": 2506
+  },
+  "checks": {
+    "geometryNodesInstancers": 493,
+    "materials": 554,
+    "materialsWithTextureSlots": 373,
+    "linkedContextObjects": 1754,
+    "heroInstances": [
+      "W2I_apartments",
+      "W2I_garage",
+      "W2I_grocery",
+      "W2I_home.starter",
+      "W2I_horizonte",
+      "W2I_imperial",
+      "W2I_restaurant",
+      "W2I_smalloffice",
+      "W2I_workshop"
+    ],
+    "stateSlotsInSlice": 38,
+    "vegetationSpecies": [
+      "VEG_arbusto",
+      "VEG_ipe",
+      "VEG_ipe_b",
+      "VEG_ipe_c",
+      "VEG_ipe_rosa",
+      "VEG_jovem",
+      "VEG_jovem_b",
+      "VEG_jovem_c",
+      "VEG_mangueira",
+      "VEG_mangueira_b",
+      "VEG_mangueira_c",
+      "VEG_oiti",
+      "VEG_oiti_b",
+      "VEG_oiti_c",
+      "VEG_palmeira",
+      "VEG_sibipiruna",
+      "VEG_sibipiruna_b",
+      "VEG_sibipiruna_c",
+      "VEG_tufo_erva",
+      "VEG_tufo_grama",
+      "VEG_tufo_grama_alta",
+      "VEG_tufo_mato"
+    ],
+    "vegetationLOD1": 7,
+    "subcells": 15,
+    "complexity": {
+      "meshTris": 8467460,
+      "instancedTris": 32523714,
+      "instances": 116436,
+      "largestMesh": [
+        "W2_imperial__foyer_shell",
+        34500
+      ],
+      "materials": 552,
+      "textures": 655,
+      "textureMemoryMB_est": 3380.1,
+      "lights": 74,
+      "objects": 3416,
+      "blendMB": 24.73,
+      "meshes": 2264
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W3_2_horizonte/w32_11_horizonte_exterior.jpg",
+    "ArtSource/Blender/World/Reviews/W3_2_horizonte/w32_11b_horizonte_entardecer.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

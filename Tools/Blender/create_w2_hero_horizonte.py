@@ -84,6 +84,17 @@ def side_ops(f, s):
     return [(y, 1.2, 1.1, 1.2, "win") for y in (-16.0, -11.0, 0.0, 5.0, 10.0, 15.0)]
 
 
+# Stairwell footprint (local x0, x1, y0, y1), derived from the stair placement below: stair_u at (CORE[2] - .3, STAIR_Y0), width 1.15, run 3.0,
+# landing 1.2, two lanes of 1.15 + .1 gap along -X from the stair origin.
+STAIR_X1 = CORE[2] - .2
+STAIR_X0 = CORE[2] - .3 - (2 * 1.15 + .1)
+STAIR_Y0 = CORE[1] + 1.4       # 1.2 m arrival / entry landing between the core wall and the first riser (was .3 m: too narrow for a walker)
+STAIR_Y1 = STAIR_Y0 + 3.0 + 1.2 + .05
+STAIR_HOLE = (STAIR_X0, STAIR_X1, STAIR_Y0, STAIR_Y1)
+STAIR_DOOR_W = 1.2             # 1.0 m left no steering margin for a .28 m capsule (+ .08 skin) between jamb and architrave
+STAIR_DOOR_H = 2.4             # 2.1 m left .21 m over the 1.8 m controller: less than the controller's .3 m step lift, so it jammed under the lintel
+STAIR_DOOR_OPEN_DEG = 90.0     # stair doors are authored propped open (a closed leaf blocks the only route; the game has no door interaction)
+
 # ---------------------------------------------------------------- shell per floor (walls, slab, bands), light windows, curtains
 CURTAINS = ["tecido_lencol", "tecido_colchao", "plastico_branco", "papelao", "parede_pintada"]
 for f in range(NF):
@@ -100,7 +111,17 @@ for f in range(NF):
     for c, axis, a, b, ops in ((-hd + T + .02, "x", -hw + T, hw - T, fo), (hd - T - .02, "x", -hw + T, hw - T, bo),
                                (-hw + T + .02, "y", -hd + T, hd - T, so[-1]), (hw - T - .02, "y", -hd + T, hd - T, so[1])):
         (wall_x if axis == "x" else wall_y)(mb, c, a, b, .04, za + .15, za + h, ops, 1)
-    mb.box(0, 0, za, W - .05, D - .05, .15, 2, bottom=True)
+    if f == 0:
+        mb.box(0, 0, za, W - .05, D - .05, .15, 2, bottom=True)
+    else:
+        # Unity validation fix: the floor slab used to be one full-footprint box, so the U stair ran into the slab above it and the
+        # building could not be climbed. The slab now has a stairwell opening that covers both flights and the turn landing
+        # (the strip between the core wall and the first riser, y in [CORE y + .2, STAIR_Y0], stays as the arrival landing).
+        sx0, sx1, sy0, sy1 = STAIR_HOLE
+        mb.box((-hw + .025 + sx0) / 2, 0, za, sx0 + hw - .025, D - .05, .15, 2, bottom=True)                              # west of the opening
+        mb.box((sx1 + hw - .025) / 2, 0, za, hw - .025 - sx1, D - .05, .15, 2, bottom=True)                              # east of the opening
+        mb.box((sx0 + sx1) / 2, (-hd + .025 + sy0) / 2, za, sx1 - sx0, sy0 + hd - .025, .15, 2, bottom=True)              # south (corridor side)
+        mb.box((sx0 + sx1) / 2, (sy1 + hd - .025) / 2, za, sx1 - sx0, hd - .025 - sy1, .15, 2, bottom=True)              # north
     if f > 0:
         for (cx, cy, sx, sy) in ((0, -hd - .04, W + .1, .08), (0, hd + .04, W + .1, .08), (-hw - .04, 0, .08, D + .1), (hw + .04, 0, .08, D + .1)):
             mb.box(cx, cy, za - .1, sx, sy, .25, 4)                       # floor band (friso) per storey
@@ -171,7 +192,7 @@ for f in range(NF):
     mb = sa_bl.MeshBuilder()
     open_floor = f in (0, TF)
     elev = [(-2.9, 1.0, za + .15, za + 2.25), (-1.0, 1.0, za + .15, za + 2.25)] if open_floor else []
-    stair_door = [(2.6, 1.0, za + .15, za + 2.25)] if open_floor else []
+    stair_door = [(2.6, STAIR_DOOR_W, za + .15, za + .15 + STAIR_DOOR_H + .05)] if open_floor else []
     wall_x(mb, CORE[1] + .1, CORE[0], CORE[2], .2, za + .15, za + h, elev + stair_door, 0)
     wall_x(mb, CORE[3] - .1, CORE[0], CORE[2], .2, za + .15, za + h, [], 0)
     wall_y(mb, CORE[0] + .1, CORE[1], CORE[3], .2, za + .15, za + h, [], 0)
@@ -181,7 +202,7 @@ for f in range(NF):
     H.mesh(P + f"F{f:02d}_core", mb, ["concreto_pintado"], "Structure", floor_index=f, sa_layer="Architecture")
 K = H.kit("Structure")
 for f in range(NF - 1):
-    K.stair_u(P + f"stair_F{f:02d}", 1.15, 3.0, zh(f), (CORE[2] - .3, CORE[1] + .5, z0(f) + .15), math.pi / 2, steps_per_flight=12 if f == 0 else 9)
+    K.stair_u(P + f"stair_F{f:02d}", 1.15, 3.0, zh(f), (CORE[2] - .3, STAIR_Y0, z0(f) + .15), math.pi / 2, steps_per_flight=12 if f == 0 else 9, hollow=True)
 for f in (0, TF):
     za = z0(f)
     mb = sa_bl.MeshBuilder()
@@ -192,7 +213,8 @@ for f in (0, TF):
         mb.box(x + .75, CORE[1] - .05, za + 1.15, .08, .02, .14, 2)                         # call button panel
         mb.box(x, CORE[1] - .05, za + 2.45, .3, .02, .12, 2)                                # floor indicator
     H.mesh(P + f"F{f:02d}_elevator_doors", mb, ["aco_inox", "aco_inox", "plastico"], "Openings", bevel=.003, floor_index=f, sa_kind="elevator_door")
-    H.kit("Openings").door(P + f"F{f:02d}_stair_door", 1.0, 2.1, (2.6, CORE[1] + .1, za + .15), 0.0, wall_t=.2, leaf_mat="aco_pintado_cinza")
+    H.kit("Openings").door(P + f"F{f:02d}_stair_door", STAIR_DOOR_W - .08, STAIR_DOOR_H, (2.6, CORE[1] + .1, za + .15), 0.0, wall_t=.2, leaf_mat="aco_pintado_cinza",
+                           open_deg=-STAIR_DOOR_OPEN_DEG)       # hinged on the west jamb, leaf propped open toward the corridor: the stair landing side stays free (~.9 m remain between leaf tip and corridor wall)
 
 # ---------------------------------------------------------------- ground floor rooms
 G_WALLED = ("lobby_portaria", "meters_room", "gate_intercom_room", "shaft_plumbing", "shaft_electrical", "pump_room", "cistern_lower", "trash_room")

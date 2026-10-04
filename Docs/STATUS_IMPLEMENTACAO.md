@@ -251,3 +251,10 @@ Preparação concluída no GitHub:
 - **Capturas:** 21 arquivos em `ArtSource/Blender/World/Reviews/W3_2/` (inclui comparações W3.1 × W3.2). Relatório: `Docs/W3_2_FINAL_VISUAL_GATE.md`.
 - **Validações:** slice reaberto PASS; masterplan e rotas PASS; IDs/`GP_`/`SLOT_`/`PROXY_`/âncoras/instâncias idênticos aos do W3.1; 13.003 lotes, 15 subcélulas, 9 heróis. meshTris 8,45 M, instancedTris 32,5 M, `.blend` 24,7 MB.
 - **Gate W3.2: PARTIAL PASS.** O Lar (Apto 12 vazio) não lê como ocupado por fora; a aérea melhorou mas as massas das famílias W2 ainda se repetem.
+
+## Checkpoint — W3.2 congelado: correção da escada do Horizonte (2026-10-04)
+
+- Polimento visual congelado; só `W2_horizonte.blend` foi corrigido (gerador `create_w2_hero_horizonte.py` + `hollow` opcional em `stair_u`). Unity, saves, código de gameplay e `gpt/unity-world-integration` intocados.
+- Defeito (achado na validação Unity): laje sem abertura de escada, patamar de 0,30 m, degraus maciços com pouca altura livre e portas da escada fechadas de 1,0 × 2,1 m. Correção: abertura na laje, patamar de 1,20 m, degraus vazados, portas 1,2 × 2,4 m abertas a 90° para o corredor. Detalhes e verificação em `Docs/W3_2_HORIZONTE_STAIR_FIX.md`.
+- Validação: `verify_horizonte_stair.py` (herói anterior falha; corrigido passa: altura livre ≥ 2,82 m, 0 raios bloqueados nas portas), herói e slice reabertos em processo novo sem dados faltando, IDs/marcadores/âncoras/instâncias idênticos, masterplan e rotas PASS.
+- Estado: **W3.2 congelado e pronto para integração Unity.** Pendências na integração: portão de pedestres do Horizonte, interação de porta, iluminação interior da escada.
