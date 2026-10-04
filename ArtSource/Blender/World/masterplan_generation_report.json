@@ -8,13 +8,13 @@
     8000,
     8000
   ],
-  "objectCount": 525,
+  "objectCount": 526,
   "collectionObjectCounts": {
     "00_Terrain": 65,
     "01_Water": 1,
     "02_Roads": 80,
     "03_Rail": 1,
-    "04_Fabric": 65,
+    "04_Fabric": 66,
     "05_Campaign_Locations": 48,
     "06_Life_Economy_Locations": 20,
     "07_Vegetation": 63,
@@ -24,8 +24,8 @@
     "11_Streaming_Subgrid": 66,
     "12_Library": 2
   },
-  "fabricVolumes": 34563,
-  "trees": 37294,
+  "fabricVolumes": 34507,
+  "trees": 37182,
   "layout": {
     "revision": "W1.5",
     "terrain": {
@@ -101,12 +101,12 @@
       "T_exp_east": 2028,
       "T_ind_civic": 247,
       "T_old_exp": 1148,
-      "T_old_north": 1129,
-      "civic": 1181,
+      "T_old_north": 1171,
+      "civic": 1180,
       "corporate": 1787,
       "expansion": 2328,
-      "industrial": 774,
-      "old": 13050,
+      "industrial": 785,
+      "old": 13003,
       "technology": 868
     },
     "coverage": {
@@ -117,12 +117,12 @@
       "T_exp_east": 0.209,
       "T_ind_civic": 0.198,
       "T_old_exp": 0.209,
-      "T_old_north": 0.209,
+      "T_old_north": 0.218,
       "civic": 0.221,
       "corporate": 0.413,
       "expansion": 0.209,
-      "industrial": 0.282,
-      "old": 0.281,
+      "industrial": 0.277,
+      "old": 0.279,
       "technology": 0.218
     },
     "skylineFloors": {
@@ -180,14 +180,14 @@
         "median": 1,
         "p90": 3,
         "max": 4,
-        "count": 1129
+        "count": 1171
       },
       "civic": {
         "p10": 1,
         "median": 4,
-        "p90": 10,
+        "p90": 9,
         "max": 12,
-        "count": 1181
+        "count": 1180
       },
       "corporate": {
         "p10": 9,
@@ -208,14 +208,14 @@
         "median": 1,
         "p90": 1,
         "max": 1,
-        "count": 774
+        "count": 785
       },
       "old": {
         "p10": 1,
         "median": 2,
         "p90": 3,
         "max": 6,
-        "count": 13050
+        "count": 13003
       },
       "technology": {
         "p10": 3,
@@ -226,16 +226,16 @@
       }
     },
     "industrialComposition": {
-      "block": 774,
-      "chimney": 122,
-      "dock": 2979,
-      "office": 720,
-      "shed": 869,
-      "silo": 207,
-      "substation": 90,
-      "tank": 256
+      "block": 785,
+      "chimney": 120,
+      "dock": 2912,
+      "office": 701,
+      "shed": 841,
+      "silo": 235,
+      "substation": 86,
+      "tank": 277
     },
-    "trees": 37294,
+    "trees": 37182,
     "unusedMacroCells": [],
     "scale": {
       "worldKm": [
