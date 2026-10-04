@@ -122,6 +122,18 @@ namespace FacilityOps.Editor
                     ImportAssetOptions.ForceSynchronousImport |
                     ImportAssetOptions.ForceUpdate);
 
+                ModelImporter modelImporter =
+                    AssetImporter.GetAtPath(assetPath) as ModelImporter;
+                if (modelImporter != null)
+                {
+                    modelImporter.materialImportMode =
+                        ModelImporterMaterialImportMode.ImportStandard;
+                    modelImporter.SearchAndRemapMaterials(
+                        ModelImporterMaterialName.BasedOnMaterialName,
+                        ModelImporterMaterialSearch.Everywhere);
+                    modelImporter.SaveAndReimport();
+                }
+
                 GameObject model = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
                 if (model == null)
                     throw new InvalidDataException(
