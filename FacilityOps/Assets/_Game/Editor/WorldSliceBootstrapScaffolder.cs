@@ -18,6 +18,11 @@ namespace FacilityOps.Editor
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                 return;
 
+            CreateNonInteractive();
+        }
+
+        public static void CreateNonInteractive()
+        {
             if (AssetDatabase.LoadAssetAtPath<SceneAsset>(SourceBootstrap) == null)
                 throw new FileNotFoundException("Bootstrap scene missing.", SourceBootstrap);
 
