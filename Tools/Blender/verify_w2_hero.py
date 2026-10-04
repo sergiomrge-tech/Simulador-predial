@@ -16,9 +16,10 @@ import bpy
 parser = argparse.ArgumentParser()
 parser.add_argument("--root", required=True)
 parser.add_argument("--no-render", action="store_true")
+parser.add_argument("--review", default="W2", help="Reviews/<dir> for captures and reopen report")
 opts = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
 root = Path(opts.root).resolve()
-review = root / "ArtSource" / "Blender" / "World" / "Reviews" / "W2"
+review = root / "ArtSource" / "Blender" / "World" / "Reviews" / opts.review
 review.mkdir(parents=True, exist_ok=True)
 scene = bpy.context.scene
 hero = scene.get("sa_hero", "unknown")

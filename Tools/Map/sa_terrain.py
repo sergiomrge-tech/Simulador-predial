@@ -22,15 +22,69 @@ FEATURES = {
     "alto_horizonte": {"centre": (-2350.0, -1750.0), "sigma": 550.0, "rise": 9.0,
                        "note": "Colina da Cidade Antiga (Alto do Horizonte), núcleo histórico"},
     "expansion_ridge": {"note": "Expansão sobe suavemente para o sul"},
+    # W2.5 urban relief of the Old Town (user: "a cidade precisa de relevo"): visible but drivable.
+    "alto_aurora": {"centre": (-2250.0, -850.0), "sigma": 280.0, "rise": 20.0,
+                    "note": "Alto da Aurora: colina residencial ao norte da Cidade Antiga, ponto mais alto do bairro"},
+    "vale_corrego": {"road": "R02", "sigma": 130.0, "depth": 9.0, "fade_z": (-700.0, -250.0),
+                     "note": "Fundo de vale da Av. do Trabalho (R02): córrego canalizado no canteiro central, segue em galeria até o canal"},
+    "ondulacao_urbana": {"wavelength": 360.0, "amp": 5.2, "arterial_clear": (25.0, 140.0),
+                         "note": "Ondulação entre quarteirões; zera junto às vias arteriais/coletoras (corredores nivelados)"},
 }
+OLD_RELIEF = (-3950.0, -3950.0, -1150.0, -300.0)   # region of the W2.5 urban relief (soft 250 m edge)
+RELIEF_STEP = 10.0
 
 
 class Terrain:
-    def __init__(self, spec, seed=1503):
+    def __init__(self, spec, seed=1503, pads=None):
         self.canal = [tuple(p) for p in spec["canal"]["points"]]
         rng = random.Random(seed)
         self.roll = Noise2(rng, 1400.0, octaves=2)
         self.fine = Noise2(rng, 420.0, octaves=1)
+        self.undul = Noise2(random.Random(2505), FEATURES["ondulacao_urbana"]["wavelength"], octaves=2)
+        roads = {r["id"]: [tuple(p) for p in r["points"]] for r in spec["roads"]}
+        self.valley_line = roads[FEATURES["vale_corrego"]["road"]]
+        x0, z0, x1, z1 = OLD_RELIEF
+        self.corridors = []
+        for rid, pts in roads.items():
+            if rid in ("R01", "R02", "R07", "R09"):
+                self.corridors += [(a, b) for a, b in zip(pts, pts[1:])
+                                   if min(a[0], b[0]) < x1 + 300 and max(a[0], b[0]) > x0 - 300 and min(a[1], b[1]) < z1 + 300 and max(a[1], b[1]) > z0 - 300]
+        self.pads = pads or []
+        self._grid = None
+
+    # ------------------------------------------------------------ W2.5 urban relief (cached on a 10 m lattice)
+    def _relief_exact(self, x, z):
+        x0, z0, x1, z1 = OLD_RELIEF
+        w = smoothstep(x0 - 250, x0, x) * smoothstep(x1 + 250, x1, x) * smoothstep(z0 - 250, z0, z) * smoothstep(z1 + 250, z1, z)
+        if w <= 0:
+            return 0.0
+        au = FEATURES["alto_aurora"]
+        h = au["rise"] * math.exp(-((x - au["centre"][0]) ** 2 + (z - au["centre"][1]) ** 2) / (2 * au["sigma"] ** 2))
+        vc = FEATURES["vale_corrego"]
+        dv = min(point_seg((x, z), a, b)[0] for a, b in zip(self.valley_line, self.valley_line[1:]))
+        h -= vc["depth"] * math.exp(-dv * dv / (2 * vc["sigma"] ** 2)) * smoothstep(vc["fade_z"][1], vc["fade_z"][0], z)
+        un = FEATURES["ondulacao_urbana"]
+        dc = min((point_seg((x, z), a, b)[0] for a, b in self.corridors), default=1e9)
+        h += un["amp"] * self.undul(x, z) * smoothstep(un["arterial_clear"][0], un["arterial_clear"][1], dc)
+        return w * h
+
+    def relief(self, x, z):
+        x0, z0, x1, z1 = OLD_RELIEF
+        if not (x0 - 260 <= x <= x1 + 260 and z0 - 260 <= z <= z1 + 260):
+            return 0.0
+        if self._grid is None:
+            gx0, gz0 = x0 - 260, z0 - 260
+            nx = int((x1 - x0 + 520) / RELIEF_STEP) + 2
+            nz = int((z1 - z0 + 520) / RELIEF_STEP) + 2
+            self._grid = (gx0, gz0, nx, nz, [[self._relief_exact(gx0 + i * RELIEF_STEP, gz0 + j * RELIEF_STEP) for j in range(nz)] for i in range(nx)])
+        gx0, gz0, nx, nz, g = self._grid
+        fx, fz = (x - gx0) / RELIEF_STEP, (z - gz0) / RELIEF_STEP
+        i, j = min(nx - 2, max(0, int(fx))), min(nz - 2, max(0, int(fz)))
+        tx, tz = fx - i, fz - j
+        return (g[i][j] * (1 - tx) * (1 - tz) + g[i + 1][j] * tx * (1 - tz) + g[i][j + 1] * (1 - tx) * tz + g[i + 1][j + 1] * tx * tz)
+
+    def valley_distance(self, x, z):
+        return min(point_seg((x, z), a, b)[0] for a, b in zip(self.valley_line, self.valley_line[1:]))
 
     def canal_distance(self, x, z):
         best = 1e18
@@ -53,6 +107,14 @@ class Terrain:
         # Rolling variation fades out near the canal so the floodplain stays level.
         fade = smoothstep(60.0, 500.0, d)
         h += fade * (3.0 * self.roll(x, z) + 0.8 * self.fine(x, z))
+        h += self.relief(x, z)
+        for pd in self.pads:                      # flattened building pads (hero lots), blended over a margin
+            px0, pz0, px1, pz1 = pd["rect"]
+            dx = max(px0 - x, 0.0, x - px1)
+            dz = max(pz0 - z, 0.0, z - pz1)
+            dd = math.hypot(dx, dz)
+            if dd < pd["margin"]:
+                h += (pd["z"] - h) * smoothstep(pd["margin"], 0.0, dd)
         return h
 
     def ground(self, x, z):
@@ -69,3 +131,17 @@ class Terrain:
         if L == 0:
             return 0.0
         return abs(self.surface(*b) - self.surface(*a)) / L
+
+
+def hero_pads(root, spec, margin=10.0):
+    """Flat pads for the Old Town hero lots at the mean height of the unpadded surface (same value the hero generators use)."""
+    import json
+    from pathlib import Path
+    data = json.loads((Path(root) / "ArtSource" / "Blender" / "World" / "OldTown" / "oldtown_heroes_v1.json").read_text(encoding="utf-8"))
+    t = Terrain(spec)
+    pads = []
+    for h in data["heroes"]:
+        x0, z0, x1, z1 = h["lot"]
+        pts = ((x0, z0), (x1, z0), (x1, z1), (x0, z1), ((x0 + x1) / 2, (z0 + z1) / 2))
+        pads.append({"id": h["id"], "rect": (x0, z0, x1, z1), "z": sum(t.surface(*p) for p in pts) / len(pts), "margin": margin})
+    return pads

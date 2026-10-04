@@ -219,6 +219,42 @@
         "AO": "ArtSource/Textures/calcada/calcada_AO.png"
       }
     },
+    "pedra_portuguesa": {
+      "family": "pavimento",
+      "pattern": "tiles",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.7,
+        0.9
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_BaseColor.png",
+        "Normal": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_Normal.png",
+        "Roughness": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_Roughness.png",
+        "Metallic": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_Metallic.png",
+        "AO": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_AO.png"
+      }
+    },
+    "cimentado": {
+      "family": "concreto",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.85,
+        0.95
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/cimentado/cimentado_BaseColor.png",
+        "Normal": "ArtSource/Textures/cimentado/cimentado_Normal.png",
+        "Roughness": "ArtSource/Textures/cimentado/cimentado_Roughness.png",
+        "Metallic": "ArtSource/Textures/cimentado/cimentado_Metallic.png",
+        "AO": "ArtSource/Textures/cimentado/cimentado_AO.png"
+      }
+    },
     "piso_intertravado": {
       "family": "pavimento",
       "pattern": "tiles",

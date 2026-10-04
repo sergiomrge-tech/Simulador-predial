@@ -1,5 +1,7 @@
 # W2 — Cidade Antiga Base (Etapa D) — relatório parcial
 
+> **Atualização W2.5 (2026-10-04):** relevo urbano, wear pass, refino dos 5 heróis secundários e bairro mais vivido. Ver `Docs/W2_5_VISUAL_FIDELITY_GATE.md` (gate visual: **PARTIAL PASS**). As seções abaixo descrevem o estado W2; contagens novas estão no relatório W2.5.
+
 **Data:** 2026-10-04 · **Branch:** `claude/w1-masterplan` · **Blender:** 5.2.1 LTS headless
 **Estágio:** base de produção, **não é arte final**. Faltam texturas autorais, decals, desgaste pintado, LOD0 final, vegetação autoral, look de iluminação e integração na Unity. Nada foi alterado no protótipo Unity, nos saves, nos IDs ou nas coordenadas de runtime. Nenhum add-on, MCP ou asset externo foi instalado ou usado; todos os materiais são procedurais e próprios.
 

@@ -489,6 +489,8 @@ for did, (cx, cy, span) in views.items():
 sa_bl.camera("CAM_Skyline", cams, (-1300, -3700, 260), target=(2300, 300, 60), lens=38, clip=(5, 20000))
 sa_bl.camera("CAM_Transition_OldExp", cams, (-1050, -3150, 260), target=(-1050, -1950, 15), lens=30, clip=(5, 20000))
 sa_bl.camera("CAM_Industrial_Low", cams, (-1500, 900, 160), target=(-2400, 2000, 15), lens=32, clip=(5, 20000))
+# W2.5: relief view from the south edge of the Old Town over the córrego valley (R02) down to the drainage canal in the north.
+sa_bl.camera("CAM_World_OldTown_Canal", cams, (-2950, -3500, 260), target=(-2550, 2600, 0), lens=34, clip=(5, 20000))
 sa_bl.sun_and_sky(scene, cams)
 scene.camera = bpy.data.objects["CAM_World_Oblique"]
 scene.render.engine = "BLENDER_EEVEE"

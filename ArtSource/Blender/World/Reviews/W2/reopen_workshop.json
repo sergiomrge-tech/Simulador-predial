@@ -2,23 +2,27 @@
   "hero": "workshop",
   "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_workshop.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objects": 39,
+  "objects": 59,
   "checks": {
-    "meshObjects": 26,
-    "triangles": 22662,
+    "meshObjects": 46,
+    "triangles": 39252,
     "trianglesPerCollection": {
       "W2_workshop_CaptureOnly": 10,
       "W2_workshop_Interior": 3360,
       "W2_workshop_Openings": 10580,
       "W2_workshop_Services": 2508,
-      "W2_workshop_Shell": 5032,
-      "W2_workshop_Site": 1136,
+      "W2_workshop_Shell": 10242,
+      "W2_workshop_Site": 12516,
       "W2_workshop_Structure": 36
     },
     "largestObjects": [
       {
         "name": "W2_workshop__B0_workshop_hall_openings",
         "tris": 5270
+      },
+      {
+        "name": "W2_workshop__sign_sub",
+        "tris": 5144
       },
       {
         "name": "W2_workshop__sign_name",
@@ -43,14 +47,10 @@
       {
         "name": "W2_workshop__door_room_reception__leaf",
         "tris": 862
-      },
-      {
-        "name": "W2_workshop__door_room_depot__leaf",
-        "tris": 862
       }
     ],
     "lights": 5,
-    "materials": 29,
+    "materials": 41,
     "stateSlots": [],
     "interactive": 8,
     "root": {
@@ -59,7 +59,7 @@
       "location": [
         -3198.0,
         -2034.0,
-        30.053
+        25.059
       ]
     }
   },

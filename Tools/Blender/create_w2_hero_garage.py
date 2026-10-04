@@ -293,6 +293,10 @@ mb = sa_bl.MeshBuilder()
 mb.box(0, 0, -1.25, 90, 90, 1.0, 0)
 H.mesh(P + "ground_plate", mb, ["terra"], "CaptureOnly", sa_layer="Terrain", note="só para capturas isoladas")
 
+from sa_w2 import wear_pass  # noqa: E402
+wear_pass(H.lib, H.C["Site"], H.rootobj, [(-hw, -hd, hw, hd, FH + 1.6)], entrances=[(rx, -hd, "-y"), (gx, -hd, "-y")],
+          ground_rects=[vb, Lrect(next(s["rect"] for s in hero["service"] if s["role"] == "side_yard"))],
+          drive_lines=[((gx, -hd - 9.0), (gx, -hd + 6.0))], seed=7, prefix=P, facility="garage")
 # ---------------------------------------------------------------- lighting, cameras, captures
 sa_bl.sun_and_sky(H.scene, H.C["Lighting"], elevation_deg=34.0, azimuth_deg=250.0)
 H.cam("CAM_W2_garage_street", (-3.0, -32.0, 1.7), (-1.0, -hd, 3.6), 20)

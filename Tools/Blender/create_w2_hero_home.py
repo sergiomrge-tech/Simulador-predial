@@ -419,6 +419,11 @@ for (sx, sgn) in ((-hw - .2, -1), (hw + .2, 1)):
     mb.box(sx + sgn * 1.4, (front_y + hd) / 2, -.2, 2.8, D, .2, 0)
     mesh(f"W2_home__side_passage_{'A' if sgn < 0 else 'B'}", mb, ["concreto_aparente"], C["Site"], sa_layer="Roads")
 
+from sa_w2 import wear_pass  # noqa: E402
+wear_pass(lib, C["Site"], rootobj, [(-hw, -hd, hw, hd, NF * FH)], entrances=[(entrance_x, front_y, "-y")],
+          ground_rects=[Lrect(pk["rect"]) for pk in hero["parking"]], seed=5, prefix="W2_home__", facility="home.starter")
+KL = sa_detail.Kit(lib, C["Site"], parent=rootobj)
+KL.clothesline("W2_home__clothes_back", (-hw + 1.0, hd + 1.4), (hw - 1.0, hd + 1.4), 1.9, n=8, seed=9)
 # ---------------------------------------------------------------- terrain patch under the lot, lights, cameras
 sa_bl.sun_and_sky(scene, C["Lighting"], elevation_deg=34.0, azimuth_deg=330.0)
 for o in C["Lighting"].objects:

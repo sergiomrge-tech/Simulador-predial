@@ -181,3 +181,25 @@ Preparação concluída no GitHub:
   - estados G1–G4/H1–H4 modelados;
   - subsolo do Horizonte.
 - Ainda não é arte final. Protótipo Unity, saves e IDs intactos.
+
+## Checkpoint — W2.5 Cidade Antiga: relevo + wear pass + heróis secundários (2026-10-04)
+
+- **Relevo urbano** em `sa_terrain`:
+  - Alto da Aurora +20 m;
+  - vale da Av. do Trabalho (R02) com córrego canalizado de 2,4 km;
+  - ondulação entre quarteirões;
+  - platôs dos heróis.
+- **Rampas:** locais até ≈15%, arteriais ≤3,8%; validação PASS.
+- **Implantação em desnível:** 1.511 embasamentos, 1.356 muros de arrimo, 19 escadarias.
+- **Wear pass:**
+  - nó `SA_WEAR` em 29 materiais (escorrimento, umidade, remendos, sujeira de piso, ferrugem);
+  - decals de umidade, sujeira, óleo e pneu nas vias e nos 9 heróis.
+- **Bairro:**
+  - fiação aérea (2.192 vãos);
+  - calçadas variadas;
+  - muros e portões, lixeiras, caçambas, puxadinhos, lonas, arbustos, entulho;
+  - carros-proxy.
+- **Heróis:** os 5 secundários ganharam identidade (fachada, letreiros, volumes de apoio, vida de rua); os 4 principais foram reassentados no relevo, com desgaste.
+- **Integridade:** IDs, marcadores, lotes e heróis vinculados idênticos ao commit anterior (auditoria). Reaberturas PASS sem dados faltando. 77 capturas em `Reviews/W2_5/`.
+- **Complexidade:** +4,2% de tris instanciados; +0,51 M de tris em meshes simples.
+- **Gate visual da Cidade Antiga: PARTIAL PASS.** Relevo pouco legível em vistas aéreas; vegetação e carros proxy; iluminação de revisão; texturas autorais pendentes. Detalhes em `Docs/W2_5_VISUAL_FIDELITY_GATE.md`.

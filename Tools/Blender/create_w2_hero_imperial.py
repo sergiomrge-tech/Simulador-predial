@@ -512,6 +512,11 @@ H.empty(P + "GP_quadro_antigo", (BK[0] + 1.0, qy, STAGE + 1.4), (.6, 2.0, 2.2), 
 H.empty(P + "GP_basement_hatch", (lot[2] - 1.0, L(next(e["p"] for e in hero["entrances"] if e["role"] == "technical_basement_hatch"))[1], .3), (1.2, 1.2, .6),
         sa_kind="access", note="alçapão do porão técnico (porão não modelado no W2)")
 
+from sa_w2 import wear_pass  # noqa: E402
+wear_pass(H.lib, H.C["Site"], H.rootobj, [(FO[0], FO[1], FO[2], FO[3], ZF), (AU[0], AU[1], AU[2], AU[3], ZA), (FT[0], FT[1], FT[2], FT[3], ZT),
+                                          (BK[0], BK[1], BK[2], BK[3], ZB)],
+          entrances=[(x, pr[1] - 1.5, "-y") for x in (-6.0, 0.0, 6.0)] + [(dk[0], BK[3] + 3.5, "+y")],
+          ground_rects=[ap], drive_lines=[((dk[0], ap[3] + 2), (dk[0], ap[1]))], seed=13, prefix=P, facility="imperial")
 # ---------------------------------------------------------------- lighting, cameras, captures
 sa_bl.sun_and_sky(H.scene, H.C["Lighting"], elevation_deg=34.0, azimuth_deg=200.0)
 H.cam("CAM_W2_imperial_largo", (-26.0, pr[1] - 42.0, 1.7), (0.0, yF, 11.0), 18)

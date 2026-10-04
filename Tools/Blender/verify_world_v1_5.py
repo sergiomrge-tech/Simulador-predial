@@ -120,6 +120,7 @@ SHOTS = {
         ("02_mundo_obliquo", "CAM_World_Oblique", (2400, 1350), {}),
         ("09_industrial", "CAM_District_industrial", (2400, 1350), {"labels": True}),
         ("09b_industrial_baixo", "CAM_Industrial_Low", (2400, 1350), {}),
+        ("w25_18_cidade_antiga_vale_canal", "CAM_World_OldTown_Canal", (2400, 1350), {}),
         ("10_empresarial", "CAM_District_corporate", (2400, 1350), {"labels": True}),
         ("11_tecnologico", "CAM_District_technology", (2400, 1350), {"labels": True}),
         ("12_central", "CAM_District_civic", (2400, 1350), {"labels": True}),
@@ -140,6 +141,17 @@ SHOTS = {
         ("07_horizonte", "CAM_OT_Horizonte", (2400, 1350), {}),
         ("07b_horizonte_fachada", "CAM_OT_Horizonte_Frente", (2400, 1350), {}),
         ("08_teatro_imperial", "CAM_OT_Imperial", (2400, 1350), {}),
+        ("w25_01_cidade_antiga_obliqua", "CAM_OT_Oblique", (2400, 1350), {}),
+        ("w25_02_rua_relevo", "CAM_OT_Rua_Relevo", (2400, 1350), {}),
+        ("w25_03_alto_aurora_desnivel", "CAM_OT_Alto_Aurora", (2400, 1350), {}),
+        ("w25_04_vale_corrego", "CAM_OT_Vale_Corrego", (2400, 1350), {}),
+        ("w25_05_vale_panorama", "CAM_OT_Vale_Panorama", (2400, 1350), {}),
+        ("w25_06_rua_antes_wear", "CAM_OT_Wear_Rua", (2400, 1350), {"wear": 0.0}),
+        ("w25_07_rua_depois_wear", "CAM_OT_Wear_Rua", (2400, 1350), {"wear": 1.0}),
+        ("w25_08_lar_na_cidade", "CAM_OT_Home_Exterior", (2400, 1350), {}),
+        ("w25_09_oficina_na_cidade", "CAM_OT_Garage_Exterior", (2400, 1350), {}),
+        ("w25_10_horizonte_na_cidade", "CAM_OT_Horizonte_Frente", (2400, 1350), {}),
+        ("w25_11_teatro_na_cidade", "CAM_OT_Imperial", (2400, 1350), {}),
     ],
     "kit": [
         ("20_kit_modular", "CAM_Kit_Modular", (2400, 1350), {}),
@@ -206,10 +218,16 @@ if not opts.no_render:
                     n = o.name
                     if n.endswith("ROOF") or n.endswith("details") or ("__F" in n and int(n.split("__F")[-1][:2]) > max_floor):
                         o.hide_render = True
+        wear_v = fl.get("wear", 1.0)
+        for m in bpy.data.materials:
+            if m.node_tree and m.library is None:
+                n_ = m.node_tree.nodes.get("SA_WEAR")
+                if n_:
+                    n_.outputs[0].default_value = wear_v
         scene.camera = bpy.data.objects[cam]
         scene.render.resolution_x, scene.render.resolution_y = w, h
         scene.render.resolution_percentage = 100
-        out = review / (f"{name}.jpg" if opts.review == "W1_5" else f"ot_{name}.jpg")
+        out = review / (f"{name}.jpg" if opts.review == "W1_5" or name.startswith("w25_") else f"ot_{name}.jpg")
         scene.render.filepath = str(out)
         bpy.ops.render.render(write_still=True)
         renders.append(out.relative_to(root).as_posix())

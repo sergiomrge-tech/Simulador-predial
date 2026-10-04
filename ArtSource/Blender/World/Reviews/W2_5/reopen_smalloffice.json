@@ -1,0 +1,77 @@
+{
+  "hero": "smalloffice",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_smalloffice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 63,
+  "checks": {
+    "meshObjects": 48,
+    "triangles": 51882,
+    "trianglesPerCollection": {
+      "W2_smalloffice_CaptureOnly": 10,
+      "W2_smalloffice_Interior": 15194,
+      "W2_smalloffice_Openings": 18050,
+      "W2_smalloffice_Services": 198,
+      "W2_smalloffice_Shell": 10252,
+      "W2_smalloffice_Site": 8040,
+      "W2_smalloffice_Structure": 138
+    },
+    "largestObjects": [
+      {
+        "name": "W2_smalloffice__interior_fitout",
+        "tris": 10534
+      },
+      {
+        "name": "W2_smalloffice__B0_office_openings",
+        "tris": 8870
+      },
+      {
+        "name": "W2_smalloffice__B0_office_shell",
+        "tris": 5416
+      },
+      {
+        "name": "W2_smalloffice__character",
+        "tris": 2616
+      },
+      {
+        "name": "W2_smalloffice__sign_plaque",
+        "tris": 2220
+      },
+      {
+        "name": "W2_smalloffice__door_main",
+        "tris": 990
+      },
+      {
+        "name": "W2_smalloffice__door_drive_to_parking",
+        "tris": 990
+      },
+      {
+        "name": "W2_smalloffice__counter_copa",
+        "tris": 984
+      }
+    ],
+    "lights": 7,
+    "materials": 40,
+    "stateSlots": [],
+    "interactive": 8,
+    "root": {
+      "name": "W2_smalloffice_ROOT",
+      "facility_id": "smalloffice",
+      "location": [
+        -1853.0,
+        -1891.0,
+        30.478
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W2_5/w2_smalloffice_01_rua.jpg",
+    "ArtSource/Blender/World/Reviews/W2_5/w2_smalloffice_02_entrada.jpg",
+    "ArtSource/Blender/World/Reviews/W2_5/w2_smalloffice_03_interior.jpg",
+    "ArtSource/Blender/World/Reviews/W2_5/w2_smalloffice_04_tecnico.jpg",
+    "ArtSource/Blender/World/Reviews/W2_5/w2_smalloffice_05_aerea.jpg",
+    "ArtSource/Blender/World/Reviews/W2_5/w2_smalloffice_06_corte.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

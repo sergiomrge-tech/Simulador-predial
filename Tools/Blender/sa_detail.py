@@ -435,3 +435,101 @@ class Kit:
         for k, (x, z) in enumerate(((-.35, 1.85), (-.05, 1.8), (.25, 1.88), (-.3, 1.45), (.1, 1.4))):
             mb.box(x, -.026, z - .11, .18, .002, .22, 2)
         return self.obj(name, mb, ["madeira_crua", "papelao", "plastico_branco"], loc, rot, bevel=.004, sa_kind="job_board", gameplay="quadro de chamados")
+
+
+    # ------------------------------------------------------------ W2.5 street life (fictional, generic)
+    CAR_PAINTS = ("aco_pintado_vermelho", "aco_pintado_verde", "plastico_branco", "aco_pintado_cinza", "plastico_azul", "papelao")
+
+    def car(self, name, loc, rot, paint=0, van=False):
+        """Generic parked car / small van proxy (no brand): body, cabin, glass band, wheels, lights. LOD0 base."""
+        mb = MeshBuilder()
+        L, W = (4.6, 1.85) if van else (4.1, 1.7)
+        mb.box(0, 0, .32, L, W, .62, 0)
+        if van:
+            mb.box(-.45, 0, .94, L - 1.3, W - .06, 1.05, 0)
+            mb.box(1.55, 0, .94, .9, W - .1, .55, 1)
+        else:
+            mb.box(-.2, 0, .94, 2.1, W - .12, .5, 0)
+            mb.box(-.2, 0, .98, 2.14, W - .08, .38, 1)
+        for x in (-L / 2 + .75, L / 2 - .8):
+            for y in (-W / 2 + .05, W / 2 - .05):
+                mb.box(x, y, 0, .62, .22, .62, 2)
+        for y in (-.6, .6):
+            mb.box(L / 2 + .01, y, .6, .02, .3, .12, 3)
+            mb.box(-L / 2 - .01, y, .6, .02, .25, .1, 4)
+        paint_ = self.CAR_PAINTS[paint % len(self.CAR_PAINTS)]
+        return self.obj(name, mb, [paint_, "vidro", "borracha_preta", "plastico_branco", "aco_pintado_vermelho"], loc, rot, bevel=.03,
+                        sa_kind="vehicle_proxy", note="veículo genérico (proxy de cena, sem marca)")
+
+    def crate_stack(self, name, loc, rot, n=3):
+        mb = MeshBuilder()
+        for k in range(n):
+            x, z = (k % 2) * .62, (k // 2) * .32
+            mb.box(x, 0, z, .58, .4, .3, 0)
+            mb.box(x, 0, z + .26, .52, .34, .05, 1)
+        return self.obj(name, mb, ["madeira_crua", "folhagem"], loc, rot, bevel=.008, sa_kind="prop")
+
+    def freezer(self, name, loc, rot):
+        mb = MeshBuilder()
+        mb.box(0, 0, 0, 1.3, .7, .85, 0)
+        mb.box(0, 0, .85, 1.32, .72, .05, 1)
+        mb.box(0, -.36, .35, 1.0, .01, .3, 2)
+        return self.obj(name, mb, ["plastico_branco", "vidro", "plastico_azul"], loc, rot, bevel=.02, sa_kind="prop", note="freezer de sorvete")
+
+    def gas_cage(self, name, loc, rot, n=4):
+        mb = MeshBuilder()
+        mb.box(0, 0, 0, .55 * n + .2, .7, .1, 2)
+        for k in range(n):
+            mb.cylinder(-(.55 * n) / 2 + .275 + k * .55, 0, .1, .19, 1.15, 16, 0)
+            mb.cylinder(-(.55 * n) / 2 + .275 + k * .55, 0, 1.25, .08, .12, 10, 1)
+        for x in (-(.55 * n) / 2 - .05, (.55 * n) / 2 + .05):
+            for y in (-.33, .33):
+                mb.box(x, y, 0, .04, .04, 1.6, 1)
+        mb.box(0, 0, 1.6, .55 * n + .2, .7, .03, 1)
+        return self.obj(name, mb, ["aco_pintado_cinza", "metal_galvanizado", "concreto"], loc, rot, bevel=.006, sa_kind="gas_cage",
+                        note="abrigo de cilindros de gás (genérico)")
+
+    def pallet_stack(self, name, loc, rot, n=4):
+        mb = MeshBuilder()
+        for k in range(n):
+            z = k * .15
+            for y in (-.5, 0, .5):
+                mb.box(0, y, z, 1.2, .1, .09, 0)
+            for x in (-.5, 0, .5):
+                mb.box(x, 0, z + .09, .1, 1.0, .02, 0)
+        return self.obj(name, mb, ["madeira_crua"], loc, rot, bevel=.004, sa_kind="prop")
+
+    def tire_stack(self, name, loc, rot, n=4):
+        mb = MeshBuilder()
+        for k in range(n):
+            mb.cylinder(0, 0, k * .22, .33, .21, 16, 0)
+        return self.obj(name, mb, ["borracha_preta"], loc, rot, bevel=.02, sa_kind="prop")
+
+    def drum(self, name, loc, rot, paint="aco_pintado_verde"):
+        mb = MeshBuilder()
+        mb.cylinder(0, 0, 0, .29, .88, 18, 0)
+        for z in (.28, .6):
+            mb.cylinder(0, 0, z, .3, .03, 18, 0)
+        return self.obj(name, mb, [paint], loc, rot, bevel=.004, sa_kind="prop")
+
+    def a_board(self, name, loc, rot):
+        mb = MeshBuilder()
+        mb.add_face([(-.3, .02, 0), (.3, .02, 0), (.3, .2, .95), (-.3, .2, .95)], 0)
+        mb.add_face([(-.3, -.2, .95), (.3, -.2, .95), (.3, -.02, 0), (-.3, -.02, 0)], 0)
+        mb.box(0, -.13, .35, .5, .01, .45, 1)
+        return self.obj(name, mb, ["madeira_pintada", "borracha_preta"], loc, rot, bevel=0.0, sa_kind="prop", note="cavalete de ofertas")
+
+    def clothesline(self, name, p0, p1, z, n=6, seed=1):
+        """Line between two points with hanging clothes (thin planes in varied fabrics)."""
+        import random as _r
+        rng = _r.Random(seed)
+        mb = MeshBuilder()
+        L = math.hypot(p1[0] - p0[0], p1[1] - p0[1])
+        ang = math.atan2(p1[1] - p0[1], p1[0] - p0[0])
+        mb.box(L / 2, 0, z, L, .01, .01, 0)
+        for k in range(n):
+            x = L * (k + .5) / n
+            w, h = rng.uniform(.35, .7), rng.uniform(.4, .8)
+            mb.box(x, 0, z - h, w, .01, h, 1 + k % 3)
+        return self.obj(name, mb, ["aco_pintado_cinza", "tecido_lencol", "plastico_azul", "aco_pintado_vermelho"], (p0[0], p0[1], 0), ang, bevel=0.0,
+                        sa_kind="prop")

@@ -441,8 +441,12 @@ for side in ("+y", "-x", "+x"):                                                 
     (wall_x if axis == "x" else wall_y)(mb, c, a, bb, .18, 0, 2.0, [(u, w, 0, 2.0) for u, w in gaps], 4)
 H.mesh(P + "site", mb, ["calcada", "asfalto_gasto", "sinalizacao_viaria", "concreto", "reboco_antigo"], "Site", sa_layer="Roads")
 name = hero["name"].split("(")[0].strip().upper()
+if HID == "grocery":
+    name = "HORTIFRUTI - FRIOS - BEBIDAS"
 if len(name) > 26:
     name = name[:26]
+if HID in ("apartments", "smalloffice"):
+    name = " "
 t = text_mesh(P + "sign_name", name, .45, H.C["Shell"], H.lib["aco_pintado_verde" if HID != "restaurant" else "aco_pintado_vermelho"], extrude=.03)
 fr0 = blds[0]["r"]
 t.parent, t.location, t.rotation_euler = H.rootobj, ((fr0[0] + fr0[2]) / 2, fr0[1] - .06, blds[0]["ground_h"] - .55), (math.pi / 2, 0, 0)
@@ -461,11 +465,180 @@ mb = sa_bl.MeshBuilder()
 mb.box(0, 0, -1.4, 160, 160, 1.15, 0)
 H.mesh(P + "ground_plate", mb, ["terra"], "CaptureOnly", sa_layer="Terrain", note="só para capturas isoladas")
 
+# ---------------------------------------------------------------- W2.5 character pass (per hero) + wear decals
+from sa_w2 import wear_pass  # noqa: E402
+KC = H.kit("Site")
+fr0 = blds[0]["r"]
+yF = fr0[1]
+
+
+def fill_parking(rect, tag, density=.65):
+    r = Lrect(rect)
+    long_x = (r[2] - r[0]) >= (r[3] - r[1])
+    n = max(1, int(((r[2] - r[0]) if long_x else (r[3] - r[1])) / 2.6))
+    for k in range(n):
+        if rng.random() > density:
+            continue
+        t = (k + .5) / n
+        if long_x:
+            c = (r[0] + t * (r[2] - r[0]), (r[1] + r[3]) / 2)
+            rot = math.pi / 2 + (math.pi if rng.random() < .5 else 0) + rng.uniform(-.05, .05)
+        else:
+            c = ((r[0] + r[2]) / 2, r[1] + t * (r[3] - r[1]))
+            rot = (math.pi if rng.random() < .5 else 0) + rng.uniform(-.05, .05)
+        KC.car(P + f"car_{tag}_{k}", (c[0], c[1], 0.0), rot, paint=rng.randrange(6), van=rng.random() < .12)
+
+
+def front_slots(b):
+    x0, y0, x1, y1 = b["r"]
+    L_ = x1 - x0
+    n = max(1, int((L_ - 1.5) / 3.3))
+    return [x0 + (k + .5) * L_ / n for k in range(n)]
+
+
+def letters(name, text, size, loc, mat="aco_inox", extrude=.025):
+    t = text_mesh(P + name, text, size, H.C["Shell"], H.lib[mat], extrude=extrude)
+    t.parent, t.location, t.rotation_euler = H.rootobj, loc, (math.pi / 2, 0, 0)
+    return t
+
+
+mb = sa_bl.MeshBuilder()
+if HID == "apartments":
+    b = blds[0]
+    main = next(e for e in ents if e["role"] == "main")["lp"]
+    for f in range(1, b["floors"]):
+        z0 = b["ground_h"] + (f - 1) * b["fh"]
+        for k, x in enumerate(front_slots(b)):
+            if (k + f) % 2:
+                continue
+            mb.box(x, yF - .55, z0, 2.4, 1.1, .12, 0, bottom=True)                       # balcony slab
+            mb.box(x, yF - 1.08, z0 + .12, 2.4, .05, .95, 2)                              # railing panel
+            for xx in (x - 1.2, x + 1.2):
+                mb.box(xx, yF - .55, z0 + .12, .05, 1.1, 1.0, 1)
+            mb.box(x, yF - 1.08, z0 + 1.05, 2.45, .07, .05, 1)
+            if rng.random() < .35:
+                mb.box(x + .6, yF - .8, z0 + .12, .9, .02, .9, 4 + rng.randrange(2))      # laundry rack
+            if rng.random() < .4:
+                mb.cylinder(x - .8, yF - .85, z0 + .12, .16, .35, 10, 6)
+                mb.cylinder(x - .8, yF - .85, z0 + .47, .22, .3, 8, 7)
+    for r_ in range(int((b["H"] - 3.6) / .4)):                                            # cobogó strip over the entrance (stair core)
+        for c_ in range(6):
+            mb.box(main[0] - 1.0 + c_ * .4, yF - .06, 3.6 + r_ * .4, .34, .14, .34, 3)
+    mb.box(main[0], yF - 1.0, 2.9, 3.4, 2.0, .15, 0, bottom=True)                         # entrance canopy
+    for xx in (main[0] - 1.6, main[0] + 1.6):
+        mb.cylinder(xx, yF - 1.9, 0, .06, 2.9, 10, 1)
+    vp = next(e for e in ents if e["role"] == "vehicle_passage")["lp"]
+    for k in range(int(4.0 / .14)):
+        mb.box(vp[0] - 2.0 + .07 + k * .14, yF + .4, .05, .025, .025, 2.6, 1)            # passage gate bars
+    mb.box(vp[0], yF + .4, 2.65, 4.0, .05, .06, 1)
+    letters("sign_name", "RESIDENCIAL VILA ANTIGA", .32, (main[0], yF - 2.0, 3.12), "aco_inox")
+    cy = Lrect(next(s_["rect"] for s_ in hero["service"] if s_["role"] == "courtyard_service"))
+    for k, (tx, ty) in enumerate(((cy[0] + 3, cy[3] - 3), (cy[2] - 4, cy[1] + 4))):
+        mb.cylinder(tx, ty, 0, .15, 2.6, 8, 8)
+        mb.cylinder(tx, ty, 2.4, 1.6, 2.2, 12, 7)
+        mb.box(tx, ty, -.05, 2.2, 2.2, .1, 9)
+    KC.clothesline(P + "clothes_a", (cy[0] + 1, cy[3] - 1.5), (cy[0] + 8, cy[3] - 1.5), 2.0, n=7, seed=3)
+    KC.clothesline(P + "clothes_b", (cy[0] + 1, cy[3] - 3.0), (cy[0] + 7, cy[3] - 3.0), 2.0, n=5, seed=4)
+    fill_parking(next(p_["rect"] for p_ in hero["parking"] if p_["role"] == "courtyard"), "patio", .6)
+    for k in range(3):
+        KC.drum(P + f"bin_{k}", (cy[2] - 1.0, cy[1] + 1.0 + k * .8, 0.0), 0.0, paint="plastico_azul")
+elif HID == "grocery":
+    b = blds[0]
+    aw = Lrect(hero["awning"]["rect"])
+    ah = hero["awning"]["h"]
+    for k in range(int((aw[2] - aw[0]) / .9)):                                            # striped awning canvas
+        x = aw[0] + .45 + k * .9
+        mb.box(x, (aw[1] + aw[3]) / 2, ah + .085, .9, aw[3] - aw[1], .01, 4 + (k % 2))
+        mb.box(x, aw[1] - .01, ah - .25, .9, .02, .33, 4 + (k % 2))                       # valance
+    mb.box((fr0[0] + fr0[2]) / 2, yF - .08, ah + .25, fr0[2] - fr0[0] - 2.0, .08, .95, 10)   # painted sign board
+    letters("sign_board", "MERCEARIA SÃO JORGE", .55, ((fr0[0] + fr0[2]) / 2, yF - .14, ah + .38), "aco_pintado_vermelho")
+    letters("sign_since", "DESDE 1978", .2, ((fr0[0] + fr0[2]) / 2 + 9.0, yF - .14, ah + .42), "aco_pintado_vermelho")
+    door = next(e for e in ents if e["role"] == "shop_main")["lp"]
+    KC.crate_stack(P + "crates_a", (door[0] - 3.2, yF - .6, 0.0), 0.0, n=4)
+    KC.crate_stack(P + "crates_b", (door[0] + 2.2, yF - .6, 0.0), 0.0, n=3)
+    KC.freezer(P + "freezer", (door[0] + 4.4, yF - .55, 0.0), 0.0)
+    KC.a_board(P + "a_board", (door[0] - 1.8, yF - 1.8, 0.0), .3)
+    KC.gas_cage(P + "gas_cage", (fr0[0] + 1.6, yF - .5, 0.0), 0.0, n=3)
+    for k, x in enumerate(front_slots(b)):                                                # flower boxes, upper residence
+        if rng.random() < .55:
+            z0 = b["ground_h"] + .95
+            mb.box(x, yF - .2, z0 - .25, 1.2, .3, .25, 6)
+            mb.box(x, yF - .2, z0, 1.1, .25, .18, 7)
+    ly = Lrect(next(s_["rect"] for s_ in hero["service"] if s_["role"] == "loading_yard"))
+    KC.pallet_stack(P + "pallets", (ly[0] + 1.5, ly[1] + 4.0, 0.0), .1, n=5)
+    KC.car(P + "delivery_van", ((ly[0] + ly[2]) / 2, ly[3] - 4.0, 0.0), math.pi / 2, paint=2, van=True)
+    for k in range(2):
+        KC.drum(P + f"drum_{k}", (ly[2] - .6, ly[1] + 1.0 + k * .7, 0.0), 0.0, paint="plastico_azul")
+    fill_parking(next(p_["rect"] for p_ in hero["parking"] if p_["role"] == "street_bays"), "rua", .7)
+elif HID == "restaurant":
+    letters("sign_sub", "COMIDA CASEIRA", .25, ((fr0[0] + fr0[2]) / 2, yF - .1, blds[0]["ground_h"] - .95), "aco_pintado_vermelho")
+    aw = Lrect(hero["awning"]["rect"])
+    for k in range(3):
+        tx = aw[0] + 3.0 + k * 7.0
+        if abs(tx - (aw[0] + aw[2]) / 2) < 2.0:
+            continue
+        mb.box(tx, aw[1] - .4, .74, .8, .8, .04, 11)
+        mb.cylinder(tx, aw[1] - .4, 0, .05, .74, 8, 1)
+        for sgn in (-1, 1):
+            KC.chair_old(P + f"terrace_chair_{k}_{sgn}", (tx + sgn * .7, aw[1] - .4, 0.0), sgn * math.pi / 2)
+    KC.a_board(P + "menu_board", ((aw[0] + aw[2]) / 2 + 2.0, aw[1] - 1.2, 0.0), -.2)
+    for x in (aw[0] + .6, aw[2] - .6):
+        mb.box(x, aw[1] - .3, 0, .8, .5, .5, 3)
+        mb.box(x, aw[1] - .3, .5, .7, .4, .3, 7)
+    cz = ROOM.get("cozinha", fr0)
+    duct_x = fr0[2] + .3
+    top = blds[0]["H"] + 2.0
+    mb.box(duct_x, (cz[1] + cz[3]) / 2, 2.5, .6, .6, top - 2.5, 1)                         # kitchen exhaust duct up the side wall
+    mb.box(duct_x - .2, (cz[1] + cz[3]) / 2, top, 1.0, 1.0, .5, 1)
+    mb.box(duct_x - .2, (cz[1] + cz[3]) / 2, top + .5, 1.3, 1.3, .08, 1)
+    yd = Lrect(next(s_["rect"] for s_ in hero["service"] if s_["role"] == "service_yard"))
+    KC.gas_cage(P + "gas_cage", (yd[2] - 2.0, yd[1] + 1.0, 0.0), 0.0, n=4)
+    KC.crate_stack(P + "crates_yard", (yd[0] + 1.5, yd[1] + 1.0, 0.0), 0.0, n=4)
+    for k in range(3):
+        KC.drum(P + f"bin_{k}", (yd[0] + 4.0 + k * .8, yd[3] - 1.0, 0.0), 0.0, paint="plastico_azul" if k else "aco_pintado_verde")
+    fill_parking(next(p_["rect"] for p_ in hero["parking"] if p_["role"] == "forecourt_stalls"), "frente", .7)
+elif HID == "workshop":
+    b = blds[0]
+    mb.box((fr0[0] + fr0[2]) / 2, yF - .03, 4.6, fr0[2] - fr0[0], .06, .5, 12)              # painted band
+    letters("sign_sub", "BATERIAS - ALTERNADORES - INJEÇÃO", .26, ((fr0[0] + fr0[2]) / 2, yF - .08, 4.68), "aco_pintado_cinza")
+    for e in ents:
+        if e["role"].startswith("box_"):
+            KC.tire_stack(P + f"tires_{e['role']}", (e["lp"][0] + 2.6, yF - .6, 0.0), 0.0, n=5)
+    KC.drum(P + "drum_oil_a", (fr0[0] + 1.0, yF - .6, 0.0), 0.0, paint="aco_pintado_vermelho")
+    KC.drum(P + "drum_oil_b", (fr0[0] + 1.7, yF - .6, 0.0), 0.0)
+    bx = ROOM.get("boxes")
+    if bx:
+        KC.car(P + "car_on_lift", (bx[0] + 4.5, (bx[1] + bx[3]) / 2, 1.6), math.pi / 2, paint=3)
+        KC.car(P + "car_box2", (bx[0] + 14.0, (bx[1] + bx[3]) / 2, .15), math.pi / 2 + .05, paint=0)
+        KC.shelving(P + "battery_rack", 2.4, (bx[2] - 3.0, bx[1] + .4, .15), 0.0, levels=4, h=1.6)
+    fill_parking(next(p_["rect"] for p_ in hero["parking"] if p_["role"] == "yard_parking"), "patio", .55)
+elif HID == "smalloffice":
+    b = blds[0]
+    for x in [fr0[0] + .6 + k * .8 for k in range(int((fr0[2] - fr0[0] - 1.2) / .8) + 1)]:
+        mb.box(x, yF - .25, b["ground_h"] + .1, .06, .45, b["H"] - b["ground_h"] - .2, 1)     # brise-soleil fins
+    mb.box((fr0[0] + fr0[2]) / 2, yF - .3, b["H"] - .25, fr0[2] - fr0[0], .5, .12, 1)
+    main = next(e for e in ents if e["role"] == "main")["lp"]
+    mb.box(main[0], yF - 1.2, 3.0, 4.0, 2.4, .12, 1, bottom=True)                          # entrance canopy
+    for xx in (main[0] - 1.9, main[0] + 1.9):
+        mb.box(xx, yF - 2.3, 0, .1, .1, 3.0, 1)
+    letters("sign_plaque", "PAIVA CONTABILIDADE", .3, (main[0] + 5.5, yF - .06, 2.4), "aco_inox")
+    for x in (fr0[0] + 2.0, fr0[2] - 2.0):
+        mb.box(x, yF - 1.0, 0, 2.4, .9, .45, 3)
+        mb.box(x, yF - 1.0, .45, 2.2, .7, .05, 7)
+    fill_parking(next(p_["rect"] for p_ in hero["parking"] if p_["role"] == "rear_parking"), "fundos", .6)
+H.mesh(P + "character", mb, ["concreto_pintado", "aluminio", "aco_pintado_cinza", "concreto", "plastico_branco", "plastico_azul", "ceramica_telha",
+                             "folhagem", "tronco", "terra", "aco_pintado_verde", "madeira_pintada", "pintura_industrial"], "Shell", bevel=.004,
+       sa_layer="Architecture", note="W2.5: identidade do herói (fachada, entrada, volumes de apoio, vida de rua)")
+wear_pass(H.lib, H.C["Site"], H.rootobj, [(*b["r"], b["H"]) for b in blds],
+          entrances=[(e["lp"][0], e["lp"][1], e["side"]) for e in ents if kind_of(e) != "site_gate"],
+          ground_rects=[Lrect(p_["rect"]) for p_ in hero.get("parking", [])],
+          drive_lines=[], seed=zlib.crc32(HID.encode()), prefix=P, facility=HID)
+
 # ---------------------------------------------------------------- cameras / captures
 sa_bl.sun_and_sky(H.scene, H.C["Lighting"], elevation_deg=34.0, azimuth_deg=210.0)
 lw, ld = lot[2] - lot[0], lot[3] - lot[1]
 tallest = max(b["H"] for b in blds)
-H.cam(f"CAM_W2_{HID}_street", (-lw * .25, lot[1] - max(14.0, tallest * 1.2), 1.7), (0.0, fr0[1], tallest * .45), 20)
+H.cam(f"CAM_W2_{HID}_street", (lw * .1, lot[1] - max(22.0, tallest * 1.6), 1.7), (0.0, fr0[1], tallest * .4), 22)
 main = next((e for e in ents if kind_of(e) == "door"), ents[0])
 mp = main["lp"]
 H.cam(f"CAM_W2_{HID}_entrance", (mp[0] + 3.5, mp[1] - 5.0, 1.65), (mp[0], mp[1], 1.8), 20)

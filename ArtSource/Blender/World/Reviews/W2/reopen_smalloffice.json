@@ -2,17 +2,17 @@
   "hero": "smalloffice",
   "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_smalloffice.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objects": 50,
+  "objects": 63,
   "checks": {
-    "meshObjects": 35,
-    "triangles": 43782,
+    "meshObjects": 48,
+    "triangles": 56082,
     "trianglesPerCollection": {
       "W2_smalloffice_CaptureOnly": 10,
       "W2_smalloffice_Interior": 15194,
       "W2_smalloffice_Openings": 18050,
       "W2_smalloffice_Services": 198,
-      "W2_smalloffice_Shell": 9616,
-      "W2_smalloffice_Site": 576,
+      "W2_smalloffice_Shell": 14452,
+      "W2_smalloffice_Site": 8040,
       "W2_smalloffice_Structure": 138
     },
     "largestObjects": [
@@ -33,24 +33,24 @@
         "tris": 4200
       },
       {
+        "name": "W2_smalloffice__character",
+        "tris": 2616
+      },
+      {
+        "name": "W2_smalloffice__sign_plaque",
+        "tris": 2220
+      },
+      {
         "name": "W2_smalloffice__door_main",
         "tris": 990
       },
       {
         "name": "W2_smalloffice__door_drive_to_parking",
         "tris": 990
-      },
-      {
-        "name": "W2_smalloffice__counter_copa",
-        "tris": 984
-      },
-      {
-        "name": "W2_smalloffice__door_room_reception__leaf",
-        "tris": 862
       }
     ],
     "lights": 7,
-    "materials": 29,
+    "materials": 40,
     "stateSlots": [],
     "interactive": 8,
     "root": {
@@ -59,7 +59,7 @@
       "location": [
         -1853.0,
         -1891.0,
-        29.867
+        30.396
       ]
     }
   },

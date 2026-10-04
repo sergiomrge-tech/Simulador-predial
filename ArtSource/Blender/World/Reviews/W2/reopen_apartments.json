@@ -2,20 +2,24 @@
   "hero": "apartments",
   "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_apartments.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objects": 46,
+  "objects": 58,
   "checks": {
-    "meshObjects": 33,
-    "triangles": 73678,
+    "meshObjects": 45,
+    "triangles": 107924,
     "trianglesPerCollection": {
       "W2_apartments_CaptureOnly": 10,
       "W2_apartments_Interior": 3026,
       "W2_apartments_Openings": 41440,
       "W2_apartments_Services": 1650,
-      "W2_apartments_Shell": 26712,
-      "W2_apartments_Site": 546,
+      "W2_apartments_Shell": 56464,
+      "W2_apartments_Site": 5040,
       "W2_apartments_Structure": 294
     },
     "largestObjects": [
+      {
+        "name": "W2_apartments__character",
+        "tris": 27408
+      },
       {
         "name": "W2_apartments__B0_front_wing_openings",
         "tris": 15090
@@ -41,16 +45,12 @@
         "tris": 6360
       },
       {
-        "name": "W2_apartments__sign_name",
+        "name": "W2_apartments__sign_name.001",
         "tris": 2344
-      },
-      {
-        "name": "W2_apartments__interior_fitout",
-        "tris": 1782
       }
     ],
     "lights": 4,
-    "materials": 28,
+    "materials": 37,
     "stateSlots": [],
     "interactive": 6,
     "root": {
@@ -59,7 +59,7 @@
       "location": [
         -3050.0,
         -1571.0,
-        24.858
+        23.352
       ]
     }
   },

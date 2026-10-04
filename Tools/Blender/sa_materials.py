@@ -26,6 +26,8 @@ LIB = {
     "asfalto":              {"family": "asfalto", "c1": (.10, .10, .105), "c2": (.06, .06, .065), "rough": (.82, .96), "scale": 4.0, "bump": .2, "pattern": "noise", "grime": .2, "dirt": 0.0, "texel": 256},
     "asfalto_gasto":        {"family": "asfalto", "c1": (.17, .17, .17), "c2": (.09, .09, .095), "rough": (.85, .98), "scale": 2.5, "bump": .25, "pattern": "noise", "patches": True, "grime": .2, "dirt": 0.0, "texel": 256},
     "calcada":              {"family": "concreto", "c1": (.60, .58, .55), "c2": (.48, .46, .44), "rough": (.80, .95), "scale": 1.0, "bump": .4, "pattern": "tiles", "tile": (.4, .4, .006), "grime": .5, "dirt": .3, "texel": 512},
+    "pedra_portuguesa":     {"family": "pavimento", "c1": (.70, .68, .64), "c2": (.30, .29, .28), "rough": (.7, .9), "scale": 1.0, "bump": .5, "pattern": "tiles", "tile": (.08, .08, .006), "mortar": (.45, .43, .40), "grime": .5, "dirt": .3, "texel": 512},
+    "cimentado":            {"family": "concreto", "c1": (.56, .55, .52), "c2": (.44, .43, .41), "rough": (.85, .95), "scale": 1.5, "bump": .25, "pattern": "noise", "patches": True, "grime": .6, "dirt": .4, "texel": 512},
     "piso_intertravado":    {"family": "pavimento", "c1": (.50, .44, .40), "c2": (.40, .35, .32), "rough": (.75, .92), "scale": 1.0, "bump": .45, "pattern": "tiles", "tile": (.2, .1, .004), "mortar": (.30, .29, .27), "grime": .55, "dirt": .3, "texel": 512},
     "meio_fio":             {"family": "concreto", "c1": (.66, .65, .62), "c2": (.52, .51, .49), "rough": (.70, .90), "scale": 2.0, "bump": .3, "pattern": "noise", "grime": .6, "dirt": .5, "texel": 512},
     "metal_galvanizado":    {"family": "metal", "c1": (.62, .63, .64), "c2": (.50, .51, .52), "rough": (.30, .55), "scale": 6.0, "bump": .05, "pattern": "noise", "metal": 1.0, "grime": .45, "dirt": .3, "texel": 1024},
@@ -204,6 +206,7 @@ def build_material(name, spec):
         L.new(color, mix.inputs[6])
         mix.inputs[7].default_value = (.20, .17, .13, 1)
         color = mix.outputs[2]
+    color = _wear(nt, L, color, spec, tc)
     L.new(color, bsdf.inputs["Base Color"])
     rmr = _n(nt, "ShaderNodeMapRange", -450, -600, **{"To Min": spec["rough"][0], "To Max": spec["rough"][1]})
     L.new(noise.outputs["Fac"], rmr.inputs["Value"])
@@ -238,8 +241,163 @@ def build_material(name, spec):
     return mat
 
 
+MASONRY = {"reboco", "concreto", "tijolo", "pedra", "pintura", "fachada"}
+GROUND = {"asfalto", "pavimento", "concreto", "ceramica"}
+METALS = {"aco_pintado", "metal"}
+
+
+def _mixc(nt, L, factor_socket, a, b_color, x, y):
+    m = _n(nt, "ShaderNodeMix", x, y)
+    m.data_type = "RGBA"
+    L.new(factor_socket, m.inputs["Factor"])
+    L.new(a, m.inputs[6])
+    if isinstance(b_color, tuple):
+        m.inputs[7].default_value = b_color
+    else:
+        L.new(b_color, m.inputs[7])
+    return m.outputs[2]
+
+
+def _math(nt, L, op, a, b, x, y, c=None):
+    m = _n(nt, "ShaderNodeMath", x, y)
+    m.operation = op
+    for i, v in enumerate((a, b) if c is None else (a, b, c)):
+        if isinstance(v, (int, float)):
+            m.inputs[i].default_value = v
+        else:
+            L.new(v, m.inputs[i])
+    return m.outputs["Value"]
+
+
+def _wear(nt, L, color, spec, tc):
+    """W2.5 wear pass (procedural, per family), scaled by the material-wide 'SA_WEAR' value and a per-object random factor:
+    rain streaks and rising damp on vertical masonry, plaster patches (remendos), worn/dirty circulation on floors and paving,
+    rust bleed on painted steel. Setting every SA_WEAR node to 0 renders the pre-wear look (before/after captures)."""
+    fam = spec["family"]
+    if fam not in MASONRY | GROUND | METALS:
+        return color
+    wear = _n(nt, "ShaderNodeValue", 300, -900)
+    wear.name = wear.label = "SA_WEAR"
+    wear.outputs[0].default_value = 1.0
+    info = _n(nt, "ShaderNodeObjectInfo", 300, -1050)
+    rnd = _n(nt, "ShaderNodeMapRange", 480, -1050, **{"To Min": .55, "To Max": 1.35})
+    L.new(info.outputs["Random"], rnd.inputs["Value"])
+    W = _math(nt, L, "MULTIPLY", wear.outputs[0], rnd.outputs["Result"], 650, -950)
+    geo = _n(nt, "ShaderNodeNewGeometry", 300, -1250)
+    sepn = _n(nt, "ShaderNodeSeparateXYZ", 480, -1250)
+    L.new(geo.outputs["Normal"], sepn.inputs["Vector"])
+    nz = _math(nt, L, "ABSOLUTE", sepn.outputs["Z"], 0.0, 650, -1250)
+    vert = _math(nt, L, "SUBTRACT", 1.0, nz, 820, -1250)
+    sepo = _n(nt, "ShaderNodeSeparateXYZ", 480, -1450)
+    L.new(tc.outputs["Object"], sepo.inputs["Vector"])
+    x0 = 1700
+    if fam in MASONRY:
+        mp = _n(nt, "ShaderNodeMapping", 650, -1650)
+        mp.inputs["Scale"].default_value = (2.2, 2.2, .14)
+        L.new(tc.outputs["Object"], mp.inputs["Vector"])
+        nn = _n(nt, "ShaderNodeTexNoise", 820, -1650, Scale=3.0, Detail=4.0, Roughness=.55)
+        L.new(mp.outputs["Vector"], nn.inputs["Vector"])
+        st = _n(nt, "ShaderNodeMapRange", 1000, -1650, **{"From Min": .52, "From Max": .78})
+        L.new(nn.outputs["Fac"], st.inputs["Value"])
+        m1 = _math(nt, L, "MULTIPLY", st.outputs["Result"], vert, 1180, -1650)
+        m1 = _math(nt, L, "MULTIPLY", m1, W, 1350, -1650)
+        m1 = _math(nt, L, "MULTIPLY", m1, .42, 1520, -1650)
+        color = _mixc(nt, L, m1, color, (.13, .12, .10, 1), x0, -1650)
+        dn = _n(nt, "ShaderNodeTexNoise", 820, -1900, Scale=1.6, Detail=3.0)
+        L.new(tc.outputs["Object"], dn.inputs["Vector"])
+        edge = _math(nt, L, "MULTIPLY_ADD", dn.outputs["Fac"], .9, 980, -1900, c=.25)
+        zr = _math(nt, L, "DIVIDE", sepo.outputs["Z"], edge, 1150, -1900)
+        damp = _n(nt, "ShaderNodeMapRange", 1320, -1900, **{"From Min": 0.0, "From Max": 1.0, "To Min": 1.0, "To Max": 0.0})
+        L.new(zr, damp.inputs["Value"])
+        d2 = _math(nt, L, "MULTIPLY", damp.outputs["Result"], W, 1500, -1900)
+        d2 = _math(nt, L, "MULTIPLY", d2, vert, 1650, -1900)
+        d2 = _math(nt, L, "MULTIPLY", d2, .5, 1800, -1900)
+        color = _mixc(nt, L, d2, color, (.16, .15, .11, 1), x0 + 200, -1900)
+        if fam in ("reboco", "pintura", "fachada"):
+            pn = _n(nt, "ShaderNodeTexNoise", 820, -2150, Scale=.35, Detail=2.0)
+            L.new(tc.outputs["Object"], pn.inputs["Vector"])
+            pt = _n(nt, "ShaderNodeMapRange", 1000, -2150, **{"From Min": .61, "From Max": .635})
+            L.new(pn.outputs["Fac"], pt.inputs["Value"])
+            p2 = _math(nt, L, "MULTIPLY", pt.outputs["Result"], W, 1180, -2150)
+            p2 = _math(nt, L, "MINIMUM", p2, .85, 1350, -2150)
+            hv = _n(nt, "ShaderNodeHueSaturation", 1500, -2150)
+            hv.inputs["Saturation"].default_value = .55
+            hv.inputs["Value"].default_value = 1.12
+            L.new(color, hv.inputs["Color"])
+            color = _mixc(nt, L, p2, color, hv.outputs["Color"], x0 + 400, -2150)
+    if fam in GROUND:
+        hz = _n(nt, "ShaderNodeMapRange", 1000, -2400, **{"From Min": .7, "From Max": .95})
+        L.new(nz, hz.inputs["Value"])
+        gn = _n(nt, "ShaderNodeTexNoise", 820, -2550, Scale=.7, Detail=6.0, Roughness=.6)
+        L.new(tc.outputs["Object"], gn.inputs["Vector"])
+        gt = _n(nt, "ShaderNodeMapRange", 1000, -2550, **{"From Min": .42, "From Max": .78})
+        L.new(gn.outputs["Fac"], gt.inputs["Value"])
+        g2 = _math(nt, L, "MULTIPLY", gt.outputs["Result"], hz.outputs["Result"], 1180, -2450)
+        g2 = _math(nt, L, "MULTIPLY", g2, W, 1350, -2450)
+        g2 = _math(nt, L, "MULTIPLY", g2, .38 if fam != "asfalto" else .22, 1520, -2450)
+        color = _mixc(nt, L, g2, color, (.09, .085, .075, 1), x0 + 600, -2450)
+    if fam in METALS:
+        rn = _n(nt, "ShaderNodeTexNoise", 820, -2800, Scale=4.0, Detail=8.0, Roughness=.7)
+        L.new(tc.outputs["Object"], rn.inputs["Vector"])
+        rt = _n(nt, "ShaderNodeMapRange", 1000, -2800, **{"From Min": .6, "From Max": .72})
+        L.new(rn.outputs["Fac"], rt.inputs["Value"])
+        bot = _n(nt, "ShaderNodeMapRange", 1000, -2950, **{"From Min": 0.0, "From Max": 1.2, "To Min": 1.0, "To Max": .35})
+        L.new(sepo.outputs["Z"], bot.inputs["Value"])
+        r2 = _math(nt, L, "MULTIPLY", rt.outputs["Result"], bot.outputs["Result"], 1180, -2850)
+        r2 = _math(nt, L, "MULTIPLY", r2, W, 1350, -2850)
+        r2 = _math(nt, L, "MULTIPLY", r2, .7, 1520, -2850)
+        color = _mixc(nt, L, r2, color, (.33, .15, .07, 1), x0 + 800, -2850)
+    return color
+
+
+def build_decal(name, color, rough=.8, scale=2.0, cover=(.45, .65), alpha=.85):
+    """Soft procedural decal (dithered alpha): stains, oil, damp, tire marks, rust runs. Applied to thin planes."""
+    mat = bpy.data.materials.get(name)
+    if mat:
+        return mat
+    mat = bpy.data.materials.new(name)
+    nt = mat.node_tree
+    nt.nodes.clear()
+    L = nt.links
+    out = _n(nt, "ShaderNodeOutputMaterial", 800, 0)
+    bsdf = _n(nt, "ShaderNodeBsdfPrincipled", 500, 0)
+    L.new(bsdf.outputs["BSDF"], out.inputs["Surface"])
+    tc = _n(nt, "ShaderNodeTexCoord", -600, 0)
+    nn = _n(nt, "ShaderNodeTexNoise", -400, 0, Scale=scale, Detail=6.0, Roughness=.6)
+    L.new(tc.outputs["Object"], nn.inputs["Vector"])
+    mr = _n(nt, "ShaderNodeMapRange", -200, 0, **{"From Min": cover[0], "From Max": cover[1], "To Max": alpha})
+    L.new(nn.outputs["Fac"], mr.inputs["Value"])
+    wear = _n(nt, "ShaderNodeValue", -200, -200)
+    wear.name = wear.label = "SA_WEAR"
+    wear.outputs[0].default_value = 1.0
+    a2 = _math(nt, L, "MULTIPLY", mr.outputs["Result"], wear.outputs[0], 100, -100)
+    L.new(a2, bsdf.inputs["Alpha"])
+    bsdf.inputs["Base Color"].default_value = (*color, 1)
+    bsdf.inputs["Roughness"].default_value = rough
+    try:
+        mat.surface_render_method = "DITHERED"
+    except AttributeError:
+        mat.blend_method = "HASHED"
+    mat.diffuse_color = (*color, 1)
+    mat["sa_family"] = "decal"
+    mat["sa_status"] = "decal procedural W2.5"
+    return mat
+
+
+DECALS = {"decal_umidade": ((.16, .15, .11), .9, 1.4, (.42, .62), .7), "decal_oleo": ((.025, .025, .03), .25, 3.0, (.46, .62), .9),
+          "decal_sujeira": ((.18, .15, .11), .95, 2.2, (.45, .7), .75), "decal_pneu": ((.02, .02, .022), .6, 6.0, (.30, .55), .75),
+          "decal_ferrugem": ((.30, .13, .05), .8, 5.0, (.5, .65), .8)}
+
+
+def build_decals(lib):
+    for n, (c, r, sc, cv, a) in DECALS.items():
+        lib[n] = build_decal(n, c, r, sc, cv, a)
+    return lib
+
+
 def build_library():
-    return {name: build_material(name, spec) for name, spec in LIB.items()}
+    lib = {name: build_material(name, spec) for name, spec in LIB.items()}
+    return build_decals(lib)
 
 
 def write_library_json(root):

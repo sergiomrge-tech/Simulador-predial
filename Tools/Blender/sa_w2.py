@@ -253,3 +253,63 @@ def light_window(mb, axis, c, pos, w, zb, h, out_sign, m_frame, m_glass, m_sill)
             mb.box(x, y, zb, d, .05, h, m_frame)
         mb.box(x - out_sign * .01, pos, zb + .05, .006, w - .05, h - .1, m_glass)
         mb.box(c + out_sign * .12, pos, zb - .04, .2, w + .1, .04, m_sill)
+
+
+
+def wear_pass(lib, coll, parent, rects, entrances=(), ground_rects=(), drive_lines=(), seed=1, prefix="W2_", facility=""):
+    """W2.5 decal pass for a hero: damp at wall bases, run-off streaks, dirt at doors, oil in parking, tire marks on drives.
+    rects: [(x0, y0, x1, y1, height)] footprints (local). entrances: [(x, y, side)], side in '-y','+y','-x','+x'.
+    ground_rects: [(x0, y0, x1, y1)] parking/yards for oil stains. drive_lines: [((x0, y0), (x1, y1))] for tire marks."""
+    import random as _r
+    rng = _r.Random(seed)
+    mb = sa_bl.MeshBuilder()
+    mats = ["decal_umidade", "decal_sujeira", "decal_oleo", "decal_pneu", "decal_ferrugem"]
+    n_v = n_h = 0
+    for (x0, y0, x1, y1, hgt) in rects:
+        for side in ("-y", "+y", "-x", "+x"):
+            if side[1] == "y":
+                c, a, b = (y0 - .03 if side == "-y" else y1 + .03), x0, x1
+            else:
+                c, a, b = (x0 - .03 if side == "-x" else x1 + .03), y0, y1
+            L = b - a
+            t = rng.uniform(0, 3)
+            while t < L - 1:
+                w = rng.uniform(1.5, 4.5)
+                h = rng.uniform(.5, 1.3)
+                u0, u1 = a + t, min(b, a + t + w)
+                quad = [(u0, 0.0), (u1, 0.0), (u1, h), (u0, h)]
+                pts = [((u, c, z) if side[1] == "y" else (c, u, z)) for u, z in quad]
+                mb.add_face(pts if side in ("-y", "+x") else pts[::-1], 0)
+                n_v += 1
+                if rng.random() < .45 and hgt > 3:
+                    sw, z1 = rng.uniform(.4, 1.0), rng.uniform(2.0, hgt - .3)
+                    um = u0 + rng.uniform(0, max(.1, w - sw))
+                    zb_ = z1 - rng.uniform(1.2, 2.8)
+                    q2 = [(um, zb_), (um + sw, zb_), (um + sw, z1), (um, z1)]
+                    pts = [((u, c, z) if side[1] == "y" else (c, u, z)) for u, z in q2]
+                    mb.add_face(pts if side in ("-y", "+x") else pts[::-1], 1)
+                    n_v += 1
+                t += w + rng.uniform(1.5, 6.0)
+    for (x, y, side) in entrances:
+        dx, dy = {"-y": (0, -1.2), "+y": (0, 1.2), "-x": (-1.2, 0), "+x": (1.2, 0)}[side]
+        mb.box(x + dx, y + dy, .012, 2.4, 2.0, .004, 1)
+        n_h += 1
+    for (x0, y0, x1, y1) in ground_rects:
+        for k in range(max(1, int((x1 - x0) * (y1 - y0) / 25))):
+            if rng.random() < .6:
+                mb.box(rng.uniform(x0 + .8, x1 - .8), rng.uniform(y0 + .8, y1 - .8), .008, rng.uniform(.8, 1.6), rng.uniform(.6, 1.2), .004, 2)
+                n_h += 1
+    for (p0, p1) in drive_lines:
+        L = math.hypot(p1[0] - p0[0], p1[1] - p0[1])
+        if L < 1:
+            continue
+        ang = math.atan2(p1[1] - p0[1], p1[0] - p0[0])
+        nx, ny = -math.sin(ang), math.cos(ang)
+        for w in (-.8, .8):
+            c = ((p0[0] + p1[0]) / 2 + nx * w, (p0[1] + p1[1]) / 2 + ny * w)
+            mb.box(c[0], c[1], .01, L, .32, .004, 3, rot=ang)
+            n_h += 1
+    o = mb.to_object(prefix + "wear_decals", [lib[m] for m in mats], coll)
+    o.parent = parent
+    sa_bl.props(o, facility_id=facility, sa_stage="W2.5 wear pass", sa_kind="decals", vertical=n_v, ground=n_h)
+    return o

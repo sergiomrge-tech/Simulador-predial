@@ -2,17 +2,17 @@
   "hero": "grocery",
   "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_grocery.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objects": 46,
+  "objects": 69,
   "checks": {
-    "meshObjects": 33,
-    "triangles": 28016,
+    "meshObjects": 56,
+    "triangles": 49754,
     "trianglesPerCollection": {
       "W2_grocery_CaptureOnly": 10,
       "W2_grocery_Interior": 5806,
       "W2_grocery_Openings": 11334,
       "W2_grocery_Services": 1650,
-      "W2_grocery_Shell": 8522,
-      "W2_grocery_Site": 556,
+      "W2_grocery_Shell": 17100,
+      "W2_grocery_Site": 13716,
       "W2_grocery_Structure": 138
     },
     "largestObjects": [
@@ -22,6 +22,10 @@
       },
       {
         "name": "W2_grocery__sign_name",
+        "tris": 4048
+      },
+      {
+        "name": "W2_grocery__sign_board",
         "tris": 3956
       },
       {
@@ -29,28 +33,24 @@
         "tris": 3444
       },
       {
+        "name": "W2_grocery__sign_since",
+        "tris": 2340
+      },
+      {
+        "name": "W2_grocery__character",
+        "tris": 2190
+      },
+      {
+        "name": "W2_grocery__pallets",
+        "tris": 1980
+      },
+      {
         "name": "W2_grocery__qdc_quadro",
         "tris": 1452
-      },
-      {
-        "name": "W2_grocery__awning_secondary",
-        "tris": 1122
-      },
-      {
-        "name": "W2_grocery__door_residence_upper",
-        "tris": 990
-      },
-      {
-        "name": "W2_grocery__counter_copa",
-        "tris": 984
-      },
-      {
-        "name": "W2_grocery__door_room_estoque__leaf",
-        "tris": 862
       }
     ],
     "lights": 5,
-    "materials": 29,
+    "materials": 40,
     "stateSlots": [],
     "interactive": 7,
     "root": {
@@ -59,7 +59,7 @@
       "location": [
         -2584.0,
         -1480.0,
-        28.133
+        25.075
       ]
     }
   },

@@ -453,6 +453,14 @@ mb = sa_bl.MeshBuilder()
 mb.box(0, lot[1] - 6.0, -.4, 120, 11.0, .35, 0)
 H.mesh(P + "street_stub", mb, ["asfalto_gasto"], "CaptureOnly", sa_layer="Roads", note="trecho da Rua da Estação só para as capturas")
 
+from sa_w2 import wear_pass  # noqa: E402
+wear_pass(H.lib, H.C["Site"], H.rootobj, [(-hw, -hd, hw, hd, 14.0)], entrances=[(0.0, -hd, "-y")],
+          ground_rects=[gr["pump_room"], (-hw + 1, 11.0, 7.0, hd - 1)], drive_lines=[((dw[0] + 3, lot[1] + 1), (dw[0] + 3, rp[1]))],
+          seed=11, prefix=P, facility="horizonte")
+KG = H.kit("Site")
+for k, x in enumerate((-hw + 2.0, -hw + 7.2, -hw + 12.4, -hw + 17.6)):
+    if k != 2:
+        KG.car(P + f"garage_car_{k}", (x, 15.2, .15), math.pi / 2 + (k % 2) * math.pi, paint=k + 1)
 # ---------------------------------------------------------------- state markers, lighting, cameras
 H.empty(P + "GP_prologue_spawn_corridor", (cor[0] + 2.0, (CY0 + CY1) / 2, za + .9), (.6, .6, 1.8), sa_kind="spawn", note="entrada do jogador no corredor do prólogo")
 H.empty(P + "GP_quadro_tecnico", (qx, CY1 - .3, za + 1.4), (.8, .4, 1.2), sa_kind="interaction", note="ponto de interação do prólogo")

@@ -2,17 +2,17 @@
   "hero": "restaurant",
   "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_restaurant.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objects": 92,
+  "objects": 112,
   "checks": {
-    "meshObjects": 77,
-    "triangles": 59942,
+    "meshObjects": 97,
+    "triangles": 73964,
     "trianglesPerCollection": {
       "W2_restaurant_CaptureOnly": 10,
       "W2_restaurant_Interior": 34406,
       "W2_restaurant_Openings": 15444,
       "W2_restaurant_Services": 1650,
-      "W2_restaurant_Shell": 7916,
-      "W2_restaurant_Site": 496,
+      "W2_restaurant_Shell": 11470,
+      "W2_restaurant_Site": 10964,
       "W2_restaurant_Structure": 20
     },
     "largestObjects": [
@@ -33,24 +33,24 @@
         "tris": 3152
       },
       {
+        "name": "W2_restaurant__sign_sub",
+        "tris": 2492
+      },
+      {
         "name": "W2_restaurant__kitchen_line",
         "tris": 2040
       },
       {
+        "name": "W2_restaurant__gas_cage",
+        "tris": 1508
+      },
+      {
         "name": "W2_restaurant__qdc_sala_tecnica",
         "tris": 1452
-      },
-      {
-        "name": "W2_restaurant__door_kitchen_service",
-        "tris": 990
-      },
-      {
-        "name": "W2_restaurant__door_room_sanitarios__leaf",
-        "tris": 862
       }
     ],
     "lights": 7,
-    "materials": 32,
+    "materials": 41,
     "stateSlots": [],
     "interactive": 9,
     "root": {
@@ -59,7 +59,7 @@
       "location": [
         -2140.0,
         -1424.0,
-        28.578
+        28.859
       ]
     }
   },
