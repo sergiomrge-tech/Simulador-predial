@@ -35,11 +35,15 @@ O mundo final deve permitir que o jogador reconheça bairros, memorize rotas, te
 
 ### Topografia
 
-- Sul e sudoeste: cota mais baixa e ocupação histórica.
-- Centro: elevação suave.
-- Nordeste: platô tecnológico.
-- Norte industrial: terrenos amplos e parcialmente nivelados.
-- Canal de drenagem: norte-oeste → centro-norte, justificando a casa de bombas.
+**Revisão W1.5 (decisão do usuário):** a cidade escoa para o **canal de drenagem, que é o eixo mais baixo** (cota de cerca de 3 m). A antiga indicação "sul e sudoeste: cota mais baixa" fica substituída. Implementação: `Tools/Map/sa_terrain.py`.
+
+- Canal de drenagem: norte-oeste → centro-norte, com leito e taludes. A casa de bombas fica no ponto baixo junto ao canal, ao lado de uma bacia de retenção murada.
+- O terreno sobe gradualmente com a distância do canal, até cerca de 20–25 m.
+- Cidade Antiga: colina suave (Alto do Horizonte), núcleo histórico em ligeira elevação junto à ferrovia.
+- Nordeste: platô tecnológico (+16 m), com borda em talude suave.
+- Norte industrial: terrenos amplos e baixos, perto do canal.
+- Expansão: sobe suavemente para o sul.
+- Rampas viárias ≤ 6% nas arteriais e ≤ 8% nas coletoras (dirigibilidade).
 - Não criar montanhas artificiais dominantes; o relevo é urbano e funcional.
 
 ---
@@ -98,6 +102,22 @@ O mundo final deve permitir que o jogador reconheça bairros, memorize rotas, te
 ### R08 — Marginal do Canal
 - acompanha drenagem ao norte;
 - acesso operacional à casa de bombas e eventos da tempestade.
+
+### R09 — Avenida dos Ferroviários (W1.5)
+- arterial leste-oeste ao sul;
+- liga Cidade Antiga, Expansão e Expansão Leste (correção do bloqueio W1: o desvio até a escola caiu de 3,4× para 1,1×).
+
+### R10 — Avenida Leste (W1.5)
+- coletora norte-sul entre a Expansão Leste (R09) e o Eixo Empresarial (R06).
+
+### Rotatórias (W1.5)
+- Rotatória da Central (R01/R03/R06) e Rotatória Tecnológica (R04/R05/R08).
+
+### Ferrovia histórica (W1.5)
+- Linha Ferroviária Oeste, paralela à R07: porto seco (sul), Estação Velha (Cidade Antiga), ramal da logística, fábrica (Industrial).
+
+### Zonas de transição (W1.5)
+- 8 zonas no spec (`transitionZones`), preenchendo os vazios entre distritos (ver `Docs/W1_5_WORLD_FOUNDATION_RELATORIO.md`).
 
 ---
 

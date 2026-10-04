@@ -183,3 +183,20 @@ Também: o Teatro Imperial não funciona como marco (falta praça ou eixo), e Ce
 - **O visual final de Santa Aurora não pode ser low-poly** (Art Bible: PBR, bevels, decals, clutter funcional, LOD, iluminação atmosférica).
 - **VEIN é apenas referência de patamar visual** (realismo, atmosfera, densidade, materialidade). Nenhum asset, textura, prédio, layout ou mapa é copiado.
 - **W1 não foi aprovado automaticamente.** A decisão é do usuário, depois das correções W1.1.
+
+---
+
+## 8. Resolução no W1.5 (2026-10-03)
+
+As correções W1.1 foram absorvidas pelo marco W1.5 (`Docs/W1_5_WORLD_FOUNDATION_RELATORIO.md`):
+
+1. **Ligação Old↔Expansão**: R09 Avenida dos Ferroviários. Desvios até school/recurringcondo/hotel/smallhospital agora entre 1,07× e 1,36× (meta ≤1,6).
+2. **Ferrovia e porto seco**: Linha Ferroviária Oeste, Estação Velha, pátio do porto seco e ramal da logística.
+3. **Relevo × drenagem**: decidido pelo usuário (canal como eixo mais baixo) e implementado.
+4. **Faixas de transição**: 8 zonas; nenhuma célula de 1 km sem uso.
+5. **Praça e eixo do Teatro**: Largo do Imperial com pórtico; eixo institucional Expansão → Central.
+6. **Malha orgânica da Cidade Antiga**: 9 bairros, ocupação de 30% no núcleo (a meta de 35% vale para o W2, com lotes mais profundos).
+7. **Technology e Industrial**: Industrial com ocupação de 28%; Tecnológico com campus, verdes e 22%.
+
+O W1 original (`SantaAurora_Masterplan_v1.blend` e capturas em `Reviews/W1/`) foi mantido para comparação.
+

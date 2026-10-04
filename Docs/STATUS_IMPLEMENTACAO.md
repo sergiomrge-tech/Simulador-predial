@@ -119,3 +119,26 @@ Preparação concluída no GitHub:
 **Status:** gate técnico PASS. A aprovação espacial/narrativa depende da revisão das capturas pelo usuário. O protótipo Unity, os saves, os IDs e as coordenadas runtime não foram alterados. O mapa grande continua não jogável.
 
 **Revisão crítica (2026-10-03): W1 NÃO APROVADO.** Há dois bloqueios: falta ligação viária entre Cidade Antiga e Expansão (desvio de rota até 3,4×) e não há ferrovia nem porto seco, contra a lore. Pendente de decisão: relevo × drenagem. Folha de revisão em `ArtSource/Blender/World/Reviews/W1/review_sheet.html`; correções W1.1 na seção 7 de `Docs/W1_MASTERPLAN_RELATORIO.md`.
+
+## Checkpoint — W1.5 Santa Aurora Foundation + Cidade Antiga Base (2026-10-03)
+
+- Pipeline: `Tools/Blender/Run-W15World.ps1` (validação, rotas, 3 geradores, 3 reaberturas com capturas).
+- Masterplan v1.5 com:
+  - relevo drenando para o canal;
+  - Cidade Antiga orgânica (9 bairros, 13.872 lotes);
+  - 8 zonas de transição e nenhuma célula vazia;
+  - Industrial denso (ocupação de 28%);
+  - R09/R10, rotatórias e ferrovia histórica;
+  - skyline diferenciado por distrito.
+- Cidade Antiga, base de produção:
+  - ruas, calçadas e meio-fio;
+  - infraestrutura provisória em escala;
+  - 13.050 edificações instanciadas a partir de 47 variantes;
+  - 9 heróis + lar com arquitetura base, cortes e slots H0–H4/G0–G4;
+  - 8 camadas × 181 subcélulas com manifesto.
+- Kit modular com bevel (40 peças + 15 de infraestrutura) e biblioteca PBR procedural (37 materiais com slots de textura).
+- Validação PASS; reaberturas 3/3 PASS; 25 capturas em `ArtSource/Blender/World/Reviews/W1_5/`.
+- Relatório: `Docs/W1_5_WORLD_FOUNDATION_RELATORIO.md`.
+
+**Ainda não é arte final.** Faltam texturas autorais, decals, clutter, LOD0 final, vegetação autoral e integração na Unity. O protótipo Unity, os saves, os IDs e as coordenadas runtime não foram alterados.
+
