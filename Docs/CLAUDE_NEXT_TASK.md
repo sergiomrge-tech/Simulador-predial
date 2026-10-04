@@ -1,3 +1,5 @@
+> **Sequência autorizada:** após concluir esta Etapa A e passar o gate, continue automaticamente pela fila em `Docs/CLAUDE_NIGHT_QUEUE.md` (Etapas B → C → D). Não aguarde confirmação entre elas salvo bloqueio crítico.
+
 # CLAUDE NEXT TASK — ETAPA A
 
 ## Pesquisa e curadoria de skills/ferramentas para toda a produção
