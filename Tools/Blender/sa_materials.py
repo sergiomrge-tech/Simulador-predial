@@ -114,13 +114,19 @@ def build_material(name, spec):
         L.new(brick.outputs["Fac"], inv.inputs[1])
         height = inv.outputs["Value"]
     elif pat == "wave":
-        wave = _n(nt, "ShaderNodeTexWave", -700, -50, Scale=3.0, Distortion=6.0, Detail=4.0)
-        wave.wave_type = "RINGS"
+        # W2: finer, lower-contrast grain (stretched bands + light distortion) instead of large cartoon rings.
+        wave = _n(nt, "ShaderNodeTexWave", -700, -50, Scale=7.0, Distortion=2.2, Detail=6.0)
+        wave.wave_type = "BANDS"
+        wave.inputs["Detail Roughness"].default_value = .65
         L.new(tc.outputs["UV"], wave.inputs["Vector"])
+        soft = _n(nt, "ShaderNodeMapRange", -560, 120)
+        soft.inputs["To Min"].default_value = .25
+        soft.inputs["To Max"].default_value = .75
+        L.new(wave.outputs["Fac"], soft.inputs["Value"])
         mix = _n(nt, "ShaderNodeMix", -450, 150)
         mix.data_type = "RGBA"
         mix.inputs["Factor"].default_value = .5
-        L.new(wave.outputs["Fac"], mix.inputs["Factor"])
+        L.new(soft.outputs["Result"], mix.inputs["Factor"])
         mix.inputs[6].default_value = c2
         mix.inputs[7].default_value = c1
         color = mix.outputs[2]

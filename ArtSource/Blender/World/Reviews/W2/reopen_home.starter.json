@@ -1,0 +1,83 @@
+{
+  "hero": "home.starter",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_home_starter.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 190,
+  "checks": {
+    "meshObjects": 152,
+    "triangles": 111426,
+    "trianglesPerCollection": {
+      "W2_home__Interior": 13692,
+      "W2_home__Openings": 73076,
+      "W2_home__Props_H0": 1686,
+      "W2_home__Services": 12690,
+      "W2_home__Shell": 7218,
+      "W2_home__Site": 3064
+    },
+    "largestObjects": [
+      {
+        "name": "W2_home__stair_F2",
+        "tris": 3634
+      },
+      {
+        "name": "W2_home__stair_F1",
+        "tris": 3634
+      },
+      {
+        "name": "W2_home__stair_F0",
+        "tris": 3634
+      },
+      {
+        "name": "W2_home__win_front_F0_-4.7",
+        "tris": 2130
+      },
+      {
+        "name": "W2_home__win_front_F0_+4.7",
+        "tris": 2130
+      },
+      {
+        "name": "W2_home__win_back_F0_-4.7",
+        "tris": 2130
+      },
+      {
+        "name": "W2_home__win_back_F0_+4.7",
+        "tris": 2130
+      },
+      {
+        "name": "W2_home__facade_life",
+        "tris": 1880
+      }
+    ],
+    "lights": 11,
+    "materials": 33,
+    "stateSlots": [
+      "H0",
+      "H1",
+      "H2",
+      "H3",
+      "H4"
+    ],
+    "interactive": 32,
+    "root": {
+      "name": "W2_home.starter_ROOT",
+      "facility_id": "home.starter",
+      "location": [
+        -2860.0,
+        -2280.0,
+        27.488
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W2/w2_home_01_rua.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_home_02_entrada.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_home_03_apto12_interior.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_home_04_apto12_cozinha_banheiro.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_home_05_corredor.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_home_06_cobertura.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_home_07_corte_apto12.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}
