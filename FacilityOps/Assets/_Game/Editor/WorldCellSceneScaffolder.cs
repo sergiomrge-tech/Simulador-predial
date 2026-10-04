@@ -52,6 +52,11 @@ namespace FacilityOps.Editor
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                 return;
 
+            CreatePilotScaffoldsNonInteractive();
+        }
+
+        public static void CreatePilotScaffoldsNonInteractive()
+        {
             EnsureAssetFolder(SceneRoot);
 
             Scene original = SceneManager.GetActiveScene();
@@ -116,6 +121,17 @@ namespace FacilityOps.Editor
             var go = new GameObject(layer);
             go.transform.SetParent(parent, false);
         }
+
+        public static string ScenePathFor(string cellId)
+        {
+            if (!WorldStreamingId.TryParse(cellId, out var id))
+                throw new InvalidDataException("Invalid cell id: " + cellId);
+
+            return SceneRoot + "/" + cellId + "/" +
+                   WorldStreamingSceneNaming.SceneName(id) + ".unity";
+        }
+
+        public static IReadOnlyList<string> PilotCellIds => PilotCells;
 
         private static void EnsureAssetFolder(string path)
         {
