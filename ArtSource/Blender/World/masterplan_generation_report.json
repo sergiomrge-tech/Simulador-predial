@@ -1,0 +1,100 @@
+{
+  "blend": "ArtSource/Blender/World/SantaAurora_Masterplan_v1.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "schemaVersion": 1,
+  "units": "meters",
+  "worldSizeMeters": [
+    8000,
+    8000
+  ],
+  "districts": 6,
+  "campaignLocations": 24,
+  "lifeEconomyLocations": 20,
+  "roads": 8,
+  "macroCellMeters": 1000,
+  "subCellMeters": 250,
+  "objectCount": 874,
+  "collectionObjectCounts": {
+    "00_Terrain": 2,
+    "01_Districts": 6,
+    "02_Roads": 16,
+    "03_Campaign_Locations": 97,
+    "04_Life_Economy_Locations": 20,
+    "05_Labels": 58,
+    "06_Streaming_Guides": 65,
+    "07_Skyline_Shells": 530,
+    "08_Cameras": 9,
+    "09_Streaming_Subgrid": 65,
+    "10_Block_Fabric": 6
+  },
+  "layout": {
+    "roadLengthsKm": {
+      "R01": 7.66,
+      "R02": 6.81,
+      "R03": 3.96,
+      "R04": 4.04,
+      "R05": 7.35,
+      "R06": 3.23,
+      "R07": 5.53,
+      "R08": 6.01
+    },
+    "localStreetEdges": {
+      "old": 1348,
+      "expansion": 1097,
+      "civic": 718,
+      "corporate": 916,
+      "industrial": 821,
+      "technology": 804
+    },
+    "localStreetKm": 319.8,
+    "droppedDisconnectedLocalEdges": 6,
+    "driveways": 44,
+    "backgroundShells": {
+      "old": 170,
+      "expansion": 110,
+      "civic": 45,
+      "corporate": 65,
+      "industrial": 75,
+      "technology": 55
+    },
+    "blockFabricVolumes": {
+      "old": 1689,
+      "expansion": 472,
+      "civic": 317,
+      "corporate": 616,
+      "industrial": 22,
+      "technology": 143
+    },
+    "industrialAccents": 10,
+    "keyDistancesMeters": {
+      "home.starter->garage": 206,
+      "garage->horizonte": 495,
+      "garage->imperial": 820,
+      "garage->recurringcondo": 3050,
+      "garage->factory": 4627,
+      "garage->mall": 5028,
+      "garage->datacenter": 7006,
+      "garage->central": 3890,
+      "home.starter->supplier.tools": 382,
+      "garage->vehicles.used": 806
+    },
+    "districtAreaKm2": {
+      "old": 8.41,
+      "expansion": 7.83,
+      "civic": 5.06,
+      "corporate": 7.54,
+      "industrial": 9.3,
+      "technology": 8.1
+    },
+    "unassignedSubcellShare": 0.329,
+    "maxHeights": {
+      "old": 19.2,
+      "expansion": 42.0,
+      "civic": 36.0,
+      "corporate": 125.4,
+      "industrial": 54.0,
+      "technology": 106.4
+    }
+  },
+  "status": "generated-blockout-not-final-art"
+}

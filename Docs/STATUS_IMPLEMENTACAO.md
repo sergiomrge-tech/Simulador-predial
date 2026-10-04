@@ -107,3 +107,13 @@ Preparação concluída no GitHub:
 - Checklist de geração, screenshots reais, reabertura e gate W1.
 
 **Ainda pendente:** executar o gerador no Blender real, salvar/reabrir `SantaAurora_Masterplan_v1.blend`, capturar as 10 vistas exigidas e aprovar espacialmente W1. O mapa grande ainda não deve ser descrito como jogável na Unity.
+
+## Checkpoint — W1 executado no Blender (2026-10-03)
+
+- Blender 5.2.1 LTS, geração headless sem exceção; `SantaAurora_Masterplan_v1.blend` com 874 objetos reabre em processo novo sem missing data.
+- Layout compartilhado `Tools/Map/masterplan_layout.py` (validador e gerador usam o mesmo código); runner `Tools/Blender/Run-W1Masterplan.ps1`.
+- Vias viraram polilinhas para não atravessar garage/vertice/central/datacenter/logistics; canal de drenagem e parque municipal adicionados ao spec; drainage ajustada para (-1130, 3070).
+- 10 capturas reais em `ArtSource/Blender/World/Reviews/W1/`.
+- Relatório completo e limitações: `Docs/W1_MASTERPLAN_RELATORIO.md`.
+
+**Status:** gate técnico PASS. A aprovação espacial/narrativa depende da revisão das capturas pelo usuário. O protótipo Unity, os saves, os IDs e as coordenadas runtime não foram alterados. O mapa grande continua não jogável.

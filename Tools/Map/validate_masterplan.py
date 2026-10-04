@@ -5,6 +5,9 @@ import math
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from masterplan_layout import Layout, load_registry  # noqa: E402
+
 root=Path(sys.argv[1] if len(sys.argv)>1 else ".").resolve()
 path=root/"ArtSource"/"Blender"/"World"/"masterplan_spec_v1.json"
 data=json.loads(path.read_text(encoding="utf-8"))
@@ -39,8 +42,8 @@ for loc in data["campaignLocations"]:
         errors.append(f"footprint outside world: {loc['id']}")
 
 for road in data["roads"]:
-    for p in (road["from"],road["to"]):
-        if not inside_world(p[0],p[1]): errors.append(f"road endpoint outside world: {road['id']}")
+    for p in road.get("points") or (road["from"],road["to"]):
+        if not inside_world(p[0],p[1]): errors.append(f"road point outside world: {road['id']}")
 
 macro=data["streaming"]["macroCellMeters"]
 sub=data["streaming"]["subCellMeters"]
@@ -58,6 +61,12 @@ for i,a in enumerate(campaign):
         if overlap_x>0 and overlap_z>0:
             errors.append(f"campaign footprints overlap: {a['id']} / {b['id']}")
 
+# W1 layout checks: road/canal clearance, local street network, access, shells, distances.
+layout=Layout(data, load_registry(root))
+layout_report=layout.checks()
+errors.extend(layout.errors)
+warnings.extend(layout.warnings)
+
 report={
     "schemaVersion":data["schemaVersion"],
     "worldMeters":[maxx-minx,maxz-minz],
@@ -67,6 +76,7 @@ report={
     "roads":len(data["roads"]),
     "errors":errors,
     "warnings":warnings,
+    "layout":layout_report,
     "passed":not errors
 }
 out=root/"Docs"/"masterplan-validation-v1.json"

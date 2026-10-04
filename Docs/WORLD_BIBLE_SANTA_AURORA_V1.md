@@ -127,7 +127,7 @@ As coordenadas abaixo são âncoras macro. A implantação fina será ajustada d
 | vertice | Vértice Serviços Integrados | corporate | 1900 | 450 | 120×150 m | HERO |
 | logistics | Galpão logístico | industrial | -3150 | 1650 | 240×290 m | A |
 | factory | Fábrica | industrial | -2200 | 2450 | 300×340 m | HERO |
-| drainage | Casa de bombas / drenagem | industrial | -1100 | 3100 | 130×160 m | HERO |
+| drainage | Casa de bombas / drenagem | industrial | -1130 | 3070 | 130×160 m | HERO |
 | datacenter | Data center | technology | 2450 | 2600 | 190×230 m | HERO |
 | smarttower | Edifício inteligente | technology | 3150 | 1850 | 110×130 m | HERO |
 | central | Santa Aurora Central | civic | 0 | 650 | 360×420 m | SUPER-HERO |

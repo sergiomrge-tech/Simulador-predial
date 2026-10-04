@@ -1,0 +1,41 @@
+{
+  "blend": "ArtSource/Blender/World/SantaAurora_Masterplan_v1.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "reopenedInFreshProcess": true,
+  "objectCount": 874,
+  "meshCount": 679,
+  "collectionObjectCounts": {
+    "00_Terrain": 2,
+    "01_Districts": 6,
+    "02_Roads": 16,
+    "03_Campaign_Locations": 97,
+    "04_Life_Economy_Locations": 20,
+    "05_Labels": 58,
+    "06_Streaming_Guides": 65,
+    "07_Skyline_Shells": 530,
+    "08_Cameras": 9,
+    "09_Streaming_Subgrid": 65,
+    "10_Block_Fabric": 6
+  },
+  "campaignObjects": 24,
+  "lifeObjects": 20,
+  "facilityIdsTagged": 46,
+  "roads": 8,
+  "streamingCells": 64,
+  "units": "METRIC",
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W1/01_top_8km.jpg",
+    "ArtSource/Blender/World/Reviews/W1/02_oblique_city.jpg",
+    "ArtSource/Blender/World/Reviews/W1/03_cidade_antiga.jpg",
+    "ArtSource/Blender/World/Reviews/W1/04_expansao.jpg",
+    "ArtSource/Blender/World/Reviews/W1/05_industrial.jpg",
+    "ArtSource/Blender/World/Reviews/W1/06_corporate.jpg",
+    "ArtSource/Blender/World/Reviews/W1/07_technology.jpg",
+    "ArtSource/Blender/World/Reviews/W1/08_santa_aurora_central.jpg",
+    "ArtSource/Blender/World/Reviews/W1/09_skyline.jpg",
+    "ArtSource/Blender/World/Reviews/W1/10_streaming_grid.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}
