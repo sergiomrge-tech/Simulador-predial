@@ -23,6 +23,7 @@ sys.path.insert(0, str(root / "Tools" / "Map"))
 sys.path.insert(0, str(root / "Tools" / "Blender"))
 
 import sa_arch  # noqa: E402
+import sa_detail  # noqa: E402
 import sa_bl  # noqa: E402
 import sa_kit  # noqa: E402
 import sa_materials  # noqa: E402
@@ -34,6 +35,7 @@ scene.name = "SantaAurora_Kit_CidadeAntiga"
 scene.unit_settings.system = "METRIC"
 scene.unit_settings.scale_length = 1.0
 lib = sa_materials.build_library()
+sa_detail.extend_library(lib)
 c_kit = sa_bl.collection("KIT_Modular")
 c_props = sa_bl.collection("KIT_Infraestrutura")
 c_fam = sa_bl.collection("KIT_Familias")
@@ -93,6 +95,33 @@ for v, o in fam_objs:
     except Exception:
         pass
     x += v["w"] + 4
+# W2 detail components (sa_detail): one sample of each, each with its own pivot, ready to become prefabs.
+c_det = sa_bl.collection("KIT_Detalhe_W2")
+K = sa_detail.Kit(lib, c_det)
+samples = [
+    lambda n, p: K.window_sliding(n, 1.6, 1.2, p, 0.0, grille=True), lambda n, p: K.window_basculante(n, .6, .5, p, 0.0),
+    lambda n, p: K.door(n, .8, 2.1, p, 0.0, open_deg=-35)[0], lambda n, p: K.door_entrance_metal(n, 1.2, 2.3, p, 0.0),
+    lambda n, p: K.panel_qdc(n, p, 0.0), lambda n, p: K.outlet(n, p, 0.0), lambda n, p: K.switch(n, p, 0.0),
+    lambda n, p: K.shower_electric(n, p, 0.0), lambda n, p: K.toilet(n, p, 0.0), lambda n, p: K.sink_pedestal(n, p, 0.0),
+    lambda n, p: K.kitchen_counter(n, 1.8, p, 0.0), lambda n, p: K.water_tank(n, p), lambda n, p: K.entrance_meter(n, p, 0.0),
+    lambda n, p: K.intercom(n, p, 0.0), lambda n, p: K.mailboxes(n, p, 0.0), lambda n, p: K.extinguisher(n, p, 0.0),
+    lambda n, p: K.stair_u(n, 1.1, 2.5, 3.0, p, 0.0), lambda n, p: K.mattress(n, p, 0.0), lambda n, p: K.chair_old(n, p, 0.0),
+    lambda n, p: K.cardboard_box(n, .6, .45, .4, p, 0.0), lambda n, p: K.toolcase(n, p, 0.0), lambda n, p: K.folding_table(n, p, 0.0),
+    lambda n, p: K.old_pc(n, p, 0.0), lambda n, p: K.workbench(n, 2.0, p, 0.0, pro=True), lambda n, p: K.shelving(n, 1.8, p, 0.0),
+    lambda n, p: K.job_board(n, p, 0.0)]
+names_det = ["janela_correr", "basculante", "porta_interna", "porta_entrada_metal", "quadro_distribuicao", "tomada", "interruptor",
+             "chuveiro_eletrico", "vaso_sanitario", "lavatorio", "bancada_cozinha", "caixa_dagua_1000L", "padrao_entrada", "interfone",
+             "caixas_correio", "extintor", "escada_U", "colchao", "cadeira_velha", "caixa_papelao", "maleta_guto", "mesa_dobravel",
+             "pc_antigo", "bancada_pro", "estante_aco", "quadro_chamados"]
+for k, (fn, n) in enumerate(zip(samples, names_det)):
+    x, y = 52 + (k % 7) * 4.5, -2 - (k // 7) * 6.0
+    o = fn("DET_" + n, (x, y, 0))
+    label(n, x, y - 2.0, size=.3)
+    try:
+        o.asset_mark()
+        o.asset_data.tags.new("w2_detalhe")
+    except Exception:
+        pass
 # Material swatches: bevelled slabs, one per library material.
 names = sorted(lib)
 for k, name in enumerate(names):
@@ -109,7 +138,12 @@ sa_bl.sun_and_sky(scene, c_cam)
 sa_bl.camera("CAM_Kit_Modular", c_cam, (19, -38, 16), target=(19, -10, .5), lens=30)
 sa_bl.camera("CAM_Kit_Infra", c_cam, (19, -64, 10), target=(19, -44, 2), lens=30)
 sa_bl.camera("CAM_Kit_Families", c_cam, (90, -345, 105), target=(90, -185, 4), lens=35)
-sa_bl.camera("CAM_Kit_Materials", c_cam, (-21, -27, 8), target=(-21, -14.5, .5), lens=35)
+sa_bl.camera("CAM_Kit_Materials", c_cam, (-21, -31, 9), target=(-21, -16.5, .5), lens=32)
+sa_bl.camera("CAM_Kit_Detail_W2", c_cam, (65.5, -34, 13), target=(65.5, -11, .6), lens=30)
+scene["sa_captures"] = json.dumps([["w2_kit_detalhe", "CAM_Kit_Detail_W2", 2400, 1350, ["KIT_Ground__none"]],
+                                   ["w2_kit_materiais", "CAM_Kit_Materials", 2400, 1350, []]])
+scene["sa_hero"] = "kit"
+scene["sa_no_root"] = True
 scene.render.engine = "BLENDER_EEVEE"
 out = root / "ArtSource" / "Blender" / "Kits"
 out.mkdir(parents=True, exist_ok=True)

@@ -219,6 +219,24 @@
         "AO": "ArtSource/Textures/calcada/calcada_AO.png"
       }
     },
+    "piso_intertravado": {
+      "family": "pavimento",
+      "pattern": "tiles",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.75,
+        0.92
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/piso_intertravado/piso_intertravado_BaseColor.png",
+        "Normal": "ArtSource/Textures/piso_intertravado/piso_intertravado_Normal.png",
+        "Roughness": "ArtSource/Textures/piso_intertravado/piso_intertravado_Roughness.png",
+        "Metallic": "ArtSource/Textures/piso_intertravado/piso_intertravado_Metallic.png",
+        "AO": "ArtSource/Textures/piso_intertravado/piso_intertravado_AO.png"
+      }
+    },
     "meio_fio": {
       "family": "concreto",
       "pattern": "noise",

@@ -63,6 +63,8 @@ scene.unit_settings.length_unit = "METERS"
 scene.unit_settings.scale_length = 1.0
 
 lib = sa_materials.build_library()
+import sa_detail  # noqa: E402
+sa_detail.extend_library(lib)
 sa_materials.write_library_json(root)
 
 top = sa_bl.collection("OT_CidadeAntiga")
@@ -144,7 +146,8 @@ for (macro, sub), quads in buckets.items():
 g = ot.graph
 deg = g.degree()
 inc = g.incident()
-ROAD_MATS = ["asfalto", "asfalto_gasto", "calcada", "meio_fio", "sinalizacao_viaria", "grama", "concreto", "terra"]
+ROAD_MATS = ["asfalto", "asfalto_gasto", "calcada", "meio_fio", "sinalizacao_viaria", "grama", "concreto", "terra", "piso_intertravado"]
+STATS = {"corners_filleted": 0, "curb_ramps": 0, "accessories": {}, "forecourt_planters": 0, "forecourt_bollards": 0}
 RM = {n: i for i, n in enumerate(ROAD_MATS)}
 road_mb = {}
 
@@ -260,8 +263,43 @@ for nid, eids in inc.items():
         B = (p[0] + d1[0] * r + n1[0] * (cw1 / 2 + sw1), p[1] + d1[1] * r + n1[1] * (cw1 / 2 + sw1))
         C = (p[0] + d2[0] * r - n2[0] * (cw2 / 2 + sw2), p[1] + d2[1] * r - n2[1] * (cw2 / 2 + sw2))
         D = (p[0] + d2[0] * r - n2[0] * cw2 / 2, p[1] + d2[1] * r - n2[1] * cw2 / 2)
-        quad = [A, B, C, D]
-        mb.add_face([(q[0], q[1], zs(*q) + ROAD_LIFT + SIDEWALK_H) for q in quad][::-1], RM["calcada"])
+        # W2 (N3): filleted corner. Inner (curb) and outer edges follow quadratic curves whose control points are the
+        # intersections of the two curb lines, so the corner bends with the streets instead of a straight chamfer.
+        def meet(P0, dA, P1, dB):
+            den = dA[0] * dB[1] - dA[1] * dB[0]
+            if abs(den) < 1e-3:
+                return ((P0[0] + P1[0]) / 2, (P0[1] + P1[1]) / 2)
+            t = ((P1[0] - P0[0]) * dB[1] - (P1[1] - P0[1]) * dB[0]) / den
+            X = (P0[0] + dA[0] * t, P0[1] + dA[1] * t)
+            if dist(X, p) > 3 * r + 12:
+                return ((P0[0] + P1[0]) / 2, (P0[1] + P1[1]) / 2)
+            return X
+
+        ci, co = meet(A, d1, D, d2), meet(B, d1, C, d2)
+        nseg = 8
+        bez = lambda P0, Q, P1, t: ((1 - t) ** 2 * P0[0] + 2 * (1 - t) * t * Q[0] + t * t * P1[0], (1 - t) ** 2 * P0[1] + 2 * (1 - t) * t * Q[1] + t * t * P1[1])
+        inner = [bez(A, ci, D, k / nseg) for k in range(nseg + 1)]
+        outer_ = [bez(B, co, C, k / nseg) for k in range(nseg + 1)]
+        ramp = ot.in_core(p) and gap < math.radians(135)
+        zt = lambda q: zs(*q) + ROAD_LIFT + SIDEWALK_H
+        zi = []
+        for k, q in enumerate(inner):
+            low = ramp and 3 <= k <= 5                                     # curb cut (rebaixo) at the corner apex
+            zi.append(zs(*q) + ROAD_LIFT + (.02 if low else SIDEWALK_H))
+        for k in range(nseg):
+            a3 = (inner[k][0], inner[k][1], zi[k])
+            b3 = (inner[k + 1][0], inner[k + 1][1], zi[k + 1])
+            c3 = (outer_[k + 1][0], outer_[k + 1][1], zt(outer_[k + 1]))
+            d3 = (outer_[k][0], outer_[k][1], zt(outer_[k]))
+            mb.quad(a3, b3, c3, d3, RM["calcada"])
+            lo_a, lo_b = (a3[0], a3[1], zs(*inner[k]) + ROAD_LIFT - .01), (b3[0], b3[1], zs(*inner[k + 1]) + ROAD_LIFT - .01)
+            mb.quad(lo_a, lo_b, b3, a3, RM["meio_fio"])
+        STATS["corners_filleted"] += 1
+        if ramp:
+            STATS["curb_ramps"] += 1
+            for k in (3, 5):
+                q = inner[k]
+                mb.box(q[0], q[1], zs(*q) + ROAD_LIFT + .015, .25, .25, .006, RM["sinalizacao_viaria"])  # tactile marker
     # Zebra crossings where traffic lights stand (major x major).
     majors = {g.edges[e].get("name") for e in eids if g.edges[e]["cls"] in ("main", "arterial")}
     if len(majors) >= 2 and ot.in_core(p):
@@ -289,7 +327,30 @@ for pl in ot.data["plazas"]:
 for hid, fc in ot.forecourts().items():
     mb = rmb(fc.c)
     zc = min(zs(*q) for q in fc.corners())
-    mb.obb_box(fc.corners(), zc - .6, .6 + ROAD_LIFT + SIDEWALK_H - .01, RM["calcada"])
+    mb.obb_box(fc.corners(), zc - .6, .6 + ROAD_LIFT + SIDEWALK_H - .01, RM["piso_intertravado"])
+    # W2 (N4): planters at the two street-side corners and a bollard line, leaving the entrance axis free.
+    h = next(hh for hh in ot.data["heroes"] if hh["id"] == hid)
+    hc = ((h["lot"][0] + h["lot"][2]) / 2, (h["lot"][1] + h["lot"][3]) / 2)
+    cs_ = sorted(fc.corners(), key=lambda q: -dist(q, hc))[:2]
+    ztop = zc + ROAD_LIFT + SIDEWALK_H - .01
+    edge = norm(vsub(cs_[1], cs_[0]))
+    elen = dist(cs_[0], cs_[1])
+    inward = norm(vsub(fc.c, lerp(cs_[0], cs_[1], .5)))
+    ang = math.atan2(edge[1], edge[0])
+    for k, q in enumerate(cs_):
+        s_ = 1 if k == 0 else -1
+        c = (q[0] + edge[0] * s_ * 1.6 + inward[0] * 1.0, q[1] + edge[1] * s_ * 1.6 + inward[1] * 1.0)
+        mb.box(c[0], c[1], ztop, 2.6, 1.2, .45, RM["concreto"], rot=ang)
+        mb.box(c[0], c[1], ztop + .45, 2.4, 1.0, .03, RM["grama"], rot=ang)
+        STATS["forecourt_planters"] += 1
+    n_b = int(elen // 1.8)
+    for k in range(1, n_b):
+        t = k * elen / n_b
+        if abs(t - elen / 2) < 2.2 or t < 3.4 or t > elen - 3.4:
+            continue
+        c = (cs_[0][0] + edge[0] * t + inward[0] * .4, cs_[0][1] + edge[1] * t + inward[1] * .4)
+        mb.cylinder(c[0], c[1], ztop, .1, .85, 10, RM["concreto"])
+        STATS["forecourt_bollards"] += 1
 for lot in ot.lots:
     if lot["family"] not in ("vacant", "parking"):
         continue
@@ -358,6 +419,104 @@ for (macro, sub), pts in arch_pts.items():
     name = f"OT_Architecture_{sub}"
     o = sa_bl.point_cloud_object(name, pts, fam_lib, cell_collection("Architecture", macro))
     register("Architecture", name, sub, o, instances=len(pts))
+
+# ---------------------------------------------------------------- W2 (N1): rule-based accessories breaking the repetition
+# Small instanced pieces placed per lot from its variant (roof type, floors, tags) with a stable crc32 seed: roof water
+# tanks, solar heaters, antennas, dishes, facade/back AC condensers, service-entrance boxes and downpipes.
+import zlib  # noqa: E402
+
+ACC_MATS = {"tank": ["plastico_azul", "plastico_branco"], "tank_fc": ["telha_fibrocimento", "concreto"], "solar": ["vidro", "aluminio"],
+            "antenna": ["metal_galvanizado"], "dish": ["plastico_branco", "metal_galvanizado"], "ac": ["plastico_branco", "aco_pintado_cinza"],
+            "meterbox": ["aco_pintado_cinza", "vidro"], "downpipe": ["plastico"]}
+
+
+def acc_piece(kind):
+    mb = sa_bl.MeshBuilder()
+    if kind == "tank":
+        mb.cylinder(0, 0, 0, .7, .9, 12, 0)
+        mb.cylinder(0, 0, .9, .64, .1, 12, 1)
+    elif kind == "tank_fc":
+        mb.box(0, 0, 0, 1.4, 1.4, .25, 1)
+        mb.box(0, 0, .25, 1.2, 1.2, .9, 0)
+    elif kind == "solar":
+        mb.box(0, 0, .5, 2.0, 1.0, .06, 0)
+        mb.box(0, .55, .55, 1.6, .5, .5, 1)
+        for x in (-.9, .9):
+            mb.box(x, -.3, 0, .05, .05, .55, 1)
+    elif kind == "antenna":
+        mb.cylinder(0, 0, 0, .025, 2.6, 5, 0)
+        for k in range(4):
+            mb.box(0, 0, 1.8 + k * .22, .9 - k * .15, .02, .02, 0)
+    elif kind == "dish":
+        mb.cylinder(0, 0, 0, .03, .5, 5, 1)
+        mb.cylinder(0, -.1, .45, .3, .06, 10, 0)
+    elif kind == "ac":
+        mb.box(0, -.15, 0, .78, .3, .55, 0)
+        for x in (-.28, .28):
+            mb.box(x, -.12, -.06, .04, .26, .06, 1)
+    elif kind == "meterbox":
+        mb.box(0, -.12, 0, .5, .24, .7, 0)
+        mb.box(0, -.245, .3, .2, .01, .2, 1)
+        mb.cylinder(.18, -.06, .7, .025, 2.4, 5, 0)
+    elif kind == "downpipe":
+        mb.cylinder(0, -.06, 0, .05, 1.0, 6, 0)
+    # Street-distance pieces: no bevel and few segments (heroes carry the LOD0 detail; these only break repetition).
+    o = mb.to_object("ACC_" + kind, [lib[m] for m in ACC_MATS[kind]], library)
+    sa_bl.props(o, sa_stage="W2 acessório (LOD0 base)")
+    return o
+
+
+acc_objs = [acc_piece(k) for k in ACC_MATS]
+acc_lib, acc_index = sa_bl.library_collection("OT_Lib_Accessories", acc_objs, library)
+VAR = {v["id"]: v for v in OLDTOWN_VARIANTS}
+acc_pts = {}
+
+
+def place(lot, kind, lx, ly, lz, rot_extra=0.0, scl=1.0):
+    o = lot["obb"]
+    r = lot["rot"]
+    cs, sn = math.cos(r), math.sin(r)
+    x, y = o.c[0] + lx * cs - ly * sn, o.c[1] + lx * sn + ly * cs
+    macro, sub = subcell(x, y)
+    acc_pts.setdefault((macro, sub), []).append((x, y, lot_z[lot["id"]] + lz, acc_index["ACC_" + kind], r + rot_extra, scl))
+    STATS["accessories"][kind] = STATS["accessories"].get(kind, 0) + 1
+
+
+lot_z = {}
+for lot in ot.lots:
+    if lot["family"] in ("vacant", "parking") or lot["variant"] not in VAR:
+        continue
+    o = lot["obb"]
+    lot_z[lot["id"]] = min(zs(*q) for q in o.corners())
+    v = VAR[lot["variant"]]
+    w, d, H = v["w"], v["d"], v["height"]
+    lid = str(lot["id"])
+    roll = lambda k, lid=lid: zlib.crc32(f"{lid}:{k}".encode()) / 4294967295.0
+    flat = v["roof"] in ("flat_parapet", "roofless")
+    resid = v["family"] in ("sobrado_estreito", "casa_terrea", "comercio_residencia", "predio_3pav", "predio_4a6", "abandonada_reformada")
+    if v["roof"] == "roofless":
+        continue
+    if flat and roll(0) < .65:
+        place(lot, "tank" if roll(1) < .6 else "tank_fc", (roll(2) - .5) * (w - 2.4), (roll(3) - .2) * (d - 2.4) * .5, H + .05)
+    if resid and roll(4) < .25 and w >= 5:
+        place(lot, "solar", (roll(5) - .5) * (w - 2.2), d * .15, H + (.05 if flat else .9))
+    if roll(6) < .35:
+        place(lot, "antenna", (roll(7) - .5) * (w - 1), (roll(8) - .5) * (d - 1), H + (.05 if flat else 1.2))
+    if resid and roll(9) < .18:
+        place(lot, "dish", w / 2 - .6, -d / 2 + 1.0, H + (.05 if flat else .6), rot_extra=.4)
+    if resid and v["floors"] >= 2 and roll(10) < .4:
+        f = 1 + int(roll(11) * (v["floors"] - 1))
+        place(lot, "ac", (roll(12) - .5) * (w - 1.2), -d / 2, v["ground_h"] + (f - 1) * v["fh"] + .3)
+    if resid and roll(13) < .5:
+        place(lot, "ac", (roll(14) - .5) * (w - 1.2), d / 2, v["ground_h"] * .45, rot_extra=math.pi)
+    if resid and roll(15) < .55:
+        place(lot, "meterbox", (w / 2 - .45) * (1 if roll(16) < .5 else -1), -d / 2, .7)
+    if roll(17) < .45 and H > 3.5:
+        place(lot, "downpipe", (w / 2 - .12) * (1 if roll(18) < .5 else -1), -d / 2, 0.0, scl=1.0)
+for (macro, sub), pts in acc_pts.items():
+    name = f"OT_Accessories_{sub}"
+    o = sa_bl.point_cloud_object(name, pts, acc_lib, cell_collection("Architecture", macro))
+    register("Architecture", name, sub, o, instances=len(pts), note="W2 N1: acessórios por regra")
 
 # Special lots (suppliers, used cars, fuel, cafÃ©, house with workshop) and the EstaÃ§Ã£o Velha landmark.
 spec_coll = sa_bl.collection("OT_Architecture_SpecialLots", layer_coll["Architecture"])
@@ -566,7 +725,8 @@ report = {
     "materials": sorted(lib),
     "heroes": {k: {"ground_z": round(v, 2)} for k, v in hero_z.items()},
     "layout": ot.metrics,
-    "status": "W1.5 production structure - not final art",
+    "w2": dict(STATS, accessoryInstances=sum(len(v) for v in acc_pts.values())),
+    "status": "W2 production base (W1.5 structure + N1/N3/N4 refinements) - not final art",
 }
 (out_dir / "oldtown_generation_report.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 print("OLD TOWN BASE GENERATED", json.dumps({k: report[k] for k in ("blend", "objectCount", "buildingInstances", "subcells")}))

@@ -16,9 +16,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--root", required=True)
 parser.add_argument("--mode", required=True, choices=["masterplan", "oldtown", "kit"])
 parser.add_argument("--no-render", action="store_true")
+parser.add_argument("--review", default="W1_5", help="Reviews/<dir> for captures and the reopen report (W2 re-renders go to W2)")
+parser.add_argument("--only", default="", help="comma-separated capture-name prefixes to render (default: all)")
 opts = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
 root = Path(opts.root).resolve()
-review = root / "ArtSource" / "Blender" / "World" / "Reviews" / "W1_5"
+review = root / "ArtSource" / "Blender" / "World" / "Reviews" / opts.review
 review.mkdir(parents=True, exist_ok=True)
 spec = json.loads((root / "ArtSource" / "Blender" / "World" / "masterplan_spec_v1.json").read_text(encoding="utf-8"))
 heroes = json.loads((root / "ArtSource" / "Blender" / "World" / "OldTown" / "oldtown_heroes_v1.json").read_text(encoding="utf-8"))
@@ -146,11 +148,43 @@ SHOTS = {
         ("23_materiais_pbr", "CAM_Kit_Materials", (2400, 1350), {}),
     ],
 }
+# Complexity estimate (W2): triangles of plain meshes + instanced triangles (library mesh tris x points per variant).
+def _tris(me):
+    return sum(len(p.vertices) - 2 for p in me.polygons)
+
+
+cx = {"meshTris": 0, "instancedTris": 0, "instances": 0, "largestMesh": ["", 0]}
+for o in bpy.data.objects:
+    if o.type != "MESH" or any(c.hide_render for c in o.users_collection if c.name.startswith(("OT_Lib", "OT_Library"))):
+        continue
+    gnm = next((m for m in o.modifiers if m.type == "NODES"), None)
+    if gnm is None:
+        t = _tris(o.data)
+        if any(c.name in ("OT_Library",) or c.name.startswith("OT_Lib") for c in o.users_collection):
+            continue
+        cx["meshTris"] += t
+        if t > cx["largestMesh"][1]:
+            cx["largestMesh"] = [o.name, t]
+        continue
+    col = next((n for n in gnm.node_group.nodes if n.bl_idname == "GeometryNodeCollectionInfo"), None)
+    c = col.inputs["Collection"].default_value if col else None
+    if not c or "variant" not in o.data.attributes:
+        continue
+    lib_t = [_tris(x.data) if x.type == "MESH" else 0 for x in sorted(c.objects, key=lambda x: x.name)]
+    for a in o.data.attributes["variant"].data:
+        if 0 <= a.value < len(lib_t):
+            cx["instancedTris"] += lib_t[a.value]
+            cx["instances"] += 1
+checks["complexity"] = cx
+
 renders = []
 if not opts.no_render:
     scene.render.image_settings.file_format = "JPEG"
     scene.render.image_settings.quality = 88
+    only = [x for x in opts.only.split(",") if x]
     for name, cam, (w, h), fl in SHOTS[opts.mode]:
+        if only and not any(name.startswith(x) for x in only):
+            continue
         if cam not in bpy.data.objects:
             errors.append("missing camera " + cam)
             continue
@@ -174,7 +208,7 @@ if not opts.no_render:
         scene.camera = bpy.data.objects[cam]
         scene.render.resolution_x, scene.render.resolution_y = w, h
         scene.render.resolution_percentage = 100
-        out = review / f"{name}.jpg"
+        out = review / (f"{name}.jpg" if opts.review == "W1_5" else f"ot_{name}.jpg")
         scene.render.filepath = str(out)
         bpy.ops.render.render(write_still=True)
         renders.append(out.relative_to(root).as_posix())

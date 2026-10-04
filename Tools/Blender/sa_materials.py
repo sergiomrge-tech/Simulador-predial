@@ -26,6 +26,7 @@ LIB = {
     "asfalto":              {"family": "asfalto", "c1": (.10, .10, .105), "c2": (.06, .06, .065), "rough": (.82, .96), "scale": 4.0, "bump": .2, "pattern": "noise", "grime": .2, "dirt": 0.0, "texel": 256},
     "asfalto_gasto":        {"family": "asfalto", "c1": (.17, .17, .17), "c2": (.09, .09, .095), "rough": (.85, .98), "scale": 2.5, "bump": .25, "pattern": "noise", "patches": True, "grime": .2, "dirt": 0.0, "texel": 256},
     "calcada":              {"family": "concreto", "c1": (.60, .58, .55), "c2": (.48, .46, .44), "rough": (.80, .95), "scale": 1.0, "bump": .4, "pattern": "tiles", "tile": (.4, .4, .006), "grime": .5, "dirt": .3, "texel": 512},
+    "piso_intertravado":    {"family": "pavimento", "c1": (.50, .44, .40), "c2": (.40, .35, .32), "rough": (.75, .92), "scale": 1.0, "bump": .45, "pattern": "tiles", "tile": (.2, .1, .004), "mortar": (.30, .29, .27), "grime": .55, "dirt": .3, "texel": 512},
     "meio_fio":             {"family": "concreto", "c1": (.66, .65, .62), "c2": (.52, .51, .49), "rough": (.70, .90), "scale": 2.0, "bump": .3, "pattern": "noise", "grime": .6, "dirt": .5, "texel": 512},
     "metal_galvanizado":    {"family": "metal", "c1": (.62, .63, .64), "c2": (.50, .51, .52), "rough": (.30, .55), "scale": 6.0, "bump": .05, "pattern": "noise", "metal": 1.0, "grime": .45, "dirt": .3, "texel": 1024},
     "aco_pintado_verde":    {"family": "aco_pintado", "c1": (.12, .28, .18), "c2": (.09, .22, .14), "rough": (.40, .65), "scale": 3.0, "bump": .08, "pattern": "noise", "chips": True, "grime": .5, "dirt": .4, "texel": 1024},

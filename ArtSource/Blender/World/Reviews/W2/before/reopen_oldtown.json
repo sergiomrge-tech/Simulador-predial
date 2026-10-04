@@ -1,0 +1,47 @@
+{
+  "mode": "oldtown",
+  "blend": "ArtSource/Blender/World/OldTown/_before_tmp.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "reopenedInFreshProcess": true,
+  "objectCount": 1267,
+  "meshCount": 1147,
+  "collections": {
+    "OT_CidadeAntiga": 1267
+  },
+  "checks": {
+    "geometryNodesInstancers": 405,
+    "materials": 37,
+    "materialsWithTextureSlots": 37,
+    "heroes": 9,
+    "stateSlots": 38,
+    "states": [
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "H0",
+      "H1",
+      "H2",
+      "H3",
+      "H4"
+    ],
+    "subcellObjects": 1152,
+    "subcells": 181,
+    "familyVariants": 45,
+    "gameplayMarkers": 261,
+    "complexity": {
+      "meshTris": 1718696,
+      "instancedTris": 21696572,
+      "instances": 30193,
+      "largestMesh": [
+        "HERO_apartments__rear_wing__F00",
+        33810
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [],
+  "errors": [],
+  "passed": true
+}

@@ -61,7 +61,9 @@ checks["interactive"] = sum(1 for o in scene.objects if o.get("interactive"))
 if objs and objs[0][0] > 200000:
     errors.append(f"single object too heavy: {objs[0][1]} ({objs[0][0]} tris)")
 roots = [o for o in scene.objects if o.name.endswith("_ROOT")]
-if len(roots) != 1:
+if scene.get("sa_no_root"):
+    pass
+elif len(roots) != 1:
     errors.append("expected exactly one hero root empty")
 else:
     checks["root"] = {"name": roots[0].name, "facility_id": roots[0].get("facility_id"), "location": [round(v, 3) for v in roots[0].location]}

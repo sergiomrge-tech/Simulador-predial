@@ -155,3 +155,24 @@ Preparação concluída no GitHub:
 - Corrigido: lotes de fundo que tapavam a fachada dos heróis (recuos frontais reservados e pavimentados, com nova checagem no validador), câmera da fachada do Horizonte e câmera do lar. Pipeline completo rerodado (3/3 reaberturas PASS, 26 capturas).
 - Próximo: Etapa D — W2 Cidade Antiga Base.
 
+
+## Checkpoint — Etapa D: W2 Cidade Antiga Base, parcial (2026-10-04)
+
+- Heróis A/B/C em `.blend` próprios (`ArtSource/Blender/World/OldTown/Heroes/`), cada um com raiz posicionada no mundo:
+  - Lar (Apto 12 completo com H0 e slots H0–H4) — 111 mil tris;
+  - Oficina Aurora G0 (galpão de pórticos, cômodos, serviços, slots G0–G4) — 59 mil tris;
+  - Horizonte (12 pavimentos, térreo técnico, corredor do 4º andar com quadro técnico, cobertura) — 171 mil tris.
+- Kit detalhado `sa_detail.py` (30+ componentes) e +16 materiais procedurais.
+- Cidade Antiga:
+  - N3: 2.223 esquinas curvas, 983 rebaixos;
+  - N1: 29.381 acessórios por regra (+4,9% de tris instanciados);
+  - N4: recuos com piso intertravado, floreiras e balizadores.
+- Validação PASS; 5/5 reaberturas PASS sem dados faltando; 33 capturas em `ArtSource/Blender/World/Reviews/W2/`.
+- Relatório: `Docs/W2_CIDADE_ANTIGA_BASE_RELATORIO.md` (Gate D parcial PASS).
+- **Falta:**
+  - Teatro Imperial e demais heróis;
+  - integrar os heróis W2 na base;
+  - decals e desgaste;
+  - estados G1–G4/H1–H4 modelados;
+  - subsolo do Horizonte.
+- Ainda não é arte final. Protótipo Unity, saves e IDs intactos.
