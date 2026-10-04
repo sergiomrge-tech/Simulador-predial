@@ -36,7 +36,38 @@
   - desativado por padrão;
   - só tenta carregar cenas realmente disponíveis no build;
   - reconstrói o índice a partir de cenas já carregadas;
+  - controla loads/unloads pendentes para não duplicar operações;
   - não toca em saves e não substitui `WorldBuilder`.
+
+- cenas piloto
+  - `WorldCellRoot` como metadata estável;
+  - scaffolder de 15 Scenes aditivas;
+  - estrutura por Terrain/Roads/Architecture/Infrastructure/Props/Vegetation/Lighting/Gameplay;
+  - validador de Scene;
+  - sincronização opcional com Build Settings;
+  - nenhuma Scene foi gerada automaticamente nesta branch.
+
+- primeiro executável
+  - `WorldIntegrationQa` encadeia manifesto + cenas + regras antigas;
+  - `WorldSliceBuilder` prepara o build Windows v0.1 somente após os gates;
+  - bootstrap separado `WorldSliceBootstrap.unity`;
+  - launcher `Jogar_CidadeAntiga.bat` usa a flag `-worldSlice`;
+  - `WorldSliceRuntimeBridge` espera a célula do Lar carregar antes de ocultar o cenário procedural;
+  - overlay de streaming disponível apenas para QA/development.
+
+- gameplay markers
+  - exportador Blender para GP_/SLOT_/PROXY_/Gameplay;
+  - contrato de posição X/Y/Z Blender → X/Z/Y Unity;
+  - forward/up em vez de Euler frágil;
+  - importador Unity de metadata;
+  - `WorldGameplayMarker` sem lógica acoplada;
+  - documentação específica para o spawn e quadro técnico do Horizonte.
+
+- exportação por célula
+  - preflight Blender read-only por subcélula;
+  - detecção de Geometry Nodes, linked heroes, markers e complexidade;
+  - gerador de plano de exportação do corredor;
+  - política de não modificar o .blend-fonte.
 
 - EditMode tests
   - round-trip dos 1.024 IDs;
@@ -76,7 +107,8 @@
 - nenhuma instalação de pacote;
 - nenhuma alteração de save;
 - nenhuma mudança de IDs;
-- nenhuma substituição do `WorldBuilder`;
+- nenhuma substituição do `WorldBuilder` no modo normal;
+- ponte `-worldSlice` é opt-in e ainda não foi executada;
 - nenhum Addressables;
 - nenhuma afirmação de performance real.
 
@@ -94,19 +126,27 @@ Isso evita escolher células de forma manual depois do W3.
 ## Próximo passo desta branch
 
 Depois que o Claude fechar o W3 visual:
-1. confirmar que o corredor continua compatível com os assets finais W3;
-2. exportar primeiro a célula do Lar;
-3. validar escala/materiais/markers;
-4. montar a primeira Scene aditiva;
-5. expandir até Oficina e Horizonte;
-6. executar os EditMode tests e o validador do manifesto no Unity 6000.6.2f1;
-7. medir performance real antes de qualquer expansão.
+1. trazer o W3 para a branch de integração sem merge no main;
+2. confirmar que o corredor continua compatível com os assets finais W3;
+3. rodar `validate_unity_streaming_contract.py`;
+4. gerar o plano de exportação;
+5. executar preflight da célula do Lar;
+6. exportar/importar primeiro a célula do Lar;
+7. criar as 15 Scene scaffolds no Unity e preencher a primeira;
+8. criar `WorldSliceBootstrap`;
+9. rodar EditMode tests + WorldIntegrationQa;
+10. ativar `-worldSlice` e validar caminhada no Lar;
+11. expandir até Oficina e Horizonte;
+12. importar markers do Horizonte;
+13. integrar o primeiro chamado somente depois da geometria/markers estarem confirmados;
+14. medir performance real antes de qualquer expansão.
 
 Até lá, esta branch serve como base técnica sem competir com a produção visual.
 
 ## Validação atual
 
 - revisão estática da lógica e das convenções concluída;
-- a branch não modifica Bootstrap, gameplay, saves, IDs ou assets visuais;
+- a branch não modifica o Bootstrap normal, saves, IDs ou assets visuais;
+- o modo de mundo grande está isolado em scripts/Scene separada e exige `-worldSlice`;
 - **ainda não houve compilação/teste no Unity desta branch**;
 - portanto, os novos testes e o serviço aditivo não devem ser descritos como runtime-validado até uma execução real no Unity 6000.6.2f1.
