@@ -12,7 +12,7 @@ namespace FacilityOps.Editor
 {
     /// <summary>
     /// Read-only validation bridge between the Blender-generated Old Town manifest
-    /// and the Unity project. It intentionally installs no packages and changes no assets.
+    /// and the Unity project. It installs no packages and changes no assets.
     /// </summary>
     public static class WorldStreamingManifestValidator
     {
@@ -54,7 +54,7 @@ namespace FacilityOps.Editor
                 errors.Add("Manifest is not a balanced JSON object.");
 
             foreach (string required in new[] { "schemaVersion", "families", "props", "subcells", "heroes", "lots" })
-                if (!manifest.Contains("\\"" + required + "\\"", StringComparison.Ordinal))
+                if (manifest.IndexOf("\"" + required + "\"", StringComparison.Ordinal) < 0)
                     errors.Add("Manifest missing top-level key: " + required);
 
             Match schema = SchemaRegex.Match(manifest);
@@ -80,7 +80,14 @@ namespace FacilityOps.Editor
             foreach (var duplicate in lotIds.GroupBy(x => x, StringComparer.Ordinal).Where(g => g.Count() > 1).Take(25))
                 errors.Add($"Duplicate lot id: {duplicate.Key} ({duplicate.Count()}x)");
 
-            var expectedHeroes = HeroIdRegex.Matches(heroRegistry).Cast<Match>()
+            string heroesArray = ExtractNamedArray(heroRegistry, "heroes");
+            if (heroesArray == null)
+            {
+                errors.Add("Hero registry is missing a readable heroes array.");
+                heroesArray = string.Empty;
+            }
+
+            var expectedHeroes = HeroIdRegex.Matches(heroesArray).Cast<Match>()
                 .Select(m => m.Groups[1].Value)
                 .Distinct(StringComparer.Ordinal)
                 .ToArray();
@@ -100,8 +107,8 @@ namespace FacilityOps.Editor
             if (subcellKeys.Count == 0)
                 errors.Add("Manifest contains no streaming subcells.");
 
-            if (expectedHeroes.Length == 0)
-                errors.Add("Hero registry contains no ids.");
+            if (expectedHeroes.Length != 9)
+                errors.Add("Expected exactly 9 Old Town hero locations, found " + expectedHeroes.Length + ".");
 
             if (errors.Count > 0)
                 Fail(errors);
@@ -109,6 +116,47 @@ namespace FacilityOps.Editor
             Debug.Log(
                 $"Streaming manifest validated: schema=1, subcells={subcellKeys.Count}, lots={lotIds.Count}, heroes={expectedHeroes.Length}. " +
                 "No files were modified.");
+        }
+
+        private static string ExtractNamedArray(string json, string property)
+        {
+            int propertyIndex = json.IndexOf("\"" + property + "\"", StringComparison.Ordinal);
+            if (propertyIndex < 0)
+                return null;
+
+            int start = json.IndexOf('[', propertyIndex);
+            if (start < 0)
+                return null;
+
+            int depth = 0;
+            bool inString = false;
+            bool escape = false;
+
+            for (int i = start; i < json.Length; i++)
+            {
+                char c = json[i];
+
+                if (inString)
+                {
+                    if (escape) { escape = false; continue; }
+                    if (c == '\\') { escape = true; continue; }
+                    if (c == '"') inString = false;
+                    continue;
+                }
+
+                if (c == '"') { inString = true; continue; }
+                if (c == '[') depth++;
+                else if (c == ']')
+                {
+                    depth--;
+                    if (depth == 0)
+                        return json.Substring(start, i - start + 1);
+                    if (depth < 0)
+                        return null;
+                }
+            }
+
+            return null;
         }
 
         private static int ReadInt(Regex regex, string text, string field, List<string> errors)
