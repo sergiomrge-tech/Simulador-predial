@@ -1,0 +1,14 @@
+{
+  "name": "FacilityOps.WorldStreaming.Tests",
+  "rootNamespace": "FacilityOps.Tests",
+  "references": [
+    "FacilityOps.Runtime"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}
