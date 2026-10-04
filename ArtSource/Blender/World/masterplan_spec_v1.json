@@ -1,5 +1,6 @@
 {
   "schemaVersion": 1,
+  "revision": "W1.5",
   "units": "meters",
   "world": {
     "name": "Santa Aurora",
@@ -584,6 +585,10 @@
           1100
         ],
         [
+          1151,
+          1288
+        ],
+        [
           1500,
           1550
         ],
@@ -631,6 +636,10 @@
           1250
         ],
         [
+          1151,
+          1288
+        ],
+        [
           1500,
           1300
         ],
@@ -649,21 +658,21 @@
       "name": "Eixo Empresarial",
       "class": "arterial",
       "from": [
-        400,
-        216
+        0,
+        200
       ],
       "to": [
         3500,
-        -700
+        -640
       ],
       "points": [
         [
-          400,
-          216
+          0,
+          200
         ],
         [
           3500,
-          -700
+          -640
         ]
       ]
     },
@@ -699,8 +708,8 @@
         3272
       ],
       "to": [
-        1250,
-        1362
+        1151,
+        1288
       ],
       "points": [
         [
@@ -732,8 +741,257 @@
           1839
         ],
         [
-          1250,
-          1362
+          1151,
+          1288
+        ]
+      ]
+    },
+    {
+      "id": "R09",
+      "name": "Avenida dos Ferroviários",
+      "class": "arterial",
+      "points": [
+        [
+          -3850,
+          -2470
+        ],
+        [
+          -2745,
+          -2475
+        ],
+        [
+          -2300,
+          -2455
+        ],
+        [
+          -2050,
+          -2430
+        ],
+        [
+          -1600,
+          -2440
+        ],
+        [
+          -1100,
+          -2420
+        ],
+        [
+          -700,
+          -2330
+        ],
+        [
+          100,
+          -2290
+        ],
+        [
+          800,
+          -2420
+        ],
+        [
+          1450,
+          -2480
+        ],
+        [
+          2300,
+          -2550
+        ],
+        [
+          3000,
+          -2510
+        ],
+        [
+          3800,
+          -2300
+        ]
+      ],
+      "note": "W1.5: ligação direta Cidade Antiga <-> Expansão (correção do bloqueio W1).",
+      "from": [
+        -3850,
+        -2470
+      ],
+      "to": [
+        3800,
+        -2300
+      ]
+    },
+    {
+      "id": "R10",
+      "name": "Avenida Leste",
+      "class": "collector",
+      "points": [
+        [
+          3000,
+          -2510
+        ],
+        [
+          3010,
+          -1800
+        ],
+        [
+          3000,
+          -1200
+        ],
+        [
+          3000,
+          -560
+        ]
+      ],
+      "note": "W1.5: liga a Expansão Leste (R09) ao Eixo Empresarial (R06).",
+      "from": [
+        3000,
+        -2510
+      ],
+      "to": [
+        3000,
+        -560
+      ]
+    }
+  ],
+  "roundabouts": [
+    {
+      "id": "rot.central",
+      "name": "Rotatória da Central",
+      "centre": [
+        0,
+        200
+      ],
+      "radius": 42,
+      "roads": [
+        "R01",
+        "R03",
+        "R06"
+      ]
+    },
+    {
+      "id": "rot.tecnologica",
+      "name": "Rotatória Tecnológica",
+      "centre": [
+        1151,
+        1288
+      ],
+      "radius": 42,
+      "roads": [
+        "R04",
+        "R05",
+        "R08"
+      ]
+    }
+  ],
+  "railways": [
+    {
+      "id": "rail.linha_oeste",
+      "name": "Linha Ferroviária Oeste",
+      "kind": "main",
+      "width": 14,
+      "points": [
+        [
+          -3862.7,
+          -3300
+        ],
+        [
+          -3830.0,
+          -3000
+        ],
+        [
+          -3720.9,
+          -2000
+        ],
+        [
+          -3611.8,
+          -1000
+        ],
+        [
+          -3502.7,
+          0
+        ],
+        [
+          -3393.6,
+          1000
+        ],
+        [
+          -3284.5,
+          2000
+        ],
+        [
+          -3230.0,
+          2500
+        ],
+        [
+          -3150,
+          2690
+        ],
+        [
+          -2950,
+          2745
+        ],
+        [
+          -2600,
+          2745
+        ],
+        [
+          -2200,
+          2735
+        ]
+      ],
+      "note": "Ferrovia histórica: porto seco (sul) -> Estação Velha (Cidade Antiga) -> logística e fábrica (Industrial). Paralela à R07, 70 m a leste."
+    },
+    {
+      "id": "rail.patio_porto_seco_a",
+      "name": "Pátio do Porto Seco (desvio A)",
+      "kind": "siding",
+      "width": 8,
+      "points": [
+        [
+          -3850,
+          -3262
+        ],
+        [
+          -3700,
+          -3300
+        ],
+        [
+          -3300,
+          -3300
+        ]
+      ]
+    },
+    {
+      "id": "rail.patio_porto_seco_b",
+      "name": "Pátio do Porto Seco (desvio B)",
+      "kind": "siding",
+      "width": 8,
+      "points": [
+        [
+          -3838,
+          -3195
+        ],
+        [
+          -3700,
+          -3240
+        ],
+        [
+          -3300,
+          -3240
+        ]
+      ]
+    },
+    {
+      "id": "rail.ramal_logistica",
+      "name": "Ramal da Logística",
+      "kind": "siding",
+      "width": 8,
+      "points": [
+        [
+          -3345,
+          1420
+        ],
+        [
+          -3300,
+          1520
+        ],
+        [
+          -3292,
+          1780
         ]
       ]
     }
@@ -782,6 +1040,105 @@
       "z": 1050,
       "width": 260,
       "depth": 200
+    },
+    {
+      "id": "basin.retencao_norte",
+      "name": "Bacia de Retenção Norte",
+      "kind": "water",
+      "x": -1135,
+      "z": 2900,
+      "width": 210,
+      "depth": 100
+    }
+  ],
+  "transitionZones": [
+    {
+      "id": "T_old_exp",
+      "name": "Bairros intermediários (Cidade Antiga -> Expansão)",
+      "profile": "transition_mixed",
+      "bounds": [
+        -1250,
+        -3650,
+        -750,
+        -480
+      ]
+    },
+    {
+      "id": "T_old_north",
+      "name": "Estação Norte / serviços (Cidade Antiga -> Industrial/Central)",
+      "profile": "services_depots",
+      "bounds": [
+        -3720,
+        -480,
+        -1100,
+        480
+      ]
+    },
+    {
+      "id": "T_ind_civic",
+      "name": "Depósitos e serviços (Industrial -> Central)",
+      "profile": "services_depots",
+      "bounds": [
+        -1500,
+        480,
+        -950,
+        1650
+      ]
+    },
+    {
+      "id": "T_exp_civic",
+      "name": "Eixo institucional (Expansão -> Central)",
+      "profile": "institutional",
+      "bounds": [
+        -750,
+        -1050,
+        1000,
+        -560
+      ]
+    },
+    {
+      "id": "T_civic_corp",
+      "name": "Escritórios médios (Central -> Empresarial)",
+      "profile": "offices_mid",
+      "bounds": [
+        1000,
+        -700,
+        1300,
+        1100
+      ]
+    },
+    {
+      "id": "T_corp_tech",
+      "name": "Campus e verdes planejados (Empresarial -> Tecnológico)",
+      "profile": "campus",
+      "bounds": [
+        1300,
+        1050,
+        3800,
+        1550
+      ]
+    },
+    {
+      "id": "T_canal",
+      "name": "Várzea do Canal (parque linear, esportes, depósitos)",
+      "profile": "canal_valley",
+      "bounds": [
+        -950,
+        1650,
+        1000,
+        3650
+      ]
+    },
+    {
+      "id": "T_exp_east",
+      "name": "Expansão Leste (residencial médio e comércio)",
+      "profile": "residential_mid",
+      "bounds": [
+        1500,
+        -3650,
+        3900,
+        -1650
+      ]
     }
   ],
   "streaming": {
