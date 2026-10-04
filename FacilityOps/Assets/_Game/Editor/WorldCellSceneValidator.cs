@@ -104,6 +104,9 @@ namespace FacilityOps.Editor
                     if (stamp.ImportedObjectCount <= 0 || stamp.ImportedRendererCount <= 0)
                         errors.Add(file + ": imported cell has no real renderable content");
 
+                    if (stamp.ImportedColliderCount <= 0)
+                        errors.Add(file + ": imported cell has no colliders; player traversal is not validated");
+
                     if (stamp.EstimatedTriangles <= 0)
                         errors.Add(file + ": imported cell triangle estimate is empty");
                 }
