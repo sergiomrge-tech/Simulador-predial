@@ -140,10 +140,19 @@ namespace FacilityOps
         private IEnumerator RouteToCurrentRuntimeContext()
         {
             string facilityId = ResolveRuntimeFacility();
-            Vector3 fallback = ResolveFallbackPosition(facilityId);
-            float yaw = ResolveFallbackYaw(facilityId);
+            if (!WorldSliceDestinationRegistry.TryGet(
+                    facilityId,
+                    out WorldSliceDestination destinationInfo))
+            {
+                Fail(
+                    "Runtime requested a facility outside the first playable corridor: " +
+                    facilityId);
+                yield break;
+            }
 
-            var targetCell = WorldStreamingId.FromWorldPosition(fallback.x, fallback.z);
+            Vector3 fallback = destinationInfo.FallbackPosition;
+            float yaw = destinationInfo.FallbackYaw;
+            WorldStreamingId targetCell = destinationInfo.Cell;
             streamService.Refresh(targetCell);
 
             float deadline = Time.realtimeSinceStartup + Mathf.Max(5f, initialLoadTimeoutSeconds);
@@ -160,8 +169,11 @@ namespace FacilityOps
             Vector3 destination = fallback;
             float markerYaw = yaw;
 
-            if (facilityId == "horizonte" &&
-                TryFindMarker("horizonte", "GP_prologue_spawn_corridor", out WorldGameplayMarker marker))
+            if (!string.IsNullOrEmpty(destinationInfo.PreferredMarkerSuffix) &&
+                TryFindMarker(
+                    facilityId,
+                    destinationInfo.PreferredMarkerSuffix,
+                    out WorldGameplayMarker marker))
             {
                 destination = marker.transform.position;
                 markerYaw = marker.transform.eulerAngles.y;
@@ -193,34 +205,6 @@ namespace FacilityOps
             }
 
             return "horizonte";
-        }
-
-        private static Vector3 ResolveFallbackPosition(string facilityId)
-        {
-            switch (facilityId)
-            {
-                case "garage":
-                    return new Vector3(-2710f, 21.7f, -2150f);
-                case "grocery":
-                    return new Vector3(-2598f, 25.9f, -1480f);
-                case "horizonte":
-                    return new Vector3(-2350f, 28.0f, -1831f);
-                case "home.starter":
-                    return new Vector3(-2860f, 17.65f, -2266f);
-                default:
-                    return new Vector3(-2350f, 28.0f, -1831f);
-            }
-        }
-
-        private static float ResolveFallbackYaw(string facilityId)
-        {
-            switch (facilityId)
-            {
-                case "garage": return 90f;
-                case "grocery": return 90f;
-                case "horizonte": return 0f;
-                default: return 180f;
-            }
         }
 
         private static bool TryFindMarker(
