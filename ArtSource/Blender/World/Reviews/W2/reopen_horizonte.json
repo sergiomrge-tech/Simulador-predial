@@ -7,11 +7,12 @@
     "meshObjects": 143,
     "triangles": 170506,
     "trianglesPerCollection": {
+      "W2_horizonte_CaptureOnly": 20,
       "W2_horizonte_Interior": 8294,
       "W2_horizonte_Openings": 40336,
       "W2_horizonte_Services": 16692,
       "W2_horizonte_Shell": 39164,
-      "W2_horizonte_Site": 24762,
+      "W2_horizonte_Site": 24742,
       "W2_horizonte_Structure": 41258
     },
     "largestObjects": [

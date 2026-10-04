@@ -169,9 +169,12 @@ Preparação concluída no GitHub:
   - N4: recuos com piso intertravado, floreiras e balizadores.
 - Validação PASS; 5/5 reaberturas PASS sem dados faltando; 33 capturas em `ArtSource/Blender/World/Reviews/W2/`.
 - Relatório: `Docs/W2_CIDADE_ANTIGA_BASE_RELATORIO.md` (Gate D parcial PASS).
+- Atualização (2026-10-04):
+  - Teatro Imperial W2 (123 mil tris: fachada clássica, pórtico, plateia com 2,4 mil poltronas, palco e urdimento, quadro antigo + retrofit inacabado);
+  - os quatro heróis W2 vinculados à base como instâncias de coleção (LOD0), com o massing W1.5 oculto como LOD1;
+  - 42 capturas.
 - **Falta:**
-  - Teatro Imperial e demais heróis;
-  - integrar os heróis W2 na base;
+  - demais heróis (apartments, grocery, restaurant, workshop, smalloffice);
   - decals e desgaste;
   - estados G1–G4/H1–H4 modelados;
   - subsolo do Horizonte.

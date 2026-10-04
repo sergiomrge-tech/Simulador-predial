@@ -1,38 +1,63 @@
 {
-  "mode": "kit",
+  "hero": "kit",
   "blend": "ArtSource/Blender/Kits/SantaAurora_CidadeAntiga_Kit_v1.blend",
   "blenderVersion": "5.2.1 LTS",
-  "reopenedInFreshProcess": true,
-  "objectCount": 367,
-  "meshCount": 182,
-  "collections": {
-    "KIT_Modular": 40,
-    "KIT_Infraestrutura": 15,
-    "KIT_Familias": 45,
-    "KIT_Materiais": 53,
-    "KIT_Labels": 180,
-    "KIT_Cameras": 6,
-    "KIT_Detalhe_W2": 28
-  },
+  "objects": 367,
   "checks": {
-    "geometryNodesInstancers": 0,
+    "meshObjects": 182,
+    "triangles": 117810,
+    "trianglesPerCollection": {
+      "KIT_Detalhe_W2": 19188,
+      "KIT_Familias": 64646,
+      "KIT_Infraestrutura": 6672,
+      "KIT_Labels": 10,
+      "KIT_Materiais": 12296,
+      "KIT_Modular": 14998
+    },
+    "largestObjects": [
+      {
+        "name": "FAM_p46_d",
+        "tris": 4724
+      },
+      {
+        "name": "FAM_p46_c",
+        "tris": 4472
+      },
+      {
+        "name": "FAM_p46_b",
+        "tris": 3854
+      },
+      {
+        "name": "DET_escada_U",
+        "tris": 3634
+      },
+      {
+        "name": "FAM_p46_e",
+        "tris": 3310
+      },
+      {
+        "name": "KIT_Gate_Sliding_4m",
+        "tris": 3116
+      },
+      {
+        "name": "FAM_p46_a",
+        "tris": 2646
+      },
+      {
+        "name": "FAM_pc_d",
+        "tris": 2252
+      }
+    ],
+    "lights": 1,
     "materials": 53,
-    "materialsWithTextureSlots": 52,
-    "kitPieces": 40,
-    "props": 15,
-    "assetsMarked": 126,
-    "complexity": {
-      "meshTris": 117810,
-      "instancedTris": 0,
-      "instances": 0,
-      "largestMesh": [
-        "FAM_p46_d",
-        4724
-      ]
-    }
+    "stateSlots": [],
+    "interactive": 8
   },
   "missingData": [],
-  "renders": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W2/w2_kit_detalhe.jpg",
+    "ArtSource/Blender/World/Reviews/W2/w2_kit_materiais.jpg"
+  ],
   "errors": [],
   "passed": true
 }

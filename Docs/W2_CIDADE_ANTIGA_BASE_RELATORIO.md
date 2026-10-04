@@ -78,8 +78,41 @@ Cada herói é gerado a partir de `oldtown_heroes_v1.json` (cômodos, entradas, 
 - Terreno: muro baixo com gradil, portões fechados de pedestre e de veículo, interfone, padrão de entrada, marquise com letreiro, canteiros com arbustos-proxy, acesso de veículos e rampa para o subsolo.
 - **171 mil tris, 143 meshes, 12 luzes.** Capturas: `w2_horizonte_01…11`.
 
-### D/E. Teatro Imperial e demais heróis
-**Não iniciados no W2.** Eles continuam com a base W1.5 dentro de `SantaAurora_CidadeAntiga_Base_v1.blend`. Próximos na ordem do NEXT_TASK.
+### D. Teatro Imperial (`create_w2_hero_imperial.py`)
+- Volumes do JSON:
+  - foyer de 3 pavimentos;
+  - plateia de 19 m com telhado cerâmico de duas águas;
+  - caixa cênica de tijolo com 33 m;
+  - doca de carga.
+- Alas de camarins (listadas no registro de estruturas) preenchem o espaço entre a caixa cênica e os caminhos laterais, para que a porta de artistas (`stage_door`) tenha parede.
+- Fachada clássica:
+  - base rusticada, ordem gigante de pilastras;
+  - janelas em arco com bandeira e balcões com balaústres;
+  - cornija, balaustrada e ático com “TEATRO IMPERIAL”.
+- Pórtico com 8 colunas, entablamento, frontão com “MCMXII” e escadaria.
+- Interiores:
+  - foyer com colunas, bilheteria e escada;
+  - plateia em declive com cerca de 2,4 mil poltronas mescladas por bloco, fosso de orquestra;
+  - balcão em U com cabine, forro com rosácea e lustre;
+  - palco com boca de cena, cortina, galerias de manobra, urdimento e varas;
+  - bastidores.
+- Narrativa do Capítulo II, “patrimônio envelhecido, instalações antigas convivendo com retrofit”:
+  - quadro antigo de ardósia com chaves-faca e fusíveis de porcelana, ao lado de um quadro novo de 24 circuitos com eletrodutos interrompidos no meio (retrofit inacabado);
+  - HVAC sobre o telhado;
+  - eletrodutos aparentes na fachada lateral;
+  - andaime com lona em uma ala da fachada (reforma parcial).
+- Porão técnico: só o marcador do alçapão, porão não modelado.
+- **123 mil tris, 14 luzes.** Capturas: `w2_imperial_01…09`.
+
+### Integração na base da Cidade Antiga
+- `create_oldtown_base.py` liga os quatro `.blend` W2 como **instâncias de coleção vinculadas** (`OT_Heroes_W2_LOD0`, objetos `W2I_<id>`, caminho relativo). As raízes já carregam a posição no mundo.
+- O massing W1.5 de cada herói continua no arquivo, oculto no render e marcado `sa_lod = LOD1`. Os marcadores de gameplay (`GP_*`, `SLOT_*`) e os IDs não mudaram.
+- Câmeras, sol e placas de chão de captura ficam numa coleção `__SceneOnly` fora da coleção do herói, então não viajam com a instância.
+- `verify_world_v1_5.py` agora preserva o estado `hide_render` gravado (antes reexibia tudo e trazia o LOD1 de volta nas capturas).
+- Capturas `ot_04…08` mostram os heróis W2 dentro da cidade.
+
+### E. Demais heróis
+Os demais (apartments, grocery, restaurant, workshop, smalloffice) **ainda não foram iniciados** e continuam com a base W1.5.
 
 ---
 
@@ -101,7 +134,9 @@ Medido pela mesma rotina (`verify_world_v1_5.py`, `checks.complexity`): tris das
 - Um bug de sorteio, em que todas as regras disparavam a partir da 8ª chave, foi corrigido antes da medição final.
 - Os totais são da cidade inteira. Em jogo, o streaming carrega só as subcélulas próximas.
 
-Heróis isolados: Lar 111 mil, Oficina 59 mil, Horizonte 171 mil tris. A maior peça única tem 21 mil tris (terreno do Horizonte).
+Heróis isolados: Lar 111 mil, Oficina 59 mil, Horizonte 171 mil, Teatro 123 mil tris. A maior peça única tem 34,5 mil tris (fachada do foyer do Teatro).
+
+Com os heróis W2 vinculados, os tris de meshes simples da base passam de 1,81 milhão para 2,27 milhões. A contagem inclui o LOD0 W2 vinculado e o LOD1 W1.5 oculto; o render usa só um dos dois por herói.
 
 **Plano de LOD:**
 - LOD0 = heróis W2.
@@ -114,7 +149,7 @@ Heróis isolados: Lar 111 mil, Oficina 59 mil, Horizonte 171 mil tris. A maior p
 ## 4. Validações
 
 - `validate_masterplan.py`: **PASS, 0 erros** (layout inalterado).
-- Reaberturas em processo novo, todas **PASS, 0 dados faltando**: `W2_home_starter`, `W2_garage`, `W2_horizonte`, Cidade Antiga base (1.432 objetos, 405+ instanciadores com biblioteca) e kit (367 objetos).
+- Reaberturas em processo novo, todas **PASS, 0 dados faltando** (incluindo as bibliotecas vinculadas): `W2_home_starter`, `W2_garage`, `W2_horizonte`, `W2_imperial`, Cidade Antiga base (1.922 objetos com os heróis vinculados) e kit.
 - Cada herói tem exatamente uma raiz, e todos os objetos são filhos dela. Escala métrica 1:1. Os slots H0–H4 e G0–G4 estão presentes. Nenhum objeto passa de 200 mil tris.
 
 ---
@@ -127,7 +162,7 @@ Heróis isolados: Lar 111 mil, Oficina 59 mil, Horizonte 171 mil tris. A maior p
 | Refino do kit e do ambiente urbano verificável | **PASS** — `w2_kit_detalhe`, contagens N3/N4 no relatório de geração |
 | N1/N3/N4 tratados ou medidos | **PASS (tratados, não encerrados)** — N1 +29 mil acessórios por regra; N3 esquinas curvas e rebaixos; N4 recuos com piso, floreiras e balizadores |
 | Arquivos reabrem sem dados faltando | **PASS** |
-| Capturas | **PASS** — 33 capturas em `ArtSource/Blender/World/Reviews/W2/` |
+| Capturas | **PASS** — 42 capturas em `ArtSource/Blender/World/Reviews/W2/` |
 | Complexidade documentada | **PASS** — seção 3 |
 | Relatório de continuidade | **PASS** — este documento + STATUS |
 
@@ -141,7 +176,6 @@ Heróis isolados: Lar 111 mil, Oficina 59 mil, Horizonte 171 mil tris. A maior p
   - vidros opacos não mostram o exterior a partir de dentro;
   - tetos internos aparecem cinza por falta de luz rebatida;
   - a iluminação é de revisão (exposição −1,4), não o look final.
-- **Os heróis W2 ainda não substituem o massing W1.5 dentro da base da Cidade Antiga.** As raízes já estão nas coordenadas do mundo, e a integração por link/collection instance é o próximo passo.
 - **Horizonte:**
   - apartamentos fechados, com planos internos provisórios;
   - subsolo (−3 m) só pela rampa, sem laje e sem vagas modeladas;
@@ -149,14 +183,15 @@ Heróis isolados: Lar 111 mil, Oficina 59 mil, Horizonte 171 mil tris. A maior p
   - acesso à garagem térrea pelo lado oeste, logo antes do início da rampa (adaptação do JSON, que sobrepõe as duas áreas).
 - Oficina em G0 propositalmente vazia; G1–G4 só como slots.
 - Árvores e arbustos continuam proxies (N2), céu do skyline continua estourado (N5), fora da Cidade Antiga continua massing (N6).
-- Teatro Imperial e demais heróis (itens D/E) não foram iniciados.
+- Demais heróis (item E) não foram iniciados.
+- Teatro: porão técnico e camarins internos não modelados; poltronas mescladas por bloco (instancing por poltrona fica para a Unity).
 
 ---
 
 ## 7. Próximo
 
-1. Teatro Imperial e demais heróis da Cidade Antiga com o mesmo pipeline (`sa_w2.HeroScene` + `sa_detail.Kit`).
-2. Integrar os `.blend` W2 na base da Cidade Antiga (substituir o massing do herói, mantendo `HERO_*` como LOD1).
+1. Demais heróis da Cidade Antiga com o mesmo pipeline (`sa_w2.HeroScene` + `sa_detail.Kit`), vinculados à base como os quatro primeiros.
+2. Revisão visual do usuário das capturas `w2_*` e `ot_*`.
 3. Desgaste e decals procedurais (manchas de escorrimento, sujeira de rodapé, fiação aparente, cartazes) e vidro com transmissão.
 4. G1–G4 / H1–H4 modelados como variações de estado.
 5. Subsolo do Horizonte e prumadas hidráulicas completas para o contrato da bomba.
@@ -164,7 +199,7 @@ Heróis isolados: Lar 111 mil, Oficina 59 mil, Horizonte 171 mil tris. A maior p
 Reproduzir:
 
 ```
-blender -b --factory-startup --python Tools/Blender/create_w2_hero_{home,garage,horizonte}.py -- --root .
+blender -b --factory-startup --python Tools/Blender/create_w2_hero_{home,garage,horizonte,imperial}.py -- --root .   # antes da base (ela vincula os heróis)
 blender -b --factory-startup ArtSource/Blender/World/OldTown/Heroes/W2_<id>.blend --python Tools/Blender/verify_w2_hero.py -- --root .
 blender -b --factory-startup --python Tools/Blender/create_oldtown_base.py -- --root .
 blender -b --factory-startup ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend --python Tools/Blender/verify_world_v1_5.py -- --root . --mode oldtown --review W2

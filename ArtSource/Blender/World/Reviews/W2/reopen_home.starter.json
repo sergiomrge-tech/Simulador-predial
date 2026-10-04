@@ -7,12 +7,13 @@
     "meshObjects": 152,
     "triangles": 111426,
     "trianglesPerCollection": {
+      "W2_home__CaptureOnly": 10,
       "W2_home__Interior": 13692,
       "W2_home__Openings": 73076,
       "W2_home__Props_H0": 1686,
       "W2_home__Services": 12690,
       "W2_home__Shell": 7218,
-      "W2_home__Site": 3064
+      "W2_home__Site": 3054
     },
     "largestObjects": [
       {

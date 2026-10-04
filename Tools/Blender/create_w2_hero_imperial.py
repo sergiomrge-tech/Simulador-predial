@@ -507,7 +507,7 @@ mb.box(AU[0] - .75, -9.76, .5, .3, .4, .6, 1)
 H.mesh(P + "facade_conduits", mb, ["metal_galvanizado", "aco_pintado_cinza"], "Services", sa_layer="Infrastructure")
 mb = sa_bl.MeshBuilder()
 mb.box(0, 0, -2.2, 160, 170, 2.0, 0)
-H.mesh(P + "ground_plate", mb, ["terra"], "Site", sa_layer="Terrain")
+H.mesh(P + "ground_plate", mb, ["terra"], "CaptureOnly", sa_layer="Terrain", note="só para capturas isoladas")
 H.empty(P + "GP_quadro_antigo", (BK[0] + 1.0, qy, STAGE + 1.4), (.6, 2.0, 2.2), sa_kind="interaction", note="quadro antigo + retrofit")
 H.empty(P + "GP_basement_hatch", (lot[2] - 1.0, L(next(e["p"] for e in hero["entrances"] if e["role"] == "technical_basement_hatch"))[1], .3), (1.2, 1.2, .6),
         sa_kind="access", note="alçapão do porão técnico (porão não modelado no W2)")

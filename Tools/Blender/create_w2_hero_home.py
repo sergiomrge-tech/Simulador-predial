@@ -59,7 +59,9 @@ except (AttributeError, TypeError):
     pass
 
 top = sa_bl.collection("W2_home.starter")
-C = {k: sa_bl.collection(f"W2_home__{k}", top) for k in ("Shell", "Interior", "Openings", "Services", "Props_H0", "Site", "Lighting", "Gameplay", "Cameras")}
+C = {k: sa_bl.collection(f"W2_home__{k}", top) for k in ("Shell", "Interior", "Openings", "Services", "Props_H0", "Site", "Gameplay")}
+scene_only = sa_bl.collection("W2_home.starter__SceneOnly")  # outside the hero collection: never travels with a linked instance
+C.update({k: sa_bl.collection(f"W2_home__{k}", scene_only) for k in ("Lighting", "Cameras", "CaptureOnly")})
 rootobj = bpy.data.objects.new("W2_home.starter_ROOT", None)
 rootobj.empty_display_type = "ARROWS"
 rootobj.location = (fr.c[0], fr.c[1], ground)
@@ -466,7 +468,7 @@ scene["facility_stage"] = "W2 base de produção (não é arte final)"
 # A small terrain plate so exterior shots have ground.
 mb = sa_bl.MeshBuilder()
 mb.box(0, 0, -1.2, 70, 70, .95, 0)
-mesh("W2_home__ground_plate", mb, ["terra"], C["Site"], sa_layer="Terrain")
+mesh("W2_home__ground_plate", mb, ["terra"], C["CaptureOnly"], sa_layer="Terrain", note="só para capturas isoladas")
 out = root / "ArtSource" / "Blender" / "World" / "OldTown" / "Heroes"
 out.mkdir(parents=True, exist_ok=True)
 blend = out / "W2_home_starter.blend"

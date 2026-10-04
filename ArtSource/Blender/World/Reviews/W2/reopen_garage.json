@@ -7,12 +7,13 @@
     "meshObjects": 70,
     "triangles": 58770,
     "trianglesPerCollection": {
+      "W2_garage_CaptureOnly": 10,
       "W2_garage_Interior": 270,
       "W2_garage_Openings": 28026,
       "W2_garage_Props_G0": 3930,
       "W2_garage_Services": 8956,
       "W2_garage_Shell": 7282,
-      "W2_garage_Site": 2630,
+      "W2_garage_Site": 2620,
       "W2_garage_Structure": 7676
     },
     "largestObjects": [

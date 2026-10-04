@@ -448,10 +448,10 @@ for k in range(10):                                                             
     o.location = (x, rng.uniform(fy + .8, -hd - 1.0), .15)
 mb = sa_bl.MeshBuilder()
 mb.box(0, 0, -4.4, 120, 120, 4.0, 0)
-H.mesh(P + "ground_plate", mb, ["terra"], "Site", sa_layer="Terrain")
+H.mesh(P + "ground_plate", mb, ["terra"], "CaptureOnly", sa_layer="Terrain", note="só para capturas isoladas")
 mb = sa_bl.MeshBuilder()
 mb.box(0, lot[1] - 6.0, -.4, 120, 11.0, .35, 0)
-H.mesh(P + "street_stub", mb, ["asfalto_gasto"], "Site", sa_layer="Roads", note="trecho da Rua da Estação só para as capturas")
+H.mesh(P + "street_stub", mb, ["asfalto_gasto"], "CaptureOnly", sa_layer="Roads", note="trecho da Rua da Estação só para as capturas")
 
 # ---------------------------------------------------------------- state markers, lighting, cameras
 H.empty(P + "GP_prologue_spawn_corridor", (cor[0] + 2.0, (CY0 + CY1) / 2, za + .9), (.6, .6, 1.8), sa_kind="spawn", note="entrada do jogador no corredor do prólogo")

@@ -17,7 +17,8 @@ from sa_heroes import Frame, fixed
 from sa_terrain import Terrain
 
 STAGE = "W2 base de produção"
-LAYERS = ("Shell", "Structure", "Interior", "Openings", "Services", "Props_G0", "Site", "Lighting", "Gameplay", "Cameras")
+LAYERS = ("Shell", "Structure", "Interior", "Openings", "Services", "Props_G0", "Site", "Gameplay")
+SCENE_ONLY = ("Lighting", "Cameras", "CaptureOnly")   # outside the hero collection: never travels with a linked instance
 
 
 class HeroScene:
@@ -48,6 +49,8 @@ class HeroScene:
         self.facade = self.fixed(self.bld["facade"])
         self.top = sa_bl.collection(f"W2_{hero_id}")
         self.C = {k: sa_bl.collection(f"{prefix}_{k}", self.top) for k in LAYERS}
+        self.scene_only = sa_bl.collection(f"W2_{hero_id}__SceneOnly")
+        self.C.update({k: sa_bl.collection(f"{prefix}_{k}", self.scene_only) for k in SCENE_ONLY})
         self.rootobj = bpy.data.objects.new(f"W2_{hero_id}_ROOT", None)
         self.rootobj.empty_display_type = "ARROWS"
         self.rootobj.location = (self.fr.c[0], self.fr.c[1], self.ground)

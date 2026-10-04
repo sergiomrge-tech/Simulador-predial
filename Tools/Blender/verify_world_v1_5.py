@@ -181,6 +181,7 @@ renders = []
 if not opts.no_render:
     scene.render.image_settings.file_format = "JPEG"
     scene.render.image_settings.quality = 88
+    saved_hide = {o.name: o.hide_render for o in bpy.data.objects}
     only = [x for x in opts.only.split(",") if x]
     for name, cam, (w, h), fl in SHOTS[opts.mode]:
         if only and not any(name.startswith(x) for x in only):
@@ -189,7 +190,7 @@ if not opts.no_render:
             errors.append("missing camera " + cam)
             continue
         for o in bpy.data.objects:
-            o.hide_render = False
+            o.hide_render = saved_hide.get(o.name, False)   # keep authored state (e.g. W1.5 hero LOD1 hidden behind W2 LOD0)
         for cname in ("08_Labels",):
             if cname in bpy.data.collections:
                 bpy.data.collections[cname].hide_render = not fl.get("labels", False)

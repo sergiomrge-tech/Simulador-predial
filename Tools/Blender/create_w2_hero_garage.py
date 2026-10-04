@@ -291,7 +291,7 @@ mb.box((yard[0] + yard[2]) / 2, yard[1] + .05, .05, yard[2] - yard[0], .01, 1.85
 H.mesh(P + "yard_fence", mb, ["metal_galvanizado", "metal_galvanizado"], "Site", sa_layer="Props", note="tela de alambrado (malha final via alpha no W3)")
 mb = sa_bl.MeshBuilder()
 mb.box(0, 0, -1.25, 90, 90, 1.0, 0)
-H.mesh(P + "ground_plate", mb, ["terra"], "Site", sa_layer="Terrain")
+H.mesh(P + "ground_plate", mb, ["terra"], "CaptureOnly", sa_layer="Terrain", note="só para capturas isoladas")
 
 # ---------------------------------------------------------------- lighting, cameras, captures
 sa_bl.sun_and_sky(H.scene, H.C["Lighting"], elevation_deg=34.0, azimuth_deg=250.0)

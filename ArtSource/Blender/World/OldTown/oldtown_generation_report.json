@@ -1,12 +1,12 @@
 {
   "blend": "ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objectCount": 1432,
+  "objectCount": 1922,
   "collectionObjectCounts": {
     "OT_Library": 110,
     "OT_Terrain": 180,
     "OT_Roads": 156,
-    "OT_Architecture": 403,
+    "OT_Architecture": 407,
     "OT_Infrastructure": 62,
     "OT_Props": 59,
     "OT_Vegetation": 130,
@@ -427,6 +427,12 @@
     },
     "forecourt_planters": 18,
     "forecourt_bollards": 158,
+    "w2_heroes_linked": [
+      "home.starter",
+      "garage",
+      "horizonte",
+      "imperial"
+    ],
     "accessoryInstances": 29381
   },
   "status": "W2 production base (W1.5 structure + N1/N3/N4 refinements) - not final art"

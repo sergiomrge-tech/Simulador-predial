@@ -603,6 +603,36 @@ for o in list(hb.objects) + [e for e in hero_markers.objects]:
         macro, sub = subcell((h["lot"][0] + h["lot"][2]) / 2, (h["lot"][1] + h["lot"][3]) / 2)
         sa_bl.props(o, sa_cell=sub[:9], sa_subcell=sub)
 
+# ---------------------------------------------------------------- W2 heroes: linked collection instances (LOD0), W1.5 massing kept as LOD1
+# Each W2 hero .blend keeps its world transform on its root, so an instance at the origin lands in place. The W1.5 hero
+# objects stay in the file (hidden in render, tagged LOD1) and keep their gameplay markers and IDs untouched.
+W2_HEROES = {"home.starter": "W2_home_starter.blend", "garage": "W2_garage.blend", "horizonte": "W2_horizonte.blend", "imperial": "W2_imperial.blend"}
+w2_coll = sa_bl.collection("OT_Heroes_W2_LOD0", layer_coll["Architecture"])
+STATS["w2_heroes_linked"] = []
+for hid, fn in W2_HEROES.items():
+    path = root / "ArtSource" / "Blender" / "World" / "OldTown" / "Heroes" / fn
+    if not path.exists():
+        continue
+    with bpy.data.libraries.load(str(path), link=True, relative=True) as (src, dst):
+        dst.collections = [c for c in src.collections if c == f"W2_{hid}"]
+    if not dst.collections:
+        continue
+    inst = bpy.data.objects.new(f"W2I_{hid}", None)
+    inst.instance_type = "COLLECTION"
+    inst.instance_collection = dst.collections[0]
+    w2_coll.objects.link(inst)
+    h = next(hh for hh in ot.data["heroes"] if hh["id"] == hid)
+    macro, sub = subcell((h["lot"][0] + h["lot"][2]) / 2, (h["lot"][1] + h["lot"][3]) / 2)
+    register("Architecture", inst.name, sub, inst, facility_id=hid, sa_lod="LOD0 (W2, link)", source=f"Heroes/{fn}")
+    lod1 = bpy.data.collections.get("HERO_" + hid)
+    proxies = [o for o in bpy.data.objects if o.type == "MESH" and o.name.startswith(f"PROXY_{hid}__")]
+    for o in (list(lod1.all_objects) if lod1 else []) + [o for o in hb.objects if o.get("facility_id") == hid] + proxies:
+        if o.type == "EMPTY" and not o.name.startswith("HERO_"):
+            continue                                     # gameplay markers stay as they are
+        o.hide_render = True
+        o["sa_lod"] = "LOD1 (massing W1.5; LOD0 = W2I_" + hid + ")"
+    STATS["w2_heroes_linked"].append(hid)
+
 # ---------------------------------------------------------------- infrastructure, props, vegetation, lighting
 infra_pts, prop_pts, tree_pts, light_pts = {}, {}, {}, {}
 tree_lib, tree_index = None, None
