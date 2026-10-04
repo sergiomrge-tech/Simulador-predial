@@ -2,6 +2,33 @@
 
 Esta fila foi explicitamente autorizada pelo usuário em 2026-10-03.
 
+## REGRA DE CONTINUIDADE NOTURNA
+
+Durante esta execução noturna, NÃO parar entre etapas por simples conclusão de tarefa.
+
+Ao concluir qualquer etapa:
+1. validar o máximo possível;
+2. atualizar relatório/status;
+3. commit;
+4. push;
+5. confirmar working tree limpa;
+6. executar git pull;
+7. reler este arquivo e Docs/CLAUDE_NEXT_TASK.md;
+8. iniciar imediatamente a próxima etapa autorizada.
+
+Não aguardar confirmação do usuário entre A → B → C → D.
+
+Só parar se ocorrer:
+- limite de uso efetivamente bloqueando novas execuções;
+- conflito Git;
+- erro crítico que possa corromper projeto;
+- dúvida real de licença/segurança;
+- necessidade de decisão de produto não coberta pela documentação.
+
+Se o contexto da sessão ficar muito grande e o Claude Code permitir reinício/novo contexto, preserve primeiro todo o estado no GitHub e continue a partir deste arquivo em contexto limpo.
+
+Quando o limite de uso voltar, retomar pela última etapa incompleta registrada no GitHub.
+
 ## Ordem obrigatória
 
 ### ETAPA A — W1.5 Santa Aurora Foundation
