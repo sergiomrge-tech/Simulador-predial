@@ -14,7 +14,7 @@ import bpy
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--root", required=True)
-parser.add_argument("--mode", required=True, choices=["masterplan", "oldtown", "kit"])
+parser.add_argument("--mode", required=True, choices=["masterplan", "oldtown", "kit", "w3"])
 parser.add_argument("--no-render", action="store_true")
 parser.add_argument("--review", default="W1_5", help="Reviews/<dir> for captures and the reopen report (W2 re-renders go to W2)")
 parser.add_argument("--only", default="", help="comma-separated capture-name prefixes to render (default: all)")
@@ -33,7 +33,7 @@ for lib in bpy.data.libraries:
     if not Path(bpy.path.abspath(lib.filepath)).exists():
         missing.append("library:" + lib.filepath)
 for img in bpy.data.images:
-    if img.source == "FILE" and not img.packed_file and img.filepath and not Path(bpy.path.abspath(img.filepath)).exists():
+    if img.source == "FILE" and not img.packed_file and img.filepath and not Path(bpy.path.abspath(img.filepath, library=img.library)).exists():
         missing.append("image:" + img.filepath)
 for font in bpy.data.fonts:
     if font.filepath != "<builtin>" and not font.packed_file and not Path(bpy.path.abspath(font.filepath)).exists():
@@ -105,6 +105,22 @@ elif opts.mode == "oldtown":
     checks.update({"heroes": len(heroes["heroes"]), "stateSlots": len(slots), "states": states, "subcellObjects": len(subcell_objs),
                    "subcells": len({o["sa_subcell"] for o in subcell_objs}), "familyVariants": len(fam.objects) if fam else 0,
                    "gameplayMarkers": sum(1 for o in bpy.data.objects if o.get("sa_layer") == "Gameplay")})
+elif opts.mode == "w3":
+    for L in ("Terrain", "Roads", "Architecture", "Infrastructure", "Props", "Vegetation", "Gameplay"):
+        if "OT_" + L not in bpy.data.collections:
+            errors.append("missing layer collection OT_" + L)
+    linked = [o for o in bpy.data.objects if o.library is not None]
+    w2i = [o for o in bpy.data.objects if o.name.startswith("W2I_")]
+    slots = [o for o in bpy.data.objects if o.get("sa_kind") == "state_slot" and o.library is None]
+    veg = bpy.data.collections.get("OT_Lib_Vegetation")
+    lods = bpy.data.collections.get("OT_Lib_Vegetation_LODs")
+    if not veg or not any(o.get("lod") == 0 for o in veg.objects):
+        errors.append("production vegetation library missing")
+    if not w2i:
+        errors.append("no W2 hero instances in the slice")
+    checks.update({"linkedContextObjects": len(linked), "heroInstances": sorted(o.name for o in w2i), "stateSlotsInSlice": len(slots),
+                   "vegetationSpecies": sorted(o.name for o in veg.objects) if veg else [], "vegetationLOD1": len(lods.objects) if lods else 0,
+                   "subcells": len({o["sa_subcell"] for o in bpy.data.objects if o.get("sa_subcell") and o.library is None})})
 else:
     kit = [o for o in bpy.data.objects if o.name.startswith("KIT_") and o.type == "MESH" and o.name != "KIT_Ground"]
     prps = [o for o in bpy.data.objects if o.name.startswith("PROP_")]
@@ -115,6 +131,21 @@ else:
 
 # ---------------------------------------------------------------- captures
 SHOTS = {
+    "w3": [
+        ("w3_01_corredor_visao_geral", "CAM_W3_Corredor", (2400, 1350), {}),
+        ("w3_02_rua_relevo", "CAM_W3_Rua", (2400, 1350), {}),
+        ("w3_03_terreno_talude", "CAM_W3_Talude", (2400, 1350), {}),
+        ("w3_04_lar_exterior", "CAM_OT_Home_Exterior", (2400, 1350), {}),
+        ("w3_06_oficina_exterior", "CAM_OT_Garage_Exterior", (2400, 1350), {}),
+        ("w3_08_horizonte_exterior", "CAM_OT_Horizonte_Frente", (2400, 1350), {}),
+        ("w3_10_mercearia_exterior", "CAM_W3_Mercearia", (2400, 1350), {}),
+        ("w3_12_material_pbr_detalhe", "CAM_W3_Material", (2400, 1350), {}),
+        ("w3_13_vegetacao", "CAM_W3_Vegetacao", (2400, 1350), {}),
+        ("w3_14_vidro_exterior", "CAM_W3_Vidro", (2400, 1350), {}),
+        ("w3_15_clutter_decals", "CAM_W3_Clutter", (2400, 1350), {}),
+        ("w3_17_relevo_aereo", "CAM_W3_Aereo", (2400, 1350), {}),
+        ("w3_18_fim_de_tarde", "CAM_W3_Corredor", (2400, 1350), {"sun": (8.0, 255.0)}),
+    ],
     "masterplan": [
         ("01_mundo_inteiro", "CAM_World_Top", (2048, 2048), {"labels": True}),
         ("02_mundo_obliquo", "CAM_World_Oblique", (2400, 1350), {}),
@@ -152,6 +183,9 @@ SHOTS = {
         ("w25_09_oficina_na_cidade", "CAM_OT_Garage_Exterior", (2400, 1350), {}),
         ("w25_10_horizonte_na_cidade", "CAM_OT_Horizonte_Frente", (2400, 1350), {}),
         ("w25_11_teatro_na_cidade", "CAM_OT_Imperial", (2400, 1350), {}),
+        ("w25_19_rua_arborizada", "CAM_OT_Rua_Arborizada", (2400, 1350), {}),
+        ("w25_20_pracinha", "CAM_OT_Pracinha", (2400, 1350), {}),
+        ("w25_21_residencial_obliqua", "CAM_OT_Residencial_Obliqua", (2400, 1350), {}),
     ],
     "kit": [
         ("20_kit_modular", "CAM_Kit_Modular", (2400, 1350), {}),
@@ -187,6 +221,13 @@ for o in bpy.data.objects:
         if 0 <= a.value < len(lib_t):
             cx["instancedTris"] += lib_t[a.value]
             cx["instances"] += 1
+imgs = [i for i in bpy.data.images if i.source == "FILE"]
+cx["materials"] = len([m for m in bpy.data.materials if m.users])
+cx["textures"] = len(imgs)
+cx["textureMemoryMB_est"] = round(sum(i.size[0] * i.size[1] * 4 * 1.33 for i in imgs) / 1048576, 1)
+cx["lights"] = sum(1 for o in bpy.data.objects if o.type == "LIGHT")
+cx["objects"] = len(bpy.data.objects)
+cx["meshes"] = len(bpy.data.meshes)
 checks["complexity"] = cx
 
 renders = []
@@ -218,6 +259,16 @@ if not opts.no_render:
                     n = o.name
                     if n.endswith("ROOF") or n.endswith("details") or ("__F" in n and int(n.split("__F")[-1][:2]) > max_floor):
                         o.hide_render = True
+        if "sun" in fl:                                  # optional late-afternoon variant (sun elevation, azimuth)
+            import math as _m
+            sun_o = bpy.data.objects.get("SA_Sun")
+            if sun_o:
+                sun_o.rotation_euler = (_m.pi / 2 - _m.radians(fl["sun"][0]), 0, _m.radians(fl["sun"][1]))
+                sun_o.data.color = (1.0, .78, .55)
+                sky_ = scene.world.node_tree.nodes.get("SA_Sky")
+                if sky_:
+                    sky_.sun_elevation = _m.radians(fl["sun"][0])
+                    sky_.sun_rotation = _m.radians(fl["sun"][1])
         wear_v = fl.get("wear", 1.0)
         for m in bpy.data.materials:
             if m.node_tree and m.library is None:
@@ -227,7 +278,7 @@ if not opts.no_render:
         scene.camera = bpy.data.objects[cam]
         scene.render.resolution_x, scene.render.resolution_y = w, h
         scene.render.resolution_percentage = 100
-        out = review / (f"{name}.jpg" if opts.review == "W1_5" or name.startswith("w25_") else f"ot_{name}.jpg")
+        out = review / (f"{name}.jpg" if opts.review == "W1_5" or name.startswith(("w25_", "w3_")) else f"ot_{name}.jpg")
         scene.render.filepath = str(out)
         bpy.ops.render.render(write_still=True)
         renders.append(out.relative_to(root).as_posix())

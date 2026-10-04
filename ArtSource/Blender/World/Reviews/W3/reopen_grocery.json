@@ -1,0 +1,77 @@
+{
+  "hero": "grocery",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_grocery.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 72,
+  "checks": {
+    "meshObjects": 58,
+    "triangles": 65272,
+    "trianglesPerCollection": {
+      "W2_grocery_CaptureOnly": 10,
+      "W2_grocery_Interior": 21324,
+      "W2_grocery_Openings": 11334,
+      "W2_grocery_Services": 1650,
+      "W2_grocery_Shell": 17100,
+      "W2_grocery_Site": 13716,
+      "W2_grocery_Structure": 138
+    },
+    "largestObjects": [
+      {
+        "name": "W2_grocery__grocery_stock",
+        "tris": 15190
+      },
+      {
+        "name": "W2_grocery__B0_shop_openings",
+        "tris": 5430
+      },
+      {
+        "name": "W2_grocery__sign_name",
+        "tris": 4048
+      },
+      {
+        "name": "W2_grocery__sign_board",
+        "tris": 3956
+      },
+      {
+        "name": "W2_grocery__B0_shop_shell",
+        "tris": 3444
+      },
+      {
+        "name": "W2_grocery__sign_since",
+        "tris": 2340
+      },
+      {
+        "name": "W2_grocery__character",
+        "tris": 2190
+      },
+      {
+        "name": "W2_grocery__pallets",
+        "tris": 1980
+      }
+    ],
+    "lights": 6,
+    "materials": 40,
+    "stateSlots": [],
+    "interactive": 7,
+    "root": {
+      "name": "W2_grocery_ROOT",
+      "facility_id": "grocery",
+      "location": [
+        -2584.0,
+        -1480.0,
+        24.769
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W3/w2_grocery_01_rua.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_grocery_02_entrada.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_grocery_03_interior.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_grocery_04_tecnico.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_grocery_05_aerea.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_grocery_06_corte.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

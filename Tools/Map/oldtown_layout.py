@@ -65,6 +65,7 @@ class OldTown:
         self._refine_network()
         self._pack_lots()
         self._infrastructure()
+        self._street_trees()
         self.metrics = self._metrics()
 
     # ---------------------------------------------------------------- regions
@@ -415,13 +416,6 @@ class OldTown:
                 q = (a[0] + u[0] * t - n[0] * side * (cw / 2 + .5), a[1] + u[1] * t - n[1] * side * (cw / 2 + .5))
                 pts["hydrant"].append((q[0], q[1], rot))
                 t += 115.0
-            if e["cls"] in ("main", "arterial") and sw >= 3.0:
-                t = 9.0
-                while t < L - 6:
-                    for s2 in (1, -1):
-                        q = (a[0] + u[0] * t + n[0] * s2 * (cw / 2 + 1.0), a[1] + u[1] * t + n[1] * s2 * (cw / 2 + 1.0))
-                        pts["tree"].append((q[0], q[1], rng.uniform(0, 6.28)))
-                    t += 15.0 + rng.uniform(-2, 2)
         # Junction furniture: name signs, stop signs on minor approaches, traffic lights on main/arterial crossings.
         for nid, eids in inc.items():
             if deg.get(nid, 0) < 3 or not self.in_core(g.nodes[nid]):
@@ -479,6 +473,147 @@ class OldTown:
                 q = (o.c[0] + o.v[0] * (o.hd + 3), o.c[1] + o.v[1] * (o.hd + 3))
                 pts["tree"].append((q[0], q[1], rng.uniform(0, 6.28)))
         self.points = pts
+
+
+    # ---------------------------------------------------------------- W2.5 street trees (calçada) by neighbourhood character
+    TREE_DENSITY = {"core_rail": .14, "core_mixed": .22, "core_stately": .42, "workshops": .12, "residential_low": .88, "mixed_low": .62,
+                    "depots": .04, "transition_mixed": .42}
+    TREE_MIX = {"residential_low": {"oiti": 32, "ipe": 24, "sibipiruna": 14, "jovem": 14, "mangueira": 16},
+                "mixed_low": {"oiti": 38, "ipe": 22, "jovem": 24, "sibipiruna": 10, "mangueira": 6},
+                "core_stately": {"sibipiruna": 40, "oiti": 28, "palmeira": 14, "ipe": 18},
+                "core_mixed": {"ipe": 40, "jovem": 34, "oiti": 26}, "core_rail": {"ipe": 36, "jovem": 40, "oiti": 24},
+                "workshops": {"jovem": 60, "oiti": 40}, "depots": {"jovem": 70, "oiti": 30},
+                "transition_mixed": {"oiti": 34, "ipe": 30, "jovem": 20, "sibipiruna": 16}}
+    SMALL = ("ipe", "jovem")
+
+    def _street_trees(self):
+        """Irregular sidewalk planting: density and species follow the neighbourhood character and grow away from the dense core;
+        each street side has a dominant species; gaps, clusters and missing runs avoid regular rows. Trees keep clear of junctions,
+        lot entrances (wider at garage/workshop doors), poles/lights/hydrants/signs, hero forecourts and plazas; small species go
+        on the side with overhead wires. Some vacant lots in residential areas become pocket greens (pracinhas)."""
+        g = self.graph
+        deg = g.degree()
+        rng = random.Random(2511)
+        hood_char = {h["id"]: h["character"] for h in NEIGHBOURHOODS}
+        x0, z0, x1, z1 = self.core
+        # obstacles on the sidewalk
+        avoid = {}
+        for k in ("pole", "pole_transformer", "streetlight_head", "hydrant", "street_sign", "stop_sign", "traffic_light", "telecom_box",
+                  "electric_box", "water_meter"):
+            for (x, z, _) in self.points.get(k, []):
+                avoid.setdefault((int(x // 10), int(z // 10)), []).append((x, z, 2.8 if k.startswith("pole") else 1.8))
+        poles = {}
+        for k in ("pole", "pole_transformer"):
+            for (x, z, _) in self.points.get(k, []):
+                poles.setdefault((int(x // 10), int(z // 10)), []).append((x, z))
+        fronts = {}
+        for lot in self.lots:
+            f = lot.get("front")
+            if not f:
+                continue
+            big = any(t in str(lot["variant"]) for t in ("ofi_", "arm_", "dep_")) or lot["family"] in ("oficina", "armazem", "deposito", "parking")
+            fronts.setdefault((int(f[0] // 10), int(f[1] // 10)), []).append((f[0], f[1], 4.5 if big else 1.4))
+        fcs = list(self.forecourts().values())
+        plazas = [pl["rect"] for pl in self.data["plazas"]]
+
+        def near(grid, p, r):
+            gx, gz = int(p[0] // 10), int(p[1] // 10)
+            for i in (gx - 1, gx, gx + 1):
+                for j in (gz - 1, gz, gz + 1):
+                    for item in grid.get((i, j), []):
+                        rr = item[2] if len(item) > 2 else r
+                        if math.hypot(item[0] - p[0], item[1] - p[1]) < rr:
+                            return True
+            return False
+
+        trees, pits = [], []
+        for eid, e in g.edges.items():
+            cls = e["cls"]
+            if cls not in ("local", "main", "collector", "industrial"):
+                continue
+            sw = STREET[cls]["sidewalk"]
+            if sw < 2.0:
+                continue
+            a, b = g.seg(eid)
+            L = dist(a, b)
+            if L < 18:
+                continue
+            mid = lerp(a, b, .5)
+            if not self.in_region(mid):
+                continue
+            char = hood_char.get(self.hood_of(mid), "mixed_low")
+            dx = max(x0 - mid[0], 0, mid[0] - x1)
+            dz = max(z0 - mid[1], 0, mid[1] - z1)
+            dcore = math.hypot(dx, dz)
+            dens = self.TREE_DENSITY.get(char, .4) * (.65 + .55 * min(1.0, dcore / 900.0))
+            if cls == "industrial":
+                dens *= .3
+            mix = self.TREE_MIX.get(char, self.TREE_MIX["mixed_low"])
+            u = norm(sub(b, a))
+            n = perp(u)
+            cw = carriageway(cls)
+            for side in (1, -1):
+                srng = random.Random(zlib.crc32(f"{eid}:{side}".encode()) ^ 2511)
+                if srng.random() < .18:
+                    continue                                   # whole side without trees
+                names, weights = zip(*mix.items())
+                dominant = srng.choices(names, weights)[0]
+                if cls != "main" and dominant == "palmeira":
+                    dominant = "oiti"
+                wired = any(near(poles, (a[0] + u[0] * t + n[0] * side * (cw / 2 + .55), a[1] + u[1] * t + n[1] * side * (cw / 2 + .55)), 4.0)
+                            for t in (L * .25, L * .5, L * .75))
+                skip_from = srng.uniform(.2, .8) * L if srng.random() < .2 else None
+                linear = char in ("residential_low", "mixed_low", "transition_mixed") and sw >= 3.0 and srng.random() < .35
+                t = 8.0 + srng.uniform(0, 5)
+                while t < L - 8.0:
+                    step = srng.uniform(8.0, 17.0)
+                    if skip_from is not None and skip_from < t < skip_from + L * .3:
+                        t += step
+                        continue
+                    if srng.random() > dens * (1.25 if deg.get(e["a"], 0) < 3 and deg.get(e["b"], 0) < 3 else 1.0):
+                        t += step
+                        continue
+                    off = cw / 2 + min(.75, sw * .3)
+                    q = (a[0] + u[0] * t + n[0] * side * off, a[1] + u[1] * t + n[1] * side * off)
+                    if near(avoid, q, 2.0) or near(fronts, q, 2.0) or any(fc.contains(q) for fc in fcs) or \
+                            any(r[0] - 2 <= q[0] <= r[2] + 2 and r[1] - 2 <= q[1] <= r[3] + 2 for r in plazas):
+                        t += 3.0
+                        continue
+                    sp = dominant if srng.random() < .62 else srng.choices(names, weights)[0]
+                    if sp == "palmeira" and cls != "main":
+                        sp = "oiti"
+                    if wired and sp not in self.SMALL:
+                        sp = "ipe" if srng.random() < .6 else "jovem"
+                    scl = srng.uniform(.75, 1.15) * (.85 if wired else 1.0)
+                    trees.append((q[0], q[1], srng.uniform(0, 6.28), sp, round(scl, 3)))
+                    pits.append((q[0], q[1], math.atan2(u[1], u[0]), 1 if linear else 0))
+                    if srng.random() < .12:                    # occasional pair (two plantings close together)
+                        t += 3.5
+                        continue
+                    t += step
+        # pocket greens on some vacant lots of the residential/transition neighbourhoods
+        greens = []
+        for lot in self.lots:
+            if lot["family"] != "vacant":
+                continue
+            char = hood_char.get(lot.get("hood"), "mixed_low")
+            if char in ("residential_low", "mixed_low", "transition_mixed", "core_stately") and \
+                    zlib.crc32(str(lot["id"]).encode()) % 100 < 38:
+                lot["green"] = True
+                greens.append(lot["id"])
+                o = lot["obb"]
+                lrng = random.Random(zlib.crc32(str(lot["id"]).encode()))
+                for k in range(2 + lrng.randrange(3)):
+                    q = (o.c[0] + o.u[0] * lrng.uniform(-o.hw * .7, o.hw * .7) + o.v[0] * lrng.uniform(-o.hd * .6, o.hd * .6),
+                         o.c[1] + o.u[1] * lrng.uniform(-o.hw * .7, o.hw * .7) + o.v[1] * lrng.uniform(-o.hd * .6, o.hd * .6))
+                    trees.append((q[0], q[1], lrng.uniform(0, 6.28), lrng.choice(("oiti", "sibipiruna", "mangueira", "ipe")), round(lrng.uniform(.8, 1.2), 3)))
+        self.street_trees = trees
+        self.tree_pits = pits
+        self.pocket_greens = greens
+        by = {}
+        for tr in trees:
+            by[tr[3]] = by.get(tr[3], 0) + 1
+        self.tree_stats = {"street_trees": len(pits), "pocket_green_lots": len(greens), "total_new_trees": len(trees), "by_species": by}
 
     # ---------------------------------------------------------------- metrics
     def _metrics(self):

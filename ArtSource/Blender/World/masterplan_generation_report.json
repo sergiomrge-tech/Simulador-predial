@@ -25,7 +25,7 @@
     "12_Library": 2
   },
   "fabricVolumes": 34507,
-  "trees": 37182,
+  "trees": 36055,
   "layout": {
     "revision": "W1.5",
     "terrain": {
@@ -235,7 +235,7 @@
       "substation": 86,
       "tank": 277
     },
-    "trees": 37182,
+    "trees": 36055,
     "unusedMacroCells": [],
     "scale": {
       "worldKm": [

@@ -12,6 +12,7 @@ import bpy
 import sa_materials
 from sa_bl import MeshBuilder, bevelled_object, props
 
+INTERIOR_GAIN = 3.5   # W3: interior lights calibrated for the production look (Khronos, exposure -1.4) against daylight through clear glass
 EXTRA_LIB = {
     "papelao": {"family": "papel", "c1": (.62, .48, .30), "c2": (.52, .39, .23), "rough": (.8, .95), "scale": 3.0, "bump": .15, "pattern": "noise", "grime": .4, "dirt": .2, "texel": 512},
     "louca_sanitaria": {"family": "ceramica", "c1": (.92, .92, .90), "c2": (.86, .86, .84), "rough": (.05, .15), "scale": 2.0, "bump": .02, "pattern": "noise", "grime": .35, "dirt": .1, "spec": .7, "texel": 512},
@@ -201,8 +202,8 @@ class Kit:
             mb.cylinder(0, 0, -.004, .04, .004, 12, 1)
         o = self.obj(name, mb, ["lampada_emissiva", "plastico_branco"], loc, 0.0, bevel=.0 if bulb_only else .004, sa_kind="ceiling_light")
         light = bpy.data.lights.new(name + "__light", "POINT")
-        light.energy = 160 if bulb_only else 200
-        light.color = (1.0, .88, .72)
+        light.energy = (160 if bulb_only else 200) * INTERIOR_GAIN
+        light.color = (1.0, .84, .64) if bulb_only else (1.0, .9, .78)
         light.shadow_soft_size = .05 if bulb_only else .15
         lo = bpy.data.objects.new(name + "__light", light)
         self.coll.objects.link(lo)

@@ -1,0 +1,80 @@
+{
+  "hero": "imperial",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_imperial.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 65,
+  "checks": {
+    "meshObjects": 39,
+    "triangles": 123464,
+    "trianglesPerCollection": {
+      "W2_imperial_CaptureOnly": 10,
+      "W2_imperial_Interior": 39872,
+      "W2_imperial_Openings": 3544,
+      "W2_imperial_Services": 8528,
+      "W2_imperial_Shell": 67646,
+      "W2_imperial_Site": 3090,
+      "W2_imperial_Structure": 774
+    },
+    "largestObjects": [
+      {
+        "name": "W2_imperial__foyer_shell",
+        "tris": 34500
+      },
+      {
+        "name": "W2_imperial__stalls_seats",
+        "tris": 27500
+      },
+      {
+        "name": "W2_imperial__fly_tower",
+        "tris": 7978
+      },
+      {
+        "name": "W2_imperial__portico",
+        "tris": 7060
+      },
+      {
+        "name": "W2_imperial__auditorium_shell",
+        "tris": 6264
+      },
+      {
+        "name": "W2_imperial__quadro_antigo",
+        "tris": 5494
+      },
+      {
+        "name": "W2_imperial__backstage_dock",
+        "tris": 5370
+      },
+      {
+        "name": "W2_imperial__camarins_wings",
+        "tris": 4214
+      }
+    ],
+    "lights": 14,
+    "materials": 37,
+    "stateSlots": [],
+    "interactive": 2,
+    "root": {
+      "name": "W2_imperial_ROOT",
+      "facility_id": "imperial",
+      "location": [
+        -2050.0,
+        -2643.0,
+        26.48
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W3/w2_imperial_01_largo.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_imperial_02_portico.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_imperial_03_foyer.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_imperial_04_plateia.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_imperial_05_palco.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_imperial_06_quadro_antigo.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_imperial_07_doca.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_imperial_08_aerea.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_imperial_09_corte.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

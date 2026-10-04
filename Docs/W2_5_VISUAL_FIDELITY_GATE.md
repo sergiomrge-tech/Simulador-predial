@@ -140,6 +140,60 @@ Todos receberam também o wear pass. Câmeras de rua foram afastadas para mostra
   - entulho em terrenos vazios (327).
 - **Mantidos do W2:** postes, transformadores, caixas técnicas, hidrômetros, bocas de lobo, hidrantes, placas, recuos com piso, floreiras e balizadores.
 
+## 5b. Vegetação urbana de calçada (complemento W2.5)
+
+**Distribuição** (`oldtown_layout._street_trees`, determinística):
+- A densidade segue o caráter do bairro:
+  - residencial baixo: 0,88;
+  - misto baixo: 0,62;
+  - núcleo nobre e transição: 0,42;
+  - núcleo ferroviário/misto: 0,14–0,22;
+  - oficinas: 0,12;
+  - pátios/depósitos: 0,04;
+  - vias industriais: ×0,3.
+- A densidade cresce com a distância do miolo denso (até +55% a 900 m).
+- **Contra a regularidade:**
+  - espaçamento variável de 8–17 m;
+  - 18% dos lados de rua sem árvores;
+  - trechos inteiros pulados;
+  - pares ocasionais de mudas;
+  - uma espécie dominante por lado de rua (62%), o que varia a leitura de quarteirão para quarteirão.
+- **Sem obstrução:**
+  - nada a menos de 8 m das esquinas;
+  - afastamento de postes, luminárias, hidrantes, placas e caixas técnicas (1,8–2,8 m);
+  - afastamento das entradas dos lotes (1,4 m; 4,5 m em portões de oficinas, armazéns, depósitos e estacionamentos);
+  - nenhuma árvore nos recuos dos heróis ou nas praças.
+- **Sob a fiação** só entram espécies pequenas (ipê e muda).
+- **Resultado:**
+  - 4.773 árvores de calçada;
+  - 175 terrenos vazios viraram pracinhas (grama, caminho cimentado, guia, 2–4 árvores);
+  - 1.434 arbustos sobre muros de arrimo, o que reforça a leitura do relevo.
+- As árvores de praça e de quintal do W1.5 receberam espécie por contexto. Total da camada Vegetation: **8.251 instâncias**.
+- **Na calçada:** 4.773 covas (terra com aro de concreto) ou canteiros curtos de grama entre árvores em ruas residenciais largas. As fileiras regulares das ruas principais foram removidas.
+
+**Espécies** (proxies melhores que as esferas do W1.5, ainda provisórios; 100–400 tris cada, copas suavizadas):
+
+| Espécie | Instâncias | Perfil |
+|---|---|---|
+| oiti | 2.164 | copa densa e arredondada |
+| sibipiruna | 864 | copa larga e chata |
+| mangueira | 1.111 | domo escuro, em quintais e pracinhas |
+| ipê amarelo | 1.114 | pequeno, florido |
+| ipê rosa | 554 | pequeno, florido |
+| muda | 972 | árvore jovem com tutores |
+| palmeira | 38 | praças e ruas nobres |
+| arbusto | 1.434 | — |
+
+**Capturas:** `w25_19_rua_arborizada.jpg`, `w25_20_pracinha.jpg`, `w25_21_residencial_obliqua.jpg`. A vista oblíqua mostra o norte residencial mais arborizado que o miolo.
+
+**Custo:**
+- tris instanciados de 23,70 M para 24,82 M (**+4,7%**);
+- +0,24 M em meshes simples (covas, canteiros, pracinhas).
+
+IDs, marcadores e lotes foram re-auditados e continuam **idênticos**.
+
+**Limites:** as copas ainda são proxies poligonais (sem folhas em alpha nem LOD); falta vegetação rasteira em taludes e terrenos.
+
 ## 6. Desempenho e organização (Parte 6)
 
 | Base da Cidade Antiga | W2 | W2.5 | Δ |
@@ -217,3 +271,7 @@ Script de auditoria: `Tools/Blender/audit_ids_markers.py`.
 3. Look de iluminação (W4): exposição, céu, AO, vidro com transmissão, iluminação noturna.
 4. Texturas PBR autorais e decals pintados nos heróis (W3); variantes LOD0 das famílias mais vistas.
 5. Revisão visual do usuário destas capturas antes de replicar o padrão para outros distritos.
+
+---
+
+**Continuação:** o W3 (vertical slice de alta fidelidade) está documentado em `Docs/W3_HIGH_FIDELITY_VERTICAL_SLICE.md`.

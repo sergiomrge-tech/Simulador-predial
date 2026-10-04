@@ -23,6 +23,8 @@ import bpy
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--root", required=True)
+parser.add_argument("--slice", default="", help="W3 vertical slice: x0,y0,x1,y1 aligned to the 250 m grid (rebuilt in high fidelity)")
+parser.add_argument("--context", type=float, default=900.0, help="W3: link base subcells up to this distance around the slice")
 opts = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
 root = Path(opts.root).resolve()
 sys.path.insert(0, str(root / "Tools" / "Map"))
@@ -53,6 +55,29 @@ def subcell(x, y):
 
 
 spec = load_spec(root)
+SLICE = tuple(float(v) for v in opts.slice.split(",")) if opts.slice else None
+
+
+def sub_bounds(sub):
+    m, s_ = sub.split("_S")
+    ix, iz = int(m[4:6]), int(m[7:9])
+    sx, sz = int(s_[:2]), int(s_[3:5])
+    x0 = -4000 + ix * 1000 + sx * 250
+    y0 = -4000 + iz * 1000 + sz * 250
+    return x0, y0, x0 + 250, y0 + 250
+
+
+def in_slice_sub(sub):
+    if not SLICE:
+        return True
+    x0, y0, x1, y1 = sub_bounds(sub)
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    return SLICE[0] <= cx <= SLICE[2] and SLICE[1] <= cy <= SLICE[3]
+
+
+def in_slice_pt(p, pad=0.0):
+    return not SLICE or (SLICE[0] - pad <= p[0] <= SLICE[2] + pad and SLICE[1] - pad <= p[1] <= SLICE[3] + pad)
+
 terrain = Terrain(spec, pads=hero_pads(root, spec))   # W2.5: urban relief + flat hero pads
 ot = OldTown(root, spec)
 sa_bl.clear_scene()
@@ -103,7 +128,7 @@ fam_objs = []
 variant_stats = {}
 for k, v in enumerate(OLDTOWN_VARIANTS):
     mb = sa_bl.MeshBuilder()
-    top_z = sa_arch.building_mesh(mb, v, k)
+    top_z = sa_arch.building_mesh(mb, v, k, detail="lod0" if SLICE else "lod1")
     o = mb.to_object("FAM_" + v["id"], [lib[n] for n in sa_arch.variant_materials(v, k)], fam_tmp)
     sa_bl.props(o, sa_family=v["family"], sa_variant=v["id"], footprint_m=[v["w"], v["d"]], floors=v["floors"], height_m=v["height"],
                 roof=v["roof"], sa_stage="W1.5 famÃ­lia de massing (LOD1 base; LOD0 final pendente)")
@@ -120,8 +145,8 @@ INFRA_KINDS = {"pole", "pole_transformer", "hydrant", "manhole", "storm_inlet", 
 PROP_KINDS = {"street_sign", "stop_sign", "bench", "bollard"}
 
 # ---------------------------------------------------------------- terrain (per subcell)
-STEP = 8.0
-x0, y0, x1, y1 = BOUNDS
+STEP = 4.0 if SLICE else 8.0
+x0, y0, x1, y1 = (SLICE[0] - 4, SLICE[1] - 4, SLICE[2] + 4, SLICE[3] + 4) if SLICE else BOUNDS
 nx, ny = int((x1 - x0) // STEP), int((y1 - y0) // STEP)
 H = [[terrain.ground(x0 + i * STEP, y0 + j * STEP) for j in range(ny + 1)] for i in range(nx + 1)]
 buckets = {}
@@ -143,7 +168,7 @@ for (macro, sub), quads in buckets.items():
         d = (x0 + i * STEP, y0 + (j + 1) * STEP, H[i][j + 1])
         mb.quad(a, b, c, d, 0)
     name = f"OT_Terrain_{sub}"
-    o = mb.to_object(name, [lib["terra"]], cell_collection("Terrain", macro), uv_scale=4.0)
+    o = mb.to_object(name, [sa_materials.build_terrain_material(lib)], cell_collection("Terrain", macro), uv_scale=4.0)
     register("Terrain", name, sub, o)
 
 # ---------------------------------------------------------------- roads, sidewalks, curbs, markings
@@ -513,7 +538,16 @@ for lot in ot.lots:
             pb = (o.c[0] + o.u[0] * uu + o.v[0] * o.hd * .9, o.c[1] + o.u[1] * uu + o.v[1] * o.hd * .9)
             strip(mb, pa, pb, 0, .1, ROAD_LIFT + .007, RM["sinalizacao_viaria"])
     else:
-        mb.obb_box(o.corners(), zc - .3, .3 + .02, RM["terra"])
+        if lot.get("green"):
+            # W2.5 pracinha: grass, a crossing path of cimentado and a low curb around it
+            zt = max(zs(*q) for q in o.corners()) + .04
+            mb.obb_box(o.corners(), zc - .3, zt - zc + .3, RM["grama"])
+            mb.obb_box(o.grown(.15).corners(), zc - .3, zt - zc + .38, RM["meio_fio"], top=False)
+            ang = math.atan2(o.u[1], o.u[0])
+            mb.box(o.c[0], o.c[1], zt + .005, o.hw * 2, 1.4, .02, RM["cimentado"], rot=ang)
+            STATS["pocket_greens"] = STATS.get("pocket_greens", 0) + 1
+        else:
+            mb.obb_box(o.corners(), zc - .3, .3 + .02, RM["terra"])
 for lot in ot.lots:
     v = None
     if lot["family"] in ("vacant", "parking"):
@@ -546,6 +580,18 @@ for rail in spec["railways"]:
                 t += .65
             for s_ in (-.72, .72):
                 strip(mb, a, b, tr + s_, .08, .52, RM["meio_fio"])
+# W2.5 street trees: square pits (terra + concrete rim) or short grass strips between trees on residential streets.
+for (x, y, ang, linear) in ot.tree_pits:
+    mb = rmb((x, y))
+    z = zs(x, y) + ROAD_LIFT + SIDEWALK_H
+    if linear:
+        mb.box(x, y, z - .02, 3.2 + (abs(x * 7 + y * 3) % 2.5), .9, .035, RM["grama"], rot=ang)
+    else:
+        mb.box(x, y, z - .02, 1.2, 1.2, .03, RM["terra"], rot=ang)
+        for dx, dy, sx, sy in ((0, .62, 1.36, .12), (0, -.62, 1.36, .12), (.62, 0, .12, 1.24), (-.62, 0, .12, 1.24)):
+            cs_, sn_ = math.cos(ang), math.sin(ang)
+            mb.box(x + dx * cs_ - dy * sn_, y + dx * sn_ + dy * cs_, z - .02, sx, sy, .07, RM["concreto"], rot=ang)
+STATS["tree_pits"] = len(ot.tree_pits)
 for (macro, sub), mb in road_mb.items():
     name = f"OT_Roads_{sub}"
     o = mb.to_object(name, [lib[m] for m in ROAD_MATS], cell_collection("Roads", macro))
@@ -554,6 +600,8 @@ for (macro, sub), mb in road_mb.items():
 # ---------------------------------------------------------------- architecture: family instances per subcell
 LOT_Z = {}
 slope_mb = {}
+WALL_TOP_GREEN = []
+SLOPE_SITES = []
 
 
 def slope_works(lot, o, cz, zc):
@@ -578,6 +626,13 @@ def slope_works(lot, o, cz, zc):
         mb.box(c[0], c[1], zc - .3, L_ + .3, .35, top - zc + .55, 1, rot=ang)
         mb.box(c[0], c[1], top + .25, L_ + .4, .45, .08, 2, rot=ang)
         STATS["retaining_walls"] += 1
+        SLOPE_SITES.append((top - zc, c, ang, f))
+        if (int(abs(c[0]) * 5 + abs(c[1]) * 3) % 10) < 4:
+            back = norm(vsub(c, f))
+            for k in range(1 + int(L_ // 6)):
+                t_ = (k + .5) / (1 + int(L_ // 6)) - .5
+                q = (c[0] + math.cos(ang) * t_ * L_ + back[0] * .9, c[1] + math.sin(ang) * t_ * L_ + back[1] * .9)
+                WALL_TOP_GREEN.append((q[0], q[1], top + .2))
 
 
 arch_pts = {}
@@ -689,7 +744,74 @@ def acc_piece(kind):
     return o
 
 
-acc_objs = [acc_piece(k) for k in ACC_MATS]
+if SLICE:
+    ACC_MATS.update({"trashbag": ["borracha_preta"], "pallet": ["madeira_crua"], "cone": ["aco_pintado_vermelho", "plastico_branco"],
+                     "plate": ["plastico_branco", "aco_pintado_vermelho", "metal_galvanizado"]})
+    _base_acc_piece = acc_piece
+
+    def acc_piece(kind):  # noqa: F811
+        if kind not in ("trashbag", "pallet", "cone", "plate"):
+            return _base_acc_piece(kind)
+        mb = sa_bl.MeshBuilder()
+        if kind == "trashbag":
+            import bmesh as _bm2
+            from mathutils import Matrix as _M2
+            for k_, (x_, y_, r_) in enumerate(((0, 0, .28), (.38, .1, .24), (.15, .36, .22))):
+                bm_ = _bm2.new()
+                _bm2.ops.create_icosphere(bm_, subdivisions=2, radius=r_, matrix=_M2.Translation((x_, y_, r_ * .8)) @ _M2.Diagonal((1, 1, .8, 1)))
+                base_ = len(mb.verts)
+                mb.verts.extend(tuple(v.co) for v in bm_.verts)
+                for f_ in bm_.faces:
+                    mb.faces.append(tuple(base_ + v.index for v in f_.verts))
+                    mb.mats.append(0)
+                bm_.free()
+        elif kind == "pallet":
+            for k_ in range(3):
+                for y_ in (-.5, 0, .5):
+                    mb.box(0, y_, k_ * .15, 1.2, .1, .09, 0)
+                for x_ in (-.5, 0, .5):
+                    mb.box(x_, 0, k_ * .15 + .09, .1, 1.0, .02, 0)
+        elif kind == "cone":
+            mb.box(0, 0, 0, .4, .4, .03, 0)
+            mb.cylinder(0, 0, .03, .14, .6, 12, 0)
+            mb.cylinder(0, 0, .3, .12, .1, 12, 1)
+        else:  # no-parking plate on a post at a garage door (generic, no text)
+            mb.cylinder(0, 0, 0, .03, 2.2, 8, 2)
+            mb.cylinder(0, -.03, 1.9, .25, .02, 20, 1)
+            mb.cylinder(0, -.05, 1.9, .2, .02, 20, 0)
+        o_ = sa_bl.bevelled_object("ACC_" + kind, mb, [lib[m] for m in ACC_MATS[kind]], library, bevel=.004)
+        sa_bl.props(o_, sa_stage="W3 clutter (LOD0)")
+        return o_
+    # posters: board + fictitious text, four variants
+    from sa_w2 import text_mesh as _tm  # noqa: E402
+    for k_, txt in enumerate(("ALUGA-SE", "VENDE-SE", "FESTA NA PRACA", "CONSERTOS")):
+        mb = sa_bl.MeshBuilder()
+        mb.box(0, -.01, 1.5, 1.0, .02, .7, 0)
+        brd = sa_bl.bevelled_object(f"ACC_poster{k_}", mb, [lib["papelao"] if k_ % 2 else lib["plastico_branco"]], library, bevel=.003)
+        t_ = _tm(f"ACC_poster{k_}_txt", txt, .13, library, lib["aco_pintado_vermelho"] if k_ % 2 == 0 else lib["borracha_preta"], extrude=.002)
+        t_.location = (0, -.022, 1.8)
+        t_.rotation_euler = (math.pi / 2, 0, 0)
+        bpy.context.view_layer.update()
+        t_.data.transform(t_.matrix_basis)
+        t_.matrix_basis.identity()
+        # join text into the board mesh
+        _me = brd.data
+        _tme = t_.data
+        _nv = len(_me.vertices)
+        _verts = [tuple(v.co) for v in _me.vertices] + [tuple(v.co) for v in _tme.vertices]
+        _faces = [tuple(p_.vertices) for p_ in _me.polygons] + [tuple(i + _nv for i in p_.vertices) for p_ in _tme.polygons]
+        _mi = [p_.material_index for p_ in _me.polygons] + [1] * len(_tme.polygons)
+        _new = bpy.data.meshes.new(brd.name)
+        _new.from_pydata(_verts, [], _faces)
+        for m_ in list(_me.materials) + list(_tme.materials):
+            _new.materials.append(m_)
+        _new.polygons.foreach_set("material_index", _mi)
+        sa_bl.write_box_uvs(_new)
+        brd.data = _new
+        bpy.data.objects.remove(t_)
+        ACC_MATS[f"poster{k_}"] = None
+        globals().setdefault("_POSTERS", []).append(brd)
+acc_objs = [acc_piece(k) for k in ACC_MATS if ACC_MATS[k] is not None] + list(globals().get("_POSTERS", []))
 acc_lib, acc_index = sa_bl.library_collection("OT_Lib_Accessories", acc_objs, library)
 VAR = {v["id"]: v for v in OLDTOWN_VARIANTS}
 acc_pts = {}
@@ -752,8 +874,36 @@ for lot in ot.lots:
         place(lot, "roofroom", (roll(29) - .5) * (w - 4), d / 2 - 2.2, H + .05)
     if flat and roll(30) < .06 and w >= 5:
         place(lot, "tarp", (roll(31) - .5) * (w - 3.4), (roll(32) - .5) * (d - 3), H + .05)
+if SLICE:
+    for lot in ot.lots:
+        if lot["family"] in ("vacant", "parking") or lot["variant"] not in VAR or not in_slice_pt(lot["obb"].c):
+            continue
+        v = VAR[lot["variant"]]
+        w, d = v["w"], v["d"]
+        sb = v.get("setback", 0.0)
+        lid = str(lot["id"])
+        roll = lambda k, lid=lid: zlib.crc32(f"c{lid}:{k}".encode()) / 4294967295.0
+        commerce = v["family"] in ("comercio_residencia", "pequeno_comercial") or "shop" in v["tags"]
+        if (commerce or v["family"] == "abandonada_reformada") and roll(0) < .45:
+            place(lot, f"poster{int(roll(1) * 4) % 4}", (roll(2) - .5) * (w - 1.2), -d / 2 - .01, 0.0)
+        if (commerce or roll(3) < .15) and roll(4) < .5:
+            for k in range(1 + int(roll(5) * 2)):
+                place(lot, "trashbag", w / 2 - .6 - k * .7, -d / 2 - sb - .45, 0.0, rot_extra=roll(6 + k) * 6)
+        if v["family"] in ("armazem", "deposito", "oficina") and roll(9) < .45:
+            place(lot, "pallet", -w / 2 + 1.0 + roll(10) * 2, -d / 2 - sb - .7, 0.0, rot_extra=(roll(11) - .5) * .4)
+        if "big_door" in v["tags"] and roll(12) < .5:
+            place(lot, "plate", w / 2 - .3, -d / 2 - sb - .3, 0.0)
+    cone_sites = 0
+    for (x, y, rot) in ot.points.get("manhole", []):
+        if in_slice_pt((x, y)) and (int(abs(x) * 7 + abs(y) * 3) % 9) == 0:
+            cone_sites += 1
+            for k in range(3):
+                q = (x + math.cos(k * 2.1) * 1.1, y + math.sin(k * 2.1) * 1.1)
+                macro, sub = subcell(*q)
+                acc_pts.setdefault((macro, sub), []).append((q[0], q[1], zs(*q) + ROAD_LIFT, acc_index["ACC_cone"], rot + k, 1.0))
+    STATS["w3_cone_sites"] = cone_sites
 for lot in ot.lots:                                                                     # small urban voids
-    if lot["family"] != "vacant":
+    if lot["family"] != "vacant" or lot.get("green"):
         continue
     o = lot["obb"]
     lot_z[lot["id"]] = min(zs(*q) for q in o.corners()) + .02
@@ -887,12 +1037,20 @@ for hid, fn in W2_HEROES.items():
 
 # ---------------------------------------------------------------- infrastructure, props, vegetation, lighting
 infra_pts, prop_pts, tree_pts, light_pts = {}, {}, {}, {}
+TREE_QUEUE = []
+for (x, y, rot, sp, scl) in ot.street_trees:
+    TREE_QUEUE.append((x, y, zs(x, y) + ROAD_LIFT + SIDEWALK_H - .02, sp, rot, scl))
+for (x, y, z) in WALL_TOP_GREEN:
+    TREE_QUEUE.append((x, y, z, "arbusto", (x * 13.1) % 6.28, .7 + (abs(x * 7 + y) % 5) * .1))
 tree_lib, tree_index = None, None
 for kind, pts in ot.points.items():
     for (x, y, rot) in pts:
         macro, sub = subcell(x, y)
         if kind == "tree":
-            tree_pts.setdefault((macro, sub), []).append((x, y, zs(x, y) + ROAD_LIFT + SIDEWALK_H, 0 if (int(x * 7 + y * 3) % 3) else 1, rot, .5 + (int(x * 13 + y * 7) % 7) * .05))
+            # plaza and back-yard trees (W1.5 points): species chosen by context, scale varied
+            r_ = (int(abs(x) * 7 + abs(y) * 3) % 100) / 100.0
+            sp = ("palmeira" if r_ < .12 else "sibipiruna" if r_ < .45 else "oiti") if ot.in_core((x, y)) else ("mangueira" if r_ < .4 else "oiti" if r_ < .75 else "ipe")
+            TREE_QUEUE.append((x, y, zs(x, y) + ROAD_LIFT + SIDEWALK_H, sp, rot, .8 + (int(abs(x) * 13 + abs(y) * 7) % 7) * .06))
             continue
         if kind == "streetlight_head":
             light_pts.setdefault((macro, sub), []).append((x, y, zs(x, y) + 7.5, 0, rot, 1.0))
@@ -956,15 +1114,193 @@ for (macro, sub), pts in prop_pts.items():
     name = f"OT_Props_{sub}"
     o = sa_bl.point_cloud_object(name, pts, props_lib, cell_collection("Props", macro))
     register("Props", name, sub, o, instances=len(pts))
-tree_objs = [props_objs["PROP_Tree_A"].copy(), props_objs["PROP_Tree_B"].copy()]
-tree_objs[0].name, tree_objs[1].name = "VEG_Tree_A", "VEG_Tree_B"
-for t_ in tree_objs:
-    bpy.context.scene.collection.objects.link(t_)
+# W2.5 species-like proxies (better silhouettes than the W1.5 sphere clusters; still provisional, final vegetation with LOD later).
+import bmesh as _bm  # noqa: E402
+from mathutils import Matrix as _Mx, Vector as _Vx  # noqa: E402
+
+for nm_, c1_, c2_ in (("folhagem_oiti", (.10, .22, .07), (.06, .15, .05)), ("folhagem_clara", (.30, .40, .13), (.20, .30, .09)),
+                      ("folhagem_manga", (.07, .16, .06), (.04, .10, .04)), ("flores_ipe_amarelo", (.78, .62, .10), (.60, .45, .06)),
+                      ("flores_ipe_rosa", (.70, .34, .52), (.52, .22, .38)), ("folhagem_palmeira", (.18, .30, .10), (.12, .22, .07))):
+    lib[nm_] = sa_materials.build_material(nm_, dict(sa_materials.LIB["folhagem"], c1=c1_, c2=c2_))
+
+
+def _crown(mb, centre, radius, blobs, flat, mat, seed, subdiv=1):
+    import random as _rr
+    rr = _rr.Random(seed)
+    for k in range(int(blobs * 1.8)):
+        bm = _bm.new()
+        rad = radius * rr.uniform(.36, .58)
+        off = (rr.uniform(-radius * .62, radius * .62), rr.uniform(-radius * .62, radius * .62), rr.uniform(-radius * .3, radius * .35) * flat)
+        _bm.ops.create_icosphere(bm, subdivisions=subdiv, radius=rad, matrix=_Mx.Translation(_Vx(centre) + _Vx(off)) @ _Mx.Diagonal((1, 1, flat, 1)))
+        for v in bm.verts:
+            v.co += _Vx((rr.uniform(-.18, .18), rr.uniform(-.18, .18), rr.uniform(-.14, .14))) * rad
+        base = len(mb.verts)
+        mb.verts.extend(tuple(v.co) for v in bm.verts)
+        for f in bm.faces:
+            mb.faces.append(tuple(base + v.index for v in f.verts))
+            mb.mats.append(mat)
+        bm.free()
+
+
+def _trunk(mb, h, r0, r1, lean=(0, 0), mat=0, segs=6):
+    for k in range(4):
+        z0, z1 = h * k / 4, h * (k + 1) / 4
+        r = r0 + (r1 - r0) * (k + .5) / 4
+        mb.cylinder(lean[0] * z0, lean[1] * z0, z0, r, z1 - z0, segs, mat)
+
+
+def species(name):
+    mb = sa_bl.MeshBuilder()
+    if name == "oiti":            # dense rounded evergreen, medium (typical sidewalk tree)
+        _trunk(mb, 2.6, .16, .11)
+        _crown(mb, (0, 0, 4.4), 2.6, 7, .8, 1, 11)
+        mats = ["tronco", "folhagem_oiti"]
+    elif name == "sibipiruna":    # wide, flat, airy crown, medium-large
+        _trunk(mb, 3.4, .2, .12, lean=(.04, 0))
+        for bx, by in ((1.2, .4), (-1.0, .8), (.2, -1.1)):
+            mb.box(bx * .5, by * .5, 3.2, .1, .1, 1.4, 0, rot=math.atan2(by, bx))
+        _crown(mb, (0, 0, 5.6), 3.8, 9, .45, 1, 12)
+        mats = ["tronco", "folhagem_clara"]
+    elif name == "mangueira":     # big dark dome, back yards and greens
+        _trunk(mb, 2.2, .26, .18)
+        _crown(mb, (0, 0, 4.6), 3.6, 8, .85, 1, 13)
+        mats = ["tronco", "folhagem_manga"]
+    elif name == "ipe":           # small/medium, open irregular crown, flowering (yellow)
+        _trunk(mb, 3.0, .12, .07, lean=(.06, .03))
+        _crown(mb, (.2, .1, 4.4), 1.9, 6, .7, 1, 14)
+        _crown(mb, (.2, .1, 4.9), 1.5, 3, .6, 2, 15)
+        mats = ["tronco", "folhagem_clara", "flores_ipe_amarelo"]
+    elif name == "ipe_rosa":
+        _trunk(mb, 3.0, .12, .07, lean=(-.05, .04))
+        _crown(mb, (-.2, .1, 4.4), 1.9, 6, .7, 1, 16)
+        _crown(mb, (-.2, .1, 4.9), 1.6, 4, .6, 2, 17)
+        mats = ["tronco", "folhagem_oiti", "flores_ipe_rosa"]
+    elif name == "jovem":         # recently planted young tree with stakes and protection
+        _trunk(mb, 1.6, .06, .04)
+        _crown(mb, (0, 0, 2.5), 1.0, 4, .9, 1, 18)
+        for dx in (-.25, .25):
+            mb.box(dx, 0, 0, .04, .04, 1.6, 2)
+        mb.box(0, 0, 1.2, .55, .04, .04, 2)
+        mats = ["tronco", "folhagem", "madeira_crua"]
+    elif name == "palmeira":      # imperial-palm-like, plazas and stately streets
+        _trunk(mb, 11.0, .24, .2, segs=8)
+        import random as _rr
+        rr = _rr.Random(19)
+        for k in range(9):
+            a_ = k * 2 * math.pi / 9 + rr.uniform(-.2, .2)
+            L_ = rr.uniform(2.6, 3.4)
+            tip = (math.cos(a_) * L_, math.sin(a_) * L_, 11.0 - rr.uniform(.8, 1.6))
+            w_ = .5
+            px, py = -math.sin(a_) * w_, math.cos(a_) * w_
+            mb.add_face([(0, 0, 11.2), (tip[0] * .5 + px, tip[1] * .5 + py, 11.4), tip, (tip[0] * .5 - px, tip[1] * .5 - py, 11.4)], 1)
+        mats = ["tronco", "folhagem_palmeira"]
+    else:                         # arbusto: low shrub mass (tops of retaining walls, greens)
+        _crown(mb, (0, 0, .6), .9, 4, .7, 0, 20)
+        mats = ["folhagem_oiti"]
+    o = mb.to_object("VEG_" + name, [lib[m] for m in mats], library)
+    for poly in o.data.polygons:                       # smooth crowns (no faceted low-poly read)
+        poly.use_smooth = True
+    sa_bl.props(o, sa_stage="W2.5 proxy de espécie (provisório)", species=name)
+    return o
+
+
+SPECIES = ("oiti", "sibipiruna", "mangueira", "ipe", "ipe_rosa", "jovem", "palmeira", "arbusto")
+if SLICE:
+    import sa_vegetation  # noqa: E402
+    tree_objs = [sa_vegetation.tree(n, lib, library) for n in SPECIES]
+    tree_objs += [sa_vegetation.tuft("grama", lib, library), sa_vegetation.tuft("erva", lib, library)]
+    lod_coll = sa_bl.collection("OT_Lib_Vegetation_LODs", library, hide_render=True)
+    for n in SPECIES:                                    # LOD1 kept in the file for the Unity LOD groups (not instanced here)
+        if n != "arbusto":
+            sa_vegetation.tree(n, lib, lod_coll, lod=1)
+    # grass and weeds: slopes/taludes, open ground, greens, cracks along curbs and wall bases
+    _occ = {}
+    for lot in ot.lots:
+        if lot["family"] in ("vacant",) and not lot.get("green"):
+            continue
+        o_ = lot["obb"]
+        for gx in range(int((o_.c[0] - 25) // 25), int((o_.c[0] + 25) // 25) + 1):
+            for gy in range(int((o_.c[1] - 25) // 25), int((o_.c[1] + 25) // 25) + 1):
+                _occ.setdefault((gx, gy), []).append(("lot", o_))
+    for eid, e in g.edges.items():
+        a_, b_ = g.seg(eid)
+        if not (in_slice_pt(a_, 40) or in_slice_pt(b_, 40)):
+            continue
+        hw_ = STREET[e["cls"]]["total"] / 2 + .3
+        for p_ in resample([a_, b_], 20.0):
+            _occ.setdefault((int(p_[0] // 25), int(p_[1] // 25)), []).append(("road", (a_, b_, hw_)))
+
+    def _free(p_):
+        cells_ = [(int(p_[0] // 25) + i, int(p_[1] // 25) + j) for i in (-1, 0, 1) for j in (-1, 0, 1)]
+        for kind_, it in (x for c_ in cells_ for x in _occ.get(c_, [])):
+            if kind_ == "lot" and it.contains(p_):
+                return False
+            if kind_ == "road":
+                a_, b_, hw_ = it
+                from sa_geom import point_seg as _ps
+                if _ps(p_, a_, b_)[0] < hw_:
+                    return False
+        for pd in terrain.pads:
+            r_ = pd["rect"]
+            if r_[0] - 2 <= p_[0] <= r_[2] + 2 and r_[1] - 2 <= p_[1] <= r_[3] + 2:
+                return False
+        return True
+    _rng = __import__("random").Random(3031)
+    tufts = 0
+    yy = SLICE[1] + 1.2
+    while yy < SLICE[3]:
+        xx = SLICE[0] + 1.2
+        while xx < SLICE[2]:
+            q_ = (xx + _rng.uniform(-1, 1), yy + _rng.uniform(-1, 1))
+            dzx = zs(q_[0] + 2, q_[1]) - zs(q_[0] - 2, q_[1])
+            dzy = zs(q_[0], q_[1] + 2) - zs(q_[0], q_[1] - 2)
+            slope_ = math.hypot(dzx, dzy) / 4.0
+            pr_ = min(.75, .1 + slope_ * 2.5)
+            if _rng.random() < pr_ and _free(q_):
+                TREE_QUEUE.append((q_[0], q_[1], zs(*q_) - .02, "tufo_grama" if _rng.random() < .75 else "tufo_erva", _rng.uniform(0, 6.28),
+                                   _rng.uniform(.7, 1.4)))
+                tufts += 1
+            xx += 2.4
+        yy += 2.4
+    cracks = 0
+    for eid, e in g.edges.items():
+        if e["cls"] in ("passage",):
+            continue
+        a_, b_ = g.seg(eid)
+        if not in_slice_pt(lerp(a_, b_, .5)):
+            continue
+        u_ = norm(vsub(b_, a_))
+        n_ = perp(u_)
+        L_ = dist(a_, b_)
+        cw_, sw_ = carriageway(e["cls"]), STREET[e["cls"]]["sidewalk"]
+        for side_ in (1, -1):
+            for off_ in ((cw_ / 2 + .08), (cw_ / 2 + sw_ - .1)) if sw_ > 0 else ((cw_ / 2 - .1),):
+                t_ = _rng.uniform(1, 6)
+                while t_ < L_ - 1:
+                    q_ = (a_[0] + u_[0] * t_ + n_[0] * side_ * off_, a_[1] + u_[1] * t_ + n_[1] * side_ * off_)
+                    zq = zs(*q_) + (ROAD_LIFT if off_ < cw_ / 2 + .2 else ROAD_LIFT + SIDEWALK_H)
+                    TREE_QUEUE.append((q_[0], q_[1], zq, "tufo_erva" if _rng.random() < .6 else "tufo_grama", _rng.uniform(0, 6.28), _rng.uniform(.4, .8)))
+                    cracks += 1
+                    t_ += _rng.uniform(4, 14)
+    STATS["w3_tufts"] = tufts
+    STATS["w3_crack_weeds"] = cracks
+else:
+    tree_objs = [species(n) for n in SPECIES]
 tree_lib, tree_index = sa_bl.library_collection("OT_Lib_Vegetation", tree_objs, library)
+_veg_tris = {}
+for (x, y, z, sp, rot, scl) in TREE_QUEUE:
+    if sp == "ipe" and (int(abs(x) * 3 + abs(y)) % 3 == 0):
+        sp = "ipe_rosa"
+    macro, sub = subcell(x, y)
+    tree_pts.setdefault((macro, sub), []).append((x, y, z, tree_index["VEG_" + sp], rot, scl))
+    STATS.setdefault("vegetation_by_species", {})
+    STATS["vegetation_by_species"][sp] = STATS["vegetation_by_species"].get(sp, 0) + 1
+STATS["vegetation_species_tris"] = {o.name: sum(len(p_.vertices) - 2 for p_ in o.data.polygons) for o in tree_objs}
+STATS["street_tree_layout"] = ot.tree_stats
 for (macro, sub), pts in tree_pts.items():
     name = f"OT_Vegetation_{sub}"
     o = sa_bl.point_cloud_object(name, pts, tree_lib, cell_collection("Vegetation", macro))
-    register("Vegetation", name, sub, o, instances=len(pts), blockout_vegetation=True)
+    register("Vegetation", name, sub, o, instances=len(pts), blockout_vegetation=True, note="W2.5 proxies de espécies (provisório)")
 for (macro, sub), pts in light_pts.items():
     me = bpy.data.meshes.new(f"OT_Lighting_{sub}")
     me.from_pydata([(p[0], p[1], p[2]) for p in pts], [], [])
@@ -1058,6 +1394,84 @@ far = (lo_[0] + u[0] * 220, lo_[1] + u[1] * 220)
 cam("CAM_OT_Vale_Panorama", (cpos[0], cpos[1], zs(*cpos) + 1.8), target=(far[0], far[1], zs(*far) + 4.0), lens=24)
 STATS["valley_street_grade_pct"] = round(gr_ * 100, 1)
 cam("CAM_OT_Wear_Rua", (-3290, -1622, zs(-3290, -1622) + 1.7), target=(-3420, -1606, zs(-3420, -1606) + 3.0), lens=22)   # Av. Velha, no hero in view
+# W2.5 vegetation views: most planted residential street (from one end), a pocket green, and an oblique of the residential north.
+import collections as _col  # noqa: E402
+_tgrid = _col.Counter((int(t[0] // 20), int(t[1] // 20)) for t in ot.street_trees)
+rbest = None
+for eid, e in g.edges.items():
+    if e["cls"] not in ("local", "main"):
+        continue
+    a, b = g.seg(eid)
+    L = dist(a, b)
+    if L < 45:
+        continue
+    cnt = sum(_tgrid[(int(p[0] // 20), int(p[1] // 20))] for p in resample([a, b], 20.0))
+    if rbest is None or cnt / L > rbest[0]:
+        rbest = (cnt / L, a, b)
+_, a, b = rbest
+u = norm(vsub(b, a))
+cpos = (a[0] + u[0] * 3 + perp(u)[0] * 1.5, a[1] + u[1] * 3 + perp(u)[1] * 1.5)
+cam("CAM_OT_Rua_Arborizada", (cpos[0], cpos[1], zs(*cpos) + 1.7), target=(b[0], b[1], zs(*b) + 3.0), lens=22)
+pg = next((l for l in ot.lots if l.get("green") and l["obb"].hw > 7), None)
+if pg:
+    o = pg["obb"]
+    cp = (o.c[0] - o.v[0] * (o.hd + 10) + o.u[0] * 6, o.c[1] - o.v[1] * (o.hd + 10) + o.u[1] * 6)
+    cam("CAM_OT_Pracinha", (cp[0], cp[1], zs(*cp) + 2.0), target=(o.c[0], o.c[1], zs(*o.c) + 1.5), lens=22)
+cam("CAM_OT_Residencial_Obliqua", (-2050, -1300, zs(-2050, -1300) + 140), target=(-2300, -880, zs(-2300, -880)), lens=28)
+if SLICE:
+    cx_, cy_ = (SLICE[0] + SLICE[2]) / 2, (SLICE[1] + SLICE[3]) / 2
+    cam("CAM_W3_Corredor", (SLICE[2] + 120, SLICE[1] - 160, zs(cx_, cy_) + 210), target=(cx_ - 60, cy_ + 60, zs(cx_, cy_)), lens=30)
+    cam("CAM_W3_Aereo", (SLICE[0] - 90, SLICE[1] - 200, zs(cx_, cy_) + 95), target=(-2745, cy_ + 150, zs(-2745, cy_ + 150) - 5), lens=28)
+    best = None
+    for eid, e in g.edges.items():
+        if e["cls"] not in ("local", "main"):
+            continue
+        a, b = g.seg(eid)
+        L = dist(a, b)
+        if L < 60 or not (in_slice_pt(a, -30) and in_slice_pt(b, -30)):
+            continue
+        gr_ = abs(zs(*b) - zs(*a)) / L
+        if best is None or gr_ > best[0]:
+            best = (gr_, a, b)
+    if best:
+        gr_, a, b = best
+        lo_, hi_ = (a, b) if zs(*a) < zs(*b) else (b, a)
+        u = norm(vsub(hi_, lo_))
+        cpos = (lo_[0] - u[0] * 6 + perp(u)[0] * 1.2, lo_[1] - u[1] * 6 + perp(u)[1] * 1.2)
+        cam("CAM_W3_Rua", (cpos[0], cpos[1], zs(*cpos) + 1.7), target=(hi_[0], hi_[1], zs(*hi_) + 2.2), lens=22)
+        STATS["w3_street_grade_pct"] = round(gr_ * 100, 1)
+    sites = sorted([st for st in SLOPE_SITES if in_slice_pt(st[1], -20)], key=lambda st: -st[0])
+    if sites:
+        h_, c, ang, f = sites[0]
+        away = norm(vsub(f, c))
+        cp = (c[0] - away[0] * 16 + math.cos(ang) * 12, c[1] - away[1] * 16 + math.sin(ang) * 12)
+        cam("CAM_W3_Talude", (cp[0], cp[1], max(zs(*cp), zs(*c)) + h_ + 14), target=(c[0] + away[0] * 6, c[1] + away[1] * 6, zs(*c)), lens=24)
+        STATS["w3_talude_height_m"] = round(h_, 2)
+    gz = zs(-2594, -1480)
+    cam("CAM_W3_Mercearia", (-2616, -1468, gz + 1.7), target=(-2590, -1481, gz + 3.0), lens=20)
+    cam("CAM_W3_Vidro", (-2599.5, -1478.5, gz + 1.6), target=(-2588, -1482, gz + 1.3), lens=22)
+    hz_ = zs(-2860, -2270)
+    cam("CAM_W3_Material", (-2851.5, -2265.5, hz_ + 1.55), target=(-2857.5, -2270.4, hz_ + 1.1), lens=32)
+    import collections as _c2
+    tg = _c2.Counter((int(t[0] // 20), int(t[1] // 20)) for t in ot.street_trees if in_slice_pt((t[0], t[1])))
+    vbest = None
+    for eid, e in g.edges.items():
+        if e["cls"] not in ("local", "main"):
+            continue
+        a, b = g.seg(eid)
+        L = dist(a, b)
+        if L < 45 or not (in_slice_pt(a, -10) and in_slice_pt(b, -10)):
+            continue
+        cnt = sum(tg[(int(p[0] // 20), int(p[1] // 20))] for p in resample([a, b], 20.0))
+        if vbest is None or cnt / L > vbest[0]:
+            vbest = (cnt / L, a, b)
+    if vbest:
+        _, a, b = vbest
+        u = norm(vsub(b, a))
+        cpos = (a[0] + u[0] * 3 + perp(u)[0] * 2.0, a[1] + u[1] * 3 + perp(u)[1] * 2.0)
+        cam("CAM_W3_Vegetacao", (cpos[0], cpos[1], zs(*cpos) + 1.7), target=(b[0], b[1], zs(*b) + 3.0), lens=24)
+    mz = zs(-2620, -1650)
+    cam("CAM_W3_Clutter", (-2617, -1665, mz + 1.7), target=(-2626, -1560, zs(-2626, -1560) + 2.4), lens=24)
 scene.camera = bpy.data.objects["CAM_OT_Oblique"]
 
 scene["facility_world"] = "Santa Aurora"
@@ -1065,6 +1479,38 @@ scene["facility_area"] = "Cidade Antiga"
 scene["facility_stage"] = "W2.5 base de produção (relevo + desgaste; não é arte final)"
 out_dir = root / "ArtSource" / "Blender" / "World" / "OldTown"
 blend = out_dir / "SantaAurora_CidadeAntiga_Base_v1.blend"
+if SLICE:
+    removed = 0
+    for o_ in list(bpy.data.objects):
+        sc_ = o_.get("sa_subcell")
+        if sc_ and not in_slice_sub(sc_):
+            bpy.data.objects.remove(o_)
+            removed += 1
+    # context: link the W2.5/W3 district subcells around the slice from the base file (same streaming names, no duplicates)
+    base_manifest = json.loads((out_dir / "oldtown_streaming_manifest_v1.json").read_text(encoding="utf-8"))
+    want = []
+    for sub, layers in base_manifest["subcells"].items():
+        if in_slice_sub(sub):
+            continue
+        bx0, by0, bx1, by1 = sub_bounds(sub)
+        dx_ = max(SLICE[0] - bx1, 0, bx0 - SLICE[2])
+        dy_ = max(SLICE[1] - by1, 0, by0 - SLICE[3])
+        if math.hypot(dx_, dy_) > opts.context:
+            continue
+        for layer, names in layers.items():
+            if layer in ("Gameplay",):
+                continue
+            want += names
+    ctx = sa_bl.collection("W3_Context_Base_Linked", top)
+    with bpy.data.libraries.load(str(blend), link=True, relative=True) as (src, dst):
+        dst.objects = [n for n in want if n in src.objects]
+    for o_ in dst.objects:
+        if o_ is not None:
+            ctx.objects.link(o_)
+    STATS["w3_slice"] = {"rect": SLICE, "removed_outside": removed, "context_linked": len([o_ for o_ in dst.objects if o_ is not None])}
+    out_dir = out_dir / "W3"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    blend = out_dir / "SantaAurora_W3_VerticalSlice.blend"
 bpy.ops.wm.save_as_mainfile(filepath=str(blend), compress=True)
 
 manifest_out = {
@@ -1078,7 +1524,8 @@ manifest_out = {
     "heroes": manifest["heroes"],
     "lots": manifest["lots"],
 }
-(out_dir / "oldtown_streaming_manifest_v1.json").write_text(json.dumps(manifest_out, ensure_ascii=False) + "\n", encoding="utf-8")
+if not SLICE:  # the slice reuses the district manifest (same streaming names) and writes only its own report
+    (out_dir / "oldtown_streaming_manifest_v1.json").write_text(json.dumps(manifest_out, ensure_ascii=False) + "\n", encoding="utf-8")
 counts = {c.name: len(c.all_objects) for c in top.children}
 inst = sum(len(v) for v in arch_pts.values())
 report = {
@@ -1102,5 +1549,5 @@ report = {
     "w2": dict(STATS, accessoryInstances=sum(len(v) for v in acc_pts.values())),
     "status": "W2 production base (W1.5 structure + N1/N3/N4 refinements) - not final art",
 }
-(out_dir / "oldtown_generation_report.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+(out_dir / ("w3_slice_generation_report.json" if SLICE else "oldtown_generation_report.json")).write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 print("OLD TOWN BASE GENERATED", json.dumps({k: report[k] for k in ("blend", "objectCount", "buildingInstances", "subcells")}))

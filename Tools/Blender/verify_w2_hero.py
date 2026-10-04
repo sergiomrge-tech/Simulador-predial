@@ -30,7 +30,7 @@ for lib in bpy.data.libraries:
     if not Path(bpy.path.abspath(lib.filepath)).exists():
         missing.append("library:" + lib.filepath)
 for img in bpy.data.images:
-    if img.source == "FILE" and not img.packed_file and img.filepath and not Path(bpy.path.abspath(img.filepath)).exists():
+    if img.source == "FILE" and not img.packed_file and img.filepath and not Path(bpy.path.abspath(img.filepath, library=img.library)).exists():
         missing.append("image:" + img.filepath)
 if missing:
     errors.append("missing data: " + ", ".join(missing))

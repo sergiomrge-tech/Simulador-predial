@@ -397,6 +397,31 @@ def roof(mb, w, d, H, kind, rng, attached=True, front_parapet=0.0):
 
 # ---------------------------------------------------------------- building
 
+def lod0_extras(front, back, v, w, d, H, gh, rng):
+    """W3 LOD0 facade layer (vertical slice): plinth band, cornice/rufo cap, corner downpipe with shoe, service cable from the roofline to
+    a meter box, house-number plate, wall vents, back-yard clothes line hooks. Generic and fictional; adds ~300-600 tris per building."""
+    front.box(-.02, w + .02, 0, .9, -.025, 0, S["plinth"])                                   # barra (plinth band)
+    front.box(-.02, w + .02, .88, .92, -.04, 0, S["trim"])
+    if v["roof"] in ("flat_parapet", "roofless") or v["family"] in ("comercio_residencia",):
+        front.box(-.06, w + .06, H - .06, H + .05, -.08, .02, S["trim"])                      # rufo / cornice cap
+    side = rng.choice((.12, w - .2))
+    front.box(side, side + .09, .15, H - .1, -.11, -.02, S["metal"])                        # downpipe
+    front.box(side - .03, side + .14, 0, .18, -.2, -.02, S["metal"])                        # shoe
+    cu = rng.uniform(.6, w - .6)
+    front.box(cu, cu + .025, 1.6, H - .3, -.04, -.015, S["rust"])                          # service cable down the facade
+    front.box(cu - .2, cu + .25, 1.05, 1.6, -.22, 0, S["metal"])                           # meter box
+    front.box(cu - .1, cu + .1, 1.38, 1.5, -.225, -.21, S["glass"])
+    nu = rng.uniform(.3, w - .5)
+    front.box(nu, nu + .22, 2.15, 2.31, -.02, 0, S["sign"])                                # house number plate
+    for k in range(rng.randint(0, 2)):
+        vu = rng.uniform(.4, w - .4)
+        front.box(vu, vu + .2, gh - .6, gh - .45, -.02, 0, S["metal"])                     # wall vent grille
+    if H > 3.5:
+        bu = rng.uniform(.5, w - .8)
+        back.box(bu, bu + .06, gh + .2, gh + .26, -.25, 0, S["metal"])                     # back hooks / clothes line brackets
+        back.box(bu + 1.6, bu + 1.66, gh + .2, gh + .26, -.25, 0, S["metal"])
+
+
 def building_mesh(mb, v, seed, detail="lod1"):
     """Emit a whole Old Town building variant v (dict from urban_fabric.OLDTOWN_VARIANTS) into mb."""
     rng = random.Random(seed)
@@ -406,7 +431,8 @@ def building_mesh(mb, v, seed, detail="lod1"):
     fam = v["family"]
     tags = set(v["tags"])
     attached = v["attached"]
-    style = {"trim": fam in ("sobrado_estreito", "comercio_residencia", "predio_3pav") and rng.random() < .7,
+    lod0 = detail == "lod0"
+    style = {"trim": lod0 or (fam in ("sobrado_estreito", "comercio_residencia", "predio_3pav") and rng.random() < .7),
              "grille": fam in ("casa_terrea", "sobrado_estreito", "comercio_residencia") and rng.random() < .6,
              "transom": fam in ("sobrado_estreito", "predio_3pav", "predio_4a6") and rng.random() < .5}
     # Foundation/plinth goes below ground to absorb slopes.
@@ -421,7 +447,7 @@ def building_mesh(mb, v, seed, detail="lod1"):
     build_facade(front, bands, rng, style)
     back = Facade(mb, (w / 2, d / 2), (-1, 0), (0, 1), w)
     bands_b = openings_for(w, floors, gh, fh, rng, kind, door_u=w * .7, sparse=True)
-    build_facade(back, bands_b, rng, {})
+    build_facade(back, bands_b, rng, {"trim": lod0} if lod0 else {})
     for sx in (1, -1):
         side = Facade(mb, (sx * w / 2, -sx * d / 2), (0, sx), (sx, 0), d)
         if attached:
@@ -429,7 +455,7 @@ def building_mesh(mb, v, seed, detail="lod1"):
                 side.wall_band(z0, z1, [])
         else:
             bands_s = openings_for(d, floors, gh, fh, rng, kind, door_u=d * .75, sparse=True)
-            build_facade(side, bands_s, rng, {})
+            build_facade(side, bands_s, rng, {"trim": lod0} if lod0 else {})
     # Mouldings: string courses between floors and a cornice on the street front.
     if style["trim"] or fam in ("predio_3pav", "predio_4a6"):
         z = gh
@@ -452,6 +478,8 @@ def building_mesh(mb, v, seed, detail="lod1"):
             front.ac_unit(rng.uniform(.8, w - .8), gh + fh * rng.randint(0, floors - 2) + 2.0)
     if "scaffold" in tags:
         front.scaffold(H)
+    if lod0:
+        lod0_extras(front, back, v, w, d, H, gh, rng)
     roof_kind = v["roof"]
     parapet = 0.0
     if roof_kind in ("gable_metal", "shed_metal", "sawtooth", "gable_metal_broken") and fam in ("oficina", "deposito", "abandonada_reformada"):
@@ -480,4 +508,4 @@ def variant_materials(v, seed):
             "gable_metal_broken": "telha_metalica", "flat_parapet": "concreto", "roofless": "concreto"}[v["roof"]]
     frame = rng.choice(["madeira_pintada", "aluminio", "aco_pintado_verde"]) if fam not in ("pequeno_comercial",) else "aluminio"
     door = rng.choice(["madeira_pintada", "aco_pintado_cinza", "aco_pintado_verde"])
-    return [facade, "concreto_pintado", frame, "vidro", roof, "concreto", door, "metal_galvanizado", "plastico", "ferrugem", "vidro_vitrine", "tijolo_aparente"]
+    return [facade, "concreto_pintado", frame, "vidro_fachada", roof, "concreto", door, "metal_galvanizado", "plastico", "ferrugem", "vidro_vitrine", "tijolo_aparente"]

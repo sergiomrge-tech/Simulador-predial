@@ -1,0 +1,77 @@
+{
+  "hero": "restaurant",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_restaurant.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 112,
+  "checks": {
+    "meshObjects": 97,
+    "triangles": 73964,
+    "trianglesPerCollection": {
+      "W2_restaurant_CaptureOnly": 10,
+      "W2_restaurant_Interior": 34406,
+      "W2_restaurant_Openings": 15444,
+      "W2_restaurant_Services": 1650,
+      "W2_restaurant_Shell": 11470,
+      "W2_restaurant_Site": 10964,
+      "W2_restaurant_Structure": 20
+    },
+    "largestObjects": [
+      {
+        "name": "W2_restaurant__B0_restaurant_openings",
+        "tris": 6660
+      },
+      {
+        "name": "W2_restaurant__interior_fitout",
+        "tris": 4326
+      },
+      {
+        "name": "W2_restaurant__B0_restaurant_shell",
+        "tris": 4104
+      },
+      {
+        "name": "W2_restaurant__sign_name",
+        "tris": 3152
+      },
+      {
+        "name": "W2_restaurant__sign_sub",
+        "tris": 2492
+      },
+      {
+        "name": "W2_restaurant__kitchen_line",
+        "tris": 2040
+      },
+      {
+        "name": "W2_restaurant__gas_cage",
+        "tris": 1508
+      },
+      {
+        "name": "W2_restaurant__qdc_sala_tecnica",
+        "tris": 1452
+      }
+    ],
+    "lights": 7,
+    "materials": 41,
+    "stateSlots": [],
+    "interactive": 9,
+    "root": {
+      "name": "W2_restaurant_ROOT",
+      "facility_id": "restaurant",
+      "location": [
+        -2140.0,
+        -1424.0,
+        29.08
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W3/w2_restaurant_01_rua.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_restaurant_02_entrada.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_restaurant_03_interior.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_restaurant_04_tecnico.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_restaurant_05_aerea.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_restaurant_06_corte.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

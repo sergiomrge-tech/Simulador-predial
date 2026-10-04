@@ -1,0 +1,544 @@
+{
+  "blend": "ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objectCount": 2198,
+  "collectionObjectCounts": {
+    "OT_Library": 142,
+    "OT_Terrain": 15,
+    "OT_Roads": 15,
+    "OT_Architecture": 87,
+    "OT_Infrastructure": 30,
+    "OT_Props": 15,
+    "OT_Vegetation": 15,
+    "OT_Lighting": 15,
+    "OT_Gameplay": 89,
+    "OT_Cameras": 28,
+    "W3_Context_Base_Linked": 844
+  },
+  "subcells": 161,
+  "familyVariants": 45,
+  "variantFaces": {
+    "sob_a": {
+      "faces": 299,
+      "top_z": 7.94
+    },
+    "sob_b": {
+      "faces": 507,
+      "top_z": 8.24
+    },
+    "sob_c": {
+      "faces": 453,
+      "top_z": 7.19
+    },
+    "sob_d": {
+      "faces": 796,
+      "top_z": 9.9
+    },
+    "sob_e": {
+      "faces": 442,
+      "top_z": 8.54
+    },
+    "cas_a": {
+      "faces": 435,
+      "top_z": 4.28
+    },
+    "cas_b": {
+      "faces": 533,
+      "top_z": 4.94
+    },
+    "cas_c": {
+      "faces": 615,
+      "top_z": 4.6
+    },
+    "cas_d": {
+      "faces": 729,
+      "top_z": 4.94
+    },
+    "cas_e": {
+      "faces": 675,
+      "top_z": 5.24
+    },
+    "cr_a": {
+      "faces": 410,
+      "top_z": 7.9
+    },
+    "cr_b": {
+      "faces": 685,
+      "top_z": 9.54
+    },
+    "cr_c": {
+      "faces": 756,
+      "top_z": 11.1
+    },
+    "cr_d": {
+      "faces": 568,
+      "top_z": 8.1
+    },
+    "cr_e": {
+      "faces": 677,
+      "top_z": 12.24
+    },
+    "p3_a": {
+      "faces": 946,
+      "top_z": 9.9
+    },
+    "p3_b": {
+      "faces": 1109,
+      "top_z": 9.9
+    },
+    "p3_c": {
+      "faces": 1275,
+      "top_z": 11.24
+    },
+    "p3_d": {
+      "faces": 987,
+      "top_z": 10.9
+    },
+    "p46_a": {
+      "faces": 1635,
+      "top_z": 12.5
+    },
+    "p46_b": {
+      "faces": 2314,
+      "top_z": 16.5
+    },
+    "p46_c": {
+      "faces": 2887,
+      "top_z": 18.3
+    },
+    "p46_d": {
+      "faces": 2926,
+      "top_z": 16.7
+    },
+    "p46_e": {
+      "faces": 2052,
+      "top_z": 13.68
+    },
+    "ofi_a": {
+      "faces": 391,
+      "top_z": 8.0
+    },
+    "ofi_b": {
+      "faces": 401,
+      "top_z": 7.2
+    },
+    "ofi_c": {
+      "faces": 499,
+      "top_z": 8.2
+    },
+    "ofi_d": {
+      "faces": 501,
+      "top_z": 7.94
+    },
+    "arm_a": {
+      "faces": 516,
+      "top_z": 11.84
+    },
+    "arm_b": {
+      "faces": 566,
+      "top_z": 12.94
+    },
+    "arm_c": {
+      "faces": 538,
+      "top_z": 12.82
+    },
+    "arm_d": {
+      "faces": 662,
+      "top_z": 15.14
+    },
+    "dep_a": {
+      "faces": 524,
+      "top_z": 5.9
+    },
+    "dep_b": {
+      "faces": 391,
+      "top_z": 7.8
+    },
+    "dep_c": {
+      "faces": 501,
+      "top_z": 7.58
+    },
+    "dep_d": {
+      "faces": 554,
+      "top_z": 6.4
+    },
+    "pc_a": {
+      "faces": 668,
+      "top_z": 8.3
+    },
+    "pc_b": {
+      "faces": 1166,
+      "top_z": 11.5
+    },
+    "pc_c": {
+      "faces": 1062,
+      "top_z": 8.5
+    },
+    "pc_d": {
+      "faces": 1490,
+      "top_z": 11.7
+    },
+    "ab_a": {
+      "faces": 532,
+      "top_z": 6.8
+    },
+    "ab_b": {
+      "faces": 1116,
+      "top_z": 9.9
+    },
+    "ab_c": {
+      "faces": 440,
+      "top_z": 6.8
+    },
+    "ab_d": {
+      "faces": 501,
+      "top_z": 8.08
+    },
+    "ab_e": {
+      "faces": 950,
+      "top_z": 9.9
+    }
+  },
+  "buildingInstances": 13003,
+  "infrastructureInstances": 13681,
+  "propInstances": 817,
+  "trees": 32716,
+  "streetLights": 2065,
+  "kitPieces": [
+    "KIT_Corner_Outer",
+    "KIT_Corner_Pilaster",
+    "KIT_Curb_2m",
+    "KIT_Curb_Corner_r3",
+    "KIT_Door_Double",
+    "KIT_Door_Single",
+    "KIT_Downpipe_3m",
+    "KIT_Eave_1m",
+    "KIT_Gate_Pedestrian_1m",
+    "KIT_Gate_Sliding_4m",
+    "KIT_Grille_Window_120",
+    "KIT_Gutter_1m",
+    "KIT_Molding_Cornice_1m",
+    "KIT_Molding_StringCourse_1m",
+    "KIT_Molding_WindowSurround_120",
+    "KIT_Muro_2m",
+    "KIT_Muro_Pilar",
+    "KIT_Railing_1m",
+    "KIT_Ramp_1to12",
+    "KIT_Roof_Corrugated_2m",
+    "KIT_Roof_Parapet_1m",
+    "KIT_Roof_Ridge_1m",
+    "KIT_Roof_Tile_Slope_2m",
+    "KIT_Sarjeta_2m",
+    "KIT_Sidewalk_Slab_2m",
+    "KIT_Stair_Entry_3",
+    "KIT_Stair_Flight_120",
+    "KIT_Wall_Balcony_3m",
+    "KIT_Wall_Door_2m",
+    "KIT_Wall_Plain_1m",
+    "KIT_Wall_Plain_2m",
+    "KIT_Wall_Plain_3m",
+    "KIT_Wall_RollUp_4m",
+    "KIT_Wall_Shopfront_4m",
+    "KIT_Wall_Window_2m",
+    "KIT_Wall_Window_3m_Grade",
+    "KIT_Window_120x120",
+    "KIT_Window_150x130",
+    "KIT_Window_60x50",
+    "KIT_Window_80x200"
+  ],
+  "props": [
+    "PROP_Bench",
+    "PROP_Bollard",
+    "PROP_ElectricBox",
+    "PROP_Hydrant",
+    "PROP_Manhole",
+    "PROP_Pole_Concrete",
+    "PROP_Pole_Transformer",
+    "PROP_StopSign",
+    "PROP_StormInlet",
+    "PROP_StreetSign",
+    "PROP_TelecomBox",
+    "PROP_TrafficLight",
+    "PROP_Tree_A",
+    "PROP_Tree_B",
+    "PROP_WaterMeter"
+  ],
+  "materials": [
+    "aco_inox",
+    "aco_pintado_cinza",
+    "aco_pintado_verde",
+    "aco_pintado_vermelho",
+    "agua_canal",
+    "aluminio",
+    "asfalto",
+    "asfalto_gasto",
+    "azulejo_branco",
+    "borracha",
+    "borracha_preta",
+    "calcada",
+    "ceramica_piso",
+    "ceramica_telha",
+    "cimentado",
+    "concreto",
+    "concreto_aparente",
+    "concreto_pintado",
+    "concreto_pintado_hero",
+    "decal_ferrugem",
+    "decal_oleo",
+    "decal_pneu",
+    "decal_sujeira",
+    "decal_umidade",
+    "ferrugem",
+    "flores_ipe_amarelo",
+    "flores_ipe_rosa",
+    "folhagem",
+    "folhagem_clara",
+    "folhagem_manga",
+    "folhagem_oiti",
+    "folhagem_palmeira",
+    "grama",
+    "granito",
+    "lampada_emissiva",
+    "lastro_ferroviario",
+    "louca_sanitaria",
+    "madeira_crua",
+    "madeira_pintada",
+    "meio_fio",
+    "metal_galvanizado",
+    "papelao",
+    "parede_pintada",
+    "pedra_portuguesa",
+    "pedra_reboco_historico",
+    "pintura_industrial",
+    "pintura_vermelha",
+    "piso_ceramico_bege",
+    "piso_intertravado",
+    "plastico",
+    "plastico_azul",
+    "plastico_branco",
+    "reboco_antigo",
+    "reboco_antigo_hero",
+    "reboco_pastilha",
+    "reboco_pintado",
+    "reboco_pintado_hero",
+    "sinalizacao_viaria",
+    "tecido_colchao",
+    "tecido_lencol",
+    "telha_fibrocimento",
+    "telha_metalica",
+    "terra",
+    "tijolo_aparente",
+    "tijolo_pintado",
+    "tijolo_pintado_hero",
+    "trilho_aco",
+    "tronco",
+    "vidro",
+    "vidro_fachada",
+    "vidro_vitrine"
+  ],
+  "heroes": {
+    "home.starter": {
+      "ground_z": 16.58
+    },
+    "garage": {
+      "ground_z": 20.61
+    },
+    "horizonte": {
+      "ground_z": 26.9
+    },
+    "apartments": {
+      "ground_z": 23.14
+    },
+    "grocery": {
+      "ground_z": 24.77
+    },
+    "restaurant": {
+      "ground_z": 29.08
+    },
+    "workshop": {
+      "ground_z": 24.28
+    },
+    "smalloffice": {
+      "ground_z": 30.48
+    },
+    "imperial": {
+      "ground_z": 26.48
+    }
+  },
+  "layout": {
+    "neighbourhoods": 9,
+    "streetKmByClass": {
+      "alley": 1.88,
+      "arterial": 5.65,
+      "local": 120.43,
+      "main": 12.56,
+      "passage": 0.72
+    },
+    "deadEnds": 157,
+    "alleys": 58,
+    "passages": 10,
+    "plazas": 6,
+    "stitchedSeams": 76,
+    "removed": {
+      "obstacles": 83,
+      "parallel": 141,
+      "merged_sides": 94,
+      "dead_end_cuts": 54
+    },
+    "prunedFragments": 15,
+    "orientationEntropy": 0.832,
+    "lots": 13865,
+    "lotsByFamily": {
+      "abandonada_reformada": 995,
+      "armazem": 432,
+      "casa_terrea": 3130,
+      "comercio_residencia": 2021,
+      "deposito": 718,
+      "oficina": 832,
+      "parking": 210,
+      "pequeno_comercial": 303,
+      "predio_3pav": 1234,
+      "predio_4a6": 409,
+      "sobrado_estreito": 2929,
+      "vacant": 652
+    },
+    "variantsUsed": 47,
+    "coreBuildings": 5031,
+    "coreCoverage": 0.3,
+    "floorsRange": [
+      1,
+      6
+    ],
+    "infrastructure": {
+      "pole": 1652,
+      "pole_transformer": 413,
+      "streetlight_head": 2065,
+      "manhole": 1049,
+      "storm_inlet": 2428,
+      "hydrant": 296,
+      "telecom_box": 688,
+      "electric_box": 2135,
+      "water_meter": 5031,
+      "street_sign": 353,
+      "stop_sign": 167,
+      "traffic_light": 28,
+      "tree": 1520,
+      "bench": 73,
+      "bollard": 224
+    }
+  },
+  "w2": {
+    "stairways": 19,
+    "stair_steps": 362,
+    "retaining_walls": 1356,
+    "podiums": 1511,
+    "tire_mark_segments": 2766,
+    "asphalt_patches": 1316,
+    "oil_stains": 891,
+    "wire_spans": 2198,
+    "channel_m": 2436.5951229368707,
+    "sidewalk_materials": {
+      "piso_intertravado": 1062,
+      "calcada": 2246,
+      "cimentado": 1288,
+      "pedra_portuguesa": 1078
+    },
+    "corners_filleted": 2223,
+    "curb_ramps": 983,
+    "accessories": {
+      "ac": 7936,
+      "downpipe": 4213,
+      "bin": 3633,
+      "tank_fc": 644,
+      "meterbox": 5588,
+      "roofroom": 425,
+      "tarp": 242,
+      "dumpster": 601,
+      "solar": 2528,
+      "wall8": 1482,
+      "shrub": 2468,
+      "tank": 2066,
+      "wall6": 516,
+      "antenna": 4437,
+      "wall10": 457,
+      "dish": 1969,
+      "plate": 58,
+      "poster0": 164,
+      "pallet": 50,
+      "trashbag": 335,
+      "poster1": 165,
+      "rubble": 238
+    },
+    "forecourt_planters": 18,
+    "forecourt_bollards": 158,
+    "pocket_greens": 175,
+    "tree_pits": 4773,
+    "w3_cone_sites": 36,
+    "w2_heroes_linked": [
+      "home.starter",
+      "garage",
+      "horizonte",
+      "imperial",
+      "apartments",
+      "grocery",
+      "restaurant",
+      "workshop",
+      "smalloffice"
+    ],
+    "w3_tufts": 15470,
+    "w3_crack_weeds": 8995,
+    "vegetation_by_species": {
+      "ipe_rosa": 554,
+      "jovem": 972,
+      "ipe": 1114,
+      "sibipiruna": 864,
+      "oiti": 2164,
+      "mangueira": 1111,
+      "palmeira": 38,
+      "arbusto": 1434,
+      "tufo_grama": 15137,
+      "tufo_erva": 9328
+    },
+    "vegetation_species_tris": {
+      "VEG_oiti": 1236,
+      "VEG_sibipiruna": 1336,
+      "VEG_mangueira": 1444,
+      "VEG_ipe": 632,
+      "VEG_ipe_rosa": 632,
+      "VEG_jovem": 332,
+      "VEG_palmeira": 164,
+      "VEG_arbusto": 288,
+      "VEG_tufo_grama": 6,
+      "VEG_tufo_erva": 14
+    },
+    "street_tree_layout": {
+      "street_trees": 4773,
+      "pocket_green_lots": 175,
+      "total_new_trees": 5297,
+      "by_species": {
+        "ipe": 1340,
+        "jovem": 972,
+        "sibipiruna": 762,
+        "oiti": 1571,
+        "mangueira": 651,
+        "palmeira": 1
+      }
+    },
+    "relief_street_grade_pct": 10.5,
+    "valley_street_grade_pct": 8.7,
+    "w3_street_grade_pct": 11.2,
+    "w3_talude_height_m": 4.8,
+    "w3_slice": {
+      "rect": [
+        -3000.0,
+        -2500.0,
+        -2250.0,
+        -1250.0
+      ],
+      "removed_outside": 1124,
+      "context_linked": 844
+    },
+    "accessoryInstances": 40323
+  },
+  "status": "W2 production base (W1.5 structure + N1/N3/N4 refinements) - not final art"
+}

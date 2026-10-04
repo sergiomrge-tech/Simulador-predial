@@ -203,3 +203,26 @@ Preparação concluída no GitHub:
 - **Integridade:** IDs, marcadores, lotes e heróis vinculados idênticos ao commit anterior (auditoria). Reaberturas PASS sem dados faltando. 77 capturas em `Reviews/W2_5/`.
 - **Complexidade:** +4,2% de tris instanciados; +0,51 M de tris em meshes simples.
 - **Gate visual da Cidade Antiga: PARTIAL PASS.** Relevo pouco legível em vistas aéreas; vegetação e carros proxy; iluminação de revisão; texturas autorais pendentes. Detalhes em `Docs/W2_5_VISUAL_FIDELITY_GATE.md`.
+- **Complemento W2.5, vegetação de calçada:**
+  - 4.773 árvores irregulares por caráter de bairro, mais densas longe do miolo e raras em áreas industriais;
+  - covas e canteiros na calçada;
+  - 175 pracinhas;
+  - 1.434 arbustos sobre arrimos;
+  - 7 espécies-proxy (oiti, sibipiruna, mangueira, ipê amarelo e rosa, muda, palmeira) mais arbusto;
+  - +4,7% de tris instanciados;
+  - IDs re-auditados idênticos.
+
+## Checkpoint — W3 Cidade Antiga High Fidelity Vertical Slice (2026-10-04)
+
+- **Recorte de 15 subcélulas** (Lar → Oficina → Horizonte → Mercearia, cliente I.2) em `ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend`. O contexto vizinho é vinculado da base do distrito, pelos mesmos nomes de streaming.
+- **21 texturas PBR autorais e tileáveis** em `ArtSource/Textures/`, aplicadas em toda a Cidade Antiga, nos heróis, no kit e no masterplan.
+- **Visual:**
+  - terreno blend por declividade;
+  - vegetação de produção (galhos + folhas alpha, LOD0/LOD1, grama e ervas);
+  - vidro funcional;
+  - look Khronos PBR Neutral com AO/GI;
+  - fachadas LOD0 no recorte;
+  - clutter por regra de uso;
+  - Mercearia com interior abastecido.
+- **Validações:** reaberturas PASS sem dados faltando; masterplan e rotas PASS; IDs, marcadores, lotes, heróis e streaming idênticos (auditoria); 82 capturas em `Reviews/W3/`.
+- **Gate W3: PARTIAL PASS.** Faltam: carros-proxy, edificações de fundo simples, tufos em "pente", câmera de talude, luz e câmera de alguns interiores, decals pintados. Ver `Docs/W3_HIGH_FIDELITY_VERTICAL_SLICE.md`.

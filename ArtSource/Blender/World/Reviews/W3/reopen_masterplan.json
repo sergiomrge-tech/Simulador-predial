@@ -1,0 +1,54 @@
+{
+  "mode": "masterplan",
+  "blend": "ArtSource/Blender/World/SantaAurora_Masterplan_v1_5.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "reopenedInFreshProcess": true,
+  "objectCount": 527,
+  "meshCount": 331,
+  "collections": {
+    "00_Terrain": 65,
+    "01_Water": 1,
+    "02_Roads": 80,
+    "03_Rail": 1,
+    "04_Fabric": 66,
+    "05_Campaign_Locations": 48,
+    "06_Life_Economy_Locations": 20,
+    "07_Vegetation": 63,
+    "08_Labels": 38,
+    "09_Streaming_Guides": 64,
+    "10_Cameras": 13,
+    "11_Streaming_Subgrid": 66,
+    "12_Library": 2
+  },
+  "checks": {
+    "geometryNodesInstancers": 63,
+    "materials": 26,
+    "materialsWithTextureSlots": 25,
+    "campaignObjects": 24,
+    "lifeObjects": 20,
+    "streamingCells": 64,
+    "terrainCells": 64,
+    "roadMarkers": 16,
+    "complexity": {
+      "meshTris": 1095326,
+      "instancedTris": 1297980,
+      "instances": 36055,
+      "largestMesh": [
+        "Fabric_SA_M01_02",
+        20044
+      ],
+      "materials": 26,
+      "textures": 83,
+      "textureMemoryMB_est": 441.6,
+      "lights": 1,
+      "objects": 527,
+      "meshes": 331
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W3/w25_18_cidade_antiga_vale_canal.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

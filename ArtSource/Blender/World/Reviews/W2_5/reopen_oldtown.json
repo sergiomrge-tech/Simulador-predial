@@ -3,15 +3,15 @@
   "blend": "ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend",
   "blenderVersion": "5.2.1 LTS",
   "reopenedInFreshProcess": true,
-  "objectCount": 2476,
-  "meshCount": 2220,
+  "objectCount": 2509,
+  "meshCount": 2252,
   "collections": {
-    "OT_CidadeAntiga": 1661
+    "OT_CidadeAntiga": 1694
   },
   "checks": {
-    "geometryNodesInstancers": 563,
-    "materials": 390,
-    "materialsWithTextureSlots": 333,
+    "geometryNodesInstancers": 587,
+    "materials": 396,
+    "materialsWithTextureSlots": 339,
     "heroes": 9,
     "stateSlots": 77,
     "states": [
@@ -27,14 +27,14 @@
       "H3",
       "H4"
     ],
-    "subcellObjects": 1524,
+    "subcellObjects": 1548,
     "subcells": 181,
     "familyVariants": 45,
     "gameplayMarkers": 300,
     "complexity": {
-      "meshTris": 3012348,
-      "instancedTris": 23702166,
-      "instances": 70002,
+      "meshTris": 3251756,
+      "instancedTris": 24816376,
+      "instances": 75195,
       "largestMesh": [
         "W2_imperial__foyer_shell",
         34500
@@ -53,7 +53,10 @@
     "ArtSource/Blender/World/Reviews/W2_5/w25_08_lar_na_cidade.jpg",
     "ArtSource/Blender/World/Reviews/W2_5/w25_09_oficina_na_cidade.jpg",
     "ArtSource/Blender/World/Reviews/W2_5/w25_10_horizonte_na_cidade.jpg",
-    "ArtSource/Blender/World/Reviews/W2_5/w25_11_teatro_na_cidade.jpg"
+    "ArtSource/Blender/World/Reviews/W2_5/w25_11_teatro_na_cidade.jpg",
+    "ArtSource/Blender/World/Reviews/W2_5/w25_19_rua_arborizada.jpg",
+    "ArtSource/Blender/World/Reviews/W2_5/w25_20_pracinha.jpg",
+    "ArtSource/Blender/World/Reviews/W2_5/w25_21_residencial_obliqua.jpg"
   ],
   "errors": [],
   "passed": true

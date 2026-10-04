@@ -363,9 +363,35 @@ for role, r in ROOM.items():
                 KS.panel_qdc(P + f"qdc_{role}", (cx, yw, .15), 0.0 if yw > cy else math.pi, z=1.5, ways=18)
         H.empty(P + f"GP_{role}", (cx, cy, 1.4), (min(w_, 1.5), min(d_, 1.5), 2.0), sa_kind="interaction", gameplay=f"{role} (diagnóstico)")
     elif role == "salao" and HID == "grocery":
+        # W3: stocked gondolas (packages on every level, both faces), refrigerated display, produce stand; visible through the glass
+        pm = sa_bl.MeshBuilder()
+        prng = random.Random(77)
+        gl = min(7.0, w_ - 4.0)
         for k in range(int((d_ - 3.0) / 2.2)):
             yy = y0 + 2.0 + k * 2.2
-            KI.shelving(P + f"gondola_{k}", min(7.0, w_ - 4.0), (x0 + 3.2, yy, .15), 0.0, levels=5, h=1.8, depth=.6)
+            KI.shelving(P + f"gondola_{k}", gl, (x0 + 3.2, yy, .15), 0.0, levels=5, h=1.8, depth=.6)
+            for lv in range(5):
+                z = .15 + .1 + lv * (1.8 - .15) / 4 + .02
+                for face in (-1, 1):
+                    xx = x0 + 3.25
+                    while xx < x0 + 3.2 + gl - .1:
+                        bw, bh, bd = prng.uniform(.08, .26), prng.uniform(.1, .3), prng.uniform(.18, .26)
+                        if prng.random() > .12:
+                            pm.box(xx + bw / 2, yy + face * bd / 2, z, bw - .01, bd, bh, prng.randrange(6))
+                        xx += bw
+        fr = (x0 + 1.0, y1 - 4.5)
+        pm.box(fr[0], fr[1], .15, .8, 4.0, 2.0, 6)                                    # refrigerated display body
+        pm.box(fr[0] + .41, fr[1], .3, .02, 3.8, 1.7, 7)                              # glass doors
+        for k in range(4):
+            for lv in range(4):
+                pm.box(fr[0] + .1, fr[1] - 1.6 + k * 1.0, .4 + lv * .42, .3, .7, .25, prng.randrange(6))
+        pm.box(x1 - 2.0, y0 + 1.5, .15, 1.6, .9, .75, 8)                              # produce stand
+        for k in range(10):
+            pm.box(x1 - 2.6 + (k % 5) * .3, y0 + 1.3 + (k // 5) * .4, .9, .28, .36, .15, 9 + k % 3)
+        H.mesh(P + "grocery_stock", pm, ["papelao", "plastico_azul", "aco_pintado_vermelho", "plastico_branco", "aco_pintado_verde", "pintura_industrial",
+                                         "aco_inox", "vidro", "madeira_crua", "aco_pintado_vermelho", "pintura_industrial", "folhagem"], "Interior",
+               sa_layer="Props", note="W3: mercadorias e expositores (mercearia, Capítulo I)")
+        lo = KI.ceiling_light(P + "fridge_light", (fr[0] + .2, fr[1], 2.0), drop=.05)
     elif role == "salao" and HID == "restaurant":
         for i in range(int((w_ - 2) / 3.0)):
             for j in range(int((d_ - 2) / 3.0)):
@@ -645,7 +671,7 @@ H.cam(f"CAM_W2_{HID}_entrance", (mp[0] + 3.5, mp[1] - 5.0, 1.65), (mp[0], mp[1],
 big = max(ROOM.items(), key=lambda kv: (kv[1][2] - kv[1][0]) * (kv[1][3] - kv[1][1])) if ROOM else None
 if big:
     r = big[1]
-    H.cam(f"CAM_W2_{HID}_interior", (r[0] + .8, r[1] + .8, 1.65), (r[2] - 1.0, r[3] - 1.0, 1.1), 15)
+    H.cam(f"CAM_W2_{HID}_interior", ((r[0] + r[2]) / 2, r[1] + .6, 1.65), ((r[0] + r[2]) / 2 + (r[2] - r[0]) * .15, r[3] - .5, 1.2), 15)
 tech = next(((k, r) for k, r in ROOM.items() if k in ("quadro", "meters", "technical_room", "sala_tecnica", "rack")), None)
 if tech:
     r = tech[1]

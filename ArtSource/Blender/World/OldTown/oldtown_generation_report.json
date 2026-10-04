@@ -1,18 +1,18 @@
 {
   "blend": "ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objectCount": 2476,
+  "objectCount": 2512,
   "collectionObjectCounts": {
-    "OT_Library": 119,
+    "OT_Library": 125,
     "OT_Terrain": 180,
     "OT_Roads": 156,
     "OT_Architecture": 561,
     "OT_Infrastructure": 119,
-    "OT_Props": 59,
-    "OT_Vegetation": 130,
+    "OT_Props": 61,
+    "OT_Vegetation": 152,
     "OT_Lighting": 60,
     "OT_Gameplay": 261,
-    "OT_Cameras": 16
+    "OT_Cameras": 19
   },
   "subcells": 181,
   "familyVariants": 45,
@@ -199,10 +199,10 @@
     }
   },
   "buildingInstances": 13003,
-  "infrastructureInstances": 13676,
-  "propInstances": 828,
-  "trees": 2647,
-  "streetLights": 2061,
+  "infrastructureInstances": 13681,
+  "propInstances": 817,
+  "trees": 8251,
+  "streetLights": 2065,
   "kitPieces": [
     "KIT_Corner_Outer",
     "KIT_Corner_Pilaster",
@@ -288,7 +288,13 @@
     "decal_sujeira",
     "decal_umidade",
     "ferrugem",
+    "flores_ipe_amarelo",
+    "flores_ipe_rosa",
     "folhagem",
+    "folhagem_clara",
+    "folhagem_manga",
+    "folhagem_oiti",
+    "folhagem_palmeira",
     "grama",
     "granito",
     "lampada_emissiva",
@@ -326,6 +332,7 @@
     "trilho_aco",
     "tronco",
     "vidro",
+    "vidro_fachada",
     "vidro_vitrine"
   ],
   "heroes": {
@@ -402,20 +409,20 @@
       6
     ],
     "infrastructure": {
-      "pole": 1649,
-      "pole_transformer": 412,
-      "streetlight_head": 2061,
+      "pole": 1652,
+      "pole_transformer": 413,
+      "streetlight_head": 2065,
       "manhole": 1049,
       "storm_inlet": 2428,
       "hydrant": 296,
-      "telecom_box": 687,
+      "telecom_box": 688,
       "electric_box": 2135,
       "water_meter": 5031,
       "street_sign": 353,
       "stop_sign": 167,
       "traffic_light": 28,
-      "tree": 2647,
-      "bench": 84,
+      "tree": 1520,
+      "bench": 73,
       "bollard": 224
     }
   },
@@ -427,7 +434,7 @@
     "tire_mark_segments": 2766,
     "asphalt_patches": 1316,
     "oil_stains": 891,
-    "wire_spans": 2192,
+    "wire_spans": 2198,
     "channel_m": 2436.5951229368707,
     "sidewalk_materials": {
       "piso_intertravado": 1062,
@@ -448,16 +455,18 @@
       "dumpster": 601,
       "solar": 2528,
       "wall8": 1482,
-      "shrub": 2784,
+      "shrub": 2468,
       "tank": 2066,
       "wall6": 516,
       "antenna": 4437,
       "wall10": 457,
       "dish": 1969,
-      "rubble": 327
+      "rubble": 238
     },
     "forecourt_planters": 18,
     "forecourt_bollards": 158,
+    "pocket_greens": 175,
+    "tree_pits": 4773,
     "w2_heroes_linked": [
       "home.starter",
       "garage",
@@ -469,9 +478,42 @@
       "workshop",
       "smalloffice"
     ],
+    "vegetation_by_species": {
+      "ipe_rosa": 554,
+      "jovem": 972,
+      "ipe": 1114,
+      "sibipiruna": 864,
+      "oiti": 2164,
+      "mangueira": 1111,
+      "palmeira": 38,
+      "arbusto": 1434
+    },
+    "vegetation_species_tris": {
+      "VEG_oiti": 304,
+      "VEG_sibipiruna": 414,
+      "VEG_mangueira": 344,
+      "VEG_ipe": 364,
+      "VEG_ipe_rosa": 404,
+      "VEG_jovem": 234,
+      "VEG_palmeira": 106,
+      "VEG_arbusto": 140
+    },
+    "street_tree_layout": {
+      "street_trees": 4773,
+      "pocket_green_lots": 175,
+      "total_new_trees": 5297,
+      "by_species": {
+        "ipe": 1340,
+        "jovem": 972,
+        "sibipiruna": 762,
+        "oiti": 1571,
+        "mangueira": 651,
+        "palmeira": 1
+      }
+    },
     "relief_street_grade_pct": 10.5,
     "valley_street_grade_pct": 8.7,
-    "accessoryInstances": 39848
+    "accessoryInstances": 39443
   },
   "status": "W2 production base (W1.5 structure + N1/N3/N4 refinements) - not final art"
 }
