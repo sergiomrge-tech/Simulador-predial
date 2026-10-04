@@ -142,3 +142,10 @@ Preparação concluída no GitHub:
 
 **Ainda não é arte final.** Faltam texturas autorais, decals, clutter, LOD0 final, vegetação autoral e integração na Unity. O protótipo Unity, os saves, os IDs e as coordenadas runtime não foram alterados.
 
+## Checkpoint — Etapa B: biblioteca de skills e ferramentas (2026-10-03)
+
+- `Docs/SKILLS/00…22` + `Tools/Skills/catalog.json` (102 itens com URL, licença, versão/commit, prioridade e segurança), gerados por `Tools/Skills/build_catalog.py`.
+- Salvos (inertes, só markdown com LICENSE + PROVENANCE): 35 skills Unity da Nice-Wolf (MIT), 4 skills de metodologia da superpowers (MIT) e 4 skills próprias (pipeline do mundo, bpy headless, exportação Blender→Unity, revisão visual).
+- Nada instalado, nenhum código externo executado, nenhuma credencial armazenada. MCPs de Blender/GitHub marcados DO_NOT_INSTALL; unity-mcp REVIEW_REQUIRED para a W5.
+- TOP 10 e TOP 5 em `Docs/SKILLS/22_RECOMENDACOES.md`.
+
