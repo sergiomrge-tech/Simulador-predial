@@ -117,3 +117,5 @@ Preparação concluída no GitHub:
 - Relatório completo e limitações: `Docs/W1_MASTERPLAN_RELATORIO.md`.
 
 **Status:** gate técnico PASS. A aprovação espacial/narrativa depende da revisão das capturas pelo usuário. O protótipo Unity, os saves, os IDs e as coordenadas runtime não foram alterados. O mapa grande continua não jogável.
+
+**Revisão crítica (2026-10-03): W1 NÃO APROVADO.** Há dois bloqueios: falta ligação viária entre Cidade Antiga e Expansão (desvio de rota até 3,4×) e não há ferrovia nem porto seco, contra a lore. Pendente de decisão: relevo × drenagem. Folha de revisão em `ArtSource/Blender/World/Reviews/W1/review_sheet.html`; correções W1.1 na seção 7 de `Docs/W1_MASTERPLAN_RELATORIO.md`.

@@ -95,13 +95,27 @@ SHOTS = [
     ("08_santa_aurora_central", "CAM_District_civic", (2400, 1350), False),
     ("09_skyline", "CAM_Skyline", (2400, 1350), False, "no-labels"),
     ("10_streaming_grid", "CAM_Masterplan_Top", (2048, 2048), True),
+    ("11_district_highlight", "CAM_Masterplan_Top", (2048, 2048), False, "highlight"),
 ]
+# Review-only saturated district colours (render pass only; the file is never saved).
+HIGHLIGHT = {"old": (.85, .35, .10), "expansion": (.30, .70, .20), "civic": (.90, .80, .15),
+             "corporate": (.20, .40, .90), "industrial": (.55, .45, .40), "technology": (.10, .75, .80)}
 if not opts.no_render:
     subgrid = bpy.data.collections["09_Streaming_Subgrid"]
     guides = bpy.data.collections["06_Streaming_Guides"]
     labels = bpy.data.collections["05_Labels"]
+    massing = [bpy.data.collections[n] for n in ("07_Skyline_Shells", "10_Block_Fabric")]
     for name, cam, (w, h), grid, *flags in SHOTS:
         labels.hide_render = "no-labels" in flags
+        highlight = "highlight" in flags
+        for c in massing:
+            c.hide_render = highlight
+        for did, col in HIGHLIGHT.items():
+            mat = bpy.data.materials.get("MP_District_" + did)
+            if mat:
+                if "orig_color" not in mat:
+                    mat["orig_color"] = list(mat.diffuse_color)
+                mat.diffuse_color = (*col, 1.0) if highlight else tuple(mat["orig_color"])
         if cam not in bpy.data.objects:
             errors.append("missing camera " + cam)
             continue

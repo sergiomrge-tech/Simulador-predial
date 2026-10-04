@@ -3,7 +3,8 @@
 **Data:** 2026-10-03
 **Blender:** 5.2.1 LTS (`C:\Program Files\Blender Foundation\Blender 5.2\blender.exe`, fora do PATH)
 **Arquivo:** `ArtSource/Blender/World/SantaAurora_Masterplan_v1.blend` (S0 / massing, não é arte final)
-**Status:** gate técnico **PASS**; aprovação espacial/narrativa **pendente de revisão do usuário**
+**Status:** gate técnico **PASS**. Revisão crítica (seção 7): **W1 NÃO APROVADO**, com 2 bloqueios. Aprovação final é decisão do usuário.
+**Folha de revisão:** `ArtSource/Blender/World/Reviews/W1/review_sheet.html` (gerada por `Tools/Map/build_w1_review_sheet.py`)
 
 ---
 
@@ -91,7 +92,7 @@ Os campos `from`/`to` das vias continuam presentes (primeiro/último ponto) para
 
 **Corporate:** blackouttower (114 m) e smarttower (91 m) mais shells de até 125 m formam o skyline vertical. O hospital 03:17 tem ala de rota técnica. O Vértice fica na Av. Santa Aurora.
 
-**Technology:** o data center tem pátio de energia e perímetro técnico parcial (muros S/W). A smart tower fica 750 m a sudeste, sem competir com o campus.
+**Technology:** o data center tem pátio de energia e perímetro técnico parcial (muros S/W). A smart tower fica a cerca de 1,0 km a sudeste, sem competir com o campus.
 
 **Central:** campus 360×420 m com 10 alas nomeadas (administrativo, monitoramento, data center municipal, telecom, emergência, distribuição elétrica, geradores, bombas, HVAC, automação), túneis de serviço em cruz e pátio central. R03 chega ao portão sul, R04 sai a leste e R01/R05 passam a sul/norte.
 
@@ -112,4 +113,73 @@ Os campos `from`/`to` das vias continuam presentes (primeiro/último ponto) para
 
 ## 6. Próximo passo
 
-Depois que o usuário aprovar as capturas: **W2 — Cidade Antiga, blockout de produção** (traçado irregular, calçadas, shells de bairro, lar inicial, Oficina Aurora, Horizonte, primeiros clientes, Teatro), conforme `Docs/W1_MASTERPLAN_CHECKLIST.md` seção H.
+Não avançar para W2 antes de resolver os bloqueios da seção 7 (iteração W1.1) e de o usuário aprovar as capturas. Depois: **W2 — Cidade Antiga, blockout de produção** (traçado irregular, calçadas, shells de bairro, lar inicial, Oficina Aurora, Horizonte, primeiros clientes, Teatro), conforme `Docs/W1_MASTERPLAN_CHECKLIST.md` seção H.
+
+---
+
+## 7. Revisão crítica das capturas (2026-10-03)
+
+As 10 capturas obrigatórias foram revisadas, junto com uma captura extra de destaque de distritos (`11_district_highlight.jpg`: cores saturadas, sem shells, só no passe de render; o `.blend` não é salvo). As distâncias agora são medidas **pela rede viária** com `Tools/Map/masterplan_routes.py` → `Docs/masterplan-routes-v1.json`, e não mais em linha reta.
+
+### 7.1 Por captura
+
+| # | Captura | Distrito | Câmera | Parecer |
+|---|---|---|---|---|
+| 01 | `01_top_8km.jpg` | cidade | CAM_Masterplan_Top | Atenção: distritos e vias legíveis; 11/64 células sem distrito fazem a cidade parecer "ilhas" |
+| 02 | `02_oblique_city.jpg` | cidade | CAM_Masterplan_Oblique | Atenção: plana e uniforme; sem marcos fora do Corporate |
+| 03 | `03_cidade_antiga.jpg` | Cidade Antiga | CAM_District_old | **Bloqueia**: grade perfeita de 180 m e nenhuma ferrovia/porto seco, contra a lore |
+| 04 | `04_expansao.jpg` | Expansão | CAM_District_expansion | **Bloqueia**: nenhuma ligação direta com a Cidade Antiga (desvio até 3,4×) |
+| 05 | `05_industrial.jpg` | Industrial | CAM_District_industrial | Atenção: pátios OK; tecido ralo (107 volumes / 9,3 km²) |
+| 06 | `06_corporate.jpg` | Corporate | CAM_District_corporate | Adequado: hierarquia e skyline (28 torres ≥60 m, máx. 125 m) |
+| 07 | `07_technology.jpg` | Technology | CAM_District_technology | Atenção: grande e vazio (6,3% de ocupação, 2 locais) |
+| 08 | `08_santa_aurora_central.jpg` | Central | CAM_District_civic | Adequado: campus legível; falta eixo cívico |
+| 09 | `09_skyline.jpg` | cidade | CAM_Skyline | Atenção: lê como cidade média-grande, não metrópole |
+| 10 | `10_streaming_grid.jpg` | cidade | CAM_Masterplan_Top + grid | Adequado: 64 células nomeadas; no máximo 3 locais por célula |
+
+### 7.2 Parece uma cidade grande?
+
+**Parcialmente.** Em planta, a escala é de cidade grande. Em perspectiva, lê como cidade média-grande com um centro empresarial. Motivos:
+- ocupação do solo baixa: Cidade Antiga 23,7%, Expansão 10,7%, Civic 9,8%, Industrial 15,7%, Corporate 16,0%, Technology 6,3%;
+- 11 de 64 células de 1 km sem distrito;
+- malha ortogonal repetida e terreno plano;
+- sem ferrovia, sem vegetação e sem marcos fora do Corporate.
+
+### 7.3 Algum distrito pequeno demais?
+
+**Não.** Todos têm entre 5,06 e 9,30 km². O risco real é o oposto: **Technology** e **Industrial** parecem grandes e vazios. A Cidade Antiga concentra os 8 locais iniciais num núcleo de cerca de 1,4×1,2 km.
+
+### 7.4 As distâncias justificam veículos?
+
+**Sim.** Capítulo I a pé: 8–16 min da garagem aos clientes (0,67–1,37 km pela rede). Do Capítulo II em diante, os locais fora da Cidade Antiga ficam a 4,6–8,9 km pela rede, o que dá 56–107 min a pé contra 9–18 min de carro urbano. A revenda de usados fica a 0,87 km do lar. A escala de tempo do jogo ainda não foi definida, então esses minutos são equivalentes reais. Parte da distância até a Expansão é artificial (desvio de 2,3–3,4×) e vai encolher com a ligação Old↔Expansão; a necessidade de veículo continua.
+
+### 7.5 Coerência dos 24 locais com a história
+
+A progressão espacial acompanha a campanha: Cidade Antiga → Expansão (II–III) → Corporate/Industrial (IV–VI, IX–XI) → Technology (VII) → Central (XII–XIV). Pontos fortes:
+- o condomínio perdido fica a cerca de 700 m do condomínio de Helena;
+- o hospital 03:17 fica a 16 min de carro, o que reforça a tensão do chamado;
+- no Cap. VII, HQ, data center e smart tower ficam em lados opostos da cidade, o que força a priorização;
+- todas as arteriais convergem em Central.
+
+Contradições:
+1. **Sem ligação Old↔Expansão.** O Cap. II mistura Teatro (Old) com escola e condomínio (Expansão), e a lore diz que a Expansão cresceu a partir da cidade antiga.
+2. **Sem ferrovia nem porto seco.** A lore e o `MAPA_CAMPANHA.md` dizem que a Cidade Antiga nasceu "ao redor da ferrovia, do porto seco e das primeiras indústrias", mas ela está separada do Industrial por cerca de 1 km vazio.
+3. **Relevo × drenagem.** O World Bible põe a cota mais baixa no SW, mas o canal corre no norte. A enchente do Cap. VIII precisa de uma lógica consistente. Requer decisão do usuário.
+
+Também: o Teatro Imperial não funciona como marco (falta praça ou eixo), e Central não tem eixo cívico de chegada.
+
+### 7.6 Correções exigidas antes de reapresentar (W1.1)
+
+1. **Bloqueio**: ligação viária Cidade Antiga ↔ Expansão (coletora leste-oeste no sul) e costura das malhas locais nas divisas. Meta: desvio ≤1,6 até school, recurringcondo, hotel e smallhospital.
+2. **Bloqueio**: corredor ferroviário oeste e porto seco ligando Cidade Antiga, R07 e Industrial, com armazéns antigos na borda oeste.
+3. Definir relevo e drenagem e aplicar terreno com declividade suave.
+4. Ocupar as faixas de transição. Meta: no máximo 5 células de 1 km sem uso.
+5. Praça e eixo de chegada do Teatro Imperial; eixo cívico de Central.
+6. Malha orgânica e ocupação ≥35% na Cidade Antiga (pode ficar para o blockout W2).
+7. Revisar escala ou densidade de Technology e Industrial.
+
+### 7.7 Regras mantidas
+
+- Tudo aqui é massing S0. Nenhuma tentativa de transformar o massing em arte final.
+- **O visual final de Santa Aurora não pode ser low-poly** (Art Bible: PBR, bevels, decals, clutter funcional, LOD, iluminação atmosférica).
+- **VEIN é apenas referência de patamar visual** (realismo, atmosfera, densidade, materialidade). Nenhum asset, textura, prédio, layout ou mapa é copiado.
+- **W1 não foi aprovado automaticamente.** A decisão é do usuário, depois das correções W1.1.

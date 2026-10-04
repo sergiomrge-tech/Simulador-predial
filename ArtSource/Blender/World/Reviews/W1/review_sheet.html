@@ -1,0 +1,386 @@
+<title>Revisão W1 Santa Aurora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75,600;75,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: prancha de revisão — carimbo técnico no topo, capturas em grade 2 colunas, depois parecer e tabelas. */
+:root {
+  --paper: #eef1f3; --sheet: #f8f9fa; --ink: #182028; --muted: #56626d; --line: #c9d0d6;
+  --accent: #b85d0c;
+  --ok: #2e7d4f; --warn: #a86b00; --block: #b3261e;
+  --ok-bg: #e3f1e8; --warn-bg: #f8edd6; --block-bg: #f9e1df;
+  --d-old: #c4561a; --d-expansion: #4a8f32; --d-industrial: #8a7769; --d-corporate: #3a5fc4; --d-technology: #138f99; --d-civic: #b59a10;
+  --f-display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #12171b; --sheet: #192026; --ink: #dfe5ea; --muted: #97a3ad; --line: #2f3a43;
+  --accent: #e88f3e; --ok: #6cc28d; --warn: #e3ad4a; --block: #f0827a;
+  --ok-bg: #1b3326; --warn-bg: #3a2e14; --block-bg: #3d1d1b;
+  --d-old: #e07a3e; --d-expansion: #73b85a; --d-industrial: #ab998b; --d-corporate: #6f8fe8; --d-technology: #3cc0c9; --d-civic: #d8bd3a;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --paper: #12171b; --sheet: #192026; --ink: #dfe5ea; --muted: #97a3ad; --line: #2f3a43;
+  --accent: #e88f3e; --ok: #6cc28d; --warn: #e3ad4a; --block: #f0827a;
+  --ok-bg: #1b3326; --warn-bg: #3a2e14; --block-bg: #3d1d1b;
+  --d-old: #e07a3e; --d-expansion: #73b85a; --d-industrial: #ab998b; --d-corporate: #6f8fe8; --d-technology: #3cc0c9; --d-civic: #d8bd3a;
+  color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 15px/1.55 var(--f-body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--f-display); font-stretch: 75%; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 800; letter-spacing: .01em; line-height: 1; }
+h2 { font-size: 26px; font-weight: 800; }
+h3 { font-size: 19px; font-weight: 600; }
+code { font-family: var(--f-mono); font-size: 12.5px; }
+.eyebrow { font: 500 12px var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+p { margin: 0; }
+.lede { max-width: 68ch; color: var(--muted); }
+
+/* Carimbo */
+.titleblock { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); border: 2px solid var(--ink); background: var(--sheet); }
+.tb-main { padding: 22px; display: grid; gap: 12px; border-right: 2px solid var(--ink); }
+.tb-fields { display: grid; grid-template-columns: auto minmax(0, 1fr); margin: 0; }
+.tb-fields dt, .tb-fields dd { margin: 0; padding: 7px 12px; border-bottom: 1px solid var(--line); }
+.tb-fields dt { font: 500 11px var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border-right: 1px solid var(--line); }
+.tb-fields dd { font-family: var(--f-mono); font-size: 13px; overflow-wrap: anywhere; }
+.status { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 2px solid var(--block); color: var(--block);
+  background: var(--block-bg); font: 800 15px var(--f-display); font-stretch: 75%; letter-spacing: .06em; text-transform: uppercase; justify-self: start; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; list-style: none; padding: 0; margin: 0; }
+.legend li { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+.sw { width: 14px; height: 14px; background: var(--d); border-radius: 2px; }
+
+/* Capturas */
+.shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; }
+.shot { margin: 0; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.frame { display: block; padding: 0; border: 1px solid var(--line); background: #7d8a96; cursor: zoom-in; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; }
+.shot.square .frame { aspect-ratio: 16 / 9; }
+.frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s ease; }
+.shot.square .frame img { object-fit: cover; object-position: center; }
+.frame:hover img { transform: scale(1.02); }
+.frame:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+figcaption { display: grid; gap: 8px; min-width: 0; }
+.cap-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.num { font: 500 13px var(--f-mono); color: var(--accent); }
+.cap-head .pill { margin-left: auto; }
+.cap-meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; color: var(--muted); }
+.file { color: var(--muted); font-size: 11.5px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.chip::before { content: ""; width: 10px; height: 10px; border-radius: 2px; background: var(--d); }
+.chip-all::before { background: linear-gradient(90deg, var(--d-old) 0 16%, var(--d-expansion) 16% 33%, var(--d-industrial) 33% 50%, var(--d-corporate) 50% 66%, var(--d-technology) 66% 83%, var(--d-civic) 83%); }
+.pill { font: 600 11px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; white-space: nowrap; }
+.pill-ok { color: var(--ok); background: var(--ok-bg); }
+.pill-warn { color: var(--warn); background: var(--warn-bg); }
+.pill-block { color: var(--block); background: var(--block-bg); }
+
+/* Parecer */
+.section { display: grid; gap: 16px; }
+.findings { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 16px; }
+.finding { border-top: 3px solid var(--line); padding-top: 12px; display: grid; gap: 8px; align-content: start; }
+.finding.block { border-color: var(--block); } .finding.warn { border-color: var(--warn); } .finding.ok { border-color: var(--ok); }
+.finding h3 { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.finding p, .finding li { max-width: 70ch; }
+.finding ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.tablebox { overflow-x: auto; border: 1px solid var(--line); background: var(--sheet); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 11px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--paper); position: sticky; top: 0; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); }
+td.note { min-width: 280px; color: var(--muted); }
+.fixes { counter-reset: fix; list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.fixes li { counter-increment: fix; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.fixes li::before { content: counter(fix, decimal-leading-zero); font: 500 13px var(--f-mono); color: var(--accent); }
+.rules { border: 2px solid var(--ink); padding: 18px 20px; display: grid; gap: 8px; background: var(--sheet); }
+.rules strong { font-family: var(--f-display); font-stretch: 75%; font-size: 18px; }
+footer { color: var(--muted); font-size: 13px; display: grid; gap: 4px; }
+
+dialog { border: 0; padding: 0; background: var(--sheet); color: var(--ink); max-width: min(96vw, 1800px); width: 100%; }
+dialog::backdrop { background: rgb(8 10 12 / .82); }
+dialog img { width: 100%; height: auto; display: block; max-height: 86vh; object-fit: contain; background: #7d8a96; }
+.dlg-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; }
+.dlg-bar button { font: 600 13px var(--f-body); padding: 6px 12px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+
+@media (max-width: 760px) {
+  .titleblock { grid-template-columns: minmax(0, 1fr); }
+  .tb-main { border-right: 0; border-bottom: 2px solid var(--ink); }
+  .shots { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .frame img { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header class="titleblock">
+    <div class="tb-main">
+      <span class="eyebrow">Project Facility · World Foundation</span>
+      <h1>Revisão W1 Santa Aurora</h1>
+      <p class="lede">Prancha de revisão do masterplan métrico 8×8 km. São 10 capturas obrigatórias e 1 extra, todas renders reais do arquivo salvo, reaberto em processo novo. Este é um massing S0: nada aqui é arte final.</p>
+      <span class="status">W1 não aprovado · aguardando decisão</span>
+      <ul class="legend" aria-label="Distritos"><li><span class="sw" style="--d: var(--d-old)"></span>Cidade Antiga</li><li><span class="sw" style="--d: var(--d-expansion)"></span>Expansão</li><li><span class="sw" style="--d: var(--d-industrial)"></span>Industrial</li><li><span class="sw" style="--d: var(--d-corporate)"></span>Corporate</li><li><span class="sw" style="--d: var(--d-technology)"></span>Technology</li><li><span class="sw" style="--d: var(--d-civic)"></span>Central</li></ul>
+    </div>
+    <dl class="tb-fields">
+      <dt>Arquivo</dt><dd>SantaAurora_Masterplan_v1.blend</dd>
+      <dt>Blender</dt><dd>5.2.1 LTS</dd>
+      <dt>Objetos</dt><dd>874 · missing data: 0</dd>
+      <dt>Campanha</dt><dd>24/24 locais · vida 20/20</dd>
+      <dt>Vias / células</dt><dd>8 corredores · 64 células 1 km</dd>
+      <dt>Gate técnico</dt><dd>PASS (validação + reabertura)</dd>
+      <dt>Gate W1</dt><dd>Reprovado nesta revisão; 2 bloqueios</dd>
+      <dt>Branch</dt><dd>claude/w1-masterplan</dd>
+    </dl>
+  </header>
+
+  <section class="section" aria-labelledby="h-shots">
+    <h2 id="h-shots">Capturas</h2>
+    <div class="shots">
+    <figure class="shot square">
+      <button class="frame" type="button" data-src="01_top_8km.jpg" data-title="Visão superior 8×8 km" aria-label="Ampliar Visão superior 8×8 km">
+        <img src="01_top_8km.jpg" alt="Visão superior 8×8 km: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">01</span><h3>Visão superior 8×8 km</h3><span class="pill pill-warn">Atenção</span></div>
+        <div class="cap-meta"><span class="chip chip-all">Cidade inteira</span><code>CAM_Masterplan_Top · ortho 8400 m</code></div>
+        <p>Os seis distritos e as oito vias são legíveis. 11 de 64 células de 1 km ficam sem distrito; as faixas vazias entre os bairros fazem a cidade parecer um conjunto de ilhas, não um tecido contínuo.</p>
+        <code class="file">01_top_8km.jpg</code>
+      </figcaption>
+    </figure>
+    <figure class="shot ">
+      <button class="frame" type="button" data-src="02_oblique_city.jpg" data-title="Visão oblíqua da cidade" aria-label="Ampliar Visão oblíqua da cidade">
+        <img src="02_oblique_city.jpg" alt="Visão oblíqua da cidade: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">02</span><h3>Visão oblíqua da cidade</h3><span class="pill pill-warn">Atenção</span></div>
+        <div class="cap-meta"><span class="chip chip-all">Cidade inteira</span><code>CAM_Masterplan_Oblique · 30 mm</code></div>
+        <p>Lê como cidade na escala certa, mas plana e uniforme. Fora do Corporate, faltam marcos verticais e topografia; as bordas sul e leste ficam vazias.</p>
+        <code class="file">02_oblique_city.jpg</code>
+      </figcaption>
+    </figure>
+    <figure class="shot ">
+      <button class="frame" type="button" data-src="03_cidade_antiga.jpg" data-title="Cidade Antiga" aria-label="Ampliar Cidade Antiga">
+        <img src="03_cidade_antiga.jpg" alt="Cidade Antiga: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">03</span><h3>Cidade Antiga</h3><span class="pill pill-block">Bloqueia aprovação</span></div>
+        <div class="cap-meta"><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span><code>CAM_District_old · ortho tilt 32°</code></div>
+        <p>É o distrito mais denso (23,7% de ocupação), mas a grade perfeita de 180 m contradiz um núcleo histórico nascido da ferrovia e do porto seco. Não há ferrovia modelada. Os locais hero somem na escala do distrito.</p>
+        <code class="file">03_cidade_antiga.jpg</code>
+      </figcaption>
+    </figure>
+    <figure class="shot ">
+      <button class="frame" type="button" data-src="04_expansao.jpg" data-title="Cinturão da Expansão" aria-label="Ampliar Cinturão da Expansão">
+        <img src="04_expansao.jpg" alt="Cinturão da Expansão: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">04</span><h3>Cinturão da Expansão</h3><span class="pill pill-block">Bloqueia aprovação</span></div>
+        <div class="cap-meta"><span class="chip" style="--d: var(--d-expansion)">Expansão</span><code>CAM_District_expansion · ortho tilt 32°</code></div>
+        <p>Condomínios, hotel e HQ têm volume e lote corretos. Não há ligação viária direta com a Cidade Antiga: a rota até a escola tem 7,6 km para 2,2 km em linha reta (3,4×). O miolo das quadras de 260 m está vazio (10,7% de ocupação).</p>
+        <code class="file">04_expansao.jpg</code>
+      </figcaption>
+    </figure>
+    <figure class="shot ">
+      <button class="frame" type="button" data-src="05_industrial.jpg" data-title="Distrito Industrial" aria-label="Ampliar Distrito Industrial">
+        <img src="05_industrial.jpg" alt="Distrito Industrial: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">05</span><h3>Distrito Industrial</h3><span class="pill pill-warn">Atenção</span></div>
+        <div class="cap-meta"><span class="chip" style="--d: var(--d-industrial)">Industrial</span><code>CAM_District_industrial · ortho tilt 32°</code></div>
+        <p>Os pátios da fábrica e do galpão funcionam, e a casa de bombas fica junto ao canal. O tecido de galpões é ralo (107 volumes em 9,3 km²). Faltam ferrovia, porto seco e o ramal que liga o distrito à Cidade Antiga.</p>
+        <code class="file">05_industrial.jpg</code>
+      </figcaption>
+    </figure>
+    <figure class="shot ">
+      <button class="frame" type="button" data-src="06_corporate.jpg" data-title="Zona Empresarial" aria-label="Ampliar Zona Empresarial">
+        <img src="06_corporate.jpg" alt="Zona Empresarial: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">06</span><h3>Zona Empresarial</h3><span class="pill pill-ok">Adequado</span></div>
+        <div class="cap-meta"><span class="chip" style="--d: var(--d-corporate)">Corporate</span><code>CAM_District_corporate · ortho tilt 32°</code></div>
+        <p>A hierarquia lê bem: shopping, hospital 03:17, Vértice e torre do apagão na Av. Santa Aurora. São 28 torres acima de 60 m e máximo de 125 m. Funciona para skyline de cidade média-grande.</p>
+        <code class="file">06_corporate.jpg</code>
+      </figcaption>
+    </figure>
+    <figure class="shot ">
+      <button class="frame" type="button" data-src="07_technology.jpg" data-title="Distrito Tecnológico" aria-label="Ampliar Distrito Tecnológico">
+        <img src="07_technology.jpg" alt="Distrito Tecnológico: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">07</span><h3>Distrito Tecnológico</h3><span class="pill pill-warn">Atenção</span></div>
+        <div class="cap-meta"><span class="chip" style="--d: var(--d-technology)">Technology</span><code>CAM_District_technology · ortho tilt 32°</code></div>
+        <p>Tem 8,1 km² para dois locais de campanha e uma residência premium. Com 6,3% de ocupação, o risco aqui é o oposto de pequeno demais: grande e vazio. Data center e smart tower ficam bem separados.</p>
+        <code class="file">07_technology.jpg</code>
+      </figcaption>
+    </figure>
+    <figure class="shot ">
+      <button class="frame" type="button" data-src="08_santa_aurora_central.jpg" data-title="Santa Aurora Central" aria-label="Ampliar Santa Aurora Central">
+        <img src="08_santa_aurora_central.jpg" alt="Santa Aurora Central: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">08</span><h3>Santa Aurora Central</h3><span class="pill pill-ok">Adequado</span></div>
+        <div class="cap-meta"><span class="chip" style="--d: var(--d-civic)">Central</span><code>CAM_District_civic · ortho tilt 32°</code></div>
+        <p>Campus de 360×420 m com 10 alas e túneis em cruz; R03 chega ao portão sul, R01/R05 passam a sul/norte e R04 sai a leste. Ainda falta um eixo ou praça cívica que anuncie o complexo como final da campanha.</p>
+        <code class="file">08_santa_aurora_central.jpg</code>
+      </figcaption>
+    </figure>
+    <figure class="shot ">
+      <button class="frame" type="button" data-src="09_skyline.jpg" data-title="Composição do skyline" aria-label="Ampliar Composição do skyline">
+        <img src="09_skyline.jpg" alt="Composição do skyline: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">09</span><h3>Composição do skyline</h3><span class="pill pill-warn">Atenção</span></div>
+        <div class="cap-meta"><span class="chip chip-all">Cidade inteira</span><code>CAM_Skyline · 40 mm, 420 m de altura</code></div>
+        <p>Corporate e Technology formam uma silhueta; a Expansão em primeiro plano lê como subúrbio de média altura. O conjunto parece cidade média-grande, não metrópole.</p>
+        <code class="file">09_skyline.jpg</code>
+      </figcaption>
+    </figure>
+    <figure class="shot square">
+      <button class="frame" type="button" data-src="10_streaming_grid.jpg" data-title="Grid de streaming" aria-label="Ampliar Grid de streaming">
+        <img src="10_streaming_grid.jpg" alt="Grid de streaming: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">10</span><h3>Grid de streaming</h3><span class="pill pill-ok">Adequado</span></div>
+        <div class="cap-meta"><span class="chip chip-all">Cidade inteira</span><code>CAM_Masterplan_Top · grid 1 km + 250 m</code></div>
+        <p>As 64 células SA_M00_00…SA_M07_07 estão nomeadas, com subgrid de 250 m. A célula mais carregada tem 3 locais de campanha, o que é viável para streaming.</p>
+        <code class="file">10_streaming_grid.jpg</code>
+      </figcaption>
+    </figure>
+    <figure class="shot square">
+      <button class="frame" type="button" data-src="11_district_highlight.jpg" data-title="Destaque dos distritos" aria-label="Ampliar Destaque dos distritos">
+        <img src="11_district_highlight.jpg" alt="Destaque dos distritos: captura real do Blender" loading="lazy">
+      </button>
+      <figcaption>
+        <div class="cap-head"><span class="num">11</span><h3>Destaque dos distritos</h3><span class="pill pill-ok">Adequado</span></div>
+        <div class="cap-meta"><span class="chip chip-all">Cidade inteira</span><code>CAM_Masterplan_Top · cores de revisão</code></div>
+        <p>Captura extra, só para revisão: distritos em cores saturadas, sem shells. Mostra a posse resolvida das costuras e a relação de cada local com o seu distrito.</p>
+        <code class="file">11_district_highlight.jpg</code>
+      </figcaption>
+    </figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-review">
+    <h2 id="h-review">Parecer crítico</h2>
+    <div class="findings">
+      <article class="finding warn">
+        <h3>Parece uma cidade grande? <span class="pill pill-warn">Atenção</span></h3>
+        <p>Em planta, sim: 64 km², seis distritos e oito arteriais. Em perspectiva, lê como <strong>cidade média-grande com centro empresarial</strong>, não como metrópole.</p>
+        <ul>
+          <li>Ocupação do solo baixa: Cidade Antiga 23,7%, Expansão 10,7%, Technology 6,3%. Um centro histórico real costuma passar de 40%.</li>
+          <li>11 de 64 células de 1 km (17%) estão fora de qualquer distrito. São as faixas vazias entre bairros.</li>
+          <li>A malha ortogonal é idêntica em toda parte, e não há topografia, ferrovia, vegetação nem marcos fora do Corporate.</li>
+        </ul>
+      </article>
+      <article class="finding warn">
+        <h3>Algum distrito pequeno demais? <span class="pill pill-warn">Atenção</span></h3>
+        <p>Nenhum é pequeno: todos têm entre 5,1 e 9,3 km², e Central é o menor por ser um campus. O risco é o contrário: <strong>Technology (8,1 km², 2 locais) e Industrial (9,3 km², 107 volumes) parecem grandes e vazios</strong>. Já a Cidade Antiga concentra os 8 locais iniciais num núcleo de cerca de 1,4×1,2 km dentro de 8,4 km².</p>
+      </article>
+      <article class="finding ok">
+        <h3>As distâncias justificam veículo? <span class="pill pill-ok">Adequado</span></h3>
+        <p>Sim. O Capítulo I cabe a pé, com 8–16 min da garagem a cada cliente. Do Capítulo II em diante, os locais fora da Cidade Antiga ficam a 4,6–8,9 km pela rede: 56–107 min a pé contra 9–18 min de carro. A revenda de usados fica a 0,9 km do lar, o que permite comprar o V1 cedo.</p>
+        <p>Ressalva: parte da distância para a Expansão é artificial (desvio de 2,3–3,4×) e some quando a ligação Old↔Expansão for criada. A necessidade de veículo continua.</p>
+      </article>
+      <article class="finding block">
+        <h3>Os 24 locais são coerentes com a história? <span class="pill pill-block">Bloqueia aprovação</span></h3>
+        <p>A progressão espacial acompanha a campanha: começa na Cidade Antiga, passa pela Expansão, segue para Corporate e Industrial, depois Technology, e termina em Central. Dois pontos contradizem a lore:</p>
+        <ul>
+          <li><strong>Sem ligação Old↔Expansão.</strong> O Cap. II mistura Teatro (Old) com escola e condomínio (Expansão), e a lore diz que a Expansão cresceu a partir da cidade antiga.</li>
+          <li><strong>Sem ferrovia nem porto seco.</strong> A lore e o MAPA_CAMPANHA definem a Cidade Antiga como nascida "ao redor da ferrovia, do porto seco e das primeiras indústrias", mas ela fica isolada do Industrial por 1 km de vazio.</li>
+          <li>Precisa de decisão: o Bible coloca a cota mais baixa no SW, mas o canal de drenagem corre no norte. A enchente do Cap. VIII precisa de uma lógica de relevo consistente.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-locs">
+    <h2 id="h-locs">Os 24 locais da campanha</h2>
+    <p class="lede">A distância é medida pela rede viária a partir da Oficina Aurora (<code>garage</code>). O desvio é a razão entre a rota e a linha reta; acima de 2 indica falta de ligação.</p>
+    <div class="tablebox"><table>
+      <thead><tr><th>ID</th><th>Distrito</th><th>Capítulos</th><th class="n">Rede km</th><th class="n">Desvio</th><th>Parecer</th><th>Nota</th></tr></thead>
+      <tbody><tr><td><code>garage</code></td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td>Prólogo, I, XIV</td>
+      <td class="n">0.0</td><td class="n"></td><td><span class="pill pill-ok">Adequado</span></td><td class="note">Fica na Av. do Trabalho, a 0,4 km do lar pela rede. Base plausível para começar a pé.</td></tr><tr><td><code>horizonte</code></td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td>Prólogo, I, VIII, XIV</td>
+      <td class="n">0.8</td><td class="n">1.53</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">Fica a 0,76 km da garagem pela rede. Com 37 m, é o prédio mais alto do bairro (o tecido vai a 19 m) e se destaca na malha.</td></tr><tr><td><code>apartments</code></td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td>I</td>
+      <td class="n">0.9</td><td class="n">1.36</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">0,95 km por rua local.</td></tr><tr><td><code>grocery</code></td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td>I</td>
+      <td class="n">0.9</td><td class="n">1.39</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">0,95 km por rua local.</td></tr><tr><td><code>restaurant</code></td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td>I</td>
+      <td class="n">1.4</td><td class="n">1.48</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">1,4 km. Ainda dá para ir a pé.</td></tr><tr><td><code>workshop</code></td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td>I</td>
+      <td class="n">0.7</td><td class="n">1.32</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">0,67 km.</td></tr><tr><td><code>smalloffice</code></td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td>I</td>
+      <td class="n">1.2</td><td class="n">1.3</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">1,2 km.</td></tr><tr><td><code>imperial</code></td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td>II</td>
+      <td class="n">1.2</td><td class="n">1.46</td><td><span class="pill pill-warn">Atenção</span></td><td class="note">Distância correta (1,2 km), mas sem praça ou eixo que o faça funcionar como marco. O lote de 78×96 m some no tecido.</td></tr><tr><td><code>school</code></td><td><span class="chip" style="--d: var(--d-expansion)">Expansão</span></td><td>II</td>
+      <td class="n">7.6</td><td class="n">3.43</td><td><span class="pill pill-block">Bloqueia aprovação</span></td><td class="note">Primeira inspeção de Lara. Rota de 7,6 km para 2,2 km em linha reta, por falta de ligação Old↔Expansão.</td></tr><tr><td><code>recurringcondo</code></td><td><span class="chip" style="--d: var(--d-expansion)">Expansão</span></td><td>II</td>
+      <td class="n">6.9</td><td class="n">2.27</td><td><span class="pill pill-warn">Atenção</span></td><td class="note">Faz sentido como primeiro contrato fora do bairro e pede o V1. A rota de 6,9 km (2,3× a linha reta) vem do mesmo defeito de conexão.</td></tr><tr><td><code>lostcondo</code></td><td><span class="chip" style="--d: var(--d-expansion)">Expansão</span></td><td>III</td>
+      <td class="n">7.1</td><td class="n">1.93</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">Fica a cerca de 700 m do condomínio de Helena. O concorrente vizinho reforça o drama do Cap. III.</td></tr><tr><td><code>hotel</code></td><td><span class="chip" style="--d: var(--d-expansion)">Expansão</span></td><td>IV, VI</td>
+      <td class="n">8.8</td><td class="n">2.59</td><td><span class="pill pill-warn">Atenção</span></td><td class="note">Lote e doca corretos. A rota de 8,8 km (2,6×) vem do defeito de conexão.</td></tr><tr><td><code>smallhospital</code></td><td><span class="chip" style="--d: var(--d-expansion)">Expansão</span></td><td>IV</td>
+      <td class="n">6.2</td><td class="n">2.36</td><td><span class="pill pill-warn">Atenção</span></td><td class="note">Acesso local correto. A rota de 6,2 km (2,4×) vem do defeito de conexão.</td></tr><tr><td><code>companyhq</code></td><td><span class="chip" style="--d: var(--d-expansion)">Expansão</span></td><td>VII, X, XIII</td>
+      <td class="n">8.2</td><td class="n">2.15</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">Fica perto dos veículos comerciais, com galpão de frota. Coerente com a fase de equipes.</td></tr><tr><td><code>mall</code></td><td><span class="chip" style="--d: var(--d-corporate)">Corporate</span></td><td>IV, VIII</td>
+      <td class="n">7.1</td><td class="n">1.4</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">Fica no Eixo Empresarial, a 7,1 km. O Cap. IV exige veículo.</td></tr><tr><td><code>hospital0317</code></td><td><span class="chip" style="--d: var(--d-corporate)">Corporate</span></td><td>V, VIII</td>
+      <td class="n">8.0</td><td class="n">1.41</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">16 min de carro a partir da garagem. A distância reforça a tensão do chamado das 03:17.</td></tr><tr><td><code>blackouttower</code></td><td><span class="chip" style="--d: var(--d-corporate)">Corporate</span></td><td>IX</td>
+      <td class="n">7.6</td><td class="n">1.23</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">Fica na Av. Santa Aurora; é a torre de 114 m visível do skyline.</td></tr><tr><td><code>vertice</code></td><td><span class="chip" style="--d: var(--d-corporate)">Corporate</span></td><td>III, VI, X, XI</td>
+      <td class="n">6.9</td><td class="n">1.3</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">Fica a cerca de 1,1 km da torre do apagão. Sede corporativa plausível.</td></tr><tr><td><code>logistics</code></td><td><span class="chip" style="--d: var(--d-industrial)">Industrial</span></td><td>IV</td>
+      <td class="n">4.8</td><td class="n">1.26</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">Pátio de caminhões de 220×60 m, junto ao Anel Norte.</td></tr><tr><td><code>factory</code></td><td><span class="chip" style="--d: var(--d-industrial)">Industrial</span></td><td>VI</td>
+      <td class="n">4.6</td><td class="n">1.0</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">Pátio de 200×80 m e chaminé de 48 m. 4,6 km da garagem.</td></tr><tr><td><code>drainage</code></td><td><span class="chip" style="--d: var(--d-industrial)">Industrial</span></td><td>VIII</td>
+      <td class="n">6.5</td><td class="n">1.19</td><td><span class="pill pill-warn">Atenção</span></td><td class="note">Fica entre o canal e a Marginal. O Bible coloca a cota mais baixa no SW (Cidade Antiga), mas o canal corre no norte; a lógica da enchente precisa ser decidida.</td></tr><tr><td><code>datacenter</code></td><td><span class="chip" style="--d: var(--d-technology)">Technology</span></td><td>VII</td>
+      <td class="n">8.6</td><td class="n">1.23</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">8,6 km da garagem. Com a smart tower e a HQ em lados opostos da cidade, o Cap. VII força a escolha de prioridades.</td></tr><tr><td><code>smarttower</code></td><td><span class="chip" style="--d: var(--d-technology)">Technology</span></td><td>VII</td>
+      <td class="n">8.9</td><td class="n">1.26</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">8,9 km, longe do campus do data center.</td></tr><tr><td><code>central</code></td><td><span class="chip" style="--d: var(--d-civic)">Central</span></td><td>XII, XIII, XIV</td>
+      <td class="n">4.9</td><td class="n">1.26</td><td><span class="pill pill-ok">Adequado</span></td><td class="note">Fica no centro geométrico, onde as vias convergem, a 4,9 km da garagem.</td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="section" aria-labelledby="h-routes">
+    <h2 id="h-routes">Rotas a partir do lar inicial</h2>
+    <p class="lede">Os minutos são equivalentes reais (a pé 5 km/h, transporte inicial V0 15 km/h, carro urbano 30 km/h). A escala de tempo do jogo ainda não foi definida, então a tabela só compara modos.</p>
+    <div class="tablebox"><table>
+      <thead><tr><th>Destino</th><th>Distrito</th><th class="n">Rede km</th><th class="n">A pé min</th><th class="n">V0 min</th><th class="n">Carro min</th></tr></thead>
+      <tbody><tr><td>Loja de ferramentas</td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td class="n">0.5</td>
+      <td class="n">6</td><td class="n">2</td><td class="n">1</td></tr><tr><td>Revenda de usados (V1)</td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td class="n">0.9</td>
+      <td class="n">10</td><td class="n">4</td><td class="n">2</td></tr><tr><td>Horizonte</td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td class="n">1.0</td>
+      <td class="n">12</td><td class="n">4</td><td class="n">2</td></tr><tr><td>Casa elétrica</td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td class="n">1.6</td>
+      <td class="n">19</td><td class="n">6</td><td class="n">3</td></tr><tr><td>Posto Cidade Antiga</td><td><span class="chip" style="--d: var(--d-old)">Cidade Antiga</span></td><td class="n">2.8</td>
+      <td class="n">33</td><td class="n">11</td><td class="n">6</td></tr><tr><td>Santa Aurora Central</td><td><span class="chip" style="--d: var(--d-civic)">Central</span></td><td class="n">5.2</td>
+      <td class="n">62</td><td class="n">21</td><td class="n">10</td></tr><tr><td>Condomínio de Helena</td><td><span class="chip" style="--d: var(--d-expansion)">Expansão</span></td><td class="n">7.2</td>
+      <td class="n">86</td><td class="n">29</td><td class="n">14</td></tr><tr><td>Escola pública</td><td><span class="chip" style="--d: var(--d-expansion)">Expansão</span></td><td class="n">7.9</td>
+      <td class="n">95</td><td class="n">32</td><td class="n">16</td></tr><tr><td>Hospital 03:17</td><td><span class="chip" style="--d: var(--d-corporate)">Corporate</span></td><td class="n">8.3</td>
+      <td class="n">100</td><td class="n">33</td><td class="n">17</td></tr><tr><td>Data center</td><td><span class="chip" style="--d: var(--d-technology)">Technology</span></td><td class="n">8.9</td>
+      <td class="n">107</td><td class="n">36</td><td class="n">18</td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="section" aria-labelledby="h-fix">
+    <h2 id="h-fix">Correções para a próxima iteração (W1.1)</h2>
+    <ol class="fixes">
+      <li><span><strong>Bloqueio:</strong> criar ligação viária Cidade Antiga ↔ Expansão (coletora leste-oeste no sul, z≈-2000 a -2600) e costurar as malhas locais nas divisas. Meta: desvio ≤1,6 até school, recurringcondo, hotel e smallhospital.</span></li>
+      <li><span><strong>Bloqueio:</strong> modelar o corredor ferroviário oeste e o porto seco ligando Cidade Antiga, Estrada do Porto Seco e Industrial, com armazéns antigos na borda oeste da Cidade Antiga.</span></li>
+      <li><span>Decidir a lógica de relevo e drenagem (para onde a água escoa, onde alaga no Cap. VIII) e aplicar terreno com declividade suave.</span></li>
+      <li><span>Ocupar as faixas de transição com bairros de baixa densidade, postos, vegetação e infraestrutura. Meta: no máximo 5 células de 1 km sem uso definido.</span></li>
+      <li><span>Dar ao Teatro Imperial uma praça frontal e eixo de chegada, e à Central um eixo cívico.</span></li>
+      <li><span>Quebrar a regularidade da malha da Cidade Antiga (traçado orgânico) e subir a ocupação para ≥35%. Isso pode ficar para o blockout W2.</span></li>
+      <li><span>Revisar escala de Technology e Industrial: reduzir área útil ou adensar, para que não leiam como vazios.</span></li>
+    </ol>
+  </section>
+
+  <aside class="rules">
+    <strong>Regras que continuam valendo</strong>
+    <p>Isto é massing de planejamento espacial. <strong>O visual final de Santa Aurora não pode ser low-poly</strong>: produção exige PBR, bevels, decals, clutter funcional, LOD e iluminação atmosférica, conforme a Art Bible.</p>
+    <p><strong>VEIN é só referência de patamar visual</strong> (realismo urbano, atmosfera, densidade e materialidade). Nenhum asset, textura, prédio, layout ou mapa é copiado.</p>
+  </aside>
+
+  <footer>
+    <span>Gerado por <code>Tools/Map/build_w1_review_sheet.py</code> a partir de <code>Docs/masterplan-routes-v1.json</code> e <code>Reviews/W1/w1_reopen_report.json</code>.</span>
+    <span>Relatório completo: <code>Docs/W1_MASTERPLAN_RELATORIO.md</code>.</span>
+  </footer>
+</div>
+
+<dialog id="viewer" aria-label="Captura ampliada">
+  <div class="dlg-bar"><strong id="viewer-title"></strong><button type="button" id="viewer-close">Fechar</button></div>
+  <img id="viewer-img" alt="">
+</dialog>
+<script>
+(() => {
+  const dlg = document.getElementById("viewer");
+  const img = document.getElementById("viewer-img");
+  const title = document.getElementById("viewer-title");
+  document.querySelectorAll(".frame").forEach(btn => btn.addEventListener("click", () => {
+    img.src = btn.dataset.src; img.alt = btn.dataset.title; title.textContent = btn.dataset.title;
+    if (dlg.showModal) dlg.showModal();
+  }));
+  document.getElementById("viewer-close").addEventListener("click", () => dlg.close());
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+})();
+</script>
