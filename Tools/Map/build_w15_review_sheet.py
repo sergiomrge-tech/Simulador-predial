@@ -40,6 +40,7 @@ SHOTS = [
     ("06_oficina_aurora.jpg", "Oficina Aurora", "oldtown", "CAM_OT_Garage_Exterior"),
     ("06b_oficina_aurora_corte.jpg", "Oficina Aurora — corte (G0)", "oldtown", "CAM_OT_Garage_Cutaway"),
     ("07_horizonte.jpg", "Edifício Horizonte (vista da rua)", "oldtown", "CAM_OT_Horizonte"),
+    ("07b_horizonte_fachada.jpg", "Edifício Horizonte — fachada de entrada", "oldtown", "CAM_OT_Horizonte_Frente"),
     ("08_teatro_imperial.jpg", "Teatro Imperial", "oldtown", "CAM_OT_Imperial"),
     ("09_industrial.jpg", "Industrial atualizado", "masterplan", "CAM_District_industrial"),
     ("09b_industrial_baixo.jpg", "Industrial — vista baixa", "masterplan", "CAM_Industrial_Low"),
@@ -97,9 +98,9 @@ th,td{{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}} th
 <div class="w">
 <header><span class="tag">W1.5 · base estrutural — não é arte final</span>
 <h1>Revisão W1.5 Santa Aurora</h1>
-<p class="lede">São 25 capturas reais do Blender {esc(reopen['masterplan']['blenderVersion'])}, renderizadas depois de reabrir cada arquivo num processo novo, todas sem dados faltando: masterplan com {reopen['masterplan']['objectCount']} objetos, Cidade Antiga com {reopen['oldtown']['objectCount']} objetos e {ot['lots']} lotes, e kit com {reopen['kit']['objectCount']} objetos. A validação estática passou com {len(val['errors'])} erros.</p></header>
+<p class="lede">São 26 capturas reais do Blender {esc(reopen['masterplan']['blenderVersion'])}, renderizadas depois de reabrir cada arquivo num processo novo, todas sem dados faltando: masterplan com {reopen['masterplan']['objectCount']} objetos, Cidade Antiga com {reopen['oldtown']['objectCount']} objetos e {ot['lots']} lotes, e kit com {reopen['kit']['objectCount']} objetos. A validação estática passou com {len(val['errors'])} erros.</p></header>
 <section><h2>W1 × W1.5</h2><div class="grid2">{pairs_html}</div></section>
-<section><h2>As 25 capturas</h2><div class="shots">{shots_html}</div></section>
+<section><h2>As 26 capturas</h2><div class="shots">{shots_html}</div></section>
 <section class="grid2">
 <div><h2>Escala e deslocamento</h2><p class="lede">Os tempos usam as velocidades do protótipo (3 m/s andando, 5 m/s correndo) e carro urbano a 30 km/h. Atravessar a cidade leva {sc['walkAcrossMin']} min andando e {sc['sprintAcrossMin']} min correndo; a diagonal correndo leva {sc['sprintDiagonalMin']} min.</p>
 <div class="box"><table><thead><tr><th>Do lar até</th><th class=n>km</th><th class=n>a pé</th><th class=n>correndo</th><th class=n>carro</th></tr></thead><tbody>{route_rows}</tbody></table></div></div>

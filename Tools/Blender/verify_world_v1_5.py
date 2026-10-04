@@ -136,6 +136,7 @@ SHOTS = {
         ("06_oficina_aurora", "CAM_OT_Garage_Exterior", (2400, 1350), {}),
         ("06b_oficina_aurora_corte", "CAM_OT_Garage_Cutaway", (1800, 1800), {"cut": ("garage", 0)}),
         ("07_horizonte", "CAM_OT_Horizonte", (2400, 1350), {}),
+        ("07b_horizonte_fachada", "CAM_OT_Horizonte_Frente", (2400, 1350), {}),
         ("08_teatro_imperial", "CAM_OT_Imperial", (2400, 1350), {}),
     ],
     "kit": [

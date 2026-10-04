@@ -104,7 +104,7 @@ for k, v in enumerate(OLDTOWN_VARIANTS):
     top_z = sa_arch.building_mesh(mb, v, k)
     o = mb.to_object("FAM_" + v["id"], [lib[n] for n in sa_arch.variant_materials(v, k)], fam_tmp)
     sa_bl.props(o, sa_family=v["family"], sa_variant=v["id"], footprint_m=[v["w"], v["d"]], floors=v["floors"], height_m=v["height"],
-                roof=v["roof"], sa_stage="W1.5 família de massing (LOD1 base; LOD0 final pendente)")
+                roof=v["roof"], sa_stage="W1.5 famÃ­lia de massing (LOD1 base; LOD0 final pendente)")
     variant_stats[v["id"]] = {"faces": len(mb.faces), "top_z": round(top_z, 2)}
     fam_objs.append(o)
 fam_lib, fam_index = sa_bl.library_collection("OT_Lib_Families", fam_objs, library)
@@ -285,6 +285,11 @@ for pl in ot.data["plazas"]:
     mb.box(c[0], c[1], zc - .8, px1 - px0, py1 - py0, .8 + ROAD_LIFT + SIDEWALK_H, RM["calcada"])
     for gx in (px0 + (px1 - px0) * .25, px0 + (px1 - px0) * .75):
         mb.box(gx, c[1], zc + ROAD_LIFT + SIDEWALK_H, (px1 - px0) * .18, (py1 - py0) * .4, .25, RM["grama"])
+# Hero forecourts: paved, at sidewalk level (they stay open between facade and street).
+for hid, fc in ot.forecourts().items():
+    mb = rmb(fc.c)
+    zc = min(zs(*q) for q in fc.corners())
+    mb.obb_box(fc.corners(), zc - .6, .6 + ROAD_LIFT + SIDEWALK_H - .01, RM["calcada"])
 for lot in ot.lots:
     if lot["family"] not in ("vacant", "parking"):
         continue
@@ -354,7 +359,7 @@ for (macro, sub), pts in arch_pts.items():
     o = sa_bl.point_cloud_object(name, pts, fam_lib, cell_collection("Architecture", macro))
     register("Architecture", name, sub, o, instances=len(pts))
 
-# Special lots (suppliers, used cars, fuel, café, house with workshop) and the Estação Velha landmark.
+# Special lots (suppliers, used cars, fuel, cafÃ©, house with workshop) and the EstaÃ§Ã£o Velha landmark.
 spec_coll = sa_bl.collection("OT_Architecture_SpecialLots", layer_coll["Architecture"])
 SPECIAL_VARIANT = {"shop": "cr_d", "cafe": "cr_b", "house_workshop": "cas_d"}
 for s_ in ot.data["specialLots"]:
@@ -512,18 +517,19 @@ garage = next(h for h in ot.data["heroes"] if h["id"] == "garage")
 hz = hero_z
 cam("CAM_OT_Top", (-2525, -2050, 3000), rot=(0, 0, 0), ortho=1900)
 cam("CAM_OT_Oblique", (-1650, -3350, 650), target=(-2500, -2000, 20), lens=32)
-cam("CAM_OT_Home_Exterior", (-2846, -2243, hz["home.starter"] + 3.5), target=(-2860, -2279, hz["home.starter"] + 5.5), lens=26)
+cam("CAM_OT_Home_Exterior", (-2855, -2257, hz["home.starter"] + 1.7), target=(-2860, -2279, hz["home.starter"] + 6.0), lens=20)
 cam("CAM_OT_Home_Cutaway", (-2863.9, -2274.3, hz["home.starter"] + 3.0 + 16), rot=(0, 0, 0), ortho=11.0)
 cam("CAM_OT_Garage_Exterior", (-2738, -2175, hz["garage"] + 5), target=(-2700, -2148, hz["garage"] + 3), lens=26)
 cam("CAM_OT_Garage_Cutaway", (-2695, -2147, hz["garage"] + 40), rot=(0, 0, 0), ortho=40.0)
 cam("CAM_OT_Horizonte", (-2326, -1861, hz["horizonte"] + 2.5), target=(-2352, -1802, hz["horizonte"] + 17), lens=18)
+cam("CAM_OT_Horizonte_Frente", (-2338, -1849, hz["horizonte"] + 1.7), target=(-2352, -1812, hz["horizonte"] + 11), lens=16)
 cam("CAM_OT_Imperial", (-2000, -2512, hz["imperial"] + 7), target=(-2052, -2615, hz["imperial"] + 11), lens=24)
 cam("CAM_OT_Cells", (-2525, -2050, 3000), rot=(0, 0, 0), ortho=3100)
 scene.camera = bpy.data.objects["CAM_OT_Oblique"]
 
 scene["facility_world"] = "Santa Aurora"
 scene["facility_area"] = "Cidade Antiga"
-scene["facility_stage"] = "W1.5 base de produção (estrutura; não é arte final)"
+scene["facility_stage"] = "W1.5 base de produÃ§Ã£o (estrutura; nÃ£o Ã© arte final)"
 out_dir = root / "ArtSource" / "Blender" / "World" / "OldTown"
 blend = out_dir / "SantaAurora_CidadeAntiga_Base_v1.blend"
 bpy.ops.wm.save_as_mainfile(filepath=str(blend), compress=True)

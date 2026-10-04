@@ -288,7 +288,9 @@ class OldTown:
             packer.block(o.grown(1.0), "other")
         for o in self.rail_obbs:
             packer.block(o, "rail")
-        # Hero forecourts stay open between the facade and the street.
+        # Hero forecourts stay open between the facade and the street (front side of the lot, 32 m deep).
+        for fc in self.forecourts().values():
+            packer.block(fc, "forecourt")
         for h in self.data["heroes"]:
             for pk in h.get("parking", []):
                 if pk.get("kind") in ("car", "dropoff", "truck"):
@@ -333,6 +335,33 @@ class OldTown:
         for k, lot in enumerate(self.lots):
             lot["id"] = f"OT_LOT_{k:05d}"
             lot["core"] = self.in_core(lot["obb"].c)
+
+    def forecourts(self, max_depth=32.0):
+        """Open area between each hero's front edge and the near edge of its street (never crossing the street)."""
+        out = {}
+        g = self.graph
+        for h in self.data["heroes"]:
+            x0, z0, x1, z1 = h["lot"]
+            f = h["front"]
+            mid = {"S": ((x0 + x1) / 2, z0), "N": ((x0 + x1) / 2, z1), "E": (x1, (z0 + z1) / 2), "W": (x0, (z0 + z1) / 2)}[f]
+            sid = h["street"]
+            best = None
+            for eid, e in g.edges.items():
+                if e.get("street_id") == sid or e.get("road") == sid:
+                    a, b = g.seg(eid)
+                    dd = point_seg(mid, a, b)[0] - STREET[e["cls"]]["total"] / 2
+                    best = dd if best is None else min(best, dd)
+            depth = max_depth if best is None else max(3.0, min(max_depth, best - 0.5))
+            if f == "S":
+                r = [x0, z0 - depth, x1, z0]
+            elif f == "N":
+                r = [x0, z1, x1, z1 + depth]
+            elif f == "E":
+                r = [x1, z0, x1 + depth, z1]
+            else:
+                r = [x0 - depth, z0, x0, z1]
+            out[h["id"]] = rect_obb(r)
+        return out
 
     # ---------------------------------------------------------------- infrastructure / vegetation / lighting
     def _infrastructure(self):
@@ -522,6 +551,11 @@ class OldTown:
                 if obb_overlap(lot["obb"].grown(-0.05), other["obb"].grown(-0.05)):
                     self.errors.append(f"lots overlap {lot['id']} / {other['id']}")
             lot_hash.insert(lot["obb"].aabb(), lot)
+        fcs = self.forecourts()
+        for lot in self.lots:
+            for hid, fc in fcs.items():
+                if obb_overlap(lot["obb"].grown(-0.05), fc):
+                    self.errors.append(f"lot {lot['id']} blocks the forecourt of {hid}")
         # Every hero fronts its street within 35 m of its lot.
         for hero in self.data["heroes"]:
             sid = hero["street"]
