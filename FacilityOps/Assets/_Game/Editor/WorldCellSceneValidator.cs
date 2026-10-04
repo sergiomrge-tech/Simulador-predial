@@ -32,6 +32,9 @@ namespace FacilityOps.Editor
                 return;
             }
 
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                return;
+
             Scene active = SceneManager.GetActiveScene();
             string activePath = active.path;
 
@@ -85,7 +88,8 @@ namespace FacilityOps.Editor
             }
             finally
             {
-                if (!string.IsNullOrEmpty(activePath) && File.Exists(activePath))
+                if (!string.IsNullOrEmpty(activePath) &&
+                    AssetDatabase.LoadAssetAtPath<SceneAsset>(activePath) != null)
                     EditorSceneManager.OpenScene(activePath, OpenSceneMode.Single);
             }
 
