@@ -23,6 +23,9 @@ namespace FacilityOps
         [SerializeField] private float initialYaw = 180f;
         [SerializeField] private float initialLoadTimeoutSeconds = 30f;
 
+        private GameObject lastProceduralRoot;
+        private Coroutine routing;
+
         public bool Active { get; private set; }
         public string LastError { get; private set; }
 
@@ -76,11 +79,11 @@ namespace FacilityOps
             streamService.Refresh(homeCell);
 
             float deadline = Time.realtimeSinceStartup + Mathf.Max(5f, initialLoadTimeoutSeconds);
-            while (!streamService.LoadedCells.Contains(homeCell) &&
+            while (!streamService.IsLoaded(homeCell) &&
                    Time.realtimeSinceStartup < deadline)
                 yield return null;
 
-            if (!streamService.LoadedCells.Contains(homeCell))
+            if (!streamService.IsLoaded(homeCell))
             {
                 Fail(
                     "Initial world cell did not load: " +
@@ -144,11 +147,11 @@ namespace FacilityOps
             streamService.Refresh(targetCell);
 
             float deadline = Time.realtimeSinceStartup + Mathf.Max(5f, initialLoadTimeoutSeconds);
-            while (!streamService.LoadedCells.Contains(targetCell) &&
+            while (!streamService.IsLoaded(targetCell) &&
                    Time.realtimeSinceStartup < deadline)
                 yield return null;
 
-            if (!streamService.LoadedCells.Contains(targetCell))
+            if (!streamService.IsLoaded(targetCell))
             {
                 Fail("Destination cell did not load: " + WorldStreamingSceneNaming.SceneName(targetCell));
                 yield break;
@@ -225,7 +228,7 @@ namespace FacilityOps
             string nameSuffix,
             out WorldGameplayMarker found)
         {
-            WorldGameplayMarker[] markers = FindObjectsByType<WorldGameplayMarker>(
+            WorldGameplayMarker[] markers = UnityEngine.Object.FindObjectsByType<WorldGameplayMarker>(
                 FindObjectsInactive.Exclude,
                 FindObjectsSortMode.None);
 
