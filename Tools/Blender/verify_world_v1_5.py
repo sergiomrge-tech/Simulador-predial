@@ -152,6 +152,9 @@ SHOTS = {
         ("w25_09_oficina_na_cidade", "CAM_OT_Garage_Exterior", (2400, 1350), {}),
         ("w25_10_horizonte_na_cidade", "CAM_OT_Horizonte_Frente", (2400, 1350), {}),
         ("w25_11_teatro_na_cidade", "CAM_OT_Imperial", (2400, 1350), {}),
+        ("w25_19_rua_arborizada", "CAM_OT_Rua_Arborizada", (2400, 1350), {}),
+        ("w25_20_pracinha", "CAM_OT_Pracinha", (2400, 1350), {}),
+        ("w25_21_residencial_obliqua", "CAM_OT_Residencial_Obliqua", (2400, 1350), {}),
     ],
     "kit": [
         ("20_kit_modular", "CAM_Kit_Modular", (2400, 1350), {}),

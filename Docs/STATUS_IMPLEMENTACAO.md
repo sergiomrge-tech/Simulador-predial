@@ -203,3 +203,11 @@ Preparação concluída no GitHub:
 - **Integridade:** IDs, marcadores, lotes e heróis vinculados idênticos ao commit anterior (auditoria). Reaberturas PASS sem dados faltando. 77 capturas em `Reviews/W2_5/`.
 - **Complexidade:** +4,2% de tris instanciados; +0,51 M de tris em meshes simples.
 - **Gate visual da Cidade Antiga: PARTIAL PASS.** Relevo pouco legível em vistas aéreas; vegetação e carros proxy; iluminação de revisão; texturas autorais pendentes. Detalhes em `Docs/W2_5_VISUAL_FIDELITY_GATE.md`.
+- **Complemento W2.5, vegetação de calçada:**
+  - 4.773 árvores irregulares por caráter de bairro, mais densas longe do miolo e raras em áreas industriais;
+  - covas e canteiros na calçada;
+  - 175 pracinhas;
+  - 1.434 arbustos sobre arrimos;
+  - 7 espécies-proxy (oiti, sibipiruna, mangueira, ipê amarelo e rosa, muda, palmeira) mais arbusto;
+  - +4,7% de tris instanciados;
+  - IDs re-auditados idênticos.

@@ -488,7 +488,7 @@
       "substation": 86,
       "tank": 277
     },
-    "trees": 37182,
+    "trees": 36055,
     "unusedMacroCells": [],
     "oldTown": {
       "neighbourhoods": 9,
@@ -535,20 +535,20 @@
         6
       ],
       "infrastructure": {
-        "pole": 1649,
-        "pole_transformer": 412,
-        "streetlight_head": 2061,
+        "pole": 1652,
+        "pole_transformer": 413,
+        "streetlight_head": 2065,
         "manhole": 1049,
         "storm_inlet": 2428,
         "hydrant": 296,
-        "telecom_box": 687,
+        "telecom_box": 688,
         "electric_box": 2135,
         "water_meter": 5031,
         "street_sign": 353,
         "stop_sign": 167,
         "traffic_light": 28,
-        "tree": 2647,
-        "bench": 84,
+        "tree": 1520,
+        "bench": 73,
         "bollard": 224
       }
     },

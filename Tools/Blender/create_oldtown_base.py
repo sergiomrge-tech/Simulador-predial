@@ -513,7 +513,16 @@ for lot in ot.lots:
             pb = (o.c[0] + o.u[0] * uu + o.v[0] * o.hd * .9, o.c[1] + o.u[1] * uu + o.v[1] * o.hd * .9)
             strip(mb, pa, pb, 0, .1, ROAD_LIFT + .007, RM["sinalizacao_viaria"])
     else:
-        mb.obb_box(o.corners(), zc - .3, .3 + .02, RM["terra"])
+        if lot.get("green"):
+            # W2.5 pracinha: grass, a crossing path of cimentado and a low curb around it
+            zt = max(zs(*q) for q in o.corners()) + .04
+            mb.obb_box(o.corners(), zc - .3, zt - zc + .3, RM["grama"])
+            mb.obb_box(o.grown(.15).corners(), zc - .3, zt - zc + .38, RM["meio_fio"], top=False)
+            ang = math.atan2(o.u[1], o.u[0])
+            mb.box(o.c[0], o.c[1], zt + .005, o.hw * 2, 1.4, .02, RM["cimentado"], rot=ang)
+            STATS["pocket_greens"] = STATS.get("pocket_greens", 0) + 1
+        else:
+            mb.obb_box(o.corners(), zc - .3, .3 + .02, RM["terra"])
 for lot in ot.lots:
     v = None
     if lot["family"] in ("vacant", "parking"):
@@ -546,6 +555,18 @@ for rail in spec["railways"]:
                 t += .65
             for s_ in (-.72, .72):
                 strip(mb, a, b, tr + s_, .08, .52, RM["meio_fio"])
+# W2.5 street trees: square pits (terra + concrete rim) or short grass strips between trees on residential streets.
+for (x, y, ang, linear) in ot.tree_pits:
+    mb = rmb((x, y))
+    z = zs(x, y) + ROAD_LIFT + SIDEWALK_H
+    if linear:
+        mb.box(x, y, z - .02, 3.2 + (abs(x * 7 + y * 3) % 2.5), .9, .035, RM["grama"], rot=ang)
+    else:
+        mb.box(x, y, z - .02, 1.2, 1.2, .03, RM["terra"], rot=ang)
+        for dx, dy, sx, sy in ((0, .62, 1.36, .12), (0, -.62, 1.36, .12), (.62, 0, .12, 1.24), (-.62, 0, .12, 1.24)):
+            cs_, sn_ = math.cos(ang), math.sin(ang)
+            mb.box(x + dx * cs_ - dy * sn_, y + dx * sn_ + dy * cs_, z - .02, sx, sy, .07, RM["concreto"], rot=ang)
+STATS["tree_pits"] = len(ot.tree_pits)
 for (macro, sub), mb in road_mb.items():
     name = f"OT_Roads_{sub}"
     o = mb.to_object(name, [lib[m] for m in ROAD_MATS], cell_collection("Roads", macro))
@@ -554,6 +575,7 @@ for (macro, sub), mb in road_mb.items():
 # ---------------------------------------------------------------- architecture: family instances per subcell
 LOT_Z = {}
 slope_mb = {}
+WALL_TOP_GREEN = []
 
 
 def slope_works(lot, o, cz, zc):
@@ -578,6 +600,12 @@ def slope_works(lot, o, cz, zc):
         mb.box(c[0], c[1], zc - .3, L_ + .3, .35, top - zc + .55, 1, rot=ang)
         mb.box(c[0], c[1], top + .25, L_ + .4, .45, .08, 2, rot=ang)
         STATS["retaining_walls"] += 1
+        if (int(abs(c[0]) * 5 + abs(c[1]) * 3) % 10) < 4:
+            back = norm(vsub(c, f))
+            for k in range(1 + int(L_ // 6)):
+                t_ = (k + .5) / (1 + int(L_ // 6)) - .5
+                q = (c[0] + math.cos(ang) * t_ * L_ + back[0] * .9, c[1] + math.sin(ang) * t_ * L_ + back[1] * .9)
+                WALL_TOP_GREEN.append((q[0], q[1], top + .2))
 
 
 arch_pts = {}
@@ -753,7 +781,7 @@ for lot in ot.lots:
     if flat and roll(30) < .06 and w >= 5:
         place(lot, "tarp", (roll(31) - .5) * (w - 3.4), (roll(32) - .5) * (d - 3), H + .05)
 for lot in ot.lots:                                                                     # small urban voids
-    if lot["family"] != "vacant":
+    if lot["family"] != "vacant" or lot.get("green"):
         continue
     o = lot["obb"]
     lot_z[lot["id"]] = min(zs(*q) for q in o.corners()) + .02
@@ -887,12 +915,20 @@ for hid, fn in W2_HEROES.items():
 
 # ---------------------------------------------------------------- infrastructure, props, vegetation, lighting
 infra_pts, prop_pts, tree_pts, light_pts = {}, {}, {}, {}
+TREE_QUEUE = []
+for (x, y, rot, sp, scl) in ot.street_trees:
+    TREE_QUEUE.append((x, y, zs(x, y) + ROAD_LIFT + SIDEWALK_H - .02, sp, rot, scl))
+for (x, y, z) in WALL_TOP_GREEN:
+    TREE_QUEUE.append((x, y, z, "arbusto", (x * 13.1) % 6.28, .7 + (abs(x * 7 + y) % 5) * .1))
 tree_lib, tree_index = None, None
 for kind, pts in ot.points.items():
     for (x, y, rot) in pts:
         macro, sub = subcell(x, y)
         if kind == "tree":
-            tree_pts.setdefault((macro, sub), []).append((x, y, zs(x, y) + ROAD_LIFT + SIDEWALK_H, 0 if (int(x * 7 + y * 3) % 3) else 1, rot, .5 + (int(x * 13 + y * 7) % 7) * .05))
+            # plaza and back-yard trees (W1.5 points): species chosen by context, scale varied
+            r_ = (int(abs(x) * 7 + abs(y) * 3) % 100) / 100.0
+            sp = ("palmeira" if r_ < .12 else "sibipiruna" if r_ < .45 else "oiti") if ot.in_core((x, y)) else ("mangueira" if r_ < .4 else "oiti" if r_ < .75 else "ipe")
+            TREE_QUEUE.append((x, y, zs(x, y) + ROAD_LIFT + SIDEWALK_H, sp, rot, .8 + (int(abs(x) * 13 + abs(y) * 7) % 7) * .06))
             continue
         if kind == "streetlight_head":
             light_pts.setdefault((macro, sub), []).append((x, y, zs(x, y) + 7.5, 0, rot, 1.0))
@@ -956,15 +992,113 @@ for (macro, sub), pts in prop_pts.items():
     name = f"OT_Props_{sub}"
     o = sa_bl.point_cloud_object(name, pts, props_lib, cell_collection("Props", macro))
     register("Props", name, sub, o, instances=len(pts))
-tree_objs = [props_objs["PROP_Tree_A"].copy(), props_objs["PROP_Tree_B"].copy()]
-tree_objs[0].name, tree_objs[1].name = "VEG_Tree_A", "VEG_Tree_B"
-for t_ in tree_objs:
-    bpy.context.scene.collection.objects.link(t_)
+# W2.5 species-like proxies (better silhouettes than the W1.5 sphere clusters; still provisional, final vegetation with LOD later).
+import bmesh as _bm  # noqa: E402
+from mathutils import Matrix as _Mx, Vector as _Vx  # noqa: E402
+
+for nm_, c1_, c2_ in (("folhagem_oiti", (.10, .22, .07), (.06, .15, .05)), ("folhagem_clara", (.30, .40, .13), (.20, .30, .09)),
+                      ("folhagem_manga", (.07, .16, .06), (.04, .10, .04)), ("flores_ipe_amarelo", (.78, .62, .10), (.60, .45, .06)),
+                      ("flores_ipe_rosa", (.70, .34, .52), (.52, .22, .38)), ("folhagem_palmeira", (.18, .30, .10), (.12, .22, .07))):
+    lib[nm_] = sa_materials.build_material(nm_, dict(sa_materials.LIB["folhagem"], c1=c1_, c2=c2_))
+
+
+def _crown(mb, centre, radius, blobs, flat, mat, seed, subdiv=1):
+    import random as _rr
+    rr = _rr.Random(seed)
+    for k in range(int(blobs * 1.8)):
+        bm = _bm.new()
+        rad = radius * rr.uniform(.36, .58)
+        off = (rr.uniform(-radius * .62, radius * .62), rr.uniform(-radius * .62, radius * .62), rr.uniform(-radius * .3, radius * .35) * flat)
+        _bm.ops.create_icosphere(bm, subdivisions=subdiv, radius=rad, matrix=_Mx.Translation(_Vx(centre) + _Vx(off)) @ _Mx.Diagonal((1, 1, flat, 1)))
+        for v in bm.verts:
+            v.co += _Vx((rr.uniform(-.18, .18), rr.uniform(-.18, .18), rr.uniform(-.14, .14))) * rad
+        base = len(mb.verts)
+        mb.verts.extend(tuple(v.co) for v in bm.verts)
+        for f in bm.faces:
+            mb.faces.append(tuple(base + v.index for v in f.verts))
+            mb.mats.append(mat)
+        bm.free()
+
+
+def _trunk(mb, h, r0, r1, lean=(0, 0), mat=0, segs=6):
+    for k in range(4):
+        z0, z1 = h * k / 4, h * (k + 1) / 4
+        r = r0 + (r1 - r0) * (k + .5) / 4
+        mb.cylinder(lean[0] * z0, lean[1] * z0, z0, r, z1 - z0, segs, mat)
+
+
+def species(name):
+    mb = sa_bl.MeshBuilder()
+    if name == "oiti":            # dense rounded evergreen, medium (typical sidewalk tree)
+        _trunk(mb, 2.6, .16, .11)
+        _crown(mb, (0, 0, 4.4), 2.6, 7, .8, 1, 11)
+        mats = ["tronco", "folhagem_oiti"]
+    elif name == "sibipiruna":    # wide, flat, airy crown, medium-large
+        _trunk(mb, 3.4, .2, .12, lean=(.04, 0))
+        for bx, by in ((1.2, .4), (-1.0, .8), (.2, -1.1)):
+            mb.box(bx * .5, by * .5, 3.2, .1, .1, 1.4, 0, rot=math.atan2(by, bx))
+        _crown(mb, (0, 0, 5.6), 3.8, 9, .45, 1, 12)
+        mats = ["tronco", "folhagem_clara"]
+    elif name == "mangueira":     # big dark dome, back yards and greens
+        _trunk(mb, 2.2, .26, .18)
+        _crown(mb, (0, 0, 4.6), 3.6, 8, .85, 1, 13)
+        mats = ["tronco", "folhagem_manga"]
+    elif name == "ipe":           # small/medium, open irregular crown, flowering (yellow)
+        _trunk(mb, 3.0, .12, .07, lean=(.06, .03))
+        _crown(mb, (.2, .1, 4.4), 1.9, 6, .7, 1, 14)
+        _crown(mb, (.2, .1, 4.9), 1.5, 3, .6, 2, 15)
+        mats = ["tronco", "folhagem_clara", "flores_ipe_amarelo"]
+    elif name == "ipe_rosa":
+        _trunk(mb, 3.0, .12, .07, lean=(-.05, .04))
+        _crown(mb, (-.2, .1, 4.4), 1.9, 6, .7, 1, 16)
+        _crown(mb, (-.2, .1, 4.9), 1.6, 4, .6, 2, 17)
+        mats = ["tronco", "folhagem_oiti", "flores_ipe_rosa"]
+    elif name == "jovem":         # recently planted young tree with stakes and protection
+        _trunk(mb, 1.6, .06, .04)
+        _crown(mb, (0, 0, 2.5), 1.0, 4, .9, 1, 18)
+        for dx in (-.25, .25):
+            mb.box(dx, 0, 0, .04, .04, 1.6, 2)
+        mb.box(0, 0, 1.2, .55, .04, .04, 2)
+        mats = ["tronco", "folhagem", "madeira_crua"]
+    elif name == "palmeira":      # imperial-palm-like, plazas and stately streets
+        _trunk(mb, 11.0, .24, .2, segs=8)
+        import random as _rr
+        rr = _rr.Random(19)
+        for k in range(9):
+            a_ = k * 2 * math.pi / 9 + rr.uniform(-.2, .2)
+            L_ = rr.uniform(2.6, 3.4)
+            tip = (math.cos(a_) * L_, math.sin(a_) * L_, 11.0 - rr.uniform(.8, 1.6))
+            w_ = .5
+            px, py = -math.sin(a_) * w_, math.cos(a_) * w_
+            mb.add_face([(0, 0, 11.2), (tip[0] * .5 + px, tip[1] * .5 + py, 11.4), tip, (tip[0] * .5 - px, tip[1] * .5 - py, 11.4)], 1)
+        mats = ["tronco", "folhagem_palmeira"]
+    else:                         # arbusto: low shrub mass (tops of retaining walls, greens)
+        _crown(mb, (0, 0, .6), .9, 4, .7, 0, 20)
+        mats = ["folhagem_oiti"]
+    o = mb.to_object("VEG_" + name, [lib[m] for m in mats], library)
+    for poly in o.data.polygons:                       # smooth crowns (no faceted low-poly read)
+        poly.use_smooth = True
+    sa_bl.props(o, sa_stage="W2.5 proxy de espécie (provisório)", species=name)
+    return o
+
+
+SPECIES = ("oiti", "sibipiruna", "mangueira", "ipe", "ipe_rosa", "jovem", "palmeira", "arbusto")
+tree_objs = [species(n) for n in SPECIES]
 tree_lib, tree_index = sa_bl.library_collection("OT_Lib_Vegetation", tree_objs, library)
+_veg_tris = {}
+for (x, y, z, sp, rot, scl) in TREE_QUEUE:
+    if sp == "ipe" and (int(abs(x) * 3 + abs(y)) % 3 == 0):
+        sp = "ipe_rosa"
+    macro, sub = subcell(x, y)
+    tree_pts.setdefault((macro, sub), []).append((x, y, z, tree_index["VEG_" + sp], rot, scl))
+    STATS.setdefault("vegetation_by_species", {})
+    STATS["vegetation_by_species"][sp] = STATS["vegetation_by_species"].get(sp, 0) + 1
+STATS["vegetation_species_tris"] = {o.name: sum(len(p_.vertices) - 2 for p_ in o.data.polygons) for o in tree_objs}
+STATS["street_tree_layout"] = ot.tree_stats
 for (macro, sub), pts in tree_pts.items():
     name = f"OT_Vegetation_{sub}"
     o = sa_bl.point_cloud_object(name, pts, tree_lib, cell_collection("Vegetation", macro))
-    register("Vegetation", name, sub, o, instances=len(pts), blockout_vegetation=True)
+    register("Vegetation", name, sub, o, instances=len(pts), blockout_vegetation=True, note="W2.5 proxies de espécies (provisório)")
 for (macro, sub), pts in light_pts.items():
     me = bpy.data.meshes.new(f"OT_Lighting_{sub}")
     me.from_pydata([(p[0], p[1], p[2]) for p in pts], [], [])
@@ -1058,6 +1192,30 @@ far = (lo_[0] + u[0] * 220, lo_[1] + u[1] * 220)
 cam("CAM_OT_Vale_Panorama", (cpos[0], cpos[1], zs(*cpos) + 1.8), target=(far[0], far[1], zs(*far) + 4.0), lens=24)
 STATS["valley_street_grade_pct"] = round(gr_ * 100, 1)
 cam("CAM_OT_Wear_Rua", (-3290, -1622, zs(-3290, -1622) + 1.7), target=(-3420, -1606, zs(-3420, -1606) + 3.0), lens=22)   # Av. Velha, no hero in view
+# W2.5 vegetation views: most planted residential street (from one end), a pocket green, and an oblique of the residential north.
+import collections as _col  # noqa: E402
+_tgrid = _col.Counter((int(t[0] // 20), int(t[1] // 20)) for t in ot.street_trees)
+rbest = None
+for eid, e in g.edges.items():
+    if e["cls"] not in ("local", "main"):
+        continue
+    a, b = g.seg(eid)
+    L = dist(a, b)
+    if L < 45:
+        continue
+    cnt = sum(_tgrid[(int(p[0] // 20), int(p[1] // 20))] for p in resample([a, b], 20.0))
+    if rbest is None or cnt / L > rbest[0]:
+        rbest = (cnt / L, a, b)
+_, a, b = rbest
+u = norm(vsub(b, a))
+cpos = (a[0] + u[0] * 3 + perp(u)[0] * 1.5, a[1] + u[1] * 3 + perp(u)[1] * 1.5)
+cam("CAM_OT_Rua_Arborizada", (cpos[0], cpos[1], zs(*cpos) + 1.7), target=(b[0], b[1], zs(*b) + 3.0), lens=22)
+pg = next((l for l in ot.lots if l.get("green") and l["obb"].hw > 7), None)
+if pg:
+    o = pg["obb"]
+    cp = (o.c[0] - o.v[0] * (o.hd + 10) + o.u[0] * 6, o.c[1] - o.v[1] * (o.hd + 10) + o.u[1] * 6)
+    cam("CAM_OT_Pracinha", (cp[0], cp[1], zs(*cp) + 2.0), target=(o.c[0], o.c[1], zs(*o.c) + 1.5), lens=22)
+cam("CAM_OT_Residencial_Obliqua", (-2050, -1300, zs(-2050, -1300) + 140), target=(-2300, -880, zs(-2300, -880)), lens=28)
 scene.camera = bpy.data.objects["CAM_OT_Oblique"]
 
 scene["facility_world"] = "Santa Aurora"
