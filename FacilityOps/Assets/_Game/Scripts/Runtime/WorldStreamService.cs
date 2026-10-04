@@ -18,6 +18,8 @@ namespace FacilityOps
         [SerializeField] private float refreshIntervalSeconds = 0.25f;
 
         private readonly HashSet<WorldStreamingId> loaded = new HashSet<WorldStreamingId>();
+        private readonly HashSet<WorldStreamingId> pendingLoads = new HashSet<WorldStreamingId>();
+        private readonly HashSet<WorldStreamingId> pendingUnloads = new HashSet<WorldStreamingId>();
         private float nextRefresh;
         private WorldStreamingId currentCell;
         private bool hasCurrentCell;
@@ -41,6 +43,8 @@ namespace FacilityOps
 
         public WorldStreamingId CurrentCell => currentCell;
         public IReadOnlyCollection<WorldStreamingId> LoadedCells => loaded;
+        public int PendingLoadCount => pendingLoads.Count;
+        public int PendingUnloadCount => pendingUnloads.Count;
 
         private void Update()
         {
@@ -92,29 +96,56 @@ namespace FacilityOps
 
         private void EnsureLoaded(WorldStreamingId id)
         {
-            if (loaded.Contains(id))
+            if (loaded.Contains(id) || pendingLoads.Contains(id))
                 return;
 
             string sceneName = WorldStreamingSceneNaming.SceneName(id);
             if (!Application.CanStreamedLevelBeLoaded(sceneName))
                 return;
 
+            pendingLoads.Add(id);
             AsyncOperation op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            if (op != null)
-                loaded.Add(id);
+            if (op == null)
+            {
+                pendingLoads.Remove(id);
+                return;
+            }
+
+            op.completed += _ =>
+            {
+                pendingLoads.Remove(id);
+                Scene scene = SceneManager.GetSceneByName(sceneName);
+                if (scene.IsValid() && scene.isLoaded)
+                    loaded.Add(id);
+            };
         }
 
         private void EnsureUnloaded(WorldStreamingId id)
         {
-            if (!loaded.Contains(id))
+            if (!loaded.Contains(id) || pendingUnloads.Contains(id))
                 return;
 
             string sceneName = WorldStreamingSceneNaming.SceneName(id);
             Scene scene = SceneManager.GetSceneByName(sceneName);
-            if (scene.IsValid() && scene.isLoaded)
-                SceneManager.UnloadSceneAsync(scene);
+            if (!scene.IsValid() || !scene.isLoaded)
+            {
+                loaded.Remove(id);
+                return;
+            }
 
-            loaded.Remove(id);
+            pendingUnloads.Add(id);
+            AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
+            if (op == null)
+            {
+                pendingUnloads.Remove(id);
+                return;
+            }
+
+            op.completed += _ =>
+            {
+                pendingUnloads.Remove(id);
+                loaded.Remove(id);
+            };
         }
     }
 }
