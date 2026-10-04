@@ -1,0 +1,102 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+namespace FacilityOps
+{
+    /// <summary>
+    /// Opt-in additive scene streamer for Santa Aurora.
+    ///
+    /// It is deliberately inert unless enabled and attached to a scene.
+    /// It does not replace WorldBuilder, does not touch saves, and only loads scenes
+    /// that Unity reports as available in the build.
+    /// </summary>
+    public sealed class WorldStreamService : MonoBehaviour
+    {
+        [SerializeField] private Transform trackedTransform;
+        [SerializeField] private bool streamingEnabled;
+        [SerializeField] private float refreshIntervalSeconds = 0.25f;
+
+        private readonly HashSet<WorldStreamingId> loaded = new HashSet<WorldStreamingId>();
+        private float nextRefresh;
+        private WorldStreamingId currentCell;
+        private bool hasCurrentCell;
+
+        public bool StreamingEnabled
+        {
+            get => streamingEnabled;
+            set => streamingEnabled = value;
+        }
+
+        public Transform TrackedTransform
+        {
+            get => trackedTransform;
+            set => trackedTransform = value;
+        }
+
+        public WorldStreamingId CurrentCell => currentCell;
+        public IReadOnlyCollection<WorldStreamingId> LoadedCells => loaded;
+
+        private void Update()
+        {
+            if (!streamingEnabled || trackedTransform == null || Time.unscaledTime < nextRefresh)
+                return;
+
+            nextRefresh = Time.unscaledTime + Mathf.Max(0.05f, refreshIntervalSeconds);
+            var nextCell = WorldStreamingId.FromWorldPosition(
+                trackedTransform.position.x,
+                trackedTransform.position.z);
+
+            if (hasCurrentCell && nextCell == currentCell)
+                return;
+
+            currentCell = nextCell;
+            hasCurrentCell = true;
+            Refresh(nextCell);
+        }
+
+        public void Refresh(WorldStreamingId center)
+        {
+            var loadSet = WorldStreamingPolicy.BuildLoadSet(center);
+            var keepSet = WorldStreamingPolicy.BuildKeepSet(center);
+
+            foreach (var cell in loadSet)
+                EnsureLoaded(cell);
+
+            var unload = new List<WorldStreamingId>();
+            foreach (var cell in loaded)
+                if (!keepSet.Contains(cell))
+                    unload.Add(cell);
+
+            foreach (var cell in unload)
+                EnsureUnloaded(cell);
+        }
+
+        private void EnsureLoaded(WorldStreamingId id)
+        {
+            if (loaded.Contains(id))
+                return;
+
+            string sceneName = WorldStreamingSceneNaming.SceneName(id);
+            if (!Application.CanStreamedLevelBeLoaded(sceneName))
+                return;
+
+            AsyncOperation op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            if (op != null)
+                loaded.Add(id);
+        }
+
+        private void EnsureUnloaded(WorldStreamingId id)
+        {
+            if (!loaded.Contains(id))
+                return;
+
+            string sceneName = WorldStreamingSceneNaming.SceneName(id);
+            Scene scene = SceneManager.GetSceneByName(sceneName);
+            if (scene.IsValid() && scene.isLoaded)
+                SceneManager.UnloadSceneAsync(scene);
+
+            loaded.Remove(id);
+        }
+    }
+}
