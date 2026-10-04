@@ -84,6 +84,28 @@ namespace FacilityOps.Editor
                         if (root.transform.Find(layer) == null)
                             errors.Add(file + ": missing layer root " + layer);
                     }
+
+                    WorldCellContentStamp stamp = root.GetComponent<WorldCellContentStamp>();
+                    if (stamp == null)
+                    {
+                        errors.Add(file + ": missing WorldCellContentStamp; scene is still an empty/unvalidated scaffold");
+                        continue;
+                    }
+
+                    if (!string.Equals(stamp.CellId, root.CellId, StringComparison.Ordinal))
+                        errors.Add(file + ": content stamp cell id does not match WorldCellRoot");
+
+                    if (!stamp.ImportValidated)
+                        errors.Add(file + ": imported content stamp is not validated");
+
+                    if (!stamp.TerrainPresent || !stamp.RoadsPresent || !stamp.ArchitecturePresent)
+                        errors.Add(file + ": imported content stamp requires Terrain + Roads + Architecture");
+
+                    if (stamp.ImportedObjectCount <= 0 || stamp.ImportedRendererCount <= 0)
+                        errors.Add(file + ": imported cell has no real renderable content");
+
+                    if (stamp.EstimatedTriangles <= 0)
+                        errors.Add(file + ": imported cell triangle estimate is empty");
                 }
             }
             finally
