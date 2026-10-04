@@ -14,7 +14,7 @@ import bpy
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--root", required=True)
-parser.add_argument("--mode", required=True, choices=["masterplan", "oldtown", "kit", "w3"])
+parser.add_argument("--mode", required=True, choices=["masterplan", "oldtown", "kit", "w3", "w31", "w32"])
 parser.add_argument("--no-render", action="store_true")
 parser.add_argument("--review", default="W1_5", help="Reviews/<dir> for captures and the reopen report (W2 re-renders go to W2)")
 parser.add_argument("--only", default="", help="comma-separated capture-name prefixes to render (default: all)")
@@ -105,7 +105,7 @@ elif opts.mode == "oldtown":
     checks.update({"heroes": len(heroes["heroes"]), "stateSlots": len(slots), "states": states, "subcellObjects": len(subcell_objs),
                    "subcells": len({o["sa_subcell"] for o in subcell_objs}), "familyVariants": len(fam.objects) if fam else 0,
                    "gameplayMarkers": sum(1 for o in bpy.data.objects if o.get("sa_layer") == "Gameplay")})
-elif opts.mode == "w3":
+elif opts.mode in ("w3", "w31", "w32"):
     for L in ("Terrain", "Roads", "Architecture", "Infrastructure", "Props", "Vegetation", "Gameplay"):
         if "OT_" + L not in bpy.data.collections:
             errors.append("missing layer collection OT_" + L)
@@ -145,6 +145,45 @@ SHOTS = {
         ("w3_15_clutter_decals", "CAM_W3_Clutter", (2400, 1350), {}),
         ("w3_17_relevo_aereo", "CAM_W3_Aereo", (2400, 1350), {}),
         ("w3_18_fim_de_tarde", "CAM_W3_Corredor", (2400, 1350), {"sun": (8.0, 255.0)}),
+    ],
+    "w32": [
+        ("w32_01_carro_hatch_3m", "CAM_W32_Hatch", (2400, 1350), {}),
+        ("w32_02_carro_sedan_3m", "CAM_W32_Sedan", (2400, 1350), {}),
+        ("w32_02b_carro_suv_3m", "CAM_W32_Suv", (2400, 1350), {}),
+        ("w32_03_van_picape_servico", "CAM_W32_Van", (2400, 1350), {}),
+        ("w32_04_rua_primeira_pessoa_A", "CAM_W32_Rua_A", (2400, 1350), {}),
+        ("w32_05_rua_primeira_pessoa_B", "CAM_W32_Rua_B", (2400, 1350), {}),
+        ("w32_06_aerea_telhados", "CAM_W32_Aereo_Telhados", (2400, 1350), {}),
+        ("w32_07_quadra_obliqua", "CAM_W32_Quadra_Obliqua", (2400, 1350), {}),
+        ("w32_08_fachada_comercial", "CAM_W32_Fachada", (2400, 1350), {}),
+        ("w32_09_lar_exterior", "CAM_W32_Lar", (2400, 1350), {}),
+        ("w32_10_oficina_exterior", "CAM_W32_Oficina", (2400, 1350), {}),
+        ("w32_11_horizonte_exterior", "CAM_W32_Horizonte", (2400, 1350), {}),
+        ("w32_12_mercearia_exterior", "CAM_W32_Mercearia", (2400, 1350), {}),
+        ("w32_15_corredor_visao_geral", "CAM_W3_Corredor", (2400, 1350), {}),
+        ("w32_15b_aereo_corredor", "CAM_W3_Aereo", (2400, 1350), {}),
+        ("w32_09b_lar_entardecer", "CAM_W32_Lar", (2400, 1350), {"sun": (6.0, 255.0)}),
+        ("w32_10b_oficina_entardecer", "CAM_W32_Oficina", (2400, 1350), {"sun": (6.0, 255.0)}),
+        ("w32_11b_horizonte_entardecer", "CAM_W32_Horizonte", (2400, 1350), {"sun": (6.0, 255.0)}),
+        ("w32_12b_mercearia_entardecer", "CAM_W32_Mercearia", (2400, 1350), {"sun": (6.0, 255.0)}),
+    ],
+    "w31": [
+        ("w31_01_rua_carros", "CAM_W31_Carros_A", (2400, 1350), {}),
+        ("w31_02_rua_carros_variedade", "CAM_W31_Carros_B", (2400, 1350), {}),
+        ("w31_03_quadra_variantes", "CAM_W31_Quadra", (2400, 1350), {}),
+        ("w31_04_fachada_closeup", "CAM_W31_Fachada", (2400, 1350), {}),
+        ("w31_05_grama", "CAM_W31_Grama", (2400, 1350), {}),
+        ("w31_06_talude_arrimo", "CAM_W31_Talude", (2400, 1350), {}),
+        ("w31_06b_talude_arrimo", "CAM_W31_Talude_B", (2400, 1350), {}),
+        ("w31_10_decals", "CAM_W31_Decals", (2400, 1350), {}),
+        ("w31_11_rua_arborizada", "CAM_W3_Vegetacao", (2400, 1350), {}),
+        ("w31_12_corredor_visao_geral", "CAM_W3_Corredor", (2400, 1350), {}),
+        ("w31_12b_relevo_aereo", "CAM_W3_Aereo", (2400, 1350), {}),
+        ("w31_14_rua_relevo", "CAM_W3_Rua", (2400, 1350), {}),
+        ("w31_15_mercearia_exterior", "CAM_W3_Mercearia", (2400, 1350), {}),
+        ("w31_16_clutter", "CAM_W3_Clutter", (2400, 1350), {}),
+        ("w31_17_oficina_exterior", "CAM_OT_Garage_Exterior", (2400, 1350), {}),
+        ("w31_18_horizonte_exterior", "CAM_OT_Horizonte_Frente", (2400, 1350), {}),
     ],
     "masterplan": [
         ("01_mundo_inteiro", "CAM_World_Top", (2048, 2048), {"labels": True}),
@@ -227,6 +266,7 @@ cx["textures"] = len(imgs)
 cx["textureMemoryMB_est"] = round(sum(i.size[0] * i.size[1] * 4 * 1.33 for i in imgs) / 1048576, 1)
 cx["lights"] = sum(1 for o in bpy.data.objects if o.type == "LIGHT")
 cx["objects"] = len(bpy.data.objects)
+cx["blendMB"] = round(Path(bpy.data.filepath).stat().st_size / 1048576, 2)
 cx["meshes"] = len(bpy.data.meshes)
 checks["complexity"] = cx
 
@@ -278,7 +318,7 @@ if not opts.no_render:
         scene.camera = bpy.data.objects[cam]
         scene.render.resolution_x, scene.render.resolution_y = w, h
         scene.render.resolution_percentage = 100
-        out = review / (f"{name}.jpg" if opts.review == "W1_5" or name.startswith(("w25_", "w3_")) else f"ot_{name}.jpg")
+        out = review / (f"{name}.jpg" if opts.review == "W1_5" or name.startswith(("w25_", "w3_", "w31_", "w32_")) else f"ot_{name}.jpg")
         scene.render.filepath = str(out)
         bpy.ops.render.render(write_still=True)
         renders.append(out.relative_to(root).as_posix())

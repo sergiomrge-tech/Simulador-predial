@@ -190,9 +190,12 @@ SPECIES = {
 }
 
 
-def tree(name, lib, coll, lod=0, seed=None):
-    """Build species `name` at LOD `lod` (0 or 1) as one object at the origin (pivot at the trunk base)."""
-    rng = random.Random(seed if seed is not None else hash(name) & 0xffff)
+def tree(name, lib, coll, lod=0, seed=None, variant=""):
+    """Build species `name` at LOD `lod` (0 or 1) as one object at the origin (pivot at the trunk base).
+    W3.1: deterministic seed (crc32; Python's str hash is salted per process) and optional `variant` suffix ("_b", "_c") for
+    differently branched individuals of the same species, so neighbouring street trees are not clones."""
+    import zlib
+    rng = random.Random(seed if seed is not None else zlib.crc32((name + variant).encode()) & 0xffff)
     mb = sa_bl.MeshBuilder()
     uvs = []
     mats = [lib["tronco"]]
@@ -241,7 +244,7 @@ def tree(name, lib, coll, lod=0, seed=None):
         for dx in (-.25, .25):
             tube(mb, (dx, 0, 0), (dx, 0, 1.6), .025, .025, 4, len(mats))
         mats.append(lib["madeira_crua"])
-    o = _finish(mb, uvs, mats, coll, f"VEG_{name}" + ("" if lod == 0 else f"_LOD{lod}"))
+    o = _finish(mb, uvs, mats, coll, f"VEG_{name}{variant}" + ("" if lod == 0 else f"_LOD{lod}"))
     sa_bl.props(o, sa_stage="W3 vegetação de produção", species=name, lod=lod)
     return o
 
@@ -275,28 +278,101 @@ def palm(name, lib, coll, lod, rng):
     return o
 
 
+def blade_material():
+    """Opaque grass-blade shader: per-vertex colour (root darker, dry/green blade mix) + light translucency. No alpha cards."""
+    mat = bpy.data.materials.get("grama_laminas")
+    if mat:
+        return mat
+    mat = bpy.data.materials.new("grama_laminas")
+    nt = mat.node_tree
+    nt.nodes.clear()
+    L = nt.links
+    out = _n(nt, "ShaderNodeOutputMaterial", 700, 0)
+    attr = nt.nodes.new("ShaderNodeAttribute")
+    attr.attribute_name = "Col"
+    attr.location = (-400, 0)
+    bsdf = _n(nt, "ShaderNodeBsdfPrincipled", 100, 100, Roughness=.55)
+    tr = _n(nt, "ShaderNodeBsdfTranslucent", 100, -250)
+    L.new(attr.outputs["Color"], bsdf.inputs["Base Color"])
+    L.new(attr.outputs["Color"], tr.inputs["Color"])
+    mix = _n(nt, "ShaderNodeMixShader", 450, 0)
+    mix.inputs[0].default_value = .25
+    L.new(bsdf.outputs[0], mix.inputs[1])
+    L.new(tr.outputs[0], mix.inputs[2])
+    L.new(mix.outputs[0], out.inputs["Surface"])
+    mat.diffuse_color = (.2, .3, .08, 1)
+    mat["sa_family"] = "vegetacao_lamina"
+    return mat
+
+
+TUFT_SPECS = {   # blades, height range, width range, lean range (rad), dry share, footprint radius, broadleaf weed cards
+    "grama":      dict(n=34, h=(.10, .30), w=(.006, .012), lean=(.3, 1.0), dry=.18, r=.22, cards=0, seed=7),
+    "grama_alta": dict(n=26, h=(.25, .62), w=(.006, .012), lean=(.1, .55), dry=.35, r=.18, cards=0, seed=11),
+    "erva":       dict(n=10, h=(.08, .22), w=(.008, .014), lean=(.3, .9), dry=.1, r=.16, cards=7, seed=9),
+    "mato":       dict(n=30, h=(.20, .75), w=(.006, .016), lean=(.1, .8), dry=.3, r=.35, cards=9, seed=13),
+}
+GREENS = ((.11, .20, .04), (.17, .27, .06), (.22, .30, .08), (.14, .24, .07))
+DRY = ((.42, .38, .18), (.50, .44, .24), (.36, .33, .17))
+
+
 def tuft(kind, lib, coll):
-    """Grass tuft (3 crossed blade cards) or weed clump (small leaf cards) for slopes, greens and cracks."""
-    rng = random.Random(7 if kind == "grama" else 9)
+    """Grass/weed clump built from real curved, tapered blades (opaque geometry, varied height/width/lean/colour, clumped and
+    irregular footprint, no crossed cards or vertical alignment) plus broadleaf weed cards for erva/mato."""
+    sp = TUFT_SPECS[kind]
+    rng = random.Random(sp["seed"])
     mb = sa_bl.MeshBuilder()
     uvs = []
-    mat = leaf_material("folha_" + kind, *LEAF_COLORS[kind], kind="grass" if kind == "grama" else "leaf")
-    if kind == "grama":
-        for k in range(3):
-            a = k * math.pi / 3
-            d = Vector((math.cos(a), math.sin(a), 0)) * .28
-            base = len(mb.verts)
-            for p in ((-d.x, -d.y, 0), (d.x, d.y, 0), (d.x, d.y, .42), (-d.x, -d.y, .42)):
-                mb.verts.append(p)
-            mb.faces.append((base, base + 1, base + 2, base + 3))
+    cols = []
+    bmat = blade_material()
+    mats = [bmat]
+    nclumps = rng.randint(2, 4)
+    clumps = [(rng.uniform(-sp["r"], sp["r"]) * .6, rng.uniform(-sp["r"], sp["r"]) * .6) for _ in range(nclumps)]
+    for k in range(sp["n"]):
+        cx, cy = clumps[k % nclumps]
+        rr = abs(rng.gauss(0, sp["r"] * .45))
+        ta = rng.uniform(0, 6.283)
+        bx, by = cx + math.cos(ta) * rr, cy + math.sin(ta) * rr
+        h = rng.uniform(*sp["h"]) * (1.15 if rr < sp["r"] * .3 else .9)
+        w = rng.uniform(*sp["w"])
+        lean = rng.uniform(*sp["lean"])
+        az = math.atan2(by - cy, bx - cx) + rng.uniform(-.8, .8)          # lean away from the clump centre
+        dvec = Vector((math.cos(az), math.sin(az), 0))
+        side = Vector((-dvec.y, dvec.x, 0)) * w
+        twist = rng.uniform(-.6, .6)
+        segs = 3
+        c = rng.choice(DRY) if rng.random() < sp["dry"] else rng.choice(GREENS)
+        c = tuple(min(1, v * rng.uniform(.85, 1.15)) for v in c)
+        base = len(mb.verts)
+        for j in range(segs + 1):
+            t = j / segs
+            bend = lean * t * t * 1.4                                       # curvature grows toward the tip
+            off = dvec * (math.sin(bend) * h * t * .9)
+            z = h * t * math.cos(bend * .7)
+            taper = (1 - t) ** .8 if j < segs else 0.0
+            sv = side * taper
+            sv = Matrix.Rotation(twist * t, 3, "Z") @ sv
+            pc = Vector((bx, by, 0)) + off + Vector((0, 0, z))
+            mb.verts.append(tuple(pc - sv))
+            mb.verts.append(tuple(pc + sv))
+            shade = .45 + .55 * t
+            cols += [(c[0] * shade, c[1] * shade, c[2] * shade, 1)] * 2
+        for j in range(segs):
+            q = base + j * 2
+            mb.faces.append((q, q + 1, q + 3, q + 2))
             mb.mats.append(0)
-            uvs.append(((0, 0), (1, 0), (1, 1), (0, 1)))
-    else:
-        for k in range(7):
-            card(mb, (rng.uniform(-.15, .15), rng.uniform(-.15, .15), rng.uniform(.05, .25)), (rng.uniform(-.5, .5), rng.uniform(-.5, .5), 1),
-                 rng.uniform(.18, .3), rng.uniform(0, 6.28), 0, uvs)
-    o = _finish(mb, uvs, [mat], coll, f"VEG_tufo_{kind}")
-    sa_bl.props(o, sa_stage="W3 vegetação de produção", species=kind, lod=0)
+    if sp["cards"]:
+        lmat = leaf_material("folha_erva", *LEAF_COLORS["erva"], kind="leaf")
+        mats.append(lmat)
+        nb = len(mb.verts)
+        for k in range(sp["cards"]):
+            card(mb, (rng.uniform(-sp["r"], sp["r"]) * .7, rng.uniform(-sp["r"], sp["r"]) * .7, rng.uniform(.03, .22)),
+                 (rng.uniform(-.6, .6), rng.uniform(-.6, .6), 1), rng.uniform(.14, .28), rng.uniform(0, 6.28), 1, uvs)
+        cols += [(.2, .3, .08, 1)] * (len(mb.verts) - nb)
+    o = _finish(mb, uvs, mats, coll, f"VEG_tufo_{kind}")
+    ca = o.data.color_attributes.new("Col", "FLOAT_COLOR", "POINT")
+    for i, cc in enumerate(cols):
+        ca.data[i].color = cc
+    sa_bl.props(o, sa_stage="W3.1 vegetação rasteira (lâminas curvas)", species=kind, lod=0)
     return o
 
 

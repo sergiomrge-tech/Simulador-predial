@@ -206,6 +206,9 @@ for x in (-4.0, 3.0, 10.0):
     for y in (-4.0, 4.0):
         lamp = KS.ceiling_light(P + f"lamp_{x:+.0f}_{y:+.0f}", (x, y, zroof(y) - .45), drop=.7)
         bpy.data.lights[lamp.name + "__light"].energy = 650 * 3.5
+from sa_w2 import area_fill  # noqa: E402
+for x in (-4.0, 3.0, 10.0):                              # W3.1: warm fill under the roof (high-bay equivalent), capture only
+    area_fill(H.C["Lighting"], H.rootobj, P + f"fill_{x:+.0f}", (x, 0.0, FH - .3), 6.0, D * .7, 2200.0, color=(1.0, .88, .72))
 re = rooms["reception"]
 KS.panel_qdc(P + "qdc_main", (re[0] + .01, re[1] + 2.6, .15), math.pi / 2, ways=12)
 KS.entrance_meter(P + "padrao_entrada", (rx - 1.4, -hd, 0), 0.0, height=4.6)
@@ -255,6 +258,19 @@ for k, (x, y) in enumerate(((hw + 2.5, -6.0), (hw + 3.2, -5.3), (hw + 2.4, 4.0))
         mb.cylinder(0, 0, z, .3, .03, 20, 0)
     o = H.mesh(P + f"yard_drum_{k}", mb, ["aco_pintado_verde" if k else "ferrugem"], "Site", bevel=.004, sa_layer="Props")
     o.location = (x, y, 0)
+# W3.1: what the previous tenant left in the bay (G0 clutter along the walls, clear of the state slots and the van bay):
+# pallets, worn tyres, drums, crates and old oil stains on the slab. Gives scale and life to the galpão view.
+gb = rooms["garage_bay"]
+KP.pallet_stack(P + "G0_left_pallets", (gb[0] + .8, gb[3] - 1.1, .15), .08, n=5)
+KP.tire_stack(P + "G0_left_tires_a", (gb[0] + .55, gb[3] - 2.7, .15), 0.0, n=4)
+KP.tire_stack(P + "G0_left_tires_b", (gb[0] + 1.3, gb[3] - 3.1, .15), .4, n=2)
+KP.drum(P + "G0_left_drum_a", (gb[0] + .45, gb[1] + 2.6, .15), 0.0, paint="ferrugem")
+KP.drum(P + "G0_left_drum_b", (gb[0] + .5, gb[1] + 3.3, .15), .7)
+KP.crate_stack(P + "G0_left_crates", (gb[0] + .45, gb[1] + 4.6, .15), math.pi / 2, n=3)
+mb = sa_bl.MeshBuilder()
+for k, (x, y, w, d) in enumerate(((gb[0] + 4.0, gb[1] + 5.0, 1.6, 1.1), (gb[0] + 6.5, gb[1] + 7.5, .9, .7), (gb[0] + 3.0, gb[3] - 2.5, 1.2, .8))):
+    mb.box(x, y, .152, w, d, .002, 0)
+H.mesh(P + "G0_oil_stains", mb, ["decal_oleo"], "Props_G0", bevel=0.0, sa_kind="decal", note="manchas antigas de óleo no piso")
 H.state_slots(z_of=lambda st, n: 3.0 if n == "mezzanine_reserve" else .15)
 
 # ---------------------------------------------------------------- sign (G0 faded hand-painted), site

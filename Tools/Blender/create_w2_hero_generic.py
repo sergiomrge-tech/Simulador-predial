@@ -344,6 +344,9 @@ for role, r in ROOM.items():
     mb.box(cx, cy, .15, w_, d_, .01, floor_mat)
     if w_ * d_ > 2.0:
         KI.ceiling_light(P + f"light_{role}", (cx, cy, b0["ground_h"] - .02))
+    if w_ * d_ > 6.0:
+        from sa_w2 import area_fill
+        area_fill(H.C["Lighting"], H.rootobj, P + f"fill_{role}", (cx, cy, b0["ground_h"] - .08), w_ * .7, d_ * .7, min(2600.0, w_ * d_ * 22.0))
     if role in ("quadro", "meters", "technical_room", "sala_tecnica", "rack"):
         side_x = abs(x0 - b0["r"][0]) < .6 or abs(x1 - b0["r"][2]) < .6
         if role == "meters":
@@ -671,7 +674,14 @@ H.cam(f"CAM_W2_{HID}_entrance", (mp[0] + 3.5, mp[1] - 5.0, 1.65), (mp[0], mp[1],
 big = max(ROOM.items(), key=lambda kv: (kv[1][2] - kv[1][0]) * (kv[1][3] - kv[1][1])) if ROOM else None
 if big:
     r = big[1]
-    H.cam(f"CAM_W2_{HID}_interior", ((r[0] + r[2]) / 2, r[1] + .6, 1.65), ((r[0] + r[2]) / 2 + (r[2] - r[0]) * .15, r[3] - .5, 1.2), 15)
+    if HID == "grocery" and "salao" in ROOM:
+        # W3.1: aisle view framing the stocked gondolas (camera at the aisle end, eye height, looking down the aisle)
+        r = ROOM["salao"]
+        gl_ = min(7.0, (r[2] - r[0]) - 4.0)
+        ya = r[1] + 2.0 + 1.1
+        H.cam(f"CAM_W2_{HID}_interior", (r[0] + 3.2 + gl_ + 1.6, ya - .5, 1.6), (r[0] + 2.4, ya + .6, 1.05), 18)
+    else:
+        H.cam(f"CAM_W2_{HID}_interior", ((r[0] + r[2]) / 2, r[1] + .6, 1.65), ((r[0] + r[2]) / 2 + (r[2] - r[0]) * .15, r[3] - .5, 1.2), 15)
 tech = next(((k, r) for k, r in ROOM.items() if k in ("quadro", "meters", "technical_room", "sala_tecnica", "rack")), None)
 if tech:
     r = tech[1]

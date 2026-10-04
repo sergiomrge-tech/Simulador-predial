@@ -119,12 +119,16 @@ class HeroScene:
     def capture(self, name, cam, w=2400, h=1350, hide=()):
         self.captures.append([name, cam, w, h, list(hide)])
 
+    def bake_interior_probe(self):
+        return bake_interior_probe(self.top, self.C["Lighting"], self.id, self.rootobj)
+
     def save(self, filename):
         self.scene.render.engine = "BLENDER_EEVEE"
         try:
             self.scene.eevee.use_raytracing = True
         except AttributeError:
             pass
+        self.bake_interior_probe()
         self.scene["sa_captures"] = json.dumps(self.captures)
         self.scene["sa_hero"] = self.id
         self.scene["facility_stage"] = STAGE + " (não é arte final)"
@@ -137,6 +141,64 @@ class HeroScene:
             bak.unlink()
         print("W2 HERO GENERATED", path.name, len(bpy.data.objects))
         return path
+
+
+def area_fill(coll, parent, name, loc, sx, sy, energy, color=(1.0, .86, .70)):
+    """W3.1: warm rectangular fill under the ceiling (tubular-fixture equivalent) for interior captures; scene-only."""
+    ld = bpy.data.lights.new(name, "AREA")
+    ld.shape = "RECTANGLE"
+    ld.size, ld.size_y = max(.5, sx), max(.5, sy)
+    ld.energy = energy
+    ld.color = color
+    try:
+        ld.use_shadow = True
+    except AttributeError:
+        pass
+    o = bpy.data.objects.new(name, ld)
+    coll.objects.link(o)
+    o.parent = parent
+    o.location = loc
+    o["sa_stage"] = "W3.1 luz de preenchimento interior (captura; equivalente a luminárias tubulares)"
+    return o
+
+
+def bake_interior_probe(hero_coll, light_coll, hid, rootobj=None):
+    """W3.1: baked irradiance volume over the hero (scene-only collection) so interiors receive occluded, bounced light instead of
+    the unshadowed blue world ambient. Unity equivalent: Adaptive Probe Volume over the hero (documented, not exported)."""
+    from mathutils import Matrix, Vector
+    bpy.context.view_layer.update()
+    lo, hi = Vector((1e9,) * 3), Vector((-1e9,) * 3)
+    for o in hero_coll.all_objects:
+        if o.type != "MESH" or o.hide_render:
+            continue
+        for c in o.bound_box:
+            w = o.matrix_world @ Vector(c)
+            lo, hi = Vector(map(min, lo, w)), Vector(map(max, hi, w))
+    if lo.x > hi.x:
+        return None
+    lo -= Vector((.5, .5, .2))
+    hi += Vector((.5, .5, .5))
+    pd = bpy.data.lightprobes.new(f"IV_{hid}", "VOLUME")
+    size = hi - lo
+    pd.resolution_x, pd.resolution_y, pd.resolution_z = (max(4, min(40, int(v / 1.2))) for v in size)
+    po = bpy.data.objects.new(f"IV_{hid}", pd)
+    light_coll.objects.link(po)
+    mw = Matrix.LocRotScale((lo + hi) / 2, None, size / 2)
+    if rootobj is not None:
+        po.parent = rootobj
+    po.matrix_world = mw
+    po["sa_stage"] = "W3.1 volume de irradiância (somente cena/captura; Unity: Adaptive Probe Volume)"
+    for o in bpy.context.view_layer.objects:
+        o.select_set(False)
+    bpy.context.view_layer.objects.active = po
+    po.select_set(True)
+    try:
+        with bpy.context.temp_override(object=po, active_object=po, selected_objects=[po]):
+            bpy.ops.object.lightprobe_cache_bake(subset="ACTIVE")
+        print("W3.1 IRRADIANCE VOLUME BAKED", hid, tuple(round(v, 1) for v in size))
+    except Exception as ex:                                         # bake is an enhancement; never block generation
+        print("W3.1 IRRADIANCE VOLUME BAKE FAILED", hid, ex)
+    return po
 
 
 def wall_x(mb, y, x0, x1, t, z0, z1, ops, mat):

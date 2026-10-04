@@ -422,6 +422,10 @@ def lod0_extras(front, back, v, w, d, H, gh, rng):
         back.box(bu + 1.6, bu + 1.66, gh + .2, gh + .26, -.25, 0, S["metal"])
 
 
+LAST_META = {}    # W3.2: {'sign': (u0, u1, z0, z1)} when the shop sign band was built
+LAST_FRONT = []   # W3.2: front-facade openings of the last building_mesh call, [(floor z0, z1, [opening dicts])]
+
+
 def building_mesh(mb, v, seed, detail="lod1"):
     """Emit a whole Old Town building variant v (dict from urban_fabric.OLDTOWN_VARIANTS) into mb."""
     rng = random.Random(seed)
@@ -444,6 +448,8 @@ def building_mesh(mb, v, seed, detail="lod1"):
     sparse = fam in ("armazem", "deposito", "oficina")
     front = Facade(mb, (-w / 2, -d / 2), (1, 0), (0, -1), w)
     bands = openings_for(w, floors, gh, fh, rng, kind, shop=shop, big_door=big, sparse=sparse)
+    LAST_META.clear()
+    LAST_FRONT[:] = [(z0, z1, [dict(o) for o in ops]) for z0, z1, ops in bands]
     build_facade(front, bands, rng, style)
     back = Facade(mb, (w / 2, d / 2), (-1, 0), (0, 1), w)
     bands_b = openings_for(w, floors, gh, fh, rng, kind, door_u=w * .7, sparse=True)
@@ -465,6 +471,7 @@ def building_mesh(mb, v, seed, detail="lod1"):
         front.box(-.05, w + .05, H - .35, H, -.22, 0, S["trim"])
     if shop and rng.random() < .75:
         front.sign(.5, w - .5, gh - .05, gh + .55)
+        LAST_META["sign"] = (.5, w - .5, gh - .05, gh + .55)
     if shop and rng.random() < .35:
         front.awning(.4, w - .4, gh - .1)
     if fam == "predio_4a6" and rng.random() < .6:
