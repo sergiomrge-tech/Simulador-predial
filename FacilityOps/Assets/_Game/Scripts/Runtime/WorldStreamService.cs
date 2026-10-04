@@ -22,6 +22,11 @@ namespace FacilityOps
         private WorldStreamingId currentCell;
         private bool hasCurrentCell;
 
+        private void OnEnable()
+        {
+            RebuildLoadedIndex();
+        }
+
         public bool StreamingEnabled
         {
             get => streamingEnabled;
@@ -57,6 +62,8 @@ namespace FacilityOps
 
         public void Refresh(WorldStreamingId center)
         {
+            RebuildLoadedIndex();
+
             var loadSet = WorldStreamingPolicy.BuildLoadSet(center);
             var keepSet = WorldStreamingPolicy.BuildKeepSet(center);
 
@@ -70,6 +77,17 @@ namespace FacilityOps
 
             foreach (var cell in unload)
                 EnsureUnloaded(cell);
+        }
+
+        private void RebuildLoadedIndex()
+        {
+            loaded.Clear();
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+                if (scene.isLoaded && WorldStreamingSceneNaming.TryParseSceneName(scene.name, out var id))
+                    loaded.Add(id);
+            }
         }
 
         private void EnsureLoaded(WorldStreamingId id)
