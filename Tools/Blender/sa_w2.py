@@ -190,3 +190,63 @@ def text_mesh(name, text, size, coll, mat, extrude=.006):
     coll.objects.link(o)
     me.materials.append(mat)
     return o
+
+
+def partition_plan(rooms, walled, hw, hd, T, door_w=.9, door_override=None):
+    """Interior walls from room rects: drop edges on the outer walls, merge shared/colinear edges, one door per room on the
+    edge nearest the building centre (or door_override[room] = (axis, c, p, w)). Returns (edges, doors)."""
+    door_override = door_override or {}
+
+    def outer(e):
+        return (e[0] == "x" and abs(abs(e[1]) - (hd - T)) < .35) or (e[0] == "y" and abs(abs(e[1]) - (hw - T)) < .35)
+
+    edges, doors = [], []
+    for r in walled:
+        x0, y0, x1, y1 = rooms[r]
+        cand = [e for e in (("x", y0, x0, x1), ("x", y1, x0, x1), ("y", x0, y0, y1), ("y", x1, y0, y1)) if not outer(e)]
+        if r in door_override:
+            if door_override[r]:
+                doors.append(door_override[r] + (r,))
+        elif cand:
+            best = min(cand, key=lambda e: math.hypot(*(((e[2] + e[3]) / 2, e[1]) if e[0] == "x" else (e[1], (e[2] + e[3]) / 2))))
+            doors.append((best[0], best[1], (best[2] + best[3]) / 2, door_w, r))
+        edges.extend(cand)
+    merged = []
+    for axis, c, a, b in edges:
+        segs = [(a, b)]
+        for m in merged:
+            if m[0] == axis and abs(m[1] - c) < .3:
+                nxt = []
+                for s0, s1 in segs:
+                    if m[3] <= s0 or m[2] >= s1:
+                        nxt.append((s0, s1))
+                        continue
+                    if m[2] > s0:
+                        nxt.append((s0, m[2]))
+                    if m[3] < s1:
+                        nxt.append((m[3], s1))
+                segs = nxt
+        merged.extend((axis, c, s0, s1) for s0, s1 in segs if s1 - s0 > .2)
+    return merged, doors
+
+
+def light_window(mb, axis, c, pos, w, zb, h, out_sign, m_frame, m_glass, m_sill):
+    """Lightweight window (LOD0-light) merged into a per-floor mesh: frame, mullion, glass, sill.
+    axis 'x': wall along X at y=c; 'y': wall along Y at x=c. out_sign = +1/-1 direction of the exterior."""
+    d = .07
+    if axis == "x":
+        y = c + out_sign * .02
+        mb.box(pos, y, zb, w, d, .05, m_frame)
+        mb.box(pos, y, zb + h - .05, w, d, .05, m_frame)
+        for x in (pos - w / 2 + .025, pos, pos + w / 2 - .025):
+            mb.box(x, y, zb, .05, d, h, m_frame)
+        mb.box(pos, y - out_sign * .01, zb + .05, w - .05, .006, h - .1, m_glass)
+        mb.box(pos, c + out_sign * .12, zb - .04, w + .1, .2, .04, m_sill)
+    else:
+        x = c + out_sign * .02
+        mb.box(x, pos, zb, d, w, .05, m_frame)
+        mb.box(x, pos, zb + h - .05, d, w, .05, m_frame)
+        for y in (pos - w / 2 + .025, pos, pos + w / 2 - .025):
+            mb.box(x, y, zb, d, .05, h, m_frame)
+        mb.box(x - out_sign * .01, pos, zb + .05, .006, w - .05, h - .1, m_glass)
+        mb.box(c + out_sign * .12, pos, zb - .04, .2, w + .1, .04, m_sill)
