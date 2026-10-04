@@ -44,7 +44,7 @@ namespace FacilityOps
 
             buffer.Clear();
             buffer.AppendLine("SANTA AURORA / STREAMING QA");
-            buffer.Append("Cell: ").AppendLine(streamService.CurrentCell.Name);
+            buffer.Append("Cell: ").AppendLine(streamService.HasCurrentCell ? streamService.CurrentCell.Name : "n/a");
             buffer.Append("Loaded index: ").Append(streamService.LoadedCells.Count).AppendLine();
             buffer.Append("Pending load: ").Append(streamService.PendingLoadCount).AppendLine();
             buffer.Append("Pending unload: ").Append(streamService.PendingUnloadCount).AppendLine();
