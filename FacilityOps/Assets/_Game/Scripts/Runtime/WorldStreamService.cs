@@ -44,6 +44,7 @@ namespace FacilityOps
         public WorldStreamingId CurrentCell => currentCell;
         public bool HasCurrentCell => hasCurrentCell;
         public IReadOnlyCollection<WorldStreamingId> LoadedCells => loaded;
+        public bool IsLoaded(WorldStreamingId id) => loaded.Contains(id);
         public int PendingLoadCount => pendingLoads.Count;
         public int PendingUnloadCount => pendingUnloads.Count;
 
