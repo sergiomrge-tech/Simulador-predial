@@ -341,6 +341,10 @@ KA.switch("W2_home__apto12_switch_entry", (ux0 + .01, door_s - .55, zf), math.pi
 bulb = L(next(it for it in hero["interior"]["states"]["H0"] if it[0] == "bare_bulb")[1][:2])
 KA.ceiling_light("W2_home__apto12_bulb", (bulb[0], bulb[1], zc - .02), bulb_only=True)
 KA.ceiling_light("W2_home__apto12_bath_light", ((bx0 + bx1) / 2, (by0_ + by1_) / 2, zc - .02))
+from sa_w2 import area_fill  # noqa: E402
+# W3.1: soft daylight-bounce fill for the empty H0 flat (the bare bulb stays the only fixture in the hero)
+area_fill(C["Lighting"], rootobj, "W2_home__apto12_fill", ((ux0 + ux1) / 2, (uy0 + uy1) / 2, zc - .1), (ux1 - ux0) * .7, (uy1 - uy0) * .7,
+          (ux1 - ux0) * (uy1 - uy0) * 16.0, color=(1.0, .9, .78))
 KA.skirting("W2_home__apto12_skirting", [((ux0, uy0 + .01), (ux1, uy0 + .01)), ((ux0 + .01, uy0), (ux0 + .01, uy1)), ((ux0, uy1 - .01), (ux1, uy1 - .01))])
 KA.coll = C["Interior"]
 # H0 props from the JSON slots (local positions), state H0 + permanent item
@@ -474,6 +478,8 @@ scene["facility_stage"] = "W2 base de produção (não é arte final)"
 mb = sa_bl.MeshBuilder()
 mb.box(0, 0, -1.2, 70, 70, .95, 0)
 mesh("W2_home__ground_plate", mb, ["terra"], C["CaptureOnly"], sa_layer="Terrain", note="só para capturas isoladas")
+from sa_w2 import bake_interior_probe  # noqa: E402
+bake_interior_probe(top, C["Lighting"], "home.starter", rootobj)
 out = root / "ArtSource" / "Blender" / "World" / "OldTown" / "Heroes"
 out.mkdir(parents=True, exist_ok=True)
 blend = out / "W2_home_starter.blend"

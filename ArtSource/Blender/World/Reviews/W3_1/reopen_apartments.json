@@ -1,0 +1,70 @@
+{
+  "hero": "apartments",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_apartments.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 62,
+  "checks": {
+    "meshObjects": 45,
+    "triangles": 126444,
+    "trianglesPerCollection": {
+      "W2_apartments_CaptureOnly": 10,
+      "W2_apartments_Interior": 3026,
+      "W2_apartments_Openings": 41440,
+      "W2_apartments_Services": 1650,
+      "W2_apartments_Shell": 54120,
+      "W2_apartments_Site": 25904,
+      "W2_apartments_Structure": 294
+    },
+    "largestObjects": [
+      {
+        "name": "W2_apartments__character",
+        "tris": 27408
+      },
+      {
+        "name": "W2_apartments__B0_front_wing_openings",
+        "tris": 15090
+      },
+      {
+        "name": "W2_apartments__B2_rear_wing_openings",
+        "tris": 11980
+      },
+      {
+        "name": "W2_apartments__B0_front_wing_shell",
+        "tris": 10280
+      },
+      {
+        "name": "W2_apartments__B1_west_wing_openings",
+        "tris": 9060
+      },
+      {
+        "name": "W2_apartments__B2_rear_wing_shell",
+        "tris": 7728
+      },
+      {
+        "name": "W2_apartments__car_patio_2",
+        "tris": 6638
+      },
+      {
+        "name": "W2_apartments__car_patio_8",
+        "tris": 6526
+      }
+    ],
+    "lights": 7,
+    "materials": 44,
+    "stateSlots": [],
+    "interactive": 6,
+    "root": {
+      "name": "W2_apartments_ROOT",
+      "facility_id": "apartments",
+      "location": [
+        -3050.0,
+        -1571.0,
+        23.135
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [],
+  "errors": [],
+  "passed": true
+}

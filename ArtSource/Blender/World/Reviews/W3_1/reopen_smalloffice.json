@@ -1,0 +1,70 @@
+{
+  "hero": "smalloffice",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_smalloffice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 70,
+  "checks": {
+    "meshObjects": 48,
+    "triangles": 101770,
+    "trianglesPerCollection": {
+      "W2_smalloffice_CaptureOnly": 10,
+      "W2_smalloffice_Interior": 15194,
+      "W2_smalloffice_Openings": 18050,
+      "W2_smalloffice_Services": 198,
+      "W2_smalloffice_Shell": 10252,
+      "W2_smalloffice_Site": 57928,
+      "W2_smalloffice_Structure": 138
+    },
+    "largestObjects": [
+      {
+        "name": "W2_smalloffice__interior_fitout",
+        "tris": 10534
+      },
+      {
+        "name": "W2_smalloffice__B0_office_openings",
+        "tris": 8870
+      },
+      {
+        "name": "W2_smalloffice__car_fundos_5",
+        "tris": 7950
+      },
+      {
+        "name": "W2_smalloffice__car_fundos_9",
+        "tris": 6774
+      },
+      {
+        "name": "W2_smalloffice__car_fundos_1",
+        "tris": 6486
+      },
+      {
+        "name": "W2_smalloffice__car_fundos_6",
+        "tris": 6150
+      },
+      {
+        "name": "W2_smalloffice__car_fundos_12",
+        "tris": 6062
+      },
+      {
+        "name": "W2_smalloffice__car_fundos_4",
+        "tris": 5902
+      }
+    ],
+    "lights": 13,
+    "materials": 48,
+    "stateSlots": [],
+    "interactive": 8,
+    "root": {
+      "name": "W2_smalloffice_ROOT",
+      "facility_id": "smalloffice",
+      "location": [
+        -1853.0,
+        -1891.0,
+        30.478
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [],
+  "errors": [],
+  "passed": true
+}

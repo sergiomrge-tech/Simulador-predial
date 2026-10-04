@@ -1,0 +1,70 @@
+{
+  "hero": "grocery",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_grocery.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 77,
+  "checks": {
+    "meshObjects": 58,
+    "triangles": 127144,
+    "trianglesPerCollection": {
+      "W2_grocery_CaptureOnly": 10,
+      "W2_grocery_Interior": 21324,
+      "W2_grocery_Openings": 11334,
+      "W2_grocery_Services": 1650,
+      "W2_grocery_Shell": 17100,
+      "W2_grocery_Site": 75588,
+      "W2_grocery_Structure": 138
+    },
+    "largestObjects": [
+      {
+        "name": "W2_grocery__grocery_stock",
+        "tris": 15190
+      },
+      {
+        "name": "W2_grocery__car_rua_0",
+        "tris": 8774
+      },
+      {
+        "name": "W2_grocery__car_rua_6",
+        "tris": 8494
+      },
+      {
+        "name": "W2_grocery__car_rua_9",
+        "tris": 6470
+      },
+      {
+        "name": "W2_grocery__car_rua_2",
+        "tris": 6470
+      },
+      {
+        "name": "W2_grocery__car_rua_7",
+        "tris": 6214
+      },
+      {
+        "name": "W2_grocery__car_rua_4",
+        "tris": 6110
+      },
+      {
+        "name": "W2_grocery__delivery_van",
+        "tris": 6078
+      }
+    ],
+    "lights": 10,
+    "materials": 50,
+    "stateSlots": [],
+    "interactive": 7,
+    "root": {
+      "name": "W2_grocery_ROOT",
+      "facility_id": "grocery",
+      "location": [
+        -2584.0,
+        -1480.0,
+        24.769
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [],
+  "errors": [],
+  "passed": true
+}

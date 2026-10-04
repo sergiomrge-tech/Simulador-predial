@@ -1,0 +1,70 @@
+{
+  "hero": "restaurant",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_restaurant.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 119,
+  "checks": {
+    "meshObjects": 97,
+    "triangles": 102188,
+    "trianglesPerCollection": {
+      "W2_restaurant_CaptureOnly": 10,
+      "W2_restaurant_Interior": 34406,
+      "W2_restaurant_Openings": 15444,
+      "W2_restaurant_Services": 1650,
+      "W2_restaurant_Shell": 11470,
+      "W2_restaurant_Site": 39188,
+      "W2_restaurant_Structure": 20
+    },
+    "largestObjects": [
+      {
+        "name": "W2_restaurant__car_frente_2",
+        "tris": 6814
+      },
+      {
+        "name": "W2_restaurant__B0_restaurant_openings",
+        "tris": 6660
+      },
+      {
+        "name": "W2_restaurant__car_frente_3",
+        "tris": 6622
+      },
+      {
+        "name": "W2_restaurant__car_frente_1",
+        "tris": 6510
+      },
+      {
+        "name": "W2_restaurant__car_frente_0",
+        "tris": 6510
+      },
+      {
+        "name": "W2_restaurant__car_frente_5",
+        "tris": 5398
+      },
+      {
+        "name": "W2_restaurant__interior_fitout",
+        "tris": 4326
+      },
+      {
+        "name": "W2_restaurant__B0_restaurant_shell",
+        "tris": 4104
+      }
+    ],
+    "lights": 13,
+    "materials": 47,
+    "stateSlots": [],
+    "interactive": 9,
+    "root": {
+      "name": "W2_restaurant_ROOT",
+      "facility_id": "restaurant",
+      "location": [
+        -2140.0,
+        -1424.0,
+        29.08
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [],
+  "errors": [],
+  "passed": true
+}

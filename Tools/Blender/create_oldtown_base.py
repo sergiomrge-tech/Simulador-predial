@@ -591,6 +591,15 @@ for (x, y, ang, linear) in ot.tree_pits:
         for dx, dy, sx, sy in ((0, .62, 1.36, .12), (0, -.62, 1.36, .12), (.62, 0, .12, 1.24), (-.62, 0, .12, 1.24)):
             cs_, sn_ = math.cos(ang), math.sin(ang)
             mb.box(x + dx * cs_ - dy * sn_, y + dx * sn_ + dy * cs_, z - .02, sx, sy, .07, RM["concreto"], rot=ang)
+        if SLICE and in_slice_pt((x, y), 20):
+            # W3.1: surface roots and soil spill, some pits with a broken curb ring (older trees lifting the paving)
+            k_seed = int(abs(x) * 13 + abs(y) * 7)
+            for k_ in range(3 + k_seed % 3):
+                a_ = ang + k_ * 2.1 + (k_seed % 7) * .3
+                L_ = .5 + ((k_seed >> k_) % 5) * .14
+                cx_, cy_ = x + math.cos(a_) * (.25 + L_ / 2), y + math.sin(a_) * (.25 + L_ / 2)
+                mb.box(cx_, cy_, z - .03, L_, .07 + (k_ % 2) * .03, .06, RM["terra"], rot=a_)
+            mb.box(x + math.cos(ang + 1) * .2, y + math.sin(ang + 1) * .2, z + .003, 1.5, .5, .004, RM["terra"], rot=ang + .5)
 STATS["tree_pits"] = len(ot.tree_pits)
 for (macro, sub), mb in road_mb.items():
     name = f"OT_Roads_{sub}"
@@ -747,9 +756,100 @@ def acc_piece(kind):
 if SLICE:
     ACC_MATS.update({"trashbag": ["borracha_preta"], "pallet": ["madeira_crua"], "cone": ["aco_pintado_vermelho", "plastico_branco"],
                      "plate": ["plastico_branco", "aco_pintado_vermelho", "metal_galvanizado"]})
+    # W3.1 background variants (per lot, themed per ~60 m block): marquises, balconies, external stairs, rear annexes,
+    # reformed ground-floor cladding, raised front parapets, steel car gates and rooftop condenser racks.
+    W31 = {}
+    for _w in (3, 5, 7, 9):
+        for _c, _m in (("pastilha", "plastico_azul"), ("ceramica", "piso_ceramico_bege"), ("azulejo", "azulejo_branco"), ("granito", "granito"),
+                       ("verde", "aco_pintado_verde"), ("tijolo", "tijolo_aparente")):
+            W31[f"w31_reforma{_w}_{_c}"] = [_m, "concreto_pintado"]
+    for _w in (5, 7, 9):
+        W31[f"w31_platibanda{_w}"] = ["concreto_pintado", "concreto"]
+    W31.update({"w31_marquise": ["concreto_pintado", "aco_pintado_cinza"], "w31_marquise_metal": ["telha_metalica", "aco_pintado_cinza"],
+                "w31_sacada": ["concreto_pintado", "aco_pintado_cinza"], "w31_escada_ext": ["concreto", "aco_pintado_cinza"],
+                "w31_anexo": ["concreto_pintado", "telha_fibrocimento", "aluminio", "vidro"], "w31_portao": ["aco_pintado_cinza", "aco_pintado_verde"],
+                "w31_cond_rack": ["aco_pintado_cinza", "plastico_branco", "borracha_preta"], "w31_grade_janela": ["aco_pintado_cinza"]})
+    ACC_MATS.update(W31)
     _base_acc_piece = acc_piece
 
+    def _w31_piece(kind):
+        mb = sa_bl.MeshBuilder()
+        if kind.startswith("w31_reforma"):
+            w_ = float(kind[11:].split("_")[0])
+            mb.box(0, -.012, .02, w_, .024, 2.6, 0)                         # cladding over the ground floor
+            mb.box(0, -.03, 2.62, w_ + .04, .06, .08, 1)                    # capping band
+        elif kind.startswith("w31_platibanda"):
+            w_ = float(kind[14:])
+            mb.box(0, .1, 0, w_, .2, .95, 0)
+            mb.box(0, .1, .95, w_ + .06, .28, .07, 1)
+        elif kind == "w31_marquise":
+            mb.box(0, -.55, 0, 2.6, 1.1, .12, 0)
+            mb.box(0, -1.08, -.08, 2.6, .06, .2, 0)
+            for x_ in (-1.1, 1.1):
+                mb.add_face([(x_, -1.05, .12), (x_ + .02, -1.05, .12), (x_ + .02, -.02, .9), (x_, -.02, .9)], 1)
+        elif kind == "w31_marquise_metal":
+            mb.add_face([(-1.6, -1.2, 0), (1.6, -1.2, 0), (1.6, 0, .35), (-1.6, 0, .35)], 0)
+            mb.add_face([(-1.6, 0, .35), (1.6, 0, .35), (1.6, -1.2, 0), (-1.6, -1.2, 0)], 0)
+            for x_ in (-1.5, 0, 1.5):
+                mb.box(x_, -.6, .0, .04, 1.2, .05, 1)
+        elif kind == "w31_sacada":
+            mb.box(0, -.45, 0, 2.4, .9, .12, 0)
+            for k_ in range(13):
+                x_ = -1.15 + k_ * 2.3 / 12
+                mb.box(x_, -.88, .12, .025, .025, .95, 1)
+            for x_ in (-1.18, 1.18):
+                for k_ in range(5):
+                    mb.box(x_, -.85 + k_ * .2, .12, .025, .025, .95, 1)
+            mb.box(0, -.88, 1.06, 2.4, .05, .04, 1)
+            for x_ in (-1.18, 1.18):
+                mb.box(x_, -.45, 1.06, .05, .9, .04, 1)
+        elif kind == "w31_escada_ext":
+            n_ = 16
+            for k_ in range(n_):                                             # straight flight along +x, rising to 2.9 m
+                mb.box(-2.1 + k_ * .27, -.5, k_ * .18, .28, .9, .18 if k_ == 0 else .06, 0)
+                mb.box(-2.1 + k_ * .27, -.5, max(0, k_ * .18 - .25), .28, .9, .25 if k_ else .0, 0)
+            mb.box(2.35, -.6, 2.82, 1.1, 1.1, .12, 0)                        # landing at the upper door
+            mb.box(2.35, -1.1, 0, .12, .12, 2.82, 1)
+            for k_ in range(0, n_, 3):
+                mb.box(-2.1 + k_ * .27, -.94, k_ * .18 + .06, .03, .03, .95, 1)
+            mb.add_face([(-2.1, -.95, 1.0), (2.2, -.95, 1.0 + 2.88), (2.2, -.93, 1.0 + 2.88), (-2.1, -.93, 1.0)], 1)
+            mb.add_face([(-2.1, -.93, 1.0), (2.2, -.93, 3.88), (2.2, -.95, 3.88), (-2.1, -.95, 1.0)], 1)
+        elif kind == "w31_anexo":
+            mb.box(0, 1.3, 0, 3.2, 2.6, 2.6, 0)
+            mb.add_face([(-1.75, -.05, 2.95), (1.75, -.05, 2.95), (1.75, 2.75, 2.6), (-1.75, 2.75, 2.6)], 1)
+            mb.add_face([(-1.75, 2.75, 2.6), (1.75, 2.75, 2.6), (1.75, -.05, 2.95), (-1.75, -.05, 2.95)], 1)
+            mb.box(.6, 2.61, 1.2, 1.0, .03, .8, 2)
+            mb.box(.6, 2.625, 1.25, .9, .02, .7, 3)
+            mb.box(-.8, 2.61, .0, .8, .03, 2.1, 2)
+        elif kind == "w31_portao":
+            mb.box(0, 0, 0, 3.2, .06, .06, 0)
+            mb.box(0, 0, 1.9, 3.2, .06, .06, 0)
+            for x_ in (-1.6, 1.6):
+                mb.box(x_, 0, 0, .06, .06, 1.96, 0)
+            for k_ in range(24):
+                mb.box(-1.5 + k_ * 3.0 / 23, 0, .06, .02, .02, 1.84, 0)
+            mb.box(0, -.01, .1, 3.1, .02, .5, 1)                             # lower sheet panel
+        elif kind == "w31_cond_rack":
+            mb.box(0, 0, 0, 2.6, .7, .08, 0)
+            for x_ in (-.85, 0, .85):
+                mb.box(x_, 0, .08, .78, .32, .55, 1)
+                mb.cylinder(x_ + .12, -.17, .32, .17, .01, 16, 2)
+            for x_ in (-1.25, 1.25):
+                mb.box(x_, 0, -.45, .05, .6, .45, 0)
+        elif kind == "w31_grade_janela":
+            mb.box(0, 0, 0, 1.3, .03, .03, 0)
+            mb.box(0, 0, 1.15, 1.3, .03, .03, 0)
+            for k_ in range(9):
+                mb.box(-.6 + k_ * 1.2 / 8, 0, 0, .018, .018, 1.18, 0)
+            for x_ in (-.66, .66):
+                mb.box(x_, 0, 0, .03, .03, 1.18, 0)
+        o_ = sa_bl.bevelled_object("ACC_" + kind, mb, [lib[m] for m in ACC_MATS[kind]], library, bevel=.004)
+        sa_bl.props(o_, sa_stage="W3.1 variante de fundo (LOD0)")
+        return o_
+
     def acc_piece(kind):  # noqa: F811
+        if kind.startswith("w31_"):
+            return _w31_piece(kind)
         if kind not in ("trashbag", "pallet", "cone", "plate"):
             return _base_acc_piece(kind)
         mb = sa_bl.MeshBuilder()
@@ -811,10 +911,21 @@ if SLICE:
         bpy.data.objects.remove(t_)
         ACC_MATS[f"poster{k_}"] = None
         globals().setdefault("_POSTERS", []).append(brd)
+if SLICE:
+    import sa_decals  # noqa: E402
+    DECAL_META = sa_decals.load(root)
+    for _did, _m in DECAL_META.items():
+        globals().setdefault("_POSTERS", []).append(sa_decals.piece(root, _did, _m, library, flat=False))
+        if _m["kind"] == "mark":
+            globals().setdefault("_POSTERS", []).append(sa_decals.piece(root, _did, _m, library, flat=True))
+    from oldtown_layout import NEIGHBOURHOODS as _NB  # noqa: E402
+    HOOD_CHAR = {h_["id"]: h_["character"] for h_ in _NB}
+    DC = {k: [d for d, m in DECAL_META.items() if m["kind"] == k] for k in ("poster", "graffiti", "sign", "mark", "label", "scraps", "peeling")}
 acc_objs = [acc_piece(k) for k in ACC_MATS if ACC_MATS[k] is not None] + list(globals().get("_POSTERS", []))
 acc_lib, acc_index = sa_bl.library_collection("OT_Lib_Accessories", acc_objs, library)
 VAR = {v["id"]: v for v in OLDTOWN_VARIANTS}
 acc_pts = {}
+LOT_ACC = {}
 
 
 def place(lot, kind, lx, ly, lz, rot_extra=0.0, scl=1.0):
@@ -825,6 +936,7 @@ def place(lot, kind, lx, ly, lz, rot_extra=0.0, scl=1.0):
     macro, sub = subcell(x, y)
     acc_pts.setdefault((macro, sub), []).append((x, y, lot_z[lot["id"]] + lz, acc_index["ACC_" + kind], r + rot_extra, scl))
     STATS["accessories"][kind] = STATS["accessories"].get(kind, 0) + 1
+    LOT_ACC.setdefault(lot["id"], []).append(kind)
 
 
 lot_z = {}
@@ -884,7 +996,10 @@ if SLICE:
         lid = str(lot["id"])
         roll = lambda k, lid=lid: zlib.crc32(f"c{lid}:{k}".encode()) / 4294967295.0
         commerce = v["family"] in ("comercio_residencia", "pequeno_comercial") or "shop" in v["tags"]
-        if (commerce or v["family"] == "abandonada_reformada") and roll(0) < .45:
+        resid_ = v["family"] in ("sobrado_estreito", "casa_terrea", "comercio_residencia", "predio_3pav", "predio_4a6")
+        H = v["height"]
+        lotw_ = lot["obb"].hw * 2
+        if (commerce or v["family"] == "abandonada_reformada") and roll(0) < .2:
             place(lot, f"poster{int(roll(1) * 4) % 4}", (roll(2) - .5) * (w - 1.2), -d / 2 - .01, 0.0)
         if (commerce or roll(3) < .15) and roll(4) < .5:
             for k in range(1 + int(roll(5) * 2)):
@@ -893,6 +1008,60 @@ if SLICE:
             place(lot, "pallet", -w / 2 + 1.0 + roll(10) * 2, -d / 2 - sb - .7, 0.0, rot_extra=(roll(11) - .5) * .4)
         if "big_door" in v["tags"] and roll(12) < .5:
             place(lot, "plate", w / 2 - .3, -d / 2 - sb - .3, 0.0)
+        # W3.1 background variants, themed per ~60 m block so neighbouring lots share a period of reforms
+        bx_, by_ = int(lot["obb"].c[0] // 60), int(lot["obb"].c[1] // 60)
+        theme = zlib.crc32(f"blk{bx_}:{by_}".encode()) % 6
+        clad = ("pastilha", "ceramica", "azulejo", "granito", "verde", "tijolo")[theme]
+        wcls = max([c_ for c_ in (3, 5, 7, 9) if c_ <= w - .4] or [0])
+        gh_ = v["ground_h"]
+        if wcls and v["family"] not in ("armazem", "deposito", "oficina") and roll(80) < (.45 if theme in (0, 1, 2) else .22):
+            ck = clad if roll(81) < .75 else ("pastilha", "ceramica", "azulejo", "granito", "verde", "tijolo")[int(roll(82) * 6) % 6]
+            place(lot, f"w31_reforma{wcls}_{ck}", 0.0, -d / 2 - .002, 0.0, scl=min(1.0, (gh_ - .25) / 2.7) if gh_ < 2.95 else 1.0)
+        if (commerce or resid_) and gh_ >= 2.9 and roll(83) < .35:
+            place(lot, "w31_marquise" if roll(84) < .6 else "w31_marquise_metal", (roll(85) - .5) * max(0, w - 3.4), -d / 2, gh_ - .35)
+        if resid_ and v["floors"] >= 2 and w >= 4.5 and roll(86) < .4:
+            for f_ in range(1, min(v["floors"], 4)):
+                if roll(87 + f_) < .7:
+                    place(lot, "w31_sacada", (roll(91) - .5) * max(0, w - 2.8), -d / 2, gh_ + (f_ - 1) * v["fh"] - .02)
+        if v["family"] in ("sobrado_estreito", "casa_terrea", "comercio_residencia") and v["floors"] >= 2 and sb >= 1.3 and w >= 6 and roll(95) < .5:
+            place(lot, "w31_escada_ext", 0.0, -d / 2 - .02, 0.0)
+        if resid_ and lot["obb"].hd * 2 - d > 3.2 and roll(96) < .45 and w >= 4:
+            place(lot, "w31_anexo", (roll(97) - .5) * max(0, w - 3.6), d / 2, 0.0)
+        if v["roof"] == "flat_parapet" and wcls >= 5 and roll(98) < .35:
+            place(lot, f"w31_platibanda{min(wcls, 9)}", 0.0, -d / 2, H)
+        if v["family"] in ("casa_terrea", "sobrado_estreito", "abandonada_reformada") and sb >= 1.5 and lotw_ >= 6.2 and roll(99) < .4:
+            place(lot, "w31_portao", (lotw_ / 2 - 1.9) * (1 if roll(100) < .5 else -1), -d / 2 - sb + .02, 0.0)
+        if (commerce or v["family"] in ("predio_3pav", "predio_4a6", "pequeno_comercial")) and v["roof"] == "flat_parapet" and roll(101) < .4:
+            place(lot, "w31_cond_rack", (roll(102) - .5) * max(0, w - 3.2), (roll(103) - .2) * (d - 2) * .4, H + .5)
+        if resid_ and roll(104) < .35:
+            for k in range(1 + int(roll(105) * 2)):
+                place(lot, "w31_grade_janela", (roll(106 + k) - .5) * max(0, w - 1.6), -d / 2 - .04, .95)
+        # W3.1 authored decals: shop signs, lambe-lambe clusters, glue scraps, graffiti, labels, house numbers, peeling paint
+        fz = -d / 2
+        old_fabric = v["family"] in ("abandonada_reformada", "armazem", "deposito", "oficina") or HOOD_CHAR.get(lot.get("hood"), "").startswith("core")
+        if commerce and v["ground_h"] >= 3.0 and roll(40) < .7:
+            place(lot, "dc_" + DC["sign"][int(roll(41) * 997) % len(DC["sign"])], (roll(42) - .5) * max(0, w - 3.0), fz - .025, v["ground_h"] - .72)
+        if (commerce or v["family"] in ("abandonada_reformada", "armazem", "deposito")) and roll(43) < .55:
+            n_ = 1 + int(roll(44) * 3)
+            x_ = (w / 2 - .8) * (1 if roll(45) < .5 else -1)
+            for k in range(n_):
+                place(lot, "dc_" + DC["poster"][int(roll(46 + k) * 997) % len(DC["poster"])], x_ - (k * .62) * (1 if x_ > 0 else -1),
+                      fz - .018 - k * .002, 1.25 + (roll(50 + k) - .5) * .25)
+            if roll(54) < .6:
+                place(lot, "dc_restos_cartaz", x_ - n_ * .62 * (1 if x_ > 0 else -1), fz - .016, 1.0 + roll(55) * .4)
+        if v["family"] in ("abandonada_reformada", "armazem", "deposito", "oficina") and roll(56) < .6:
+            place(lot, "dc_" + DC["graffiti"][int(roll(57) * 997) % len(DC["graffiti"])], (roll(58) - .5) * max(0, w - 2.4), fz - .022, .25 + roll(59) * .3)
+        elif roll(60) < .14:
+            place(lot, "dc_grafite_tags", (roll(61) - .5) * max(0, w - 1.8), fz - .022, .4 + roll(62) * .5)
+        if (old_fabric or roll(63) < .25) and roll(64) < .6:
+            for k in range(1 + int(roll(65) * 2)):
+                place(lot, "dc_tinta_descascando", (roll(66 + k) - .5) * max(0, w - 1.2), fz - .012, .3 + roll(68 + k) * (min(H, 6) - 1.4))
+        if resid_ and roll(70) < .45:
+            place(lot, "dc_etiqueta_numero", (w / 2 - .45) * (1 if roll(71) < .5 else -1), fz - .014, 2.05)
+        if roll(72) < .12:
+            place(lot, "dc_etiqueta_perigo", (w / 2 - .5) * (1 if roll(73) < .5 else -1), fz - .014, 1.3)
+        if "big_door" in v["tags"] and roll(74) < .45:
+            place(lot, "dc_estencil_nao_estacione", 0.0, fz - .02, 2.45 if v["ground_h"] >= 3.2 else .9)
     cone_sites = 0
     for (x, y, rot) in ot.points.get("manhole", []):
         if in_slice_pt((x, y)) and (int(abs(x) * 7 + abs(y) * 3) % 9) == 0:
@@ -902,6 +1071,15 @@ if SLICE:
                 macro, sub = subcell(*q)
                 acc_pts.setdefault((macro, sub), []).append((q[0], q[1], zs(*q) + ROAD_LIFT, acc_index["ACC_cone"], rot + k, 1.0))
     STATS["w3_cone_sites"] = cone_sites
+    marks = 0
+    for (x, y, rot) in ot.points.get("manhole", []):
+        if in_slice_pt((x, y)) and (int(abs(x) * 5 + abs(y) * 11) % 4) == 0:
+            mk = ("marca_agua", "marca_rn", "marca_vala")[int(abs(x) * 3 + abs(y)) % 3]
+            q = (x + math.cos(rot) * 1.0, y + math.sin(rot) * 1.0)
+            macro, sub = subcell(*q)
+            acc_pts.setdefault((macro, sub), []).append((q[0], q[1], zs(*q) + ROAD_LIFT + .012, acc_index["ACC_dcf_" + mk], rot, 1.0))
+            marks += 1
+    STATS["w31_spray_marks"] = marks
 for lot in ot.lots:                                                                     # small urban voids
     if lot["family"] != "vacant" or lot.get("green"):
         continue
@@ -1038,7 +1216,32 @@ for hid, fn in W2_HEROES.items():
 # ---------------------------------------------------------------- infrastructure, props, vegetation, lighting
 infra_pts, prop_pts, tree_pts, light_pts = {}, {}, {}, {}
 TREE_QUEUE = []
+W31_TREES = {"gate_clear": 0, "pruned": 0}
+if SLICE:
+    _gates = [l_["front"] for l_ in ot.lots if l_.get("front") and l_["variant"] in VAR and
+              ("big_door" in VAR[l_["variant"]]["tags"] or VAR[l_["variant"]]["family"] in ("oficina", "armazem", "deposito"))]
+    for h_ in ot.data["heroes"]:                             # hero frontage centre (front = N/S/E/W side of the lot)
+        x0_, y0_, x1_, y1_ = h_["lot"]
+        _gates.append({"N": ((x0_ + x1_) / 2, y1_), "S": ((x0_ + x1_) / 2, y0_), "E": (x1_, (y0_ + y1_) / 2),
+                       "W": (x0_, (y0_ + y1_) / 2)}.get(str(h_.get("front", "S"))[:1], ((x0_ + x1_) / 2, y0_)))
+    _pl = [(x_, y_, r_) for k_ in ("pole", "pole_transformer") for (x_, y_, r_) in ot.points.get(k_, [])]
+    _pg = {}
+    for (x_, y_, r_) in _pl:
+        _pg.setdefault((int(x_ // 40), int(y_ // 40)), []).append((x_, y_, r_))
 for (x, y, rot, sp, scl) in ot.street_trees:
+    if SLICE and in_slice_pt((x, y), 40):
+        if any(dist((x, y), g_) < 3.2 for g_ in _gates):
+            W31_TREES["gate_clear"] += 1                   # W3.1: keep garage/vehicle gates clear
+            continue
+        near_ = [q for gx in (-1, 0, 1) for gy in (-1, 0, 1) for q in _pg.get((int(x // 40) + gx, int(y // 40) + gy), [])]
+        for (px_, py_, pr_) in near_:
+            ux_, uy_ = math.cos(pr_), math.sin(pr_)
+            along_ = (x - px_) * ux_ + (y - py_) * uy_
+            lat_ = abs(-(x - px_) * uy_ + (y - py_) * ux_)
+            if abs(along_) < 40 and lat_ < 1.8 and sp != "jovem":
+                scl = min(scl, .74)                        # crown pruned under the overhead wires (W3.1)
+                W31_TREES["pruned"] += 1
+                break
     TREE_QUEUE.append((x, y, zs(x, y) + ROAD_LIFT + SIDEWALK_H - .02, sp, rot, scl))
 for (x, y, z) in WALL_TOP_GREEN:
     TREE_QUEUE.append((x, y, z, "arbusto", (x * 13.1) % 6.28, .7 + (abs(x * 7 + y) % 5) * .1))
@@ -1204,11 +1407,136 @@ def species(name):
     return o
 
 
+# ---------------------------------------------------------------- W3.1 street-front taludes (slice only)
+# Vacant/green lots on the uphill side of a street: stepped retaining wall at the back of the sidewalk (terrain heights are NOT
+# changed: the wall follows the existing ground ~3 m inside the lot), coping, weep holes, foot drainage channel, damp/contact band,
+# steps cut into the wall with a pipe handrail, and brush/grass on the slope above.
+TALUDE_SITES = []
+if SLICE:
+    TM = {"pedra": 0, "concreto": 1, "capa": 2, "tijolo": 3, "furo": 4, "umidade": 5, "corrimao": 6}
+    tal_mb = {}
+    for lot in ot.lots:
+        if lot["family"] != "vacant" or not lot.get("front") or not in_slice_pt(lot["obb"].c, -5):
+            continue
+        o_ = lot["obb"]
+        f_ = lot["front"]
+        if any(r_[0] - 2 <= o_.c[0] <= r_[2] + 2 and r_[1] - 2 <= o_.c[1] <= r_[3] + 2 for r_ in (pd["rect"] for pd in terrain.pads)):
+            continue
+        inward = norm(vsub(o_.c, f_))
+        cs_ = o_.corners()
+        near = sorted(range(4), key=lambda i: dist(cs_[i], f_))[:2]
+        p0, p1 = cs_[near[0]], cs_[near[1]]
+        p0 = (p0[0] + inward[0] * .25, p0[1] + inward[1] * .25)
+        p1 = (p1[0] + inward[0] * .25, p1[1] + inward[1] * .25)
+        Lw = dist(p0, p1)
+        if Lw < 8:
+            continue
+        rise = max(zs(q[0] + inward[0] * 3, q[1] + inward[1] * 3) for q in (p0, p1, lerp(p0, p1, .5))) - zs(*lerp(p0, p1, .5))
+        if rise < .7:
+            continue
+        seed_ = zlib.crc32(lot["id"].encode())
+        wmat = (TM["pedra"], TM["concreto"], TM["tijolo"])[seed_ % 3]
+        macro, sub = subcell(*o_.c)
+        mb = tal_mb.setdefault((macro, sub), sa_bl.MeshBuilder())
+        ua = norm(vsub(p1, p0))
+        ang = math.atan2(ua[1], ua[0])
+        nseg = max(2, int(Lw // 3.2))
+        stair_k = 0 if (seed_ >> 3) % 2 else nseg - 1
+        h_max = 0.0
+        for k in range(nseg):
+            t0, t1 = k / nseg, (k + 1) / nseg
+            a_ = lerp(p0, p1, t0)
+            b_ = lerp(p0, p1, t1)
+            c_ = lerp(a_, b_, .5)
+            zb = min(zs(*a_), zs(*b_)) - .25
+            zt = max(zs(a_[0] + inward[0] * 3, a_[1] + inward[1] * 3), zs(b_[0] + inward[0] * 3, b_[1] + inward[1] * 3)) + .3
+            h_ = zt - zb
+            h_max = max(h_max, h_)
+            seg_L = dist(a_, b_)
+            cc = (c_[0] + inward[0] * .18, c_[1] + inward[1] * .18)
+            if k == stair_k and Lw > 10:
+                # steps cut into the wall: 1.3 m wide flight climbing into the lot, side cheeks, pipe handrail
+                nst = max(3, int(h_ / .18))
+                run = .29
+                side_w = (seg_L - 1.3) / 2
+                for sgn in (-1, 1):
+                    q_ = (cc[0] + ua[0] * sgn * (seg_L / 2 - side_w / 2), cc[1] + ua[1] * sgn * (seg_L / 2 - side_w / 2))
+                    mb.box(q_[0], q_[1], zb, side_w, .36, h_, wmat, rot=ang)
+                for j in range(nst):
+                    q_ = (cc[0] + inward[0] * (j * run), cc[1] + inward[1] * (j * run))
+                    mb.box(q_[0], q_[1], zb, 1.3, run + .02, .25 + (j + 1) * (h_ - .25) / nst, TM["concreto"], rot=ang)
+                for sgn in (-1, 1):
+                    for j in (0, nst - 1):
+                        q_ = (cc[0] + ua[0] * sgn * .7 + inward[0] * j * run, cc[1] + ua[1] * sgn * .7 + inward[1] * j * run)
+                        mb.box(q_[0], q_[1], zb + .25 + (j + 1) * (h_ - .25) / nst, .04, .04, .95, TM["corrimao"], rot=ang)
+                    qa = (cc[0] + ua[0] * sgn * .7, cc[1] + ua[1] * sgn * .7)
+                    qb = (qa[0] + inward[0] * (nst - 1) * run, qa[1] + inward[1] * (nst - 1) * run)
+                    za_, zb_ = zb + .25 + (h_ - .25) / nst + .95, zb + h_ + .95
+                    mb.add_face([(qa[0] - ua[0] * .02, qa[1] - ua[1] * .02, za_), (qa[0] + ua[0] * .02, qa[1] + ua[1] * .02, za_),
+                                 (qb[0] + ua[0] * .02, qb[1] + ua[1] * .02, zb_), (qb[0] - ua[0] * .02, qb[1] - ua[1] * .02, zb_)], TM["corrimao"])
+                    mb.add_face([(qa[0], qa[1], za_ + .02), (qb[0], qb[1], zb_ + .02), (qb[0], qb[1], zb_ - .02), (qa[0], qa[1], za_ - .02)], TM["corrimao"])
+                continue
+            mb.box(cc[0], cc[1], zb, seg_L + .02, .36, h_, wmat, rot=ang)                         # wall panel (stepped tops)
+            mb.box(cc[0], cc[1], zt, seg_L + .06, .44, .07, TM["capa"], rot=ang)                  # coping
+            # weep holes (PVC drains) and the damp/contact band at the foot
+            for j in range(max(1, int(seg_L // 1.6))):
+                tq = (j + .5) / max(1, int(seg_L // 1.6)) - .5
+                q_ = (cc[0] + ua[0] * tq * seg_L - inward[0] * .2, cc[1] + ua[1] * tq * seg_L - inward[1] * .2)
+                mb.box(q_[0], q_[1], zb + .55, .07, .1, .07, TM["furo"], rot=ang)
+                if h_ > 2.2:
+                    mb.box(q_[0], q_[1], zb + 1.55, .07, .1, .07, TM["furo"], rot=ang)
+            fq = (cc[0] - inward[0] * .186, cc[1] - inward[1] * .186)
+            mb.box(fq[0], fq[1], zb + .2, seg_L, .004, min(h_ - .3, .55 + (seed_ % 5) * .12), TM["umidade"], rot=ang)
+            # rain streaks under every other coping joint
+            if k % 2 == 0:
+                sq = (cc[0] + ua[0] * seg_L * .45 - inward[0] * .188, cc[1] + ua[1] * seg_L * .45 - inward[1] * .188)
+                mb.box(sq[0], sq[1], zt - 1.2, .35, .004, 1.15, TM["umidade"], rot=ang)
+        # foot drainage channel (canaleta) along the wall
+        fc_ = lerp(p0, p1, .5)
+        fq = (fc_[0] - inward[0] * .05, fc_[1] - inward[1] * .05)
+        mb.box(fq[0], fq[1], zs(*fc_) + ROAD_LIFT + SIDEWALK_H - .03, Lw, .22, .04, TM["capa"], rot=ang)
+        mid_ = lerp(p0, p1, .5)
+        TALUDE_SITES.append((h_max, mid_, inward, lot["id"], Lw))
+        _dr = (seed_ >> 5) % 4
+        if _dr < 3:
+            _did = ("grafite_aurora", "grafite_crua", "grafite_tags")[_dr]
+            _src = bpy.data.objects.get("ACC_dc_" + _did)
+            if _src:
+                tq = .3 if stair_k != 0 else .7
+                wq = (p0[0] + ua[0] * Lw * tq - inward[0] * .025, p0[1] + ua[1] * Lw * tq - inward[1] * .025)
+                do = bpy.data.objects.new(f"OT_Decal_Talude_{len(TALUDE_SITES):02d}", _src.data)
+                cell_collection("Architecture", macro).objects.link(do)
+                do.location = (wq[0], wq[1], zs(*wq) + .2)
+                do.rotation_euler = (0, 0, math.atan2(-inward[0], inward[1]))
+                register("Architecture", do.name, sub, do, sa_kind="decal", decal=_did)
+        # slope vegetation above the wall: brush and tall grass on the retained ground
+        trng = __import__("random").Random(seed_)
+        for j in range(int(Lw * 1.6)):
+            tq = trng.uniform(.05, .95)
+            dq = trng.uniform(.6, 6.0)
+            q_ = (p0[0] + ua[0] * Lw * tq + inward[0] * dq, p0[1] + ua[1] * Lw * tq + inward[1] * dq)
+            TREE_QUEUE.append((q_[0], q_[1], zs(*q_) - .02, trng.choice(("tufo_mato", "tufo_grama_alta", "tufo_grama", "tufo_mato")),
+                               trng.uniform(0, 6.28), trng.uniform(.7, 1.4)))
+        if trng.random() < .5:
+            q_ = (mid_[0] + inward[0] * 2.5, mid_[1] + inward[1] * 2.5)
+            TREE_QUEUE.append((q_[0], q_[1], zs(*q_), "arbusto", trng.uniform(0, 6.28), trng.uniform(.8, 1.2)))
+    for (macro, sub), mb in tal_mb.items():
+        name = f"OT_SlopeWorks_W31_{sub}"
+        o = mb.to_object(name, [lib[m] for m in ("pedra_reboco_historico", "concreto_aparente", "concreto_pintado", "tijolo_aparente",
+                                                 "borracha_preta", "decal_umidade", "aco_pintado_cinza")], cell_collection("Architecture", macro))
+        register("Architecture", name, sub, o, note="W3.1: arrimos de frente de rua (taludes em terrenos vagos), escada, drenagem")
+    STATS["w31_street_taludes"] = len(TALUDE_SITES)
+    STATS["w31_talude_max_h_m"] = round(max((t[0] for t in TALUDE_SITES), default=0), 2)
+
+
 SPECIES = ("oiti", "sibipiruna", "mangueira", "ipe", "ipe_rosa", "jovem", "palmeira", "arbusto")
 if SLICE:
     import sa_vegetation  # noqa: E402
     tree_objs = [sa_vegetation.tree(n, lib, library) for n in SPECIES]
-    tree_objs += [sa_vegetation.tuft("grama", lib, library), sa_vegetation.tuft("erva", lib, library)]
+    TREE_VARIANTS = ("oiti", "sibipiruna", "mangueira", "ipe", "jovem")
+    for n in TREE_VARIANTS:                              # W3.1: two more individuals per common species (no nearby clones)
+        tree_objs += [sa_vegetation.tree(n, lib, library, variant=v_) for v_ in ("_b", "_c")]
+    tree_objs += [sa_vegetation.tuft(k, lib, library) for k in ("grama", "grama_alta", "erva", "mato")]
     lod_coll = sa_bl.collection("OT_Lib_Vegetation_LODs", library, hide_render=True)
     for n in SPECIES:                                    # LOD1 kept in the file for the Unity LOD groups (not instanced here)
         if n != "arbusto":
@@ -1257,11 +1585,37 @@ if SLICE:
             slope_ = math.hypot(dzx, dzy) / 4.0
             pr_ = min(.75, .1 + slope_ * 2.5)
             if _rng.random() < pr_ and _free(q_):
-                TREE_QUEUE.append((q_[0], q_[1], zs(*q_) - .02, "tufo_grama" if _rng.random() < .75 else "tufo_erva", _rng.uniform(0, 6.28),
-                                   _rng.uniform(.7, 1.4)))
+                _r = _rng.random()
+                _k = "tufo_grama" if _r < .5 else "tufo_grama_alta" if _r < .7 else "tufo_mato" if _r < .85 else "tufo_erva"
+                TREE_QUEUE.append((q_[0], q_[1], zs(*q_) - .02, _k, _rng.uniform(0, 6.28), _rng.uniform(.6, 1.5)))
                 tufts += 1
             xx += 2.4
         yy += 2.4
+    # W3.1: dense spontaneous cover on vacant lots (mixed short grass, tall grass, brush, broadleaf weeds; worn path = sparser band)
+    vac_tufts = 0
+    for lot in ot.lots:
+        if lot["family"] != "vacant" or not in_slice_pt(lot["obb"].c, -2):
+            continue
+        o_ = lot["obb"]
+        if any(r_[0] - 2 <= o_.c[0] <= r_[2] + 2 and r_[1] - 2 <= o_.c[1] <= r_[3] + 2 for r_ in (pd["rect"] for pd in terrain.pads)):
+            continue
+        lr = __import__("random").Random(zlib.crc32(("veg" + str(lot["id"])).encode()))
+        path_off = lr.uniform(-o_.hw * .5, o_.hw * .5)
+        lx = -o_.hw + .6
+        while lx < o_.hw - .6:
+            ly = -o_.hd + .6
+            while ly < o_.hd - .6:
+                jx, jy = lx + lr.uniform(-.45, .45), ly + lr.uniform(-.45, .45)
+                pr_ = .15 if abs(jx - path_off) < .5 else .72
+                if lr.random() < pr_:
+                    q_ = (o_.c[0] + o_.u[0] * jx + o_.v[0] * jy, o_.c[1] + o_.u[1] * jx + o_.v[1] * jy)
+                    _r = lr.random()
+                    _k = "tufo_grama" if _r < .45 else "tufo_grama_alta" if _r < .68 else "tufo_mato" if _r < .86 else "tufo_erva"
+                    TREE_QUEUE.append((q_[0], q_[1], zs(*q_) - .02, _k, lr.uniform(0, 6.28), lr.uniform(.55, 1.5)))
+                    vac_tufts += 1
+                ly += .75
+            lx += .75
+    STATS["w31_vacant_lot_tufts"] = vac_tufts
     cracks = 0
     for eid, e in g.edges.items():
         if e["cls"] in ("passage",):
@@ -1279,7 +1633,7 @@ if SLICE:
                 while t_ < L_ - 1:
                     q_ = (a_[0] + u_[0] * t_ + n_[0] * side_ * off_, a_[1] + u_[1] * t_ + n_[1] * side_ * off_)
                     zq = zs(*q_) + (ROAD_LIFT if off_ < cw_ / 2 + .2 else ROAD_LIFT + SIDEWALK_H)
-                    TREE_QUEUE.append((q_[0], q_[1], zq, "tufo_erva" if _rng.random() < .6 else "tufo_grama", _rng.uniform(0, 6.28), _rng.uniform(.4, .8)))
+                    TREE_QUEUE.append((q_[0], q_[1], zq, "tufo_erva" if _rng.random() < .55 else "tufo_grama", _rng.uniform(0, 6.28), _rng.uniform(.35, .8)))
                     cracks += 1
                     t_ += _rng.uniform(4, 14)
     STATS["w3_tufts"] = tufts
@@ -1291,12 +1645,15 @@ _veg_tris = {}
 for (x, y, z, sp, rot, scl) in TREE_QUEUE:
     if sp == "ipe" and (int(abs(x) * 3 + abs(y)) % 3 == 0):
         sp = "ipe_rosa"
+    if SLICE and sp in TREE_VARIANTS:
+        sp += ("", "_b", "_c")[zlib.crc32(f"{x:.1f},{y:.1f}".encode()) % 3]
     macro, sub = subcell(x, y)
     tree_pts.setdefault((macro, sub), []).append((x, y, z, tree_index["VEG_" + sp], rot, scl))
     STATS.setdefault("vegetation_by_species", {})
     STATS["vegetation_by_species"][sp] = STATS["vegetation_by_species"].get(sp, 0) + 1
 STATS["vegetation_species_tris"] = {o.name: sum(len(p_.vertices) - 2 for p_ in o.data.polygons) for o in tree_objs}
 STATS["street_tree_layout"] = ot.tree_stats
+STATS["w31_trees"] = W31_TREES
 for (macro, sub), pts in tree_pts.items():
     name = f"OT_Vegetation_{sub}"
     o = sa_bl.point_cloud_object(name, pts, tree_lib, cell_collection("Vegetation", macro))
@@ -1320,6 +1677,79 @@ for (macro, sub), lots in lot_pts.items():
     o = bpy.data.objects.new(f"OT_Gameplay_Lots_{sub}", me)
     cell_collection("Gameplay", macro).objects.link(o)
     register("Gameplay", o.name, sub, o, lots=len(lots))
+
+# ---------------------------------------------------------------- W3.1 parked vehicles (slice only)
+# Authored generic cars (sa_vehicles) parked along the slice streets: shared-mesh instances pitched to the street grade.
+# Older/worn cars on local residential streets, newer ones on main/collector streets, service vehicles near Oficina/Horizonte.
+if SLICE:
+    import random as _rnd  # noqa: E402
+    import sa_vehicles  # noqa: E402
+    veh_lib = sa_bl.collection("OT_Lib_Vehicles", library, hide_render=True)
+    veh_lods = sa_bl.collection("OT_Lib_Vehicles_LODs", library, hide_render=True)
+    VEH = {}
+    for (fam_, pk_, worn_) in sa_vehicles.LIBRARY:
+        VEH[(fam_, pk_, worn_)] = sa_vehicles.build(fam_, lib, veh_lib, pk_, worn_)
+        sa_vehicles.build(fam_, lib, veh_lods, pk_, worn_, lod=1)
+    for fam_ in sa_vehicles.FAMILIES:
+        sa_vehicles.proxy(fam_, lib, veh_lods)
+    _new = [k for k in VEH if not k[2] and k[0] not in ("van", "picape")]
+    _old = [k for k in VEH if k[2]]
+    _svc = [k for k in VEH if k[0] in ("van", "picape") and not k[2]]
+    _vr = _rnd.Random(3101)
+    _heroes = {h["id"]: h["lot"] for h in ot.data["heroes"]}
+    _service_at = [_heroes[k] for k in ("garage", "horizonte") if k in _heroes]
+
+    def _near_rect(q, r, m):
+        return r[0] - m <= q[0] <= r[2] + m and r[1] - m <= q[1] <= r[3] + m
+    parked, veh_count = 0, {}
+    EDGE_CARS = {}
+    for eid, e in sorted(g.edges.items()):
+        if e["cls"] in ("passage", "alley", "service"):
+            continue
+        a_, b_ = g.seg(eid)
+        if not in_slice_pt(lerp(a_, b_, .5)):
+            continue
+        L_ = dist(a_, b_)
+        if L_ < 18:
+            continue
+        u_ = norm(vsub(b_, a_))
+        n_ = perp(u_)
+        cw_ = carriageway(e["cls"])
+        if abs(zs(*b_) - zs(*a_)) / L_ > .14:
+            continue
+        for side_ in (1, -1):
+            if e["cls"] == "local" and side_ == -1 and _vr.random() < .45:
+                continue                                  # many residential streets park on one side only
+            off_ = cw_ / 2 - 1.05
+            t_ = _vr.uniform(8, 13)
+            while t_ < L_ - 8:
+                q_ = (a_[0] + u_[0] * t_ + n_[0] * side_ * off_, a_[1] + u_[1] * t_ + n_[1] * side_ * off_)
+                step_ = _vr.uniform(5.4, 8.5)
+                if _vr.random() < (.2 if e["cls"] == "arterial" else .32) and not any(_near_rect(q_, r, 5.5) for r in _heroes.values()) and                         not any(dist(q_, ts_[1]) < ts_[4] / 2 + 4 for ts_ in TALUDE_SITES):
+                    if any(_near_rect(q_, r, 30) for r in _service_at) and _vr.random() < .6:
+                        key_ = _vr.choice(_svc)
+                    elif _vr.random() < (.45 if e["cls"] == "local" else .12):
+                        key_ = _vr.choice(_old)
+                    else:
+                        key_ = _vr.choice(_new)
+                    head_ = math.atan2(u_[1], u_[0]) + (math.pi if side_ == 1 else 0.0) + _vr.uniform(-.04, .04)
+                    hx, hy = math.cos(head_), math.sin(head_)
+                    pitch_ = math.atan2(zs(q_[0] + hx * 2, q_[1] + hy * 2) - zs(q_[0] - hx * 2, q_[1] - hy * 2), 4.0)
+                    macro, sub = subcell(*q_)
+                    src_ = VEH[key_]
+                    vo = bpy.data.objects.new(f"OT_Vehicle_{sub}_{parked:03d}", src_.data)
+                    cell_collection("Props", macro).objects.link(vo)
+                    vo.location = (q_[0], q_[1], zs(*q_) + ROAD_LIFT - .01)
+                    vo.rotation_euler = (0.0, -pitch_, head_)
+                    register("Props", vo.name, sub, vo, sa_kind="vehicle", vehicle=src_.name, sa_lod="LOD0 (LOD1/proxy em OT_Lib_Vehicles_LODs)")
+                    veh_count[key_[0]] = veh_count.get(key_[0], 0) + 1
+                    EDGE_CARS.setdefault(eid, []).append((q_, key_, side_))
+                    parked += 1
+                    step_ += 1.5
+                t_ += step_
+    STATS["w31_parked_vehicles"] = parked
+    STATS["w31_vehicles_by_family"] = veh_count
+    STATS["w31_vehicle_lod0_tris"] = {o.name: sum(len(p_.vertices) - 2 for p_ in o.data.polygons) for o in VEH.values()}
 
 # ---------------------------------------------------------------- lighting, render settings, cameras
 sa_bl.sun_and_sky(scene, cams)
@@ -1440,6 +1870,19 @@ if SLICE:
         cpos = (lo_[0] - u[0] * 6 + perp(u)[0] * 1.2, lo_[1] - u[1] * 6 + perp(u)[1] * 1.2)
         cam("CAM_W3_Rua", (cpos[0], cpos[1], zs(*cpos) + 1.7), target=(hi_[0], hi_[1], zs(*hi_) + 2.2), lens=22)
         STATS["w3_street_grade_pct"] = round(gr_ * 100, 1)
+    tsites = sorted(TALUDE_SITES, key=lambda st: -(min(st[0], 3.5) + st[4] * .05))
+    if tsites:
+        # W3.1: dedicated talude view from the opposite sidewalk at eye height (no roofs in the way), oblique along the wall
+        h_, c, inward, lid, Lw = tsites[0]
+        ua = perp(inward)
+        cp = (c[0] - inward[0] * 7 + ua[0] * 5, c[1] - inward[1] * 7 + ua[1] * 5)
+        cam("CAM_W31_Talude", (cp[0], cp[1], zs(*cp) + 1.65), target=(c[0] + inward[0] * 1.0 - ua[0] * 1.5, c[1] + inward[1] * 1.0 - ua[1] * 1.5,
+                                                                     zs(*c) + min(h_, 3) * .55), lens=22)
+        h2 = tsites[1] if len(tsites) > 1 else tsites[0]
+        c2, in2 = h2[1], h2[2]
+        cp = (c2[0] - in2[0] * 6.5 - perp(in2)[0] * 4.5, c2[1] - in2[1] * 6.5 - perp(in2)[1] * 4.5)
+        cam("CAM_W31_Talude_B", (cp[0], cp[1], zs(*cp) + 1.65), target=(c2[0] + in2[0] * 2, c2[1] + in2[1] * 2, zs(*c2) + min(h2[0], 3) * .6), lens=22)
+        STATS["w31_talude_capture_site"] = {"lot": lid, "wall_h_m": round(h_, 2), "wall_len_m": round(Lw, 1)}
     sites = sorted([st for st in SLOPE_SITES if in_slice_pt(st[1], -20)], key=lambda st: -st[0])
     if sites:
         h_, c, ang, f = sites[0]
@@ -1447,6 +1890,56 @@ if SLICE:
         cp = (c[0] - away[0] * 16 + math.cos(ang) * 12, c[1] - away[1] * 16 + math.sin(ang) * 12)
         cam("CAM_W3_Talude", (cp[0], cp[1], max(zs(*cp), zs(*c)) + h_ + 14), target=(c[0] + away[0] * 6, c[1] + away[1] * 6, zs(*c)), lens=24)
         STATS["w3_talude_height_m"] = round(h_, 2)
+    # ---------------- W3.1 cameras (chosen from what was generated: parked cars, variant-rich lots, decals, grass)
+    def _lot_cam(name, lot_, back=9.0, side=3.5, h=1.65, th=2.2, lens=24):
+        o_ = lot_["obb"]
+        f_ = lot_["front"]
+        outw = norm(vsub(f_, o_.c))
+        al = perp(outw)
+        cp_ = (f_[0] + outw[0] * back + al[0] * side, f_[1] + outw[1] * back + al[1] * side)
+        tq = (f_[0] - outw[0] * .5, f_[1] - outw[1] * .5)
+        cam(name, (cp_[0], cp_[1], max(zs(*cp_), zs(*f_)) + h), target=(tq[0], tq[1], zs(*f_) + th), lens=lens)
+    if "EDGE_CARS" in globals() and EDGE_CARS:
+        ranked = sorted(EDGE_CARS.items(), key=lambda kv: -(len(kv[1]) + len({k_[1][0] for k_ in kv[1]}) * 1.5))
+        used_ = []
+        for nm_, (eid_, cars_) in zip(("CAM_W31_Carros_A", "CAM_W31_Carros_B"), [r_ for r_ in ranked if True][:8:3]):
+            a_, b_ = g.seg(eid_)
+            u_ = norm(vsub(b_, a_))
+            n_ = perp(u_)
+            sd = cars_[0][2]
+            cw_ = carriageway(g.edges[eid_]["cls"])
+            first = min(cars_, key=lambda c_: dist(c_[0], a_))[0]
+            cp_ = (first[0] - u_[0] * 7 + n_[0] * sd * (cw_ / 2 + 1.3), first[1] - u_[1] * 7 + n_[1] * sd * (cw_ / 2 + 1.3))
+            tq = (first[0] + u_[0] * 14, first[1] + u_[1] * 14)
+            cam(nm_, (cp_[0], cp_[1], zs(*cp_) + 1.6), target=(tq[0], tq[1], zs(*tq) + .9), lens=24)
+        STATS["w31_car_cameras"] = [len(ranked[0][1])]
+    _sun = (-.866, -.5)                                       # horizontal direction toward the sun (production_look azimuth 300°)
+
+    def _lit(l_):
+        o_ = norm(vsub(l_["front"], l_["obb"].c))
+        return o_[0] * _sun[0] + o_[1] * _sun[1] > .25
+    _var = lambda l_: sum(1 for k_ in LOT_ACC.get(l_["id"], []) if k_.startswith("w31_"))
+    _dec = lambda l_: sum(1 for k_ in LOT_ACC.get(l_["id"], []) if k_.startswith("dc_"))
+    cand = [l_ for l_ in ot.lots if l_.get("front") and in_slice_pt(l_["obb"].c, -15) and l_["id"] in LOT_ACC and _lit(l_)]
+    if cand:
+        # block view: lot whose ~45 m neighbourhood holds the most variant pieces
+        def _blk(l_):
+            return sum(_var(m_) for m_ in cand if dist(m_["obb"].c, l_["obb"].c) < 45)
+        bl_ = max(cand, key=_blk)
+        _lot_cam("CAM_W31_Quadra", bl_, back=6.5, side=26.0, h=7.5, th=3.5, lens=26)
+        fl_ = max(cand, key=lambda l_: _var(l_) * 2 + _dec(l_) + (3 if any(k_.startswith("dc_placa") for k_ in LOT_ACC[l_["id"]]) else 0))
+        _lot_cam("CAM_W31_Fachada", fl_, back=9.5, side=3.0, h=1.7, th=2.4, lens=24)
+        dl_ = max((l_ for l_ in cand if l_ is not fl_), key=lambda l_: _dec(l_) * 2 + (4 if any(k_.startswith("dc_grafite") for k_ in LOT_ACC[l_["id"]]) else 0))
+        _lot_cam("CAM_W31_Decals", dl_, back=5.0, side=-1.5, h=1.55, th=1.4, lens=28)
+        STATS["w31_capture_lots"] = {"quadra": bl_["id"], "fachada": fl_["id"], "decals": dl_["id"]}
+    vac = [l_ for l_ in ot.lots if l_["family"] == "vacant" and l_.get("front") and in_slice_pt(l_["obb"].c, -10)]
+    if vac:
+        gl_ = max(vac, key=lambda l_: zs(*l_["obb"].c) - zs(*l_["front"]) + l_["obb"].hw * .05)
+        o_ = gl_["obb"]
+        inw = norm(vsub(o_.c, gl_["front"]))
+        cp_ = (gl_["front"][0] + inw[0] * 2.5 + perp(inw)[0] * 1.5, gl_["front"][1] + inw[1] * 2.5 + perp(inw)[1] * 1.5)
+        tq = (o_.c[0] + inw[0] * 2, o_.c[1] + inw[1] * 2)
+        cam("CAM_W31_Grama", (cp_[0], cp_[1], zs(*cp_) + .75), target=(tq[0], tq[1], zs(*tq) + .2), lens=28)
     gz = zs(-2594, -1480)
     cam("CAM_W3_Mercearia", (-2616, -1468, gz + 1.7), target=(-2590, -1481, gz + 3.0), lens=20)
     cam("CAM_W3_Vidro", (-2599.5, -1478.5, gz + 1.6), target=(-2588, -1482, gz + 1.3), lens=22)

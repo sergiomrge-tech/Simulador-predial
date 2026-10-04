@@ -441,26 +441,22 @@ class Kit:
     # ------------------------------------------------------------ W2.5 street life (fictional, generic)
     CAR_PAINTS = ("aco_pintado_vermelho", "aco_pintado_verde", "plastico_branco", "aco_pintado_cinza", "plastico_azul", "papelao")
 
-    def car(self, name, loc, rot, paint=0, van=False):
-        """Generic parked car / small van proxy (no brand): body, cabin, glass band, wheels, lights. LOD0 base."""
-        mb = MeshBuilder()
-        L, W = (4.6, 1.85) if van else (4.1, 1.7)
-        mb.box(0, 0, .32, L, W, .62, 0)
-        if van:
-            mb.box(-.45, 0, .94, L - 1.3, W - .06, 1.05, 0)
-            mb.box(1.55, 0, .94, .9, W - .1, .55, 1)
-        else:
-            mb.box(-.2, 0, .94, 2.1, W - .12, .5, 0)
-            mb.box(-.2, 0, .98, 2.14, W - .08, .38, 1)
-        for x in (-L / 2 + .75, L / 2 - .8):
-            for y in (-W / 2 + .05, W / 2 - .05):
-                mb.box(x, y, 0, .62, .22, .62, 2)
-        for y in (-.6, .6):
-            mb.box(L / 2 + .01, y, .6, .02, .3, .12, 3)
-            mb.box(-L / 2 - .01, y, .6, .02, .25, .1, 4)
-        paint_ = self.CAR_PAINTS[paint % len(self.CAR_PAINTS)]
-        return self.obj(name, mb, [paint_, "vidro", "borracha_preta", "plastico_branco", "aco_pintado_vermelho"], loc, rot, bevel=.03,
-                        sa_kind="vehicle_proxy", note="veículo genérico (proxy de cena, sem marca)")
+    def car(self, name, loc, rot, paint=0, van=False, family=None, worn=None):
+        """W3.1: authored generic vehicle (sa_vehicles: hatch/sedan/picape/SUV/van, no brand), shared mesh per variant."""
+        import zlib as _z
+        import sa_vehicles
+        h = _z.crc32(name.encode())
+        fam = "van" if van else (family or ("hatch", "sedan", "suv", "picape", "hatch", "sedan", "hatch_antigo")[h % 7])
+        pk = sa_vehicles.PAINT_ORDER[paint % len(sa_vehicles.PAINT_ORDER)]
+        worn = (fam == "hatch_antigo" or h % 5 == 0) if worn is None else worn
+        o = sa_vehicles.instance(fam, self.lib, self.coll, pk, worn, name)
+        o.location = loc
+        o.rotation_euler = (0, 0, rot)
+        if self.parent:
+            o.parent = self.parent
+        props(o, sa_stage="W3.1 veículo autoral (LOD0)", sa_kind="vehicle", note="veículo genérico autoral, sem marca nem logotipo")
+        self.count += 1
+        return o
 
     def crate_stack(self, name, loc, rot, n=3):
         mb = MeshBuilder()

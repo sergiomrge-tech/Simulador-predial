@@ -1,0 +1,318 @@
+{
+ "provenance": "autoral (gerado por Tools/Blender/bake_decals_w31.py; fonte padrão do Blender)",
+ "license": "projeto (autoral)",
+ "decals": {
+  "cartaz_forro": {
+   "kind": "poster",
+   "size_m": [
+    0.6,
+    0.85
+   ],
+   "file": "cartaz_forro.png",
+   "px": [
+    384,
+    544
+   ]
+  },
+  "cartaz_violao": {
+   "kind": "poster",
+   "size_m": [
+    0.6,
+    0.85
+   ],
+   "file": "cartaz_violao.png",
+   "px": [
+    384,
+    544
+   ]
+  },
+  "cartaz_circo": {
+   "kind": "poster",
+   "size_m": [
+    0.6,
+    0.85
+   ],
+   "file": "cartaz_circo.png",
+   "px": [
+    384,
+    544
+   ]
+  },
+  "cartaz_aluga": {
+   "kind": "poster",
+   "size_m": [
+    0.5,
+    0.7
+   ],
+   "file": "cartaz_aluga.png",
+   "px": [
+    320,
+    448
+   ]
+  },
+  "cartaz_mutirao": {
+   "kind": "poster",
+   "size_m": [
+    0.6,
+    0.85
+   ],
+   "file": "cartaz_mutirao.png",
+   "px": [
+    384,
+    544
+   ]
+  },
+  "cartaz_feira": {
+   "kind": "poster",
+   "size_m": [
+    0.6,
+    0.85
+   ],
+   "file": "cartaz_feira.png",
+   "px": [
+    384,
+    544
+   ]
+  },
+  "cartaz_baile": {
+   "kind": "poster",
+   "size_m": [
+    0.6,
+    0.85
+   ],
+   "file": "cartaz_baile.png",
+   "px": [
+    384,
+    544
+   ]
+  },
+  "cartaz_procura": {
+   "kind": "poster",
+   "size_m": [
+    0.42,
+    0.6
+   ],
+   "file": "cartaz_procura.png",
+   "px": [
+    268,
+    382
+   ]
+  },
+  "grafite_aurora": {
+   "kind": "graffiti",
+   "size_m": [
+    2.2,
+    0.9
+   ],
+   "file": "grafite_aurora.png",
+   "px": [
+    1024,
+    418
+   ]
+  },
+  "grafite_crua": {
+   "kind": "graffiti",
+   "size_m": [
+    2.0,
+    0.9
+   ],
+   "file": "grafite_crua.png",
+   "px": [
+    1024,
+    460
+   ]
+  },
+  "grafite_vlt": {
+   "kind": "graffiti",
+   "size_m": [
+    2.2,
+    0.9
+   ],
+   "file": "grafite_vlt.png",
+   "px": [
+    1024,
+    418
+   ]
+  },
+  "grafite_tags": {
+   "kind": "graffiti",
+   "size_m": [
+    1.6,
+    0.7
+   ],
+   "file": "grafite_tags.png",
+   "px": [
+    1024,
+    447
+   ]
+  },
+  "grafite_bomb": {
+   "kind": "graffiti",
+   "size_m": [
+    1.4,
+    0.8
+   ],
+   "file": "grafite_bomb.png",
+   "px": [
+    896,
+    512
+   ]
+  },
+  "placa_bazar": {
+   "kind": "sign",
+   "size_m": [
+    2.4,
+    0.6
+   ],
+   "file": "placa_bazar.png",
+   "px": [
+    1024,
+    256
+   ]
+  },
+  "placa_chaveiro": {
+   "kind": "sign",
+   "size_m": [
+    2.4,
+    0.6
+   ],
+   "file": "placa_chaveiro.png",
+   "px": [
+    1024,
+    256
+   ]
+  },
+  "placa_lanches": {
+   "kind": "sign",
+   "size_m": [
+    2.4,
+    0.6
+   ],
+   "file": "placa_lanches.png",
+   "px": [
+    1024,
+    256
+   ]
+  },
+  "placa_salao": {
+   "kind": "sign",
+   "size_m": [
+    2.4,
+    0.6
+   ],
+   "file": "placa_salao.png",
+   "px": [
+    1024,
+    256
+   ]
+  },
+  "placa_eletro": {
+   "kind": "sign",
+   "size_m": [
+    2.4,
+    0.6
+   ],
+   "file": "placa_eletro.png",
+   "px": [
+    1024,
+    256
+   ]
+  },
+  "marca_agua": {
+   "kind": "mark",
+   "size_m": [
+    1.0,
+    0.5
+   ],
+   "file": "marca_agua.png",
+   "px": [
+    640,
+    320
+   ]
+  },
+  "marca_rn": {
+   "kind": "mark",
+   "size_m": [
+    0.8,
+    0.5
+   ],
+   "file": "marca_rn.png",
+   "px": [
+    512,
+    320
+   ]
+  },
+  "marca_vala": {
+   "kind": "mark",
+   "size_m": [
+    1.2,
+    0.4
+   ],
+   "file": "marca_vala.png",
+   "px": [
+    768,
+    256
+   ]
+  },
+  "estencil_nao_estacione": {
+   "kind": "mark",
+   "size_m": [
+    1.4,
+    0.35
+   ],
+   "file": "estencil_nao_estacione.png",
+   "px": [
+    896,
+    224
+   ]
+  },
+  "etiqueta_perigo": {
+   "kind": "label",
+   "size_m": [
+    0.3,
+    0.38
+   ],
+   "file": "etiqueta_perigo.png",
+   "px": [
+    192,
+    243
+   ]
+  },
+  "etiqueta_numero": {
+   "kind": "label",
+   "size_m": [
+    0.32,
+    0.2
+   ],
+   "file": "etiqueta_numero.png",
+   "px": [
+    204,
+    127
+   ]
+  },
+  "restos_cartaz": {
+   "kind": "scraps",
+   "size_m": [
+    1.2,
+    0.9
+   ],
+   "file": "restos_cartaz.png",
+   "px": [
+    768,
+    576
+   ]
+  },
+  "tinta_descascando": {
+   "kind": "peeling",
+   "size_m": [
+    1.0,
+    0.8
+   ],
+   "file": "tinta_descascando.png",
+   "px": [
+    640,
+    512
+   ]
+  }
+ }
+}

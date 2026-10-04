@@ -1,0 +1,70 @@
+{
+  "hero": "workshop",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_workshop.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 64,
+  "checks": {
+    "meshObjects": 46,
+    "triangles": 105396,
+    "trianglesPerCollection": {
+      "W2_workshop_CaptureOnly": 10,
+      "W2_workshop_Interior": 3360,
+      "W2_workshop_Openings": 10580,
+      "W2_workshop_Services": 2508,
+      "W2_workshop_Shell": 10242,
+      "W2_workshop_Site": 78660,
+      "W2_workshop_Structure": 36
+    },
+    "largestObjects": [
+      {
+        "name": "W2_workshop__car_patio_0",
+        "tris": 7974
+      },
+      {
+        "name": "W2_workshop__car_box2",
+        "tris": 7870
+      },
+      {
+        "name": "W2_workshop__car_patio_7",
+        "tris": 7190
+      },
+      {
+        "name": "W2_workshop__car_patio_5",
+        "tris": 6670
+      },
+      {
+        "name": "W2_workshop__car_patio_6",
+        "tris": 6326
+      },
+      {
+        "name": "W2_workshop__car_patio_8",
+        "tris": 6270
+      },
+      {
+        "name": "W2_workshop__car_patio_1",
+        "tris": 6158
+      },
+      {
+        "name": "W2_workshop__car_patio_4",
+        "tris": 6110
+      }
+    ],
+    "lights": 9,
+    "materials": 49,
+    "stateSlots": [],
+    "interactive": 8,
+    "root": {
+      "name": "W2_workshop_ROOT",
+      "facility_id": "workshop",
+      "location": [
+        -3198.0,
+        -2034.0,
+        24.282
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [],
+  "errors": [],
+  "passed": true
+}

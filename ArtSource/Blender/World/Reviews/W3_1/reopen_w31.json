@@ -1,0 +1,91 @@
+{
+  "mode": "w31",
+  "blend": "ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "reopenedInFreshProcess": true,
+  "objectCount": 3219,
+  "meshCount": 2092,
+  "collections": {
+    "OT_CidadeAntiga": 2309
+  },
+  "checks": {
+    "geometryNodesInstancers": 493,
+    "materials": 537,
+    "materialsWithTextureSlots": 373,
+    "linkedContextObjects": 1754,
+    "heroInstances": [
+      "W2I_apartments",
+      "W2I_garage",
+      "W2I_grocery",
+      "W2I_home.starter",
+      "W2I_horizonte",
+      "W2I_imperial",
+      "W2I_restaurant",
+      "W2I_smalloffice",
+      "W2I_workshop"
+    ],
+    "stateSlotsInSlice": 38,
+    "vegetationSpecies": [
+      "VEG_arbusto",
+      "VEG_ipe",
+      "VEG_ipe_b",
+      "VEG_ipe_c",
+      "VEG_ipe_rosa",
+      "VEG_jovem",
+      "VEG_jovem_b",
+      "VEG_jovem_c",
+      "VEG_mangueira",
+      "VEG_mangueira_b",
+      "VEG_mangueira_c",
+      "VEG_oiti",
+      "VEG_oiti_b",
+      "VEG_oiti_c",
+      "VEG_palmeira",
+      "VEG_sibipiruna",
+      "VEG_sibipiruna_b",
+      "VEG_sibipiruna_c",
+      "VEG_tufo_erva",
+      "VEG_tufo_grama",
+      "VEG_tufo_grama_alta",
+      "VEG_tufo_mato"
+    ],
+    "vegetationLOD1": 7,
+    "subcells": 15,
+    "complexity": {
+      "meshTris": 8527800,
+      "instancedTris": 31784960,
+      "instances": 116713,
+      "largestMesh": [
+        "W2_imperial__foyer_shell",
+        34500
+      ],
+      "materials": 535,
+      "textures": 655,
+      "textureMemoryMB_est": 3380.1,
+      "lights": 66,
+      "objects": 3219,
+      "meshes": 2092
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W3_1/w31_01_rua_carros.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_02_rua_carros_variedade.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_03_quadra_variantes.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_04_fachada_closeup.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_05_grama.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_06_talude_arrimo.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_06b_talude_arrimo.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_10_decals.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_11_rua_arborizada.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_12_corredor_visao_geral.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_12b_relevo_aereo.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_14_rua_relevo.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_15_mercearia_exterior.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_16_clutter.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_17_oficina_exterior.jpg",
+    "ArtSource/Blender/World/Reviews/W3_1/w31_18_horizonte_exterior.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

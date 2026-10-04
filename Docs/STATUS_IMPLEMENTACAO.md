@@ -226,3 +226,17 @@ Preparação concluída no GitHub:
   - Mercearia com interior abastecido.
 - **Validações:** reaberturas PASS sem dados faltando; masterplan e rotas PASS; IDs, marcadores, lotes, heróis e streaming idênticos (auditoria); 82 capturas em `Reviews/W3/`.
 - **Gate W3: PARTIAL PASS.** Faltam: carros-proxy, edificações de fundo simples, tufos em "pente", câmera de talude, luz e câmera de alguns interiores, decals pintados. Ver `Docs/W3_HIGH_FIDELITY_VERTICAL_SLICE.md`.
+
+## Checkpoint — W3.1 Cidade Antiga Visual Polish Gate (2026-10-04)
+
+- Mesmo recorte de 15 subcélulas; Unity, saves, C# de gameplay e `gpt/unity-world-integration` não foram tocados.
+- **Carros autorais** (`sa_vehicles.py`): 6 famílias sem marca, com caixas de roda, rodas, vidro, faróis/lanternas e placas fictícias; LOD0/LOD1/proxy. Substituem os proxies em todos os heróis; 889 estacionados no recorte (velhos nas ruas locais, serviço junto à Oficina/Horizonte).
+- **Fundo:** variantes por lote com tema por quadra (revestimentos de reforma, marquises, sacadas, escadas externas, anexos, platibandas, portões, condensadoras, grades).
+- **Grama** de lâminas curvas (sem o efeito “pente”), terrenos vagos densos.
+- **4 arrimos** de frente de rua com drenagem e escada, sem alterar cotas, e câmera dedicada.
+- **Interiores** com volume de irradiância assado (fim do vazamento azul) e preenchimento quente. Mercearia enquadrada nas gôndolas; galpão com escala.
+- **26 decals autorais** (`bake_decals_w31.py`).
+- **Árvores:** variantes anti-clone, poda sob a fiação, raízes, portões livres.
+- **Validações:** recorte e 9 heróis reabertos PASS (6 heróis sem render por falha de GPU do ambiente); masterplan e rotas PASS; IDs/GP_/SLOT_/PROXY_ idênticos; 13.003 lotes, 181 subcélulas.
+- **Desempenho:** meshTris do recorte 2,70 M → 8,53 M (carros LOD0 como duplicatas); a mitigação via LOD Group fica para a integração Unity.
+- **Gate W3.1: PARTIAL PASS.** Os carros ainda são facetados de perto, a vista aérea segue repetitiva e os taludes são baixos (≤ 1,18 m pelo relevo validado). Ver `Docs/W3_1_VISUAL_POLISH_GATE.md`.
