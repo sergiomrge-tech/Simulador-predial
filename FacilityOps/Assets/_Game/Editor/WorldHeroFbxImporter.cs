@@ -18,7 +18,7 @@ namespace FacilityOps.Editor
             public string sourceBlend;
             public string rootObject;
             public string cell;
-            public string[] unityWorldPosition;
+            public float[] unityWorldPosition;
             public string fbx;
             public long fileBytes;
             public int exportedObjects;
