@@ -1,0 +1,3 @@
+id,tipo,nome,url,autor,licenca,versao_commit_data,onde_e_usado,atribuicao_exigida,revisado_por,data
+skill.nicewolf.unity,skill (markdown),Nice-Wolf-Studio/unity-claude-skills (pasta skills/),https://github.com/Nice-Wolf-Studio/unity-claude-skills,Nice-Wolf-Studio,MIT,a149d3e995420432f52b0899092daa4b069f441f,Tools/Skills/unity/nice-wolf-unity-claude-skills (inerte),manter LICENSE,Claude Code (Etapa B),2026-10-03
+skill.superpowers.subset,skill (markdown),obra/superpowers (4 skills),https://github.com/obra/superpowers,Jesse Vincent (obra),MIT,v6.4.2 / 8ca22dba9a94f28898bbce59f2537ff4d87c747d,Tools/Skills/claude/superpowers-subset (inerte),manter LICENSE,Claude Code (Etapa B),2026-10-03
