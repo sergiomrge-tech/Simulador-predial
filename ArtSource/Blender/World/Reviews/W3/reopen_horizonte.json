@@ -1,0 +1,82 @@
+{
+  "hero": "horizonte",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_horizonte.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 173,
+  "checks": {
+    "meshObjects": 147,
+    "triangles": 172814,
+    "trianglesPerCollection": {
+      "W2_horizonte_CaptureOnly": 20,
+      "W2_horizonte_Interior": 8294,
+      "W2_horizonte_Openings": 40336,
+      "W2_horizonte_Services": 16692,
+      "W2_horizonte_Shell": 39164,
+      "W2_horizonte_Site": 27050,
+      "W2_horizonte_Structure": 41258
+    },
+    "largestObjects": [
+      {
+        "name": "W2_horizonte__site",
+        "tris": 21202
+      },
+      {
+        "name": "W2_horizonte__F00_meter_bank",
+        "tris": 7242
+      },
+      {
+        "name": "W2_horizonte__stair_F00",
+        "tris": 4078
+      },
+      {
+        "name": "W2_horizonte__stair_F10",
+        "tris": 3634
+      },
+      {
+        "name": "W2_horizonte__stair_F09",
+        "tris": 3634
+      },
+      {
+        "name": "W2_horizonte__stair_F08",
+        "tris": 3634
+      },
+      {
+        "name": "W2_horizonte__stair_F07",
+        "tris": 3634
+      },
+      {
+        "name": "W2_horizonte__stair_F06",
+        "tris": 3634
+      }
+    ],
+    "lights": 12,
+    "materials": 36,
+    "stateSlots": [],
+    "interactive": 17,
+    "root": {
+      "name": "W2_horizonte_ROOT",
+      "facility_id": "horizonte",
+      "location": [
+        -2350.0,
+        -1796.0,
+        26.901
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_01_rua.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_02_portao_interfone.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_03_portaria.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_04_corredor_4andar.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_05_quadro_tecnico.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_06_casa_bombas.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_07_medidores.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_08_cobertura.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_09_aerea.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_10_corte_4andar.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_horizonte_11_corte_terreo.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -301,7 +301,9 @@ def camera(name, coll, loc, target=None, rot=None, ortho=None, lens=35, clip=(1.
     return obj
 
 
-def sun_and_sky(scene, coll, elevation_deg=36.0, azimuth_deg=300.0, strength=4.0, sky_strength=0.35, exposure=-1.4):
+def sun_and_sky(scene, coll, elevation_deg=36.0, azimuth_deg=300.0, strength=4.0, sky_strength=0.35, exposure=-1.4, look="w3"):
+    if look == "w3":
+        return production_look(scene, coll, elevation_deg=elevation_deg, azimuth_deg=azimuth_deg)
     sun_data = bpy.data.lights.new("SA_Sun", "SUN")
     sun_data.energy = strength
     sun_data.angle = math.radians(1.2)
@@ -335,4 +337,74 @@ def sun_and_sky(scene, coll, elevation_deg=36.0, azimuth_deg=300.0, strength=4.0
             break
     scene.view_settings.exposure = exposure
     world.color = (0.55, 0.62, 0.70)
+    return sun
+
+
+
+def production_look(scene, coll, elevation_deg=30.0, azimuth_deg=300.0, sun_energy=5.0, sky_strength=.3, exposure=-1.4, haze=0.0):
+    """W3 lighting look: physical sky with sun disc, AgX tone mapping (no blown sky), soft sun shadows, ray-traced/horizon-scan AO and GI,
+    light aerial haze (depth cue that also helps the relief read in oblique views). Day/night ready: sun + sky are the only drivers."""
+    el, az = math.radians(elevation_deg), math.radians(azimuth_deg)
+    sun_data = bpy.data.lights.new("SA_Sun", "SUN")
+    sun_data.energy = sun_energy
+    sun_data.angle = math.radians(.9)
+    sun_data.color = (1.0, .93, .84)
+    sun = bpy.data.objects.new("SA_Sun", sun_data)
+    coll.objects.link(sun)
+    sun.rotation_euler = (math.pi / 2 - el, 0, az)
+    world = bpy.data.worlds.get("SA_World") or bpy.data.worlds.new("SA_World")
+    scene.world = world
+    nt = world.node_tree
+    bg = nt.nodes.get("Background")
+    sky = nt.nodes.get("SA_Sky") or nt.nodes.new("ShaderNodeTexSky")
+    sky.name = "SA_Sky"
+    try:
+        sky.sky_type = "MULTIPLE_SCATTERING"
+        sky.sun_disc = False
+        sky.sun_elevation = el
+        sky.sun_rotation = az
+        sky.altitude = 300.0
+        sky.air_density = 1.0
+        sky.aerosol_density = 1.2
+    except (AttributeError, TypeError):
+        pass
+    nt.links.new(sky.outputs["Color"], bg.inputs["Color"])
+    bg.inputs["Strength"].default_value = sky_strength
+    if haze > 0:
+        vol = nt.nodes.get("SA_Haze") or nt.nodes.new("ShaderNodeVolumePrincipled")
+        vol.name = "SA_Haze"
+        vol.inputs["Density"].default_value = haze
+        vol.inputs["Color"].default_value = (.78, .84, .92, 1)
+        out = next(n for n in nt.nodes if n.type == "OUTPUT_WORLD")
+        nt.links.new(vol.outputs[0], out.inputs["Volume"])
+    vs = scene.view_settings
+    try:
+        try:
+            vs.view_transform = "Khronos PBR Neutral"      # keeps material saturation; sky stays below clipping
+        except TypeError:
+            vs.view_transform = "AgX"
+        looks = [i.identifier for i in vs.bl_rna.properties["look"].enum_items]
+        for want in ("AgX - Medium High Contrast", "AgX - Base Contrast", "None"):
+            if want in looks:
+                vs.look = want
+                break
+    except TypeError:
+        vs.view_transform = "Standard"
+    vs.exposure = exposure
+    ee = scene.eevee
+    for attr, val in (("use_raytracing", True), ("use_shadows", True), ("shadow_ray_count", 2), ("shadow_step_count", 8),
+                      ("use_fast_gi", True), ("fast_gi_distance", 6.0), ("volumetric_end", 1800.0), ("volumetric_tile_size", "8"),
+                      ("use_volumetric_shadows", False), ("shadow_pool_size", "1024")):
+        try:
+            setattr(ee, attr, val)
+        except (AttributeError, TypeError):
+            pass
+    try:
+        ee.ray_tracing_method = "SCREEN"
+        ee.ray_tracing_options.resolution_scale = "2"
+        ee.fast_gi_method = "GLOBAL_ILLUMINATION"
+    except (AttributeError, TypeError):
+        pass
+    world.color = (0.55, 0.62, 0.70)
+    scene["sa_look"] = "W3 production (AgX, sky+sun, haze, ray-traced AO/GI)"
     return sun

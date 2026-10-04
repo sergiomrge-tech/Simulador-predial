@@ -435,6 +435,24 @@
         "AO": "ArtSource/Textures/vidro/vidro_AO.png"
       }
     },
+    "vidro_fachada": {
+      "family": "vidro",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.03,
+        0.06
+      ],
+      "texelDensity": 256,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/vidro_fachada/vidro_fachada_BaseColor.png",
+        "Normal": "ArtSource/Textures/vidro_fachada/vidro_fachada_Normal.png",
+        "Roughness": "ArtSource/Textures/vidro_fachada/vidro_fachada_Roughness.png",
+        "Metallic": "ArtSource/Textures/vidro_fachada/vidro_fachada_Metallic.png",
+        "AO": "ArtSource/Textures/vidro_fachada/vidro_fachada_AO.png"
+      }
+    },
     "vidro_vitrine": {
       "family": "vidro",
       "pattern": "noise",

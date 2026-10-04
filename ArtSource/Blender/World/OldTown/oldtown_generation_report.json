@@ -1,7 +1,7 @@
 {
   "blend": "ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objectCount": 2509,
+  "objectCount": 2512,
   "collectionObjectCounts": {
     "OT_Library": 125,
     "OT_Terrain": 180,
@@ -332,6 +332,7 @@
     "trilho_aco",
     "tronco",
     "vidro",
+    "vidro_fachada",
     "vidro_vitrine"
   ],
   "heroes": {

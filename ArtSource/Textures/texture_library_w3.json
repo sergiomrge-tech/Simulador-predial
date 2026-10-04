@@ -1,0 +1,325 @@
+{
+  "sets": {
+    "reboco": {
+      "tile_m": 2.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/reboco/reboco_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/reboco/reboco_Roughness.jpg",
+        "Height": "ArtSource/Textures/reboco/reboco_Height.jpg",
+        "AO": "ArtSource/Textures/reboco/reboco_AO.jpg",
+        "Normal": "ArtSource/Textures/reboco/reboco_Normal.jpg"
+      },
+      "description": "reboco de cal/cimento com marcas de desempenadeira, trincas e remendos (base neutra, tingida por material)",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "tijolo": {
+      "tile_m": 1.2,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/tijolo/tijolo_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/tijolo/tijolo_Roughness.jpg",
+        "Height": "ArtSource/Textures/tijolo/tijolo_Height.jpg",
+        "AO": "ArtSource/Textures/tijolo/tijolo_AO.jpg",
+        "Normal": "ArtSource/Textures/tijolo/tijolo_Normal.jpg"
+      },
+      "description": "tijolo maciço 24x7,5 cm, juntas de argamassa, queima variável",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "concreto": {
+      "tile_m": 2.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/concreto/concreto_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/concreto/concreto_Roughness.jpg",
+        "Height": "ArtSource/Textures/concreto/concreto_Height.jpg",
+        "AO": "ArtSource/Textures/concreto/concreto_AO.jpg",
+        "Normal": "ArtSource/Textures/concreto/concreto_Normal.jpg"
+      },
+      "description": "concreto com poros de forma, manchas e variação",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "asfalto": {
+      "tile_m": 4.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/asfalto/asfalto_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/asfalto/asfalto_Roughness.jpg",
+        "Height": "ArtSource/Textures/asfalto/asfalto_Height.jpg",
+        "AO": "ArtSource/Textures/asfalto/asfalto_AO.jpg",
+        "Normal": "ArtSource/Textures/asfalto/asfalto_Normal.jpg"
+      },
+      "description": "asfalto com agregado, trincas finas",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "pedra_portuguesa": {
+      "tile_m": 2.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_Roughness.jpg",
+        "Height": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_Height.jpg",
+        "AO": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_AO.jpg",
+        "Normal": "ArtSource/Textures/pedra_portuguesa/pedra_portuguesa_Normal.jpg"
+      },
+      "description": "mosaico de pedra portuguesa preto/branco em ondas",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "intertravado": {
+      "tile_m": 1.2,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/intertravado/intertravado_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/intertravado/intertravado_Roughness.jpg",
+        "Height": "ArtSource/Textures/intertravado/intertravado_Height.jpg",
+        "AO": "ArtSource/Textures/intertravado/intertravado_AO.jpg",
+        "Normal": "ArtSource/Textures/intertravado/intertravado_Normal.jpg"
+      },
+      "description": "bloco intertravado 20x10 cm em amarração",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "ladrilho": {
+      "tile_m": 1.2,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/ladrilho/ladrilho_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/ladrilho/ladrilho_Roughness.jpg",
+        "Height": "ArtSource/Textures/ladrilho/ladrilho_Height.jpg",
+        "AO": "ArtSource/Textures/ladrilho/ladrilho_AO.jpg",
+        "Normal": "ArtSource/Textures/ladrilho/ladrilho_Normal.jpg"
+      },
+      "description": "ladrilho hidráulico 40x40 de calçada com sulcos",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "meio_fio": {
+      "tile_m": 1.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/meio_fio/meio_fio_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/meio_fio/meio_fio_Roughness.jpg",
+        "Height": "ArtSource/Textures/meio_fio/meio_fio_Height.jpg",
+        "AO": "ArtSource/Textures/meio_fio/meio_fio_AO.jpg",
+        "Normal": "ArtSource/Textures/meio_fio/meio_fio_Normal.jpg"
+      },
+      "description": "meio-fio de concreto pré-moldado com juntas a cada 1 m",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "aco_pintado": {
+      "tile_m": 1.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/aco_pintado/aco_pintado_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/aco_pintado/aco_pintado_Roughness.jpg",
+        "Height": "ArtSource/Textures/aco_pintado/aco_pintado_Height.jpg",
+        "AO": "ArtSource/Textures/aco_pintado/aco_pintado_AO.jpg",
+        "Metallic": "ArtSource/Textures/aco_pintado/aco_pintado_Metallic.jpg",
+        "Normal": "ArtSource/Textures/aco_pintado/aco_pintado_Normal.jpg"
+      },
+      "description": "aço pintado com lascas, primer exposto, arranhões e ferrugem (base clara, tingida)",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "galvanizado": {
+      "tile_m": 1.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/galvanizado/galvanizado_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/galvanizado/galvanizado_Roughness.jpg",
+        "Height": "ArtSource/Textures/galvanizado/galvanizado_Height.jpg",
+        "AO": "ArtSource/Textures/galvanizado/galvanizado_AO.jpg",
+        "Metallic": "ArtSource/Textures/galvanizado/galvanizado_Metallic.jpg",
+        "Normal": "ArtSource/Textures/galvanizado/galvanizado_Normal.jpg"
+      },
+      "description": "aço galvanizado com cristais (spangle) e oxidação branca",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "ferrugem": {
+      "tile_m": 1.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/ferrugem/ferrugem_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/ferrugem/ferrugem_Roughness.jpg",
+        "Height": "ArtSource/Textures/ferrugem/ferrugem_Height.jpg",
+        "AO": "ArtSource/Textures/ferrugem/ferrugem_AO.jpg",
+        "Metallic": "ArtSource/Textures/ferrugem/ferrugem_Metallic.jpg",
+        "Normal": "ArtSource/Textures/ferrugem/ferrugem_Normal.jpg"
+      },
+      "description": "ferrugem com escamas",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "madeira": {
+      "tile_m": 1.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/madeira/madeira_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/madeira/madeira_Roughness.jpg",
+        "Height": "ArtSource/Textures/madeira/madeira_Height.jpg",
+        "AO": "ArtSource/Textures/madeira/madeira_AO.jpg",
+        "Normal": "ArtSource/Textures/madeira/madeira_Normal.jpg"
+      },
+      "description": "tábuas com veios, nós e frestas (base clara, tingida)",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "ceramica": {
+      "tile_m": 1.2,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/ceramica/ceramica_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/ceramica/ceramica_Roughness.jpg",
+        "Height": "ArtSource/Textures/ceramica/ceramica_Height.jpg",
+        "AO": "ArtSource/Textures/ceramica/ceramica_AO.jpg",
+        "Normal": "ArtSource/Textures/ceramica/ceramica_Normal.jpg"
+      },
+      "description": "piso cerâmico esmaltado 30x30 com rejunte",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "telha": {
+      "tile_m": 1.2,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/telha/telha_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/telha/telha_Roughness.jpg",
+        "Height": "ArtSource/Textures/telha/telha_Height.jpg",
+        "AO": "ArtSource/Textures/telha/telha_AO.jpg",
+        "Normal": "ArtSource/Textures/telha/telha_Normal.jpg"
+      },
+      "description": "telha cerâmica colonial com musgo nas juntas",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "plastico": {
+      "tile_m": 0.5,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/plastico/plastico_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/plastico/plastico_Roughness.jpg",
+        "Height": "ArtSource/Textures/plastico/plastico_Height.jpg",
+        "AO": "ArtSource/Textures/plastico/plastico_AO.jpg",
+        "Normal": "ArtSource/Textures/plastico/plastico_Normal.jpg"
+      },
+      "description": "plástico com riscos",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "borracha": {
+      "tile_m": 0.5,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/borracha/borracha_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/borracha/borracha_Roughness.jpg",
+        "Height": "ArtSource/Textures/borracha/borracha_Height.jpg",
+        "AO": "ArtSource/Textures/borracha/borracha_AO.jpg",
+        "Normal": "ArtSource/Textures/borracha/borracha_Normal.jpg"
+      },
+      "description": "borracha",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "grama": {
+      "tile_m": 2.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/grama/grama_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/grama/grama_Roughness.jpg",
+        "Height": "ArtSource/Textures/grama/grama_Height.jpg",
+        "AO": "ArtSource/Textures/grama/grama_AO.jpg",
+        "Normal": "ArtSource/Textures/grama/grama_Normal.jpg"
+      },
+      "description": "gramado urbano com falhas secas",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "terra": {
+      "tile_m": 2.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/terra/terra_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/terra/terra_Roughness.jpg",
+        "Height": "ArtSource/Textures/terra/terra_Height.jpg",
+        "AO": "ArtSource/Textures/terra/terra_AO.jpg",
+        "Normal": "ArtSource/Textures/terra/terra_Normal.jpg"
+      },
+      "description": "solo exposto com seixos e umidade",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "cascalho": {
+      "tile_m": 1.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/cascalho/cascalho_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/cascalho/cascalho_Roughness.jpg",
+        "Height": "ArtSource/Textures/cascalho/cascalho_Height.jpg",
+        "AO": "ArtSource/Textures/cascalho/cascalho_AO.jpg",
+        "Normal": "ArtSource/Textures/cascalho/cascalho_Normal.jpg"
+      },
+      "description": "cascalho/brita",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "pastilha": {
+      "tile_m": 0.6,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/pastilha/pastilha_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/pastilha/pastilha_Roughness.jpg",
+        "Height": "ArtSource/Textures/pastilha/pastilha_Height.jpg",
+        "AO": "ArtSource/Textures/pastilha/pastilha_AO.jpg",
+        "Normal": "ArtSource/Textures/pastilha/pastilha_Normal.jpg"
+      },
+      "description": "pastilha cerâmica 5x5 cm",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    },
+    "granito": {
+      "tile_m": 1.0,
+      "resolution": 1024,
+      "maps": {
+        "BaseColor": "ArtSource/Textures/granito/granito_BaseColor.jpg",
+        "Roughness": "ArtSource/Textures/granito/granito_Roughness.jpg",
+        "Height": "ArtSource/Textures/granito/granito_Height.jpg",
+        "AO": "ArtSource/Textures/granito/granito_AO.jpg",
+        "Normal": "ArtSource/Textures/granito/granito_Normal.jpg"
+      },
+      "description": "granito polido salpicado",
+      "provenance": "autoral: grafo procedural próprio (Tools/Blender/bake_pbr_textures.py), sem imagens externas",
+      "license": "propriedade do projeto",
+      "normal_convention": "OpenGL (Y+), espaço tangente"
+    }
+  },
+  "schemaVersion": 1,
+  "stage": "W3 vertical slice",
+  "seamless": "toro 4D (ruído/voronoi periódicos) + grades inteiras por tile"
+}

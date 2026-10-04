@@ -38,6 +38,7 @@ LIB = {
     "madeira_pintada":      {"family": "madeira", "c1": (.36, .20, .12), "c2": (.28, .15, .09), "rough": (.55, .80), "scale": 1.0, "bump": .25, "pattern": "wave", "chips": True, "grime": .55, "dirt": .35, "tint": (.12, .2), "texel": 1024},
     "madeira_crua":         {"family": "madeira", "c1": (.48, .34, .22), "c2": (.34, .23, .14), "rough": (.65, .85), "scale": 1.0, "bump": .35, "pattern": "wave", "grime": .5, "dirt": .3, "texel": 1024},
     "vidro":                {"family": "vidro", "c1": (.08, .10, .11), "c2": (.05, .07, .08), "rough": (.04, .12), "scale": 2.0, "bump": .0, "pattern": "noise", "grime": .3, "dirt": .1, "spec": .9, "texel": 512},
+    "vidro_fachada":        {"family": "vidro", "c1": (.03, .03, .035), "c2": (.02, .02, .025), "rough": (.03, .06), "scale": 2.0, "bump": .0, "pattern": "noise", "grime": 0.0, "dirt": 0.0, "texel": 256},
     "vidro_vitrine":        {"family": "vidro", "c1": (.16, .19, .20), "c2": (.11, .13, .14), "rough": (.03, .08), "scale": 2.0, "bump": .0, "pattern": "noise", "grime": .2, "dirt": .1, "spec": 1.0, "texel": 512},
     "ceramica_telha":       {"family": "ceramica", "c1": (.56, .26, .16), "c2": (.42, .18, .11), "rough": (.70, .92), "scale": 1.0, "bump": .7, "pattern": "tiles", "tile": (.22, .38, .02), "grime": .7, "dirt": 0.0, "tint": (.04, .12), "texel": 512},
     "ceramica_piso":        {"family": "ceramica", "c1": (.70, .66, .60), "c2": (.60, .56, .50), "rough": (.25, .45), "scale": 1.0, "bump": .3, "pattern": "tiles", "tile": (.3, .3, .004), "grime": .4, "dirt": .2, "texel": 512},
@@ -65,10 +66,195 @@ def _n(nt, kind, x, y, **inputs):
     return node
 
 
+# ---------------------------------------------------------------- W3: authored tileable PBR textures (ArtSource/Textures)
+ROOT = Path(__file__).resolve().parents[2]
+TEX_DIR = ROOT / "ArtSource" / "Textures"
+# material -> (texture set, mode): "raw" = authored colour; "tint" = desaturated texture x material colour (paints, plasters, plastics)
+TEX_MAP = {
+    "reboco_antigo": ("reboco", "tint"), "reboco_pintado": ("reboco", "tint"), "concreto_pintado": ("reboco", "tint"),
+    "parede_pintada": ("reboco", "tint"), "pedra_reboco_historico": ("reboco", "tint"), "reboco_pastilha": ("pastilha", "tint"),
+    "concreto": ("concreto", "raw"), "concreto_aparente": ("concreto", "raw"), "cimentado": ("concreto", "tint"),
+    "calcada": ("ladrilho", "raw"), "meio_fio": ("meio_fio", "raw"), "tijolo_aparente": ("tijolo", "raw"), "tijolo_pintado": ("tijolo", "tint"),
+    "asfalto": ("asfalto", "raw"), "asfalto_gasto": ("asfalto", "tint"), "metal_galvanizado": ("galvanizado", "raw"),
+    "aluminio": ("galvanizado", "tint"), "aco_inox": ("galvanizado", "tint"), "trilho_aco": ("galvanizado", "tint"),
+    "aco_pintado_verde": ("aco_pintado", "tint"), "aco_pintado_cinza": ("aco_pintado", "tint"), "aco_pintado_vermelho": ("aco_pintado", "tint"),
+    "pintura_industrial": ("aco_pintado", "tint"), "ferrugem": ("ferrugem", "raw"), "madeira_pintada": ("madeira", "tint"),
+    "madeira_crua": ("madeira", "tint"), "ceramica_telha": ("telha", "raw"), "ceramica_piso": ("ceramica", "tint"),
+    "piso_ceramico_bege": ("ceramica", "tint"), "azulejo_branco": ("ceramica", "tint"), "plastico": ("plastico", "tint"),
+    "plastico_branco": ("plastico", "tint"), "plastico_azul": ("plastico", "tint"), "borracha": ("borracha", "raw"),
+    "borracha_preta": ("borracha", "raw"), "grama": ("grama", "raw"), "terra": ("terra", "raw"), "lastro_ferroviario": ("cascalho", "raw"),
+    "piso_intertravado": ("intertravado", "raw"), "pedra_portuguesa": ("pedra_portuguesa", "raw"), "granito": ("granito", "raw"),
+}
+_TEX_LIB = None
+
+
+def tex_library():
+    global _TEX_LIB
+    if _TEX_LIB is None:
+        p = TEX_DIR / "texture_library_w3.json"
+        _TEX_LIB = json.loads(p.read_text(encoding="utf-8"))["sets"] if p.exists() else {}
+    return _TEX_LIB
+
+
+def _img(nt, path, cs, x, y, label):
+    n = nt.nodes.new("ShaderNodeTexImage")
+    n.location = (x, y)
+    n.name = n.label = label
+    img = bpy.data.images.load(str(path), check_existing=True)
+    img.colorspace_settings.name = cs
+    n.image = img
+    return n
+
+
+def build_textured(name, spec, set_name, mode):
+    """W3 production material: authored BaseColor/Normal/Roughness/AO(/Metallic) on metric UVs + macro variation, per-object tint and
+    the W2.5 wear layers (SA_WEAR) so tiling never reads as a repeated sticker."""
+    info = tex_library()[set_name]
+    mat = bpy.data.materials.new(name)
+    try:
+        mat.use_nodes = True
+    except Exception:
+        pass
+    nt = mat.node_tree
+    nt.nodes.clear()
+    L = nt.links
+    out = _n(nt, "ShaderNodeOutputMaterial", 1700, 0)
+    bsdf = _n(nt, "ShaderNodeBsdfPrincipled", 1400, 0)
+    L.new(bsdf.outputs["BSDF"], out.inputs["Surface"])
+    tc = _n(nt, "ShaderNodeTexCoord", -1600, 0)
+    mp = _n(nt, "ShaderNodeMapping", -1400, 0)
+    t = 1.0 / info["tile_m"]
+    mp.inputs["Scale"].default_value = (t, t, t)
+    L.new(tc.outputs["UV"], mp.inputs["Vector"])
+    maps = {k: ROOT / v for k, v in info["maps"].items()}
+    nodes = {}
+    for k, (cs, y) in {"BaseColor": ("sRGB", 400), "Roughness": ("Non-Color", 100), "Normal": ("Non-Color", -200), "AO": ("Non-Color", -500),
+                       "Metallic": ("Non-Color", -800)}.items():
+        if k in maps:
+            nodes[k] = _img(nt, maps[k], cs, -1100, y, "SLOT_" + k)
+            L.new(mp.outputs["Vector"], nodes[k].inputs["Vector"])
+    color = nodes["BaseColor"].outputs["Color"]
+    if mode == "tint":
+        avg = tuple((a + b) / 2 for a, b in zip(spec["c1"], spec["c2"]))
+        hs = _n(nt, "ShaderNodeHueSaturation", -800, 400)
+        hs.inputs["Saturation"].default_value = .15
+        L.new(color, hs.inputs["Color"])
+        mul = _n(nt, "ShaderNodeMix", -600, 400)
+        mul.data_type = "RGBA"
+        mul.blend_type = "MULTIPLY"
+        mul.inputs["Factor"].default_value = 1.0
+        L.new(hs.outputs["Color"], mul.inputs[6])
+        mul.inputs[7].default_value = (*(min(1.0, c * 1.18) for c in avg), 1)
+        color = mul.outputs[2]
+    elif "raw_mult" in spec:
+        pass
+    # AO from the authored map (cavities) multiplies the colour
+    if "AO" in nodes:
+        aom = _n(nt, "ShaderNodeMix", -400, 200)
+        aom.data_type = "RGBA"
+        aom.blend_type = "MULTIPLY"
+        aom.inputs["Factor"].default_value = .85
+        L.new(color, aom.inputs[6])
+        L.new(nodes["AO"].outputs["Color"], aom.inputs[7])
+        color = aom.outputs[2]
+    # macro variation (object space, never tiles)
+    big = _n(nt, "ShaderNodeTexNoise", -600, -1100, Scale=.22, Detail=3.0)
+    L.new(tc.outputs["Object"], big.inputs["Vector"])
+    bigmr = _n(nt, "ShaderNodeMapRange", -400, -1100, **{"To Min": .84, "To Max": 1.1})
+    L.new(big.outputs["Fac"], bigmr.inputs["Value"])
+    vary = _n(nt, "ShaderNodeVectorMath", -200, 300)
+    vary.operation = "SCALE"
+    L.new(color, vary.inputs[0])
+    L.new(bigmr.outputs["Result"], vary.inputs["Scale"])
+    color = vary.outputs["Vector"]
+    if spec.get("tint"):
+        hue_var, val_var = spec["tint"]
+        oi = _n(nt, "ShaderNodeObjectInfo", -400, 700)
+        hue = _n(nt, "ShaderNodeMapRange", -200, 750, **{"To Min": .5 - hue_var / 2, "To Max": .5 + hue_var / 2})
+        val = _n(nt, "ShaderNodeMapRange", -200, 600, **{"To Min": 1 - val_var, "To Max": 1 + val_var * .5})
+        L.new(oi.outputs["Random"], hue.inputs["Value"])
+        L.new(oi.outputs["Random"], val.inputs["Value"])
+        hsv = _n(nt, "ShaderNodeHueSaturation", 0, 400)
+        L.new(color, hsv.inputs["Color"])
+        L.new(hue.outputs["Result"], hsv.inputs["Hue"])
+        L.new(val.outputs["Result"], hsv.inputs["Value"])
+        hsv.inputs["Saturation"].default_value = spec.get("sat", 1.0)
+        color = hsv.outputs["Color"]
+    color = _wear(nt, L, color, spec, tc)
+    L.new(color, bsdf.inputs["Base Color"])
+    L.new(nodes["Roughness"].outputs["Color"], bsdf.inputs["Roughness"])
+    nm = _n(nt, "ShaderNodeNormalMap", 1100, -300, Strength=.9 if spec["family"] not in ("terreno", "asfalto", "pavimento") else .7)
+    L.new(nodes["Normal"].outputs["Color"], nm.inputs["Color"])
+    L.new(nm.outputs["Normal"], bsdf.inputs["Normal"])
+    if "Metallic" in nodes:
+        L.new(nodes["Metallic"].outputs["Color"], bsdf.inputs["Metallic"])
+    else:
+        bsdf.inputs["Metallic"].default_value = spec.get("metal", 0.0)
+    avg = tuple((a + b) / 2 for a, b in zip(spec["c1"], spec["c2"]))
+    mat.diffuse_color = (*avg, 1.0)
+    mat["sa_family"] = spec["family"]
+    mat["sa_texture_set"] = set_name
+    mat["sa_texture_mode"] = mode
+    mat["sa_tile_m"] = info["tile_m"]
+    mat["sa_status"] = "W3 produção: texturas PBR autorais (ArtSource/Textures/%s)" % set_name
+    return mat
+
+
+GLASS = {"vidro": dict(color=(.03, .04, .045), alpha=.16, rough=.02), "vidro_vitrine": dict(color=(.04, .05, .055), alpha=.12, rough=.015),
+         "vidro_fachada": dict(color=(.025, .03, .035), alpha=.86, rough=.04, fake_interior=True)}
+
+
+def build_glass(name):
+    """W3 glass: thin dielectric with Fresnel-driven opacity (see-through facing the camera, reflective at grazing angles), shadow-transparent.
+    vidro / vidro_vitrine = clear (heroes, shopfronts with modelled interiors); vidro_fachada = background buildings without interiors
+    (mostly reflective, with a faint fake interior so windows never read as flat plates)."""
+    g = GLASS[name]
+    mat = bpy.data.materials.new(name)
+    nt = mat.node_tree
+    nt.nodes.clear()
+    L = nt.links
+    out = _n(nt, "ShaderNodeOutputMaterial", 900, 0)
+    bsdf = _n(nt, "ShaderNodeBsdfPrincipled", 600, 0)
+    L.new(bsdf.outputs["BSDF"], out.inputs["Surface"])
+    bsdf.inputs["Base Color"].default_value = (*g["color"], 1)
+    bsdf.inputs["Roughness"].default_value = g["rough"]
+    bsdf.inputs["IOR"].default_value = 1.5
+    bsdf.inputs["Specular IOR Level"].default_value = 1.0
+    lw = _n(nt, "ShaderNodeLayerWeight", 0, 0, Blend=.35)
+    alpha = _n(nt, "ShaderNodeMapRange", 300, 0, **{"From Min": 0.0, "From Max": 1.0, "To Min": g["alpha"], "To Max": 1.0})
+    L.new(lw.outputs["Fresnel"], alpha.inputs["Value"])
+    L.new(alpha.outputs["Result"], bsdf.inputs["Alpha"])
+    if g.get("fake_interior"):
+        tc = _n(nt, "ShaderNodeTexCoord", -400, 300)
+        nz = _n(nt, "ShaderNodeTexNoise", -200, 300, Scale=.6, Detail=2.0)
+        L.new(tc.outputs["Object"], nz.inputs["Vector"])
+        ramp = _n(nt, "ShaderNodeMix", 200, 300)
+        ramp.data_type = "RGBA"
+        L.new(nz.outputs["Fac"], ramp.inputs["Factor"])
+        ramp.inputs[6].default_value = (.02, .022, .025, 1)
+        ramp.inputs[7].default_value = (.16, .13, .09, 1)
+        L.new(ramp.outputs[2], bsdf.inputs["Base Color"])
+    try:
+        mat.surface_render_method = "DITHERED"
+        mat.use_transparent_shadow = True
+    except AttributeError:
+        mat.blend_method = "HASHED"
+    mat.diffuse_color = (*g["color"], 1)
+    mat["sa_family"] = "vidro"
+    mat["sa_status"] = "W3 vidro funcional (Fresnel/alpha, sombra transparente)"
+    return mat
+
+
 def build_material(name, spec):
     mat = bpy.data.materials.get(name)
     if mat:
         return mat
+    base = name[:-5] if name.endswith("_hero") else name
+    if base in GLASS:
+        return build_glass(name) if name == base else build_glass(base)
+    tm = TEX_MAP.get(base)
+    if tm and tm[0] in tex_library():
+        return build_textured(name, spec, *tm)
     mat = bpy.data.materials.new(name)
     try:
         mat.use_nodes = True
@@ -416,3 +602,96 @@ def write_library_json(root):
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return p
+
+
+def build_terrain_material(lib):
+    """W3 terrain: blend of authored grass / exposed soil / gravel / residual concrete driven by slope (geometry normal) and
+    object-space noise, sampled in world metres (terrain UVs are coarse). Steeper ground and worn patches show soil; scattered
+    gravel and old concrete remnants near the flat; keeps the relief readable from oblique and aerial views."""
+    name = "terreno_w3"
+    if name in bpy.data.materials:
+        return bpy.data.materials[name]
+    texl = tex_library()
+    if not all(k in texl for k in ("grama", "terra", "cascalho", "concreto")):
+        return lib["terra"]
+    mat = bpy.data.materials.new(name)
+    nt = mat.node_tree
+    nt.nodes.clear()
+    L = nt.links
+    out = _n(nt, "ShaderNodeOutputMaterial", 1800, 0)
+    bsdf = _n(nt, "ShaderNodeBsdfPrincipled", 1500, 0)
+    L.new(bsdf.outputs[0], out.inputs["Surface"])
+    tc = _n(nt, "ShaderNodeTexCoord", -1800, 0)
+    sets = {}
+    for k, (setn, y) in enumerate((("grama", 600), ("terra", 200), ("cascalho", -200), ("concreto", -600))):
+        info = texl[setn]
+        mp = _n(nt, "ShaderNodeMapping", -1500, y)
+        t = 1.0 / info["tile_m"]
+        mp.inputs["Scale"].default_value = (t, t, t)
+        L.new(tc.outputs["Object"], mp.inputs["Vector"])
+        c = _img(nt, ROOT / info["maps"]["BaseColor"], "sRGB", -1200, y, f"SLOT_{setn}_BaseColor")
+        n = _img(nt, ROOT / info["maps"]["Normal"], "Non-Color", -1200, y - 150, f"SLOT_{setn}_Normal")
+        r = _img(nt, ROOT / info["maps"]["Roughness"], "Non-Color", -1200, y - 300, f"SLOT_{setn}_Roughness")
+        for im in (c, n, r):
+            L.new(mp.outputs["Vector"], im.inputs["Vector"])
+        sets[setn] = (c, n, r)
+    geo = _n(nt, "ShaderNodeNewGeometry", -1200, -1000)
+    sep = _n(nt, "ShaderNodeSeparateXYZ", -1000, -1000)
+    L.new(geo.outputs["Normal"], sep.inputs[0])
+    slope = _n(nt, "ShaderNodeMapRange", -800, -1000, **{"From Min": .995, "From Max": .955, "To Min": 0.0, "To Max": 1.0})
+    L.new(sep.outputs["Z"], slope.inputs["Value"])
+    wear = _n(nt, "ShaderNodeTexNoise", -1000, -1250, Scale=.045, Detail=4.0)
+    L.new(tc.outputs["Object"], wear.inputs["Vector"])
+    worn = _n(nt, "ShaderNodeMapRange", -800, -1250, **{"From Min": .55, "From Max": .68})
+    L.new(wear.outputs["Fac"], worn.inputs["Value"])
+    soil = _n(nt, "ShaderNodeMath", -600, -1100)
+    soil.operation = "MAXIMUM"
+    L.new(slope.outputs["Result"], soil.inputs[0])
+    L.new(worn.outputs["Result"], soil.inputs[1])
+    gn = _n(nt, "ShaderNodeTexNoise", -1000, -1500, Scale=.09, Detail=3.0)
+    L.new(tc.outputs["Object"], gn.inputs["Vector"])
+    grav = _n(nt, "ShaderNodeMapRange", -800, -1500, **{"From Min": .64, "From Max": .7})
+    L.new(gn.outputs["Fac"], grav.inputs["Value"])
+    cn = _n(nt, "ShaderNodeTexNoise", -1000, -1750, Scale=.03, Detail=2.0)
+    L.new(tc.outputs["Object"], cn.inputs["Vector"])
+    conc = _n(nt, "ShaderNodeMapRange", -800, -1750, **{"From Min": .72, "From Max": .74})
+    L.new(cn.outputs["Fac"], conc.inputs["Value"])
+
+    def layer(prev, fac, setn, idx):
+        m = _n(nt, "ShaderNodeMix", -200 + idx * 150, 400 - idx * 60)
+        m.data_type = "RGBA"
+        L.new(fac, m.inputs["Factor"])
+        L.new(prev, m.inputs[6])
+        L.new(sets[setn][idx_map[idx]].outputs["Color"], m.inputs[7])
+        return m.outputs[2]
+    idx_map = {0: 0, 1: 1, 2: 2}
+    outs = []
+    for ch in range(3):          # colour, normal, roughness blended with the same masks
+        base = sets["grama"][ch].outputs["Color"]
+        for fac, setn in ((soil.outputs[0], "terra"), (grav.outputs["Result"], "cascalho"), (conc.outputs["Result"], "concreto")):
+            m = _n(nt, "ShaderNodeMix", -200 + ch * 300, 400 - ch * 300)
+            m.data_type = "RGBA"
+            L.new(fac, m.inputs["Factor"])
+            L.new(base, m.inputs[6])
+            L.new(sets[setn][ch].outputs["Color"], m.inputs[7])
+            base = m.outputs[2]
+        outs.append(base)
+    big = _n(nt, "ShaderNodeTexNoise", -600, 900, Scale=.012, Detail=2.0)
+    L.new(tc.outputs["Object"], big.inputs["Vector"])
+    bmr = _n(nt, "ShaderNodeMapRange", -400, 900, **{"To Min": .8, "To Max": 1.12})
+    L.new(big.outputs["Fac"], bmr.inputs["Value"])
+    vary = _n(nt, "ShaderNodeVectorMath", 900, 300)
+    vary.operation = "SCALE"
+    L.new(outs[0], vary.inputs[0])
+    L.new(bmr.outputs["Result"], vary.inputs["Scale"])
+    L.new(vary.outputs[0], bsdf.inputs["Base Color"])
+    nm = _n(nt, "ShaderNodeNormalMap", 1200, -200, Strength=.8)
+    L.new(outs[1], nm.inputs["Color"])
+    L.new(nm.outputs[0], bsdf.inputs["Normal"])
+    rs = _n(nt, "ShaderNodeSeparateColor", 1200, -400)
+    L.new(outs[2], rs.inputs[0])
+    L.new(rs.outputs[0], bsdf.inputs["Roughness"])
+    mat.diffuse_color = (.30, .30, .18, 1)
+    mat["sa_family"] = "terreno"
+    mat["sa_status"] = "W3 terreno: blend grama/terra/cascalho/concreto por declividade + ruído (texturas autorais)"
+    return mat

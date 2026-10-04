@@ -205,7 +205,7 @@ KS = H.kit("Services")
 for x in (-4.0, 3.0, 10.0):
     for y in (-4.0, 4.0):
         lamp = KS.ceiling_light(P + f"lamp_{x:+.0f}_{y:+.0f}", (x, y, zroof(y) - .45), drop=.7)
-        bpy.data.lights[lamp.name + "__light"].energy = 650
+        bpy.data.lights[lamp.name + "__light"].energy = 650 * 3.5
 re = rooms["reception"]
 KS.panel_qdc(P + "qdc_main", (re[0] + .01, re[1] + 2.6, .15), math.pi / 2, ways=12)
 KS.entrance_meter(P + "padrao_entrada", (rx - 1.4, -hd, 0), 0.0, height=4.6)

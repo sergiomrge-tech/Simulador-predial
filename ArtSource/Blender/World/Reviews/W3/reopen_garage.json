@@ -1,0 +1,87 @@
+{
+  "hero": "garage",
+  "blend": "ArtSource/Blender/World/OldTown/Heroes/W2_garage.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "objects": 108,
+  "checks": {
+    "meshObjects": 71,
+    "triangles": 58906,
+    "trianglesPerCollection": {
+      "W2_garage_CaptureOnly": 10,
+      "W2_garage_Interior": 270,
+      "W2_garage_Openings": 28026,
+      "W2_garage_Props_G0": 3930,
+      "W2_garage_Services": 8956,
+      "W2_garage_Shell": 7282,
+      "W2_garage_Site": 2756,
+      "W2_garage_Structure": 7676
+    },
+    "largestObjects": [
+      {
+        "name": "W2_garage__structure",
+        "tris": 7524
+      },
+      {
+        "name": "W2_garage__shell_outer",
+        "tris": 3996
+      },
+      {
+        "name": "W2_garage__rollup_gate",
+        "tris": 3762
+      },
+      {
+        "name": "W2_garage__win_side_-7.5",
+        "tris": 2592
+      },
+      {
+        "name": "W2_garage__win_side_+2.5",
+        "tris": 2592
+      },
+      {
+        "name": "W2_garage__sign_text",
+        "tris": 2444
+      },
+      {
+        "name": "W2_garage__win_front_-6.0",
+        "tris": 2130
+      },
+      {
+        "name": "W2_garage__win_front_-14.0",
+        "tris": 2064
+      }
+    ],
+    "lights": 8,
+    "materials": 34,
+    "stateSlots": [
+      "ALL",
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4"
+    ],
+    "interactive": 15,
+    "root": {
+      "name": "W2_garage_ROOT",
+      "facility_id": "garage",
+      "location": [
+        -2695.0,
+        -2147.0,
+        20.608
+      ]
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W3/w2_garage_01_rua.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_garage_02_portao.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_garage_03_galpao.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_garage_04_recepcao_quadro.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_garage_05_escritorio_pc.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_garage_06_bancada.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_garage_07_aerea.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w2_garage_08_corte_G0.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

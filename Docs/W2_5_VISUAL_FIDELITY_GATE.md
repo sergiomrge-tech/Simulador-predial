@@ -271,3 +271,7 @@ Script de auditoria: `Tools/Blender/audit_ids_markers.py`.
 3. Look de iluminação (W4): exposição, céu, AO, vidro com transmissão, iluminação noturna.
 4. Texturas PBR autorais e decals pintados nos heróis (W3); variantes LOD0 das famílias mais vistas.
 5. Revisão visual do usuário destas capturas antes de replicar o padrão para outros distritos.
+
+---
+
+**Continuação:** o W3 (vertical slice de alta fidelidade) está documentado em `Docs/W3_HIGH_FIDELITY_VERTICAL_SLICE.md`.

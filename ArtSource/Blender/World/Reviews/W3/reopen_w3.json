@@ -1,0 +1,76 @@
+{
+  "mode": "w3",
+  "blend": "ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "reopenedInFreshProcess": true,
+  "objectCount": 2198,
+  "meshCount": 1964,
+  "collections": {
+    "OT_CidadeAntiga": 1295
+  },
+  "checks": {
+    "geometryNodesInstancers": 493,
+    "materials": 458,
+    "materialsWithTextureSlots": 372,
+    "linkedContextObjects": 1747,
+    "heroInstances": [
+      "W2I_apartments",
+      "W2I_garage",
+      "W2I_grocery",
+      "W2I_home.starter",
+      "W2I_horizonte",
+      "W2I_imperial",
+      "W2I_restaurant",
+      "W2I_smalloffice",
+      "W2I_workshop"
+    ],
+    "stateSlotsInSlice": 38,
+    "vegetationSpecies": [
+      "VEG_arbusto",
+      "VEG_ipe",
+      "VEG_ipe_rosa",
+      "VEG_jovem",
+      "VEG_mangueira",
+      "VEG_oiti",
+      "VEG_palmeira",
+      "VEG_sibipiruna",
+      "VEG_tufo_erva",
+      "VEG_tufo_grama"
+    ],
+    "vegetationLOD1": 7,
+    "subcells": 15,
+    "complexity": {
+      "meshTris": 2702048,
+      "instancedTris": 24124100,
+      "instances": 93643,
+      "largestMesh": [
+        "W2_imperial__foyer_shell",
+        34500
+      ],
+      "materials": 456,
+      "textures": 629,
+      "textureMemoryMB_est": 3346.3,
+      "lights": 66,
+      "objects": 2198,
+      "meshes": 1964
+    }
+  },
+  "missingData": [],
+  "renders": [
+    "ArtSource/Blender/World/Reviews/W3/w3_01_corredor_visao_geral.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_02_rua_relevo.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_03_terreno_talude.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_04_lar_exterior.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_06_oficina_exterior.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_08_horizonte_exterior.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_10_mercearia_exterior.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_12_material_pbr_detalhe.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_13_vegetacao.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_14_vidro_exterior.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_15_clutter_decals.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_17_relevo_aereo.jpg",
+    "ArtSource/Blender/World/Reviews/W3/w3_18_fim_de_tarde.jpg"
+  ],
+  "errors": [],
+  "passed": true
+}

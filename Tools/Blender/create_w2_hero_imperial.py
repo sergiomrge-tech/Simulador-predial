@@ -325,7 +325,7 @@ H.mesh(P + "foyer_interior", mb, ["granito", "concreto_pintado", "parede_pintada
 KI = H.kit("Interior")
 for x in (-15.0, 0.0, 15.0):
     lo = KI.ceiling_light(P + f"foyer_chandelier_{x:+.0f}", (x, (FO[1] + FO[3]) / 2, FH_F - .02), drop=.9)
-    bpy.data.lights[lo.name + "__light"].energy = 450
+    bpy.data.lights[lo.name + "__light"].energy = 450 * 3.5
 # Stalls: raked floor stepped per row, seat rows (merged per block), balcony U, booth, ceiling with rosette.
 pl = R["plateia"]
 y_back, y_front = AU[1] + .7, pl[3] - 3.5          # seats region (orchestra pit in front)
@@ -387,11 +387,11 @@ mb.cylinder(0, -2.0, ZA - 2.1, 4.0, .1, 32, 2)                                  
 H.mesh(P + "balcony_booth_ceiling", mb, ["concreto_pintado", "veludo_vermelho", "dourado_velho", "madeira_pintada", "veludo_vermelho",
                                          "parede_pintada", "vidro"], "Interior", bevel=.006, sa_layer="Architecture")
 lo = KI.ceiling_light(P + "chandelier_main", (0, -2.0, ZA - 2.2), drop=2.0)
-bpy.data.lights[lo.name + "__light"].energy = 3000
+bpy.data.lights[lo.name + "__light"].energy = 3000 * 3.5
 for k, y in enumerate((-15.0, 5.0)):
     for x in (-25.0, 25.0):
         lo = KI.ceiling_light(P + f"stalls_light_{k}_{x:+.0f}", (x, y, ZA - 2.1), drop=.4)
-        bpy.data.lights[lo.name + "__light"].energy = 600
+        bpy.data.lights[lo.name + "__light"].energy = 600 * 3.5
 # Stage: floor, proscenium arch, curtain halves, fly galleries, gridiron, battens with borders.
 pa = R["palco"]
 mb = sa_bl.MeshBuilder()
@@ -420,7 +420,7 @@ H.mesh(P + "stage_rigging", mb, ["madeira_palco", STONE, "dourado_velho", "velud
        sa_layer="Architecture", note="urdimento, varas e bambolinas")
 for x in (-8.0, 0.0, 8.0):
     lo = KI.ceiling_light(P + f"stage_work_light_{x:+.0f}", (x, (FT[1] + FT[3]) / 2, 17.0), drop=.5)
-    bpy.data.lights[lo.name + "__light"].energy = 900
+    bpy.data.lights[lo.name + "__light"].energy = 900 * 3.5
 # Backstage: floor, racks, road cases, costume rail, old electrical board + half-done retrofit (gameplay).
 mb = sa_bl.MeshBuilder()
 mb.box(0, (BK[1] + BK[3]) / 2, 0, BK[2] - BK[0] - 1.2, BK[3] - BK[1] - .6, STAGE, 0, bottom=True)
