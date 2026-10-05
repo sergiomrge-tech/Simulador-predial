@@ -32,6 +32,7 @@ namespace FacilityOps
             public string name; public int frames; public float seconds, avgFps, minFps, avgFrameMs, p99FrameMs, maxFrameMs; public int over33ms, over50ms, over100ms;
             public int cellLoads, cellUnloads; public float usedMiB, reservedMiB; public long gcBytesPerFrameAvg, setPassAvg, trianglesAvg, trianglesMax, drawCallsAvg, batchesAvg;
             public bool drawCallsAvailable, batchesAvailable; public float distance;
+            public string gcStatus, drawStatus, batchesStatus, setPassStatus, trianglesStatus;
         }
         [Serializable] public sealed class Report
         {
@@ -57,6 +58,7 @@ namespace FacilityOps
         private readonly List<string> prompts = new List<string>(), captureNames = new List<string>();
         private string segName = "start"; private double segGc, segSetPass, segTris, segDraw, segBatches; private long segTrisMax; private int segLoads0, segUnloads0; private float segT0, segDist;
         private float vertical; private int airborneStreak; private Vector3 lastPos;
+        private int gcSamples, drawSamples, batchSamples, passSamples, triSamples;
         private float maxFloorGap, minY = 1e9f, maxY = -1e9f; private int airborne, maxStreak, penetration, stuck, doorOps, tabletToggles, saveChecks, prevLoads, prevUnloads, frameIndex;
 
         public IEnumerator Run(GameRuntime runtime, WorldStreamService streaming, WorldStreamingDebugOverlay debugOverlay, Route route)
@@ -341,6 +343,7 @@ namespace FacilityOps
         private void BeginSegment(string name)
         {
             segName = name; segMs.Clear(); segGc = segSetPass = segTris = segDraw = segBatches = 0; segTrisMax = 0; segDist = 0f;
+            gcSamples = drawSamples = batchSamples = passSamples = triSamples = 0;
             segLoads0 = service.TotalLoads; segUnloads0 = service.TotalUnloads; segT0 = Time.realtimeSinceStartup; prevLoads = segLoads0; prevUnloads = segUnloads0;
         }
         private void RecordFrame()
@@ -349,13 +352,25 @@ namespace FacilityOps
             frameIndex++;
             if (frameIndex < 2) return;
             segMs.Add(ms);
-            segGc += Math.Max(0, overlay.GcBytesLastFrame); segSetPass += Math.Max(0, overlay.SetPassCallsLastFrame); segDraw += Math.Max(0, overlay.DrawCallsLastFrame);
-            segBatches += Math.Max(0, overlay.BatchesLastFrame); segTris += Math.Max(0, overlay.VisibleTrianglesLastFrame); segTrisMax = Math.Max(segTrisMax, overlay.VisibleTrianglesLastFrame);
+            if (overlay.GcBytesLastFrame >= 0) { segGc += overlay.GcBytesLastFrame; gcSamples++; }
+            if (overlay.SetPassCallsLastFrame >= 0) { segSetPass += overlay.SetPassCallsLastFrame; passSamples++; }
+            if (overlay.DrawCallsLastFrame >= 0) { segDraw += overlay.DrawCallsLastFrame; drawSamples++; }
+            if (overlay.BatchesLastFrame >= 0) { segBatches += overlay.BatchesLastFrame; batchSamples++; }
+            if (overlay.VisibleTrianglesLastFrame >= 0) { segTris += overlay.VisibleTrianglesLastFrame; triSamples++; segTrisMax = Math.Max(segTrisMax, overlay.VisibleTrianglesLastFrame); }
             int ops = (service.TotalLoads - prevLoads) + (service.TotalUnloads - prevUnloads);
             prevLoads = service.TotalLoads; prevUnloads = service.TotalUnloads;
             Result.maxLoadedCells = Mathf.Max(Result.maxLoadedCells, service.LoadedCells.Count);
             if (ms > 33.4f)
-                hitches.Add(new Hitch { ms = ms, segment = segName, cell = service.HasCurrentCell ? service.CurrentCell.Name : "n/a", position = new Vec3(game.Player.transform.position), cellOps = ops });
+            {
+                var hitch = new Hitch { ms = ms, segment = segName, cell = service.HasCurrentCell ? service.CurrentCell.Name : "n/a", position = new Vec3(game.Player.transform.position), cellOps = ops };
+                if (hitches.Count < 12) hitches.Add(hitch);
+                else
+                {
+                    int smallest = 0;
+                    for (int i = 1; i < hitches.Count; i++) if (hitches[i].ms < hitches[smallest].ms) smallest = i;
+                    if (ms > hitches[smallest].ms) hitches[smallest] = hitch;
+                }
+            }
         }
         private void EndSegment()
         {
@@ -369,12 +384,15 @@ namespace FacilityOps
                 maxFrameMs = sorted[n - 1], minFps = 1000f / Mathf.Max(1f, sorted[n - 1]), p99FrameMs = sorted[Mathf.Min(n - 1, Mathf.CeilToInt(n * .99f) - 1)],
                 cellLoads = service.TotalLoads - segLoads0, cellUnloads = service.TotalUnloads - segUnloads0,
                 usedMiB = overlay.AllocatedMemoryBytes / 1048576f, reservedMiB = overlay.ReservedMemoryBytes / 1048576f,
-                gcBytesPerFrameAvg = (long)(segGc / n), setPassAvg = (long)(segSetPass / n), trianglesAvg = (long)(segTris / n), trianglesMax = segTrisMax,
-                drawCallsAvg = (long)(segDraw / n), batchesAvg = (long)(segBatches / n), distance = segDist
+                gcBytesPerFrameAvg = Mean(segGc, gcSamples), setPassAvg = Mean(segSetPass, passSamples), trianglesAvg = Mean(segTris, triSamples), trianglesMax = triSamples > 0 ? segTrisMax : -1,
+                drawCallsAvg = Mean(segDraw, drawSamples), batchesAvg = Mean(segBatches, batchSamples), distance = segDist,
+                gcStatus = Status(gcSamples), drawStatus = Status(drawSamples), batchesStatus = Status(batchSamples), setPassStatus = Status(passSamples), trianglesStatus = Status(triSamples)
             };
             foreach (float f in segMs) { if (f > 33.4f) seg.over33ms++; if (f > 50f) seg.over50ms++; if (f > 100f) seg.over100ms++; }
             seg.drawCallsAvailable = segDraw > 0; seg.batchesAvailable = segBatches > 0;
             segments.Add(seg);
         }
+        private static long Mean(double sum, int count) => count > 0 ? (long)(sum / count) : -1;
+        private static string Status(int count) => count > 0 ? "MEDIDO" : "INDISPONÍVEL";
     }
 }

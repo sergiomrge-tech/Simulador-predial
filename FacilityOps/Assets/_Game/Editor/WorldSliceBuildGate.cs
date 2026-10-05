@@ -15,13 +15,20 @@ namespace FacilityOps.Editor
         public static string Fingerprint()
         {
             using var hash = SHA256.Create();
-            string[] folders = { "Assets/_Game/World/SantaAurora/OldTown", "Assets/_Game/Scripts/Runtime" };
-            foreach (string path in folders.SelectMany(f => Directory.GetFiles(f, "*", SearchOption.AllDirectories))
-                .Where(p => !p.Replace('\\', '/').Contains("/QA/")).OrderBy(p => p, StringComparer.Ordinal))
+            string[] folders = { "Assets/_Game/World", "Assets/_Game/Scripts/Runtime", "Assets/_Game/Editor", "Assets/_Game/Tests", "Assets/_Game/Scenes", "Assets/_Game/Resources" };
+            foreach (string path in folders.Where(Directory.Exists).SelectMany(f => Directory.GetFiles(f, "*", SearchOption.AllDirectories))
+                .Where(p => !p.Replace('\\', '/').Contains("/QA/") && !p.Replace('\\', '/').EndsWith("/QA.meta", StringComparison.Ordinal)).OrderBy(p => p, StringComparer.Ordinal))
             {
                 byte[] name = Encoding.UTF8.GetBytes(path.Replace('\\', '/'));
                 hash.TransformBlock(name, 0, name.Length, name, 0);
                 byte[] data = File.ReadAllBytes(path);
+                hash.TransformBlock(data, 0, data.Length, data, 0);
+            }
+            const string route = "../Docs/ValidationEvidence/VerticalSliceQA/route.json";
+            if (File.Exists(route))
+            {
+                byte[] name = Encoding.UTF8.GetBytes("QA/route.json"), data = File.ReadAllBytes(route);
+                hash.TransformBlock(name, 0, name.Length, name, 0);
                 hash.TransformBlock(data, 0, data.Length, data, 0);
             }
             hash.TransformFinalBlock(Array.Empty<byte>(), 0, 0);

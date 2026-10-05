@@ -42,7 +42,7 @@ namespace FacilityOps
         {
             string[] args = Environment.GetCommandLineArgs();
             IsSmokeTest = Array.IndexOf(args, "-facilitySmoke") >= 0;
-            bool worldQa = Array.IndexOf(args, "-worldSliceQa") >= 0;
+            bool worldQa = Array.IndexOf(args, "-worldSliceQa") >= 0 || Array.IndexOf(args, "-verticalSliceQa") >= 0;
             SavePath = worldQa ? Path.Combine(Application.dataPath, "..", "QA", "world-slice-career.json") :
                 IsSmokeTest ? Path.Combine(Application.dataPath, "..", "QA", "smoke-career.json") : SaveService.DefaultPath;
             CareerData data;
