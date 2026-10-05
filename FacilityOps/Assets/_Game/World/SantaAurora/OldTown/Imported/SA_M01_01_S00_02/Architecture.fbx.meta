@@ -147,8 +147,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_bazar
+    second: {fileID: 2100000, guid: 4e88a520a39fd674d97a4dbaeef4bcdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: decal_w31_placa_chaveiro
     second: {fileID: 2100000, guid: 316049a0c0a932d44acea6053a88cb08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_lanches
+    second: {fileID: 2100000, guid: 3c5eabbf8c47d074e9e211bd4a04b569, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_placa_salao
+    second: {fileID: 2100000, guid: 1b503122139cf984e9cbf9e9fddc55e8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -199,6 +214,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: pedra_reboco_historico
     second: {fileID: 2100000, guid: a3e4ce2144f8e4648b64d8b13501276e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: piso_ceramico_bege
+    second: {fileID: 2100000, guid: cb9d6632995e29947b73c39f15cc5df0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

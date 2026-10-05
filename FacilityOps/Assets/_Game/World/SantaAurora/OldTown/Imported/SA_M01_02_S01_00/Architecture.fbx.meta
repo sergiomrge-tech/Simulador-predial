@@ -62,6 +62,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: decal_umidade
+    second: {fileID: 2100000, guid: c05d083a37b80404199268f3fc85b8c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_estencil_nao_estacione
+    second: {fileID: 2100000, guid: 7e61d8164007c504f8f0dc3f74d9a5c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: decal_w31_etiqueta_numero
     second: {fileID: 2100000, guid: 1b9d04fb686055c48a291b07d81597c7, type: 2}
   - first:

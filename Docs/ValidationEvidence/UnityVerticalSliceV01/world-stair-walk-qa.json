@@ -1,21 +1,21 @@
 {
     "status": "PASS",
-    "fingerprint": "37ED5D7F047973EEA4B61BFA5D13F0EEEBE49E52FD4DDFF3A713CEA8C8635799",
+    "fingerprint": "14A3A36891C9208E99F720C6B144FAAD21CD2C5281BD120AB52A1DF0684DE565",
     "unityVersion": "6000.6.2f1",
     "device": "NVIDIA GeForce RTX 4060 Ti",
     "scope": "Unity Editor Play Mode: FirstPersonController CharacterController driven frame by frame (3 m/s, gravity -20) along the street->panel line over authored colliders. Editor, not a standalone benchmark.",
     "interaction": "TechnicalStation",
     "failure": "",
-    "pathCorners": 386,
-    "frames": 3601,
-    "airborneFrames": 5,
-    "maxAirborneStreak": 4,
+    "pathCorners": 382,
+    "frames": 3546,
+    "airborneFrames": 3,
+    "maxAirborneStreak": 1,
     "penetrationFrames": 0,
     "stuckWindows": 0,
-    "pathLength": 185.18618774414063,
-    "seconds": 60.01592254638672,
-    "maxFloorGap": 0.5729141235351563,
-    "finalDistanceToTarget": 0.250616192817688,
+    "pathLength": 182.5343017578125,
+    "seconds": 59.09926986694336,
+    "maxFloorGap": 0.3450508117675781,
+    "finalDistanceToTarget": 0.2508881986141205,
     "maxHeight": 10.089786529541016,
     "start": {
         "x": -2350.0,
@@ -28,45 +28,45 @@
         "z": -1800.300048828125
     },
     "end": {
-        "x": -2345.714111328125,
+        "x": -2345.71435546875,
         "y": 37.14100646972656,
-        "z": -1800.1697998046875
+        "z": -1800.169677734375
     },
     "milestones": [
         {
             "name": "escada: primeiros degraus",
-            "seconds": 52.51603698730469,
+            "seconds": 51.58271789550781,
             "position": {
-                "x": -2347.163330078125,
-                "y": 27.224689483642578,
-                "z": -1797.78466796875
+                "x": -2347.16552734375,
+                "y": 27.215085983276367,
+                "z": -1797.7947998046875
             }
         },
         {
             "name": "escada: patamar do 1º andar (meio da subida)",
-            "seconds": 53.68268585205078,
+            "seconds": 52.78269958496094,
             "position": {
-                "x": -2347.631103515625,
-                "y": 29.357765197753906,
-                "z": -1794.6329345703125
+                "x": -2347.70849609375,
+                "y": 29.36847686767578,
+                "z": -1794.64208984375
             }
         },
         {
             "name": "chegada ao 1º pavimento",
-            "seconds": 54.6660041809082,
+            "seconds": 53.73268508911133,
             "position": {
-                "x": -2347.6494140625,
-                "y": 31.260831832885742,
-                "z": -1797.4412841796875
+                "x": -2347.67236328125,
+                "y": 31.27016258239746,
+                "z": -1797.4058837890625
             }
         },
         {
             "name": "chegada ao piso do prólogo (4º andar)",
-            "seconds": 58.4992790222168,
+            "seconds": 57.58262634277344,
             "position": {
                 "x": -2347.870849609375,
-                "y": 36.77534103393555,
-                "z": -1796.49609375
+                "y": 36.775291442871094,
+                "z": -1796.4959716796875
             }
         }
     ]

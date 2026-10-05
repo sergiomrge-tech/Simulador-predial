@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-05 01:37:14Z" end-time="2026-10-05 01:37:37Z" duration="23,6124223">
+  <test-suite type="TestSuite" id="1000" name="Facility Ops Prototype" fullname="Facility Ops Prototype" runstate="Runnable" testcasecount="26" result="Passed" start-time="2026-10-05 01:37:14Z" end-time="2026-10-05 01:37:37Z" duration="23.612422" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1039" name="FacilityOps.WorldStreaming.Tests.dll" fullname="C:/Users/sergi/Documents/ChatGPT/projeto Steam Simulador Predial/UnityValidation/FacilityOps/Library/ScriptAssemblies/FacilityOps.WorldStreaming.Tests.dll" runstate="Runnable" testcasecount="26" result="Passed" start-time="2026-10-05 01:37:14Z" end-time="2026-10-05 01:37:37Z" duration="23.605003" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="10272" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1040" name="FacilityOps" fullname="FacilityOps" runstate="Runnable" testcasecount="26" result="Passed" start-time="2026-10-05 01:37:14Z" end-time="2026-10-05 01:37:37Z" duration="23.604540" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1041" name="Tests" fullname="FacilityOps.Tests" runstate="Runnable" testcasecount="26" result="Passed" start-time="2026-10-05 01:37:14Z" end-time="2026-10-05 01:37:37Z" duration="23.604274" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1019" name="WorldSliceRuntimeGateTests" fullname="FacilityOps.Tests.WorldSliceRuntimeGateTests" classname="FacilityOps.Tests.WorldSliceRuntimeGateTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-05 01:37:14Z" end-time="2026-10-05 01:37:37Z" duration="23.602784" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1020" name="Streamed_Corridor_And_Horizonte_Physical_Gate" fullname="FacilityOps.Tests.WorldSliceRuntimeGateTests.Streamed_Corridor_And_Horizonte_Physical_Gate" methodname="Streamed_Corridor_And_Horizonte_Physical_Gate" classname="FacilityOps.Tests.WorldSliceRuntimeGateTests" runstate="Runnable" seed="495984273" result="Passed" start-time="2026-10-05 01:37:14Z" end-time="2026-10-05 01:37:37Z" duration="23.589839" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="600000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[WORLD SLICE BRIDGE ACTIVE: SA_M01_01_S00_02 @ (-2860.00, 17.65, -2266.00)
+WORLD RUNTIME QA SAMPLE: {"location":"home.starter","grounded":{"x":-2860.0,"y":16.772489547729492,"z":-2266.0},"cells":4,"scenes":5,"loads":4,"unloads":0,"fps":59.99988555908203,"maxFrameMs":254.1280975341797,"loadMs":950.7145000000002,"unloadMs":0.0,"memoryBytes":944118614,"reservedBytes":1568448512,"gcBytes":120668,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"garage","grounded":{"x":-2710.0,"y":20.688276290893555,"z":-2150.0},"cells":9,"scenes":10,"loads":9,"unloads":0,"fps":26.58008575439453,"maxFrameMs":735.0757446289063,"loadMs":950.7145000000002,"unloadMs":0.0,"memoryBytes":1583612984,"reservedBytes":2376048640,"gcBytes":117922,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"horizonte","grounded":{"x":-2350.0,"y":27.051223754882813,"z":-1831.0},"cells":11,"scenes":12,"loads":11,"unloads":0,"fps":59.998355865478516,"maxFrameMs":735.0757446289063,"loadMs":950.7145000000002,"unloadMs":0.0,"memoryBytes":1827680570,"reservedBytes":2912985088,"gcBytes":150464,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"grocery","grounded":{"x":-2598.0,"y":24.69923973083496,"z":-1480.0},"cells":9,"scenes":10,"loads":15,"unloads":6,"fps":59.99959182739258,"maxFrameMs":735.0757446289063,"loadMs":950.7145000000002,"unloadMs":791.1807999999994,"memoryBytes":2284072689,"reservedBytes":3449921536,"gcBytes":115466,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"home.starter","grounded":{"x":-2860.0,"y":16.772489547729492,"z":-2266.0},"cells":7,"scenes":8,"loads":19,"unloads":12,"fps":59.99931335449219,"maxFrameMs":735.0757446289063,"loadMs":950.7145000000002,"unloadMs":791.1807999999994,"memoryBytes":2309042568,"reservedBytes":3449921536,"gcBytes":143096,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"horizonte","grounded":{"x":-2350.0,"y":27.051223754882813,"z":-1831.0},"cells":10,"scenes":11,"loads":22,"unloads":12,"fps":60.14925765991211,"maxFrameMs":735.0757446289063,"loadMs":950.7145000000002,"unloadMs":791.1807999999994,"memoryBytes":2314238388,"reservedBytes":3449921536,"gcBytes":117308,"drawCalls":0,"visibleTriangles":0}
+WORLD RUNTIME QA SAMPLE: {"location":"home.starter","grounded":{"x":-2860.0,"y":16.772489547729492,"z":-2266.0},"cells":8,"scenes":9,"loads":22,"unloads":14,"fps":60.5034065246582,"maxFrameMs":735.0757446289063,"loadMs":950.7145000000002,"unloadMs":791.1807999999994,"memoryBytes":2312787148,"reservedBytes":3449921536,"gcBytes":119764,"drawCalls":0,"visibleTriangles":0}
+WORLD SLICE ROUTE: horizonte -> SA_M01_02_S02_00 @ (-2361.00, 37.95, -1800.00)
+WORLD RUNTIME QA: PASS
+Saving results to: C:/Users/sergi/AppData/LocalLow/OficinaAurora/Facility Ops Prototype\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

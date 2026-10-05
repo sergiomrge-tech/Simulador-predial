@@ -67,6 +67,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: pintura_carro_amarelo_servico
+    second: {fileID: 2100000, guid: d49612b10e156044ea95264e8af32d0a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: pintura_carro_azul_escuro
     second: {fileID: 2100000, guid: db55e08c5f91aa547af18f3ade288ecc, type: 2}
   - first:

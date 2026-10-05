@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -150,6 +151,61 @@ def export_vehicle_lods(vehicles, output: Path):
     return len(vehicles)
 
 
+def _vnoise(x, y, seed):
+    """Smooth value noise in [0, 1] (hash lattice, smoothstep), standing in for the Blender noise textures of terreno_w3."""
+    def h(ix, iy):
+        n = (ix * 374761393 + iy * 668265263 + seed * 2147483647) & 0xFFFFFFFF
+        n = ((n ^ (n >> 13)) * 1274126177) & 0xFFFFFFFF
+        return ((n ^ (n >> 16)) & 0xFFFF) / 65535.0
+    ix, iy = math.floor(x), math.floor(y)
+    fx, fy = x - ix, y - iy
+    fx, fy = fx * fx * (3 - 2 * fx), fy * fy * (3 - 2 * fy)
+    return (h(ix, iy) * (1 - fx) + h(ix + 1, iy) * fx) * (1 - fy) + (h(ix, iy + 1) * (1 - fx) + h(ix + 1, iy + 1) * fx) * fy
+
+
+def _fbm(x, y, seed, octaves=3):
+    total, amp, norm_ = 0.0, 1.0, 0.0
+    for k in range(octaves):
+        total += _vnoise(x * 2 ** k, y * 2 ** k, seed + k) * amp
+        norm_ += amp
+        amp *= .5
+    return total / norm_
+
+
+def split_terrain_materials(staged):
+    """The terreno_w3 material is a procedural Blender blend (grass / soil / gravel / concrete by slope and noise) that Unity cannot read:
+    it arrived as one flat olive tint. Reproduce the same masks per terrain quad (same slope threshold, same noise wavelengths, world metres)
+    and assign the authored PBR materials, so Unity gets textured, organic ground."""
+    names = {"grama": "grama", "terra": "terra", "concreto": "concreto"}
+    mats = {k: bpy.data.materials.get(v) for k, v in names.items()}
+    if any(m is None for m in mats.values()):
+        raise RuntimeError("terrain split: authored materials missing: " + ", ".join(k for k, m in mats.items() if m is None))
+    counts = {"grama": 0, "terra": 0, "concreto": 0}
+    for obj in staged:
+        mesh = obj.data
+        mesh.materials.clear()
+        order = ["grama", "terra", "concreto"]
+        for key in order:
+            mesh.materials.append(mats[key])
+        world = obj.matrix_world
+        for poly in mesh.polygons:
+            c = world @ poly.center
+            nz = (world.to_3x3() @ poly.normal).normalized().z
+            slope = min(1.0, max(0.0, (.995 - nz) / (.995 - .955)))
+            worn = min(1.0, max(0.0, (_fbm(c.x * .045, c.y * .045, 11) - .55) / .13))
+            conc = _fbm(c.x * .03, c.y * .03, 23) > .73
+            grav = _fbm(c.x * .09, c.y * .09, 37) > .67
+            if conc and slope < .5:
+                kind = "concreto"
+            elif slope > .62 or worn > .62 or (grav and slope < .3):
+                kind = "terra"
+            else:
+                kind = "grama"
+            poly.material_index = order.index(kind)
+            counts[kind] += 1
+    return counts
+
+
 def export_layer(layer: str, objects, out_dir: Path):
     exportable, linked, unsupported = selected_exportable(objects)
 
@@ -187,6 +243,8 @@ def export_layer(layer: str, objects, out_dir: Path):
         staged, groups = [], []
         try:
             staged, groups = stage_meshes(exportable)
+            if layer == "Terrain":
+                print("TERRAIN SPLIT", split_terrain_materials(staged))
             bpy.ops.object.select_all(action="DESELECT")
             for obj in staged:
                 obj.select_set(True)

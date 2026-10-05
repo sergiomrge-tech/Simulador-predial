@@ -117,6 +117,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: decal_w31_grafite_bomb
+    second: {fileID: 2100000, guid: 755b6c66c2b8de9448195c25b122f113, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: decal_w31_grafite_crua
     second: {fileID: 2100000, guid: 144ca27b61526054f9d7751654814c4c, type: 2}
   - first:
@@ -169,6 +174,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: decal_w31_placa_salao
     second: {fileID: 2100000, guid: 1b503122139cf984e9cbf9e9fddc55e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_restos_cartaz
+    second: {fileID: 2100000, guid: 207efa127f6848f43b6a4511a02a71d0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

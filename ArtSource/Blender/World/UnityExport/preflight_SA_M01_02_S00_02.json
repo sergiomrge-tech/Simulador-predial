@@ -5,9 +5,9 @@
   "blenderVersion": "5.2.1 LTS",
   "cell": "SA_M01_02_S00_02",
   "sourceManifest": "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json",
-  "objects": 61,
+  "objects": 31,
   "objectTypes": {
-    "MESH": 61
+    "MESH": 31
   },
   "modifiers": {
     "NODES": 5
@@ -18,7 +18,7 @@
       "types": {
         "MESH": 3
       },
-      "meshTris": 350,
+      "meshTris": 800,
       "manifestObjects": 3
     },
     "Gameplay": {
@@ -34,7 +34,7 @@
       "types": {
         "MESH": 2
       },
-      "meshTris": 3888,
+      "meshTris": 4104,
       "manifestObjects": 2
     },
     "Lighting": {
@@ -46,11 +46,11 @@
       "manifestObjects": 1
     },
     "Props": {
-      "objects": 51,
+      "objects": 21,
       "types": {
-        "MESH": 51
+        "MESH": 21
       },
-      "meshTris": 345850,
+      "meshTris": 50604,
       "manifestObjects": 1
     },
     "Roads": {
@@ -58,7 +58,7 @@
       "types": {
         "MESH": 1
       },
-      "meshTris": 5872,
+      "meshTris": 4462,
       "manifestObjects": 1
     },
     "Terrain": {
@@ -78,10 +78,10 @@
       "manifestObjects": 1
     }
   },
-  "meshTris": 363648,
+  "meshTris": 67658,
   "largestMesh": {
-    "name": "OT_Vehicle_SA_M01_02_S00_02_264",
-    "tris": 16232
+    "name": "OT_Vehicle_SA_M01_02_S00_02_205",
+    "tris": 15092
   },
   "geometryNodesObjects": [
     "OT_Accessories_SA_M01_02_S00_02",
@@ -102,60 +102,30 @@
   "facilityIds": [],
   "missingManifestObjects": [],
   "unexpectedCellObjects": [
+    "OT_Vehicle_SA_M01_02_S00_02_014",
+    "OT_Vehicle_SA_M01_02_S00_02_015",
+    "OT_Vehicle_SA_M01_02_S00_02_016",
     "OT_Vehicle_SA_M01_02_S00_02_017",
-    "OT_Vehicle_SA_M01_02_S00_02_018",
-    "OT_Vehicle_SA_M01_02_S00_02_019",
-    "OT_Vehicle_SA_M01_02_S00_02_020",
-    "OT_Vehicle_SA_M01_02_S00_02_256",
-    "OT_Vehicle_SA_M01_02_S00_02_258",
-    "OT_Vehicle_SA_M01_02_S00_02_259",
-    "OT_Vehicle_SA_M01_02_S00_02_260",
-    "OT_Vehicle_SA_M01_02_S00_02_261",
-    "OT_Vehicle_SA_M01_02_S00_02_262",
-    "OT_Vehicle_SA_M01_02_S00_02_263",
-    "OT_Vehicle_SA_M01_02_S00_02_264",
-    "OT_Vehicle_SA_M01_02_S00_02_265",
-    "OT_Vehicle_SA_M01_02_S00_02_687",
-    "OT_Vehicle_SA_M01_02_S00_02_688",
-    "OT_Vehicle_SA_M01_02_S00_02_691",
-    "OT_Vehicle_SA_M01_02_S00_02_692",
-    "OT_Vehicle_SA_M01_02_S00_02_693",
-    "OT_Vehicle_SA_M01_02_S00_02_694",
-    "OT_Vehicle_SA_M01_02_S00_02_695",
-    "OT_Vehicle_SA_M01_02_S00_02_696",
-    "OT_Vehicle_SA_M01_02_S00_02_697",
-    "OT_Vehicle_SA_M01_02_S00_02_698",
-    "OT_Vehicle_SA_M01_02_S00_02_699",
-    "OT_Vehicle_SA_M01_02_S00_02_700",
-    "OT_Vehicle_SA_M01_02_S00_02_701",
-    "OT_Vehicle_SA_M01_02_S00_02_702",
-    "OT_Vehicle_SA_M01_02_S00_02_703",
-    "OT_Vehicle_SA_M01_02_S00_02_704",
-    "OT_Vehicle_SA_M01_02_S00_02_705",
-    "OT_Vehicle_SA_M01_02_S00_02_706",
-    "OT_Vehicle_SA_M01_02_S00_02_733",
-    "OT_Vehicle_SA_M01_02_S00_02_736",
-    "OT_Vehicle_SA_M01_02_S00_02_853",
-    "OT_Vehicle_SA_M01_02_S00_02_854",
-    "OT_Vehicle_SA_M01_02_S00_02_855",
-    "OT_Vehicle_SA_M01_02_S00_02_856",
-    "OT_Vehicle_SA_M01_02_S00_02_857",
-    "OT_Vehicle_SA_M01_02_S00_02_858",
-    "OT_Vehicle_SA_M01_02_S00_02_859",
-    "OT_Vehicle_SA_M01_02_S00_02_860",
-    "OT_Vehicle_SA_M01_02_S00_02_861",
-    "OT_Vehicle_SA_M01_02_S00_02_862",
-    "OT_Vehicle_SA_M01_02_S00_02_863",
-    "OT_Vehicle_SA_M01_02_S00_02_864",
-    "OT_Vehicle_SA_M01_02_S00_02_865",
-    "OT_Vehicle_SA_M01_02_S00_02_866",
-    "OT_Vehicle_SA_M01_02_S00_02_867",
-    "OT_Vehicle_SA_M01_02_S00_02_868",
-    "OT_Vehicle_SA_M01_02_S00_02_869"
+    "OT_Vehicle_SA_M01_02_S00_02_198",
+    "OT_Vehicle_SA_M01_02_S00_02_200",
+    "OT_Vehicle_SA_M01_02_S00_02_201",
+    "OT_Vehicle_SA_M01_02_S00_02_202",
+    "OT_Vehicle_SA_M01_02_S00_02_205",
+    "OT_Vehicle_SA_M01_02_S00_02_207",
+    "OT_Vehicle_SA_M01_02_S00_02_208",
+    "OT_Vehicle_SA_M01_02_S00_02_209",
+    "OT_Vehicle_SA_M01_02_S00_02_210",
+    "OT_Vehicle_SA_M01_02_S00_02_211",
+    "OT_Vehicle_SA_M01_02_S00_02_229",
+    "OT_Vehicle_SA_M01_02_S00_02_318",
+    "OT_Vehicle_SA_M01_02_S00_02_319",
+    "OT_Vehicle_SA_M01_02_S00_02_429",
+    "OT_Vehicle_SA_M01_02_S00_02_454",
+    "OT_Vehicle_SA_M01_02_S00_02_455"
   ],
   "errors": [],
   "warnings": [
-    "50 cell-tagged objects are not listed in manifest",
+    "20 cell-tagged objects are not listed in manifest",
     "Geometry Nodes present: export must evaluate/realize geometry in a staging copy, never destructively in source"
   ],
   "exportPolicy": {

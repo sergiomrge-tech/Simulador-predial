@@ -206,15 +206,24 @@ def trim(nid):
     return 0.0
 
 
-def strip(mb, a, b, off, width, lift, mat, curb=False, curb_side=1):
-    """Strip parallel to segment ab at lateral offset; optional curb face on its inner edge."""
+def strip(mb, a, b, off, width, lift, mat, curb=False, curb_side=1, ends=None):
+    """Strip parallel to segment ab at lateral offset; optional curb face on its inner edge.
+    W3.2.x: `ends=((na, sa), (nb, sb))` mitres the strip at a street joint (shared normal and width scale at the node), so two
+    consecutive edges of a curved street meet without the wedge gap / overlap of two plain rectangles."""
     u = norm(vsub(b, a))
     n = perp(u)
     pts = resample([a, b], 4.0)
     left, right = [], []
-    for p in pts:
-        l = (p[0] + n[0] * (off + width / 2), p[1] + n[1] * (off + width / 2))
-        r = (p[0] + n[0] * (off - width / 2), p[1] + n[1] * (off - width / 2))
+    last = max(1, len(pts) - 1)
+    for k, p in enumerate(pts):
+        nk, sk = n, 1.0
+        if ends is not None:
+            (na, sa), (nb, sb) = ends
+            t = k / last
+            nk = norm((na[0] * (1 - t) + nb[0] * t, na[1] * (1 - t) + nb[1] * t))
+            sk = sa * (1 - t) + sb * t
+        l = (p[0] + nk[0] * (off + width / 2) * sk, p[1] + nk[1] * (off + width / 2) * sk)
+        r = (p[0] + nk[0] * (off - width / 2) * sk, p[1] + nk[1] * (off - width / 2) * sk)
         left.append((l[0], l[1], zs(*l) + lift))
         right.append((r[0], r[1], zs(*r) + lift))
     for i in range(len(pts) - 1):
@@ -230,6 +239,29 @@ def strip(mb, a, b, off, width, lift, mat, curb=False, curb_side=1):
                 mb.quad(lo_q, lo_p, p, q, RM["meio_fio"])
 
 
+def joint_ends(eid):
+    """Mitre data for the two ends of edge `eid`: at a degree-2 node the shared normal is the bisector of the two edge normals."""
+    e = g.edges[eid]
+    a, b = g.seg(eid)
+    u = norm(vsub(b, a))
+    out = []
+    for nid, forward in ((e["a"], True), (e["b"], False)):
+        n_self = perp(u)
+        if deg.get(nid, 0) != 2:
+            out.append((n_self, 1.0))
+            continue
+        other = [x for x in inc[nid] if x != eid]
+        oe = g.edges[other[0]] if other else None
+        if oe is None or oe["cls"] != e["cls"]:
+            out.append((n_self, 1.0))
+            continue
+        far = g.nodes[oe["b"] if oe["a"] == nid else oe["a"]]
+        here = g.nodes[nid]
+        u2 = norm(vsub(here, far)) if forward else norm(vsub(far, here))   # direction of the neighbour, oriented like this edge
+        m = norm((perp(u)[0] + perp(u2)[0], perp(u)[1] + perp(u2)[1]))
+        c = max(.55, m[0] * n_self[0] + m[1] * n_self[1])
+        out.append((m, 1.0 / c))
+    return tuple(out)
 
 
 import zlib as _zlib  # noqa: E402
@@ -364,6 +396,7 @@ for eid, e in g.edges.items():
     u = norm(vsub(b, a))
     cw = carriageway(cls)
     sw = STREET[cls]["sidewalk"]
+    jn = joint_ends(eid)
     grade = abs(zs(*b) - zs(*a)) / L
     if cls == "passage" or (cls == "alley" and grade > .055 and L < 120):
         if grade > .04:
@@ -378,7 +411,7 @@ for eid, e in g.edges.items():
         for s_ in (1, -1):
             strip(mb, a, b, s_ * (1.8 + half / 2), half, ROAD_LIFT, surf)
     else:
-        strip(mb, a, b, 0, cw, ROAD_LIFT, surf)
+        strip(mb, a, b, 0, cw, ROAD_LIFT, surf, ends=jn)
     road_decals(mb, eid, a, b, cls, cw, L)
     ta, tb = trim(e["a"]), trim(e["b"])
     if L - ta - tb > .5 and sw > 0:
@@ -387,7 +420,7 @@ for eid, e in g.edges.items():
         for s_ in (1, -1):
             sm = sidewalk_mat(eid, s_, mid, cls)
             STATS["sidewalk_materials"][ROAD_MATS[sm]] = STATS["sidewalk_materials"].get(ROAD_MATS[sm], 0) + 1
-            strip(mb, sa, sb, s_ * (cw / 2 + sw / 2), sw, ROAD_LIFT + SIDEWALK_H, sm, curb=True, curb_side=s_)
+            strip(mb, sa, sb, s_ * (cw / 2 + sw / 2), sw, ROAD_LIFT + SIDEWALK_H, sm, curb=True, curb_side=s_, ends=jn)
     if cls == "arterial" and channel:
         corrego(mb, a, b, ta, tb)
         for s_ in (1, -1):
@@ -584,6 +617,45 @@ for rail in spec["railways"]:
                 t += .65
             for s_ in (-.72, .72):
                 strip(mb, a, b, tr + s_, .08, .52, RM["meio_fio"])
+# W3.2.x entrance paths: nothing fixed (pole, hydrant, box, tree, tree pit) may stand on the line from a lot's front door to the street.
+_ENTRY = []
+for _lot in ot.lots:
+    if _lot["family"] in ("vacant", "parking") or not in_slice_pt(_lot["obb"].c, 30):
+        continue
+    _v = next((x_ for x_ in OLDTOWN_VARIANTS if x_["id"] == _lot["variant"]), None)
+    if _v is None:
+        continue
+    _door = next((o_ for z0_, z1_, ops_ in FRONT_OPS.get(_v["id"], []) if z0_ < 1.0 for o_ in ops_ if o_["kind"] == "door"), None)
+    if _door is None:
+        continue
+    _lx = (_door["u0"] + _door["u1"]) / 2 - _v["w"] / 2
+    _cs, _sn = math.cos(_lot["rot"]), math.sin(_lot["rot"])
+    _c = _lot["obb"].c
+    _W = lambda lx_, ly_, _c=_c, _cs=_cs, _sn=_sn: (_c[0] + lx_ * _cs - ly_ * _sn, _c[1] + lx_ * _sn + ly_ * _cs)
+    _ENTRY.append((_W(_lx, -_v["d"] / 2), _W(_lx, -_v["d"] / 2 - _v.get("setback", 0.0) - 1.8)))
+
+
+def _near_entry(x, y, r):
+    from sa_geom import point_seg as _ps
+    for a_, b_ in _ENTRY:
+        if min(a_[0], b_[0]) - r < x < max(a_[0], b_[0]) + r and min(a_[1], b_[1]) - r < y < max(a_[1], b_[1]) + r:
+            if _ps((x, y), a_, b_)[0] < r:
+                return True
+    return False
+
+
+_n0 = (len(ot.tree_pits), len(ot.street_trees), sum(len(v_) for v_ in ot.points.values()))
+_before_kinds = {k_: list(v_) for k_, v_ in ot.points.items()}
+ot.tree_pits = [t_ for t_ in ot.tree_pits if not _near_entry(t_[0], t_[1], 1.6)]
+ot.street_trees = [t_ for t_ in ot.street_trees if not _near_entry(t_[0], t_[1], 1.9)]
+for _k in list(ot.points):
+    if _k in ("manhole", "storm_inlet"):
+        continue
+    ot.points[_k] = [p_ for p_ in ot.points[_k] if not _near_entry(p_[0], p_[1], .9)]
+_removed_kinds = {k_: len(_before_kinds[k_]) - len(ot.points[k_]) for k_ in _before_kinds if len(_before_kinds[k_]) != len(ot.points[k_])}
+STATS["w32x_entry_clearing_by_kind"] = _removed_kinds
+STATS["w32x_entry_clearing"] = {"entrances": len(_ENTRY), "tree_pits_removed": _n0[0] - len(ot.tree_pits), "trees_removed": _n0[1] - len(ot.street_trees),
+                                "fixed_props_removed": _n0[2] - sum(len(v_) for v_ in ot.points.values())}
 # W2.5 street trees: square pits (terra + concrete rim) or short grass strips between trees on residential streets.
 for (x, y, ang, linear) in ot.tree_pits:
     mb = rmb((x, y))
@@ -666,6 +738,42 @@ for (macro, sub), pts in arch_pts.items():
     name = f"OT_Architecture_{sub}"
     o = sa_bl.point_cloud_object(name, pts, fam_lib, cell_collection("Architecture", macro))
     register("Architecture", name, sub, o, instances=len(pts))
+# W3.2.x access steps: where the ground in front of the door is lower than the sill (podium / hillside lots) a conforming flight of steps
+# (risers follow the terrain) joins the sidewalk side to the door, so every entrance is reachable on foot.
+ENTRY_STEPS = {"lots": 0, "steps": 0, "skipped_too_high": 0}
+if SLICE:
+    for lot in ot.lots:
+        if lot["family"] in ("vacant", "parking") or lot["id"] not in LOT_Z or not in_slice_pt(lot["obb"].c):
+            continue
+        v_ = next((x_ for x_ in OLDTOWN_VARIANTS if x_["id"] == lot["variant"]), None)
+        if v_ is None:
+            continue
+        door_ = next((o_ for z0_, z1_, ops_ in FRONT_OPS.get(v_["id"], []) if z0_ < 1.0 for o_ in ops_ if o_["kind"] == "door"), None)
+        if door_ is None:
+            continue
+        cs_, sn_ = math.cos(lot["rot"]), math.sin(lot["rot"])
+        c_ = lot["obb"].c
+        lx_ = (door_["u0"] + door_["u1"]) / 2 - v_["w"] / 2
+        W_ = lambda lx2, ly2: (c_[0] + lx2 * cs_ - ly2 * sn_, c_[1] + lx2 * sn_ + ly2 * cs_)
+        zc_ = LOT_Z[lot["id"]]
+        g0_ = zs(*W_(lx_, -v_["d"] / 2 - .5))
+        rise_ = zc_ - g0_
+        if rise_ <= .22:
+            continue
+        if rise_ > 2.3:
+            ENTRY_STEPS["skipped_too_high"] += 1
+            continue
+        n_ = int(math.ceil(rise_ / .18))
+        wid_ = max(1.3, door_["u1"] - door_["u0"] + .9)
+        mbs_ = slope_mb.setdefault(subcell(*c_), sa_bl.MeshBuilder())
+        for i_ in range(n_):
+            ytop_ = zc_ - (i_ + 1) * (rise_ / n_) + (rise_ / n_)          # tread i (0 = highest, next to the door) top height
+            ctr_ = W_(lx_, -v_["d"] / 2 - .16 - i_ * .32)
+            zb_ = zs(*ctr_) - .3
+            mbs_.box(ctr_[0], ctr_[1], min(zb_, ytop_ - .2), wid_, .32, ytop_ - min(zb_, ytop_ - .2), 1, rot=lot["rot"])
+            ENTRY_STEPS["steps"] += 1
+        ENTRY_STEPS["lots"] += 1
+STATS["w32x_entry_steps"] = ENTRY_STEPS
 for (macro, sub), mb in slope_mb.items():
     if not mb.faces:
         continue
@@ -769,6 +877,17 @@ if SLICE:
             W31[f"w31_reforma{_w}_{_c}"] = [_m, "concreto_pintado"]
     for _w in (5, 7, 9):
         W31[f"w31_platibanda{_w}"] = ["concreto_pintado", "concreto"]
+    # W3.2.x: ground-floor cladding is built PER VARIANT with the real door / window openings cut out (the old panel was a solid box that
+    # covered the door), and every lot gets a readable entrance (threshold step + canopy aligned to its real door).
+    REFV_FAMILIES = ("sobrado_estreito", "casa_terrea", "predio_3pav", "predio_4a6", "abandonada_reformada")
+    for _v in OLDTOWN_VARIANTS:
+        if _v["family"] in REFV_FAMILIES:
+            for _c, _m in (("pastilha", "plastico_azul"), ("ceramica", "piso_ceramico_bege"), ("azulejo", "azulejo_branco"), ("granito", "granito"),
+                           ("verde", "aco_pintado_verde"), ("tijolo", "tijolo_aparente")):
+                W31[f"w31_refv_{_v['id']}_{_c}"] = [_m, "concreto_pintado"]
+    for _n in (1, 2, 3):
+        W31[f"w31_porta_soleira{_n}"] = ["concreto", "concreto_pintado"]
+        W31[f"w31_porta_aba{_n}"] = ["concreto_pintado", "aco_pintado_cinza"]
     W31.update({"w31_marquise": ["concreto_pintado", "aco_pintado_cinza"], "w31_marquise_metal": ["telha_metalica", "aco_pintado_cinza"],
                 "w31_sacada": ["concreto_pintado", "aco_pintado_cinza"], "w31_escada_ext": ["concreto", "aco_pintado_cinza"],
                 "w31_anexo": ["concreto_pintado", "telha_fibrocimento", "aluminio", "vidro"], "w31_portao": ["aco_pintado_cinza", "aco_pintado_verde"],
@@ -790,6 +909,35 @@ if SLICE:
             w_ = float(kind[11:].split("_")[0])
             mb.box(0, -.012, .02, w_, .024, 2.6, 0)                         # cladding over the ground floor
             mb.box(0, -.03, 2.62, w_ + .04, .06, .08, 1)                    # capping band
+        elif kind.startswith("w31_refv_"):
+            vid_, ck_ = kind[len("w31_refv_"):].rsplit("_", 1)
+            vv_ = next(x_ for x_ in OLDTOWN_VARIANTS if x_["id"] == vid_)
+            top_ = min(2.6, vv_["ground_h"] - .25)
+            cuts_ = [(o_["u0"] - .06, o_["u1"] + .06, max(.02, o_["zb"] - .03), o_["zt"] + .04)
+                     for z0_, z1_, ops_ in FRONT_OPS.get(vid_, []) if z0_ < 1.0 for o_ in ops_ if o_["zb"] < top_]
+            xs_ = sorted({.2, vv_["w"] - .2} | {c_[0] for c_ in cuts_ if .2 < c_[0] < vv_["w"] - .2} | {c_[1] for c_ in cuts_ if .2 < c_[1] < vv_["w"] - .2})
+            for x0_, x1_ in zip(xs_, xs_[1:]):
+                if x1_ - x0_ < .12:
+                    continue
+                xm_ = (x0_ + x1_) / 2
+                blocked_ = sorted((max(.02, c_[2]), min(top_, c_[3])) for c_ in cuts_ if c_[0] < xm_ < c_[1])
+                z_ = .02
+                for b0_, b1_ in blocked_ + [(top_, top_)]:
+                    if b0_ - z_ > .1:
+                        mb.box(xm_ - vv_["w"] / 2, -.012, z_, x1_ - x0_, .024, b0_ - z_, 0)
+                    z_ = max(z_, b1_)
+            mb.box(0, -.03, top_ + .02, vv_["w"] - .36, .06, .08, 1)       # capping band over the cladding
+        elif kind.startswith("w31_porta_soleira"):
+            cw_ = (1.3, 1.8, 2.6)[int(kind[-1]) - 1]
+            mb.box(0, -.45, 0, cw_ + .3, .9, .12, 0)                         # threshold slab
+            mb.box(0, -.95, 0, cw_ + .7, .5, .06, 0)                         # lower step
+            mb.box(0, -.04, .12, cw_ + .1, .08, .03, 1)                      # painted sill line at the door
+        elif kind.startswith("w31_porta_aba"):
+            cw_ = (1.3, 1.8, 2.6)[int(kind[-1]) - 1]
+            mb.box(0, -.5, 0, cw_ + .5, 1.0, .09, 0)                         # canopy slab over the door
+            mb.box(0, -1.0, -.1, cw_ + .5, .05, .19, 0)
+            for x_ in (-cw_ / 2 - .15, cw_ / 2 + .15):
+                mb.add_face([(x_, -.04, -.45), (x_ + .04, -.04, -.45), (x_ + .04, -.9, 0), (x_, -.9, 0)], 1)   # side brackets
         elif kind.startswith("w31_platibanda"):
             w_ = float(kind[14:])
             mb.box(0, .1, 0, w_, .2, .95, 0)
@@ -950,13 +1098,40 @@ acc_pts = {}
 LOT_ACC = {}
 
 
+import bmesh as _bmesh  # noqa: E402
+from mathutils import Vector as _V  # noqa: E402
+from mathutils.bvhtree import BVHTree as _BVH  # noqa: E402
+
+
+def ground_bvh():
+    """BVH of the real Roads + Terrain meshes (world space): what a wheel / a wall foot actually rests on."""
+    bpy.context.view_layer.update()
+    deps = bpy.context.evaluated_depsgraph_get()
+    bm = _bmesh.new()
+    for ob_ in bpy.data.objects:
+        if ob_.get("sa_layer") in ("Roads", "Terrain") and ob_.type == "MESH" and ob_.library is None:
+            me_ = ob_.evaluated_get(deps).to_mesh()
+            me_.transform(ob_.matrix_world)
+            bm.from_mesh(me_)
+            ob_.evaluated_get(deps).to_mesh_clear()
+    _bmesh.ops.triangulate(bm, faces=bm.faces[:])
+    tree = _BVH.FromBMesh(bm)
+    bm.free()
+    return tree
+
+
+SUP_LOG = []                                     # W3.2.x: every accessory placement, to verify (and fix) what it rests on
+
+
 def place(lot, kind, lx, ly, lz, rot_extra=0.0, scl=1.0):
     o = lot["obb"]
     r = lot["rot"]
     cs, sn = math.cos(r), math.sin(r)
     x, y = o.c[0] + lx * cs - ly * sn, o.c[1] + lx * sn + ly * cs
     macro, sub = subcell(x, y)
-    acc_pts.setdefault((macro, sub), []).append((x, y, lot_z[lot["id"]] + lz, acc_index["ACC_" + kind], r + rot_extra, scl))
+    lst = acc_pts.setdefault((macro, sub), [])
+    lst.append((x, y, lot_z[lot["id"]] + lz, acc_index["ACC_" + kind], r + rot_extra, scl))
+    SUP_LOG.append((lot["id"], lot["variant"], kind, lx, ly, lz, (macro, sub), len(lst) - 1, r))
     STATS["accessories"][kind] = STATS["accessories"].get(kind, 0) + 1
     LOT_ACC.setdefault(lot["id"], []).append(kind)
 
@@ -1065,9 +1240,9 @@ if SLICE:
         clad = ("pastilha", "ceramica", "azulejo", "granito", "verde", "tijolo")[theme]
         wcls = max([c_ for c_ in (3, 5, 7, 9) if c_ <= w - .4] or [0])
         gh_ = v["ground_h"]
-        if wcls and v["family"] not in ("armazem", "deposito", "oficina") and not commerce and roll(80) < (.45 if theme in (0, 1, 2) else .22):
+        if wcls and v["family"] in REFV_FAMILIES and not commerce and roll(80) < (.45 if theme in (0, 1, 2) else .22):
             ck = clad if roll(81) < .75 else ("pastilha", "ceramica", "azulejo", "granito", "verde", "tijolo")[int(roll(82) * 6) % 6]
-            place(lot, f"w31_reforma{wcls}_{ck}", 0.0, -d / 2 - .002, 0.0, scl=min(1.0, (gh_ - .25) / 2.7) if gh_ < 2.95 else 1.0)
+            place(lot, f"w31_refv_{v['id']}_{ck}", 0.0, -d / 2 - .002, 0.0)         # W3.2.x: cut around the real door and windows
         if (commerce or resid_) and gh_ >= 2.9 and roll(83) < .35:
             place(lot, "w31_marquise" if roll(84) < .6 else "w31_marquise_metal", (roll(85) - .5) * max(0, w - 3.4), -d / 2, gh_ - .35)
         if resid_ and v["floors"] >= 2 and w >= 4.5 and roll(86) < .4:
@@ -1075,7 +1250,21 @@ if SLICE:
                 if roll(87 + f_) < .7:
                     place(lot, "w31_sacada", (roll(91) - .5) * max(0, w - 2.8), -d / 2, gh_ + (f_ - 1) * v["fh"] - .02)
         if v["family"] in ("sobrado_estreito", "casa_terrea", "comercio_residencia") and v["floors"] >= 2 and sb >= 1.3 and w >= 6 and roll(95) < .5:
-            place(lot, "w31_escada_ext", 0.0, -d / 2 - .02, 0.0)
+            # W3.2.x: the stair body is solid (-2.1 .. +2.35 m); slide it clear of the ground-floor door (and keep it inside the facade) or drop it
+            dr_ = [(o_["u0"] - w / 2 - .6, o_["u1"] - w / 2 + .6) for z0_, z1_, ops_ in FRONT_OPS.get(v["id"], []) if z0_ < 1.0 for o_ in ops_
+                   if o_["kind"] in ("door", "shopfront")]
+            sx_ = None
+            for k_ in range(0, 41):
+                cx_ = (-1) ** k_ * ((k_ + 1) // 2) * .25
+                if cx_ - 2.1 < -w / 2 + .1 or cx_ + 2.35 > w / 2 - .1:
+                    continue
+                if all(cx_ + 2.35 < a_ or cx_ - 2.1 > b_ for a_, b_ in dr_):
+                    sx_ = cx_
+                    break
+            if sx_ is not None:
+                place(lot, "w31_escada_ext", sx_, -d / 2 - .02, 0.0)
+            else:
+                STATS["w32x_ext_stairs_dropped"] = STATS.get("w32x_ext_stairs_dropped", 0) + 1
         if resid_ and lot["obb"].hd * 2 - d > 3.2 and roll(96) < .45 and w >= 4:
             place(lot, "w31_anexo", (roll(97) - .5) * max(0, w - 3.6), d / 2, 0.0)
         if v["roof"] == "flat_parapet" and wcls >= 5 and roll(98) < .35:
@@ -1087,6 +1276,15 @@ if SLICE:
         if resid_ and roll(104) < .35:
             for k in range(1 + int(roll(105) * 2)):
                 place(lot, "w31_grade_janela", (roll(106 + k) - .5) * max(0, w - 1.6), -d / 2 - .04, .95)
+        # W3.2.x readable entrance: threshold step + canopy aligned with the lot's real front door
+        door_ = next((o_ for z0_, z1_, ops_ in FRONT_OPS.get(v["id"], []) if z0_ < 1.0 for o_ in ops_ if o_["kind"] == "door"), None)
+        if door_ is not None:
+            n_door = 1 if door_["u1"] - door_["u0"] <= 1.3 else 2 if door_["u1"] - door_["u0"] <= 1.8 else 3
+            dx_ = (door_["u0"] + door_["u1"]) / 2 - w / 2
+            place(lot, f"w31_porta_soleira{n_door}", dx_, -d / 2, 0.0)
+            if "w31_marquise" not in LOT_ACC.get(lot["id"], []) and "w31_marquise_metal" not in LOT_ACC.get(lot["id"], []):
+                place(lot, f"w31_porta_aba{n_door}", dx_, -d / 2, door_["zt"] + .2)
+            STATS["w32x_entrances"] = STATS.get("w32x_entrances", 0) + 1
         # W3.2 roof variety (aerial repetition breaker): per lot + per ~60 m block seed, weighted by neighbourhood character.
         cc_ = HOOD_CHAR.get(lot.get("hood"), "")
         low_ = cc_.startswith(("residential", "mixed_low"))
@@ -1252,6 +1450,118 @@ for lot in ot.lots:                                                             
         place(lot, "shrub", (roll(1 + k) - .5) * o.hw * 1.6, (roll(5 + k) - .5) * o.hd * 1.6, 0.0, scl=.6 + roll(9 + k) * .8)
     if roll(14) < .5:
         place(lot, "rubble", (roll(15) - .5) * o.hw, (roll(16) - .5) * o.hd, 0.0, rot_extra=roll(17) * 3)
+# ---------------------------------------------------------------- W3.2.x: every piece must rest on something
+# Roof-level pieces are tested against the real roof surface of their building variant (lot frame), ground-level pieces against the real
+# road/terrain meshes. A floating piece is lowered onto its support (or clamped back onto the roof / dropped when it has none).
+ROOF_SKIP = ("w32_laje_", "w31_platibanda", "w32_platibanda")
+FIX = {"roof_checked": 0, "roof_floating": 0, "roof_off_footprint": 0, "roof_fixed": 0, "roof_dropped": 0,
+       "ground_checked": 0, "ground_floating": 0, "ground_buried": 0, "ground_fixed": 0, "ground_dropped": 0}
+_FAM_BVH = {}
+
+
+def _variant_top(vid, lx, ly):
+    if vid not in _FAM_BVH:
+        fo = bpy.data.objects.get("FAM_" + vid)
+        if fo is None:
+            _FAM_BVH[vid] = None
+        else:
+            bm_ = _bmesh.new()
+            bm_.from_mesh(fo.data)
+            _bmesh.ops.triangulate(bm_, faces=bm_.faces[:])
+            _FAM_BVH[vid] = _BVH.FromBMesh(bm_)
+            bm_.free()
+    tree = _FAM_BVH[vid]
+    if tree is None:
+        return None
+    hit = tree.ray_cast(_V((lx, ly, 60.0)), _V((0, 0, -1)), 80.0)
+    return None if hit[0] is None else hit[0].z
+
+
+_GROUND = ground_bvh()
+_DROP = set()
+_ZMIN = {}
+
+
+def _base_z(kind):
+    """Lowest local z of the accessory mesh: its real base relative to the placement origin (legs, posts, sills)."""
+    if kind not in _ZMIN:
+        ob_ = bpy.data.objects.get("ACC_" + kind)
+        _ZMIN[kind] = min((c_[2] for c_ in ob_.bound_box), default=0.0) if ob_ is not None else 0.0
+    return _ZMIN[kind]
+
+
+GROUND_KINDS = ("w32_puxadinho", "w31_anexo", "w31_escada_ext", "w31_portao", "w31_porta_soleira", "pallet", "trashbag", "plate", "bin", "dumpster",
+                "shrub", "tarp")
+ATTACHED = ("w32_pux", "w31_anexo", "w31_escada", "w31_portao", "w31_porta_soleira")
+for lot_id_, vid_, kind_, lx_, ly_, lz_, key_, idx_, rot_ in SUP_LOG:
+    if kind_.startswith(ROOF_SKIP) or lot_id_ not in lot_z or vid_ not in VAR:
+        continue
+    v_ = VAR[vid_]
+    H_ = v_["height"]
+    x_, y_, z_, aidx_, r_, sc_ = acc_pts[key_][idx_]
+    zb_ = _base_z(kind_) * sc_
+    if lz_ >= H_ - 1.0 and not kind_.startswith(("w31_marquise", "w31_porta_aba", "w31_sacada", "w31_grade")):   # roof-level piece
+        FIX["roof_checked"] += 1
+        sz_ = _variant_top(vid_, lx_, ly_)
+        if sz_ is None:                                   # overhangs past the roof edge: pull it back onto the roof
+            FIX["roof_off_footprint"] += 1
+            cx_ = max(-v_["w"] / 2 + .6, min(v_["w"] / 2 - .6, lx_))
+            cy_ = max(-v_["d"] / 2 + .6, min(v_["d"] / 2 - .6, ly_))
+            sz_ = _variant_top(vid_, cx_, cy_)
+            if sz_ is None:
+                _DROP.add((key_, idx_))
+                FIX["roof_dropped"] += 1
+                continue
+            lo_c = next((o_["obb"].c for o_ in ot.lots if o_["id"] == lot_id_), (x_, y_))
+            x_, y_ = lo_c[0] + cx_ * math.cos(rot_) - cy_ * math.sin(rot_), lo_c[1] + cx_ * math.sin(rot_) + cy_ * math.cos(rot_)
+            FIX["roof_fixed"] += 1
+        base_ = lot_z[lot_id_] + lz_ + zb_                # world height of the piece's lowest point
+        gap_ = base_ - (lot_z[lot_id_] + sz_)
+        if gap_ > .06:                                    # floating above the roof under it
+            FIX["roof_floating"] += 1
+            FIX["roof_fixed"] += 1
+            z_ = z_ - gap_ + .01
+        acc_pts[key_][idx_] = (x_, y_, z_, aidx_, r_, sc_)
+    elif lz_ < 1.0 and kind_.startswith(GROUND_KINDS):
+        FIX["ground_checked"] += 1
+        gz_ = _GROUND.ray_cast(_V((x_, y_, z_ + 4.0)), _V((0, 0, -1)), 12.0)[0]
+        if gz_ is None:
+            continue
+        gap_ = (z_ + zb_) - gz_.z
+        if gap_ > .10:
+            FIX["ground_floating"] += 1
+            if gap_ <= .75 or not kind_.startswith(ATTACHED):
+                acc_pts[key_][idx_] = (x_, y_, z_ - gap_ - .01, aidx_, r_, sc_)
+                FIX["ground_fixed"] += 1
+            else:
+                _DROP.add((key_, idx_))
+                FIX["ground_dropped"] += 1
+        elif gap_ < -.6:
+            FIX["ground_buried"] += 1
+            if kind_.startswith(ATTACHED):
+                _DROP.add((key_, idx_))
+                FIX["ground_dropped"] += 1
+            else:
+                acc_pts[key_][idx_] = (x_, y_, z_ - gap_ - .01, aidx_, r_, sc_)
+                FIX["ground_fixed"] += 1
+RESID = []
+for lot_id_, vid_, kind_, lx_, ly_, lz_, key_, idx_, rot_ in SUP_LOG:
+    if (key_, idx_) in _DROP or kind_.startswith(ROOF_SKIP) or lot_id_ not in lot_z or vid_ not in VAR:
+        continue
+    if lz_ < VAR[vid_]["height"] - 1.0 or kind_.startswith(("w31_marquise", "w31_porta_aba", "w31_sacada", "w31_grade")):
+        continue
+    x_, y_, z_, aidx_, r_, sc_ = acc_pts[key_][idx_]
+    sz_ = _variant_top(vid_, lx_, ly_)
+    if sz_ is None:
+        RESID.append((kind_, vid_, round(lx_, 1), round(ly_, 1), "no_surface"))
+    elif (z_ + _base_z(kind_) * sc_) - (lot_z[lot_id_] + sz_) > .06:
+        RESID.append((kind_, vid_, round(lx_, 1), round(ly_, 1), round((z_ + _base_z(kind_) * sc_) - (lot_z[lot_id_] + sz_), 2)))
+FIX["roof_residual_after_fix"] = len(RESID)
+FIX["roof_residual_examples"] = RESID[:30]
+if _DROP:
+    for key_ in {k_ for k_, _i in _DROP}:
+        acc_pts[key_] = [pt_ for i_, pt_ in enumerate(acc_pts[key_]) if (key_, i_) not in _DROP]
+STATS["w32x_supports"] = FIX
 for (macro, sub), pts in acc_pts.items():
     name = f"OT_Accessories_{sub}"
     o = sa_bl.point_cloud_object(name, pts, acc_lib, cell_collection("Architecture", macro))
@@ -1893,6 +2203,69 @@ if SLICE:
         return r[0] - m <= q[0] <= r[2] + m and r[1] - m <= q[1] <= r[3] + m
     parked, veh_count = 0, {}
     EDGE_CARS = {}
+    # W3.2.x: cars rest on the REAL road/terrain meshes (four wheel contact rays, plane fit for pitch and roll, no wheel below the surface);
+    # a parking spot over a kerb step, a steep or warped surface or beside a wall/stair is dropped instead of forced.
+    GROUND = ground_bvh()
+    _deps = bpy.context.evaluated_depsgraph_get()
+    CAR_DIMS = {}
+    CAR_FIT = {"fitted": 0, "dropped_step": 0, "dropped_warped": 0, "dropped_steep": 0, "dropped_blocked": 0, "dropped_no_surface": 0}
+
+    def _ground_z(x, y, ztop):
+        hit = GROUND.ray_cast(_V((x, y, ztop)), _V((0, 0, -1)), 12.0)
+        return None if hit[0] is None else hit[0].z
+
+    def _fit_car(q, head, src):
+        """Returns (z, roll, pitch) for a car whose wheels rest on the ground meshes, or None (reason counted in CAR_FIT)."""
+        dims = CAR_DIMS.get(src.name)
+        if dims is None:
+            bb = [_V(c) for c in src.bound_box]
+            dims = CAR_DIMS[src.name] = (max(c.x for c in bb) - min(c.x for c in bb), max(c.y for c in bb) - min(c.y for c in bb),
+                                          min(c.z for c in bb), (max(c.x for c in bb) + min(c.x for c in bb)) / 2, max(c.z for c in bb))
+        L_, W_, zmin_, cxo, ztop_ = dims
+        fx, fy = math.cos(head), math.sin(head)
+        lx_, ly_ = -fy, fx
+        ref = zs(*q) + 3.0
+        pts = {}
+        for sf in (-1, 1):
+            for sl in (-1, 1):
+                hs_ = []
+                for da_ in (-.07, 0.0, .07):                   # a tyre has a contact patch: it rests on the highest of its samples
+                    px = q[0] + fx * (sf * .36 + da_) * L_ + lx_ * sl * W_ * .42
+                    py = q[1] + fy * (sf * .36 + da_) * L_ + ly_ * sl * W_ * .42
+                    z_ = _ground_z(px, py, ref)
+                    if z_ is None:
+                        CAR_FIT["dropped_no_surface"] += 1
+                        return None
+                    hs_.append(z_)
+                if max(hs_) - min(hs_) > .06:
+                    CAR_FIT["dropped_step"] += 1               # kerb/sidewalk edge or a step under the tyre
+                    return None
+                pts[(sf, sl)] = max(hs_)
+        front = (pts[(1, 1)] + pts[(1, -1)]) / 2
+        rear = (pts[(-1, 1)] + pts[(-1, -1)]) / 2
+        left = (pts[(1, 1)] + pts[(-1, 1)]) / 2
+        right = (pts[(1, -1)] + pts[(-1, -1)]) / 2
+        pitch = math.atan2(front - rear, L_ * .72)
+        roll = math.atan2(left - right, W_ * .84)
+        if abs(math.degrees(pitch)) > 11 or abs(math.degrees(roll)) > 5:
+            CAR_FIT["dropped_steep"] += 1
+            return None
+        off = {k: k[0] * L_ * .36 * math.tan(pitch) + k[1] * W_ * .42 * math.tan(roll) for k in pts}
+        z0 = max(pts[k] - off[k] for k in pts)                   # lowest rest height with no wheel under the surface
+        if max(z0 + off[k] - pts[k] for k in pts) > .045:
+            CAR_FIT["dropped_warped"] += 1                       # the surface is not planar under the car
+            return None
+        centre = _V((q[0], q[1], z0 - zmin_ + .9))
+        for k_ in range(8):                                      # body clearance: walls, stairs, steps, props beside the car
+            a_ = k_ * math.pi / 4
+            d_ = _V((fx * math.cos(a_) - fy * math.sin(a_), fy * math.cos(a_) + fx * math.sin(a_), 0.0))
+            reach_ = (L_ / 2 if k_ % 4 == 0 else W_ / 2 if k_ % 4 == 2 else math.hypot(L_ / 2, W_ / 2)) + .12
+            ok_, _loc, _n, _i, _ob, _m = bpy.context.scene.ray_cast(_deps, centre, d_.normalized(), distance=reach_)
+            if ok_:
+                CAR_FIT["dropped_blocked"] += 1
+                return None
+        CAR_FIT["fitted"] += 1
+        return z0 - zmin_ - .004, roll, pitch
     for eid, e in sorted(g.edges.items()):
         if e["cls"] in ("passage", "alley", "service"):
             continue
@@ -1924,13 +2297,17 @@ if SLICE:
                         key_ = _vr.choice(_new)
                     head_ = math.atan2(u_[1], u_[0]) + (math.pi if side_ == 1 else 0.0) + _vr.uniform(-.04, .04)
                     hx, hy = math.cos(head_), math.sin(head_)
-                    pitch_ = math.atan2(zs(q_[0] + hx * 2, q_[1] + hy * 2) - zs(q_[0] - hx * 2, q_[1] - hy * 2), 4.0)
-                    macro, sub = subcell(*q_)
                     src_ = VEH[key_]
+                    fit_ = _fit_car(q_, head_, src_)
+                    if fit_ is None:
+                        t_ += step_
+                        continue
+                    z_fit_, roll_, pitch_ = fit_
+                    macro, sub = subcell(*q_)
                     vo = bpy.data.objects.new(f"OT_Vehicle_{sub}_{parked:03d}", src_.data)
                     cell_collection("Props", macro).objects.link(vo)
-                    vo.location = (q_[0], q_[1], zs(*q_) + ROAD_LIFT - .01)
-                    vo.rotation_euler = (0.0, -pitch_, head_)
+                    vo.location = (q_[0], q_[1], z_fit_)
+                    vo.rotation_euler = (roll_, -pitch_, head_)
                     register("Props", vo.name, sub, vo, sa_kind="vehicle", vehicle=src_.name, sa_lod="LOD0 (LOD1/proxy em OT_Lib_Vehicles_LODs)")
                     VEH_OBJS.append((vo, key_))
                     veh_count[key_[0]] = veh_count.get(key_[0], 0) + 1
@@ -1939,6 +2316,7 @@ if SLICE:
                     step_ += 1.5
                 t_ += step_
     STATS["w31_parked_vehicles"] = parked
+    STATS["w32x_car_fit"] = CAR_FIT
     STATS["w31_vehicles_by_family"] = veh_count
     STATS["w31_vehicle_lod0_tris"] = {o.name: sum(len(p_.vertices) - 2 for p_ in o.data.polygons) for o in VEH.values()}
 

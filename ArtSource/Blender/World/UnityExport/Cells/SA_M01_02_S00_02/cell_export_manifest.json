@@ -15,7 +15,7 @@
       "layer": "Terrain",
       "status": "EXPORTED",
       "file": "Terrain.fbx",
-      "fileBytes": 219756,
+      "fileBytes": 235532,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -32,13 +32,17 @@
           -1252.0,
           27.545751571655273
         ]
-      }
+      },
+      "lodFile": null,
+      "lodFileBytes": 0,
+      "lodVehicles": 0,
+      "lodError": null
     },
     {
       "layer": "Roads",
       "status": "EXPORTED",
       "file": "Roads.fbx",
-      "fileBytes": 278076,
+      "fileBytes": 231916,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -47,21 +51,25 @@
       "blenderBounds": {
         "min": [
           -3020.618408203125,
-          -1499.4888916015625,
-          15.475322723388672
+          -1501.45849609375,
+          15.518620491027832
         ],
         "max": [
-          -2744.138671875,
-          -1233.9051513671875,
+          -2747.865234375,
+          -1248.612060546875,
           27.407955169677734
         ]
-      }
+      },
+      "lodFile": null,
+      "lodFileBytes": 0,
+      "lodVehicles": 0,
+      "lodError": null
     },
     {
       "layer": "Architecture",
       "status": "EXPORTED",
       "file": "Architecture.fbx",
-      "fileBytes": 7840348,
+      "fileBytes": 8503500,
       "sourceObjects": 3,
       "exportedObjects": 3,
       "linkedInstancesExcluded": [],
@@ -69,22 +77,26 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -3003.622802734375,
-          -1503.5400390625,
-          13.87611198425293
+          -3004.340576171875,
+          -1499.761474609375,
+          13.961921691894531
         ],
         "max": [
           -2759.199951171875,
-          -1244.4007568359375,
-          38.419654846191406
+          -1241.014892578125,
+          38.638973236083984
         ]
-      }
+      },
+      "lodFile": null,
+      "lodFileBytes": 0,
+      "lodVehicles": 0,
+      "lodError": null
     },
     {
       "layer": "Infrastructure",
       "status": "EXPORTED",
       "file": "Infrastructure.fbx",
-      "fileBytes": 2447564,
+      "fileBytes": 2088172,
       "sourceObjects": 2,
       "exportedObjects": 2,
       "linkedInstancesExcluded": [],
@@ -93,48 +105,52 @@
       "blenderBounds": {
         "min": [
           -3014.569580078125,
-          -1508.1131591796875,
-          15.482718467712402
+          -1496.9569091796875,
+          15.524198532104492
         ],
         "max": [
-          -2739.91796875,
-          -1246.0333251953125,
-          35.77091979980469
+          -2751.9365234375,
+          -1251.6932373046875,
+          35.90808868408203
         ]
-      }
+      },
+      "lodFile": null,
+      "lodFileBytes": 0,
+      "lodVehicles": 0,
+      "lodError": null
     },
     {
       "layer": "Props",
       "status": "EXPORTED",
       "file": "Props.fbx",
-      "fileBytes": 115788,
-      "sourceObjects": 51,
+      "fileBytes": 115756,
+      "sourceObjects": 21,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
       "error": null,
       "blenderBounds": {
         "min": [
-          -2932.92138671875,
-          -1480.8271484375,
-          15.98151969909668
+          -2931.033935546875,
+          -1476.5216064453125,
+          16.018146514892578
         ],
         "max": [
-          -2756.968017578125,
-          -1325.762451171875,
-          27.60511589050293
+          -2755.994140625,
+          -1326.478271484375,
+          27.490367889404297
         ]
       },
       "lodFile": "Props_Vehicles.fbx",
-      "lodFileBytes": 5810700,
-      "lodVehicles": 50,
+      "lodFileBytes": 5025372,
+      "lodVehicles": 20,
       "lodError": null
     },
     {
       "layer": "Vegetation",
       "status": "EXPORTED",
       "file": "Vegetation.fbx",
-      "fileBytes": 26893372,
+      "fileBytes": 25781004,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -142,16 +158,20 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -3000.224365234375,
-          -1500.6175537109375,
-          14.270583152770996
+          -3003.254638671875,
+          -1500.1500244140625,
+          14.289801597595215
         ],
         "max": [
-          -2750.283935546875,
-          -1247.2767333984375,
-          34.617435455322266
+          -2753.247314453125,
+          -1249.84375,
+          35.480003356933594
         ]
-      }
+      },
+      "lodFile": null,
+      "lodFileBytes": 0,
+      "lodVehicles": 0,
+      "lodError": null
     }
   ],
   "linkedHeroInstancesExcluded": [],

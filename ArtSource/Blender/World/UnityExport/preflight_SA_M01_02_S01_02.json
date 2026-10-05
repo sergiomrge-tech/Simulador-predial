@@ -5,22 +5,22 @@
   "blenderVersion": "5.2.1 LTS",
   "cell": "SA_M01_02_S01_02",
   "sourceManifest": "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json",
-  "objects": 74,
+  "objects": 54,
   "objectTypes": {
     "EMPTY": 7,
-    "MESH": 67
+    "MESH": 47
   },
   "modifiers": {
     "NODES": 5
   },
   "layers": {
     "Architecture": {
-      "objects": 10,
+      "objects": 12,
       "types": {
         "EMPTY": 1,
-        "MESH": 9
+        "MESH": 11
       },
-      "meshTris": 33672,
+      "meshTris": 34432,
       "manifestObjects": 4
     },
     "Gameplay": {
@@ -37,7 +37,7 @@
       "types": {
         "MESH": 2
       },
-      "meshTris": 4644,
+      "meshTris": 3780,
       "manifestObjects": 2
     },
     "Lighting": {
@@ -49,11 +49,11 @@
       "manifestObjects": 1
     },
     "Props": {
-      "objects": 51,
+      "objects": 29,
       "types": {
-        "MESH": 51
+        "MESH": 29
       },
-      "meshTris": 468790,
+      "meshTris": 160318,
       "manifestObjects": 1
     },
     "Roads": {
@@ -61,7 +61,7 @@
       "types": {
         "MESH": 1
       },
-      "meshTris": 11258,
+      "meshTris": 10596,
       "manifestObjects": 1
     },
     "Terrain": {
@@ -81,7 +81,7 @@
       "manifestObjects": 1
     }
   },
-  "meshTris": 526052,
+  "meshTris": 216814,
   "largestMesh": {
     "name": "HERO_grocery__shop__F00",
     "tris": 20596
@@ -161,60 +161,40 @@
     "HERO_grocery__shop__F00",
     "HERO_grocery__shop__F01",
     "HERO_grocery__shop__ROOF",
-    "OT_Vehicle_SA_M01_02_S01_02_021",
-    "OT_Vehicle_SA_M01_02_S01_02_022",
-    "OT_Vehicle_SA_M01_02_S01_02_072",
-    "OT_Vehicle_SA_M01_02_S01_02_073",
-    "OT_Vehicle_SA_M01_02_S01_02_074",
-    "OT_Vehicle_SA_M01_02_S01_02_075",
-    "OT_Vehicle_SA_M01_02_S01_02_076",
-    "OT_Vehicle_SA_M01_02_S01_02_077",
-    "OT_Vehicle_SA_M01_02_S01_02_317",
-    "OT_Vehicle_SA_M01_02_S01_02_318",
-    "OT_Vehicle_SA_M01_02_S01_02_319",
-    "OT_Vehicle_SA_M01_02_S01_02_320",
-    "OT_Vehicle_SA_M01_02_S01_02_321",
-    "OT_Vehicle_SA_M01_02_S01_02_322",
-    "OT_Vehicle_SA_M01_02_S01_02_323",
-    "OT_Vehicle_SA_M01_02_S01_02_324",
-    "OT_Vehicle_SA_M01_02_S01_02_325",
-    "OT_Vehicle_SA_M01_02_S01_02_326",
-    "OT_Vehicle_SA_M01_02_S01_02_327",
-    "OT_Vehicle_SA_M01_02_S01_02_328",
-    "OT_Vehicle_SA_M01_02_S01_02_329",
-    "OT_Vehicle_SA_M01_02_S01_02_414",
-    "OT_Vehicle_SA_M01_02_S01_02_415",
-    "OT_Vehicle_SA_M01_02_S01_02_416",
-    "OT_Vehicle_SA_M01_02_S01_02_418",
-    "OT_Vehicle_SA_M01_02_S01_02_419",
-    "OT_Vehicle_SA_M01_02_S01_02_420",
-    "OT_Vehicle_SA_M01_02_S01_02_423",
-    "OT_Vehicle_SA_M01_02_S01_02_424",
-    "OT_Vehicle_SA_M01_02_S01_02_425",
-    "OT_Vehicle_SA_M01_02_S01_02_426",
-    "OT_Vehicle_SA_M01_02_S01_02_427",
-    "OT_Vehicle_SA_M01_02_S01_02_428",
-    "OT_Vehicle_SA_M01_02_S01_02_429",
-    "OT_Vehicle_SA_M01_02_S01_02_430",
-    "OT_Vehicle_SA_M01_02_S01_02_431",
-    "OT_Vehicle_SA_M01_02_S01_02_432",
-    "OT_Vehicle_SA_M01_02_S01_02_433",
-    "OT_Vehicle_SA_M01_02_S01_02_734",
-    "OT_Vehicle_SA_M01_02_S01_02_735",
-    "OT_Vehicle_SA_M01_02_S01_02_788",
-    "OT_Vehicle_SA_M01_02_S01_02_793",
-    "OT_Vehicle_SA_M01_02_S01_02_794",
-    "OT_Vehicle_SA_M01_02_S01_02_795",
-    "OT_Vehicle_SA_M01_02_S01_02_796",
-    "OT_Vehicle_SA_M01_02_S01_02_797",
-    "OT_Vehicle_SA_M01_02_S01_02_798",
-    "OT_Vehicle_SA_M01_02_S01_02_799",
-    "OT_Vehicle_SA_M01_02_S01_02_800",
-    "OT_Vehicle_SA_M01_02_S01_02_828"
+    "OT_Decal_Talude_01",
+    "OT_SlopeWorks_W31_SA_M01_02_S01_02",
+    "OT_Vehicle_SA_M01_02_S01_02_018",
+    "OT_Vehicle_SA_M01_02_S01_02_019",
+    "OT_Vehicle_SA_M01_02_S01_02_057",
+    "OT_Vehicle_SA_M01_02_S01_02_058",
+    "OT_Vehicle_SA_M01_02_S01_02_059",
+    "OT_Vehicle_SA_M01_02_S01_02_060",
+    "OT_Vehicle_SA_M01_02_S01_02_148",
+    "OT_Vehicle_SA_M01_02_S01_02_149",
+    "OT_Vehicle_SA_M01_02_S01_02_150",
+    "OT_Vehicle_SA_M01_02_S01_02_151",
+    "OT_Vehicle_SA_M01_02_S01_02_152",
+    "OT_Vehicle_SA_M01_02_S01_02_163",
+    "OT_Vehicle_SA_M01_02_S01_02_227",
+    "OT_Vehicle_SA_M01_02_S01_02_228",
+    "OT_Vehicle_SA_M01_02_S01_02_257",
+    "OT_Vehicle_SA_M01_02_S01_02_258",
+    "OT_Vehicle_SA_M01_02_S01_02_259",
+    "OT_Vehicle_SA_M01_02_S01_02_260",
+    "OT_Vehicle_SA_M01_02_S01_02_269",
+    "OT_Vehicle_SA_M01_02_S01_02_336",
+    "OT_Vehicle_SA_M01_02_S01_02_337",
+    "OT_Vehicle_SA_M01_02_S01_02_367",
+    "OT_Vehicle_SA_M01_02_S01_02_368",
+    "OT_Vehicle_SA_M01_02_S01_02_446",
+    "OT_Vehicle_SA_M01_02_S01_02_447",
+    "OT_Vehicle_SA_M01_02_S01_02_448",
+    "OT_Vehicle_SA_M01_02_S01_02_449",
+    "OT_Vehicle_SA_M01_02_S01_02_482"
   ],
   "errors": [],
   "warnings": [
-    "62 cell-tagged objects are not listed in manifest",
+    "42 cell-tagged objects are not listed in manifest",
     "Geometry Nodes present: export must evaluate/realize geometry in a staging copy, never destructively in source",
     "Linked collection instances present: hero assets should remain separate prefab sources instead of being blindly baked into static cell FBX"
   ],

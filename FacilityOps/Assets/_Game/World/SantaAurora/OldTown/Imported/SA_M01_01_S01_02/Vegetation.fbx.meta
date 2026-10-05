@@ -32,6 +32,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: folha_mangueira
+    second: {fileID: 2100000, guid: 5621761f6ed883c499c1610d2c923fea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: folha_oiti
     second: {fileID: 2100000, guid: 25c789a2ac3c29a4f900898a654ae3ad, type: 2}
   - first:

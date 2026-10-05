@@ -142,6 +142,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: decal_w31_grafite_vlt
+    second: {fileID: 2100000, guid: 29261f9a463df994cb77547d5d342183, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: decal_w31_marca_agua
     second: {fileID: 2100000, guid: b2346350371feac49a49267f879d9af5, type: 2}
   - first:
@@ -254,6 +259,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: reboco_antigo
     second: {fileID: 2100000, guid: 384c3ccab5b5feb42a051e8be2374c3a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: reboco_pastilha
+    second: {fileID: 2100000, guid: 0037c0de159551d4cad432e8026705f6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

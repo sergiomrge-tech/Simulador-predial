@@ -7,6 +7,21 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: concreto
+    second: {fileID: 2100000, guid: 88aa3149f2c199247b24fc88b34a43e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grama
+    second: {fileID: 2100000, guid: e4ddb928051b37748b2fe8190023ee52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: terra
+    second: {fileID: 2100000, guid: abc99129ea77cab4a8cd6ac84dafe277, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: terreno_w3
     second: {fileID: 2100000, guid: b689502d0b16fd04591e91fea95a4b8d, type: 2}
   materials:

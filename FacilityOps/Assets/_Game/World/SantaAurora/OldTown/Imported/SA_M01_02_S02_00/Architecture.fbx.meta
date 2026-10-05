@@ -147,6 +147,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: granito
+    second: {fileID: 2100000, guid: ac111b723b0cca64891d8f5d0a59c6fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: madeira_crua
     second: {fileID: 2100000, guid: ae45839614c5cae4fab943444b5ad487, type: 2}
   - first:
@@ -194,6 +199,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: reboco_antigo
     second: {fileID: 2100000, guid: 384c3ccab5b5feb42a051e8be2374c3a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: reboco_pastilha
+    second: {fileID: 2100000, guid: 0037c0de159551d4cad432e8026705f6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

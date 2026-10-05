@@ -62,6 +62,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_aluga
+    second: {fileID: 2100000, guid: 6fbf345fab05ee445bd72c4f33696587, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: decal_w31_cartaz_circo
     second: {fileID: 2100000, guid: cfadcebd40a5a0944921ad47a7ff18f9, type: 2}
   - first:

@@ -67,6 +67,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: pintura_carro_azul_escuro
+    second: {fileID: 2100000, guid: db55e08c5f91aa547af18f3ade288ecc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: pintura_carro_azul_escuro_gasta
     second: {fileID: 2100000, guid: 625230872c97cf84a8ef8255768e0ed3, type: 2}
   - first:

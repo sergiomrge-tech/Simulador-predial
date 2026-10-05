@@ -22,6 +22,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: folha_ipe
+    second: {fileID: 2100000, guid: 71d8588d96c23744f9321bf148024372, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: folha_ipe_rosa_flor
+    second: {fileID: 2100000, guid: a1335d47fa3f47140b640ce0299f14d0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: folha_jovem
     second: {fileID: 2100000, guid: 87c706d9e8609764a9da6f127c3116e0, type: 2}
   - first:

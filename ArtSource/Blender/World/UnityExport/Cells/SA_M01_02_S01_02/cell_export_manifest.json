@@ -15,7 +15,7 @@
       "layer": "Terrain",
       "status": "EXPORTED",
       "file": "Terrain.fbx",
-      "fileBytes": 217036,
+      "fileBytes": 232828,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -32,13 +32,17 @@
           -1252.0,
           33.82917404174805
         ]
-      }
+      },
+      "lodFile": null,
+      "lodFileBytes": 0,
+      "lodVehicles": 0,
+      "lodError": null
     },
     {
       "layer": "Roads",
       "status": "EXPORTED",
       "file": "Roads.fbx",
-      "fileBytes": 424780,
+      "fileBytes": 402316,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -47,23 +51,27 @@
       "blenderBounds": {
         "min": [
           -2760.0,
-          -1518.61376953125,
+          -1515.542236328125,
           14.917903900146484
         ],
         "max": [
-          -2486.595458984375,
+          -2496.202880859375,
           -1237.9310302734375,
-          33.0844612121582
+          33.0637092590332
         ]
-      }
+      },
+      "lodFile": null,
+      "lodFileBytes": 0,
+      "lodVehicles": 0,
+      "lodError": null
     },
     {
       "layer": "Architecture",
       "status": "EXPORTED",
       "file": "Architecture.fbx",
-      "fileBytes": 7729772,
-      "sourceObjects": 10,
-      "exportedObjects": 3,
+      "fileBytes": 8826092,
+      "sourceObjects": 12,
+      "exportedObjects": 5,
       "linkedInstancesExcluded": [
         {
           "object": "W2I_grocery",
@@ -77,21 +85,25 @@
       "blenderBounds": {
         "min": [
           -2745.830078125,
-          -1509.260009765625,
-          15.649574279785156
+          -1508.732666015625,
+          15.649736404418945
         ],
         "max": [
-          -2496.88427734375,
-          -1244.5577392578125,
-          46.7316780090332
+          -2495.864501953125,
+          -1246.00732421875,
+          46.07162094116211
         ]
-      }
+      },
+      "lodFile": null,
+      "lodFileBytes": 0,
+      "lodVehicles": 0,
+      "lodError": null
     },
     {
       "layer": "Infrastructure",
       "status": "EXPORTED",
       "file": "Infrastructure.fbx",
-      "fileBytes": 2792428,
+      "fileBytes": 2500028,
       "sourceObjects": 2,
       "exportedObjects": 2,
       "linkedInstancesExcluded": [],
@@ -100,48 +112,52 @@
       "blenderBounds": {
         "min": [
           -2757.569580078125,
-          -1511.597412109375,
+          -1503.9261474609375,
           17.020368576049805
         ],
         "max": [
-          -2492.933837890625,
+          -2502.612548828125,
           -1239.908935546875,
-          42.878814697265625
+          43.0836067199707
         ]
-      }
+      },
+      "lodFile": null,
+      "lodFileBytes": 0,
+      "lodVehicles": 0,
+      "lodError": null
     },
     {
       "layer": "Props",
       "status": "EXPORTED",
       "file": "Props.fbx",
-      "fileBytes": 242348,
-      "sourceObjects": 51,
+      "fileBytes": 267548,
+      "sourceObjects": 29,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
       "unsupportedExcluded": [],
       "error": null,
       "blenderBounds": {
         "min": [
-          -2739.281494140625,
+          -2746.636474609375,
           -1456.4229736328125,
-          17.322490692138672
+          17.121187210083008
         ],
         "max": [
           -2521.401123046875,
-          -1259.418212890625,
-          32.14419174194336
+          -1261.11279296875,
+          32.06552505493164
         ]
       },
       "lodFile": "Props_Vehicles.fbx",
-      "lodFileBytes": 6213292,
-      "lodVehicles": 50,
+      "lodFileBytes": 5341404,
+      "lodVehicles": 28,
       "lodError": null
     },
     {
       "layer": "Vegetation",
       "status": "EXPORTED",
       "file": "Vegetation.fbx",
-      "fileBytes": 20168060,
+      "fileBytes": 17945660,
       "sourceObjects": 1,
       "exportedObjects": 1,
       "linkedInstancesExcluded": [],
@@ -149,19 +165,30 @@
       "error": null,
       "blenderBounds": {
         "min": [
-          -2749.536865234375,
-          -1500.311767578125,
-          16.984203338623047
+          -2749.838623046875,
+          -1500.261474609375,
+          16.99098014831543
         ],
         "max": [
-          -2499.64892578125,
-          -1249.5576171875,
-          34.17765426635742
+          -2499.64794921875,
+          -1249.7147216796875,
+          34.46475601196289
         ]
-      }
+      },
+      "lodFile": null,
+      "lodFileBytes": 0,
+      "lodVehicles": 0,
+      "lodError": null
     }
   ],
-  "linkedHeroInstancesExcluded": [],
+  "linkedHeroInstancesExcluded": [
+    {
+      "object": "W2I_grocery",
+      "collection": "W2_grocery",
+      "facilityId": "grocery",
+      "source": "Heroes/W2_grocery.blend"
+    }
+  ],
   "gameplayExport": "Use Tools/Blender/export_unity_gameplay_markers.py",
   "sourceBlendModified": false
 }

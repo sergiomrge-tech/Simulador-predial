@@ -132,6 +132,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: decal_w31_grafite_vlt
+    second: {fileID: 2100000, guid: 29261f9a463df994cb77547d5d342183, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: decal_w31_marca_agua
     second: {fileID: 2100000, guid: b2346350371feac49a49267f879d9af5, type: 2}
   - first:

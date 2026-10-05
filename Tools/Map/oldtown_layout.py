@@ -63,6 +63,8 @@ class OldTown:
         self._build_skeleton()
         self._build_grid()
         self._refine_network()
+        self._curve_network()
+        self._round_corners()
         self._pack_lots()
         self._infrastructure()
         self._street_trees()
@@ -194,6 +196,190 @@ class OldTown:
                                          zone_of=lambda n: self.hood_of(g.nodes[n]), obstacles=self.street_obstacles())
         self._alleys_and_passages(sides)
         self.pruned = g.prune_to({"arterial", "main"})
+
+    # ---------------------------------------------------------------- W3.2.x natural street curvature
+    CURVE_CLASSES = ("local", "main")
+
+    def _curve_chains(self):
+        """Chains of same-class edges between junctions / dead ends: [(node ids), (edge ids)]."""
+        g = self.graph
+        deg, inc = g.degree(), g.incident()
+        seen, chains = set(), []
+        for eid, e in sorted(g.edges.items()):
+            if eid in seen or e["cls"] not in self.CURVE_CLASSES:
+                continue
+            # walk to one end of the chain, then along it
+            def step(nid, via):
+                if deg[nid] != 2:
+                    return None
+                nxt = [x for x in inc[nid] if x != via and g.edges[x]["cls"] == e["cls"]]
+                return nxt[0] if nxt else None
+            start_e, start_n = eid, e["a"]
+            guard = 0
+            while guard < 400:
+                nxt = step(start_n, start_e)
+                if nxt is None or nxt in seen or nxt == eid:
+                    break
+                ne = g.edges[nxt]
+                start_n = ne["b"] if ne["a"] == start_n else ne["a"]
+                start_e = nxt
+                guard += 1
+            nodes, edges = [start_n], []
+            cur_e, cur_n = start_e, start_n
+            while True:
+                ce = g.edges[cur_e]
+                far = ce["b"] if ce["a"] == cur_n else ce["a"]
+                edges.append(cur_e)
+                nodes.append(far)
+                seen.add(cur_e)
+                nxt = step(far, cur_e)
+                if nxt is None or nxt in seen:
+                    break
+                cur_e, cur_n = nxt, far
+            chains.append((nodes, edges))
+        return chains
+
+    def _curve_network(self):
+        """Natural curvature (W3.2.x). Every local/main chain between two junctions is resampled every ~26 m and bowed by a gentle large-radius
+        arc (amplitude proportional to its length, damped near hero sites), so streets leave the ruler-straight look, junction angles stop being
+        exactly 90 degrees and parked cars/lots/poles follow the same curve (they all read the graph). A bowed chain is rejected (smaller bow,
+        then none) when a new piece would hit an obstacle or cross another street, so the logical network and the hero fronts are preserved."""
+        g = self.graph
+        rng = random.Random(zlib.crc32(b"w32x-curves") ^ 3207)
+        obstacles = self.street_obstacles(hero_pad=8.0)
+        oh = SpatialHash(100.0)
+        for o in obstacles:
+            oh.insert(o.aabb(), o)
+        heroes = [(o.c, max(o.hw, o.hd)) for o in self.hero_obbs.values()]
+        self.curve_log = []
+        stats = {"chains": 0, "curved": 0, "short": 0, "blocked": 0, "kept_straight": 0, "retried": 0, "edges_before": len(g.edges), "max_offset_m": 0.0}
+
+        def hero_weight(p):
+            d = min((dist(p, c) - r for c, r in heroes), default=1e9)
+            t = min(1.0, max(0.0, (d - 55.0) / 70.0))
+            return t * t * (3 - 2 * t)
+
+        def blocked(pts, cls, own_edges, own_nodes):
+            width = STREET[cls]["total"]
+            pts_all = pts
+            eh = g.edge_hash()
+            for a, b in zip(pts, pts[1:]):
+                sob = segment_obb(a, b, width)
+                if any(obb_overlap(sob, o) for o in oh.query(sob.aabb())):
+                    return True
+                aabb = (min(a[0], b[0]) - 2, min(a[1], b[1]) - 2, max(a[0], b[0]) + 2, max(a[1], b[1]) + 2)
+                for oe in eh.query(aabb):
+                    if oe in own_edges or oe not in g.edges:
+                        continue
+                    ed = g.edges[oe]
+                    c, d = g.seg(oe)
+                    if seg_intersection(a, b, c, d) and not ({ed["a"], ed["b"]} & own_nodes):
+                        return True
+                    if not ({ed["a"], ed["b"]} & own_nodes) and any(point_seg(q, c, d)[0] < 9.0 for q in (a, b) if q != pts_all[0] and q != pts_all[-1]):
+                        return True
+            return False
+
+        for nodes, edges in self._curve_chains():
+            stats["chains"] += 1
+            cls = g.edges[edges[0]]["cls"]
+            pts = [g.nodes[n] for n in nodes]
+            S = sum(dist(a, b) for a, b in zip(pts, pts[1:]))
+            if S < 48.0:
+                stats["short"] += 1
+                continue
+            if g.degree().get(nodes[0], 0) == 1 or g.degree().get(nodes[-1], 0) == 1:
+                stats["dead_end"] = stats.get("dead_end", 0) + 1        # an arc pinned at a dead end curls back on itself
+                continue
+            sign = 1.0 if rng.random() < .5 else -1.0
+            amp0 = min(6.0, S * (.05 if cls == "local" else .025)) * rng.uniform(.55, 1.0)
+            second = rng.uniform(.0, .35) if S > 110 else 0.0
+            phase = rng.uniform(0, math.tau)
+            smooth = chaikin(pts, 2) if len(pts) > 2 else pts
+            base = resample(smooth, max(18.0, S / max(2, round(S / 26.0))))
+            if len(base) < 3:
+                stats["short"] += 1
+                continue
+            # keep the real end points exactly (junction nodes do not move)
+            base[0], base[-1] = pts[0], pts[-1]
+            lengths = [0.0]
+            for a, b in zip(base, base[1:]):
+                lengths.append(lengths[-1] + dist(a, b))
+            total = lengths[-1]
+            attrs = {k: v for k, v in g.edges[edges[0]].items() if k not in ("a", "b")}
+            done = False
+            tries = ((sign, 1.0), (-sign, 1.0), (sign, .5), (-sign, .5))
+            for attempt in range(len(tries)):
+                sgn, scale = tries[attempt]
+                amp = amp0 * scale
+                new = [base[0]]
+                for i in range(1, len(base) - 1):
+                    t = lengths[i] / total
+                    tx, tz = norm(sub(base[i + 1], base[i - 1]))
+                    nx, nz = -tz, tx
+                    off = sgn * amp * (math.sin(math.pi * t) + second * math.sin(2 * math.pi * t + phase) * math.sin(math.pi * t)) * hero_weight(base[i])
+                    new.append((base[i][0] + nx * off, base[i][1] + nz * off))
+                    stats["max_offset_m"] = max(stats["max_offset_m"], abs(off))
+                new.append(base[-1])
+                if not blocked(new, cls, set(edges), {nodes[0], nodes[-1]}):
+                    done = True
+                    break
+                stats["retried"] += 1
+            if not done:
+                stats["blocked"] += 1
+                continue
+            for e_ in edges:
+                g.edges.pop(e_, None)
+            ids = [nodes[0]] + [g.node(q) for q in new[1:-1]] + [nodes[-1]]
+            for a_, b_ in zip(ids, ids[1:]):
+                g.add_edge(a_, b_, **attrs)
+            stats["curved"] += 1
+            self.curve_log.append({"cls": cls, "length": round(S, 1), "amp": round(amp, 2), "points": [(round(q[0], 1), round(q[1], 1)) for q in new]})
+        stats["edges_after"] = len(g.edges)
+        self.curve_stats = stats
+
+    def _round_corners(self):
+        """W3.2.x: a street that simply turns (degree-2 node, deflection > 35 degrees) is rounded with a quadratic arc instead of a square
+        corner: the node becomes tangent points + arc samples, so kerbs, sidewalks, lots and cars follow a real turning radius."""
+        g = self.graph
+        self.corner_log = []
+        stats = {"corners_rounded": 0, "skipped_short": 0}
+        inc = g.incident()
+        for nid, es in list(inc.items()):
+            if len(es) != 2:
+                continue
+            e1, e2 = g.edges.get(es[0]), g.edges.get(es[1])
+            if e1 is None or e2 is None or e1["cls"] != e2["cls"] or e1["cls"] not in self.CURVE_CLASSES:
+                continue
+            p = g.nodes[nid]
+            n1 = e1["b"] if e1["a"] == nid else e1["a"]
+            n2 = e2["b"] if e2["a"] == nid else e2["a"]
+            a, b = g.nodes[n1], g.nodes[n2]
+            d1, d2 = norm(sub(a, p)), norm(sub(b, p))
+            turn = 180.0 - math.degrees(math.acos(max(-1.0, min(1.0, d1[0] * d2[0] + d1[1] * d2[1]))))
+            if turn < 35.0:
+                continue
+            R = 14.0 if e1["cls"] == "main" else 9.0
+            t = R * math.tan(math.radians(turn) / 2)
+            if t > .45 * dist(a, p) or t > .45 * dist(b, p) or t < 2.0:
+                stats["skipped_short"] += 1
+                continue
+            P1 = (p[0] + d1[0] * t, p[1] + d1[1] * t)
+            P2 = (p[0] + d2[0] * t, p[1] + d2[1] * t)
+            arc = [((1 - u) ** 2 * P1[0] + 2 * (1 - u) * u * p[0] + u * u * P2[0], (1 - u) ** 2 * P1[1] + 2 * (1 - u) * u * p[1] + u * u * P2[1])
+                   for u in (0.0, .25, .5, .75, 1.0)]
+            at1 = {k: v for k, v in e1.items() if k not in ("a", "b")}
+            at2 = {k: v for k, v in e2.items() if k not in ("a", "b")}
+            ids = [g.node(q) for q in arc]
+            g.edges.pop(es[0], None)
+            g.edges.pop(es[1], None)
+            g.add_edge(n1, ids[0], **at1)
+            for x, y in zip(ids, ids[1:]):
+                g.add_edge(x, y, **at1)
+            g.add_edge(ids[-1], n2, **at2)
+            stats["corners_rounded"] += 1
+            self.corner_log.append({"cls": e1["cls"], "turn_deg": round(turn, 1), "radius": R, "at": (round(p[0], 1), round(p[1], 1)),
+                                    "d1": (round(d1[0], 3), round(d1[1], 3)), "d2": (round(d2[0], 3), round(d2[1], 3))})
+        self.round_stats = stats
 
     def _side_ends(self, pieces):
         g = self.graph

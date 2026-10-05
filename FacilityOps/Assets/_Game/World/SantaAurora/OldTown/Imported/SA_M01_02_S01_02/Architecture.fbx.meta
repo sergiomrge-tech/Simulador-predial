@@ -62,6 +62,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: decal_umidade
+    second: {fileID: 2100000, guid: c05d083a37b80404199268f3fc85b8c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_aluga
+    second: {fileID: 2100000, guid: 6fbf345fab05ee445bd72c4f33696587, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: decal_w31_cartaz_baile
     second: {fileID: 2100000, guid: e0bf25599b4c12b428463c6f9dbba7c3, type: 2}
   - first:
@@ -79,6 +89,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: decal_w31_cartaz_forro
     second: {fileID: 2100000, guid: 550fcc5c0876b9548b86a821c025ab9e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: decal_w31_cartaz_violao
+    second: {fileID: 2100000, guid: 51d3a2d1b3311924b994b7f245eba09b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

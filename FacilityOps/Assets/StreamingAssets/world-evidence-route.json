@@ -1,0 +1,531 @@
+{
+ "version": 1,
+ "note": "W3.2.x evidence: A-C (new build) + D after candidates",
+ "steps": [
+  {
+   "kind": "teleport",
+   "name": "tp-A1-rua-curva-residencial",
+   "corners": [
+    {
+     "x": -2490.7,
+     "y": 32.59,
+     "z": -1987.7
+    }
+   ],
+   "yaw": -7.5
+  },
+  {
+   "kind": "capture",
+   "name": "A1-rua-curva-residencial",
+   "aim": {
+    "x": -2494.3,
+    "y": 35.38,
+    "z": -1960.4
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-A2-curva-com-intersecao",
+   "corners": [
+    {
+     "x": -2653.88,
+     "y": 29.29,
+     "z": -2089.19
+    }
+   ],
+   "yaw": 76.0
+  },
+  {
+   "kind": "capture",
+   "name": "A2-curva-com-intersecao",
+   "aim": {
+    "x": -2640.3,
+    "y": 29.89,
+    "z": -2085.8
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-C15-conexao-de-rua-corrigida",
+   "corners": [
+    {
+     "x": -2742.8,
+     "y": 20.12,
+     "z": -2136.64
+    }
+   ],
+   "yaw": 175.2
+  },
+  {
+   "kind": "capture",
+   "name": "C15-conexao-de-rua-corrigida",
+   "aim": {
+    "x": -2741.8,
+    "y": 20.72,
+    "z": -2148.6
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-A3-rua-acompanhando-relevo",
+   "corners": [
+    {
+     "x": -2574.4,
+     "y": 23.87,
+     "z": -1339.7
+    }
+   ],
+   "yaw": -11.0
+  },
+  {
+   "kind": "capture",
+   "name": "A3-rua-acompanhando-relevo",
+   "aim": {
+    "x": -2580.0,
+    "y": 28.03,
+    "z": -1310.8
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-A4-trecho-lar-oficina",
+   "corners": [
+    {
+     "x": -2770.95,
+     "y": 19.58,
+     "z": -2181.95
+    }
+   ],
+   "yaw": 27.3
+  },
+  {
+   "kind": "capture",
+   "name": "A4-trecho-lar-oficina",
+   "aim": {
+    "x": -2758.71,
+    "y": 20.82,
+    "z": -2158.22
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-A5-trecho-proximo-horizonte",
+   "corners": [
+    {
+     "x": -2383.78,
+     "y": 31.28,
+     "z": -1865.15
+    }
+   ],
+   "yaw": 31.5
+  },
+  {
+   "kind": "capture",
+   "name": "A5-trecho-proximo-horizonte",
+   "aim": {
+    "x": -2350.0,
+    "y": 31.0,
+    "z": -1810.0
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-B7-rua-com-calcada-legivel",
+   "corners": [
+    {
+     "x": -2467.81,
+     "y": 36.33,
+     "z": -1918.84
+    }
+   ],
+   "yaw": -150.1
+  },
+  {
+   "kind": "capture",
+   "name": "B7-rua-com-calcada-legivel",
+   "aim": {
+    "x": -2480.12,
+    "y": 36.33,
+    "z": -1940.25
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-B6-espaco-entre-predios-acabamento",
+   "corners": [
+    {
+     "x": -2474.67,
+     "y": 36.2,
+     "z": -1911.47
+    }
+   ],
+   "yaw": -46.2
+  },
+  {
+   "kind": "capture",
+   "name": "B6-espaco-entre-predios-acabamento",
+   "aim": {
+    "x": -2491.4,
+    "y": 35.43,
+    "z": -1895.4
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-B9-grama-canteiro",
+   "corners": [
+    {
+     "x": -2350.0,
+     "y": 27.64,
+     "z": -1831.0
+    }
+   ],
+   "yaw": 64.5
+  },
+  {
+   "kind": "capture",
+   "name": "B9-grama-canteiro",
+   "aim": {
+    "x": -2315.0,
+    "y": 27.61,
+    "z": -1814.3
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-B8-transicao-rua-calcada-lote",
+   "corners": [
+    {
+     "x": -2658.43,
+     "y": 26.1,
+     "z": -2118.48
+    }
+   ],
+   "yaw": -176.7
+  },
+  {
+   "kind": "capture",
+   "name": "B8-transicao-rua-calcada-lote",
+   "aim": {
+    "x": -2658.99,
+    "y": 27.64,
+    "z": -2128.07
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-C14-fachada-com-porta-legivel",
+   "corners": [
+    {
+     "x": -2670.53,
+     "y": 24.5,
+     "z": -2121.91
+    }
+   ],
+   "yaw": -76.0
+  },
+  {
+   "kind": "capture",
+   "name": "C14-fachada-com-porta-legivel",
+   "aim": {
+    "x": -2681.75,
+    "y": 25.97,
+    "z": -2119.11
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-B10-concreto-piso-coerente",
+   "corners": [
+    {
+     "x": -2350.0,
+     "y": 28.2,
+     "z": -1840.0
+    }
+   ],
+   "yaw": 0.0
+  },
+  {
+   "kind": "capture",
+   "name": "B10-concreto-piso-coerente",
+   "aim": {
+    "x": -2350.0,
+    "y": 27.3,
+    "z": -1818.0
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-C11-carro-apoiado-rua-com-relevo",
+   "corners": [
+    {
+     "x": -2526.57,
+     "y": 29.47,
+     "z": -1580.09
+    }
+   ],
+   "yaw": 177.7
+  },
+  {
+   "kind": "capture",
+   "name": "C11-carro-apoiado-rua-com-relevo",
+   "aim": {
+    "x": -2526.17,
+    "y": 29.5,
+    "z": -1590.1
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-C12-outro-carro-em-area-inclinada",
+   "corners": [
+    {
+     "x": -2395.14,
+     "y": 31.98,
+     "z": -1869.65
+    }
+   ],
+   "yaw": 83.2
+  },
+  {
+   "kind": "capture",
+   "name": "C12-outro-carro-em-area-inclinada",
+   "aim": {
+    "x": -2385.62,
+    "y": 31.54,
+    "z": -1868.52
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-C13-telhado-cobertura-corrigido",
+   "corners": [
+    {
+     "x": -2776.6,
+     "y": 19.58,
+     "z": -2185.8
+    }
+   ],
+   "yaw": 27.6
+  },
+  {
+   "kind": "capture",
+   "name": "C13-telhado-cobertura-corrigido",
+   "aim": {
+    "x": -2771.84,
+    "y": 24.66,
+    "z": -2176.71
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-D01-curva-extremidade",
+   "corners": [
+    {
+     "x": -2473.9,
+     "y": 28.92,
+     "z": -2045.8
+    }
+   ],
+   "yaw": 24.7
+  },
+  {
+   "kind": "capture",
+   "name": "D01-curva-extremidade",
+   "aim": {
+    "x": -2447.8,
+    "y": 29.82,
+    "z": -1989.1
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-D02-curva-extremidade",
+   "corners": [
+    {
+     "x": -2548.2,
+     "y": 26.16,
+     "z": -1738.9
+    }
+   ],
+   "yaw": 29.1
+  },
+  {
+   "kind": "capture",
+   "name": "D02-curva-extremidade",
+   "aim": {
+    "x": -2524.3,
+    "y": 27.06,
+    "z": -1695.95
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-D03-curva-extremidade",
+   "corners": [
+    {
+     "x": -2349.7,
+     "y": 31.34,
+     "z": -1694.4
+    }
+   ],
+   "yaw": -35.7
+  },
+  {
+   "kind": "capture",
+   "name": "D03-curva-extremidade",
+   "aim": {
+    "x": -2376.25,
+    "y": 32.24,
+    "z": -1657.45
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-D04-curva-extremidade",
+   "corners": [
+    {
+     "x": -2537.6,
+     "y": 29.16,
+     "z": -2138.5
+    }
+   ],
+   "yaw": -12.7
+  },
+  {
+   "kind": "capture",
+   "name": "D04-curva-extremidade",
+   "aim": {
+    "x": -2546.5,
+    "y": 30.06,
+    "z": -2098.95
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-D05-curva-extremidade",
+   "corners": [
+    {
+     "x": -2302.7,
+     "y": 26.69,
+     "z": -1775.4
+    }
+   ],
+   "yaw": -8.8
+  },
+  {
+   "kind": "capture",
+   "name": "D05-curva-extremidade",
+   "aim": {
+    "x": -2309.5,
+    "y": 27.59,
+    "z": -1731.7
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-D06-curva-extremidade",
+   "corners": [
+    {
+     "x": -2258.0,
+     "y": 32.48,
+     "z": -1975.0
+    }
+   ],
+   "yaw": -13.9
+  },
+  {
+   "kind": "capture",
+   "name": "D06-curva-extremidade",
+   "aim": {
+    "x": -2268.6,
+    "y": 33.38,
+    "z": -1932.1
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-D07-lar-frente",
+   "corners": [
+    {
+     "x": -2860.0,
+     "y": 18.25,
+     "z": -2266.0
+    }
+   ],
+   "yaw": 180.0
+  },
+  {
+   "kind": "capture",
+   "name": "D07-lar-frente",
+   "aim": {
+    "x": -2860.0,
+    "y": 20.5,
+    "z": -2285.0
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-D08-oficina-frente",
+   "corners": [
+    {
+     "x": -2692.0,
+     "y": 21.5,
+     "z": -2146.0
+    }
+   ],
+   "yaw": 0.0
+  },
+  {
+   "kind": "capture",
+   "name": "D08-oficina-frente",
+   "aim": {
+    "x": -2692.0,
+    "y": 22.0,
+    "z": -2128.0
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-D09-horizonte-rua",
+   "corners": [
+    {
+     "x": -2350.0,
+     "y": 27.65,
+     "z": -1831.0
+    }
+   ],
+   "yaw": 0.0
+  },
+  {
+   "kind": "capture",
+   "name": "D09-horizonte-rua",
+   "aim": {
+    "x": -2350.0,
+    "y": 33.0,
+    "z": -1805.0
+   }
+  },
+  {
+   "kind": "teleport",
+   "name": "tp-D10-mercearia-frente",
+   "corners": [
+    {
+     "x": -2598.0,
+     "y": 25.3,
+     "z": -1485.0
+    }
+   ],
+   "yaw": 0.0
+  },
+  {
+   "kind": "capture",
+   "name": "D10-mercearia-frente",
+   "aim": {
+    "x": -2598.0,
+    "y": 26.5,
+    "z": -1470.0
+   }
+  }
+ ]
+}

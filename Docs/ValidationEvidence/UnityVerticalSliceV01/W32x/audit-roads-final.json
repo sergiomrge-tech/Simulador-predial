@@ -1,0 +1,49 @@
+{
+  "edges": 1011,
+  "by_class": {
+    "arterial": 72,
+    "main": 218,
+    "alley": 4,
+    "local": 717
+  },
+  "components": 2,
+  "largest_component_edges_share": 0.999,
+  "isolated_pieces_edges": [
+    2
+  ],
+  "dead_ends": 16,
+  "junction_angles": {
+    "n": 477,
+    "near_90_pct": 56.4,
+    "min_deg": 4.7,
+    "acute_lt_35": 2
+  },
+  "through_node_deflection_deg": {
+    "n": 745,
+    "mean": 5.91,
+    "p95": 24.9,
+    "max": 101.3,
+    "over_25": 36
+  },
+  "edge_len_m": {
+    "mean": 20.4,
+    "min": 0.2,
+    "lt_12": 394
+  },
+  "curve_stats": {
+    "chains": 1357,
+    "curved": 596,
+    "short": 187,
+    "blocked": 506,
+    "kept_straight": 0,
+    "retried": 2026,
+    "edges_before": 3012,
+    "max_offset_m": 7.4606526617794575,
+    "dead_end": 68,
+    "edges_after": 6345
+  },
+  "layout_checks": [
+    [],
+    []
+  ]
+}

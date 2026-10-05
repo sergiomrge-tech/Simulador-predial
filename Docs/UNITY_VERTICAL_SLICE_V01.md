@@ -2,6 +2,8 @@
 
 Branch `gpt/unity-world-integration` · fonte visual `claude/w1-masterplan @ f3e55ed3a694577be78a502c6929ef500df8ce5f` (W3.2) · Unity 6000.6.2f1 · Windows x64 Development. **Build de teste técnico, não demo final**; a arte continua sendo massing/blockout refinado do W3.2.
 
+> **Atualização W3.2.x:** o corredor foi corrigido (ruas curvas, carros apoiados por roda, coberturas, entradas, terreno texturizado, juntas de rua). Os números de caminhada, desempenho e as capturas abaixo valem para o build corrigido (2.808 m em 950 s; PASS). Detalhes, medições e limites em `Docs/W3_2X_URBAN_PATCH.md`.
+
 ## O que foi integrado
 - Fonte W3.2 trazida seletivamente (só `W2_horizonte.blend` corrigido e geradores), sem merge da branch Claude. IDs, `GP_`/`SLOT_`/`PROXY_`, `facility_id` e escala 1:1 preservados (`scale-axes-audit.json`: PASS).
 - 15 sub-células reexportadas do W3 (por camada) e importadas nas 15 cenas aditivas (`WorldSliceImportPipeline.ImportPilot`: PASS, 15 células, 4 heróis).
@@ -19,7 +21,7 @@ Branch `gpt/unity-world-integration` · fonte visual `claude/w1-masterplan @ f3e
 | Runtime gate (streaming 3×3/5×5, Horizonte, quadro) | PASS |
 | Escada a pé (CharacterController real) | PASS: subida de 10,09 m, 0 penetrações, 0 travamentos, interação QD-01 |
 | Lar / modo normal | PASS / PASS |
-| **Caminhada contínua no Player** (Lar → rua → Oficina → rua → Horizonte → interfone/portão → portaria → escada → 4º andar → quadro → saída → Mercearia → retorno ao Lar) | **PASS**: 2802 m, 947 s, 0 penetrações, 0 travamentos, 3 portas abertas por interação real, tablet abre/fecha, save/load verificado 2× (após QD-01 e após o retorno) |
+| **Caminhada contínua no Player** (Lar → rua → Oficina → rua → Horizonte → interfone/portão → portaria → escada → 4º andar → quadro → saída → Mercearia → retorno ao Lar) | **PASS**: 2808 m, 947 s, 0 penetrações, 0 travamentos, 3 portas abertas por interação real, tablet abre/fecha, save/load verificado 2× (após QD-01 e após o retorno) |
 
 Relatórios brutos em `Docs/ValidationEvidence/UnityVerticalSliceV01/`.
 
