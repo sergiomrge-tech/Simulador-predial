@@ -19,6 +19,7 @@ namespace ResortAurora.Sim
         public List<string> upgrades = new List<string>();
         public List<StaffMember> staff = new List<StaffMember>();
         public List<Transaction> transactions = new List<Transaction>();
+        public List<string> parcels = new List<string>();   // owned parcel ids (older saves: empty -> defaults apply)
         public int stage = 1;
         public int totalServed;
     }

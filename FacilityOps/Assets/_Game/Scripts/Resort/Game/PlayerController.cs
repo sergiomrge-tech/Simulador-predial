@@ -23,6 +23,15 @@ namespace ResortAurora.Game
 
         public void Bind(ResortGame g) => game = g;
 
+        /// <summary>Moves the player (the CharacterController must be disabled while teleporting).</summary>
+        public void Teleport(Vector3 pos, Quaternion rot)
+        {
+            var c = GetComponent<CharacterController>();
+            c.enabled = false; transform.SetPositionAndRotation(pos, rot); c.enabled = true;
+            vy = 0f; pitch = 0f;
+            if (head != null) head.localRotation = Quaternion.identity;
+        }
+
         void Awake()
         {
             cc = GetComponent<CharacterController>();

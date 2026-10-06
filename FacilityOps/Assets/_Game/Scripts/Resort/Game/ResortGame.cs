@@ -15,7 +15,6 @@ namespace ResortAurora.Game
         [SerializeField] ResortSite site;
         [SerializeField] PlayerController player;
         [SerializeField] Light sun;
-        [SerializeField, Tooltip("Local X of the stall along the promenade.")] float stallX = 160f;
         [SerializeField] int startingMoney = 150;
 
         public IEventBus Bus { get; private set; }
@@ -24,6 +23,7 @@ namespace ResortAurora.Game
         public StallModel Stall { get; private set; }
         public StaffRoster Roster { get; private set; }
         public StallService Service { get; private set; }
+        public ParcelBook Parcels { get; private set; }
         public StallLayout Layout { get; private set; }
         public Weather Weather { get; private set; }
         public Panel OpenedPanel { get; private set; }
@@ -57,23 +57,33 @@ namespace ResortAurora.Game
             Seed = Random.Range(1, 99999);
 
             if (!site.Ready) site.Build();
-            Layout = StallBuilder.Build(this, site, stallX);
+            Layout = StallBuilder.Build(this, site, site.StallX);
             player.Bind(this);
-            player.transform.position = Layout.PlayerSpawn;
-            player.transform.rotation = Layout.Root.rotation;
 
-            if (SaveStore.Exists()) Load(SaveStore.Read());
+            Parcels = new ParcelBook(Bus);
+            foreach (var p in site.Data.parcels)
+                Parcels.Add(new ParcelInfo { Id = p.id, Name = p.name, Note = p.note, Price = p.price, LockTag = p.locked }, p.owned);
+            new GameObject("ParcelMarkers").AddComponent<ParcelMarkers>().Init(this);
+
+            bool hasSave = SaveStore.Exists();
+            if (hasSave) Load(SaveStore.Read());
+            // New game: wake up at the Santa Clara door and walk to work (the commute is part of the story). Otherwise start at the stall.
+            if (hasSave) PlaceAtStall(); else PlaceAtHome();
             Weather = DemandModel.WeatherFor(Seed, Clock.Day);
             Bus.Subscribe<CustomerServed>(e => TotalServed++);
             Bus.Subscribe<StaffChanged>(e => Layout.RefreshStaff(this));
             Layout.RefreshStaff(this);
-            Say(SaveStore.Exists() ? "Jogo carregado. Bom dia!" : "Primeiro dia! Compre estoque na caixa e abra o dia.");
+            Say(hasSave ? "Jogo carregado. Bom dia!" : "Primeiro dia! Siga para a barraca no calçadão, ao sul.", 7f);
             SetCursor(false);
         }
+
+        void PlaceAtStall() => player.Teleport(Layout.PlayerSpawn, Layout.Root.rotation);
+        void PlaceAtHome() => player.Teleport(site.HomeDoor + Vector3.up * 0.2f, Quaternion.Euler(0f, 180f, 0f));
 
         void Load(ResortSave s)
         {
             if (s == null) return;
+            Parcels.Restore(s.parcels);
             Seed = s.seed;
             Ledger.Restore(s.balance, s.transactions);
             Stall.Reputation = s.reputation;
@@ -89,6 +99,7 @@ namespace ResortAurora.Game
             var s = new ResortSave { seed = Seed, day = Clock.Day, balance = Ledger.Balance, reputation = Stall.Reputation, totalServed = TotalServed };
             s.stock = Stall.ExportStock();
             s.upgrades.AddRange(Stall.OwnedUpgrades);
+            s.parcels.AddRange(Parcels.Owned);
             s.staff.AddRange(Roster.Hired);
             s.transactions.AddRange(Ledger.History);
             SaveStore.Write(s);
@@ -164,6 +175,7 @@ namespace ResortAurora.Game
             Weather = DemandModel.WeatherFor(Seed, Clock.Day);
             spawnAccumulator = ambientAccumulator = 0f;
             ClosePanel(force: true);
+            PlaceAtStall();
             SaveNow();
             Say($"Dia {Clock.Day}: {WeatherInfo.Label(Weather)}. Boa sorte!");
         }

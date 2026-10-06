@@ -41,6 +41,7 @@ namespace ResortAurora.Game
                 case Panel.Hire: DrawHire(); break;
                 case Panel.Summary: DrawSummary(); break;
                 case Panel.Help: DrawHelp(); break;
+                case Panel.Parcels: DrawParcels(); break;
             }
             if (game.ToastActive) GUI.Label(new Rect(0, Screen.height * 0.12f, Screen.width, 40), game.Toast, centered);
         }
@@ -186,6 +187,30 @@ namespace ResortAurora.Game
             };
             foreach (var l in lines) { GUI.Label(new Rect(r.x + 30, y, r.width - 60, row), l, label); y += row; }
             if (GUI.Button(new Rect(r.x + 30, r.yMax - 70, r.width * 0.4f, 50), "Salvo. Começar o próximo dia", button)) game.StartNextDay();
+        }
+
+        void DrawParcels()
+        {
+            if (!Begin("Terrenos do bairro")) return;
+            var r = PanelRect(); float y = r.y + 70, row = lastH / 15f;
+            foreach (var info in game.Parcels.All)
+            {
+                var status = game.Parcels.StatusOf(info.Id, game.Stall.Reputation);
+                string tag = status == ParcelStatus.Owned ? "SEU" : status == ParcelStatus.Available ? "À VENDA" : "BLOQUEADO";
+                GUI.Label(new Rect(r.x + 20, y, r.width * 0.45f, row), info.Id + "  " + info.Name, label);
+                GUI.Label(new Rect(r.x + r.width * 0.46f, y, r.width * 0.15f, row), tag, label);
+                GUI.Label(new Rect(r.x + r.width * 0.60f, y, r.width * 0.15f, row), info.Price > 0 ? "R$ " + info.Price : "", label);
+                if (status == ParcelStatus.Available)
+                {
+                    GUI.enabled = game.Ledger.CanAfford(info.Price);
+                    if (GUI.Button(new Rect(r.x + r.width * 0.77f, y, r.width * 0.2f, row), "Comprar", button))
+                        game.Say(game.Parcels.Buy(info.Id, game.Ledger, game.Clock.Day, game.Stall.Reputation) ? info.Name + " é seu!" : "Não foi possível comprar.");
+                    GUI.enabled = true;
+                }
+                string why = status == ParcelStatus.Locked ? game.Parcels.Requirement(info.Id, game.Stall.Reputation) : info.Note;
+                GUI.Label(new Rect(r.x + 40, y + row * 0.8f, r.width * 0.9f, row), why, small);
+                y += row * 1.55f;
+            }
         }
 
         void DrawHelp()

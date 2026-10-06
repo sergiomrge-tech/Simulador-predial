@@ -59,7 +59,7 @@ namespace ResortAurora.Game
         }
     }
 
-    public enum Panel { None, Market, Hire, Summary, Help }
+    public enum Panel { None, Market, Hire, Summary, Help, Parcels }
 
     public sealed class PanelStation : Interactable
     {

@@ -140,7 +140,7 @@ namespace ResortAurora.Game
             var layout = new StallLayout
             {
                 Root = root, Site = site, PromenadeZ = promZ, CounterFrontZ = counterFront,
-                LaneZ = promZ + 2.5f, WestX = Mathf.Max(8f, x - 75f), EastX = Mathf.Min(site.PadCenter.x * 2f - 8f, x + 75f),
+                LaneZ = promZ + 2.5f, WestX = Mathf.Max(8f, x - 75f), EastX = Mathf.Min(site.Data.size.x - 8f, x + 75f),
             };
             layout.PlayerSpawn = root.position + new Vector3(0f, 0.15f, -0.2f);
             layout.AttendantPos = root.position + new Vector3(0.8f, 0.1f, 0.35f);
