@@ -1247,3 +1247,50 @@ A simulação usará camadas de fidelidade: NPCs próximos com comportamento/ani
 
 A população deve reagir progressivamente a horário, clima, temporada, reputação e crescimento do empreendimento. O sucesso do resort deve ser visualmente percebido também pelo aumento e mudança do perfil das pessoas presentes no mundo.
 
+
+
+## Ciclo de dia e noite — requisito estrutural
+
+PROJECT RESORT deve possuir ciclo contínuo de dia e noite, perceptível tanto na jogabilidade quanto na atmosfera visual.
+
+O ciclo precisa incluir:
+- amanhecer, manhã, meio-dia, tarde, pôr do sol, noite e madrugada;
+- transições suaves de iluminação, céu, sombras, reflexos e ambiente;
+- iluminação artificial progressiva quando escurecer;
+- fachadas, quiosques, hotéis, áreas de lazer, caminhos, piscinas, jardins e interiores adequadamente iluminados à noite;
+- variação de população e atividades conforme horário;
+- diferença de áudio ambiente entre dia e noite;
+- funcionamento comercial e rotinas de NPCs associados ao relógio do mundo.
+
+À noite, o empreendimento deve ganhar identidade visual própria, com iluminação acolhedora, sinalização, luzes arquitetônicas, áreas externas iluminadas e sensação de resort vivo, sem transformar a cena em excesso de brilho ou perder plausibilidade.
+
+## Progressão longa por expansão física do empreendimento
+
+A campanha deve ser longa e composta por vários estágios claramente distintos. Não saltar rapidamente do quiosque para um resort completo.
+
+Cada estágio deve:
+- aumentar a área física ocupada;
+- desbloquear novos espaços e operações;
+- exigir investimento, reputação e capacidade operacional;
+- introduzir novos tipos de clientes, funcionários, manutenção e logística;
+- alterar visivelmente o terreno e o skyline do empreendimento;
+- preservar partes úteis das etapas anteriores quando fizer sentido.
+
+Progressão macro recomendada:
+1. quiosque simples;
+2. quiosque profissional ampliado;
+3. quiosque + pequena área de mesas/serviço;
+4. primeiro lote adicional;
+5. pousada compacta;
+6. pousada ampliada;
+7. pequeno hotel;
+8. hotel médio com serviços;
+9. hotel com piscina e lazer;
+10. complexo hoteleiro;
+11. resort inicial;
+12. resort expandido;
+13. resort de luxo;
+14. resort cinco estrelas completo;
+15. expansão monumental/endgame.
+
+Entre esses marcos podem existir subfases de obras, reformas, novos blocos, anexos, estacionamentos, restaurantes, lazer e infraestrutura. O objetivo é que o jogador tenha dezenas de horas de progressão, com sensação contínua de crescimento físico e empresarial.
