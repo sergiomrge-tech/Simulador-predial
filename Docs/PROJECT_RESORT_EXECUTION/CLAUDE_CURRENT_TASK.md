@@ -1,58 +1,38 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-Atualizado em 2026-10-06.
+Atualizado em 2026-10-06 (fim da rodada de validação da Fase 02).
 
 ## Fase atual
 
-**Fase 02 — Vertical Slice do Quiosque**
+**Fase 02 — Vertical Slice do Quiosque** — gate técnico **PASS**; **HUMAN_GATE_PENDING** (jogada humana).
 
-A Fase 01 está concluída. A Fase 03 ainda NÃO está liberada.
+A Fase 03 NÃO está liberada.
 
-## Estado confirmado
+## Estado real (verificado no Unity 6000.6.2f1, modo gráfico)
 
-O bloco novo da Fase 02 já contém trabalho local para:
+- 15/15 testes de PlayMode passam (`Tools/Autonomy/Run-UnityResortTests.ps1 -Graphics`), sem erros no console.
+- Loop completo (casa → praia → abrir → estoque → atender → fechar → caixa → casa → dormir → save/load) coberto por `LoopTests`/`PrologueDayTests` e passando.
+- Praia viva (67–72 pessoas ao meio-dia, LOD/pooling), ciclo dia/pôr do sol/noite com lâmpadas, ondas, gaivotas, palmeiras ao vento, áudio ambiente procedural.
+- Mar a 55,1 m do quiosque (antes ~165 m), via `BEACH_WATER_DZ` em `Tools/Map/export_resort_site.py`.
+- Desempenho (render em lote, sem IMGUI): ~2,8 ms/quadro com a multidão; estágio 7 ~2,9 ms.
+- Capturas reais: `ArtSource/Blender/World/Reviews/F02/` e `Desktop\Capturas PROJECT RESORT\01_Unity_Reais\F02_praia_viva_dia_noite\`.
+- Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendo de 2026-10-06).
 
-- praia viva / população ambiente;
-- NPCs com pooling e LOD;
-- casais, famílias, grupos, corredores, ciclistas, banhistas, crianças e nadadores;
-- clientes do quiosque usando o novo rig;
-- ciclo dia -> pôr do sol -> noite;
-- sol, lua, estrelas, névoa e ambiente;
-- iluminação de calçadão, quiosque e casa;
-- geladeira, freezer e prateleiras ligados ao estoque;
-- clientes podendo sentar e consumir;
-- testes em `LivingWorldTests.cs`;
-- captura automatizada planejada para dia/tarde/pôr do sol/noite.
+## Pendente (nada disso se resolve só com código)
 
-Esse bloco foi **compilado com sucesso no Unity 6000.6.2f1** em 2026-10-06 quando o UPM foi iniciado corretamente. Ainda precisa de execução dos testes, correções de runtime e validação visual.
+1. **HUMAN_GATE_PENDING**: uma pessoa precisa jogar dois dias e avaliar ritmo, clareza do HUD, diversão e a "vida" da praia; ouvir o áudio; olhar as capturas.
+2. Gate visual segue aberto: personagens/quiosque/guarda-sóis ainda são blockout; mar sem shader de água; noite sem contraste de arte.
 
-## Próxima sequência obrigatória
+## Trabalho seguro dentro da Fase 02 (se a rodada continuar antes do gate humano)
 
-1. Rodar `Tools/Autonomy/Run-UnityResortTests.ps1`.
-2. Corrigir qualquer falha real de compilação/teste/runtime.
-3. Validar a praia viva e o comportamento dos NPCs.
-4. Validar o ciclo dia/noite e a iluminação noturna.
-5. Gerar capturas reais da Unity, incluindo dia e noite.
-6. Colocar cópias das capturas aprovadas em `C:\Users\sergi\Desktop\Capturas PROJECT RESORT\01_Unity_Reais\`.
-7. Corrigir a composição da praia: o estado atual reporta cerca de 170 m entre quiosque e mar, muito maior que a direção visual. Trabalhar para uma composição costeira mais convincente, preservando layout futuro e sem quebrar estágios. Registrar a distância final.
-8. Adicionar/validar vida ambiental básica que couber na fase: ondas/movimento do mar, vento/vegetação, aves e áudio ambiente básico, sem inflar escopo.
-9. Rodar regressão do loop completo: casa -> praia -> abrir -> estoque -> atender/vender -> fechar -> caixa -> casa -> dormir -> save/load.
-10. Medir desempenho com a população ativa.
-11. Atualizar `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md`.
-12. Commit/push de blocos validados.
-13. Manter `HUMAN_GATE_PENDING` até o usuário jogar a fase e aprovar ritmo/clareza/diversão.
+- Clientes sentarem nas mesas também no estágio 2 (quiosque exportado).
+- Melhorar a leitura do HUD do quiosque (fila, pedido, caixa) sem aumentar escopo.
+- Refinar o rig/roupas dos NPCs e o shader/cor do mar; mais variedade de atividades na areia.
+- Ajustar fila/spawn de clientes por horário e reputação (equilíbrio, não novos sistemas).
 
-## O que NÃO fazer agora
+## O que NÃO fazer
 
 - não iniciar a Fase 03;
-- não construir pousada;
-- não construir hotel;
-- não construir resort final;
-- não implementar dezenas de quartos;
-- não expandir escopo para endgame;
-- não chamar primitivas/blockout de arte final;
-- não marcar gate visual como PASS só porque os testes técnicos passaram.
-
-## Critério para encerrar a rodada atual
-
-Deixar a Fase 02 tecnicamente estável, visualmente muito mais viva, com evidências reais da Unity, relatório atualizado, commits enviados e somente o gate humano explicitamente pendente se for o único bloqueio restante.
+- não construir pousada/hotel/resort novos;
+- não chamar blockout de arte final;
+- não marcar o gate visual/humano como PASS sem uma pessoa jogar.

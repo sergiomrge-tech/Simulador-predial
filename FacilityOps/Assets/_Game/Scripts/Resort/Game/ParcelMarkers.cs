@@ -22,7 +22,7 @@ namespace ResortAurora.Game
                 go.transform.SetParent(transform, false);
                 var lr = go.AddComponent<LineRenderer>();
                 lr.sharedMaterial = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
-                lr.loop = true; lr.widthMultiplier = 0.35f; lr.positionCount = 4; lr.useWorldSpace = true;
+                lr.loop = true; lr.widthMultiplier = 0.18f; lr.positionCount = 4; lr.useWorldSpace = true;
                 lr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                 var corners = new[] { new Vector2(p.x, p.z), new Vector2(p.x + p.width, p.z), new Vector2(p.x + p.width, p.z + p.depth), new Vector2(p.x, p.z + p.depth) };
                 for (int i = 0; i < 4; i++) lr.SetPosition(i, new Vector3(corners[i].x, g.Site.HeightAt(corners[i].x, corners[i].y) + 0.35f, corners[i].y));
@@ -38,11 +38,17 @@ namespace ResortAurora.Game
             }
         }
 
+        const float ShowRange = 70f;                           // boundary and label only appear near the land (a beach full of red lines is not a beach)
+
         void Update()
         {
             if (game == null || game.Parcels == null) return;
+            var cam = Camera.main; var cp = cam != null ? cam.transform.position : Vector3.zero;
             foreach (var e in entries)
             {
+                float dx = Mathf.Max(e.data.x - cp.x, 0f, cp.x - (e.data.x + e.data.width)), dz = Mathf.Max(e.data.z - cp.z, 0f, cp.z - (e.data.z + e.data.depth));
+                bool near = cam == null || dx * dx + dz * dz < ShowRange * ShowRange;
+                if (e.line.enabled != near) { e.line.enabled = near; e.label.gameObject.SetActive(near); }
                 var status = game.Parcels.StatusOf(e.data.id, game.Stall.Reputation);
                 string key = status.ToString();
                 if (key == e.lastKey) continue;

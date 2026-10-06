@@ -23,39 +23,46 @@ Dois dias consecutivos completos (um fechado pela placa às ~17h, outro pelo rel
 
 ---
 
-# Adendo — praia viva, dia/noite e quiosque da REF 01/02 (continuação, 2026-10-06)
+# Adendo — praia viva, dia/noite, costa ambiente e quiosque da REF 01/02 (2026-10-06)
 
-**Status: IMPLEMENTADO, NÃO COMPILADO E NÃO EXECUTADO.** Nesta sessão (não interativa) o Unity, o `dotnet` e o `sed` exigiam aprovação manual e foram negados; só foi possível editar arquivos e revisar o código à mão. Nada abaixo conta como evidência de gate. O gate visual da Fase 02 continua **aberto** até alguém rodar os testes e olhar as capturas.
+**Status: COMPILADO, TESTADO (15/15 PlayMode, Unity 6000.6.2f1, modo gráfico) e CAPTURADO. Gate técnico: PASS. Gate humano: `HUMAN_GATE_PENDING`. Gate visual: aberto até uma pessoa avaliar (a cena ainda é blockout).**
 
-## O que o requisito novo exigia e o que ainda faltava no estado anterior
-- Praia/calçadão com população ambiente (só havia "Walkers" cápsula, máx. 40, sem atividades, LOD ou pooling).
-- Dia → pôr do sol → noite com luz artificial (o relógio ia a 22h sem céu, lua nem lâmpadas; o sol nascia a oeste).
-- Quiosque mais próximo da REF 01/02 (telhado listrado vermelho/branco, geladeira/freezer decorativos).
+## Evidência real (execução da Unity)
+- Comando: `Tools/Autonomy/Run-UnityResortTests.ps1 -Graphics` -> `TESTS total=15 passed=15 failed=0`. Logs em `D:\ProjectResort_Autonomy\logs\`.
+- Console: sem erros nem exceções na execução final.
+- Capturas reais da Unity (cópias também em `Desktop\Capturas PROJECT RESORT\01_Unity_Reais\F02_praia_viva_dia_noite\`): `ArtSource/Blender/World/Reviews/F02/f02_{1_dia,2_tarde_dourada,3_por_do_sol,4_noite}_{kiosque_da_calcada,praia_para_o_mar,mesas_na_areia,calcadao_leste,aerea}.png` e `f02_5_ondas_e_gaivotas.png`.
 
-## O que foi escrito (Unity, namespace `ResortAurora`)
-| Arquivo | Conteúdo |
+## O que cada requisito da fase mostra hoje
+| Requisito | Resultado medido |
 |---|---|
-| `Sim/Daylight.cs` | `Daylight` (noite 0..1, elevação do sol, hora de acender lâmpadas, fase do dia) e `PopulationModel` (densidade por hora × clima × reputação × estágio e metas por papel). C# puro. |
-| `Game/DayNightCycle.cs` | Sol (leste → norte → oeste), lua, ~700 estrelas, céu procedural, névoa, ambiente trilight, reflexos; lâmpadas do calçadão, quiosque e casa (cabeças emissivas compartilhadas + pool de 8 luzes reais para as mais próximas da câmera). |
-| `Game/PersonRig.cs` | Humano procedural (pele, cabelo, roupa variados; 2 segmentos por perna) com poses: andar, correr, sentar na areia/cadeira, deitar, nadar, pedalar; gestos (celular, beber, conversar, cavar); LOD 0–3. |
-| `Game/BeachLife.cs` | População pooled (84 adultos + 24 crianças): grupos que passeiam e param para olhar o mar (casais, amigos, famílias com crianças), corredores, ciclistas, banhistas que deitam/sentam, crianças cavando, nadadores que entram e saem do mar. Chegam e saem a pé (sem pop-in à vista). LOD por distância (38/100/230 m), sem NavMeshAgent. |
-| `Game/KioskDecor.cs` | Quiosque estágio 1: telhado de zinco sobre caibros, tábuas envelhecidas, prateleiras com garrafas, **geladeira, freezer e prateleira como estações para conferir estoque**, caixa registradora, caixas, lixeira, lâmpadas, mesas amarelas com cadeiras brancas e guarda-sóis (1 mesa no início, 3 com a melhoria "Mesas"). Peças `S1_*` somem no estágio 2. |
-| `Game/Agents.cs` | Clientes e funcionários usam o `PersonRig`; clientes servidos podem sentar numa mesa, beber e sair. |
-| `Tests/PlayMode/LivingWorldTests.cs` | Curva de luz e população; praia viva de dia/noite (contagens, papéis, chão, exclusão do quiosque, LOD); tempo de frame com a multidão; capturas dia/tarde dourada/pôr do sol/noite em 5 ângulos (`ArtSource/Blender/World/Reviews/F02/`) com luminância média; geladeira/freezer/mesas. |
+| Praia e calçadão ocupados | Meio-dia: 67–72 pessoas ativas (≈34 passeando, 26 na areia, 8 na água, 3 ciclistas); noite: 4–5 no calçadão; manhã (6h): 16–18 incl. 3 corredores. |
+| Atividades variadas | Papéis vistos: caminhante, ciclista, banhista (deita/senta), criança, nadador. Casais, famílias e grupos pelo calçadão. |
+| Clientes usando o quiosque | Fluxo do loop (LoopTests) + clientes servidos sentam em mesa, bebem e saem (teste dedicado). |
+| Sem flutuar/afundar | Teste confere a altura de cada pessoa ao terreno (nadadores à superfície ou no fundo raso). |
+| Densidade sem custo | Render do ponto de vista da praia: média 2,8 ms (~360 fps), p95 3,1 ms, pior 3,7 ms com ~67 pessoas, LOD [11, 56, 0, 0], 18 lâmpadas. Estágio 1 a nível do chão 2,6 ms; estágio 7 (217 copas de palmeira divididas) 2,3–2,9 ms. *Medido com `Camera.Render` em lote nesta máquina, sem a UI IMGUI; não é FPS de um jogo completo em hardware-alvo.* |
+| Dia -> pôr do sol -> noite | Luminância média dos quadros (0–1): dia 0,65–0,76; tarde dourada 0,47–0,58; pôr do sol 0,23–0,30; noite (20h30) 0,20–0,24. Sol, lua, estrelas, névoa e ambiente seguem o relógio; 18 lâmpadas (calçadão, quiosque, casa) acendem à noite com pool de 8 luzes reais. |
+| Noite legível | Capturas noturnas mostram quiosque e calçadão iluminados; não é preto nem estourado (testes de luminância). Ainda é uma noite azul-ardósia plana: falta contraste de arte. |
+| Distância quiosque–mar | **55,1 m** (antes ~165 m). Perfil comprimido no exportador do terreno; calçadão a 62 m do mar. |
+| Ondas | 5 linhas de espuma entram, perdem velocidade e se desfazem ao longo da linha d'água (alfa de pico 0,3+ verificado em teste). |
+| Vento/vegetação | Copas de palmeira divididas do mesh soldado (54 no estágio 1; 217 no estágio 7) e balançando; ângulo máximo medido > 0,2 graus. |
+| Aves | 9 gaivotas voando de dia (>= 6 verificadas), recolhidas à noite. |
+| Áudio | Mar (segue o jogador ao longo da costa), vento, murmúrio da multidão (escala com a população), grilos à noite, gritos de gaivota. Sintetizado em código (placeholder); clipes normalizados (pico 0,85), sem clipping. |
 
-Removidos: `UpdateSun` do `ResortGame`, `StallBuilder.Person` e os pedestres cosméticos "Walker".
+## Decisões e correções desta rodada
+- **Praia estreitada** (decisão antes pendente): `BEACH_WATER_DZ = 114` no exportador desloca a linha d'água para dentro; calçadão, avenida, parcelas e lotes não mudaram de posição. Alturas re-exportadas; os testes de alinhamento de peças e estágios continuam passando. Os estágios futuros (marina, ponta do farol) herdam o perfil novo; reavaliar nas fases 05/09.
+- **Guarda-sóis pretos**: a malha dupla-face dividia vértices e as normais se anulavam; agora topo e fundo têm vértices próprios.
+- **Marcadores de terreno** (linhas vermelhas): mais finos e só aparecem a até 70 m da parcela.
+- Teste de nadadores tinha intervalo inválido (`from > to`) quando o fundo estava acima de 0,05 m; corrigido.
 
-## Como validar (precisa de uma pessoa ou de uma sessão com permissão para o Unity)
+## Limitações que permanecem
+- Personagens, quiosque, guarda-sóis e fauna são blockout procedural; mar é plano com espuma, sem shader de água; sem arte final.
+- Sem sessão humana: ritmo, clareza do HUD, diversão e "vida" percebida **não foram avaliados**. A fase 03 continua bloqueada até essa aprovação.
+- Estágio 2+ (quiosque exportado): clientes ainda não sentam (mesas do estágio 1 ficam ocultas).
+- Áudio procedural não foi ouvido por uma pessoa nesta rodada (só medido: pico, RMS, volumes por hora).
+- UI continua IMGUI provisória.
+
+## Como reproduzir
 ```
-Unity.exe -batchmode -projectPath FacilityOps -runTests -testPlatform PlayMode -testFilter ResortAurora.Tests -logFile Logs/f02.log
+powershell -ExecutionPolicy Bypass -File Tools/Autonomy/Run-UnityResortTests.ps1 -Graphics
 ```
-Esperado: os 8 testes anteriores continuam passando + 5 novos (`LivingWorldTests`). Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, às 18h20 e às 20h30, conferir a geladeira (E), sentar clientes nas mesas, medir FPS.
-**Risco conhecido:** limiares de luminância e contagens de pessoas nos testes foram escolhidos sem poder rodar; podem precisar de ajuste.
-
-## Descoberta que afeta o gate visual (decisão pendente)
-No ponto do quiosque a areia tem **~170 m** de profundidade (mar em z≈80, calçadão em z≈255; perfil de 1,6% do Blender). A REF 01 mostra o mar a poucos metros do quiosque. A população foi distribuída para funcionar nessa praia larga (banhistas de 5 a 110 m do calçadão, nadadores na linha d'água distante), mas o enquadramento "quiosque + mar na mesma cena" da REF só existe se o perfil da praia for estreitado na origem (`Tools/Map/export_resort_site.py`, reexportando as alturas). Isso mexe no layout de todos os estágios futuros (marina, ponta do farol), por isso **não foi alterado** sem decisão.
-
-## Outras limitações
-- Pessoas e quiosque ainda são blockout de primitivas (não arte final); sem áudio de mar/vozes; sem ondas animadas; sem aves.
-- Estágio 2+ (modelo exportado do quiosque): os clientes não sentam (mesas do estágio 1 ficam ocultas).
-- A UI continua IMGUI provisória.
+Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, 18h20 e 20h30, conferir a geladeira (E), ouvir o mar e observar as palmeiras.

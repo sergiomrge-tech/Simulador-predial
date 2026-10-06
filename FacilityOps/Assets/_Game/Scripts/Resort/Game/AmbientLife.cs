@@ -26,7 +26,7 @@ namespace ResortAurora.Game
         readonly List<Gull> gulls = new List<Gull>();
         readonly List<Palm> palms = new List<Palm>();
         readonly HashSet<GameObject> split = new HashSet<GameObject>();
-        float checkTimer, gullCallTimer = 6f;
+        float checkTimer;
         Transform folder;
         AmbientAudio audioLayer;
 

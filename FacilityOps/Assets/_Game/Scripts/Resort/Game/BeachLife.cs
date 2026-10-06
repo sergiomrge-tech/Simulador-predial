@@ -180,9 +180,19 @@ namespace ResortAurora.Game
         {
             if (umbrellaShared != null) return umbrellaShared;
             const int n = 14; const float r = 1.2f, h = 0.42f;
-            var v = new List<Vector3> { new Vector3(0f, h, 0f) }; var t = new List<int>();
-            for (int i = 0; i < n; i++) { float a = i * Mathf.PI * 2f / n; v.Add(new Vector3(Mathf.Cos(a) * r, 0f, Mathf.Sin(a) * r)); }
-            for (int i = 0; i < n; i++) { int b = 1 + i, c = 1 + (i + 1) % n; t.AddRange(new[] { 0, c, b }); t.AddRange(new[] { 0, b, c }); }
+            // top and underside use their own vertices: sharing them would average the opposite normals to zero and render the canopy black
+            var v = new List<Vector3>(); var t = new List<int>();
+            for (int side = 0; side < 2; side++)
+            {
+                int o = v.Count;
+                v.Add(new Vector3(0f, h, 0f));
+                for (int i = 0; i < n; i++) { float a = i * Mathf.PI * 2f / n; v.Add(new Vector3(Mathf.Cos(a) * r, 0f, Mathf.Sin(a) * r)); }
+                for (int i = 0; i < n; i++)
+                {
+                    int b = o + 1 + i, c = o + 1 + (i + 1) % n;
+                    if (side == 0) t.AddRange(new[] { o, c, b }); else t.AddRange(new[] { o, b, c });
+                }
+            }
             var m = new Mesh { name = "Umbrella" }; m.SetVertices(v); m.SetTriangles(t, 0); m.RecalculateNormals(); m.RecalculateBounds();
             return umbrellaShared = m;
         }
