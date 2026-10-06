@@ -191,6 +191,14 @@ A experiência final deve permitir ao jogador olhar para um enorme resort cinco 
 
 Essa transformação é o coração de PROJECT RESORT.
 
+
+## Próxima tarefa operacional
+
+Antes de iniciar nova implementação, execute integralmente o handoff em:
+
+`Docs/CLAUDE_NEXT_TASK_PROJECT_RESORT.md`
+
+Esse documento define a auditoria inicial, o vertical slice do quiosque, os gates de qualidade, o que reaproveitar e o que NÃO implementar ainda.
 ## Estado da implementação do resort (Claude, 06/10/2026)
 
 Trabalho já feito sobre esta direção (ver `Docs/STATUS_IMPLEMENTACAO.md`, seções "Resort R1/R2/R5", e `Docs/EVOLUCAO_ESTAGIOS_MODELAGEM.md`):
