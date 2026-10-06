@@ -1,0 +1,271 @@
+{
+ "schemaVersion": 1,
+ "pieces": [
+  {
+   "asset": "E1-5_grande_hotel_ruina",
+   "from": 1,
+   "to": 5,
+   "name": "grande_hotel_ruina",
+   "polygons": 3993
+  },
+  {
+   "asset": "E1-6_farol",
+   "from": 1,
+   "to": 6,
+   "name": "farol",
+   "polygons": 672
+  },
+  {
+   "asset": "E1-7_palmeiras_folha",
+   "from": 1,
+   "to": 7,
+   "name": "palmeiras_folha",
+   "polygons": 4992
+  },
+  {
+   "asset": "E1-7_palmeiras_tronco",
+   "from": 1,
+   "to": 7,
+   "name": "palmeiras_tronco",
+   "polygons": 2496
+  },
+  {
+   "asset": "E3-5_restaurante",
+   "from": 3,
+   "to": 5,
+   "name": "restaurante",
+   "polygons": 579
+  },
+  {
+   "asset": "E3-7_pousada",
+   "from": 3,
+   "to": 7,
+   "name": "pousada",
+   "polygons": 410
+  },
+  {
+   "asset": "E4-7_hotel",
+   "from": 4,
+   "to": 7,
+   "name": "hotel",
+   "polygons": 4202
+  },
+  {
+   "asset": "E4-7_hotel_agua",
+   "from": 4,
+   "to": 7,
+   "name": "hotel_agua",
+   "polygons": 1
+  },
+  {
+   "asset": "E4-7_hotel_deck",
+   "from": 4,
+   "to": 7,
+   "name": "hotel_deck",
+   "polygons": 184
+  },
+  {
+   "asset": "E4-7_hotel_piscina",
+   "from": 4,
+   "to": 7,
+   "name": "hotel_piscina",
+   "polygons": 45
+  },
+  {
+   "asset": "E5-7_bangalos",
+   "from": 5,
+   "to": 7,
+   "name": "bangalos",
+   "polygons": 318
+  },
+  {
+   "asset": "E5-7_complexo",
+   "from": 5,
+   "to": 7,
+   "name": "complexo",
+   "polygons": 657
+  },
+  {
+   "asset": "E5-7_spa",
+   "from": 5,
+   "to": 7,
+   "name": "spa",
+   "polygons": 53
+  },
+  {
+   "asset": "E6-6_Agua",
+   "from": 6,
+   "to": 6,
+   "name": "Agua",
+   "polygons": 18
+  },
+  {
+   "asset": "E6-6_Arbustos",
+   "from": 6,
+   "to": 6,
+   "name": "Arbustos",
+   "polygons": 6033
+  },
+  {
+   "asset": "E6-6_Arq_Eixo",
+   "from": 6,
+   "to": 6,
+   "name": "Arq_Eixo",
+   "polygons": 6210
+  },
+  {
+   "asset": "E6-6_Arq_T1",
+   "from": 6,
+   "to": 6,
+   "name": "Arq_T1",
+   "polygons": 2388
+  },
+  {
+   "asset": "E6-6_Arq_T2",
+   "from": 6,
+   "to": 6,
+   "name": "Arq_T2",
+   "polygons": 5443
+  },
+  {
+   "asset": "E6-6_Arvores_copas",
+   "from": 6,
+   "to": 6,
+   "name": "Arvores_copas",
+   "polygons": 10640
+  },
+  {
+   "asset": "E6-6_Buganvilias",
+   "from": 6,
+   "to": 6,
+   "name": "Buganvilias",
+   "polygons": 5254
+  },
+  {
+   "asset": "E6-6_Palmeiras_folhas",
+   "from": 6,
+   "to": 6,
+   "name": "Palmeiras_folhas",
+   "polygons": 17114
+  },
+  {
+   "asset": "E6-6_Palmeiras_troncos",
+   "from": 6,
+   "to": 6,
+   "name": "Palmeiras_troncos",
+   "polygons": 9608
+  },
+  {
+   "asset": "E6-6_estrutura",
+   "from": 6,
+   "to": 6,
+   "name": "estrutura",
+   "polygons": 730
+  },
+  {
+   "asset": "E6-6_grua",
+   "from": 6,
+   "to": 6,
+   "name": "grua",
+   "polygons": 415
+  },
+  {
+   "asset": "E6-7_grande_hotel",
+   "from": 6,
+   "to": 7,
+   "name": "grande_hotel",
+   "polygons": 3112
+  },
+  {
+   "asset": "E7-7_Agua",
+   "from": 7,
+   "to": 7,
+   "name": "Agua",
+   "polygons": 24
+  },
+  {
+   "asset": "E7-7_Arbustos",
+   "from": 7,
+   "to": 7,
+   "name": "Arbustos",
+   "polygons": 12690
+  },
+  {
+   "asset": "E7-7_Arq_Eixo",
+   "from": 7,
+   "to": 7,
+   "name": "Arq_Eixo",
+   "polygons": 9315
+  },
+  {
+   "asset": "E7-7_Arq_T1",
+   "from": 7,
+   "to": 7,
+   "name": "Arq_T1",
+   "polygons": 2388
+  },
+  {
+   "asset": "E7-7_Arq_T2",
+   "from": 7,
+   "to": 7,
+   "name": "Arq_T2",
+   "polygons": 5443
+  },
+  {
+   "asset": "E7-7_Arq_T3",
+   "from": 7,
+   "to": 7,
+   "name": "Arq_T3",
+   "polygons": 10162
+  },
+  {
+   "asset": "E7-7_Arq_T4",
+   "from": 7,
+   "to": 7,
+   "name": "Arq_T4",
+   "polygons": 19771
+  },
+  {
+   "asset": "E7-7_Arq_Tower",
+   "from": 7,
+   "to": 7,
+   "name": "Arq_Tower",
+   "polygons": 5707
+  },
+  {
+   "asset": "E7-7_Arvores_copas",
+   "from": 7,
+   "to": 7,
+   "name": "Arvores_copas",
+   "polygons": 17360
+  },
+  {
+   "asset": "E7-7_Buganvilias",
+   "from": 7,
+   "to": 7,
+   "name": "Buganvilias",
+   "polygons": 7092
+  },
+  {
+   "asset": "E7-7_Palmeiras_folhas",
+   "from": 7,
+   "to": 7,
+   "name": "Palmeiras_folhas",
+   "polygons": 28032
+  },
+  {
+   "asset": "E7-7_Palmeiras_troncos",
+   "from": 7,
+   "to": 7,
+   "name": "Palmeiras_troncos",
+   "polygons": 15752
+  },
+  {
+   "asset": "E7-7_farol_aceso",
+   "from": 7,
+   "to": 7,
+   "name": "farol_aceso",
+   "polygons": 672
+  }
+ ]
+}

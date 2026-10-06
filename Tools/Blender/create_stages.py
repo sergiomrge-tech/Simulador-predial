@@ -161,6 +161,7 @@ def filtered_copy(src, ymax, a, b, coll):
     bm.to_mesh(o.data)
     bm.free()
     coll.objects.link(o)
+    o.name = f"E{a}-{b}_{src.name}"
     o["st_from"], o["st_to"] = a, b
     return o
 
@@ -173,6 +174,7 @@ platoY = 480 + 82.0
 for o in [x for x in dst.objects if x is not None]:
     full = o.copy()
     full.data = o.data
+    full.name = f"E7-7_{o.name}"
     cn["Edificios"].objects.link(full)
     full["st_from"] = full["st_to"] = 7
     if o.name in ("Arq_T3", "Arq_T4", "Arq_Tower"):

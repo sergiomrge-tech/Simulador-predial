@@ -43,6 +43,7 @@ namespace ResortAurora.Site
         [SerializeField] CameraController cameraController; // optional: RTS prototype scene
         [SerializeField] string resourcePath = "Resort/ResortSite";
         [SerializeField] string heightsPath = "Resort/ResortSiteHeights";
+        [SerializeField] string naturalHeightsPath = "Resort/ResortSiteHeights_natural";
 
         static readonly Color[] Walls =
         {
@@ -56,7 +57,21 @@ namespace ResortAurora.Site
         public float StallX => Data.stall.x;
         public Vector3 HomeDoor => new Vector3(Data.home.x, HeightAt(Data.home.x, Data.home.doorZ), Data.home.doorZ);
 
-        float[] heights;
+        float[] heights, gradedHeights, naturalHeights;
+        GameObject terrainGraded, terrainNatural;
+
+        /// <summary>True once the platô is graded (stage 6+): terraces exist. Before that the land is the natural slope.</summary>
+        public bool Graded { get; private set; }
+
+        /// <summary>Swaps the terrain between the natural land and the graded platô (collider and ground height follow).</summary>
+        public void SetGraded(bool graded)
+        {
+            if (!Ready) return;
+            Graded = graded;
+            heights = graded ? gradedHeights : naturalHeights;
+            terrainGraded.SetActive(graded);
+            terrainNatural.SetActive(!graded);
+        }
 
         public void Build()
         {
@@ -64,11 +79,24 @@ namespace ResortAurora.Site
             var bytes = Resources.Load<TextAsset>(heightsPath);
             if (json == null || bytes == null) { Debug.LogError("ResortSite: exported site data not found in Resources/Resort."); return; }
             Data = JsonUtility.FromJson<SiteData>(json.text);
-            heights = new float[Data.columns * Data.rows];
-            Buffer.BlockCopy(bytes.bytes, 0, heights, 0, heights.Length * sizeof(float));
+            gradedHeights = new float[Data.columns * Data.rows];
+            Buffer.BlockCopy(bytes.bytes, 0, gradedHeights, 0, gradedHeights.Length * sizeof(float));
+            var nat = Resources.Load<TextAsset>(naturalHeightsPath);
+            naturalHeights = gradedHeights;
+            if (nat != null)
+            {
+                naturalHeights = new float[gradedHeights.Length];
+                Buffer.BlockCopy(nat.bytes, 0, naturalHeights, 0, naturalHeights.Length * sizeof(float));
+            }
+            heights = gradedHeights;
             Ready = true;
 
-            BuildTerrain().transform.SetParent(transform, false);
+            var mat = TerrainMaterial();                       // shared colour map (built from the graded heights)
+            terrainGraded = BuildTerrain(gradedHeights, "Terrain_graded", mat);
+            terrainNatural = BuildTerrain(naturalHeights, "Terrain_natural", mat);
+            terrainGraded.transform.SetParent(transform, false);
+            terrainNatural.transform.SetParent(transform, false);
+            SetGraded(false);
             BuildSea().transform.SetParent(transform, false);
             BuildVila().transform.SetParent(transform, false);
             BuildHome().transform.SetParent(transform, false);
@@ -120,7 +148,7 @@ namespace ResortAurora.Site
 
         // ---------------------------------------------------------------- terrain
 
-        GameObject BuildTerrain()
+        GameObject BuildTerrain(float[] heights, string objectName, Material material)
         {
             int nx = Data.columns, nz = Data.rows;
             var verts = new Vector3[nx * nz];
@@ -145,9 +173,9 @@ namespace ResortAurora.Site
             mesh.vertices = verts; mesh.uv = uv; mesh.triangles = tris;
             mesh.RecalculateNormals(); mesh.RecalculateBounds();
 
-            var go = new GameObject("Terrain");
+            var go = new GameObject(objectName);
             go.AddComponent<MeshFilter>().sharedMesh = mesh;
-            go.AddComponent<MeshRenderer>().sharedMaterial = TerrainMaterial();
+            go.AddComponent<MeshRenderer>().sharedMaterial = material;
             go.AddComponent<MeshCollider>().sharedMesh = mesh;
             return go;
         }

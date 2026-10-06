@@ -24,6 +24,7 @@ namespace ResortAurora.Game
         public StaffRoster Roster { get; private set; }
         public StallService Service { get; private set; }
         public ParcelBook Parcels { get; private set; }
+        public ResortStages Stages { get; private set; }
         public StallLayout Layout { get; private set; }
         public Weather Weather { get; private set; }
         public Panel OpenedPanel { get; private set; }
@@ -65,16 +66,29 @@ namespace ResortAurora.Game
                 Parcels.Add(new ParcelInfo { Id = p.id, Name = p.name, Note = p.note, Price = p.price, LockTag = p.locked }, p.owned);
             new GameObject("ParcelMarkers").AddComponent<ParcelMarkers>().Init(this);
 
+            Stages = new GameObject("ResortStages").AddComponent<ResortStages>();
+            Stages.Init(site);
+            Bus.Subscribe<ParcelBought>(e => RefreshStage());
+
             bool hasSave = SaveStore.Exists();
             if (hasSave) Load(SaveStore.Read());
             // New game: wake up at the Santa Clara door and walk to work (the commute is part of the story). Otherwise start at the stall.
             if (hasSave) PlaceAtStall(); else PlaceAtHome();
+            RefreshStage();
             Weather = DemandModel.WeatherFor(Seed, Clock.Day);
             Bus.Subscribe<CustomerServed>(e => TotalServed++);
             Bus.Subscribe<StaffChanged>(e => Layout.RefreshStaff(this));
             Layout.RefreshStaff(this);
             Say(hasSave ? "Jogo carregado. Bom dia!" : "Primeiro dia! Siga para a barraca no calçadão, ao sul.", 7f);
             SetCursor(false);
+        }
+
+        /// <summary>Shows the physical stage that matches the land owned (RESORT_STAGE overrides it for captures and tests).</summary>
+        public void RefreshStage()
+        {
+            var forced = System.Environment.GetEnvironmentVariable("RESORT_STAGE");
+            int stage = int.TryParse(forced, out var f) ? Mathf.Clamp(f, 1, 7) : ResortStages.StageFor(Parcels);
+            Stages.SetStage(stage);
         }
 
         void PlaceAtStall() => player.Teleport(Layout.PlayerSpawn, Layout.Root.rotation);
