@@ -1,77 +1,203 @@
-# PROJECT FACILITY — contexto para Claude
+# PROJECT RESORT — contexto oficial para Claude
 
-> **ATUALIZAÇÃO 06/10/2026:** o usuário decidiu trocar o gênero para **simulador de resort** (Orla das Palmeiras). Leia `Docs/GDD_RESORT_SANTA_AURORA.md` e a decisão 19 em `Docs/DECISOES_ATUAIS.md`. As seções abaixo sobre manutenção/campanha de serviços estão **congeladas**; mundo, lore, primeira pessoa e direção visual continuam valendo.
+## NOVA DIREÇÃO DO PROJETO
 
-Leia primeiro `Docs/DECISOES_ATUAIS.md`, `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`, `Docs/WORLD_BIBLE_SANTA_AURORA_V1.md`, `Docs/REGISTRO_ESTRUTURAS_SANTA_AURORA_V1.md`, `Docs/ART_BIBLE_REALISMO_SANTA_AURORA.md`, `Docs/GDD_PROGRESSAO_VIDA_LIBERDADE_ECONOMIA.md`, `Docs/LORE_CAMPANHA_ORIGINAL.md`, `Docs/MAPA_CAMPANHA.md`, `Docs/STATUS_IMPLEMENTACAO.md` e `README.md`.
+A direção anterior **PROJECT FACILITY / simulador de manutenção predial** deixou de ser o objetivo principal.
 
-## Direção vigente
+O projeto passa oficialmente a ser **PROJECT RESORT**, um simulador de empreendedorismo, hotelaria, construção e gestão em primeira pessoa.
 
-Unity 6000.6.2f1, URP, C#, Windows/Steam, single-player, **primeira pessoa**. O usuário chegou a pedir terceira pessoa, mas decidiu voltar à primeira pessoa. Manter a engine instalada, a lore de Santa Aurora e o diferencial diagnóstico → reparo → teste → pagamento.
+Leia **ANTES DE QUALQUER ALTERAÇÃO**:
 
-A direção visual do mapa, casas, estruturas e interiores usa **VEIN apenas como referência de qualidade e linguagem visual**: realismo urbano cru, materiais PBR usados, iluminação atmosférica, clutter funcional e interiores densos. **Não aceitar low-poly como resultado final.** Blockouts podem ser simples apenas durante produção. Não copiar assets, texturas, prédios, layouts ou mapas.
+1. `Docs/GDD_PROJECT_RESORT_MASTER.md` — documento mestre e autoridade principal da nova direção.
+2. `Docs/STATUS_IMPLEMENTACAO.md` — estado técnico legado e checkpoints existentes.
+3. `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`
+4. `Docs/WORLD_BIBLE_SANTA_AURORA_V1.md`
+5. `Docs/ART_BIBLE_REALISMO_SANTA_AURORA.md`
+6. `README.md`
 
-Nova regra de progressão: campanha + mercado livre de trabalhos. O jogador decide em que trabalhar e em quais regiões desbloqueadas atuar. O escopo inicial é pequeno e cresce com reputação, dinheiro, ferramentas e veículo. O jogo deve ser difícil, porém sempre recuperável.
+Quando houver conflito entre documentação antiga do Facility Ops e `Docs/GDD_PROJECT_RESORT_MASTER.md`, **o GDD do PROJECT RESORT vence**.
 
-## Onde trabalhar
+## Conceito central
 
-- Projeto ativo: `FacilityOps/`. Cena `Assets/_Game/Scenes/Bootstrap.unity`.
-- Regras: `Assets/_Game/Scripts/Core/`.
-- Serviços autorais iniciais do Capítulo I: `ChapterOne.cs`, IDs estáveis, local/causa/preço/nomes dos equipamentos. `Docs/CAPITULO_I_IMPLEMENTADO.md` registra o escopo e as adaptações.
-- Câmera/colisões/interação: `Assets/_Game/Scripts/Runtime/Interaction.cs`.
-- Tablet provisório: `TabletUI.cs`. Migrar para UI Toolkit ou uGUI antes de polir.
-- Mundo: `WorldBuilder.cs`. Garagem e chamado inicial; prévias de plantas do catálogo.
-- Campanha: `Assets/_Game/Resources/World/campaign.json`, gerado por `Tools/Map/generate_campaign.mjs`.
-- Fontes de arte: `ArtSource/Blender/`; FBX em `Assets/_Game/Resources/Art/`.
-- Build e verificações: `Tools/Build.ps1`, `Tools/Test-Windows.ps1`.
+O jogador começa com um pequeno quiosque/barraquinha na praia de Santa Aurora, vendendo bebidas e lanches.
 
-Não editar JSON gerado sem atualizar o gerador. IDs devem permanecer estáveis. Não serializar GameObjects no save. Não sobrescrever progresso do usuário durante testes. Preservar arquivos `.meta`. Mudanças de câmera não podem estender o alcance de interação além da distância do personagem.
+A progressão deve ser física, econômica e visual:
 
-## Próximas tarefas recomendadas
+```
+quiosque pequeno
+→ quiosque profissional
+→ pousada
+→ pequeno hotel
+→ hotel completo
+→ primeiro resort
+→ resort de luxo
+→ resort cinco estrelas monumental
+```
 
-1. Conferir a área inicial em primeira pessoa e adicionar mãos/ferramentas com animações táteis, sem alterar o alcance do raycast.
-2. Converter a garagem, o corredor aprovado e os equipamentos em prefabs/cenas editáveis, mantendo componentes e IDs.
-3. Polir o prólogo autoral implementado no Horizonte: aquecimento fictício, isolamento, teste, troca, restauração e mensagens persistentes de Guto/Helena. Ler `Docs/PROLOGO_IMPLEMENTADO.md`. Converter mensagens em apresentação narrativa sem quebrar as regras de intervenção.
-4. Substituir um conjunto pequeno de setores do catálogo por arquitetura e props finais do Blender, mantendo as conexões.
-5. Construir inspeção, fotografia/laudo e consequências persistentes antes de desbloquear capítulos avançados.
-6. Validar na Unity o primeiro contrato preventivo de bomba já integrado no código e ajustar qualquer erro de parser/runtime antes de expandir.
-7. Antes de ampliar sistemas, transformar `SantaAurora_Masterplan.blend` em masterplan métrico seguindo o plano 8×8 km, posicionando distritos, vias e todos os locais de campanha.
-8. Criar o kit arquitetônico PBR e o kit técnico modular da Cidade Antiga sem aparência low-poly final.
-9. Produzir o lar inicial, Oficina Aurora, Horizonte e primeiros clientes como primeiro conjunto de alta fidelidade.
-10. Validar a Cidade Antiga como vertical slice visual/funcional e só então replicar o padrão para os demais distritos.
-11. Depois implementar mercado livre de 3–5 chamados, veículos, patrimônio, climatização e liberdade econômica. Só então avançar Cascata e coordenação de equipes.
+O jogador vive fisicamente nesse mundo em primeira pessoa, tem sua própria casa, acorda, trabalha, retorna para casa e evolui seu patrimônio pessoal junto com o empreendimento.
 
-Os mapas de campanha são estruturas de protótipo. Os capítulos, NPCs, decisões e finais não estão todos implementados. Não afirmar qualidade premium, desempenho alvo ou campanha pronta sem evidência de execução e inspeção visual.
+O resort final deve representar transformação extrema: lobby monumental, recepção de luxo, piscinas, restaurantes, academia, spa, suítes premium, suíte presidencial, beach club, salão de eventos, áreas VIP, administração e infraestrutura técnica completa.
 
-O primeiro aceite da campanha usa `ServiceSession.AcceptPrologue`; os três serviços iniciais seguintes usam `AcceptChapterOne(id)` em ordem. Chamados livres continuam com `Accept(cause)` e não contam como serviços autorais. Save v1 inclui `servicePresenceVersion/hasActiveService` para impedir que uma classe inline vazia represente um chamado encerrado e `chapterOneDataVersion` para adicionar o estoque hidráulico em carreiras anteriores.
+## Regra de reaproveitamento
 
-`CareerData.completedChapterOneJobs/buildingHistory/recurringContractUnlocked` são persistentes. Três serviços mais reputação 25 liberam a indicação de Helena. O primeiro contrato preventivo de bomba foi integrado ao código com ID estável `campaign.c2.recurringcondo.pump.v1`, estoque `pumpKits`, flags persistentes e extensão do smoke test; **essa nova etapa ainda precisa de validação real na Unity após os commits recentes**. A classe `ElectricalNetwork` conserva o nome original por compatibilidade e também fornece leituras hidráulicas abstratas. Preservar compatibilidade de saves, IDs e testes separados do jogador.
+Não descartar a base existente sem necessidade.
 
-Use branches `codex/` ou `claude/` e mudanças focadas para permitir integração. Este arquivo é contexto de colaboração, não autorização para publicar releases, enviar mensagens ou mudar a visibilidade do repositório.
+Preservar e adaptar quando tecnicamente viável:
 
+- Unity 6000.6.2f1;
+- URP;
+- C#;
+- primeira pessoa;
+- FirstPersonController;
+- câmera;
+- raycast/interação;
+- colisões;
+- Santa Aurora;
+- estradas;
+- calçadas;
+- relevo;
+- streaming e células;
+- assets urbanos;
+- casa do jogador;
+- veículos;
+- portas e objetos interativos;
+- arquitetura de save;
+- elétrica;
+- hidráulica;
+- bombas;
+- sistemas de manutenção;
+- ferramentas de Blender/Unity;
+- validações e pipelines úteis.
 
-## Prioridade vigente — WORLD FOUNDATION W1
+O antigo loop de manutenção predial deixa de ser o núcleo. Manutenção passa a ser **um subsistema interno do resort**, podendo ser realizada pelo jogador ou delegada a funcionários.
 
-O usuário decidiu que, por ser um projeto ambicioso, o mundo e as estruturas devem ser construídos primeiro com base na história.
+## Regra crítica antes de continuar
 
-**Não ampliar missões/sistemas de campanha antes de concluir W1, salvo correção necessária para manter o protótipo compilável.**
+O usuário informou que a conversão para resort **já pode ter sido iniciada localmente**.
 
-Arquivos de produção:
-- `ArtSource/Blender/World/masterplan_spec_v1.json`: coordenadas métricas, distritos, 24 locais da campanha, 20 locais de vida/economia, 8 vias principais e grid de streaming.
-- `ArtSource/Blender/World/structure_registry_v1.json`: hero locations, áreas acessíveis, capítulos e estados.
-- `Tools/Blender/create_santa_aurora_masterplan.py`: gera `SantaAurora_Masterplan_v1.blend` sem sobrescrever o masterplan anterior.
-- `Tools/Map/validate_masterplan.py`: valida o spec independentemente do Blender.
-- `Docs/masterplan-validation-v1.json`: validação estática atual aprovada.
+Portanto, antes de implementar qualquer nova tarefa:
 
-### W1 precisa entregar
-1. arquivo Blender métrico 8×8 km;
-2. seis distritos legíveis;
-3. oito corredores viários;
-4. volumes dos 24 locais da campanha;
-5. marcadores dos 20 locais de vida/economia;
-6. skyline preliminar;
-7. acesso viário plausível;
-8. screenshots reais do Blender;
-9. reabertura do .blend;
-10. relatório de geração/validação.
+1. identificar a branch local atual;
+2. verificar o último commit;
+3. verificar arquivos modificados e não commitados;
+4. procurar qualquer código, cena, documentação ou asset já criado para resort;
+5. comparar esse estado com `Docs/GDD_PROJECT_RESORT_MASTER.md`;
+6. continuar do ponto real;
+7. não refazer trabalho existente;
+8. não apagar sistemas reaproveitáveis;
+9. não sobrescrever trabalho local não commitado.
 
-A geometria gerada em W1 é **massing**, não arte final. A regra “não low-poly” se aplica ao resultado de produção final; blockout simples é permitido apenas nesta etapa de planejamento espacial.
+## Primeira prioridade de produção
+
+Depois da auditoria, a primeira meta funcional é o **vertical slice do quiosque**.
+
+Ele deve conter, no mínimo:
+
+- área de praia funcional;
+- pequeno quiosque;
+- produtos;
+- estoque;
+- fornecedor/abastecimento mínimo;
+- clientes;
+- atendimento;
+- pagamento;
+- caixa;
+- abertura e fechamento do dia;
+- dinheiro persistente;
+- reputação inicial;
+- rotina casa → trabalho → casa;
+- save/load.
+
+O quiosque precisa ser divertido e jogável antes da expansão para hotel.
+
+## Regra de desenvolvimento
+
+Não criar dezenas de sistemas incompletos.
+
+Prioridade:
+
+```
+Quiosque divertido
+↓
+Economia funcional
+↓
+Funcionários
+↓
+Compra de terreno
+↓
+Pousada funcional
+↓
+Hotel funcional
+↓
+Construção modular
+↓
+Resort
+↓
+Luxo / cinco estrelas
+```
+
+Cada estágio precisa fechar seu loop antes de expandir.
+
+## Qualidade
+
+Nenhuma fase é considerada pronta apenas porque o código compila.
+
+Para concluir uma fase:
+
+1. compilar;
+2. executar;
+3. jogar;
+4. validar interações;
+5. testar save/load;
+6. testar progressão;
+7. verificar visualmente;
+8. verificar performance;
+9. registrar evidências reais.
+
+Toda captura apresentada como gameplay deve ser captura real da Unity. Nunca usar mockup como se fosse gameplay.
+
+## Visual
+
+O alvo continua sendo um jogo comercial para PC/Steam, visual realista e coerente.
+
+Blockout é permitido durante produção, mas não deve ser tratado como arte final.
+
+Manter Santa Aurora original. Referências externas podem orientar qualidade e atmosfera, nunca ser copiadas.
+
+## Branches e integração
+
+Trabalhar em branch `claude/` ou branch explicitamente indicada para a conversão.
+
+Fazer commits pequenos e descritivos.
+
+Não publicar releases, mudar visibilidade do repositório ou apagar histórico sem autorização.
+
+## Documentação legada
+
+Documentos do Facility Ops continuam úteis como fonte técnica, lore, mundo e sistemas reutilizáveis, mas **não comandam mais o design principal**.
+
+Especialmente:
+
+- manutenção predial;
+- chamados;
+- contratos técnicos;
+- diagnóstico/reparo;
+
+devem ser tratados como material reutilizável para o futuro módulo de manutenção do resort, não como campanha central.
+
+## Objetivo de longo prazo
+
+A experiência final deve permitir ao jogador olhar para um enorme resort cinco estrelas e saber que aquele complexo nasceu da pequena barraquinha onde ele começou vendendo bebidas na praia.
+
+Essa transformação é o coração de PROJECT RESORT.
+
+## Estado da implementação do resort (Claude, 06/10/2026)
+
+Trabalho já feito sobre esta direção (ver `Docs/STATUS_IMPLEMENTACAO.md`, seções "Resort R1/R2/R5", e `Docs/EVOLUCAO_ESTAGIOS_MODELAGEM.md`):
+
+- **Documentos de apoio** (complementam o GDD mestre acima; em caso de conflito vale o GDD mestre): `Docs/GDD_RESORT_V2_DO_QUIOSQUE_AO_RESORT.md` (etapas e parcelas), `Docs/LORE_RESORT_AURORA.md` (história "A Luz do Farol"), `Docs/GRAND_AURORA_MODELAGEM.md`, decisões 19–22 em `Docs/DECISOES_ATUAIS.md`.
+- **Unity** (`FacilityOps/Assets/_Game/Scripts/Resort/`, namespace `ResortAurora`): simulação em C# puro (`Sim/`), jogo em primeira pessoa com barraca/quiosque, clientes, funcionários, mercado, contratação, save JSON próprio, parcelas compráveis, estágios visuais por terra comprada, pousada (quartos, avaliações, camareiras). O protótipo de câmera RTS + grid (R0) existe como ferramenta opcional; a perspectiva oficial é primeira pessoa.
+- **Blender** (`Tools/Blender/`, `Tools/Map/`): bairro das Palmeiras, Grand Aurora, suíte, sete estágios de evolução, exportação para FBX. Os `.blend` do resort não são versionados (regeneráveis); veja os comandos nos docs.
+- **Testes**: 7 testes de PlayMode (`Assets/_Game/Tests/PlayMode`) e `ResortSimSmokeTest`. Rode com `Unity -batchmode -runTests -testPlatform PlayMode`.
+- **Lição técnica**: portas precisam de 2,5 m de altura para o `CharacterController` (stepOffset 0,35 m).
+- O código antigo de manutenção (`Core/`, `Runtime/`) segue congelado.
