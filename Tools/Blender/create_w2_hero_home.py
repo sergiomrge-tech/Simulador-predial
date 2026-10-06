@@ -345,6 +345,18 @@ from sa_w2 import area_fill  # noqa: E402
 # W3.1: soft daylight-bounce fill for the empty H0 flat (the bare bulb stays the only fixture in the hero)
 area_fill(C["Lighting"], rootobj, "W2_home__apto12_fill", ((ux0 + ux1) / 2, (uy0 + uy1) / 2, zc - .1), (ux1 - ux0) * .7, (uy1 - uy0) * .7,
           (ux1 - ux0) * (uy1 - uy0) * 16.0, color=(1.0, .9, .78))
+# W3.3: occupancy glow in the neighbouring units (Apto 12 stays the empty H0 flat): a warm/cool fill behind the front windows of the
+# other flats so the building reads as inhabited; deterministic pattern, ~60% of the units lit, never the Apto 12 window
+_OCC_TINTS = ((1.0, .84, .62), (1.0, .93, .80), (.86, .92, 1.0), (1.0, .78, .55))
+for f_ in range(NF):
+    for k_, sx_ in enumerate((1, -1)):
+        if f_ == fi and sx_ > 0:
+            continue
+        if (f_ * 5 + k_ * 3 + 1) % 5 in (0, 3):
+            continue
+        cx_ = wx_front * sx_
+        area_fill(C["Lighting"], rootobj, f"W2_home__occ_fill_F{f_}_{k_}", (cx_, front_y + 1.6, (f_ + 1) * FH - .12), 1.8, 2.4, 600.0,
+                  color=_OCC_TINTS[(f_ + k_) % len(_OCC_TINTS)])
 KA.skirting("W2_home__apto12_skirting", [((ux0, uy0 + .01), (ux1, uy0 + .01)), ((ux0 + .01, uy0), (ux0 + .01, uy1)), ((ux0, uy1 - .01), (ux1, uy1 - .01))])
 KA.coll = C["Interior"]
 # H0 props from the JSON slots (local positions), state H0 + permanent item

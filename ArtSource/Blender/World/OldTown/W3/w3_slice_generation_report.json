@@ -1,7 +1,7 @@
 {
   "blend": "ArtSource/Blender/World/OldTown/W3/SantaAurora_W3_VerticalSlice.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objectCount": 3416,
+  "objectCount": 3423,
   "collectionObjectCounts": {
     "OT_Library": 435,
     "OT_Terrain": 15,
@@ -10,7 +10,7 @@
     "OT_Infrastructure": 30,
     "OT_Props": 893,
     "OT_Vegetation": 15,
-    "OT_Lighting": 27,
+    "OT_Lighting": 34,
     "OT_Gameplay": 89,
     "OT_Cameras": 49,
     "W3_Context_Base_Linked": 844
@@ -696,7 +696,7 @@
       "workshop",
       "smalloffice"
     ],
-    "w32_hero_fill_lights": 8,
+    "w32_hero_fill_lights": 15,
     "w31_street_taludes": 4,
     "w31_talude_max_h_m": 1.18,
     "w31_vacant_lot_tufts": 17007,
