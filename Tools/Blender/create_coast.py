@@ -978,6 +978,40 @@ for chunk in range(8):
             o = sa_bl.point_cloud_object(f"{nm}_Orla_{chunk:02d}", pts, cc, C["05_Beach_Props"])
             sa_bl.props(o, sa_layer="Props", life=nm.lower())
 
+# ---------------------------------------------------------------- night lighting (off for daytime renders: collection hidden in render)
+night = sa_bl.collection("09_Night_Lights", hide_render=True)
+night.hide_viewport = True
+n_night = 0
+for k, (lx_, lz_, lzz_, _, _, _) in enumerate(lamp_pts):
+    ld = bpy.data.lights.new(f"Night_Poste_{k:04d}", "SPOT")
+    ld.energy = 1800.0
+    ld.spot_size = math.radians(115)
+    ld.spot_blend = .6
+    ld.color = (1.0, .78, .5)
+    ld.shadow_soft_size = .15
+    ld.use_shadow = False
+    lo_ = bpy.data.objects.new(ld.name, ld)
+    night.objects.link(lo_)
+    lo_.location = (lx_, lz_, lzz_ + 7.0)
+    n_night += 1
+for k, (lx_, lz_, lzz_, _, _, _) in enumerate(pier_lamps):
+    ld = bpy.data.lights.new(f"Night_Pier_{k:03d}", "SPOT")
+    ld.energy = 900.0
+    ld.spot_size = math.radians(110)
+    ld.spot_blend = .6
+    ld.color = (1.0, .8, .55)
+    ld.use_shadow = False
+    lo_ = bpy.data.objects.new(ld.name, ld)
+    night.objects.link(lo_)
+    lo_.location = (lx_, lz_, lzz_ + 4.2)
+    n_night += 1
+moon = bpy.data.lights.new("Night_Moon", "SUN")
+moon.energy = 0.12
+moon.color = (.62, .72, 1.0)
+mo_ = bpy.data.objects.new("Night_Moon", moon)
+night.objects.link(mo_)
+mo_.rotation_euler = (math.radians(55), 0, math.radians(200))
+
 # ---------------------------------------------------------------- cameras, sun, save
 cams = C["08_Cameras"]
 px_ = float(coast["piers"][0]["x"])
@@ -1000,6 +1034,6 @@ bpy.ops.wm.save_as_mainfile(filepath=str(output), compress=True)
 rep = {"blend": output.relative_to(root).as_posix(), "blenderVersion": bpy.app.version_string, "terrainVertices": tcount,
        "objectCount": len(bpy.data.objects), "palms": len(palm_pts), "dune_grass": len(grass_pts), "umbrellas": len(um_pts), "loungers": len(lo_pts),
        "lifeguardTowers": n_tower, "kiosks": n_kiosk, "seafrontBuildings": n_build, "piers": [p["id"] for p in coast["piers"]],
-       "lamps": len(lamp_pts), "benches": len(bench_pts), "rocks": len(rock_pts), "boats": len(boat_pts), "vehicles": len(veh_pts), "parkedCars": parked, "movingCars": moving, "pedestrians": len(ped_pts), "sunbathers": len(lie_pts), "swimmers": len(swim_pts), "status": "W4 coast - first production pass"}
+       "lamps": len(lamp_pts), "benches": len(bench_pts), "rocks": len(rock_pts), "boats": len(boat_pts), "nightLights": n_night, "vehicles": len(veh_pts), "parkedCars": parked, "movingCars": moving, "pedestrians": len(ped_pts), "sunbathers": len(lie_pts), "swimmers": len(swim_pts), "status": "W4 coast - first production pass"}
 (out_dir / "orla_generation_report.json").write_text(json.dumps(rep, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 print("ORLA GENERATED", json.dumps(rep))

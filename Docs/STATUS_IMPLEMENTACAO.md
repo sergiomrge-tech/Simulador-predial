@@ -266,4 +266,6 @@ Preparação concluída no GitHub:
 - Gerador: `Tools/Blender/create_coast.py` → `ArtSource/Blender/World/Coast/SantaAurora_Orla_v1.blend` (terreno de 5 m, mar, espuma, calçadão de pedra portuguesa, ciclovia, avenida, 2 píeres, farol, torres de salva-vidas, quiosques, ~2,2 mil palmeiras, guarda-sóis, rochas, barcos, ~240 prédios de orla em massing com faixas de pavimento).
 - Masterplan v1.5 regenerado com mar e cores de areia; pipeline `Run-W15World.ps1 -NoRender` passou (masterplan, Cidade Antiga, kit).
 - Capturas: `ArtSource/Blender/World/Reviews/W4/`.
-- Pendente: a Cidade Antiga base ainda não foi refeita em alta fidelidade ao sul de z = −3400 (terreno novo vale, arte antiga); orla sem veículos/pedestres; prédios da orla são massing; sem render de entardecer/noite; sem integração Unity.
+- Vida: ~1,4 mil carros (LOD1, famílias genéricas originais), ~1,9 mil pedestres, ~2,4 mil banhistas, ~680 nadadores (figuras autorais, instâncias GN).
+- Hora do dia: `Tools/Blender/render_orla_time_of_day.py` (dia / dusk / night). A noite liga a coleção `09_Night_Lights` (~700 spots nos postes + luar) e acende as vitrines; a coleção fica oculta no render diurno.
+- Pendente: a Cidade Antiga base ainda não foi refeita em alta fidelidade ao sul de z = −3400 (terreno novo vale, arte antiga); prédios da orla são massing; figuras e palmeiras são de baixa/média complexidade (não final); sem integração Unity.
