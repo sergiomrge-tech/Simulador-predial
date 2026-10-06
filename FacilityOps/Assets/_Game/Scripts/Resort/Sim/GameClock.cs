@@ -34,6 +34,16 @@ namespace ResortAurora.Sim
             if (DayOver) bus.Publish(new DayEnded(Day));
         }
 
+        /// <summary>The player spends game time on something (making a bed): the clock jumps ahead, firing hour events on the way.</summary>
+        public void Skip(float minutes)
+        {
+            if (DayOver) return;
+            int before = Hour;
+            Minutes = System.Math.Min(DayEnd, Minutes + minutes);
+            if (Hour != before) bus.Publish(new HourChanged(Day, Hour));
+            if (DayOver) bus.Publish(new DayEnded(Day));
+        }
+
         public void StartNextDay() { Day++; Minutes = DayStart; bus.Publish(new HourChanged(Day, Hour)); }
 
         public static string Format(float minutes) => $"{(int)(minutes / 60f):00}:{(int)(minutes % 60f):00}";

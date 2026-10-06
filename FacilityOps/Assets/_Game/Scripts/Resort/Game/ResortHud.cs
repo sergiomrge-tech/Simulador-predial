@@ -42,6 +42,7 @@ namespace ResortAurora.Game
                 case Panel.Summary: DrawSummary(); break;
                 case Panel.Help: DrawHelp(); break;
                 case Panel.Parcels: DrawParcels(); break;
+                case Panel.Lodging: DrawLodging(); break;
             }
             if (game.ToastActive) GUI.Label(new Rect(0, Screen.height * 0.12f, Screen.width, 40), game.Toast, centered);
         }
@@ -185,8 +186,49 @@ namespace ResortAurora.Game
                 $"Reputação: {Mathf.RoundToInt(d.reputation * 100)}% (barraca vai até {Mathf.RoundToInt(game.Stall.ReputationCap * 100)}%)",
                 $"Saldo: R$ {d.balance}",
             };
+            if (d.lodging != null && game.Lodging.Unlocked)
+                lines = new System.Collections.Generic.List<string>(lines)
+                {
+                    $"Pousada: {d.lodging.occupied} quartos ocupados, {d.lodging.checkedIn} chegadas, {d.lodging.turnedAway} sem vaga, {d.lodging.checkedOut} saídas, {d.lodging.dirtyLeft} sujos",
+                    d.lodging.reviews.Count > 0 ? $"Última avaliação: {d.lodging.reviews[d.lodging.reviews.Count - 1].stars}★ — {d.lodging.reviews[d.lodging.reviews.Count - 1].text}" : "Sem novas avaliações.",
+                }.ToArray();
             foreach (var l in lines) { GUI.Label(new Rect(r.x + 30, y, r.width - 60, row), l, label); y += row; }
             if (GUI.Button(new Rect(r.x + 30, r.yMax - 70, r.width * 0.4f, 50), "Salvo. Começar o próximo dia", button)) game.StartNextDay();
+        }
+
+        void DrawLodging()
+        {
+            if (!Begin("Pousada do Seu Tonico")) return;
+            var l = game.Lodging;
+            var r = PanelRect(); float y = r.y + 70, row = lastH / 17f;
+            GUI.Label(new Rect(r.x + 20, y, r.width - 40, row),
+                $"Ocupados {l.OccupiedCount()}/{l.Rooms.Count}   Sujos {l.DirtyCount()}   Livres {l.VacantCount()}   Nota média {(l.AverageStars() > 0 ? l.AverageStars().ToString("0.0") + " ★" : "—")}   Hóspedes no total {l.TotalGuests}", label);
+            y += row * 1.3f;
+            foreach (var room in l.Rooms)
+            {
+                string st = room.state == RoomState.Occupied ? $"{room.guestName} ({room.nightsLeft}n)" : room.state == RoomState.Dirty ? "SUJO" : "livre";
+                GUI.Label(new Rect(r.x + 20, y, r.width * 0.30f, row), $"Quarto {room.id}  {LodgingModel.QualityNames[room.quality]}", label);
+                GUI.Label(new Rect(r.x + r.width * 0.30f, y, r.width * 0.18f, row), st, label);
+                if (GUI.Button(new Rect(r.x + r.width * 0.49f, y, row, row), "-", button)) l.SetPrice(room.id, room.price - 5);
+                GUI.Label(new Rect(r.x + r.width * 0.49f + row + 4, y, 90, row), "R$ " + room.price, label);
+                if (GUI.Button(new Rect(r.x + r.width * 0.49f + row + 80, y, row, row), "+", button)) l.SetPrice(room.id, room.price + 5);
+                if (room.state == RoomState.Dirty && GUI.Button(new Rect(r.x + r.width * 0.68f, y, r.width * 0.12f, row), "Arrumar", button))
+                { l.Clean(room.id); game.Clock.Skip(15f); }
+                bool canUp = room.quality < 3 && room.state != RoomState.Occupied;
+                GUI.enabled = canUp;
+                if (room.quality < 3 && GUI.Button(new Rect(r.x + r.width * 0.81f, y, r.width * 0.17f, row), $"Reformar R$ {LodgingModel.UpgradeCost[room.quality + 1]}", button))
+                    game.Say(l.Upgrade(room.id, game.Ledger, game.Clock.Day) ? "Quarto reformado!" : "Dinheiro insuficiente.");
+                GUI.enabled = true;
+                y += row * 1.2f;
+            }
+            y += row * 0.5f;
+            GUI.Label(new Rect(r.x + 20, y, r.width * 0.9f, row), "Avaliações recentes", big); y += row * 1.4f;
+            for (int i = l.Reviews.Count - 1, n = 0; i >= 0 && n < 4; i--, n++)
+            {
+                var rv = l.Reviews[i];
+                GUI.Label(new Rect(r.x + 30, y, r.width * 0.9f, row), $"{new string('★', rv.stars)}{new string('☆', 5 - rv.stars)}  {rv.guest}: {rv.text}", small); y += row;
+            }
+            GUI.Label(new Rect(r.x + 20, r.yMax - 100, r.width * 0.7f, row * 2f), "Hóspedes chegam ao fechar o dia. Camareiras limpam 3 a 6 quartos por dia; o resto fica com você (cada quarto custa 15 min). Preço justo + qualidade = boas notas.", small);
         }
 
         void DrawParcels()

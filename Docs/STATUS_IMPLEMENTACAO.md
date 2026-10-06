@@ -284,3 +284,11 @@ Preparação concluída no GitHub:
 - **Cena**: menu `Resort Aurora > Create Prologue Scene` → `Assets/_Game/Scenes/ResortPrologue.unity`.
 - **Verificações reais**: smoke headless de balanceamento (`ResortSimSmokeTest`) e **teste PlayMode** (`Tests/PlayMode/PrologueDayTests`) que carrega a cena, joga um dia inteiro com piloto automático, fecha o dia, salva, contrata Marisa e confere o save. PASSOU: dia 1 com 31–40 atendidos e receita de 267–342. Capturas em `ArtSource/Blender/World/Reviews/R2/`.
 - **Não verificado**: jogo com teclado/mouse reais (andar, olhar, segurar E), feeling do preparo, balanceamento com humano; visual é provisório (primitivas, sem PBR). O trajeto Apto 12 → praia fica para o R3 (mapa do bairro).
+
+## Resort R5 — Pousada do Seu Tonico (etapa 3) (2026-10-06)
+
+- **Regras** (`Sim/Lodging.cs`, C# puro): 6 quartos com qualidade (Simples, Conforto, Superior, Suíte), preço por noite e estado (livre, ocupado, sujo). Ao fechar o dia: saídas geram **avaliação** (estrelas e texto pela relação qualidade × expectativa × preço justo; mexe na reputação até o teto de 85%), camareiras limpam 3–6 quartos cada, chegam hóspedes por perfil (mochileiro, casal, família; os melhores perfis vêm com reputação alta) e a noite é paga. Lavanderia custa R$ 6 por saída.
+- **Equipe**: novos papéis Camareira e Recepcionista (+15% de chegadas); a capacidade sobe para 4 com a pousada.
+- **Jogo**: comprar P2 abre a pousada (e mostra o sobrado, etapa 3); placa "Recepção" na frente do sobrado abre o painel (preços ±5, reformar quarto, arrumar quarto = 15 min do seu dia, avaliações). O resumo do dia mostra a noite da pousada. O save guarda quartos, avaliações e total de hóspedes (saves antigos continuam válidos).
+- **Balanceamento** (smoke headless, 30 noites): R$ 55 sem camareira ≈ 70% de ocupação, R$ 6,9 mil; com camareira ≈ 93%, R$ 9,2 mil; reformar tudo para Conforto a R$ 90 ≈ R$ 13,9 mil; R$ 140 num quarto Simples derruba a ocupação a 23% e a nota a 1,1★ (preço injusto é punido).
+- **Verificado**: 6 testes de PlayMode passam (prólogo, etapas, quiosque, desempenho, pousada abre/fecha o dia/salva, recarga preserva os quartos). **Não verificado**: o painel IMGUI da pousada em uso real (teclado e mouse) e o equilíbrio com um humano.

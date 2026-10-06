@@ -20,6 +20,9 @@ namespace ResortAurora.Sim
         public List<StaffMember> staff = new List<StaffMember>();
         public List<Transaction> transactions = new List<Transaction>();
         public List<string> parcels = new List<string>();   // owned parcel ids (older saves: empty -> defaults apply)
+        public List<Room> rooms = new List<Room>();          // empty until the pousada exists
+        public List<Review> reviews = new List<Review>();
+        public int totalGuests;
         public int stage = 1;
         public int totalServed;
     }

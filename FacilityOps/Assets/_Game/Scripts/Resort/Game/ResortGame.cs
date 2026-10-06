@@ -24,6 +24,7 @@ namespace ResortAurora.Game
         public StaffRoster Roster { get; private set; }
         public StallService Service { get; private set; }
         public ParcelBook Parcels { get; private set; }
+        public LodgingModel Lodging { get; private set; }
         public ResortStages Stages { get; private set; }
         public StallLayout Layout { get; private set; }
         public Weather Weather { get; private set; }
@@ -43,6 +44,7 @@ namespace ResortAurora.Game
         public sealed class DaySummary
         {
             public int day, revenue, expenses, served, lost, payroll, melted, balance;
+            public NightReport lodging;
             public float reputation; public Weather weather;
             public Dictionary<string, int> byCategory;
         }
@@ -54,6 +56,7 @@ namespace ResortAurora.Game
             Ledger = new Ledger(Bus, startingMoney);
             Stall = new StallModel();
             Roster = new StaffRoster(Bus);
+            Lodging = new LodgingModel(Bus);
             Service = new StallService(Bus, Stall, Ledger, Roster, () => Clock.Day);
             Seed = Random.Range(1, 99999);
 
@@ -68,12 +71,13 @@ namespace ResortAurora.Game
 
             Stages = new GameObject("ResortStages").AddComponent<ResortStages>();
             Stages.Init(site);
-            Bus.Subscribe<ParcelBought>(e => RefreshStage());
+            Bus.Subscribe<ParcelBought>(e => { if (e.Id == "P2") UnlockLodging(true); RefreshStage(); });
 
             bool hasSave = SaveStore.Exists();
             if (hasSave) Load(SaveStore.Read());
             // New game: wake up at the Santa Clara door and walk to work (the commute is part of the story). Otherwise start at the stall.
             if (hasSave) PlaceAtStall(); else PlaceAtHome();
+            if (Parcels.Owns("P2")) UnlockLodging(false);
             RefreshStage();
             Weather = DemandModel.WeatherFor(Seed, Clock.Day);
             Bus.Subscribe<CustomerServed>(e => TotalServed++);
@@ -81,6 +85,30 @@ namespace ResortAurora.Game
             Layout.RefreshStaff(this);
             Say(hasSave ? "Jogo carregado. Bom dia!" : "Primeiro dia! Siga para a barraca no calçadão, ao sul.", 7f);
             SetCursor(false);
+        }
+
+        /// <summary>The pousada exists once the sobrado parcel (P2) is owned: six simple rooms, room for two more helpers, a reception desk.</summary>
+        void UnlockLodging(bool announce)
+        {
+            Lodging.Unlock();
+            Roster.Capacity = Mathf.Max(Roster.Capacity, 4);
+            EnsureLodgingDesk();
+            if (announce) Say("A pousada abriu! Use a recepção (placa na frente do sobrado) para preços, quartos e avaliações.", 7f);
+        }
+
+        GameObject lodgingDesk;
+        void EnsureLodgingDesk()
+        {
+            if (lodgingDesk != null) return;
+            var p2 = System.Array.Find(site.Data.parcels, p => p.id == "P2");
+            if (p2 == null) return;
+            float x = p2.x + 14f, z = p2.z + 1.2f, y = site.HeightAt(x, z);
+            lodgingDesk = new GameObject("LodgingDesk");
+            lodgingDesk.transform.position = new Vector3(x, y, z);
+            var board = StallBuilder.Box("Board", lodgingDesk.transform, new Vector3(0f, 1.2f, 0f), new Vector3(1.8f, 1.2f, 0.12f), new Color(0.2f, 0.35f, 0.5f));
+            StallBuilder.Box("Post", lodgingDesk.transform, new Vector3(0f, 0.5f, 0f), new Vector3(0.14f, 1.0f, 0.14f), new Color(0.4f, 0.28f, 0.18f), collider: false);
+            var st = board.AddComponent<PanelStation>(); st.panel = Panel.Lodging; st.label = "Recepção da Pousada";
+            StallBuilder.Label(lodgingDesk.transform, new Vector3(0f, 2.3f, 0f), "POUSADA\nRecepção", 44, 0.09f);
         }
 
         /// <summary>Shows the physical stage that matches the land owned (RESORT_STAGE overrides it for captures and tests).</summary>
@@ -107,6 +135,7 @@ namespace ResortAurora.Game
             Roster.Restore(s.staff);
             Clock.Restore(s.day, GameClock.DayStart);
             TotalServed = s.totalServed;
+            if (s.rooms != null && s.rooms.Count > 0) Lodging.Restore(s.rooms, s.reviews, s.totalGuests);
         }
 
         public void SaveNow()
@@ -115,6 +144,9 @@ namespace ResortAurora.Game
             s.stock = Stall.ExportStock();
             s.upgrades.AddRange(Stall.OwnedUpgrades);
             s.parcels.AddRange(Parcels.Owned);
+            s.rooms.AddRange(Lodging.Rooms);
+            s.reviews.AddRange(Lodging.Reviews);
+            s.totalGuests = Lodging.TotalGuests;
             s.staff.AddRange(Roster.Hired);
             s.transactions.AddRange(Ledger.History);
             SaveStore.Write(s);
@@ -172,11 +204,12 @@ namespace ResortAurora.Game
             int payroll = Roster.DailyPayroll();
             Ledger.Add(day, "salarios", -payroll);
             int melted = Stall.MeltStock();
+            var night = Lodging.RunNight(day, Stall, Roster, Ledger, Weather, rng);
             var byCat = Ledger.DayByCategory(day);
             LastSummary = new DaySummary
             {
                 day = day, revenue = Ledger.DayTotal(day, true), expenses = Ledger.DayTotal(day, false), served = Service.Served, lost = Service.Lost,
-                payroll = payroll, melted = melted, balance = Ledger.Balance, reputation = Stall.Reputation, weather = Weather, byCategory = byCat,
+                payroll = payroll, melted = melted, lodging = night, balance = Ledger.Balance, reputation = Stall.Reputation, weather = Weather, byCategory = byCat,
             };
             SaveNow();
             OpenPanel(Panel.Summary);

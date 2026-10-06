@@ -22,6 +22,12 @@ namespace ResortAurora.EditorTools
             Debug.Log($"SMOKE player alone 7 days: balance={solo.balance} served={solo.served} lost={solo.lost} rep={solo.rep:0.00}");
             var withPlayer = SimulateDays(7, new[] { "staff.dudu" }, player: true);
             Debug.Log($"SMOKE player+Dudu 7 days: balance={withPlayer.balance} served={withPlayer.served} lost={withPlayer.lost} rep={withPlayer.rep:0.00}");
+            foreach (var cfg in new[] { (price: 55, maid: false, upgrade: false), (price: 55, maid: true, upgrade: false), (price: 90, maid: true, upgrade: true), (price: 140, maid: true, upgrade: false) })
+            {
+                var lr = SimulateLodging(30, cfg.price, cfg.maid, cfg.upgrade);
+                Debug.Log($"SMOKE pousada price={cfg.price} maid={cfg.maid} upgraded={cfg.upgrade} 30 nights: revenue={lr.revenue} occupancy={lr.occupancy:0.00} guests={lr.guests} avgStars={lr.stars:0.0} rep={lr.rep:0.00} dirtyAtEnd={lr.dirty}");
+                ok &= lr.guests >= 0;
+            }
             // ledger invariant
             var bus = new EventBus(); var l = new Ledger(bus, 100);
             ok &= !l.TrySpend(1, "x", 101) && l.Balance == 100 && l.TrySpend(1, "x", 40) && l.Balance == 60;
@@ -30,6 +36,31 @@ namespace ResortAurora.EditorTools
             ok &= back.balance == 123 && back.day == 4;
             Debug.Log(ok ? "SMOKE PASS" : "SMOKE FAIL");
             EditorApplication.Exit(ok ? 0 : 1);
+        }
+
+        struct LodgingResult { public int revenue, guests, dirty; public float occupancy, stars, rep; }
+
+        static LodgingResult SimulateLodging(int nights, int price, bool maid, bool upgrade)
+        {
+            var bus = new EventBus();
+            var ledger = new Ledger(bus, 5000);
+            var stall = new StallModel { ReputationCap = 0.85f };
+            stall.Reputation = 0.4f;
+            var roster = new StaffRoster(bus) { Capacity = 4 };
+            if (maid) { ledger.Add(1, "teste", 200); roster.Hire("staff.nilza", ledger, 1); }
+            var lod = new LodgingModel(bus);
+            lod.Unlock();
+            foreach (var r in lod.Rooms) { lod.SetPrice(r.id, price); if (upgrade) lod.Upgrade(r.id, ledger, 1); }
+            var rng = new System.Random(7);
+            int revenue = 0, occ = 0;
+            for (int d = 1; d <= nights; d++)
+            {
+                var w = DemandModel.WeatherFor(1, d);
+                var n = lod.RunNight(d, stall, roster, ledger, w, rng);
+                revenue += n.revenue; occ += n.occupied;
+                if (!maid) foreach (var r in lod.Rooms) lod.Clean(r.id);   // the player cleans by hand every day
+            }
+            return new LodgingResult { revenue = revenue, guests = lod.TotalGuests, dirty = lod.DirtyCount(), occupancy = occ / (float)(nights * lod.Rooms.Count), stars = lod.AverageStars(), rep = stall.Reputation };
         }
 
         struct Result { public int balance, served, lost; public float rep; }

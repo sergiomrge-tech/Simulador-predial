@@ -4,7 +4,7 @@ using ResortAurora.Core;
 
 namespace ResortAurora.Sim
 {
-    public enum StaffRole { Atendente, Cozinheiro }
+    public enum StaffRole { Atendente, Cozinheiro, Camareira, Recepcionista }   // append only: saves store the number
 
     [Serializable]
     public sealed class StaffMember
@@ -39,6 +39,12 @@ namespace ResortAurora.Sim
                 bio = "Ex-caixa de supermercado. Não erra uma conta." });
             pool.Add(new StaffMember { id = "staff.beto", name = "Beto Lima", role = StaffRole.Cozinheiro, skill = 0.4f, wage = 35,
                 bio = "Aprendiz animado, ainda queima uns pastéis." });
+            pool.Add(new StaffMember { id = "staff.nilza", name = "Nilza Prado", role = StaffRole.Camareira, skill = 0.7f, wage = 55,
+                bio = "Quinze anos arrumando quartos de pousada. Lençol esticado, sem reclamação." });
+            pool.Add(new StaffMember { id = "staff.tania", name = "Tânia Gomes", role = StaffRole.Camareira, skill = 0.45f, wage = 38,
+                bio = "Começando agora, mas muito esforçada." });
+            pool.Add(new StaffMember { id = "staff.rui", name = "Rui Almeida", role = StaffRole.Recepcionista, skill = 0.6f, wage = 50,
+                bio = "Fala três idiomas e sabe vender a diária certa." });
             pool.Add(new StaffMember { id = "staff.vera", name = "Dona Vera", role = StaffRole.Cozinheiro, skill = 0.9f, wage = 95,
                 bio = "Quarenta anos de fogão. Cara, mas faz milagre." });
         }
