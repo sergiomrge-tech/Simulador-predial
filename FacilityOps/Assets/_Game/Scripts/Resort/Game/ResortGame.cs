@@ -102,7 +102,7 @@ namespace ResortAurora.Game
             if (lodgingDesk != null) return;
             var p2 = System.Array.Find(site.Data.parcels, p => p.id == "P2");
             if (p2 == null) return;
-            float x = p2.x + 14f, z = p2.z + 1.2f, y = site.HeightAt(x, z);
+            float x = p2.x + 19f, z = p2.z + 1.2f, y = site.HeightAt(x, z);
             lodgingDesk = new GameObject("LodgingDesk");
             lodgingDesk.transform.position = new Vector3(x, y, z);
             var board = StallBuilder.Box("Board", lodgingDesk.transform, new Vector3(0f, 1.2f, 0f), new Vector3(1.8f, 1.2f, 0.12f), new Color(0.2f, 0.35f, 0.5f));

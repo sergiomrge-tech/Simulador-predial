@@ -56,3 +56,10 @@ e o **farol** de 38 m (apagado até a 6). O terreno é o "natural" nas etapas 1�
 
 - **Medição** (`PerformanceTests`, RTX 4060 Ti, 1080p, render forçado + leitura de pixel para esperar a GPU): etapa 1 ≈ 2,6 ms por quadro, etapa 7 ≈ 3,0 ms (aérea e nível do chão) e 4,2 ms no eixo central (pior quadro 21 ms, na carga). Ou seja 236–380 fps nesta máquina. Por isso **não há LOD**: o ganho seria irrelevante. Reavaliar em GPU mais fraca.
 - **Quiosque**: o modelo do quiosque foi refeito em torno da área de jogo da barraca (mesma origem e linha de balcão): bar aberto sob palapa, bancada de cozinha com coifa, prateleiras e geladeira, deck com mesas e guarda-sóis, luzes de varal e sanitários. Na etapa 2+ ele substitui a aparência da barraca; as estações (balcão, chapa, caixa do fornecedor, murais) continuam nos mesmos lugares, só os visuais estruturais da barraca ficam ocultos. Testado em PlayMode.
+
+## Sobrado da pousada com interior (2026-10-06)
+
+- O sobrado do Seu Tonico agora é oco e **andável**: portão aberto e caminho de tijolos até a porta; térreo com recepção (balcão, sofá), sala de café (3 mesas), corredor, cozinha e lavanderia; **escada externa** ao longo da parede leste até uma porta no corredor do andar de cima, com **seis quartos** (camas, criados-mudos, escrivaninhas, armários). Varanda de madeira, venezianas azuis e telhado de terracota mantidos.
+- Teste `PousadaInteriorTests`: o jogador entra pelo portão e pela porta da frente até a recepção e sobe a escada externa até o corredor do primeiro andar. Capturas: `r4_unity_pousada_*.png`.
+- **Lição de colisão**: o `CharacterController` (1,8 m, `stepOffset` 0,35 m) trava em qualquer passagem com menos de ~0,35 m de folga acima da cabeça (a varredura de degrau sobe a cápsula). Portas precisam de pelo menos **2,5 m** de altura e beirais baixos sobre áreas de caminhar devem ficar acima de ~2,2 m do piso. Todas as portas do sobrado foram elevadas.
+- `hip_roof` ganhou `drop` para o beiral descer e encostar na parede (antes o telhado flutuava acima do muro).

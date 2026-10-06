@@ -64,29 +64,128 @@ def kiosk(fr, z):
         fr.box(px - 0.12, px + 0.12, -3.12, -2.88, z + 3.0, z + 3.24, S["luz"])
 
 
+def _wall(fr, axis, pos, thick, a0, a1, z0, z1, mat, openings=()):
+    """Wall segment with rectangular openings. axis u runs along u at depth pos (thickness along d); axis d runs along d at u = pos.
+    openings: (a0, a1, zb, zt) in the wall own coordinate."""
+    cur = a0
+    for (o0, o1, zb, zt) in sorted(openings):
+        if o0 > cur:
+            _seg(fr, axis, pos, thick, cur, o0, z0, z1, mat)
+        _seg(fr, axis, pos, thick, o0, o1, z0, zb, mat)
+        _seg(fr, axis, pos, thick, o0, o1, zt, z1, mat)
+        cur = o1
+    if cur < a1:
+        _seg(fr, axis, pos, thick, cur, a1, z0, z1, mat)
+
+
+def _seg(fr, axis, pos, thick, a0, a1, z0, z1, mat):
+    if a1 - a0 < 1e-3 or z1 - z0 < 1e-3:
+        return
+    if axis == "u":
+        fr.box(a0, a1, pos, pos + thick, z0, z1, mat)
+    else:
+        fr.box(pos, pos + thick, a0, a1, z0, z1, mat)
+
+
+def _bed(fr, u, d, z):
+    """Double bed with headboard, pillows and a duvet; head against the wall at larger d."""
+    fr.box(u, u + 1.6, d, d + 2.0, z + 0.05, z + 0.4, S["madeira_escura"])
+    fr.box(u + 0.05, u + 1.55, d + 0.05, d + 1.95, z + 0.4, z + 0.6, S["tecido"])
+    fr.box(u + 0.05, u + 1.55, d + 0.1, d + 1.2, z + 0.6, z + 0.66, S["terracota"])
+    fr.box(u, u + 1.6, d + 1.9, d + 2.0, z + 0.05, z + 1.2, S["teca"])
+    for k in range(2):
+        fr.box(u + 0.15 + k * 0.75, u + 0.8 + k * 0.75, d + 1.45, d + 1.85, z + 0.6, z + 0.75, S["tecido"])
+
+
 def sobrado(fr, z, L=16.0, D=11.0, seed=0):
-    """Stage 3: the colonial sobrado of Seu Tonico: two floors, white lime walls, terracotta hip roof, blue shutters, timber balcony, garden wall."""
-    rng = random.Random(seed)
-    fr.box(0, L, 0, D, z, z + 0.5, S["travertino"])                                      # plinth
-    fr.box(0, L, 0, D, z + 0.5, z + 7.0, S["estuque"])
-    for fl, zb in ((0, z + 0.5), (1, z + 3.9)):
-        for k in range(4):                                                                # windows with blue shutters
-            u = 1.6 + k * 3.5
-            fr.box(u, u + 1.1, -0.04, 0.04, zb + 0.6, zb + 2.2, S["vidro"], top=False, back=False, sides=False)
-            fr.box(u - 0.5, u - 0.05, -0.12, 0.0, zb + 0.55, zb + 2.25, S["azulejo"])
-            fr.box(u + 1.15, u + 1.6, -0.12, 0.0, zb + 0.55, zb + 2.25, S["azulejo"])
-            fr.box(u - 0.08, u + 1.2, -0.1, 0.05, zb + 2.2, zb + 2.3, S["travertino"])
-    fr.box(L / 2 - 0.9, L / 2 + 0.9, -0.1, 0.1, z + 0.5, z + 2.9, S["madeira_escura"])   # arched front door (rectangular read)
-    fr.box(0.0, L, -2.2, 0.0, z + 3.7, z + 3.9, S["teca"])                               # first-floor balcony slab
-    fr.box(0.0, L, -2.2, -2.1, z + 3.9, z + 4.9, S["teca"], top=False)
+    """Stage 3: the colonial sobrado of Seu Tonico, with a real interior. Ground floor: reception and breakfast room at the front, a stair
+    corridor, kitchen and laundry at the back. Upper floor: a corridor and six rooms (three facing the sea). White lime walls, terracotta hip
+    roof, blue shutters, timber balcony; the garden gate is open so the player can walk in."""
+    T = 0.25
+    zg = z + 0.5                       # ground floor level
+    zs = z + 3.9                       # first-floor slab (top)
+    zu = zs + 0.25                     # first-floor level
+    zr = z + 7.0                       # eave
+    fr.box(0, L, 0, D, z, zg, S["travertino"])                                           # plinth slab
+    ground_ops = [(1.6, 2.7, zg + 0.6, zg + 2.3), (4.4, 5.5, zg + 0.6, zg + 2.3), (7.1, 8.9, zg, zg + 2.7), (10.4, 11.5, zg + 0.6, zg + 2.3), (13.3, 14.4, zg + 0.6, zg + 2.3)]
+    upper_ops = [(1.6 + k * 3.4, 2.7 + k * 3.4, zu + 0.6, zu + 2.3) for k in range(4)] + [(13.4, 14.5, zu + 0.6, zu + 2.3)]
+    _wall(fr, "u", 0.0, T, 0, L, zg, zs, S["estuque"], ground_ops)
+    _wall(fr, "u", 0.0, T, 0, L, zu, zr + 0.3, S["estuque"], upper_ops)
+    _wall(fr, "d", 0.0, T, 0, D, zg, zr + 0.3, S["estuque"])
+    _wall(fr, "d", L - T, T, 0, D, zg, zr + 0.3, S["estuque"], [(5.0, 6.4, zu - 0.12, zu + 2.45)])   # upper door onto the outdoor stair (sill sunk under the floor strip below)
+    _wall(fr, "u", D - T, T, 0, L, zg, zr + 0.3, S["estuque"],
+          [(3.0, 4.2, zg + 0.9, zg + 2.5), (11.0, 12.2, zg + 0.9, zg + 2.5), (2.0, 3.2, zu + 0.9, zu + 2.3), (7.0, 8.2, zu + 0.9, zu + 2.3), (12.0, 13.2, zu + 0.9, zu + 2.3)])
+    for (o0, o1, zb, zt) in ground_ops[:2] + ground_ops[3:] + upper_ops:                  # glass, blue shutters and sills in the front openings
+        fr.box(o0, o1, 0.08, 0.14, zb, zt, S["vidro"], top=False, bottom=False, back=False, sides=False)
+        fr.box(o0 - 0.5, o0 - 0.05, -0.1, 0.0, zb - 0.05, zt + 0.05, S["azulejo"])
+        fr.box(o1 + 0.05, o1 + 0.5, -0.1, 0.0, zb - 0.05, zt + 0.05, S["azulejo"])
+        fr.box(o0 - 0.08, o1 + 0.08, -0.1, 0.1, zt, zt + 0.1, S["travertino"])
+        fr.box(o0 - 0.08, o1 + 0.08, -0.14, 0.08, zb - 0.08, zb, S["travertino"])
+    fr.box(7.1, 8.9, 0.0, 0.1, zg + 2.7, zg + 2.85, S["madeira_escura"])                  # door lintel (the door itself stands open)
+    # first-floor slab (the stair is outdoors, along the east wall)
+    fr.box(0, L, 0, D, zs - 0.25, zs, S["concreto"], bottom=True, top=False)
+    fr.box(0, L, 0, D, zs, zu, S["teca"], bottom=False)
+    fr.box(0, L, 0, D, zg, zg + 0.04, S["marmore"])                                        # ground floor tiles
+    fr.box(0, L, 0, D, zr - 0.2, zr, S["estuque"], bottom=True, top=False)                 # upper ceiling
+    # ground floor partitions (doorways keep it walkable)
+    _wall(fr, "u", 5.0, 0.15, 0.0, L, zg, zs - 0.25, S["estuque"], [(2.5, 3.7, zg, zg + 2.5), (11.0, 12.2, zg, zg + 2.5)])
+    _wall(fr, "u", 6.4, 0.15, 0.0, L, zg, zs - 0.25, S["estuque"], [(3.0, 4.2, zg, zg + 2.5), (5.0, 6.2, zg, zg + 2.5)])
+    _wall(fr, "d", 8.0, 0.15, 0.0, 5.0, zg, zs - 0.25, S["estuque"], [(1.6, 2.8, zg, zg + 2.5)])
+    _wall(fr, "d", 8.0, 0.15, 6.4, D, zg, zs - 0.25, S["estuque"], [(8.2, 9.4, zg, zg + 2.5)])
+    fr.box(0.8, 3.4, 1.4, 2.2, zg + 0.04, zg + 1.1, S["madeira_escura"])                   # reception desk
+    fr.box(0.7, 3.5, 1.3, 2.3, zg + 1.1, zg + 1.16, S["marmore"])
+    fr.box(5.0, 7.6, 3.4, 4.6, zg + 0.04, zg + 0.45, S["tecido"])                           # sofa
+    fr.box(5.0, 7.6, 4.3, 4.6, zg + 0.45, zg + 0.95, S["tecido"])
+    for k in range(3):                                                                      # breakfast tables
+        tx, td = 9.5 + (k % 2) * 3.4, 1.4 + (k // 2) * 2.6
+        fr.box(tx, tx + 1.2, td, td + 1.2, zg + 0.04, zg + 0.78, S["teca"])
+        for dx, dd in ((-0.45, 0.3), (1.45, 0.3)):
+            fr.box(tx + dx, tx + dx + 0.4, td + dd, td + dd + 0.4, zg + 0.04, zg + 0.5, S["madeira_escura"])
+    fr.box(0.4, 7.6, D - 1.2, D - 0.3, zg + 0.04, zg + 0.9, S["aco_preto"])                 # kitchen counter
+    fr.box(0.3, 7.7, D - 1.3, D - 0.2, zg + 0.9, zg + 0.95, S["marmore"])
+    fr.box(9.0, 14.5, D - 1.2, D - 0.3, zg + 0.04, zg + 1.0, S["tecido"])                   # laundry shelves
+    nst = 21                                                                                # outdoor stair along the east wall, rising toward the front
+    for k in range(nst):
+        dd = 13.6 - (k + 1) * (7.2 / nst)
+        fr.box(L, L + 1.3, dd, dd + 7.2 / nst + 0.02, z, z + (k + 1) * (zu - z) / nst, S["travertino"])
+    fr.box(L - 0.6, L + 1.6, 4.9, 6.5, zu - 0.35, zu, S["teca"])                          # landing + threshold: one continuous slab under the doorway (no seam)
+    for k in range(nst):                                                                  # open guard rail following the flight
+        dd = 13.6 - (k + 1) * (7.2 / nst)
+        top = z + (k + 1) * (zu - z) / nst
+        fr.box(L + 1.2, L + 1.3, dd, dd + 7.2 / nst + 0.02, top, top + 0.95, S["madeira_escura"], top=False)
+    fr.box(L + 1.2, L + 1.3, 4.9, 6.5, zu, zu + 0.95, S["madeira_escura"], top=False)
+    # upper floor: corridor d 5.0..6.4, three sea-facing rooms in front, three at the back
+    for u in (5.33, 10.66):
+        _wall(fr, "d", u, 0.15, 0.0, 5.0, zu, zr - 0.2, S["estuque"])
+        _wall(fr, "d", u, 0.15, 6.4, D, zu, zr - 0.2, S["estuque"])
+    _wall(fr, "u", 4.85, 0.15, 0.0, L, zu, zr - 0.2, S["estuque"], [(2.0, 3.0, zu, zu + 2.45), (7.4, 8.4, zu, zu + 2.45), (12.7, 13.7, zu, zu + 2.45)])
+    _wall(fr, "u", 6.4, 0.15, 0.0, 10.9, zu, zr - 0.2, S["estuque"], [(2.0, 3.0, zu, zu + 2.45), (6.2, 7.2, zu, zu + 2.45)])
+    for k in range(3):                                                                      # front rooms
+        u0 = 0.4 + k * 5.33
+        _bed(fr, u0 + 1.2, 2.4, zu)
+        fr.box(u0 + 0.4, u0 + 0.9, 3.9, 4.4, zu, zu + 0.5, S["madeira_escura"])
+        fr.box(u0 + 3.0, u0 + 3.5, 3.9, 4.4, zu, zu + 0.5, S["madeira_escura"])
+        fr.box(u0 + 0.5, u0 + 1.6, 0.5, 1.4, zu, zu + 0.75, S["teca"])
+    for k in range(3):                                                                      # back rooms
+        u0 = 0.4 + k * 5.33
+        _bed(fr, u0 + 1.4, 7.6, zu)
+        fr.box(u0 + 0.3, u0 + 0.8, 9.6, 10.2, zu, zu + 0.5, S["madeira_escura"])
+        fr.box(u0 + 3.4, u0 + 4.7, 10.1, 10.7, zu, zu + 2.1, S["madeira_escura"])
+    fr.box(0.0, L, -2.2, 0.0, zs - 0.2, zs, S["teca"])                                      # balcony and outer details
+    fr.box(0.0, L, -2.2, -2.1, zs, zs + 1.0, S["teca"], top=False)
     for k in range(int(L / 0.35)):
-        fr.box(k * 0.35, k * 0.35 + 0.06, -2.18, -2.12, z + 3.9, z + 4.9, S["madeira_escura"], top=False)
+        fr.box(k * 0.35, k * 0.35 + 0.06, -2.18, -2.12, zs, zs + 1.0, S["madeira_escura"], top=False)
     for k in range(5):
-        fr.cyl(k * L / 4, -2.0, z + 0.5, 0.12, 3.2, 10, S["teca"])                       # turned posts
-    R.hip_roof(fr, -0.8, L + 0.8, -3.2, D + 0.8, z + 7.0, 3.6, S["terracota"], ridge=0.2)
-    fr.box(L * 0.7, L * 0.7 + 1.0, D * 0.6, D * 0.6 + 1.0, z + 7.0, z + 9.4, S["estuque"])   # chimney
-    fr.box(-3, L + 3, -11, -10.5, z, z + 1.6, S["estuque"])                              # garden wall with gate
-    fr.box(L / 2 - 1.2, L / 2 + 1.2, -11.1, -10.4, z, z + 2.2, S["aco_preto"], top=False)
+        fr.cyl(k * L / 4, -2.0, zg, 0.12, zs - zg - 0.2, 10, S["teca"])
+    R.hip_roof(fr, -0.8, L + 0.8, -3.2, D + 0.8, zr, 3.6, S["terracota"], ridge=0.2, drop=0.3)
+    fr.box(L * 0.7, L * 0.7 + 1.0, D * 0.6, D * 0.6 + 1.0, zr, zr + 2.4, S["estuque"])      # chimney
+    gx0, gx1 = L / 2 - 1.3, L / 2 + 1.3                                                     # garden wall with an open gate
+    fr.box(-3, gx0, -11, -10.6, z, z + 1.6, S["estuque"])
+    fr.box(gx1, L + 3, -11, -10.6, z, z + 1.6, S["estuque"])
+    for gx in (gx0 - 0.15, gx1 - 0.1):
+        fr.box(gx, gx + 0.25, -11.1, -10.5, z, z + 2.3, S["travertino"])
+        fr.box(gx - 0.05, gx + 0.3, -11.15, -10.45, z + 2.3, z + 2.45, S["marmore"])
+    fr.box(L / 2 - 0.9, L / 2 + 0.9, -10.0, 0.0, z + 0.02, z + 0.08, S["terracota"])        # path from the gate to the door
 
 
 def hotel_block(fr, z, L=60.0, floors=5, seed=0):

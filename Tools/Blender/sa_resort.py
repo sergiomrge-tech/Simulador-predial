@@ -165,7 +165,7 @@ def wing(fr, L, D, z0, floors, fh=3.4, bd=2.2, seed=0, brise=0.33, roof_garden=T
     zr = z0 + floors * fh
     if pitched:                                                                                     # whole-wing terracotta hip roof (varies the skyline)
         fr.box(-0.6, L + 0.6, -bd - 1.0, D + 0.6, zr, zr + 0.35, S["concreto"], bottom=True)
-        hip_roof(fr, -1.2, L + 1.2, -bd - 1.8, D + 1.2, zr + 0.35, 5.0, S["terracota"], ridge=0.12)
+        hip_roof(fr, -1.2, L + 1.2, -bd - 1.8, D + 1.2, zr + 0.35, 5.0, S["terracota"], ridge=0.12, drop=0.7)
         return zr + 5.4
     if end_pavilions:                                                                               # taller gabled corner pavilions (rhythm in the skyline)
         for (ua, ub) in ((-0.6, 7.5), (L - 7.5, L + 0.6)):
@@ -182,12 +182,13 @@ def wing(fr, L, D, z0, floors, fh=3.4, bd=2.2, seed=0, brise=0.33, roof_garden=T
     return zr
 
 
-def hip_roof(fr, u0, u1, d0, d1, zr, rise, mat, ridge=0.28):
+def hip_roof(fr, u0, u1, d0, d1, zr, rise, mat, ridge=0.28, drop=0.0):
     """Hipped roof: four sloped planes to a short ridge, with a thin fascia."""
     L, D = u1 - u0, d1 - d0
     cu0, cu1 = u0 + L * ridge, u1 - L * ridge
     cd0, cd1 = d0 + D * ridge, d1 - D * ridge
     top = zr + rise
+    zr = zr - drop                                                      # eave edge sits lower so the roof meets the wall top inside the overhang
     fr.quad((u0, d0, zr), (u1, d0, zr), (cu1, cd0, top), (cu0, cd0, top), mat)
     fr.quad((u1, d1, zr), (u0, d1, zr), (cu0, cd1, top), (cu1, cd1, top), mat)
     fr.quad((u0, d1, zr), (u0, d0, zr), (cu0, cd0, top), (cu0, cd1, top), mat)
