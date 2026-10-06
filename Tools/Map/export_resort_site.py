@@ -21,7 +21,7 @@ from masterplan_layout import load_spec  # noqa: E402
 
 SITE_X0, SITE_W = -450.0, 900.0
 SEA_MARGIN, LAND_DEPTH = 80.0, 640.0
-STEP = 3.0
+STEP = 1.5
 BLEND = 14.0                       # terrace skirt, metres
 
 spec = load_spec(root)
@@ -46,7 +46,7 @@ PARCELS = [
     dict(id="P2", name="Sobrado do Seu Tonico", x=(-70, -30), dz=(250, 290), price=6000, note="Futura pousada"),
     dict(id="P3", name="Quarteirão vizinho", x=(-25, 45), dz=(250, 310), price=15000, note="Hotel"),
     dict(id="P4", name="Grande Hotel Palmeiras", x=(55, 145), dz=(250, 330), price=40000, locked="story", note="Ruínas; exige a escritura (história)"),
-    dict(id="P5", name="Platô das Palmeiras", x=(-120, 120), dz=(400, 560), price=90000, terraces=4, note="Resort em terraços"),
+    dict(id="P5", name="Platô das Palmeiras", x=(-120, 120), dz=(400, 590), price=90000, terraces=4, heights=[6.5, 11.0, 15.5, 20.0], splits=[0, 39, 81, 120, 189], note="Resort em terraços"),
     dict(id="P6", name="Ponta do Farol", x=(330, 440), dz=(250, 350), price=150000, locked="stage", note="Ala exclusiva e farol"),
     dict(id="P7", name="Marina", x=(250, 350), dz=(110, 150), price=120000, locked="stage", note="Marina e píer leste"),
 ]
@@ -70,20 +70,38 @@ for p in PARCELS:
     x0, x1 = p["x"]; d0, d1 = p["dz"]
     n = p.get("terraces", 1)
     for k in range(n):
-        a = d0 + (d1 - d0) * k / n
-        b = d0 + (d1 - d0) * (k + 1) / n
+        if "splits" in p:
+            a, b = d0 + p["splits"][k], d0 + p["splits"][k + 1]
+        else:
+            a = d0 + (d1 - d0) * k / n
+            b = d0 + (d1 - d0) * (k + 1) / n
         h = round(terrain.ground((x0 + x1) / 2, shore0 + (a + b) / 2) * 20) / 20     # natural height at the centre, 5 cm steps
+        if "heights" in p:
+            h = p["heights"][k]                                                       # authored terraces (dramatic hillside amphitheatre)
         terraces.append(dict(parcel=p["id"], x=(x0, x1), dz=(a, b), h=h))
         pad_height.setdefault(p["id"], []).append(h)
 
 
 def height(wx, wz):
+    """Terraces are exactly flat inside their rectangles (so steps sit on the boundary); outside, the natural ground blends toward the nearest terrace."""
     h = terrain.ground(wx, wz)
     dz = wz - shore0
+    by_parcel = {}
     for t in terraces:
-        d = math.hypot(max(t["x"][0] - wx, 0.0, wx - t["x"][1]), max(t["dz"][0] - dz, 0.0, dz - t["dz"][1]))
-        if d < BLEND:
-            h += (t["h"] - h) * smooth(1.0 - d / BLEND)
+        by_parcel.setdefault(t["parcel"], []).append(t)
+    for pid, ts in by_parcel.items():
+        x0 = min(t["x"][0] for t in ts); x1 = max(t["x"][1] for t in ts)
+        d0 = min(t["dz"][0] for t in ts); d1 = max(t["dz"][1] for t in ts)
+        cx, cd = min(max(wx, x0), x1), min(max(dz, d0), d1)
+        dist = math.hypot(wx - cx, dz - cd)
+        if dist >= BLEND:
+            continue
+        near = next((t for t in ts if t["dz"][0] <= cd <= t["dz"][1] and t["x"][0] <= cx <= t["x"][1]), ts[0])
+        for t in ts:                                   # prefer the terrace whose half-open range contains the point (upper one at the shared edge)
+            if t["dz"][0] <= cd < t["dz"][1]:
+                near = t
+        w = 1.0 if dist == 0.0 else smooth(1.0 - dist / BLEND)
+        h += (near["h"] - h) * w
     return h
 
 

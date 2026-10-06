@@ -1,0 +1,21 @@
+{
+  "blend": "ArtSource/Blender/Resort/SantaAurora_GrandAurora_v1_noite.blend",
+  "polygons": 402272,
+  "stats": {
+    "wings": 8,
+    "villas": 8,
+    "pools": 7,
+    "palms": 146,
+    "arches": 96
+  },
+  "terraceHeights": [
+    6.5,
+    11.0,
+    15.5,
+    20.0
+  ],
+  "platoOrigin": [
+    330.0,
+    480.0
+  ]
+}
