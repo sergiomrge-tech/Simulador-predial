@@ -1,7 +1,7 @@
 # GDD — Resort Aurora (simulador de resort em Santa Aurora)
 
 Status: **proposta de planejamento, 2026-10-06.** Nasce da decisão do usuário de abandonar a manutenção como núcleo ("achei muito chato") e
-aproveitar ao máximo a cidade já construída. Nada aqui está implementado. Itens marcados **[DECIDIR]** precisam de resposta do usuário
+aproveitar ao máximo a cidade já construída. Nada aqui está implementado. Itens marcados **[DECIDIR]** foram decididos por Claude (ver Docs/DECISOES_ATUAIS.md, decisão 20)
 antes da produção.
 
 ## 1. Pitch

@@ -51,3 +51,10 @@ O planejamento detalhado está em `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`.
     manutenção fica congelado (não removido). Planejamento em `Docs/GDD_RESORT_SANTA_AURORA.md`; itens [DECIDIR] aguardam resposta. Onde esta
     decisão conflitar com o texto anterior sobre diagnóstico/reparo/campanha de serviços, esta prevalece, mas a perspectiva, a lore, a escala
     do mundo e a direção visual (decisões 2, 4, 6, 13–18) continuam valendo.
+
+20. **Regra de direção (06/10/2026):** Claude atua como diretor do jogo e pode tomar qualquer decisão de design, arquitetura, arte e priorização que melhore o jogo, sem pedir aprovação a cada passo, registrando-a aqui. Continua exigindo confirmação do usuário: publicar/push/PR, mudar visibilidade do repositório, apagar ou sobrescrever saves e dados do usuário e outras ações externas ou irreversíveis.
+
+### Decisões de direção tomadas por Claude (itens [DECIDIR] do GDD do resort)
+- Câmera: **visão aérea RTS com grid como modo principal de gestão; primeira pessoa como modo de inspeção** (briefing do usuário prevalece sobre o GDD inicial).
+- Tom: realista-cálido. Lore: manter Guto, Helena e Vértice como elenco do resort. Personagens: começar com assets licenciados/proxies, autoral depois. Single-player. Código de manutenção: congelado.
+- Mundo: o resort é construído sobre o terreno real da Orla; a cidade é contexto visível e não construível; carregar por blocos de ~1 km² no protótipo.
