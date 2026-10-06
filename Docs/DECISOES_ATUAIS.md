@@ -42,3 +42,12 @@ O planejamento detalhado está em `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`.
 20. **Fonte espacial oficial:** `Docs/WORLD_BIBLE_SANTA_AURORA_V1.md` + `ArtSource/Blender/World/masterplan_spec_v1.json`.
 21. **Fonte estrutural oficial:** `Docs/REGISTRO_ESTRUTURAS_SANTA_AURORA_V1.md` + `ArtSource/Blender/World/structure_registry_v1.json`.
 22. **Compatibilidade:** não substituir as coordenadas pequenas do runtime atual até existir uma migração explícita e validada. O mundo grande será construído em paralelo ao protótipo funcional para evitar regressões.
+
+
+## Decisão oficial — mudança de gênero (06/10/2026)
+
+19. **O jogo deixa de ser simulador de manutenção e passa a ser simulador de resort** ("Resort Aurora"), na Orla das Palmeiras, usando toda a
+    Santa Aurora como cadeia de turistas, equipe, fornecedores e atrações. Motivo do usuário: a manutenção foi considerada chata. O código de
+    manutenção fica congelado (não removido). Planejamento em `Docs/GDD_RESORT_SANTA_AURORA.md`; itens [DECIDIR] aguardam resposta. Onde esta
+    decisão conflitar com o texto anterior sobre diagnóstico/reparo/campanha de serviços, esta prevalece, mas a perspectiva, a lore, a escala
+    do mundo e a direção visual (decisões 2, 4, 6, 13–18) continuam valendo.

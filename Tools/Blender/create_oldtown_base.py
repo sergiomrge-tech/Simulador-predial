@@ -24,6 +24,7 @@ import bpy
 parser = argparse.ArgumentParser()
 parser.add_argument("--root", required=True)
 parser.add_argument("--slice", default="", help="W3 vertical slice: x0,y0,x1,y1 aligned to the 250 m grid (rebuilt in high fidelity)")
+parser.add_argument("--slice-name", default="W3", help="output folder / blend suffix of the slice (W3 keeps the original names)")
 parser.add_argument("--context", type=float, default=900.0, help="W3: link base subcells up to this distance around the slice")
 opts = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
 root = Path(opts.root).resolve()
@@ -2317,9 +2318,9 @@ if SLICE:
         if o_ is not None:
             ctx.objects.link(o_)
     STATS["w3_slice"] = {"rect": SLICE, "removed_outside": removed, "context_linked": len([o_ for o_ in dst.objects if o_ is not None])}
-    out_dir = out_dir / "W3"
+    out_dir = out_dir / opts.slice_name
     out_dir.mkdir(parents=True, exist_ok=True)
-    blend = out_dir / "SantaAurora_W3_VerticalSlice.blend"
+    blend = out_dir / ("SantaAurora_W3_VerticalSlice.blend" if opts.slice_name == "W3" else f"SantaAurora_{opts.slice_name}_VerticalSlice.blend")
 if SLICE:
     # W3.2: occluded bounced light for the 4 main heroes seen from the street (Unity equivalent: Adaptive Probe Volume per hero).
     # The hero files bake their own volumes, but those objects are scene-only and do not travel with the linked collection.
@@ -2369,5 +2370,5 @@ report = {
     "w2": dict(STATS, accessoryInstances=sum(len(v) for v in acc_pts.values())),
     "status": "W2 production base (W1.5 structure + N1/N3/N4 refinements) - not final art",
 }
-(out_dir / ("w3_slice_generation_report.json" if SLICE else "oldtown_generation_report.json")).write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+(out_dir / ((opts.slice_name.lower() + "_slice_generation_report.json") if SLICE else "oldtown_generation_report.json")).write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 print("OLD TOWN BASE GENERATED", json.dumps({k: report[k] for k in ("blend", "objectCount", "buildingInstances", "subcells")}))

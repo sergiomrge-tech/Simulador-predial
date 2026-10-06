@@ -1,5 +1,7 @@
 # PROJECT FACILITY — contexto para Claude
 
+> **ATUALIZAÇÃO 06/10/2026:** o usuário decidiu trocar o gênero para **simulador de resort** (Orla das Palmeiras). Leia `Docs/GDD_RESORT_SANTA_AURORA.md` e a decisão 19 em `Docs/DECISOES_ATUAIS.md`. As seções abaixo sobre manutenção/campanha de serviços estão **congeladas**; mundo, lore, primeira pessoa e direção visual continuam valendo.
+
 Leia primeiro `Docs/DECISOES_ATUAIS.md`, `Docs/PLANO_MESTRE_MUNDO_SANTA_AURORA.md`, `Docs/WORLD_BIBLE_SANTA_AURORA_V1.md`, `Docs/REGISTRO_ESTRUTURAS_SANTA_AURORA_V1.md`, `Docs/ART_BIBLE_REALISMO_SANTA_AURORA.md`, `Docs/GDD_PROGRESSAO_VIDA_LIBERDADE_ECONOMIA.md`, `Docs/LORE_CAMPANHA_ORIGINAL.md`, `Docs/MAPA_CAMPANHA.md`, `Docs/STATUS_IMPLEMENTACAO.md` e `README.md`.
 
 ## Direção vigente
