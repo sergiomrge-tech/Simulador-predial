@@ -28,6 +28,8 @@ namespace ResortAurora.Game
         public ResortStages Stages { get; private set; }
         public StallLayout Layout { get; private set; }
         public Weather Weather { get; private set; }
+        public DayNightCycle DayNight { get; private set; }
+        public BeachLife Life { get; private set; }
         public Panel OpenedPanel { get; private set; }
         public ResortSite Site => site;
         public int Seed { get; private set; }
@@ -38,7 +40,7 @@ namespace ResortAurora.Game
 
         readonly List<CustomerAgent> agents = new List<CustomerAgent>();
         readonly System.Random rng = new System.Random();
-        float spawnAccumulator, ambientAccumulator;
+        float spawnAccumulator;
         bool dayClosing, closingRequested;
 
         /// <summary>The stall only gets customers while it is open (sign on the counter). Opening and closing are the player's decisions.</summary>
@@ -66,7 +68,10 @@ namespace ResortAurora.Game
             Seed = Random.Range(1, 99999);
 
             if (!site.Ready) site.Build();
+            DayNight = new GameObject("DayNight").AddComponent<DayNightCycle>();
+            DayNight.Init(this, sun);
             Layout = StallBuilder.Build(this, site, site.StallX);
+            DayNight.BuildPromenadeLamps(site, site.StallX);
             player.Bind(this);
 
             Parcels = new ParcelBook(Bus);
@@ -89,6 +94,8 @@ namespace ResortAurora.Game
             Bus.Subscribe<CustomerServed>(e => TotalServed++);
             Bus.Subscribe<StaffChanged>(e => Layout.RefreshStaff(this));
             Layout.RefreshStaff(this);
+            Life = new GameObject("BeachLife").AddComponent<BeachLife>();
+            Life.Init(this);
             Say(hasSave ? "Jogo carregado. Bom dia!" : "Primeiro dia! Siga para a barraca no calçadão, ao sul.", 7f);
             SetCursor(false);
         }
@@ -124,6 +131,7 @@ namespace ResortAurora.Game
             int stage = int.TryParse(forced, out var f) ? Mathf.Clamp(f, 1, 7) : ResortStages.StageFor(Parcels);
             Stages.SetStage(stage);
             Layout.SetKioskLook(stage >= 2);
+            Layout.RefreshUpgrades(this);
         }
 
         /// <summary>The bed of the Apto 12 (sleep to start the next day) and the building sign. The kitnet model itself is an exported stage piece.</summary>
@@ -140,6 +148,11 @@ namespace ResortAurora.Game
             st.canUse = g => g.AwaitingSleep;
             st.action = g => g.SleepNow();
             var door = new Vector3(h.x, site.HeightAt(h.x, oz), oz);
+            // porch lamp by the door and a warm light inside the kitnet (the home glows when the sun goes down)
+            var porch = new GameObject("HomePorchLamp"); porch.transform.position = door + new Vector3(1.3f, 2.7f, -0.55f);
+            DayNight.LampHead(porch.transform, Vector3.zero, 0.26f);
+            DayNight.AddLamp(porch.transform.position + new Vector3(0f, -0.1f, -0.4f), 11f, 2.4f);
+            DayNight.AddLamp(new Vector3(ox + 6.5f, y + 2.3f, oz + 4f), 10f, 1.7f, new Color(1f, 0.82f, 0.55f));
             StallBuilder.Label(new GameObject("HomeSign").transform, Vector3.zero, h.name + "\n" + h.unit, 44, 0.08f).transform.parent.position = door + new Vector3(0f, 3.9f, -0.6f);
         }
 
@@ -185,7 +198,6 @@ namespace ResortAurora.Game
                 Service.Tick(dt);
                 if (ShopOpen) SpawnCustomers(dt);
             }
-            UpdateSun();
             if ((Clock.DayOver || closingRequested) && !dayClosing && Service.Queue.Count == 0 && Service.Tickets.Count == 0 && Service.Ready.Count == 0) CloseDay();
             if (OpenedPanel != Panel.None && UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.escapeKey.wasPressedThisFrame && OpenedPanel != Panel.Summary) ClosePanel();
             if (UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.f1Key.wasPressedThisFrame) OpenPanel(OpenedPanel == Panel.Help ? Panel.None : Panel.Help);
@@ -203,16 +215,12 @@ namespace ResortAurora.Game
                 var data = Service.Arrive(product);
                 SpawnAgent(data);
             }
-            // Cosmetic passers-by that do not stop keep the promenade alive.
-            ambientAccumulator += passers * 0.7f * hourMinutes / 60f;
-            while (ambientAccumulator >= 1f && agents.Count < 40) { ambientAccumulator -= 1f; SpawnAgent(null); }
-            ambientAccumulator = Mathf.Min(ambientAccumulator, 3f);
         }
 
         void SpawnAgent(Customer data)
         {
             bool fromWest = rng.NextDouble() < 0.5;
-            var go = new GameObject(data != null ? "Customer" + data.Id : "Walker");
+            var go = new GameObject("Customer" + data.Id);
             var agent = go.AddComponent<CustomerAgent>();
             agent.Init(this, data, fromWest, (float)rng.NextDouble());
             agents.Add(agent);
@@ -275,7 +283,7 @@ namespace ResortAurora.Game
             Clock.StartNextDay();
             Service.ResetDay();
             Weather = DemandModel.WeatherFor(Seed, Clock.Day);
-            spawnAccumulator = ambientAccumulator = 0f;
+            spawnAccumulator = 0f;
             ClosePanel(force: true);
             PlaceAtHome();                                  // the next morning starts at the door of the Apto 12
             SaveNow();
@@ -289,20 +297,5 @@ namespace ResortAurora.Game
         public void Say(string text, float seconds = 4f) { Toast = text; toastUntil = Time.time + seconds; }
         public bool ToastActive => Time.time < toastUntil;
 
-        void UpdateSun()
-        {
-            if (sun == null) return;
-            float t = Mathf.InverseLerp(6f, 20f, Clock.Hours);               // 0 sunrise .. 1 sunset
-            float elevation = Mathf.Sin(Mathf.Clamp01(t) * Mathf.PI) * 70f + 4f;
-            sun.transform.rotation = Quaternion.Euler(elevation, 70f + t * 40f, 0f);
-            float low = 1f - Mathf.Sin(Mathf.Clamp01(t) * Mathf.PI);
-            sun.color = Color.Lerp(new Color(1f, 0.96f, 0.88f), new Color(1f, 0.62f, 0.38f), low);
-            sun.intensity = Mathf.Lerp(1.15f, 0.45f, low * low);
-            // tri-light ambient: sky / horizon / ground bounce, so shaded facades keep form and colour instead of flat grey-blue
-            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
-            RenderSettings.ambientSkyColor = Color.Lerp(new Color(0.60f, 0.72f, 0.90f), new Color(0.38f, 0.34f, 0.46f), low);
-            RenderSettings.ambientEquatorColor = Color.Lerp(new Color(0.62f, 0.60f, 0.56f), new Color(0.34f, 0.28f, 0.28f), low);
-            RenderSettings.ambientGroundColor = Color.Lerp(new Color(0.40f, 0.34f, 0.26f), new Color(0.18f, 0.14f, 0.12f), low);
-        }
     }
 }

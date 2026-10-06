@@ -23,6 +23,7 @@ SITE_X0, SITE_W = -450.0, 900.0
 SEA_MARGIN, LAND_DEPTH = 80.0, 640.0
 STEP = 1.5
 BLEND = 14.0                       # terrace skirt, metres
+BEACH_WATER_DZ = 114.0             # the masterplan beach is 170 m deep; the playable bairro compresses it so the waterline is ~55 m from the kiosk (REF 01)
 
 spec = load_spec(root)
 terrain = T.Terrain(spec, pads=T.hero_pads(root, spec))
@@ -82,9 +83,23 @@ for p in PARCELS:
         pad_height.setdefault(p["id"], []).append(h)
 
 
+def beach_ground(wx, wz):
+    """Natural ground with the beach compressed: the waterline (dz = -4 on the masterplan) moves inland to dz = BEACH_WATER_DZ, the promenade (dz = 170) stays put."""
+    sz = T.shore_z(wx)
+    dz = wz - sz
+    top = T.COAST_PROMENADE_DZ
+    if dz < top:
+        if dz >= BEACH_WATER_DZ:
+            g = -4.0 + (dz - BEACH_WATER_DZ) * (top + 4.0) / (top - BEACH_WATER_DZ)
+        else:
+            g = -4.0 + (dz - BEACH_WATER_DZ)
+        wz = sz + g
+    return terrain.ground(wx, wz)
+
+
 def height(wx, wz, skip=()):
     """Terraces are exactly flat inside their rectangles (so steps sit on the boundary); outside, the natural ground blends toward the nearest terrace."""
-    h = terrain.ground(wx, wz)
+    h = beach_ground(wx, wz)
     dz = wz - shore0
     by_parcel = {}
     for t in terraces:

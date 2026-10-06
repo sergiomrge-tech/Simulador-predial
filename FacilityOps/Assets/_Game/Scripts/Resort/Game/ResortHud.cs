@@ -54,7 +54,7 @@ namespace ResortAurora.Game
             float h = lastH / 14f;
             GUI.Box(new Rect(8, 8, Screen.width - 16, h), GUIContent.none);
             var c = game.Clock;
-            string s = $"Dia {c.Day}   {GameClock.Format(c.Minutes)}   {WeatherInfo.Label(game.Weather)}      R$ {game.Ledger.Balance}      Reputação {Mathf.RoundToInt(game.Stall.Reputation * 100)}%      Atendidos hoje {game.Service.Served}   Perdidos {game.Service.Lost}";
+            string s = $"Dia {c.Day}   {GameClock.Format(c.Minutes)} {Daylight.Label(Daylight.PhaseOf(c.Hours))}   {WeatherInfo.Label(game.Weather)}      R$ {game.Ledger.Balance}      Reputação {Mathf.RoundToInt(game.Stall.Reputation * 100)}%      Atendidos hoje {game.Service.Served}   Perdidos {game.Service.Lost}";
             GUI.Label(new Rect(20, 8 + h * 0.15f, Screen.width - 40, h), s, label);
         }
 
@@ -124,7 +124,10 @@ namespace ResortAurora.Game
                 GUI.Label(new Rect(r.x + r.width * 0.26f, y, r.width * 0.5f, row * 1.6f), u.Description, small);
                 GUI.enabled = !owned;
                 if (GUI.Button(new Rect(r.x + r.width * 0.78f, y, r.width * 0.19f, row), owned ? "Comprado" : $"Comprar R$ {u.Cost}", button))
+                {
                     game.Say(game.Stall.BuyUpgrade(u.Id, game.Ledger, game.Clock.Day) ? u.Name + " instalado!" : "Dinheiro insuficiente.");
+                    game.Layout.RefreshUpgrades(game);
+                }
                 GUI.enabled = true;
                 y += row * 1.18f;
             }

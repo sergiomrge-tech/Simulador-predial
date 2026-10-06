@@ -292,3 +292,10 @@ Preparação concluída no GitHub:
 - **Jogo**: comprar P2 abre a pousada (e mostra o sobrado, etapa 3); placa "Recepção" na frente do sobrado abre o painel (preços ±5, reformar quarto, arrumar quarto = 15 min do seu dia, avaliações). O resumo do dia mostra a noite da pousada. O save guarda quartos, avaliações e total de hóspedes (saves antigos continuam válidos).
 - **Balanceamento** (smoke headless, 30 noites): R$ 55 sem camareira ≈ 70% de ocupação, R$ 6,9 mil; com camareira ≈ 93%, R$ 9,2 mil; reformar tudo para Conforto a R$ 90 ≈ R$ 13,9 mil; R$ 140 num quarto Simples derruba a ocupação a 23% e a nota a 1,1★ (preço injusto é punido).
 - **Verificado**: 6 testes de PlayMode passam (prólogo, etapas, quiosque, desempenho, pousada abre/fecha o dia/salva, recarga preserva os quartos). **Não verificado**: o painel IMGUI da pousada em uso real (teclado e mouse) e o equilíbrio com um humano.
+
+## Resort F02 — praia viva, dia/noite e quiosque da REF 01/02 (2026-10-06) — NÃO COMPILADO, NÃO EXECUTADO
+
+- Escrito em sessão sem permissão para rodar Unity/dotnet: **nenhuma compilação nem teste foi executado**. Detalhes, lista de arquivos e comando de validação em `Docs/PROJECT_RESORT_EXECUTION/RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendo).
+- Novo: `Sim/Daylight.cs`, `Game/DayNightCycle.cs`, `Game/PersonRig.cs`, `Game/BeachLife.cs`, `Game/KioskDecor.cs`, `Tests/PlayMode/LivingWorldTests.cs`; alterados `ResortGame`, `StallBuilder`, `Agents`, `ResortHud`.
+- Achado: a praia no ponto do quiosque tem ~170 m de areia (REF 01 mostra o mar colado); correção exige mexer no perfil em `Tools/Map/export_resort_site.py` — decisão pendente.
+- **Próximo passo obrigatório**: compilar, rodar os testes de PlayMode, abrir `ResortPrologue`, jogar o dia, olhar as capturas em `ArtSource/Blender/World/Reviews/F02/`.

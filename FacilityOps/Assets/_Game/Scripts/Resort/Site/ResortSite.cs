@@ -229,7 +229,7 @@ namespace ResortAurora.Site
             var go = GameObject.CreatePrimitive(PrimitiveType.Plane);
             go.name = "Sea";
             Destroy(go.GetComponent<Collider>());
-            go.transform.localScale = new Vector3((Data.size.x + 1200f) / 10f, 1f, 60f);                 // 600 m of open sea seaward of the site
+            go.transform.localScale = new Vector3((Data.size.x + 1200f) / 10f, 1f, 90f);                 // open sea from 550 m seaward of the site to 350 m inland (the terrain hides the rest; the waterline wanders with the bays)
             go.transform.localPosition = new Vector3(Data.size.x * 0.5f, Data.seaLevel, -100f);
             var m = new Material(Shader.Find("Universal Render Pipeline/Lit")) { name = "BairroSea" };
             m.SetColor("_BaseColor", new Color(0.05f, 0.35f, 0.45f, 1f));
