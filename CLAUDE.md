@@ -231,3 +231,17 @@ A sequência oficial é:
 18. Pré-lançamento e release
 
 Não pular fases, não antecipar escopo futuro e não tratar uma fase como concluída apenas porque o código compila.
+
+
+## REFERÊNCIAS VISUAIS OFICIAIS
+
+Para qualquer trabalho visual do PROJECT RESORT, leia também:
+
+`Docs/VISUAL_REFERENCES/PROJECT_RESORT_VISUAL_REFERENCES.md`
+
+Esse documento contém as referências oficiais geradas para:
+- quiosque inicial;
+- quiosque em operação;
+- visão futura do resort cinco estrelas.
+
+Na fase atual, REF 01 e REF 02 têm prioridade. REF 03 é apenas north star de longo prazo.
