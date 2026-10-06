@@ -44,3 +44,10 @@ e o **farol** de 38 m (apagado até a 6). O terreno é o "natural" nas etapas 1�
 - Teste de PlayMode confere materiais texturizados e colisão. Capturas: `ArtSource/Blender/World/Reviews/R4/`.
 - Os `.blend` do resort (`ArtSource/Blender/Resort/*.blend`) deixaram de ser versionados (regeneráveis por script, 25–50 MB cada).
 - Pendente: LOD, janelas modeladas e mais texturas próprias (vidro, tecido, água), interiores do Grande Hotel.
+
+## Passe de qualidade 2 (2026-10-06)
+
+- **Grande Saguão do Grande Hotel restaurado**: salão aberto nas baias centrais, com piso de mármore polido, duas fileiras de colunas, escada imperial dupla até um mezanino com balaústres de latão, forro de caixotões de teca, recepção, sofás e lustre. Visível pelas arcadas e pelo pórtico (captura `r4_unity_grande_hotel_saguao.png`).
+- **UV tangente** (`sa_bl.write_box_uvs(..., tangent=True)`, ligado pelo kit do resort): faces verticais usam a própria tangente horizontal, então colunas redondas e paredes inclinadas não distorcem a textura. O padrão antigo (Cidade Antiga) fica inalterado.
+- **Relevo por material**: mármore sem normal map (polido), travertino/estuque/azulejo com relevo baixo. Isso acabou com as listras diagonais nas colunas.
+- **LOD**: decidi não fazer agora. As peças somam ~320 mil polígonos em ~40 malhas (poucos draw calls), o que é leve para um PC; o custo real está no terreno (só um dos dois fica ativo) e na vegetação. Reavaliar com medição de quadros.

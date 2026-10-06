@@ -34,7 +34,8 @@
    "smoothness": 0.8,
    "metallic": 0.0,
    "set": "pastilha",
-   "tile": 0.6
+   "tile": 0.6,
+   "bump": 0.4
   },
   "basalto": {
    "color": [
@@ -45,7 +46,8 @@
    "smoothness": 0.45,
    "metallic": 0.0,
    "set": "granito",
-   "tile": 1.0
+   "tile": 1.0,
+   "bump": 0.9
   },
   "brise": {
    "color": [
@@ -56,7 +58,8 @@
    "smoothness": 0.3,
    "metallic": 0.0,
    "set": "madeira",
-   "tile": 1.0
+   "tile": 1.0,
+   "bump": 0.9
   },
   "buganvile.001": {
    "color": [
@@ -76,7 +79,8 @@
    "smoothness": 0.15,
    "metallic": 0.0,
    "set": "concreto",
-   "tile": 2.0
+   "tile": 2.0,
+   "bump": 0.9
   },
   "estuque": {
    "color": [
@@ -87,7 +91,8 @@
    "smoothness": 0.15,
    "metallic": 0.0,
    "set": "reboco",
-   "tile": 2.0
+   "tile": 2.0,
+   "bump": 0.5
   },
   "folhagem": {
    "color": [
@@ -131,7 +136,8 @@
    "smoothness": 0.35,
    "metallic": 0.0,
    "set": "madeira",
-   "tile": 1.0
+   "tile": 1.0,
+   "bump": 0.9
   },
   "marmore": {
    "color": [
@@ -142,7 +148,8 @@
    "smoothness": 0.75,
    "metallic": 0.0,
    "set": "ladrilho",
-   "tile": 1.2
+   "tile": 1.2,
+   "bump": 0.0
   },
   "palha": {
    "color": [
@@ -162,7 +169,8 @@
    "smoothness": 0.35,
    "metallic": 0.0,
    "set": "madeira",
-   "tile": 1.0
+   "tile": 1.0,
+   "bump": 0.9
   },
   "tecido": {
    "color": [
@@ -182,7 +190,8 @@
    "smoothness": 0.25,
    "metallic": 0.0,
    "set": "telha",
-   "tile": 1.2
+   "tile": 1.2,
+   "bump": 0.9
   },
   "travertino": {
    "color": [
@@ -193,7 +202,8 @@
    "smoothness": 0.35,
    "metallic": 0.0,
    "set": "ladrilho",
-   "tile": 1.2
+   "tile": 1.2,
+   "bump": 0.45
   },
   "tronco": {
    "color": [
@@ -204,7 +214,8 @@
    "smoothness": 0.1,
    "metallic": 0.0,
    "set": "madeira",
-   "tile": 1.0
+   "tile": 1.0,
+   "bump": 0.9
   },
   "verde": {
    "color": [

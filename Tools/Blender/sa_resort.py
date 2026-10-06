@@ -67,6 +67,7 @@ class Frame:
 
     def __init__(self, mb, origin, angle=0.0):
         self.mb = mb
+        mb.tangent_uv = True                      # resort geometry uses tangent UVs (unsheared texture on columns, domes, angled walls)
         self.o = origin
         self.c, self.s = math.cos(angle), math.sin(angle)
 

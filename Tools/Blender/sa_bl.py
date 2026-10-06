@@ -149,7 +149,7 @@ class MeshBuilder:
             me.materials.append(m)
         if self.mats:
             me.polygons.foreach_set("material_index", self.mats)
-        write_box_uvs(me, uv_scale)
+        write_box_uvs(me, uv_scale, getattr(self, "tangent_uv", False))
         if smooth:
             me.shade_smooth()
         obj = bpy.data.objects.new(name, me)
@@ -157,8 +157,9 @@ class MeshBuilder:
         return obj
 
 
-def write_box_uvs(me, scale=1.0):
-    """Metric box projection per face (1 UV = 1 m / scale)."""
+def write_box_uvs(me, scale=1.0, tangent=False):
+    """Metric box projection per face (1 UV = 1 m / scale). tangent=True lays vertical faces along their own horizontal tangent, so round
+    columns, domes and angled walls get an unsheared texture (resort kit); the default keeps the axis-dominant projection of the Old Town."""
     uv = me.uv_layers.new(name="UVMap")
     data = uv.data
     co = [v.co for v in me.vertices]
@@ -167,7 +168,11 @@ def write_box_uvs(me, scale=1.0):
         ax, ay, az = abs(n.x), abs(n.y), abs(n.z)
         for li in poly.loop_indices:
             v = co[me.loops[li].vertex_index]
-            if az >= ax and az >= ay:
+            if tangent and az < 0.75:
+                hl = math.hypot(n.x, n.y) or 1.0
+                tx, ty = -n.y / hl, n.x / hl
+                data[li].uv = ((v.x * tx + v.y * ty) / scale, v.z / scale)
+            elif az >= ax and az >= ay:
                 data[li].uv = (v.x / scale, v.y / scale)
             elif ax >= ay:
                 data[li].uv = (v.y / scale, v.z / scale)
@@ -197,7 +202,7 @@ def bevelled_object(name, mb, materials, coll, bevel=0.012, segments=2, angle_de
             bmesh.ops.bevel(bm, geom=edges, offset=bevel, segments=segments, profile=0.5, affect="EDGES", clamp_overlap=True)
     bm.to_mesh(me)
     bm.free()
-    write_box_uvs(me)
+    write_box_uvs(me, 1.0, getattr(mb, "tangent_uv", False))
     if smooth:
         me.shade_smooth()
         try:

@@ -90,6 +90,7 @@ TEX = {   # material -> (texture set, tint, smoothness)
     "marmore": ("ladrilho", (.98, .97, .95), .75), "azulejo": ("pastilha", (.25, .80, .86), .8), "basalto": ("granito", (.30, .30, .33), .45),
     "concreto": ("concreto", (.95, .95, .93), .15), "tronco": ("madeira", (.45, .34, .26), .1),
 }
+BUMP = {"marmore": 0.0, "travertino": 0.45, "azulejo": 0.4, "estuque": 0.5}   # polished or fine surfaces keep little or no relief
 tex_dir = out / "Textures"
 tex_dir.mkdir(exist_ok=True)
 tile = {k: v["tile_m"] for k, v in json.loads((root / "ArtSource" / "Textures" / "texture_library_w3.json").read_text(encoding="utf-8"))["sets"].items()}
@@ -105,7 +106,7 @@ for name in used:
             src = root / "ArtSource" / "Textures" / sset / f"{sset}_{kind}.jpg"
             if src.exists():
                 shutil.copy2(src, tex_dir / src.name)
-        e.update({"set": sset, "color": list(tint), "smoothness": sm, "tile": tile.get(sset, 1.0)})
+        e.update({"set": sset, "color": list(tint), "smoothness": sm, "tile": tile.get(sset, 1.0), "bump": BUMP.get(name, 0.9)})
     if name == "vidro":
         e.update({"color": [.30, .46, .55], "smoothness": .95, "metallic": .6})
     if name == "luz_quente":

@@ -15,7 +15,7 @@ namespace ResortAurora.Site
         {
             public string name, set;
             public float[] color, emission;
-            public float smoothness, metallic, tile;
+            public float smoothness, metallic, tile, bump = 0.9f;
         }
         [Serializable] sealed class Table { public Entry[] list; }
 
@@ -64,12 +64,12 @@ namespace ResortAurora.Site
                 var normal = Resources.Load<Texture2D>("Art/Resort/Textures/" + e.set + "_Normal");
                 float s = e.tile > 0f ? 1f / e.tile : 1f;
                 if (baseTex != null) { m.SetTexture("_BaseMap", baseTex); m.SetTextureScale("_BaseMap", new Vector2(s, s)); }
-                if (normal != null)
+                if (normal != null && e.bump > 0.01f)
                 {
                     m.EnableKeyword("_NORMALMAP");
                     m.SetTexture("_BumpMap", normal);
                     m.SetTextureScale("_BumpMap", new Vector2(s, s));
-                    m.SetFloat("_BumpScale", 0.9f);
+                    m.SetFloat("_BumpScale", e.bump);
                 }
             }
             if (e.emission != null && e.emission.Length >= 4)

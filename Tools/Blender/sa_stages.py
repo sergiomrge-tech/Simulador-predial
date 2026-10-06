@@ -82,6 +82,45 @@ def hotel_block(fr, z, L=60.0, floors=5, seed=0):
 
 # ------------------------------------------------------------------------------------------------ Grande Hotel Palmeiras
 
+def grand_lobby(fr, u0, u1, D, zb, H=4.6):
+    """Interior of the restored Grande Hotel: polished marble floor, two rows of columns, a double imperial staircase to the mezzanine,
+    a reception desk, a coffered ceiling and a great brass chandelier. Faces the arcade/portico (d < 0 side is open)."""
+    W = u1 - u0
+    fr.box(u0, u1, 0.0, D, zb, zb + 0.06, S["marmore"])                                     # floor
+    fr.box(u0 + W * 0.3, u0 + W * 0.7, 2.0, D - 6.0, zb + 0.06, zb + 0.08, S["terracota"])  # carpet runner
+    fr.box(u0, u0 + 0.3, 0, D, zb, zb + H, S["travertino"], front=False)                     # side walls
+    fr.box(u1 - 0.3, u1, 0, D, zb, zb + H, S["travertino"], front=False)
+    fr.box(u0, u1, D - 0.3, D, zb, zb + H, S["travertino"], front=False)                      # back wall
+    fr.box(u0 + 3, u1 - 3, D - 0.32, D - 0.28, zb + 1.0, zb + 3.4, S["vidro"], top=False, bottom=False)   # great mirror
+    fr.box(u0, u1, 0.0, D, zb + H - 0.35, zb + H, S["teca"], top=False)                       # ceiling
+    for k in range(5):
+        fr.box(u0, u1, k * D / 4.0 - 0.15, k * D / 4.0 + 0.15, zb + H - 0.55, zb + H - 0.35, S["madeira_escura"])
+    for row in (4.0, 12.0):                                                                    # two rows of columns
+        for k in range(4):
+            u = u0 + 4.0 + k * (W - 8.0) / 3.0
+            fr.cyl(u, row, zb + 0.06, 0.4, H - 0.4, 16, S["marmore"])
+            fr.box(u - 0.55, u + 0.55, row - 0.55, row + 0.55, zb + H - 0.4, zb + H - 0.35, S["latao"])
+    # double imperial staircase: a central flight up to a landing, then two lateral flights to the mezzanine
+    fr.box(u0 + W * 0.4, u0 + W * 0.6, D - 9.0, D - 6.0, zb, zb + 1.1, S["marmore"])         # landing block
+    nsteps = 7
+    for k in range(nsteps):
+        fr.box(u0 + W * 0.38, u0 + W * 0.62, D - 12.5 + k * 0.5, D - 9.0, zb, zb + (k + 1) * 0.157, S["marmore"])
+    for side, ua, ub in ((-1, u0 + W * 0.15, u0 + W * 0.38), (1, u0 + W * 0.62, u0 + W * 0.85)):
+        for k in range(nsteps):
+            fr.box(ua, ub, D - 9.0 + k * 0.42, D - 6.0 + 0.0, zb + 1.1, zb + 1.1 + (k + 1) * 0.157, S["marmore"])
+    fr.box(u0 + 1.0, u1 - 1.0, D - 3.0, D - 0.3, zb + 2.2, zb + 2.5, S["marmore"])           # mezzanine gallery
+    for k in range(int((W - 2.0) / 0.5)):
+        fr.box(u0 + 1.0 + k * 0.5, u0 + 1.15 + k * 0.5, D - 3.1, D - 3.0, zb + 2.5, zb + 3.3, S["latao"], top=False)
+    fr.box(u0 + 1.0, u1 - 1.0, D - 3.15, D - 2.95, zb + 3.3, zb + 3.38, S["latao"])
+    fr.box(u0 + 2.0, u0 + 8.0, 3.0, 5.0, zb + 0.06, zb + 1.15, S["madeira_escura"])           # reception desk
+    fr.box(u0 + 1.9, u0 + 8.1, 2.9, 5.1, zb + 1.15, zb + 1.22, S["marmore"])
+    for k in range(3):                                                                        # chandelier
+        fr.cyl((u0 + u1) / 2, D * 0.5, zb + H - 1.1 - k * 0.5, 2.2 - k * 0.6, 0.1, 24, S["latao"])
+    fr.cyl((u0 + u1) / 2, D * 0.5, zb + H - 3.3, 0.45, 2.6, 14, S["luz"])
+    for sx in (u0 + 6, u1 - 6):                                                               # sofas and palms in pots
+        fr.box(sx - 1.2, sx + 1.2, 6.0, 7.2, zb + 0.06, zb + 0.5, S["tecido"])
+        fr.cyl(sx, 9.5, zb + 0.06, 0.5, 0.9, 12, S["basalto"])
+
 def grand_hotel(fr, z, ruin=False, seed=3):
     """Grande Hotel Palmeiras (1968): 90 x 26 m, three floors on an arcaded plinth, central portico with pediment and clock tower, mansard roof
     with dormers, projecting end pavilions. ruin=True removes bays, collapses roof planes and the tower, boards windows and grows vines."""
@@ -93,7 +132,13 @@ def grand_hotel(fr, z, ruin=False, seed=3):
     keep = lambda p: (not ruin) or rng.random() > p
     arc = fr.shift(0.0, -3.0)
     R.arcade(arc, L, 20, zb, zb + 4.6, depth=1.0, pier=1.0)
-    fr.box(0, L, 0, D, zb, zb + 4.6, S["estuque"], front=False, top=False)
+    if ruin:
+        fr.box(0, L, 0, D, zb, zb + 4.6, S["estuque"], front=False, top=False)
+    else:
+        # restored hotel: solid ends, an open Grand Lobby in the central bays (visible through the arches and the portico doors)
+        fr.box(0, 30, 0, D, zb, zb + 4.6, S["estuque"], front=False, top=False)
+        fr.box(60, L, 0, D, zb, zb + 4.6, S["estuque"], front=False, top=False)
+        grand_lobby(fr, 30.0, 60.0, D, zb)
     # upper floors: pilasters, tall windows with marble frames, balconies on the central bays
     for fl in range(2):
         z0 = zb + 4.6 + fl * 4.6

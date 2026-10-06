@@ -107,6 +107,7 @@ namespace ResortAurora.Tests
             Snap(cam, new Vector3(550f, gy(550f, 300f) + 6f, 292f), new Vector3(550f, gy(550f, 360f) + 8f, 360f), dir + "/r4_unity_grande_hotel.png");
             Snap(cam, new Vector3(450f, gy(450f, 488f) + 1.8f, 484f), new Vector3(450f, gy(450f, 600f) + 14f, 640f), dir + "/r4_unity_eixo_central.png");
             Snap(cam, new Vector3(380f, gy(380f, 280f) + 4f, 270f), new Vector3(440f, gy(440f, 350f) + 6f, 352f), dir + "/r4_unity_pousada_hotel.png");
+            Snap(cam, new Vector3(550f, gy(550f, 351f) + 1.7f, 349f), new Vector3(550f, gy(550f, 380f) + 2.6f, 382f), dir + "/r4_unity_grande_hotel_saguao.png");
             g.Stages.SetStage(1);
             Assert.IsFalse(g.Site.Graded, "natural land at stage 1");
             Snap(cam, new Vector3(215f, 100f, -20f), new Vector3(520f, 8f, 410f), dir + "/r4_unity_etapa1_aerea.png");
