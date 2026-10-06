@@ -19,7 +19,7 @@ from pathlib import Path
 
 import bmesh
 import bpy
-from mathutils import Matrix
+from mathutils import Matrix, Vector
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--root", required=True)
@@ -148,9 +148,14 @@ def sand_material():
     rough.inputs[2].default_value = .96
     L.new(wet.outputs["Fac"], rough.inputs[0])
     L.new(rough.outputs[0], b.inputs["Roughness"])
+    b.inputs["Specular IOR Level"].default_value = .06     # dry sand is diffuse; grazing-angle Fresnel was washing it grey-blue
     bump = nt.nodes.new("ShaderNodeBump")
     bump.inputs["Distance"].default_value = .05
-    L.new(sandy.outputs["Fac"], bump.inputs["Strength"])
+    sb = nt.nodes.new("ShaderNodeMath")
+    sb.operation = "MULTIPLY"
+    sb.inputs[1].default_value = .14
+    L.new(sandy.outputs["Fac"], sb.inputs[0])
+    L.new(sb.outputs[0], bump.inputs["Strength"])
     rip = nt.nodes.new("ShaderNodeTexWave")
     rip.inputs["Scale"].default_value = 2.2
     rip.inputs["Distortion"].default_value = 6.0
@@ -235,9 +240,9 @@ def sand_colour(x, z, d):
         c, w = (.47, .39, .29), 1.0
     elif d < 34:
         t = smoothstep(7, 34, d)
-        c, w = (.47 + .26 * t, .38 + .19 * t, .27 + .10 * t), 1.0 - .8 * t
+        c, w = (.47 + .53 * t, .36 + .36 * t, .24 + .12 * t), 1.0 - .8 * t
     elif d < PROM_DZ - 12:
-        c, w = (.90, .74, .47), 0.0
+        c, w = (1.0, .72, .36), 0.0
         if d > 112 and patch > .12:                         # beach-grass dunes next to the promenade
             g = smoothstep(.12, .45, patch) * smoothstep(112, 135, d)
             c = (c[0] + (.33 - c[0]) * g, c[1] + (.39 - c[1]) * g, c[2] + (.17 - c[2]) * g)
@@ -245,7 +250,7 @@ def sand_colour(x, z, d):
         c, w = (.44, .41, .35), 0.0
     else:
         c, w = (.40, .37, .31), 0.0
-    sandy_k = .52 if -60 <= d < PROM_DZ - 12 else 1.0
+    sandy_k = .86 if -60 <= d < PROM_DZ - 12 else 1.0
     return (min(1, c[0] * j * sandy_k), min(1, c[1] * j * sandy_k), min(1, c[2] * j * sandy_k), 1.0), w
 
 
@@ -807,6 +812,172 @@ for key, mbb in sf_cells.items():
     o = mbb.to_object(f"Seafront_Orla_{key:02d}", [lib[k] for k in FM], C["04_Seafront"])
     sa_bl.props(o, sa_layer="Architecture", seafront_blockout=True)
 
+# ---------------------------------------------------------------- traffic and people (original generic cars + authored figures)
+import sa_vehicles  # noqa: E402
+lib.setdefault("borracha_preta", lib["borracha"])
+lib.setdefault("plastico_branco", lib["plastico"])
+
+veh_tmp = sa_bl.collection("tmp_orla_vehicles", C["07_Library"], hide_render=True)
+VEH_KEYS = [k for k in sa_vehicles.LIBRARY if k[0] in ("hatch", "sedan", "suv", "picape", "van", "hatch_antigo")]
+veh_objs = []
+for (fam_, pk_, worn_) in VEH_KEYS:
+    veh_objs.append(sa_vehicles.build(fam_, lib, veh_tmp, pk_, worn_, lod=1))
+vh_c, vh_i = library_of(veh_objs, "LIB_Veiculos_LOD1")
+veh_index = {k: vh_i[o.name] for k, o in zip(VEH_KEYS, veh_objs)}
+new_keys = [k for k in VEH_KEYS if not k[2] and k[0] not in ("van", "picape")]
+old_keys = [k for k in VEH_KEYS if k[2]]
+svc_keys = [k for k in VEH_KEYS if k[0] in ("van", "picape")]
+
+veh_pts = []
+parked = moving = 0
+cw_half = 7.5
+x = X0 + 30.0
+while x < X1 - 30:
+    a = tangent_angle(x)
+    ux, uy = math.cos(a), math.sin(a)
+    nx, ny = -uy, ux
+    zc = shore_z(x) + AVE_DZ
+    blocked = abs(x - r03x) < 28 or any(abs(x - s_) < 11 for s_ in streets)
+    for side in (1, -1):
+        if blocked and rng.random() < .8:
+            continue
+        for lane_off, kind in ((side * (cw_half - 1.05), "park"), (side * 2.7, "move")):
+            if kind == "park" and rng.random() > .46:
+                continue
+            if kind == "move" and rng.random() > .13:
+                continue
+            xx = x + nx * lane_off
+            zz = zc + ny * lane_off
+            heading = a + (math.pi if side == 1 else 0.0) + rng.uniform(-.03, .03) + (rng.uniform(-.05, .05) if kind == "move" else 0.0)
+            pool = new_keys if rng.random() < .62 else (old_keys if rng.random() < .55 else svc_keys + new_keys)
+            key = rng.choice(pool)
+            veh_pts.append((xx, zz, zs(xx, zz) + .14, veh_index[key], heading, 1.0))
+            parked += kind == "park"
+            moving += kind == "move"
+    x += 6.4
+for chunk in range(8):
+    pts = [p_ for p_ in veh_pts if X0 + chunk * 1000 <= p_[0] < X0 + (chunk + 1) * 1000]
+    if pts:
+        o = sa_bl.point_cloud_object(f"Vehicles_Orla_{chunk:02d}", pts, vh_c, C["05_Beach_Props"])
+        sa_bl.props(o, sa_layer="Props", vehicles_lod="LOD1")
+
+CLOTH = {}
+
+
+def cloth(rgb):
+    k = tuple(round(v, 2) for v in rgb)
+    if k not in CLOTH:
+        CLOTH[k] = colour("MP_Orla_Roupa_%02d%02d%02d" % tuple(int(v * 99) for v in k), "plastico", c1=rgb, c2=tuple(v * .82 for v in rgb), tint=(0.0, 0.0))
+    return CLOTH[k]
+
+
+def limb(mb_, p0, p1, r0, r1, mat, sy=1.0, segs=8):
+    ax = Vector((p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2]))
+    ax.normalize()
+    ref = Vector((0, 1, 0)) if abs(ax.y) < .9 else Vector((1, 0, 0))
+    u = ax.cross(ref).normalized()
+    w = ax.cross(u).normalized()
+    r_a = [(Vector(p0) + u * r0 * math.cos(2 * math.pi * k / segs) + w * r0 * sy * math.sin(2 * math.pi * k / segs)) for k in range(segs)]
+    r_b = [(Vector(p1) + u * r1 * math.cos(2 * math.pi * k / segs) + w * r1 * sy * math.sin(2 * math.pi * k / segs)) for k in range(segs)]
+    for k in range(segs):
+        k2 = (k + 1) % segs
+        mb_.quad(tuple(r_a[k]), tuple(r_a[k2]), tuple(r_b[k2]), tuple(r_b[k]), mat)
+    mb_.add_face([tuple(v) for v in reversed(r_a)], mat)
+    mb_.add_face([tuple(v) for v in r_b], mat)
+
+
+def head_mesh(mb_, c, rr, mat, sx=1.0, sy=1.0, sz=1.0, rings=6, segs=10):
+    prev = None
+    for i in range(rings + 1):
+        th = math.pi * i / rings
+        ring = [(c[0] + rr * sx * math.sin(th) * math.cos(2 * math.pi * s / segs), c[1] + rr * sy * math.sin(th) * math.sin(2 * math.pi * s / segs),
+                 c[2] + rr * sz * math.cos(th)) for s in range(segs)]
+        if prev:
+            for s in range(segs):
+                s2 = (s + 1) % segs
+                mb_.quad(prev[s], prev[s2], ring[s2], ring[s], mat)
+        prev = ring
+
+
+def person(name, skin, shirt, pants, hair, stride, mode="walk", dress=False, tall=1.0):
+    mb_ = sa_bl.MeshBuilder()
+    sw = stride
+    for s_ in (-1, 1):
+        fx = s_ * sw
+        if dress:
+            limb(mb_, (fx * .6, s_ * .075, .05), (0, s_ * .075, .55), .045, .06, 0)
+        else:
+            limb(mb_, (fx, s_ * .085, .09), (0, s_ * .085, .93), .052, .085, 2)
+        mb_.box(fx + .05, s_ * .085, .0, .26, .10, .09, 4)                    # shoes
+    if dress:
+        limb(mb_, (0, 0, .50), (0, 0, 1.0), .24, .17, 1)
+    limb(mb_, (0, 0, .90), (0, 0, 1.48), .165, .19, 1, sy=1.28)
+    limb(mb_, (0, 0, 1.46), (0, 0, 1.60), .052, .048, 0)
+    head_mesh(mb_, (.01, 0, 1.69), .105, 0, sx=1.0, sy=.92, sz=1.12)
+    head_mesh(mb_, (-.015, 0, 1.725), .112, 3, sx=1.02, sy=.98, sz=.98, rings=5)
+    for s_ in (-1, 1):                                                         # arms swing against the legs
+        sx_ = -s_ * sw * .8
+        limb(mb_, (0, s_ * .215, 1.43), (sx_ * .6, s_ * .245, 1.16), .045, .04, 1)
+        limb(mb_, (sx_ * .6, s_ * .245, 1.16), (sx_, s_ * .25, .90), .036, .03, 0)
+    if tall != 1.0:
+        mb_.verts = [(v[0], v[1], v[2] * tall) for v in mb_.verts]
+    if mode == "lie":
+        mb_.verts = [(v[2] - .85, v[1], .08 + v[0] * .9) for v in mb_.verts]
+    return lib_obj(name, mb_, [cloth(skin), cloth(shirt), cloth(pants), cloth(hair), cloth((.12, .12, .13))])
+
+
+SKIN = [(.52, .34, .24), (.40, .26, .18), (.62, .45, .33), (.25, .16, .11), (.70, .52, .40)]
+SHIRT = [(.78, .78, .74), (.14, .30, .55), (.70, .18, .14), (.18, .45, .30), (.92, .72, .15), (.08, .08, .10), (.62, .22, .46), (.88, .45, .15)]
+PANTS = [(.12, .16, .26), (.18, .18, .20), (.60, .52, .38), (.10, .30, .32)]
+HAIR = [(.04, .03, .03), (.18, .11, .06), (.45, .30, .14), (.62, .60, .58)]
+walkers, lyers, swimmers = [], [], []
+for i in range(10):
+    walkers.append(person(f"LIB_Pedestre_{i:02d}", SKIN[i % 5], SHIRT[(i * 3) % 8], PANTS[i % 4], HAIR[(i * 2) % 4], .11 if i % 2 else .07,
+                          dress=(i % 5 == 3), tall=.94 + (i % 4) * .035))
+for i in range(5):
+    lyers.append(person(f"LIB_Banhista_{i:02d}", SKIN[(i + 1) % 5], SHIRT[(i * 3 + 1) % 8], (.12, .22, .45) if i % 2 else (.8, .25, .2), HAIR[i % 4], .04, mode="lie",
+                        tall=.95 + (i % 3) * .04))
+for i in range(4):
+    swimmers.append(person(f"LIB_Nadador_{i:02d}", SKIN[(i + 2) % 5], (.10, .25, .50) if i % 2 else (.80, .30, .25), (.10, .25, .50), HAIR[i % 4], .05))
+wk_c, wk_i = library_of(walkers, "LIB_Pedestres")
+ly_c, ly_i = library_of(lyers, "LIB_Banhistas")
+sw_c, sw_i = library_of(swimmers, "LIB_Nadadores")
+
+ped_pts, lie_pts, swim_pts = [], [], []
+x = X0 + 10.0
+while x < X1 - 10:
+    for dz_ in (PROM_DZ + rng.uniform(-5.0, 5.0), AVE_DZ + (rng.choice((-1, 1)) * 9.6)):
+        if rng.random() < (.55 if dz_ < AVE_DZ - 20 else .22):
+            xx = x + rng.uniform(-3, 3)
+            zz = shore_z(xx) + dz_
+            heading = tangent_angle(xx) + (0 if rng.random() < .5 else math.pi) + rng.uniform(-.12, .12)
+            ped_pts.append((xx, zz, zs(xx, zz) + .15, rng.randrange(len(walkers)), heading, rng.uniform(.96, 1.04)))
+    x += 9.0
+for (px_u, pz_u, ph_u, pv_u, pr_u, ps_u) in um_pts:                      # sunbathers by the umbrellas, some people standing
+    for k in range(rng.choice((0, 1, 1, 2))):
+        a_ = rng.uniform(0, 6.28)
+        xx, zz = px_u + math.cos(a_) * 1.9, pz_u + math.sin(a_) * 1.9
+        lie_pts.append((xx, zz, ground(xx, zz), rng.randrange(len(lyers)), a_ + math.pi / 2, 1.0))
+    if rng.random() < .30:
+        a_ = rng.uniform(0, 6.28)
+        xx, zz = px_u + math.cos(a_) * 2.6, pz_u + math.sin(a_) * 2.6
+        ped_pts.append((xx, zz, ground(xx, zz), rng.randrange(len(walkers)), rng.uniform(0, 6.28), 1.0))
+for cx_, dens in centres:
+    for _ in range(int(55 * dens)):
+        xx = cx_ + rng.gauss(0, 140 * dens)
+        zz = shore_z(xx) - rng.uniform(8, 42)
+        swim_pts.append((xx, zz, -1.28, rng.randrange(len(swimmers)), rng.uniform(0, 6.28), 1.0))
+    for _ in range(int(40 * dens)):                                         # wading and strolling in the swash zone
+        xx = cx_ + rng.gauss(0, 130 * dens)
+        zz = shore_z(xx) + rng.uniform(-1.5, 12.0)
+        ped_pts.append((xx, zz, ground(xx, zz), rng.randrange(len(walkers)), tangent_angle(xx) + rng.choice((0, math.pi)), 1.0))
+for chunk in range(8):
+    for nm, src, cc in (("Pedestrians", ped_pts, wk_c), ("Sunbathers", lie_pts, ly_c), ("Swimmers", swim_pts, sw_c)):
+        pts = [p_ for p_ in src if X0 + chunk * 1000 <= p_[0] < X0 + (chunk + 1) * 1000]
+        if pts:
+            o = sa_bl.point_cloud_object(f"{nm}_Orla_{chunk:02d}", pts, cc, C["05_Beach_Props"])
+            sa_bl.props(o, sa_layer="Props", life=nm.lower())
+
 # ---------------------------------------------------------------- cameras, sun, save
 cams = C["08_Cameras"]
 px_ = float(coast["piers"][0]["x"])
@@ -816,8 +987,8 @@ sa_bl.camera("CAM_Orla_Pier", cams, (px_, shore_z(px_) - 40, 6.5), target=(px_, 
 sa_bl.camera("CAM_Orla_Farol", cams, (1050, -4140, 22), target=(lx, lz, 28), lens=34, clip=(1, 30000))
 sa_bl.camera("CAM_Orla_Calcadao", cams, (-1210, shore_z(-1210) + PROM_DZ - 1, zs(-1210, shore_z(-1210) + PROM_DZ - 1) + 1.7),
              target=(-880, shore_z(-880) + PROM_DZ + 2, 5), lens=24, clip=(.3, 30000))
-sa_bl.camera("CAM_Orla_Avenida", cams, (r03x - 6, shore_z(r03x) + AVE_DZ + 330, zs(r03x, shore_z(r03x) + AVE_DZ + 330) + 2.2),
-             target=(r03x + 4, shore_z(r03x) + AVE_DZ - 40, 8), lens=28, clip=(.3, 30000))
+sa_bl.camera("CAM_Orla_Avenida", cams, (-880, shore_z(-880) + AVE_DZ - 2.7, zs(-880, shore_z(-880) + AVE_DZ - 2.7) + 2.0),
+             target=(-560, shore_z(-560) + AVE_DZ - 3.0, 4.5), lens=26, clip=(.3, 30000))
 sa_bl.camera("CAM_Orla_Mar_Alto", cams, (700, -4900, 520), target=(-200, -3500, 0), lens=26, clip=(1, 40000))
 sa_bl.production_look(scene, cams, elevation_deg=27.0, azimuth_deg=300.0)
 scene.camera = bpy.data.objects["CAM_Orla_Aerea"]
@@ -829,6 +1000,6 @@ bpy.ops.wm.save_as_mainfile(filepath=str(output), compress=True)
 rep = {"blend": output.relative_to(root).as_posix(), "blenderVersion": bpy.app.version_string, "terrainVertices": tcount,
        "objectCount": len(bpy.data.objects), "palms": len(palm_pts), "dune_grass": len(grass_pts), "umbrellas": len(um_pts), "loungers": len(lo_pts),
        "lifeguardTowers": n_tower, "kiosks": n_kiosk, "seafrontBuildings": n_build, "piers": [p["id"] for p in coast["piers"]],
-       "lamps": len(lamp_pts), "benches": len(bench_pts), "rocks": len(rock_pts), "boats": len(boat_pts), "status": "W4 coast - first production pass"}
+       "lamps": len(lamp_pts), "benches": len(bench_pts), "rocks": len(rock_pts), "boats": len(boat_pts), "vehicles": len(veh_pts), "parkedCars": parked, "movingCars": moving, "pedestrians": len(ped_pts), "sunbathers": len(lie_pts), "swimmers": len(swim_pts), "status": "W4 coast - first production pass"}
 (out_dir / "orla_generation_report.json").write_text(json.dumps(rep, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 print("ORLA GENERATED", json.dumps(rep))

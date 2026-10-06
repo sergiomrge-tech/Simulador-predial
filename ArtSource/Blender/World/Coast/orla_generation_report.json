@@ -2,7 +2,7 @@
   "blend": "ArtSource/Blender/World/Coast/SantaAurora_Orla_v1.blend",
   "blenderVersion": "5.2.1 LTS",
   "terrainVertices": 387528,
-  "objectCount": 101,
+  "objectCount": 171,
   "palms": 2224,
   "dune_grass": 5439,
   "umbrellas": 2335,
@@ -18,5 +18,11 @@
   "benches": 180,
   "rocks": 740,
   "boats": 34,
+  "vehicles": 1377,
+  "parkedCars": 1071,
+  "movingCars": 306,
+  "pedestrians": 1915,
+  "sunbathers": 2364,
+  "swimmers": 682,
   "status": "W4 coast - first production pass"
 }
