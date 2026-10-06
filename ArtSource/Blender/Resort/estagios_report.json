@@ -1,0 +1,26 @@
+{
+  "blend": "ArtSource/Blender/Resort/SantaAurora_Estagios_v1.blend",
+  "polygons": 932412,
+  "pieces": [
+    "1-1:barraca",
+    "1-5:grande_hotel_ruina",
+    "1-6:farol",
+    "1-7:guardasois",
+    "1-7:palmeiras_folha",
+    "1-7:palmeiras_tronco",
+    "2-5:quiosque",
+    "3-5:restaurante",
+    "3-7:pousada",
+    "4-7:hotel",
+    "4-7:hotel_agua",
+    "4-7:hotel_deck",
+    "4-7:hotel_piscina",
+    "5-7:bangalos",
+    "5-7:complexo",
+    "5-7:spa",
+    "6-6:estrutura",
+    "6-6:grua",
+    "6-7:grande_hotel",
+    "7-7:farol_aceso"
+  ]
+}

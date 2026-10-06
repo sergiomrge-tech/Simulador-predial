@@ -82,7 +82,7 @@ for p in PARCELS:
         pad_height.setdefault(p["id"], []).append(h)
 
 
-def height(wx, wz):
+def height(wx, wz, skip=()):
     """Terraces are exactly flat inside their rectangles (so steps sit on the boundary); outside, the natural ground blends toward the nearest terrace."""
     h = terrain.ground(wx, wz)
     dz = wz - shore0
@@ -90,6 +90,8 @@ def height(wx, wz):
     for t in terraces:
         by_parcel.setdefault(t["parcel"], []).append(t)
     for pid, ts in by_parcel.items():
+        if pid in skip:
+            continue
         x0 = min(t["x"][0] for t in ts); x1 = max(t["x"][1] for t in ts)
         d0 = min(t["dz"][0] for t in ts); d1 = max(t["dz"][1] for t in ts)
         cx, cd = min(max(wx, x0), x1), min(max(dz, d0), d1)
@@ -111,6 +113,9 @@ verts = [[height(SITE_X0 + i * STEP, z0 + j * STEP) for i in range(nx)] for j in
 out_dir = root / "FacilityOps" / "Assets" / "_Game" / "Resources" / "Resort"
 out_dir.mkdir(parents=True, exist_ok=True)
 (out_dir / "ResortSiteHeights.bytes").write_bytes(b"".join(struct.pack("<%df" % nx, *row) for row in verts))
+# the same land before the platô is graded (stages 1-5 of the evolution): P5 left natural
+natural = [[height(SITE_X0 + i * STEP, z0 + j * STEP, skip=("P5",)) for i in range(nx)] for j in range(nz)]
+(out_dir / "ResortSiteHeights_natural.bytes").write_bytes(b"".join(struct.pack("<%df" % nx, *row) for row in natural))
 
 # ---- vila lots: frontage along the east-west streets, skipping parcels, streets, the avenue and the home building
 fam = json.loads((root / "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json").read_text(encoding="utf-8"))["families"]
