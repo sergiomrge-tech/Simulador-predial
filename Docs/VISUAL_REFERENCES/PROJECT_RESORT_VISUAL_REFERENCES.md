@@ -236,3 +236,34 @@ Ao modelar:
 As três referências acima foram geradas especificamente para PROJECT RESORT via OpenArt em 06/10/2026.
 
 São referências de desenvolvimento e direção visual. Não devem ser tratadas como assets finais licenciados para distribuição dentro da build sem revisão de licença e proveniência antes do lançamento.
+
+
+---
+
+# STARTER PACK LOCAL NO GITHUB
+
+As seis referências principais também devem existir como arquivos PNG locais no repositório em:
+
+`Docs/VISUAL_REFERENCES/PROJECT_RESORT_STARTER_PACK/`
+
+Arquivos:
+
+- `01_PRAIA_SANTA_AURORA_QUIOSQUE_INICIAL.png`
+- `02_QUIOSQUE_OPERACAO_BALCAO.png`
+- `03_QUIOSQUE_ESTOQUE_REPOSICAO.png`
+- `04_CASA_INICIAL_JOGADOR.png`
+- `05_PRIMEIRA_POUSADA.png`
+- `06_RESORT_CINCO_ESTRELAS_NORTH_STAR.png`
+
+O arquivo `README.md` dessa pasta define a ordem de uso.
+
+## Prioridade imediata
+
+Para a implementação atual do Claude:
+
+1. 01 — localização/identidade;
+2. 02 — balcão e loop de atendimento;
+3. 03 — estoque e reposição;
+4. 04 — rotina da casa.
+
+05 e 06 não autorizam implementação antecipada; são apenas direção visual futura.
