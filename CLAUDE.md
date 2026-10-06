@@ -190,3 +190,12 @@ devem ser tratados como material reutilizável para o futuro módulo de manuten�
 A experiência final deve permitir ao jogador olhar para um enorme resort cinco estrelas e saber que aquele complexo nasceu da pequena barraquinha onde ele começou vendendo bebidas na praia.
 
 Essa transformação é o coração de PROJECT RESORT.
+
+
+## Próxima tarefa operacional
+
+Antes de iniciar nova implementação, execute integralmente o handoff em:
+
+`Docs/CLAUDE_NEXT_TASK_PROJECT_RESORT.md`
+
+Esse documento define a auditoria inicial, o vertical slice do quiosque, os gates de qualidade, o que reaproveitar e o que NÃO implementar ainda.
