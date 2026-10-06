@@ -43,3 +43,12 @@ casa → praia → abrir quiosque → conferir estoque → atender → vender �
 O jogador deve completar dois dias consecutivos sem erro e recarregar o save mantendo dinheiro, estoque, reputação e dia corretos.
 
 Não avançar para funcionários antes de o quiosque manual ser divertido e estável.
+
+
+## Referência visual obrigatória
+
+Antes de modelar ou alterar a praia/quiosque, ler:
+
+`Docs/VISUAL_REFERENCES/PROJECT_RESORT_VISUAL_REFERENCES.md`
+
+Usar REF 01 para identidade/ambiente e REF 02 para layout operacional. Não antecipar a arquitetura da REF 03.
