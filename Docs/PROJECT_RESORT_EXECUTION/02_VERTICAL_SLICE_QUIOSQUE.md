@@ -162,3 +162,20 @@ A Fase 02 só recebe PASS visual quando uma execução real da Unity demonstrar:
 5. densidade convincente sem comprometer o desempenho;
 6. cena significativamente mais próxima das referências realistas do PROJECT RESORT do que de um blockout vazio.
 
+
+
+## Dia/noite já no vertical slice
+
+A Fase 02 deve demonstrar a base técnica do ciclo de dia/noite. Não é necessário entregar todo o conteúdo noturno do endgame, mas o vertical slice precisa provar:
+- relógio do mundo funcionando;
+- transição visível entre dia, pôr do sol e noite;
+- luzes do quiosque/casa/entorno acendendo de forma coerente;
+- praia e calçadão legíveis e agradáveis à noite;
+- população e operação reagindo ao horário;
+- ausência de noite completamente escura ou artificialmente chapada.
+
+O gate visual deve incluir ao menos uma captura real da Unity em período diurno e outra noturna.
+
+## Continuidade de progressão
+
+A Fase 02 deve preparar dados e arquitetura para expansão física futura sem implementar antecipadamente pousada/hotel/resort completo. O quiosque deve ser um começo pequeno e crível, deixando espaço físico e sistêmico para muitos estágios de crescimento.
