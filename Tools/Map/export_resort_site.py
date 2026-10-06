@@ -72,6 +72,7 @@ site = {
     "pad": {"x": round(px0), "z": round(pz0), "width": int(PAD_X[1] - PAD_X[0]), "depth": int(PAD_DZ[1] - PAD_DZ[0]),
             "height": pad_h, "cell": CELL},
     "shoreLocalZ": SEA_MARGIN,
+    "promenade": [{"x": round(i * 16.0, 2), "z": round(T.shore_z(SITE_X0 + i * 16.0) + 176.0 - z0, 2)} for i in range(int(SITE_W / 16.0) + 1)],
     "heights": {"min": round(min(min(r) for r in verts), 2), "max": round(max(max(r) for r in verts), 2)},
 }
 (out_dir / "ResortSite.json").write_text(json.dumps(site, indent=2) + "\n", encoding="utf-8")

@@ -1,0 +1,7 @@
+{
+  "name": "ResortAurora.Tests.PlayMode",
+  "rootNamespace": "ResortAurora.Tests",
+  "references": ["ResortAurora.Resort", "UnityEngine.TestRunner", "UnityEditor.TestRunner", "Unity.InputSystem"],
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "autoReferenced": false
+}

@@ -276,3 +276,11 @@ Preparação concluída no GitHub:
 - Unity: `ResortSite` monta malha, colisão, mar e alinha `GridManager` e limites da câmera. Menu **Resort Aurora > Create Site Scene** gera `Assets/_Game/Scenes/ResortSite.unity` pronta para Play (B constrói, R gira, WASD/borda/scroll/Q-E câmera).
 - Compilação em batch sem erros; capturas de revisão em `ArtSource/Blender/World/Reviews/R1/`. Não testado em Play interativo. Visual provisório (cores por altura, sem PBR).
 - Próximo: economia/tempo (`GameManager`, `TimeManager`, `EconomyManager`), hóspedes e kit modular. O recorte Blender `W5S` fica como cenário de contexto.
+
+## Resort R2 — prólogo jogável da barraca (2026-10-06)
+
+- **Simulação (C# puro, `Scripts/Resort/Sim/`)**: `GameClock`, `Ledger` (transações por categoria), `Catalog` (4 produtos), `StallModel` (estoque, preços, 4 melhorias, reputação com teto 60% na barraca), `StaffRoster` (5 candidatos, **contratar/dispensar, folha diária, capacidade 2**), `StallService` (fila → anotar → chapa → entregar; jogador e funcionários usam os mesmos verbos), `DemandModel` (movimento por hora × clima × preço × reputação), `SaveStore` (JSON próprio, escrita atômica, `RESORT_SAVE_PATH` para testes).
+- **Jogo (`Scripts/Resort/Game/`)**: `ResortGame` (raiz de composição e laço do dia), jogador em primeira pessoa, barraca procedural com balcão/chapa/caixa de fornecedor/mural de vagas, clientes e funcionários como agentes, HUD IMGUI provisório (mercado, contratação, resumo do dia, ajuda).
+- **Cena**: menu `Resort Aurora > Create Prologue Scene` → `Assets/_Game/Scenes/ResortPrologue.unity`.
+- **Verificações reais**: smoke headless de balanceamento (`ResortSimSmokeTest`) e **teste PlayMode** (`Tests/PlayMode/PrologueDayTests`) que carrega a cena, joga um dia inteiro com piloto automático, fecha o dia, salva, contrata Marisa e confere o save. PASSOU: dia 1 com 31–40 atendidos e receita de 267–342. Capturas em `ArtSource/Blender/World/Reviews/R2/`.
+- **Não verificado**: jogo com teclado/mouse reais (andar, olhar, segurar E), feeling do preparo, balanceamento com humano; visual é provisório (primitivas, sem PBR). O trajeto Apto 12 → praia fica para o R3 (mapa do bairro).

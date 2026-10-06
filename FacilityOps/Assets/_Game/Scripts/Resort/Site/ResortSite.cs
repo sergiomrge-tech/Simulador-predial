@@ -11,6 +11,7 @@ namespace ResortAurora.Site
         [Serializable] public sealed class V2 { public float x, z; }
         [Serializable] public sealed class Pad { public int x, z, width, depth; public float height, cell; }
         public string name;
+        public V2[] promenade;
         public V2 worldOrigin, size;
         public float step, seaLevel;
         public int columns, rows;
@@ -30,6 +31,34 @@ namespace ResortAurora.Site
         [SerializeField] string heightsPath = "Resort/ResortSiteHeights";
 
         public Vector3 PadCenter { get; private set; }
+        public bool Ready { get; private set; }
+
+        SiteData data;
+        float[] heights;
+
+        /// <summary>Ground height (bilinear over the exported heightfield). Cheap enough to call per agent per frame.</summary>
+        public float HeightAt(float x, float z)
+        {
+            if (!Ready) return 0f;
+            float fx = Mathf.Clamp(x / data.step, 0f, data.columns - 1.001f), fz = Mathf.Clamp(z / data.step, 0f, data.rows - 1.001f);
+            int i = (int)fx, j = (int)fz; float tx = fx - i, tz = fz - j, n = data.columns;
+            float a = heights[j * data.columns + i], b = heights[j * data.columns + i + 1];
+            float c = heights[(j + 1) * data.columns + i], d = heights[(j + 1) * data.columns + i + 1];
+            return Mathf.Lerp(Mathf.Lerp(a, b, tx), Mathf.Lerp(c, d, tx), tz);
+        }
+
+        /// <summary>Centre line of the promenade (stone walkway) at local X.</summary>
+        public float PromenadeZ(float x) => PromenadeZ(data, x);
+
+        static float PromenadeZ(SiteData d, float x)
+        {
+            var p = d.promenade;
+            if (p == null || p.Length == 0) return 0f;
+            if (x <= p[0].x) return p[0].z;
+            for (int i = 1; i < p.Length; i++)
+                if (x <= p[i].x) return Mathf.Lerp(p[i - 1].z, p[i].z, (x - p[i - 1].x) / Mathf.Max(0.001f, p[i].x - p[i - 1].x));
+            return p[p.Length - 1].z;
+        }
 
         void Awake() => Build();
 
@@ -39,9 +68,10 @@ namespace ResortAurora.Site
             var bytes = Resources.Load<TextAsset>(heightsPath);
             if (json == null || bytes == null) { Debug.LogError("ResortSite: exported site data not found in Resources/Resort."); return; }
             var d = JsonUtility.FromJson<SiteData>(json.text);
-            var heights = new float[d.columns * d.rows];
+            heights = new float[d.columns * d.rows];
             Buffer.BlockCopy(bytes.bytes, 0, heights, 0, heights.Length * sizeof(float));
 
+            data = d; Ready = true;
             var terrain = BuildTerrain(d, heights);
             terrain.transform.SetParent(transform, false);
             BuildSea(d).transform.SetParent(transform, false);
@@ -111,6 +141,7 @@ namespace ResortAurora.Site
                     Color c = y < 0.5f ? Color.Lerp(wet, sand, Mathf.InverseLerp(-1f, 0.5f, y)) : Color.Lerp(sand, grass, Mathf.InverseLerp(2.6f, 4.2f, y));
                     bool inPad = wx >= d.pad.x && wx <= d.pad.x + d.pad.width && wz >= d.pad.z && wz <= d.pad.z + d.pad.depth;
                     if (inPad) c = Color.Lerp(c, pad, 0.55f);
+                    if (Mathf.Abs(wz - PromenadeZ(d, wx)) < 6f) c = new Color(0.72f, 0.70f, 0.66f); // stone promenade
                     px[j * nx + i] = c;
                 }
             tex.SetPixels(px); tex.Apply();
