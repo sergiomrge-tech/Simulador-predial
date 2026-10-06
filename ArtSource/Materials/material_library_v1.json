@@ -669,6 +669,60 @@
         "AO": "ArtSource/Textures/terra/terra_AO.png"
       }
     },
+    "areia": {
+      "family": "terreno",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.9,
+        0.98
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/areia/areia_BaseColor.png",
+        "Normal": "ArtSource/Textures/areia/areia_Normal.png",
+        "Roughness": "ArtSource/Textures/areia/areia_Roughness.png",
+        "Metallic": "ArtSource/Textures/areia/areia_Metallic.png",
+        "AO": "ArtSource/Textures/areia/areia_AO.png"
+      }
+    },
+    "pedra_costao": {
+      "family": "concreto",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.8,
+        0.97
+      ],
+      "texelDensity": 512,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/pedra_costao/pedra_costao_BaseColor.png",
+        "Normal": "ArtSource/Textures/pedra_costao/pedra_costao_Normal.png",
+        "Roughness": "ArtSource/Textures/pedra_costao/pedra_costao_Roughness.png",
+        "Metallic": "ArtSource/Textures/pedra_costao/pedra_costao_Metallic.png",
+        "AO": "ArtSource/Textures/pedra_costao/pedra_costao_AO.png"
+      }
+    },
+    "agua_mar": {
+      "family": "agua",
+      "pattern": "noise",
+      "metallic": 0.0,
+      "roughnessRange": [
+        0.03,
+        0.12
+      ],
+      "texelDensity": 256,
+      "status": "procedural_base_W1.5",
+      "slots": {
+        "BaseColor": "ArtSource/Textures/agua_mar/agua_mar_BaseColor.png",
+        "Normal": "ArtSource/Textures/agua_mar/agua_mar_Normal.png",
+        "Roughness": "ArtSource/Textures/agua_mar/agua_mar_Roughness.png",
+        "Metallic": "ArtSource/Textures/agua_mar/agua_mar_Metallic.png",
+        "AO": "ArtSource/Textures/agua_mar/agua_mar_AO.png"
+      }
+    },
     "lastro_ferroviario": {
       "family": "terreno",
       "pattern": "noise",

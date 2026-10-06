@@ -3,18 +3,19 @@
   "blend": "ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend",
   "blenderVersion": "5.2.1 LTS",
   "reopenedInFreshProcess": true,
-  "objectCount": 1267,
-  "meshCount": 1147,
+  "objectCount": 2489,
+  "meshCount": 2228,
   "collections": {
-    "OT_CidadeAntiga": 1267
+    "OT_CidadeAntiga": 1664
   },
   "checks": {
-    "geometryNodesInstancers": 405,
-    "materials": 37,
-    "materialsWithTextureSlots": 37,
+    "geometryNodesInstancers": 580,
+    "materials": 452,
+    "materialsWithTextureSlots": 326,
     "heroes": 9,
-    "stateSlots": 38,
+    "stateSlots": 77,
     "states": [
+      "ALL",
       "G0",
       "G1",
       "G2",
@@ -26,23 +27,29 @@
       "H3",
       "H4"
     ],
-    "subcellObjects": 1152,
+    "subcellObjects": 1518,
     "subcells": 181,
     "familyVariants": 45,
-    "gameplayMarkers": 261
+    "gameplayMarkers": 300,
+    "complexity": {
+      "meshTris": 3528660,
+      "instancedTris": 24774516,
+      "instances": 74896,
+      "largestMesh": [
+        "W2_imperial__foyer_shell",
+        34500
+      ],
+      "materials": 452,
+      "textures": 551,
+      "textureMemoryMB_est": 2931.3,
+      "lights": 66,
+      "objects": 2489,
+      "blendMB": 44.65,
+      "meshes": 2228
+    }
   },
   "missingData": [],
-  "renders": [
-    "ArtSource/Blender/World/Reviews/W1_5/03_cidade_antiga.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/04_cidade_antiga_obliqua.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/05_lar_inicial.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/05b_lar_inicial_corte.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/06_oficina_aurora.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/06b_oficina_aurora_corte.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/07_horizonte.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/07b_horizonte_fachada.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/08_teatro_imperial.jpg"
-  ],
+  "renders": [],
   "errors": [],
   "passed": true
 }

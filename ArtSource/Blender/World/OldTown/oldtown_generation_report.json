@@ -1,15 +1,15 @@
 {
   "blend": "ArtSource/Blender/World/OldTown/SantaAurora_CidadeAntiga_Base_v1.blend",
   "blenderVersion": "5.2.1 LTS",
-  "objectCount": 2512,
+  "objectCount": 2489,
   "collectionObjectCounts": {
     "OT_Library": 125,
     "OT_Terrain": 180,
     "OT_Roads": 156,
-    "OT_Architecture": 561,
+    "OT_Architecture": 538,
     "OT_Infrastructure": 119,
     "OT_Props": 61,
-    "OT_Vegetation": 152,
+    "OT_Vegetation": 145,
     "OT_Lighting": 60,
     "OT_Gameplay": 261,
     "OT_Cameras": 19
@@ -201,7 +201,7 @@
   "buildingInstances": 13003,
   "infrastructureInstances": 13681,
   "propInstances": 817,
-  "trees": 8251,
+  "trees": 7952,
   "streetLights": 2065,
   "kitPieces": [
     "KIT_Corner_Outer",
@@ -268,7 +268,9 @@
     "aco_pintado_verde",
     "aco_pintado_vermelho",
     "agua_canal",
+    "agua_mar",
     "aluminio",
+    "areia",
     "asfalto",
     "asfalto_gasto",
     "azulejo_branco",
@@ -306,6 +308,7 @@
     "metal_galvanizado",
     "papelao",
     "parede_pintada",
+    "pedra_costao",
     "pedra_portuguesa",
     "pedra_reboco_historico",
     "pintura_industrial",
@@ -427,10 +430,10 @@
     }
   },
   "w2": {
-    "stairways": 19,
-    "stair_steps": 362,
-    "retaining_walls": 1356,
-    "podiums": 1511,
+    "stairways": 17,
+    "stair_steps": 338,
+    "retaining_walls": 1140,
+    "podiums": 1212,
     "tire_mark_segments": 2766,
     "asphalt_patches": 1316,
     "oil_stains": 891,
@@ -486,7 +489,7 @@
       "oiti": 2164,
       "mangueira": 1111,
       "palmeira": 38,
-      "arbusto": 1434
+      "arbusto": 1135
     },
     "vegetation_species_tris": {
       "VEG_oiti": 304,
@@ -510,6 +513,10 @@
         "mangueira": 651,
         "palmeira": 1
       }
+    },
+    "w31_trees": {
+      "gate_clear": 0,
+      "pruned": 0
     },
     "relief_street_grade_pct": 10.5,
     "valley_street_grade_pct": 8.7,

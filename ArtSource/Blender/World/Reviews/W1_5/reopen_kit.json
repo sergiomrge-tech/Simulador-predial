@@ -3,31 +3,43 @@
   "blend": "ArtSource/Blender/Kits/SantaAurora_CidadeAntiga_Kit_v1.blend",
   "blenderVersion": "5.2.1 LTS",
   "reopenedInFreshProcess": true,
-  "objectCount": 280,
-  "meshCount": 138,
+  "objectCount": 389,
+  "meshCount": 193,
   "collections": {
     "KIT_Modular": 40,
     "KIT_Infraestrutura": 15,
     "KIT_Familias": 45,
-    "KIT_Materiais": 37,
-    "KIT_Labels": 138,
-    "KIT_Cameras": 5
+    "KIT_Materiais": 64,
+    "KIT_Labels": 191,
+    "KIT_Cameras": 6,
+    "KIT_Detalhe_W2": 28
   },
   "checks": {
     "geometryNodesInstancers": 0,
-    "materials": 37,
-    "materialsWithTextureSlots": 37,
+    "materials": 64,
+    "materialsWithTextureSlots": 55,
     "kitPieces": 40,
     "props": 15,
-    "assetsMarked": 100
+    "assetsMarked": 126,
+    "complexity": {
+      "meshTris": 120362,
+      "instancedTris": 0,
+      "instances": 0,
+      "largestMesh": [
+        "FAM_p46_d",
+        4724
+      ],
+      "materials": 64,
+      "textures": 87,
+      "textureMemoryMB_est": 462.8,
+      "lights": 1,
+      "objects": 389,
+      "blendMB": 1.98,
+      "meshes": 193
+    }
   },
   "missingData": [],
-  "renders": [
-    "ArtSource/Blender/World/Reviews/W1_5/20_kit_modular.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/21_kit_infraestrutura.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/22_familias_edificacao.jpg",
-    "ArtSource/Blender/World/Reviews/W1_5/23_materiais_pbr.jpg"
-  ],
+  "renders": [],
   "errors": [],
   "passed": true
 }

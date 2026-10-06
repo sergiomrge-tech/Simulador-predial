@@ -30,7 +30,7 @@ import sa_materials  # noqa: E402
 from masterplan_layout import Layout, load_registry, load_spec  # noqa: E402
 from sa_geom import dist, lerp, norm, perp, resample  # noqa: E402
 from sa_geom import sub as vsub  # noqa: E402
-from sa_terrain import BANK_OUTER, WATER_LEVEL  # noqa: E402
+from sa_terrain import BANK_OUTER, COAST_PROMENADE_DZ, WATER_LEVEL, shore_z  # noqa: E402
 from urban_fabric import STREET, carriageway  # noqa: E402
 
 world_dir = root / "ArtSource" / "Blender" / "World"
@@ -147,7 +147,12 @@ ZC = {}
 for i in range(n + 1):
     for j in range(n + 1):
         x, y = wx0 + i * STEP, wz0 + j * STEP
-        if T.canal_distance(x, y) < BANK_OUTER + 4:
+        dz_c = y - shore_z(x)
+        if dz_c < COAST_PROMENADE_DZ - 8:                       # W4 coast: seabed, wet sand and dry sand (linear albedo)
+            ZC[(i, j)] = (.20, .19, .15) if dz_c < -4 else (.24, .20, .15) if dz_c < 8 else (.46, .37, .23)
+        elif dz_c < COAST_PROMENADE_DZ + 40:
+            ZC[(i, j)] = (.40, .38, .34)
+        elif T.canal_distance(x, y) < BANK_OUTER + 4:
             ZC[(i, j)] = (.46, .46, .44)
         else:
             ZC[(i, j)] = ZONE_COL.get(layout.zone_of((x, y)), (.45, .42, .35))
@@ -188,6 +193,10 @@ for osp in layout.open_spaces:
         for (cx, cy, sx, sy) in ((osp["x"], osp["z"] - osp["depth"] / 2, osp["width"], .5), (osp["x"], osp["z"] + osp["depth"] / 2, osp["width"], .5),
                                  (osp["x"] - osp["width"] / 2, osp["z"], .5, osp["depth"]), (osp["x"] + osp["width"] / 2, osp["z"], .5, osp["depth"])):
             mb.box(cx, cy, z0 - 3.2, sx, sy, 4.0, 1)
+mb_sea = sa_bl.MeshBuilder()
+mb_sea.box(0, -6350.0, -2.0, 20000.0, 5300.0, 2.0, 0)                  # W4 sea at 0 m; the terrain profile hides its inland edge
+sea_o = mb_sea.to_object("Sea_South", [lib["agua_mar"]], C["01_Water"])
+sa_bl.props(sea_o, sa_layer="Terrain", sea_level_m=0.0, coast_id=spec["coast"]["id"])
 water = mb.to_object("Water_Canal_and_Basin", [lib["agua_canal"], lib["concreto"]], C["01_Water"])
 sa_bl.props(water, facility_id=spec["canal"]["id"], sa_layer="Terrain", water_level_m=WATER_LEVEL)
 

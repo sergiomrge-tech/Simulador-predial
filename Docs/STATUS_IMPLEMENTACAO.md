@@ -258,3 +258,12 @@ Preparação concluída no GitHub:
 - Defeito (achado na validação Unity): laje sem abertura de escada, patamar de 0,30 m, degraus maciços com pouca altura livre e portas da escada fechadas de 1,0 × 2,1 m. Correção: abertura na laje, patamar de 1,20 m, degraus vazados, portas 1,2 × 2,4 m abertas a 90° para o corredor. Detalhes e verificação em `Docs/W3_2_HORIZONTE_STAIR_FIX.md`.
 - Validação: `verify_horizonte_stair.py` (herói anterior falha; corrigido passa: altura livre ≥ 2,82 m, 0 raios bloqueados nas portas), herói e slice reabertos em processo novo sem dados faltando, IDs/marcadores/âncoras/instâncias idênticos, masterplan e rotas PASS.
 - Estado: **W3.2 congelado e pronto para integração Unity.** Pendências na integração: portão de pedestres do Horizonte, interação de porta, iluminação interior da escada.
+
+## W4 — Orla das Palmeiras (costa sul)
+
+- Terreno: `Tools/Map/sa_terrain.py` (`shore_z`, perfil de praia). Areia 1,6%, calçadão a +3 m, a cidade desce ~930 m até a orla; greide máximo das vias continua ≤ 4% na costa (R03.0 4,02%).
+- Spec: bloco `coast` em `masterplan_spec_v1.json`; R03 (Av. das Palmeiras) estendida até a Avenida da Orla (z ≈ −3664). IDs preservados.
+- Gerador: `Tools/Blender/create_coast.py` → `ArtSource/Blender/World/Coast/SantaAurora_Orla_v1.blend` (terreno de 5 m, mar, espuma, calçadão de pedra portuguesa, ciclovia, avenida, 2 píeres, farol, torres de salva-vidas, quiosques, ~2,2 mil palmeiras, guarda-sóis, rochas, barcos, ~240 prédios de orla em massing com faixas de pavimento).
+- Masterplan v1.5 regenerado com mar e cores de areia; pipeline `Run-W15World.ps1 -NoRender` passou (masterplan, Cidade Antiga, kit).
+- Capturas: `ArtSource/Blender/World/Reviews/W4/`.
+- Pendente: a Cidade Antiga base ainda não foi refeita em alta fidelidade ao sul de z = −3400 (terreno novo vale, arte antiga); orla sem veículos/pedestres; prédios da orla são massing; sem render de entardecer/noite; sem integração Unity.
