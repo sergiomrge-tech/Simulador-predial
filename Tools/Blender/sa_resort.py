@@ -108,7 +108,7 @@ class Frame:
 
 # ------------------------------------------------------------------------------------------------ guest wing
 
-def wing(fr, L, D, z0, floors, fh=3.4, bd=2.2, seed=0, brise=0.33, roof_garden=True, ground_open=False, loggia=True, end_pavilions=True):
+def wing(fr, L, D, z0, floors, fh=3.4, bd=2.2, seed=0, brise=0.33, roof_garden=True, ground_open=False, loggia=True, end_pavilions=True, pitched=False):
     """Stepped-balcony guest wing. Facade (balconies) looks to d < 0. L along u, D deep, floors of height fh."""
     import random
     rng = random.Random(seed)
@@ -162,6 +162,10 @@ def wing(fr, L, D, z0, floors, fh=3.4, bd=2.2, seed=0, brise=0.33, roof_garden=T
         fr.box(L - 0.12, L + 0.12, -bd, D, z + T, z + fh, S["estuque"])
     # roof: thin slab, deep eave, planted roof garden behind a travertine parapet
     zr = z0 + floors * fh
+    if pitched:                                                                                     # whole-wing terracotta hip roof (varies the skyline)
+        fr.box(-0.6, L + 0.6, -bd - 1.0, D + 0.6, zr, zr + 0.35, S["concreto"], bottom=True)
+        hip_roof(fr, -1.2, L + 1.2, -bd - 1.8, D + 1.2, zr + 0.35, 5.0, S["terracota"], ridge=0.12)
+        return zr + 5.4
     if end_pavilions:                                                                               # taller gabled corner pavilions (rhythm in the skyline)
         for (ua, ub) in ((-0.6, 7.5), (L - 7.5, L + 0.6)):
             fr.box(ua + 0.6, ub - 0.6, -bd, D, zr, zr + 3.4, S["estuque"])
@@ -530,6 +534,74 @@ def lamp(fr, u, d, z, h=4.2):
     fr.mb.cylinder(x, y, z, 0.08, h, 8, S["aco_preto"])
     fr.mb.cylinder(x, y, z + h, 0.22, 0.45, 8, S["luz"])
     fr.mb.cylinder(x, y, z + h + 0.45, 0.28, 0.08, 8, S["aco_preto"])
+
+
+def dome(fr, u, d, z, r=4.5, drum_h=3.2, segs=20, rings=7, mat=None):
+    """Drum with arched openings (read as blind arches) and a terracotta/copper dome with a brass finial."""
+    mat = S["terracota"] if mat is None else mat
+    x, y, _ = fr.P(u, d, z)
+    mb = fr.mb
+    mb.cylinder(x, y, z, r + 0.25, drum_h, segs, S["estuque"], top=False)
+    mb.cylinder(x, y, z + drum_h, r + 0.4, 0.3, segs, S["travertino"])
+    zc = z + drum_h + 0.3
+    prev = [(x + r * math.cos(2 * math.pi * k / segs), y + r * math.sin(2 * math.pi * k / segs), zc) for k in range(segs)]
+    for i in range(1, rings + 1):
+        phi = (math.pi / 2) * i / rings
+        rr, hh = r * math.cos(phi), r * 0.85 * math.sin(phi)
+        cur = [(x + rr * math.cos(2 * math.pi * k / segs), y + rr * math.sin(2 * math.pi * k / segs), zc + hh) for k in range(segs)]
+        for k in range(segs):
+            j = (k + 1) % segs
+            mb.quad(prev[k], prev[j], cur[j], cur[k], mat)
+        prev = cur
+    mb.cylinder(x, y, zc + r * 0.85, 0.08, 1.6, 6, S["latao"])
+
+
+def campanile(fr, u, d, z, w=7.0, h=26.0):
+    """Square bell tower: travertine shaft with string courses, a belvedere with arches, a pyramidal terracotta roof and a brass finial."""
+    fr.box(u - w / 2, u + w / 2, d - w / 2, d + w / 2, z, z + h, S["travertino"])
+    for k in range(1, 5):
+        zz = z + k * h / 5.5
+        fr.box(u - w / 2 - 0.25, u + w / 2 + 0.25, d - w / 2 - 0.25, d + w / 2 + 0.25, zz, zz + 0.35, S["marmore"])
+    for side in (-1, 1):                                                                           # slit windows on all four faces
+        fr.box(u - 0.4, u + 0.4, d + side * (w / 2 + 0.02) - 0.03, d + side * (w / 2 + 0.02) + 0.03, z + h * 0.25, z + h * 0.25 + 3.0, S["vidro"], top=False, bottom=False, front=True, back=True, sides=False)
+        fr.box(u + side * (w / 2 + 0.02) - 0.03, u + side * (w / 2 + 0.02) + 0.03, d - 0.4, d + 0.4, z + h * 0.25, z + h * 0.25 + 3.0, S["vidro"], top=False, bottom=False, front=True, back=True, sides=False)
+    zb = z + h
+    fr.box(u - w / 2 - 0.6, u + w / 2 + 0.6, d - w / 2 - 0.6, d + w / 2 + 0.6, zb, zb + 0.5, S["travertino"], bottom=True)
+    for ix in (-1, 1):                                                                             # belvedere piers with open arches
+        for iz in (-1, 1):
+            fr.box(u + ix * (w / 2 - 0.4) - 0.4, u + ix * (w / 2 - 0.4) + 0.4, d + iz * (w / 2 - 0.4) - 0.4, d + iz * (w / 2 - 0.4) + 0.4, zb + 0.5, zb + 4.6, S["travertino"])
+    fr.box(u - w / 2 - 0.4, u + w / 2 + 0.4, d - w / 2 - 0.4, d + w / 2 + 0.4, zb + 4.6, zb + 5.0, S["travertino"], bottom=True)
+    rx = w / 2 + 1.6
+    apex = fr.P(u, d, zb + 5.0 + 6.0)
+    corners = [fr.P(u - rx, d - rx, zb + 5.0), fr.P(u + rx, d - rx, zb + 5.0), fr.P(u + rx, d + rx, zb + 5.0), fr.P(u - rx, d + rx, zb + 5.0)]
+    for k in range(4):
+        fr.mb.add_face([corners[k], corners[(k + 1) % 4], apex], S["terracota"])
+    x, y, _ = fr.P(u, d, zb + 11.0)
+    fr.mb.cylinder(x, y, zb + 11.0, 0.1, 2.6, 6, S["latao"])
+    fr.box(u - 1.0, u + 1.0, d - 1.0, d + 1.0, zb + 0.5, zb + 3.6, S["luz"], top=False, bottom=False)       # glowing lantern inside the belvedere
+
+
+def shade_tree(trunk_mb, crown_mb, base, h=7.0, r=4.2, seed=0):
+    """Flame-tree style umbrella crown: a short bent trunk and a broad crown made of overlapping soft masses."""
+    import random
+    rng = random.Random(seed)
+    bx, by, bz = base
+    bend = (rng.uniform(-.8, .8), rng.uniform(-.8, .8))
+    prev = None
+    for k in range(5):
+        t = k / 4
+        cx, cy, z = bx + bend[0] * t * t, by + bend[1] * t * t, bz + h * t
+        rad = 0.38 - 0.16 * t
+        cur = [(cx + rad * math.cos(2 * math.pi * j / 7), cy + rad * math.sin(2 * math.pi * j / 7), z) for j in range(7)]
+        if prev:
+            for j in range(7):
+                trunk_mb.quad(prev[j], prev[(j + 1) % 7], cur[(j + 1) % 7], cur[j], 0)
+        prev = cur
+    tx, ty, tz = bx + bend[0], by + bend[1], bz + h
+    for k in range(9):
+        a = 2 * math.pi * k / 9 + rng.uniform(-.3, .3)
+        rr = r * rng.uniform(.35, .75) if k else 0.0
+        blob(crown_mb, (tx + rr * math.cos(a), ty + rr * math.sin(a), tz + rng.uniform(-.2, 1.0)), r * rng.uniform(.5, .75), 0, seed=rng.randrange(10000), rings=9, segs=16)
 
 
 def parterre(fr, L, D, z, flowers_mb, seed=0, cell=6.0):

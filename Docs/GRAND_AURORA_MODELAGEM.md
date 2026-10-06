@@ -40,6 +40,12 @@ Os terraços têm 39, 42, 39 e 69 m de profundidade; cada degrau cai sobre uma g
 - **T1**: piscina de borda infinita para o mar, espreguiçadeiras, guarda-sóis, palapas, 8 bangalôs com piscina privativa, bar da praia, canteiros formais.
 - **Paisagem**: 146 palmeiras-imperiais modeladas à mão (tronco afunilado e anelado, copa de 16 folhas), arbustos, buganvílias, alameda de palmeiras até a avenida.
 
+## Segunda passada (2026-10-06)
+
+- **Skyline:** 2 campanários de 27 m ladeiam o Grande Saguão; 2 rotundas com cúpula na chegada; 2 pavilhões de massagem com cúpula de 8 m no T2; alas do T2 e T3 com telhado de terracota inteiro (as do T4 mantêm cobertura-jardim e pavilhões de canto), para variar a aérea.
+- **Paisagem:** 62 árvores de copa larga (flamboyants) além das palmeiras; muro de arrimo com balaústres no limite norte do T4.
+- **Suíte de luxo** (`Tools/Blender/create_suite.py` → `SantaAurora_Suite_v1.blend`, capturas em `Suite/` e `Suite_noite/`): 9 × 11 × 3,2 m com sala, quarto (cama king 2,0 × 2,2), closet com ilha, banheiro com banheira solta, chuveiro e bancada dupla, terraço de teca com piscina privativa e vista para o mar. Piso de madeira, mármore, latão, forro com luz de gola, pendentes. Bordas chanfradas.
+
 ## Verificado
 
 - Gerador roda sem erro (~8 s); 400 mil polígonos, dos quais ~290 mil são o terreno de 1,5 m.
@@ -51,6 +57,8 @@ Os terraços têm 39, 42, 39 e 69 m de profundidade; cada degrau cai sobre uma g
 - A aérea ainda lê "grande conjunto bem organizado" e não "monumental e lindo": faltam variação de volumes (torreões, cúpulas, loggias duplas), jardins em escala de paisagismo, água em movimento, pessoas e sombras de vegetação de verdade.
 - O terreno ao redor do platô (talude norte e laterais) é um declive de grama; falta o muro de contenção e o acesso viário final.
 - Os prédios da vila ao redor são só caixas (contexto).
+- **Suíte:** a mobília ainda é de blocos com proporções reais, sem costura, almofadas nem texturas de tecido; o dia ficou frio (luz de céu azul). A noite está melhor que o dia.
+- As copas de árvore ainda mostram facetas de perto.
 - Nada disto foi exportado para a Unity como malha; o Unity ainda mostra só o terreno (com os terraços) e a vila em caixas.
 
 ## Próximos passos de modelagem (ordem)

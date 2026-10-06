@@ -271,7 +271,7 @@ for k in range(14):
 
 # ---- T3 (z=12.7): lagoon, restaurant, event hall, wings
 for u0, L in ((6, 74), (160, 74)):
-    R.wing(frame("T3", u0, 100), L, 16, t3, 4, seed=u0 + 3)
+    R.wing(frame("T3", u0, 100), L, 16, t3, 4, seed=u0 + 3, pitched=True)
     stats["wings"] += 1
 R.lobby(frame("T3", 14, 84), 52, 11, t3, H=6.5)                                                   # Restaurante Horizonte (pavilion)
 R.lobby(frame("T3", 174, 84), 52, 11, t3, H=6.5)                                                  # Salão de Eventos
@@ -287,7 +287,7 @@ for k in range(6):
 
 # ---- T2 (z=9.6): spa, reflecting canals, wings
 for u0, L in ((6, 66), (168, 66)):
-    R.wing(frame("T2", u0, 58), L, 16, t2, 3, seed=u0 + 5)
+    R.wing(frame("T2", u0, 58), L, 16, t2, 3, seed=u0 + 5, pitched=True)
     stats["wings"] += 1
 R.villa(frame("T2", 88, 58), 64, 14, t2, seed=2)                                                  # Spa Maré
 R.pool(arch["T2"], water, X(30), Y(46), X(70), Y(54), t2, depth=1.2)
@@ -313,6 +313,28 @@ for k in range(11):                                                             
     R.thatch_roof(f, 0, 0.2, t1 + 2.8, 2.7, 1.8)
 bar = frame("T1", 30, 26)
 R.lobby(bar, 22, 9, t1, H=4.4)                                                                    # beach bar pavilion
+
+# ---- skyline accents: campaniles flanking the Grand Hall, rotundas at the arrival, domed massage pavilions on T2
+for u in (71.5, 168.5):
+    R.campanile(frame("T4", u, 142), 0, 0, t4, w=7.0, h=27.0)
+for u in (84.0, 156.0):
+    fq = frame("T4", u, 176)
+    fq.box(-6, 6, -6, 6, t4, t4 + 0.5, S["marmore"], bottom=True)
+    R.dome(fq, 0, 0, t4 + 0.5, r=4.6, drum_h=3.4)
+for u in (20.0, 220.0):
+    fq = frame("T2", u, 48)
+    fq.box(-11, 11, -11, 11, t2, t2 + 0.5, S["travertino"], bottom=True)
+    R.dome(fq, 0, 0, t2 + 0.5, r=8.0, drum_h=5.0)
+    for k in range(10):
+        a = 2 * math.pi * k / 10
+        fq.cyl(9.6 * math.cos(a), 9.6 * math.sin(a), t2 + 0.5, 0.3, 5.0, 12, S["estuque"])
+# north retaining wall and balustrade of the arrival terrace (the hill falls away behind the resort)
+fnw = frame("T4", 0, 189.0)
+fnw.box(0, W, 0, 1.2, t4 - 9.0, t4, S["travertino"])
+fnw.box(-0.1, W + 0.1, -0.1, 1.3, t4, t4 + 0.2, S["marmore"])
+for k in range(int(W // 0.55)):
+    fnw.box(k * 0.55 + 0.1, k * 0.55 + 0.3, 0.1, 0.5, t4 + 0.2, t4 + 0.9, S["marmore"], top=False)
+fnw.box(-0.1, W + 0.1, 0.0, 0.6, t4 + 0.9, t4 + 1.0, S["marmore"])
 
 # ------------------------------------------------------------------------------------------------ landscape
 for n in range(4):                                                                                # royal palm alley, 2 rows per terrace
@@ -348,6 +370,17 @@ for n in range(4):                                                              
             continue
         R.blob(land, (X(u), Y(TB[n] + 2.0), TH[n] + 0.4), 1.0, 0, seed=900 + n * 50 + k)
 
+crowns = sa_bl.MeshBuilder()
+for k in range(46):                                                                              # shade trees: garden bands, side lawns and the avenue approach
+    n = rng.randrange(4)
+    u = rng.choice((rng.uniform(4, 60), rng.uniform(180, 236)))
+    v = rng.uniform(TB[n] + 4, TB[n + 1] - 4)
+    R.shade_tree(trunks, crowns, (X(u), Y(v), TH[n]), h=rng.uniform(5.5, 8.5), r=rng.uniform(3.4, 5.0), seed=k)
+for k in range(16):
+    u = rng.uniform(-30, 270)
+    v = rng.uniform(-60, -8)
+    R.shade_tree(trunks, crowns, (X(u), Y(v), height_at(X(u), Y(v))), h=rng.uniform(6, 9), r=rng.uniform(3.6, 5.2), seed=100 + k)
+
 # ------------------------------------------------------------------------------------------------ materialise objects
 for name, mb in arch.items():
     if len(mb):
@@ -356,6 +389,8 @@ if len(water):
     water.to_object("Agua", [lib["agua_piscina"]], coll["Agua"])
 if len(land):
     land.to_object("Arbustos", [lib["folhagem"]], coll["Paisagem"])
+if len(crowns):
+    crowns.to_object("Arvores_copas", [lib["folhagem"]], coll["Paisagem"], smooth=True)
 if len(flowers):
     flowers.to_object("Buganvilias", [lib["buganvile"]], coll["Paisagem"])
 if len(trunks):
