@@ -121,3 +121,33 @@ Sempre:
 
 Se a fase ainda estiver aberta, continue nela.
 Se o gate estiver realmente fechado, atualize a tarefa atual para a próxima fase e continue.
+
+## Biblioteca local de assets gratuitos
+
+Claude deve consultar também:
+
+`Docs/ASSET_LIBRARY/UNITY_FREE_ASSETS.md`
+
+Biblioteca local disponível no computador:
+
+`D:\ProjectResort_Autonomy\assets`
+
+Esse caminho é um junction para:
+
+`D:\ProjectResort_AssetLibrary`
+
+Prioridade atual:
+1. usar `Human Basic Motions FREE` para substituir animações procedurais/estáticas dos NPCs próximos e médios, sem quebrar BeachLife/LOD;
+2. avaliar `Environment Pack Free Forest Sample` apenas onde a estética for compatível;
+3. não integrar automaticamente assets de fantasia/monstros/VFX mágicos;
+4. nunca commitar os pacotes brutos da Unity Asset Store no GitHub público;
+5. se precisar de um asset pago para atingir visual realmente superior, documentar a necessidade e aguardar aprovação do usuário antes da compra.
+
+Ao integrar animações:
+- preferir Humanoid/Mecanim;
+- idle/walk/run/jog/talk;
+- transições suaves;
+- Root Motion apenas onde fizer sentido;
+- manter pool/LOD;
+- evitar Animator completo em personagens distantes;
+- validar performance e capturas reais antes/depois.
