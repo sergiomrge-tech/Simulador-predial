@@ -90,6 +90,7 @@ namespace ResortAurora.Tests
             foreach (var p in Catalog.Products) g.Stall.Buy(p.Id, p.Id == "sweet.picole" ? 10 : 25, g.Ledger, g.Clock.Day);
             Assert.Less(g.Ledger.Balance, 150, "stock cost money");
 
+            g.OpenShop();
             Time.captureDeltaTime = 0.05f;   // fixed step per frame so the test is deterministic and fast in batch mode
             Time.timeScale = 4f;
             bool shot = false; int guard = 0;

@@ -1,11 +1,12 @@
 {
   "blend": "ArtSource/Blender/Resort/SantaAurora_Estagios_v1.blend",
-  "polygons": 1099202,
+  "polygons": 1099591,
   "pieces": [
     "1-1:barraca",
     "1-5:grande_hotel_ruina",
     "1-6:farol",
     "1-7:guardasois",
+    "1-7:lar",
     "1-7:palmeiras_folha",
     "1-7:palmeiras_tronco",
     "2-7:quiosque",

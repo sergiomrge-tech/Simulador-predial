@@ -16,6 +16,13 @@
    "polygons": 672
   },
   {
+   "asset": "E1-7_lar",
+   "from": 1,
+   "to": 7,
+   "name": "lar",
+   "polygons": 289
+  },
+  {
    "asset": "E1-7_palmeiras_folha",
    "from": 1,
    "to": 7,

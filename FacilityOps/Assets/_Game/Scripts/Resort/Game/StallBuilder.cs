@@ -140,6 +140,13 @@ namespace ResortAurora.Game
             var crate = Box("SupplierCrate", root, new Vector3(2.0f, 0.3f, -0.1f), new Vector3(0.7f, 0.6f, 0.7f), wood2);
             Box("CrateSign", root, new Vector3(2.0f, 0.9f, -0.1f), new Vector3(0.5f, 0.25f, 0.05f), new Color(0.95f, 0.8f, 0.2f), collider: false);
             var market = crate.AddComponent<PanelStation>(); market.panel = Panel.Market; market.label = "Estoque, preços e melhorias";
+            // open / close sign (the day starts closed: opening is a decision)
+            var sign = Box("OpenSign", root, new Vector3(-2.45f, 1.25f, 1.15f), new Vector3(0.1f, 0.55f, 0.75f), new Color(0.2f, 0.62f, 0.3f));
+            var act = sign.AddComponent<ActionStation>();
+            act.prompt = g => g.ShopOpen ? "[E] Fechar o quiosque e conferir o caixa" : "[E] Abrir o quiosque";
+            act.canUse = g => !g.Clock.DayOver && !g.AwaitingSleep;
+            act.action = g => { if (g.ShopOpen) g.RequestClose(); else g.OpenShop(); };
+            Label(root, new Vector3(-2.45f, 1.85f, 1.15f), "ABERTO / FECHADO", 36, 0.04f);
             // help board on a post
             var help = Box("HelpBoard", root, new Vector3(-2.4f, 1.1f, 0.4f), new Vector3(0.08f, 0.6f, 0.5f), new Color(0.15f, 0.3f, 0.2f));
             var hp = help.AddComponent<PanelStation>(); hp.panel = Panel.Help; hp.label = "Como jogar";

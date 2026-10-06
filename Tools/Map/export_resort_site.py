@@ -121,7 +121,7 @@ natural = [[height(SITE_X0 + i * STEP, z0 + j * STEP, skip=("P5",)) for i in ran
 fam = json.loads((root / "ArtSource/Blender/World/OldTown/oldtown_streaming_manifest_v1.json").read_text(encoding="utf-8"))["families"]
 HOUSES = [(v["w"], v["d"], v["height"]) for v in fam.values() if v["height"] <= 10.5 and v["w"] <= 14 and v["d"] <= 20] or [(7, 14, 6)]
 rng = random.Random(1994)
-LAR = dict(x=-345.0, dz=364.0, w=24.0, d=20.0, h=15.0)
+LAR = dict(x=-120.0, dz=265.0, w=12.0, d=8.0, h=3.4)         # Apto 12 kitnet: ~150 m from the stall, door faces the avenue
 
 
 def blocked(x, dzc, w, d):

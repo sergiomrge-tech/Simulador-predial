@@ -17,9 +17,13 @@ namespace ResortAurora.Sim
     {
         public static readonly ProductDef[] Products =
         {
-            new ProductDef { Id = "food.pastel",   Name = "Pastel",         BasePrice = 9, UnitCost = 3, PrepSeconds = 5.0f, HeatSensitivity = -0.2f, Appeal = 1.0f },
+            new ProductDef { Id = "food.pastel",   Name = "Salgado",         BasePrice = 9, UnitCost = 3, PrepSeconds = 5.0f, HeatSensitivity = -0.2f, Appeal = 1.0f },
             new ProductDef { Id = "food.milho",    Name = "Milho cozido",   BasePrice = 6, UnitCost = 2, PrepSeconds = 2.5f, HeatSensitivity = -0.1f, Appeal = 0.8f },
-            new ProductDef { Id = "drink.coco",    Name = "Água de coco",   BasePrice = 7, UnitCost = 3, PrepSeconds = 2.0f, HeatSensitivity = 0.8f,  Appeal = 1.1f },
+            new ProductDef { Id = "drink.agua",    Name = "Água",           BasePrice = 4, UnitCost = 1, PrepSeconds = 0.8f, HeatSensitivity = 1.0f,  Appeal = 1.0f },
+            new ProductDef { Id = "drink.refri",   Name = "Refrigerante",   BasePrice = 7, UnitCost = 3, PrepSeconds = 0.8f, HeatSensitivity = 0.7f,  Appeal = 1.0f },
+            new ProductDef { Id = "drink.cerveja", Name = "Cerveja",        BasePrice = 10, UnitCost = 5, PrepSeconds = 0.9f, HeatSensitivity = 0.5f, Appeal = 0.9f },
+            new ProductDef { Id = "food.lanche",   Name = "Lanche",         BasePrice = 14, UnitCost = 6, PrepSeconds = 6.0f, HeatSensitivity = -0.1f, Appeal = 0.8f },
+            new ProductDef { Id = "drink.coco",    Name = "Suco / água de coco",   BasePrice = 7, UnitCost = 3, PrepSeconds = 2.0f, HeatSensitivity = 0.8f,  Appeal = 1.1f },
             new ProductDef { Id = "sweet.picole",  Name = "Picolé",         BasePrice = 5, UnitCost = 2, PrepSeconds = 1.2f, HeatSensitivity = 1.0f,  Appeal = 0.7f },
         };
 

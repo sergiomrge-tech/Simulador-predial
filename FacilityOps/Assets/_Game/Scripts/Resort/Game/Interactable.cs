@@ -59,6 +59,14 @@ namespace ResortAurora.Game
         }
     }
 
+    public sealed class ActionStation : Interactable
+    {
+        public System.Func<ResortGame, string> prompt; public System.Func<ResortGame, bool> canUse; public System.Action<ResortGame> action;
+        public override bool CanUse(ResortGame g) => canUse == null || canUse(g);
+        public override string Prompt(ResortGame g) => prompt(g);
+        public override void Use(ResortGame g) => action(g);
+    }
+
     public enum Panel { None, Market, Hire, Summary, Help, Parcels, Lodging }
 
     public sealed class PanelStation : Interactable

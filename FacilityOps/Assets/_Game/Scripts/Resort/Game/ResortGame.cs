@@ -39,7 +39,12 @@ namespace ResortAurora.Game
         readonly List<CustomerAgent> agents = new List<CustomerAgent>();
         readonly System.Random rng = new System.Random();
         float spawnAccumulator, ambientAccumulator;
-        bool dayClosing;
+        bool dayClosing, closingRequested;
+
+        /// <summary>The stall only gets customers while it is open (sign on the counter). Opening and closing are the player's decisions.</summary>
+        public bool ShopOpen { get; private set; }
+        /// <summary>The day is over and the player has to walk home and sleep (bed in the Apto 12) to start the next one.</summary>
+        public bool AwaitingSleep { get; private set; }
 
         public sealed class DaySummary
         {
@@ -73,10 +78,11 @@ namespace ResortAurora.Game
             Stages.Init(site);
             Bus.Subscribe<ParcelBought>(e => { if (e.Id == "P2") UnlockLodging(true); RefreshStage(); });
 
+            BuildHomeStations();
             bool hasSave = SaveStore.Exists();
             if (hasSave) Load(SaveStore.Read());
             // New game: wake up at the Santa Clara door and walk to work (the commute is part of the story). Otherwise start at the stall.
-            if (hasSave) PlaceAtStall(); else PlaceAtHome();
+            PlaceAtHome();                                  // every day starts at the door of the Apto 12
             if (Parcels.Owns("P2")) UnlockLodging(false);
             RefreshStage();
             Weather = DemandModel.WeatherFor(Seed, Clock.Day);
@@ -120,6 +126,23 @@ namespace ResortAurora.Game
             Layout.SetKioskLook(stage >= 2);
         }
 
+        /// <summary>The bed of the Apto 12 (sleep to start the next day) and the building sign. The kitnet model itself is an exported stage piece.</summary>
+        void BuildHomeStations()
+        {
+            var h = site.Data.home;
+            float ox = h.x - h.width / 2f, oz = h.z - h.depth / 2f;           // frame origin of the kitnet (u east, d north)
+            float y = site.HeightAt(ox + 9f, oz + 6f);
+            var bed = new GameObject("HomeBed");
+            bed.transform.position = new Vector3(ox + 9.2f, y + 0.5f, oz + 6.6f);
+            bed.AddComponent<BoxCollider>().size = new Vector3(1.9f, 0.9f, 2.3f);
+            var st = bed.AddComponent<ActionStation>();
+            st.prompt = g => g.AwaitingSleep ? $"[E] Dormir e começar o dia {g.Clock.Day + 1}" : "Cama (só depois de encerrar o dia)";
+            st.canUse = g => g.AwaitingSleep;
+            st.action = g => g.SleepNow();
+            var door = new Vector3(h.x, site.HeightAt(h.x, oz), oz);
+            StallBuilder.Label(new GameObject("HomeSign").transform, Vector3.zero, h.name + "\n" + h.unit, 44, 0.08f).transform.parent.position = door + new Vector3(0f, 3.9f, -0.6f);
+        }
+
         void PlaceAtStall() => player.Teleport(Layout.PlayerSpawn, Layout.Root.rotation);
         void PlaceAtHome() => player.Teleport(site.HomeDoor + Vector3.up * 0.2f, Quaternion.Euler(0f, 180f, 0f));
 
@@ -133,14 +156,14 @@ namespace ResortAurora.Game
             Stall.ImportStock(s.stock);
             foreach (var u in s.upgrades) Stall.Grant(u);
             Roster.Restore(s.staff);
-            Clock.Restore(s.day, GameClock.DayStart);
+            Clock.Restore(s.dayClosed ? s.day + 1 : s.day, GameClock.DayStart);
             TotalServed = s.totalServed;
             if (s.rooms != null && s.rooms.Count > 0) Lodging.Restore(s.rooms, s.reviews, s.totalGuests);
         }
 
-        public void SaveNow()
+        public void SaveNow(bool dayClosed = false)
         {
-            var s = new ResortSave { seed = Seed, day = Clock.Day, balance = Ledger.Balance, reputation = Stall.Reputation, totalServed = TotalServed };
+            var s = new ResortSave { seed = Seed, day = Clock.Day, dayClosed = dayClosed, balance = Ledger.Balance, reputation = Stall.Reputation, totalServed = TotalServed };
             s.stock = Stall.ExportStock();
             s.upgrades.AddRange(Stall.OwnedUpgrades);
             s.parcels.AddRange(Parcels.Owned);
@@ -160,10 +183,10 @@ namespace ResortAurora.Game
             {
                 Clock.Tick(dt);
                 Service.Tick(dt);
-                SpawnCustomers(dt);
+                if (ShopOpen) SpawnCustomers(dt);
             }
             UpdateSun();
-            if (Clock.DayOver && !dayClosing && Service.Queue.Count == 0 && Service.Tickets.Count == 0 && Service.Ready.Count == 0) CloseDay();
+            if ((Clock.DayOver || closingRequested) && !dayClosing && Service.Queue.Count == 0 && Service.Tickets.Count == 0 && Service.Ready.Count == 0) CloseDay();
             if (OpenedPanel != Panel.None && UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.escapeKey.wasPressedThisFrame && OpenedPanel != Panel.Summary) ClosePanel();
             if (UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.f1Key.wasPressedThisFrame) OpenPanel(OpenedPanel == Panel.Help ? Panel.None : Panel.Help);
         }
@@ -197,8 +220,39 @@ namespace ResortAurora.Game
 
         public void ForgetAgent(CustomerAgent a) => agents.Remove(a);
 
+        public void OpenShop()
+        {
+            if (ShopOpen || dayClosing || Clock.DayOver) return;
+            ShopOpen = true;
+            int stocked = 0; foreach (var p in Catalog.Products) stocked += Stall.Stock(p.Id);
+            Say(stocked > 0 ? "Quiosque aberto!" : "Quiosque aberto, mas sem estoque! Compre na caixa do fornecedor.", 5f);
+        }
+
+        /// <summary>Stops new customers; the day closes (cash, payroll, save) as soon as the queue is served.</summary>
+        public void RequestClose()
+        {
+            if (!ShopOpen) return;
+            ShopOpen = false; closingRequested = true;
+            Say("Fechando o caixa...");
+        }
+
+        public void SleepNow()
+        {
+            if (!AwaitingSleep) return;
+            AwaitingSleep = false;
+            StartNextDay();
+        }
+
+        public void GoHome()
+        {
+            ClosePanel(force: true);
+            AwaitingSleep = true;
+            Say("Dia encerrado e salvo. Volte para casa (Apto 12) e durma para começar o próximo dia.", 8f);
+        }
+
         void CloseDay()
         {
+            ShopOpen = false; closingRequested = false;
             dayClosing = true;
             int day = Clock.Day;
             int payroll = Roster.DailyPayroll();
@@ -211,19 +265,19 @@ namespace ResortAurora.Game
                 day = day, revenue = Ledger.DayTotal(day, true), expenses = Ledger.DayTotal(day, false), served = Service.Served, lost = Service.Lost,
                 payroll = payroll, melted = melted, lodging = night, balance = Ledger.Balance, reputation = Stall.Reputation, weather = Weather, byCategory = byCat,
             };
-            SaveNow();
+            SaveNow(dayClosed: true);
             OpenPanel(Panel.Summary);
         }
 
         public void StartNextDay()
         {
-            dayClosing = false;
+            dayClosing = false; closingRequested = false; ShopOpen = false; AwaitingSleep = false;
             Clock.StartNextDay();
             Service.ResetDay();
             Weather = DemandModel.WeatherFor(Seed, Clock.Day);
             spawnAccumulator = ambientAccumulator = 0f;
             ClosePanel(force: true);
-            PlaceAtStall();
+            PlaceAtHome();                                  // the next morning starts at the door of the Apto 12
             SaveNow();
             Say($"Dia {Clock.Day}: {WeatherInfo.Label(Weather)}. Boa sorte!");
         }

@@ -104,6 +104,9 @@ for k in range(6):
     vx, vy = 404 + k * 18, 196.0
     R.villa(fr(5, 7, "bangalos", vx, vy), 11, 8, gz(vx, vy), seed=k)
 
+# --- the player's home: Edificio Santa Clara, Apto 12 (kitnet), a short walk from the stall
+ST.lar(fr(1, 7, "lar", 324.0, 341.0), gz(324.0, 341.0))
+
 # --- the Grande Hotel Palmeiras (P4): ruin until stage 5, restored from stage 6
 gy = 358.0
 ST.grand_hotel(fr(1, 5, "grande_hotel_ruina", 505, gy), gz(550, gy), ruin=True)

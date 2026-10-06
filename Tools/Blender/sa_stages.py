@@ -188,6 +188,59 @@ def sobrado(fr, z, L=16.0, D=11.0, seed=0):
     fr.box(L / 2 - 0.9, L / 2 + 0.9, -10.0, 0.0, z + 0.02, z + 0.08, S["terracota"])        # path from the gate to the door
 
 
+def lar(fr, z):
+    """Edifício Santa Clara, Apto 12: the player's kitnet. One floor, 12 x 8 m: kitchenette, table, bed against the back wall, a small
+    bathroom behind a partition. Door 1.4 x 2.5 m on the front (d = 0), windows to the sea, flat roof with parapet and a small awning.
+    The bed sits at u 8.4..10.0, d 5.6..7.6 (the game places the sleep interaction there)."""
+    L, D, H, T = 12.0, 8.0, 3.4, 0.25
+    zf = z + 0.15
+    fr.box(-0.5, L + 0.5, -2.0, D + 0.5, z, zf, S["travertino"])                          # plinth and doorstep
+    fr.box(0, L, 0, D, zf, zf + 0.04, S["teca"])                                           # floor
+    ops = [(1.0, 2.8, zf + 0.9, zf + 2.4), (5.4, 6.8, zf, zf + 2.5), (9.0, 11.0, zf + 0.9, zf + 2.4)]
+    _wall(fr, "u", 0.0, T, 0, L, zf, zf + H, S["estuque"], ops)
+    _wall(fr, "d", 0.0, T, 0, D, zf, zf + H, S["estuque"])
+    _wall(fr, "d", L - T, T, 0, D, zf, zf + H, S["estuque"])
+    _wall(fr, "u", D - T, T, 0, L, zf, zf + H, S["estuque"], [(7.0, 10.6, zf + 1.2, zf + 2.3)])
+    for (o0, o1, zb, zt) in (ops[0], ops[2]):
+        fr.box(o0, o1, 0.08, 0.14, zb, zt, S["vidro"], top=False, bottom=False, back=False, sides=False)
+        fr.box(o0 - 0.4, o0 - 0.05, -0.1, 0.0, zb - 0.05, zt + 0.05, S["azulejo"])
+        fr.box(o1 + 0.05, o1 + 0.4, -0.1, 0.0, zb - 0.05, zt + 0.05, S["azulejo"])
+    fr.box(7.0, 10.6, D - 0.35, D - 0.28, zf + 1.2, zf + 2.3, S["vidro"], top=False, bottom=False, back=False, sides=False)
+    fr.box(0, L, 0, D, zf + H - 0.2, zf + H, S["concreto"], bottom=True, top=True)         # roof slab
+    fr.box(-0.2, L + 0.2, -0.2, D + 0.2, zf + H, zf + H + 0.5, S["estuque"], top=False)    # parapet ring
+    fr.box(0.1, L - 0.1, 0.1, D - 0.1, zf + H, zf + H + 0.04, S["concreto"])
+    fr.box(4.6, 7.6, -1.6, 0.0, zf + 2.75, zf + 2.85, S["terracota"], bottom=True)         # small awning over the door
+    for px in (4.7, 7.5):
+        fr.cyl(px, -1.5, zf, 0.06, 2.75, 8, S["madeira_escura"])
+    # bathroom (back left) behind a partition with a door
+    _wall(fr, "u", 4.5, 0.12, 0, 3.4, zf, zf + 2.9, S["estuque"], [(0.6, 1.7, zf, zf + 2.5)])
+    _wall(fr, "d", 3.3, 0.12, 4.5, D, zf, zf + 2.9, S["estuque"])
+    fr.box(0.1, 3.2, 4.6, D - 0.2, zf + 0.04, zf + 0.06, S["marmore"])
+    fr.box(0.3, 1.1, D - 0.9, D - 0.3, zf + 0.06, zf + 0.45, S["marmore"])                  # toilet
+    fr.box(2.0, 3.1, D - 0.7, D - 0.3, zf + 0.06, zf + 0.85, S["madeira_escura"])           # vanity
+    fr.box(2.0, 3.1, D - 0.7, D - 0.3, zf + 0.85, zf + 0.9, S["marmore"])
+    fr.box(0.1, 1.0, 5.0, 6.2, zf + 0.06, zf + 0.12, S["azulejo"])                          # shower tray
+    # kitchenette on the left wall, table in the middle
+    fr.box(0.3, 2.9, 0.4, 1.1, zf + 0.04, zf + 0.9, S["madeira_escura"])
+    fr.box(0.2, 3.0, 0.3, 1.2, zf + 0.9, zf + 0.95, S["marmore"])
+    fr.box(3.2, 4.1, 0.4, 1.1, zf + 0.04, zf + 1.8, S["aco_preto"])                          # fridge
+    fr.box(4.2, 5.6, 2.2, 3.4, zf + 0.04, zf + 0.76, S["teca"])                              # table
+    for dx, dd in ((-0.5, 0.4), (1.6, 0.4)):
+        fr.box(4.2 + dx, 4.2 + dx + 0.4, 2.2 + dd, 2.2 + dd + 0.4, zf + 0.04, zf + 0.46, S["madeira_escura"])
+    # sleeping corner: bed, nightstand, wardrobe, rug
+    fr.box(7.6, 11.0, 4.6, 7.7, zf + 0.04, zf + 0.06, S["tecido"])
+    fr.box(8.3, 10.1, 5.5, 7.7, zf + 0.06, zf + 0.42, S["madeira_escura"])
+    fr.box(8.35, 10.05, 5.55, 7.65, zf + 0.42, zf + 0.62, S["tecido"])
+    fr.box(8.3, 10.1, 7.55, 7.7, zf + 0.06, zf + 1.3, S["teca"])
+    for k in range(2):
+        fr.box(8.45 + k * 0.8, 9.1 + k * 0.8, 6.9, 7.4, zf + 0.62, zf + 0.78, S["tecido"])
+    fr.box(7.7, 8.2, 7.1, 7.6, zf + 0.06, zf + 0.5, S["madeira_escura"])
+    fr.box(10.2, 10.7, 7.1, 7.6, zf + 0.06, zf + 0.5, S["madeira_escura"])
+    fr.box(10.4, 11.8, 4.4, 5.2, zf + 0.06, zf + 2.2, S["madeira_escura"])                   # wardrobe
+    fr.cyl(7.9, 7.35, zf + 0.5, 0.05, 0.4, 8, S["latao"])
+    fr.cyl(7.9, 7.35, zf + 0.9, 0.18, 0.25, 12, S["luz"])
+
+
 def hotel_block(fr, z, L=60.0, floors=5, seed=0):
     """Stage 4: the first real hotel: a loggia-and-balcony wing plus a small gabled lobby, set around a pool court."""
     R.wing(fr, L, 16, z, floors, seed=seed, pitched=False)

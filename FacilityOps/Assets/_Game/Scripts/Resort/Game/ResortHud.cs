@@ -99,7 +99,7 @@ namespace ResortAurora.Game
         void DrawMarket()
         {
             if (!Begin("Caixa do fornecedor")) return;
-            var r = PanelRect(); float y = r.y + 70, row = lastH / 16f;
+            var r = PanelRect(); float y = r.y + 64, row = lastH / 24f;
             GUI.Label(new Rect(r.x + 20, y, 400, row), "Produto", small); GUI.Label(new Rect(r.x + r.width * 0.30f, y, 200, row), "Estoque", small);
             GUI.Label(new Rect(r.x + r.width * 0.42f, y, 200, row), "Custo", small); GUI.Label(new Rect(r.x + r.width * 0.52f, y, 300, row), "Preço de venda", small);
             y += row;
@@ -113,10 +113,10 @@ namespace ResortAurora.Game
                 if (GUI.Button(new Rect(r.x + r.width * 0.52f + row + 90, y, row, row), "+", button)) game.Stall.SetPrice(p.Id, game.Stall.Price(p.Id) + 1);
                 if (GUI.Button(new Rect(r.x + r.width * 0.72f, y, r.width * 0.12f, row), "+10", button)) Buy(p, 10);
                 if (GUI.Button(new Rect(r.x + r.width * 0.85f, y, r.width * 0.12f, row), "+30", button)) Buy(p, 30);
-                y += row * 1.15f;
+                y += row * 1.08f;
             }
-            y += row * 0.5f;
-            GUI.Label(new Rect(r.x + 20, y, 600, row), "Melhorias", big); y += row * 1.4f;
+            y += row * 0.3f;
+            GUI.Label(new Rect(r.x + 20, y, 600, row * 1.3f), "Melhorias", big); y += row * 1.4f;
             foreach (var u in StallModel.Upgrades)
             {
                 bool owned = game.Stall.Has(u.Id);
@@ -126,7 +126,7 @@ namespace ResortAurora.Game
                 if (GUI.Button(new Rect(r.x + r.width * 0.78f, y, r.width * 0.19f, row), owned ? "Comprado" : $"Comprar R$ {u.Cost}", button))
                     game.Say(game.Stall.BuyUpgrade(u.Id, game.Ledger, game.Clock.Day) ? u.Name + " instalado!" : "Dinheiro insuficiente.");
                 GUI.enabled = true;
-                y += row * 1.25f;
+                y += row * 1.18f;
             }
         }
 
@@ -193,7 +193,7 @@ namespace ResortAurora.Game
                     d.lodging.reviews.Count > 0 ? $"Última avaliação: {d.lodging.reviews[d.lodging.reviews.Count - 1].stars}★ — {d.lodging.reviews[d.lodging.reviews.Count - 1].text}" : "Sem novas avaliações.",
                 }.ToArray();
             foreach (var l in lines) { GUI.Label(new Rect(r.x + 30, y, r.width - 60, row), l, label); y += row; }
-            if (GUI.Button(new Rect(r.x + 30, r.yMax - 70, r.width * 0.4f, 50), "Salvo. Começar o próximo dia", button)) game.StartNextDay();
+            if (GUI.Button(new Rect(r.x + 30, r.yMax - 70, r.width * 0.4f, 50), "Salvo. Voltar para casa e dormir", button)) game.GoHome();
         }
 
         void DrawLodging()

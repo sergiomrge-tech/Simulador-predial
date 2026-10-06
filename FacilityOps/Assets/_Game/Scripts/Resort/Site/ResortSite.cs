@@ -99,7 +99,6 @@ namespace ResortAurora.Site
             SetGraded(false);
             BuildSea().transform.SetParent(transform, false);
             BuildVila().transform.SetParent(transform, false);
-            BuildHome().transform.SetParent(transform, false);
 
             var p5 = Array.Find(Data.parcels, p => p.id == "P5");
             PadCenter = p5 != null ? new Vector3(p5.x + p5.width * 0.5f, HeightAt(p5.x + p5.width * 0.5f, p5.z), p5.z + p5.depth * 0.5f) : Vector3.zero;

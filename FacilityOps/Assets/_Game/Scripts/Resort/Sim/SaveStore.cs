@@ -23,6 +23,7 @@ namespace ResortAurora.Sim
         public List<Room> rooms = new List<Room>();          // empty until the pousada exists
         public List<Review> reviews = new List<Review>();
         public int totalGuests;
+        public bool dayClosed;                                // saved at the close of business: loading resumes on the NEXT morning (no replayed day)
         public int stage = 1;
         public int totalServed;
     }
