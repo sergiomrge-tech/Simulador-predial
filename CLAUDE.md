@@ -719,3 +719,12 @@ Na Fase 02, praia/calçadão vazios NÃO passam no gate visual.
 Consulte `Docs/PROJECT_RESORT_EXECUTION/02_VERTICAL_SLICE_QUIOSQUE.md` para os requisitos obrigatórios de população ambiente, atividades, crowd LOD e performance.
 
 Priorize sensação de lugar vivo: pedestres, banhistas, famílias, casais, grupos, clientes e atividades ambientais coerentes. Não use centenas de agentes completos; aplique pooling e LOD de simulação.
+
+
+## REGRA DE DIREÇÃO — DIA/NOITE E CAMPANHA LONGA
+
+PROJECT RESORT precisa ter ciclo de dia/noite e uma campanha longa baseada em crescimento físico gradual.
+
+Na Fase 02, implemente/prove a base do ciclo com transição dia -> pôr do sol -> noite e iluminação artificial coerente. Não aceite noite escura sem leitura nem cenário vazio.
+
+Não acelere a progressão. O jogador começa pequeno e passa por muitos estágios antes do resort cinco estrelas. Cada marco deve ocupar mais espaço, adicionar operações e alterar visualmente o empreendimento. Não implementar fases futuras antes do gate atual.
