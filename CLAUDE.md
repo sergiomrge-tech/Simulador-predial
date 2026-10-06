@@ -689,3 +689,22 @@ Trabalho já feito sobre esta direção (ver `Docs/STATUS_IMPLEMENTACAO.md`, se�
 - **Testes**: 7 testes de PlayMode (`Assets/_Game/Tests/PlayMode`) e `ResortSimSmokeTest`. Rode com `Unity -batchmode -runTests -testPlatform PlayMode`.
 - **Lição técnica**: portas precisam de 2,5 m de altura para o `CharacterController` (stepOffset 0,35 m).
 - O código antigo de manutenção (`Core/`, `Runtime/`) segue congelado.
+
+
+## STARTER VISUAL PACK — USO OBRIGATÓRIO
+
+As referências visuais locais oficiais do PROJECT RESORT ficam em:
+
+`Docs/VISUAL_REFERENCES/PROJECT_RESORT_STARTER_PACK/`
+
+Leia o `README.md` dessa pasta antes de modelar a praia, o quiosque, a casa inicial ou qualquer expansão.
+
+Prioridade na fase atual:
+1. `01_PRAIA_SANTA_AURORA_QUIOSQUE_INICIAL.png`
+2. `02_QUIOSQUE_OPERACAO_BALCAO.png`
+3. `03_QUIOSQUE_ESTOQUE_REPOSICAO.png`
+4. `04_CASA_INICIAL_JOGADOR.png`
+
+As imagens 05 e 06 são referências futuras e NÃO autorizam antecipar a pousada ou o resort cinco estrelas.
+
+Sempre tratar essas imagens como concept art. Gameplay/screenshots de validação só podem vir da execução real da Unity.
