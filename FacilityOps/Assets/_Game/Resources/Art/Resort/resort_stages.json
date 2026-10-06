@@ -97,7 +97,7 @@
    "from": 6,
    "to": 6,
    "name": "Agua",
-   "polygons": 18
+   "polygons": 20
   },
   {
    "asset": "E6-6_Arbustos",
@@ -132,7 +132,7 @@
    "from": 6,
    "to": 6,
    "name": "Arvores_copas",
-   "polygons": 10640
+   "polygons": 49248
   },
   {
    "asset": "E6-6_Buganvilias",
@@ -181,7 +181,7 @@
    "from": 7,
    "to": 7,
    "name": "Agua",
-   "polygons": 24
+   "polygons": 27
   },
   {
    "asset": "E7-7_Arbustos",
@@ -237,7 +237,7 @@
    "from": 7,
    "to": 7,
    "name": "Arvores_copas",
-   "polygons": 17360
+   "polygons": 80352
   },
   {
    "asset": "E7-7_Buganvilias",

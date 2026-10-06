@@ -226,6 +226,7 @@ for n in (1, 2, 3):
     # cascade between the stairs: stepped weirs + the falling sheet + the lower basin
     waterquad(112, v - 0.02, 128, v + 0.02, zh - 0.07)
     water.quad((X(112), Y(v), zh - 0.07), (X(128), Y(v), zh - 0.07), (X(128), Y(v - 0.06), zl - 0.07), (X(112), Y(v - 0.06), zl - 0.07), 0)
+    water.quad((X(112), Y(v - 0.06), zl - 0.07), (X(128), Y(v - 0.06), zl - 0.07), (X(128), Y(v), zh - 0.07), (X(112), Y(v), zh - 0.07), 0)   # back face (single-sided in the engine)
     fb = R.Frame(arch["Eixo"], (X(111), Y(v - 8.0)), 0.0)
     fb.box(0, 18, 0, 7.4, zl - 1.0, zl - 0.1, S["azulejo"], top=False)
     fb.box(-0.5, 0.0, 0, 8.0, zl - 1.0, zl + 0.35, S["travertino"])

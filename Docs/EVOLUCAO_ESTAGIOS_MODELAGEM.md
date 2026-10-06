@@ -33,3 +33,14 @@ e o **farol** de 38 m (apagado até a 6). O terreno é o "natural" nas etapas 1�
 - A barraca e o quiosque não são exportados: a barraca é a do jogo (procedural) e o quiosque entra com a jogabilidade dele.
 - Pendências: LOD e colisão das peças; materiais PBR de verdade; a etapa 5 ainda não tem gatilho próprio além de comprar P4.
 - Aviso de repositório: cada regeneração commita `.blend` de dezenas de MB; convém Git LFS ou não versionar os `.blend` regeneráveis.
+
+## Qualidade na Unity (2026-10-06)
+
+- **Materiais**: `export_resort_kit.py` escreve `resort_materials.json` e copia para `Resources/Art/Resort/Textures/` as texturas PBR autorais (cor base + normal) dos conjuntos reaproveitados: `ladrilho` (travertino e mármore), `reboco` (estuque), `madeira` (teca, brise, madeira escura, tronco), `telha` (terracota), `pastilha` (azulejo), `granito` (basalto) e `concreto`. `ResortMaterials` monta os materiais URP Lit em execução, com tiling em metros; vidro, água e luz têm valores próprios.
+- Peças do platô vinham com materiais duplicados (`travertino.001`); o exportador e o Unity agora normalizam o nome.
+- **Colisão**: prédios e terraços ganham `MeshCollider`; vegetação, água e grua não.
+- **Luz**: ambiente em três cores (céu, horizonte, chão) para as fachadas na sombra manterem forma e cor.
+- Cascatas verticais de água agora têm as duas faces (a engine usa face única).
+- Teste de PlayMode confere materiais texturizados e colisão. Capturas: `ArtSource/Blender/World/Reviews/R4/`.
+- Os `.blend` do resort (`ArtSource/Blender/Resort/*.blend`) deixaram de ser versionados (regeneráveis por script, 25–50 MB cada).
+- Pendente: LOD, janelas modeladas e mais texturas próprias (vidro, tecido, água), interiores do Grande Hotel.

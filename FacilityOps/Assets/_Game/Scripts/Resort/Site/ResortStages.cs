@@ -39,9 +39,18 @@ namespace ResortAurora.Site
                 go.name = p.asset;
                 go.transform.localPosition = Vector3.zero;
                 go.transform.localRotation = Quaternion.identity;
+                ResortMaterials.Apply(go);
+                if (SolidName(p.name)) foreach (var mf2 in go.GetComponentsInChildren<MeshFilter>()) mf2.gameObject.AddComponent<MeshCollider>();
                 go.SetActive(false);
                 instances.Add((go, p.from, p.to, p.name));
             }
+        }
+
+        /// <summary>Buildings and terraces block the player; vegetation, water, the crane and other thin things do not.</summary>
+        static bool SolidName(string n)
+        {
+            n = n.ToLowerInvariant();
+            return !(n.Contains("palmeira") || n.Contains("arbusto") || n.Contains("bugan") || n.Contains("arvore") || n.Contains("agua") || n.Contains("grua"));
         }
 
         public void SetStage(int stage)

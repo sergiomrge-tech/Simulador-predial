@@ -210,7 +210,11 @@ namespace ResortAurora.Game
             float low = 1f - Mathf.Sin(Mathf.Clamp01(t) * Mathf.PI);
             sun.color = Color.Lerp(new Color(1f, 0.96f, 0.88f), new Color(1f, 0.62f, 0.38f), low);
             sun.intensity = Mathf.Lerp(1.15f, 0.45f, low * low);
-            RenderSettings.ambientLight = Color.Lerp(new Color(0.55f, 0.62f, 0.72f), new Color(0.35f, 0.3f, 0.4f), low);
+            // tri-light ambient: sky / horizon / ground bounce, so shaded facades keep form and colour instead of flat grey-blue
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
+            RenderSettings.ambientSkyColor = Color.Lerp(new Color(0.60f, 0.72f, 0.90f), new Color(0.38f, 0.34f, 0.46f), low);
+            RenderSettings.ambientEquatorColor = Color.Lerp(new Color(0.62f, 0.60f, 0.56f), new Color(0.34f, 0.28f, 0.28f), low);
+            RenderSettings.ambientGroundColor = Color.Lerp(new Color(0.40f, 0.34f, 0.26f), new Color(0.18f, 0.14f, 0.12f), low);
         }
     }
 }

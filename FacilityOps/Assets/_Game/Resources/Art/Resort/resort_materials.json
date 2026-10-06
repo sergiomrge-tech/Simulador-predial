@@ -1,0 +1,228 @@
+{
+ "schemaVersion": 1,
+ "materials": {
+  "aco_preto": {
+   "color": [
+    0.04,
+    0.04,
+    0.045
+   ],
+   "smoothness": 0.525,
+   "metallic": 0.85
+  },
+  "agua_piscina": {
+   "color": [
+    0.12,
+    0.72,
+    0.78
+   ],
+   "smoothness": 0.97,
+   "metallic": 0.0,
+   "emission": [
+    0.05,
+    0.45,
+    0.52,
+    0.5
+   ]
+  },
+  "azulejo": {
+   "color": [
+    0.25,
+    0.8,
+    0.86
+   ],
+   "smoothness": 0.8,
+   "metallic": 0.0,
+   "set": "pastilha",
+   "tile": 0.6
+  },
+  "basalto": {
+   "color": [
+    0.3,
+    0.3,
+    0.33
+   ],
+   "smoothness": 0.45,
+   "metallic": 0.0,
+   "set": "granito",
+   "tile": 1.0
+  },
+  "brise": {
+   "color": [
+    0.8,
+    0.55,
+    0.34
+   ],
+   "smoothness": 0.3,
+   "metallic": 0.0,
+   "set": "madeira",
+   "tile": 1.0
+  },
+  "buganvile.001": {
+   "color": [
+    0.6,
+    0.6,
+    0.6
+   ],
+   "smoothness": 0.4,
+   "metallic": 0.0
+  },
+  "concreto": {
+   "color": [
+    0.95,
+    0.95,
+    0.93
+   ],
+   "smoothness": 0.15,
+   "metallic": 0.0,
+   "set": "concreto",
+   "tile": 2.0
+  },
+  "estuque": {
+   "color": [
+    0.96,
+    0.94,
+    0.9
+   ],
+   "smoothness": 0.15,
+   "metallic": 0.0,
+   "set": "reboco",
+   "tile": 2.0
+  },
+  "folhagem": {
+   "color": [
+    0.16,
+    0.27,
+    0.1
+   ],
+   "smoothness": 0.25,
+   "metallic": 0.0
+  },
+  "latao": {
+   "color": [
+    0.72,
+    0.55,
+    0.26
+   ],
+   "smoothness": 0.69,
+   "metallic": 1.0
+  },
+  "luz_quente": {
+   "color": [
+    1,
+    0.85,
+    0.6
+   ],
+   "smoothness": 0.4,
+   "metallic": 0.0,
+   "emission": [
+    1.0,
+    0.74,
+    0.45,
+    2.2
+   ]
+  },
+  "madeira_escura": {
+   "color": [
+    0.42,
+    0.27,
+    0.17
+   ],
+   "smoothness": 0.35,
+   "metallic": 0.0,
+   "set": "madeira",
+   "tile": 1.0
+  },
+  "marmore": {
+   "color": [
+    0.98,
+    0.97,
+    0.95
+   ],
+   "smoothness": 0.75,
+   "metallic": 0.0,
+   "set": "ladrilho",
+   "tile": 1.2
+  },
+  "palha": {
+   "color": [
+    0.62,
+    0.5,
+    0.28
+   ],
+   "smoothness": 0.085,
+   "metallic": 0.0
+  },
+  "teca": {
+   "color": [
+    0.95,
+    0.66,
+    0.4
+   ],
+   "smoothness": 0.35,
+   "metallic": 0.0,
+   "set": "madeira",
+   "tile": 1.0
+  },
+  "tecido": {
+   "color": [
+    0.94,
+    0.92,
+    0.86
+   ],
+   "smoothness": 0.085,
+   "metallic": 0.0
+  },
+  "terracota": {
+   "color": [
+    1.0,
+    0.78,
+    0.66
+   ],
+   "smoothness": 0.25,
+   "metallic": 0.0,
+   "set": "telha",
+   "tile": 1.2
+  },
+  "travertino": {
+   "color": [
+    0.92,
+    0.84,
+    0.7
+   ],
+   "smoothness": 0.35,
+   "metallic": 0.0,
+   "set": "ladrilho",
+   "tile": 1.2
+  },
+  "tronco": {
+   "color": [
+    0.45,
+    0.34,
+    0.26
+   ],
+   "smoothness": 0.1,
+   "metallic": 0.0,
+   "set": "madeira",
+   "tile": 1.0
+  },
+  "verde": {
+   "color": [
+    0.2,
+    0.36,
+    0.13
+   ],
+   "smoothness": 0.125,
+   "metallic": 0.0
+  },
+  "vidro": {
+   "color": [
+    0.3,
+    0.46,
+    0.55
+   ],
+   "smoothness": 0.95,
+   "metallic": 0.6
+  }
+ }
+}

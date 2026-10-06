@@ -16,3 +16,4 @@ Logs/
 FacilityOps/Assets/Resources/PerformanceTestRun*
 __pycache__/
 ArtSource/Blender/Resort/*.blend1
+ArtSource/Blender/Resort/*.blend
