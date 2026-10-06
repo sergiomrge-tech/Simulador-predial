@@ -199,3 +199,35 @@ Antes de iniciar nova implementação, execute integralmente o handoff em:
 `Docs/CLAUDE_NEXT_TASK_PROJECT_RESORT.md`
 
 Esse documento define a auditoria inicial, o vertical slice do quiosque, os gates de qualidade, o que reaproveitar e o que NÃO implementar ainda.
+
+
+## ORDEM OFICIAL DE EXECUÇÃO DO PROJECT RESORT
+
+A execução completa do projeto está organizada em ordem obrigatória em:
+
+`Docs/PROJECT_RESORT_EXECUTION/00_EXECUTION_INDEX.md`
+
+Esse índice referencia as fases 01 a 18. Siga-as em ordem e só avance quando o gate da fase atual estiver aprovado e registrado.
+
+A sequência oficial é:
+
+1. Auditoria e consolidação da base
+2. Vertical slice do quiosque
+3. Economia e fornecedores
+4. Funcionários iniciais
+5. Expansão de terreno
+6. Vertical slice da pousada
+7. Construção modular
+8. Hotel completo
+9. Piscina, lazer e praia
+10. Primeiro resort operacional
+11. Resort de luxo
+12. Vida pessoal e patrimônio
+13. Mundo vivo e sazonalidade
+14. Endgame cinco estrelas
+15. Polimento UX/áudio/visual
+16. Otimização, QA e escala
+17. Demo Steam
+18. Pré-lançamento e release
+
+Não pular fases, não antecipar escopo futuro e não tratar uma fase como concluída apenas porque o código compila.
