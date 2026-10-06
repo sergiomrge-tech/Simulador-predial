@@ -134,6 +134,18 @@ namespace ResortAurora.Site
             return Mathf.Lerp(Mathf.Lerp(a, b, tx), Mathf.Lerp(c, d, tx), tz);
         }
 
+        readonly Dictionary<int, float> waterlineCache = new Dictionary<int, float>();
+
+        /// <summary>Local Z of the waterline (where the sand drops under the sea) at local X, scanned seaward from the promenade edge; cached per 4 m.</summary>
+        public float WaterlineZ(float x)
+        {
+            int key = Mathf.RoundToInt(x / 4f);
+            if (waterlineCache.TryGetValue(key, out var z)) return z;
+            z = PromenadeZ(x) - 6f;
+            while (z > 20f && HeightAt(x, z) > 0.05f) z -= 0.75f;
+            return waterlineCache[key] = z;
+        }
+
         /// <summary>Centre line of the promenade (stone walkway) at local X.</summary>
         public float PromenadeZ(float x)
         {

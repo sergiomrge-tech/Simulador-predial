@@ -30,6 +30,7 @@ namespace ResortAurora.Game
         public Weather Weather { get; private set; }
         public DayNightCycle DayNight { get; private set; }
         public BeachLife Life { get; private set; }
+        public AmbientLife Ambient { get; private set; }
         public Panel OpenedPanel { get; private set; }
         public ResortSite Site => site;
         public int Seed { get; private set; }
@@ -96,6 +97,8 @@ namespace ResortAurora.Game
             Layout.RefreshStaff(this);
             Life = new GameObject("BeachLife").AddComponent<BeachLife>();
             Life.Init(this);
+            Ambient = new GameObject("AmbientLife").AddComponent<AmbientLife>();
+            Ambient.Init(this);
             Say(hasSave ? "Jogo carregado. Bom dia!" : "Primeiro dia! Siga para a barraca no calçadão, ao sul.", 7f);
             SetCursor(false);
         }

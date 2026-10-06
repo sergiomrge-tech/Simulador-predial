@@ -37,7 +37,6 @@ namespace ResortAurora.Game
         readonly List<Spot> spots = new List<Spot>();
         readonly Stack<PersonRig> freeAdults = new Stack<PersonRig>(), freeKids = new Stack<PersonRig>();
         int createdAdults, createdKids;
-        readonly Dictionary<int, float> shoreCache = new Dictionary<int, float>();
         float lodTimer, popTimer, lastHours = -1f;
         Transform folder;
         Mesh umbrellaMesh;
@@ -69,14 +68,7 @@ namespace ResortAurora.Game
 
         float EdgeZ(float x) => site.PromenadeZ(x) - 6f;
 
-        float ShoreZ(float x)
-        {
-            int key = Mathf.RoundToInt(x / 4f);
-            if (shoreCache.TryGetValue(key, out var z)) return z;
-            z = EdgeZ(x);
-            while (z > 20f && site.HeightAt(x, z) > 0.05f) z -= 0.75f;
-            return shoreCache[key] = z;
-        }
+        float ShoreZ(float x) => site.WaterlineZ(x);
 
         float WaterZ(float x, float depth)
         {
