@@ -30,6 +30,20 @@ FEATURES = {
     "ondulacao_urbana": {"wavelength": 360.0, "amp": 5.2, "arterial_clear": (25.0, 140.0),
                          "note": "Ondulação entre quarteirões; zera junto às vias arteriais/coletoras (corredores nivelados)"},
 }
+# W4 coast (user: "praias"): the southern edge falls to the sea. Waterline curves in bays/headlands; sand slopes 1.6% up to the
+# promenade (dz = COAST_PROMENADE_DZ); inland the city surface eases down to the promenade over ~930 m (about 2.5%, drivable).
+SEA_LEVEL = 0.0
+COAST_PROMENADE_H = 3.0
+COAST_PROMENADE_DZ = 170.0
+COAST_BLEND_DZ = 1100.0
+
+
+def shore_z(x):
+    """Waterline z at world x (metres): two superposed bays, a headland east of centre and a broad cove in the west."""
+    return (-3905.0 + 38.0 * math.sin(x / 640.0) + 20.0 * math.sin(x / 235.0 + 1.3)
+            + 26.0 * math.exp(-((x - 1450.0) / 380.0) ** 2) - 24.0 * math.exp(-((x + 1500.0) / 520.0) ** 2))
+
+
 OLD_RELIEF = (-3950.0, -3950.0, -1150.0, -300.0)   # region of the W2.5 urban relief (soft 250 m edge)
 RELIEF_STEP = 10.0
 
@@ -108,6 +122,15 @@ class Terrain:
         fade = smoothstep(60.0, 500.0, d)
         h += fade * (3.0 * self.roll(x, z) + 0.8 * self.fine(x, z))
         h += self.relief(x, z)
+        dz = z - shore_z(x)
+        if dz < COAST_BLEND_DZ:
+            if dz <= 0.0:
+                hc, w = SEA_LEVEL + 0.2 + dz * 0.05, 1.0                      # sea floor shelf
+            elif dz <= COAST_PROMENADE_DZ:
+                hc, w = SEA_LEVEL + 0.2 + dz * (COAST_PROMENADE_H - 0.2) / COAST_PROMENADE_DZ, 1.0   # beach
+            else:
+                hc, w = COAST_PROMENADE_H, smoothstep(COAST_BLEND_DZ, COAST_PROMENADE_DZ, dz)
+            h += (hc - h) * w
         for pd in self.pads:                      # flattened building pads (hero lots), blended over a margin
             px0, pz0, px1, pz1 = pd["rect"]
             dx = max(px0 - x, 0.0, x - px1)

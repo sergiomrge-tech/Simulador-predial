@@ -16,18 +16,18 @@
   "layout": {
     "revision": "W1.5",
     "terrain": {
-      "minSurface": 2.6,
+      "minSurface": -5.7,
       "maxSurface": 48.5,
-      "meanSurface": 20.4,
+      "meanSurface": 18.3,
       "drainageSurface": 4.7,
       "drainageToCanalM": 218,
       "technologyMean": 26.1,
-      "oldTownMean": 24.8,
+      "oldTownMean": 23.0,
       "maxRoadGradePct": {
         "R01.0": 2.18,
         "R01.1": 2.54,
         "R02": 3.14,
-        "R03.0": 3.1,
+        "R03.0": 4.02,
         "R03.1": 2.69,
         "R04.0": 1.51,
         "R04.1": 5.64,
@@ -46,7 +46,7 @@
       "R01.0": 3.71,
       "R01.1": 3.86,
       "R02": 6.81,
-      "R03.0": 3.71,
+      "R03.0": 3.83,
       "R03.1": 0.17,
       "R04.0": 0.87,
       "R04.1": 3.08,
@@ -72,7 +72,7 @@
     },
     "streetKmByClass": {
       "alley": 1.9,
-      "arterial_spec": 41.3,
+      "arterial_spec": 41.4,
       "collector_spec": 13.4,
       "industrial": 65.0,
       "local": 482.2,
@@ -357,7 +357,7 @@
       "T_old_north": 1171,
       "civic": 1180,
       "corporate": 1787,
-      "expansion": 2328,
+      "expansion": 2332,
       "industrial": 785,
       "old": 13003,
       "technology": 868
@@ -454,7 +454,7 @@
         "median": 5,
         "p90": 15,
         "max": 17,
-        "count": 2328
+        "count": 2332
       },
       "industrial": {
         "p10": 1,
@@ -488,7 +488,7 @@
       "substation": 86,
       "tank": 277
     },
-    "trees": 36055,
+    "trees": 36102,
     "unusedMacroCells": [],
     "oldTown": {
       "neighbourhoods": 9,

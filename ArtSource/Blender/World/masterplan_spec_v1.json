@@ -538,13 +538,17 @@
       "class": "arterial",
       "from": [
         100,
-        -3550
+        -3664
       ],
       "to": [
         0,
         410
       ],
       "points": [
+        [
+          100,
+          -3664
+        ],
         [
           100,
           -3550
@@ -1153,5 +1157,67 @@
       4
     ]
   },
-  "note": "Production masterplan only. Do not replace current runtime campaign coordinates until migration is explicitly implemented and validated."
+  "note": "Production masterplan only. Do not replace current runtime campaign coordinates until migration is explicitly implemented and validated.",
+  "coast": {
+    "id": "coast.orla",
+    "name": "Orla das Palmeiras",
+    "revision": "W4",
+    "note": "Costa sul: terreno e linha d'água vêm de Tools/Map/sa_terrain.py (shore_z). Visuais gerados por create_santa_aurora_masterplan.py.",
+    "avenue": {
+      "name": "Avenida da Orla",
+      "offsetFromShore": 215,
+      "width": 22,
+      "tiesTo": "R03"
+    },
+    "promenade": {
+      "offsetFromShore": 170,
+      "width": 12
+    },
+    "beaches": [
+      {
+        "id": "praia.farol",
+        "name": "Praia do Farol",
+        "x0": -3700,
+        "x1": -600,
+        "character": "enseada larga, calçadão extenso, quiosques"
+      },
+      {
+        "id": "praia.palmeiras",
+        "name": "Praia das Palmeiras",
+        "x0": -600,
+        "x1": 800,
+        "character": "praia principal, fim da Av. das Palmeiras, píer central"
+      },
+      {
+        "id": "praia.cais",
+        "name": "Praia do Cais",
+        "x0": 800,
+        "x1": 3700,
+        "character": "promontório com farol, costão e marina leste"
+      }
+    ],
+    "piers": [
+      {
+        "id": "pier.palmeiras",
+        "x": 100,
+        "length": 210,
+        "width": 9
+      },
+      {
+        "id": "pier.cais",
+        "x": 2150,
+        "length": 150,
+        "width": 7
+      }
+    ],
+    "landmarks": [
+      {
+        "id": "farol.santa_aurora",
+        "x": 1450,
+        "note": "farol no promontório"
+      }
+    ],
+    "lifeguardEvery": 380,
+    "kioskEvery": 260
+  }
 }

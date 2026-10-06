@@ -51,6 +51,10 @@ LIB = {
     "agua_canal":           {"family": "agua", "c1": (.05, .11, .12), "c2": (.03, .07, .08), "rough": (.03, .10), "scale": .08, "bump": .25, "pattern": "noise", "grime": 0.0, "dirt": 0.0, "spec": .8, "texel": 256},
     "grama":                {"family": "terreno", "c1": (.20, .30, .11), "c2": (.13, .20, .07), "rough": (.85, .98), "scale": .6, "bump": .2, "pattern": "noise", "grime": 0.0, "dirt": 0.0, "texel": 256},
     "terra":                {"family": "terreno", "c1": (.36, .28, .19), "c2": (.25, .19, .13), "rough": (.88, .98), "scale": .8, "bump": .3, "pattern": "noise", "grime": 0.0, "dirt": 0.0, "texel": 256},
+    # W4 coast
+    "areia":                {"family": "terreno", "c1": (.80, .70, .52), "c2": (.70, .60, .44), "rough": (.90, .98), "scale": 1.6, "bump": .10, "pattern": "noise", "grime": 0.0, "dirt": 0.0, "texel": 512},
+    "pedra_costao":         {"family": "concreto", "c1": (.34, .33, .31), "c2": (.22, .21, .20), "rough": (.80, .97), "scale": 2.4, "bump": .85, "pattern": "noise", "grime": .5, "dirt": .4, "texel": 512},
+    "agua_mar":             {"family": "agua", "c1": (.06, .30, .36), "c2": (.02, .14, .24), "rough": (.03, .12), "scale": .05, "bump": .35, "pattern": "noise", "grime": 0.0, "dirt": 0.0, "spec": .9, "texel": 256},
     "lastro_ferroviario":   {"family": "terreno", "c1": (.38, .35, .32), "c2": (.25, .23, .21), "rough": (.9, .99), "scale": 8.0, "bump": .6, "pattern": "noise", "grime": .3, "dirt": 0.0, "texel": 256},
     "trilho_aco":           {"family": "metal", "c1": (.40, .36, .33), "c2": (.30, .22, .17), "rough": (.35, .70), "scale": 3.0, "bump": .1, "pattern": "noise", "metal": .9, "grime": .3, "dirt": 0.0, "texel": 512},
     "folhagem":             {"family": "vegetacao", "c1": (.16, .27, .10), "c2": (.10, .18, .06), "rough": (.65, .85), "scale": .9, "bump": .4, "pattern": "noise", "grime": .3, "dirt": 0.0, "tint": (.06, .2), "texel": 512},

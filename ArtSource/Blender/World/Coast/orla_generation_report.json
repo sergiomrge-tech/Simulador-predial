@@ -1,0 +1,22 @@
+{
+  "blend": "ArtSource/Blender/World/Coast/SantaAurora_Orla_v1.blend",
+  "blenderVersion": "5.2.1 LTS",
+  "terrainVertices": 387528,
+  "objectCount": 101,
+  "palms": 2224,
+  "dune_grass": 5439,
+  "umbrellas": 2335,
+  "loungers": 4670,
+  "lifeguardTowers": 20,
+  "kiosks": 27,
+  "seafrontBuildings": 242,
+  "piers": [
+    "pier.palmeiras",
+    "pier.cais"
+  ],
+  "lamps": 710,
+  "benches": 180,
+  "rocks": 740,
+  "boats": 34,
+  "status": "W4 coast - first production pass"
+}
