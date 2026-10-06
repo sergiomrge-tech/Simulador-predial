@@ -26,6 +26,14 @@ namespace ResortAurora.Grid
             size = Vector2Int.Max(size, Vector2Int.one);
         }
 
+        /// <summary>Runtime setup (site loader). Clears occupancy.</summary>
+        public void Configure(Vector2Int newSize, float newCellSize)
+        {
+            size = Vector2Int.Max(newSize, Vector2Int.one);
+            cellSize = Mathf.Max(0.25f, newCellSize);
+            occupied.Clear();
+        }
+
         public bool InBounds(Vector2Int c) => c.x >= 0 && c.y >= 0 && c.x < size.x && c.y < size.y;
 
         public Vector2Int WorldToCell(Vector3 w)

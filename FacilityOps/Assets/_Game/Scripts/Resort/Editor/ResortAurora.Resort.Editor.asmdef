@@ -1,0 +1,7 @@
+{
+  "name": "ResortAurora.Resort.Editor",
+  "rootNamespace": "ResortAurora",
+  "references": ["ResortAurora.Resort"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": true
+}

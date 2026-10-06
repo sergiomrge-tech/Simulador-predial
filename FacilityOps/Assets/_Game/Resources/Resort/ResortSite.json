@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "name": "Praia das Palmeiras",
+  "worldOrigin": {
+    "x": -160.0,
+    "z": -3965.734664368143
+  },
+  "size": {
+    "x": 320.0,
+    "z": 520.0
+  },
+  "step": 2.0,
+  "columns": 161,
+  "rows": 261,
+  "seaLevel": 0.0,
+  "pad": {
+    "x": 32,
+    "z": 315,
+    "width": 256,
+    "depth": 160,
+    "height": 4.53,
+    "cell": 1.0
+  },
+  "shoreLocalZ": 80.0,
+  "heights": {
+    "min": -4.22,
+    "max": 8.49
+  }
+}

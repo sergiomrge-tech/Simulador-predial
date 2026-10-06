@@ -269,3 +269,10 @@ Preparação concluída no GitHub:
 - Vida: ~1,4 mil carros (LOD1, famílias genéricas originais), ~1,9 mil pedestres, ~2,4 mil banhistas, ~680 nadadores (figuras autorais, instâncias GN).
 - Hora do dia: `Tools/Blender/render_orla_time_of_day.py` (dia / dusk / night). A noite liga a coleção `09_Night_Lights` (~700 spots nos postes + luar) e acende as vitrines; a coleção fica oculta no render diurno.
 - Pendente: a Cidade Antiga base ainda não foi refeita em alta fidelidade ao sul de z = −3400 (terreno novo vale, arte antiga); prédios da orla são massing; figuras e palmeiras são de baixa/média complexidade (não final); sem integração Unity.
+
+## Resort R1 — terreno jogável da Orla (2026-10-06)
+
+- `Tools/Map/export_resort_site.py` exporta o terreno real da Praia das Palmeiras (320 × 520 m, passo 2 m) como heightfield + JSON em `FacilityOps/Assets/_Game/Resources/Resort/`, com um **lote plano de 256 × 160 m (cota 4,53 m)** atrás da Avenida da Orla para o grid de construção.
+- Unity: `ResortSite` monta malha, colisão, mar e alinha `GridManager` e limites da câmera. Menu **Resort Aurora > Create Site Scene** gera `Assets/_Game/Scenes/ResortSite.unity` pronta para Play (B constrói, R gira, WASD/borda/scroll/Q-E câmera).
+- Compilação em batch sem erros; capturas de revisão em `ArtSource/Blender/World/Reviews/R1/`. Não testado em Play interativo. Visual provisório (cores por altura, sem PBR).
+- Próximo: economia/tempo (`GameManager`, `TimeManager`, `EconomyManager`), hóspedes e kit modular. O recorte Blender `W5S` fica como cenário de contexto.

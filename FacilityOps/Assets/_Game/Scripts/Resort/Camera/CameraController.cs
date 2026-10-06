@@ -108,6 +108,8 @@ namespace ResortAurora.CameraSystem
             cameraTransform.localRotation = pitchRot;
         }
 
+        public void SetBounds(Vector2 x, Vector2 z) { boundsX = x; boundsZ = z; }
+
         /// <summary>Focus helper for future systems (click a guest, jump to a building).</summary>
         public void FocusOn(Vector3 world) => targetPos = new Vector3(world.x, transform.position.y, world.z);
     }
