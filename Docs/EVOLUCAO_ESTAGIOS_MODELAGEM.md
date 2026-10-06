@@ -24,3 +24,12 @@ e o **farol** de 38 m (apagado até a 6). O terreno é o "natural" nas etapas 1�
 - O Grande Hotel restaurado tem fachada, pórtico, mansarda e torre do relógio, mas não tem interior.
 - A grua e as estruturas da etapa 6 são ilustrativas.
 - Nada foi exportado para a Unity como malha ainda.
+
+## Integração na Unity (2026-10-06)
+
+- `Tools/Blender/export_resort_kit.py` exporta cada peça de etapa como FBX em `FacilityOps/Assets/_Game/Resources/Art/Resort/` (38 peças, ~220 mil polígonos) e escreve `resort_stages.json` (peça, etapa inicial e final). As cores dos materiais são gravadas como valores simples (os nós procedurais não sobrevivem ao FBX).
+- `ResortStages` (Unity) instancia as peças na origem. A conversão de eixos do FBX as gira 180° em Y, então a raiz compensa com uma rotação de 180°; o teste `StagesTests` confere o alinhamento (Grande Hotel, torre) contra o terreno.
+- A etapa vem das terras compradas: P1 → 2, P2 → 3, P3 → 4, P4 → 5, P5 → 6, P6 → 7. O terreno troca de "natural" para "terraceado" na etapa 6. `RESORT_STAGE=N` força uma etapa (capturas e testes).
+- A barraca e o quiosque não são exportados: a barraca é a do jogo (procedural) e o quiosque entra com a jogabilidade dele.
+- Pendências: LOD e colisão das peças; materiais PBR de verdade; a etapa 5 ainda não tem gatilho próprio além de comprar P4.
+- Aviso de repositório: cada regeneração commita `.blend` de dezenas de MB; convém Git LFS ou não versionar os `.blend` regeneráveis.
