@@ -1235,3 +1235,15 @@ Antes de implementar qualquer nova etapa:
 4. identificar o que já foi convertido para resort;
 5. continuar a partir do estado real, sem refazer trabalho;
 6. não expandir além da fase atual antes de fechar seu loop jogável e seu gate de qualidade.
+
+
+## Mundo vivo e população ambiente — requisito central de imersão
+
+PROJECT RESORT deve parecer um lugar real ou próximo disso. O mundo não pode funcionar como um cenário vazio que só ganha NPCs quando o jogador inicia uma interação.
+
+Desde o vertical slice inicial, áreas públicas importantes — especialmente praia, calçadão, ruas próximas e empreendimento — devem apresentar população ambiente realizando atividades plausíveis.
+
+A simulação usará camadas de fidelidade: NPCs próximos com comportamento/animação mais completos; NPCs médios simplificados; população distante ou fora da célula representada por simulação leve. O objetivo é atingir densidade e naturalidade sem comprometer CPU/GPU.
+
+A população deve reagir progressivamente a horário, clima, temporada, reputação e crescimento do empreendimento. O sucesso do resort deve ser visualmente percebido também pelo aumento e mudança do perfil das pessoas presentes no mundo.
+
