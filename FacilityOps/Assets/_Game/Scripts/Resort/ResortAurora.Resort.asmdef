@@ -1,0 +1,6 @@
+{
+  "name": "ResortAurora.Resort",
+  "rootNamespace": "ResortAurora",
+  "references": ["Unity.InputSystem"],
+  "autoReferenced": true
+}
