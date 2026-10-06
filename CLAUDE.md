@@ -708,3 +708,14 @@ Prioridade na fase atual:
 As imagens 05 e 06 são referências futuras e NÃO autorizam antecipar a pousada ou o resort cinco estrelas.
 
 Sempre tratar essas imagens como concept art. Gameplay/screenshots de validação só podem vir da execução real da Unity.
+
+
+## REGRA VISUAL — MUNDO NÃO PODE PARECER VAZIO
+
+A direção aprovada exige realismo ou aparência próxima do real.
+
+Na Fase 02, praia/calçadão vazios NÃO passam no gate visual.
+
+Consulte `Docs/PROJECT_RESORT_EXECUTION/02_VERTICAL_SLICE_QUIOSQUE.md` para os requisitos obrigatórios de população ambiente, atividades, crowd LOD e performance.
+
+Priorize sensação de lugar vivo: pedestres, banhistas, famílias, casais, grupos, clientes e atividades ambientais coerentes. Não use centenas de agentes completos; aplique pooling e LOD de simulação.
