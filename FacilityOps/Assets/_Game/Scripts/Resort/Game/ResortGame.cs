@@ -89,6 +89,7 @@ namespace ResortAurora.Game
             var forced = System.Environment.GetEnvironmentVariable("RESORT_STAGE");
             int stage = int.TryParse(forced, out var f) ? Mathf.Clamp(f, 1, 7) : ResortStages.StageFor(Parcels);
             Stages.SetStage(stage);
+            Layout.SetKioskLook(stage >= 2);
         }
 
         void PlaceAtStall() => player.Teleport(Layout.PlayerSpawn, Layout.Root.rotation);

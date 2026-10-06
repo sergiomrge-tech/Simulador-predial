@@ -118,5 +118,33 @@ namespace ResortAurora.Tests
             Assert.IsTrue(g.Parcels.Buy("P1", g.Ledger, 1, 0.6f));
             Assert.AreEqual(2, ResortStages.StageFor(g.Parcels));
         }
+
+        [UnityTest]
+        public IEnumerator Stage2KioskReplacesTheStallLookButKeepsTheStations()
+        {
+            System.Environment.SetEnvironmentVariable("RESORT_STAGE", "2");
+            yield return Load();
+            var g = Object.FindAnyObjectByType<ResortGame>();
+            GameObject find(string n) { foreach (var go in g.Stages.Instances) if (go.name == n) return go; return null; }
+            var kiosk = find("E2-7_quiosque");
+            Assert.NotNull(kiosk); Assert.IsTrue(kiosk.activeSelf, "kiosk shown at stage 2");
+            var deck = g.Layout.Root.Find("Deck");
+            Assert.IsFalse(deck.GetComponent<Renderer>().enabled, "stall deck hidden");
+            Assert.IsNotNull(g.Layout.Root.GetComponentInChildren<CounterStation>(true), "counter station still there");
+            Assert.IsNotNull(g.Layout.Root.GetComponentInChildren<GrillStation>(true), "grill station still there");
+            Assert.IsNotNull(g.Layout.Root.Find("Counter").GetComponent<Collider>(), "counter still collides");
+            var kb = BoundsOf(kiosk);
+            Assert.That(Mathf.Abs(kb.center.x - g.Layout.Root.position.x), Is.LessThan(2f), "kiosk centred on the stall");
+            Assert.That(kb.min.z, Is.LessThan(g.Layout.Root.position.z), "kiosk deck reaches the stall");
+
+            g.Clock.Restore(1, 12f * 60f);
+            yield return null; yield return null;
+            string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/R4");
+            Directory.CreateDirectory(dir);
+            var cam = Camera.main;
+            var root = g.Layout.Root.position;
+            Snap(cam, root + new Vector3(10f, 2.0f, 12f), root + new Vector3(0f, 1.3f, 1.0f), dir + "/r4_unity_quiosque_calcadao.png");
+            Snap(cam, g.Layout.PlayerSpawn + new Vector3(0f, 1.65f, 0f), g.Layout.PlayerSpawn + new Vector3(0f, 1.4f, 6f), dir + "/r4_unity_quiosque_do_balcao.png");
+        }
     }
 }

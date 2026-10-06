@@ -68,7 +68,7 @@ for ob in sorted(bpy.data.objects, key=lambda x: x.name):
     if not mt or ob.type != "MESH" or ob.name.startswith(("E1-7_guardasois",)):
         continue
     a, b, name = int(mt.group(1)), int(mt.group(2)), mt.group(3)
-    if name in ("barraca", "quiosque"):                 # the stall is built by the game; the kiosk arrives with its gameplay
+    if name == "barraca":                                # the stall is built by the game; the kiosk replaces its look from stage 2
         continue
     for x in bpy.context.selected_objects:
         x.select_set(False)

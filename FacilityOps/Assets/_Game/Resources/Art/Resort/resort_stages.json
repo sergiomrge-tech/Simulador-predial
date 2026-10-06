@@ -30,6 +30,13 @@
    "polygons": 2496
   },
   {
+   "asset": "E2-7_quiosque",
+   "from": 2,
+   "to": 7,
+   "name": "quiosque",
+   "polygons": 695
+  },
+  {
    "asset": "E3-5_restaurante",
    "from": 3,
    "to": 5,

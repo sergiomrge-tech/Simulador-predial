@@ -18,6 +18,19 @@ namespace ResortAurora.Game
         public Vector3 Ground(Vector3 p) { p.y = Site.HeightAt(p.x, p.z); return p; }
         public Vector3 LanePoint(float x) => Ground(new Vector3(x, 0f, LaneZ));
 
+        static readonly HashSet<string> StallLookParts = new HashSet<string>
+        { "Deck", "Post", "Awning0", "Awning1", "Awning2", "Awning3", "Awning4", "Awning5", "Counter", "CounterTop", "Grill", "GrillGlow", "Cooler", "CoolerLid" };
+
+        /// <summary>From stage 2 the exported kiosk model replaces the stall's look. The stations (counter, grill, crate, boards) keep their colliders and
+        /// prompts at the same spots, so play is unchanged; only the structural visuals are hidden.</summary>
+        public void SetKioskLook(bool kiosk)
+        {
+            foreach (var r in Root.GetComponentsInChildren<Renderer>(true))
+                if (StallLookParts.Contains(r.gameObject.name)) r.enabled = !kiosk;
+            foreach (var t in Root.GetComponentsInChildren<TextMesh>(true))
+                if (t.text == "LANCHES DO MAR") t.gameObject.SetActive(!kiosk);
+        }
+
         public void RefreshStaff(ResortGame game)
         {
             foreach (var go in StaffVisuals) if (go != null) Object.Destroy(go);

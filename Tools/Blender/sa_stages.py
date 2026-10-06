@@ -28,25 +28,40 @@ def stall(fr, z):
 
 
 def kiosk(fr, z):
-    """Stage 2: kiosk with a masonry bar, a big palapa, a timber deck with tables and string lights, a toilet block."""
-    fr.box(-11, 11, -9, 5, z, z + 0.25, S["teca"])                                       # deck
-    fr.box(-5.5, 5.5, 0.0, 5.0, z + 0.25, z + 3.2, S["estuque"])                         # bar building
-    fr.box(-4.0, 4.0, -0.15, 0.15, z + 1.0, z + 2.6, S["vidro"], top=False, back=False, sides=False)
-    fr.box(-5.8, 5.8, -1.4, 0.0, z + 0.25, z + 1.15, S["teca"])                          # service counter
-    fr.box(-6.0, 6.0, -1.5, 0.1, z + 1.15, z + 1.22, S["marmore"])
-    R.thatch_roof(fr, 0, 2.5, z + 3.2, 8.5, 3.6)
-    for k in range(4):
-        tx = -7.5 + k * 5.0
-        fr.box(tx - 0.5, tx + 0.5, -6.0, -5.0, z + 0.25, z + 0.95, S["teca"])
-        R.umbrella(fr, tx, -5.5, z + 0.25, r=1.9, h=2.8)
-        for dx, dd in ((-0.9, 0), (0.9, 0)):
-            fr.box(tx + dx - 0.25, tx + dx + 0.25, -5.75, -5.25, z + 0.25, z + 0.7, S["madeira_escura"])
-    fr.box(6.5, 10.0, 0.5, 4.0, z + 0.25, z + 2.6, S["estuque"])                         # toilets
-    fr.box(6.3, 10.2, 0.3, 4.2, z + 2.6, z + 2.8, S["terracota"])
-    for k in range(7):                                                                    # string lights on posts
-        px = -10.5 + k * 3.5
-        fr.cyl(px, -8.4, z + 0.25, 0.05, 3.0, 6, S["madeira_escura"])
-        fr.box(px - 0.12, px + 0.12, -8.52, -8.28, z + 3.0, z + 3.24, S["luz"])
+    """Stage 2: the kiosk. Built around the stall's play area (same origin and counter line), so the gameplay stations keep working inside it:
+    an open bar under a big palapa (service counter at d -1.0..-0.3, kitchen island and back bar inside), a timber deck with tables and
+    parasols, string lights and a toilet block. Frame faces the walkers (d < 0 = promenade)."""
+    fr.box(-9.5, 9.5, -3.4, 9.5, z, z + 0.14, S["teca"])                                   # deck
+    for px in (-4.4, 4.4):
+        for pd in (-1.7, 5.4):
+            fr.cyl(px, pd, z + 0.14, 0.14, 3.3, 10, S["madeira_escura"])                    # roof posts
+    fr.box(-4.4, 4.4, -1.15, -0.2, z + 0.14, z + 1.12, S["teca"])                          # service counter (front)
+    fr.box(-4.6, 4.6, -1.3, 0.0, z + 1.12, z + 1.2, S["marmore"])
+    for k in range(9):
+        fr.box(-4.2 + k * 1.05, -3.6 + k * 1.05, -1.17, -1.14, z + 0.2, z + 1.0, S["madeira_escura"], top=False)   # slatted front
+    fr.box(-3.4, -0.2, 0.7, 1.6, z + 0.14, z + 0.95, S["aco_preto"])        # kitchen island
+    fr.box(-3.5, -0.1, 0.6, 1.7, z + 0.95, z + 1.0, S["marmore"])
+    fr.box(-3.0, -0.6, 1.1, 1.5, z + 2.2, z + 2.9, S["aco_preto"], bottom=True)           # hood over the grill
+    fr.box(-4.2, 4.2, 5.2, 5.5, z + 0.14, z + 2.3, S["madeira_escura"])                      # back wall with shelves
+    for k in range(3):
+        fr.box(-3.8, 3.8, 4.9, 5.2, z + 0.9 + k * 0.5, z + 0.95 + k * 0.5, S["teca"])
+        for j in range(12):
+            fr.cyl(-3.4 + j * 0.62, 5.05, z + 0.95 + k * 0.5, 0.06, 0.3, 6, S["vidro"])      # bottles
+    fr.box(2.0, 3.6, 3.0, 4.2, z + 0.14, z + 1.7, S["aco_preto"])                           # fridge
+    R.thatch_roof(fr, 0, 2.6, z + 3.3, 7.8, 3.8)
+    for side in (-1, 1):                                                                   # tables with parasols on the deck wings
+        for k in range(3):
+            tx, td = side * 7.0, 1.0 + k * 3.0
+            fr.box(tx - 0.5, tx + 0.5, td - 0.5, td + 0.5, z + 0.14, z + 0.9, S["teca"])
+            R.umbrella(fr, tx, td, z + 0.14, r=1.9, h=2.8)
+            for dx in (-0.9, 0.9):
+                fr.box(tx + dx - 0.25, tx + dx + 0.25, td - 0.25, td + 0.25, z + 0.14, z + 0.7, S["madeira_escura"])
+    fr.box(5.6, 9.2, 6.2, 9.2, z + 0.14, z + 2.6, S["estuque"])                              # toilets
+    fr.box(5.4, 9.4, 6.0, 9.4, z + 2.6, z + 2.8, S["terracota"])
+    for k in range(7):                                                                      # string lights
+        px = -9.0 + k * 3.0
+        fr.cyl(px, -3.0, z + 0.14, 0.05, 3.0, 6, S["madeira_escura"])
+        fr.box(px - 0.12, px + 0.12, -3.12, -2.88, z + 3.0, z + 3.24, S["luz"])
 
 
 def sobrado(fr, z, L=16.0, D=11.0, seed=0):

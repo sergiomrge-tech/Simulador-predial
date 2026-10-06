@@ -81,8 +81,7 @@ for k in range(5):                                                      # a few 
     fr(1, 7, "guardasois", ux, uy).box(-0.4, 0.4, -0.8, 0.8, gz(ux, uy), gz(ux, uy) + 0.1, S["tecido"])
 
 # --- 2-5: the kiosk (P1)
-ky = 238.0
-ST.kiosk(fr(2, 5, "quiosque", X0, ky, PI), gz(X0, ky))
+ST.kiosk(fr(2, 7, "quiosque", X0, sy, PI), gz(X0, sy))
 
 # --- 3-5: covered restaurant beside the kiosk; the Seu Tonico pousada (P2)
 ry = 232.0

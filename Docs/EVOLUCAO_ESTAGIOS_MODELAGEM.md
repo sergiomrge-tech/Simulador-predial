@@ -51,3 +51,8 @@ e o **farol** de 38 m (apagado até a 6). O terreno é o "natural" nas etapas 1�
 - **UV tangente** (`sa_bl.write_box_uvs(..., tangent=True)`, ligado pelo kit do resort): faces verticais usam a própria tangente horizontal, então colunas redondas e paredes inclinadas não distorcem a textura. O padrão antigo (Cidade Antiga) fica inalterado.
 - **Relevo por material**: mármore sem normal map (polido), travertino/estuque/azulejo com relevo baixo. Isso acabou com as listras diagonais nas colunas.
 - **LOD**: decidi não fazer agora. As peças somam ~320 mil polígonos em ~40 malhas (poucos draw calls), o que é leve para um PC; o custo real está no terreno (só um dos dois fica ativo) e na vegetação. Reavaliar com medição de quadros.
+
+## Desempenho e quiosque jogável (2026-10-06)
+
+- **Medição** (`PerformanceTests`, RTX 4060 Ti, 1080p, render forçado + leitura de pixel para esperar a GPU): etapa 1 ≈ 2,6 ms por quadro, etapa 7 ≈ 3,0 ms (aérea e nível do chão) e 4,2 ms no eixo central (pior quadro 21 ms, na carga). Ou seja 236–380 fps nesta máquina. Por isso **não há LOD**: o ganho seria irrelevante. Reavaliar em GPU mais fraca.
+- **Quiosque**: o modelo do quiosque foi refeito em torno da área de jogo da barraca (mesma origem e linha de balcão): bar aberto sob palapa, bancada de cozinha com coifa, prateleiras e geladeira, deck com mesas e guarda-sóis, luzes de varal e sanitários. Na etapa 2+ ele substitui a aparência da barraca; as estações (balcão, chapa, caixa do fornecedor, murais) continuam nos mesmos lugares, só os visuais estruturais da barraca ficam ocultos. Testado em PlayMode.
