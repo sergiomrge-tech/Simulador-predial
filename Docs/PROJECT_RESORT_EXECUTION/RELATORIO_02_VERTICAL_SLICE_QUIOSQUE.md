@@ -175,3 +175,22 @@ Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, 18h20 e 20h30
 
 ## Limitações
 - Poses dos jogadores são procedurais (sem clipes de rebatida); a bola não tem física nem quica na areia. Sem avaliação humana.
+
+---
+
+# Adendo 7 — vendedor ambulante na areia (2026-10-06, rodada 7)
+
+**Status: COMPILADO, TESTADO (20/20 PlayMode, modo gráfico, 0 `error CS` / `Shader error` no log) e CAPTURADO. Gate técnico segue PASS. `HUMAN_GATE_PENDING` continua; a Fase 03 NÃO está liberada.**
+
+## O que mudou
+- Nova atividade ambiente `BeachLife.Role.Vendor`: um vendedor desce do calçadão, caminha por uma fileira de areia seca com uma caixa de isopor no quadril, para de vez em quando virado para os guarda-sóis (gesto de chamar, clipe `Talk` do manequim animado) e sai a pé no fim da praia ou quando a população cai. A fileira evita o quiosque, suas mesas e a fila (`VendorRowZ`).
+- A caixa é um objeto separado preso ao quadril (não um prop do `PersonRig`), então o vendedor continua usando o manequim animado do pacote gratuito; só é desenhada em LOD 0–1 e é destruída com o vendedor (pool intacto).
+- `PopulationModel.Mix.Vendors` (não entra em `Total`): ~1–2 ao meio-dia, 0 à noite, menos em tempo nublado/ventoso.
+
+## Evidência
+- `Run-UnityResortTests.ps1 -Graphics` -> `TESTS total=20 passed=20 failed=0`; 0 `error CS` / `Shader error`. `PopulationFollowsTheHourAndTheWeather` e `BeachIsAliveByDayAndQuieterAtNight` agora exigem >= 1 vendedor ao meio-dia, a caixa `VendorCooler` visível de perto, nenhum vendedor nem caixa solta à noite.
+- Captura real da Unity: `ArtSource/Blender/World/Reviews/F02/f02_9_vendedor_na_areia.png` (cópia em `Desktop\Capturas PROJECT RESORT_Unity_Reais\F02_praia_viva_dia_noite\`).
+- Aprendizado: o teste achou um conflito de nome (o quiosque já tem um objeto `Cooler`); o da praia chama-se `VendorCooler`.
+
+## Limitações
+- O vendedor ainda não vende nada ao jogador nem aos banhistas (é só ambiente); a caixa é um bloco simples que atravessa um pouco o quadril em alguns quadros; desempenho não remedido nesta rodada (1–2 pessoas a mais no pool de adultos). Sem avaliação humana.

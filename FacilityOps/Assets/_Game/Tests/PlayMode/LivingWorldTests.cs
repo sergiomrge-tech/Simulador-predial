@@ -135,6 +135,7 @@ namespace ResortAurora.Tests
             Assert.LessOrEqual(noon.Total, 70, "the ambient crowd stays inside its pool budget");
             var night = PopulationModel.MixFor(22f, Weather.Sunny, 0.5f, 1);
             Assert.GreaterOrEqual(noon.Players, 1, "people play ball on the sand at noon");
+            Assert.GreaterOrEqual(noon.Vendors, 1, "a beach seller works the sand at noon"); Assert.AreEqual(0, night.Vendors, "no sellers at night");
             Assert.AreEqual(0, night.Beach); Assert.AreEqual(0, night.Swimmers); Assert.AreEqual(0, night.Kids); Assert.AreEqual(0, night.Players);
             Assert.GreaterOrEqual(night.Strollers, 1, "the promenade is quieter at night, never empty");
             Assert.Less(PopulationModel.MixFor(12f, Weather.Cloudy, 0.5f, 1).Total, PopulationModel.MixFor(12f, Weather.Hot, 0.5f, 1).Total, "bad weather empties the beach");
@@ -163,6 +164,7 @@ namespace ResortAurora.Tests
             Assert.Greater(life.PeopleOf(BeachLife.Role.Swimmer), 0, "people are in the water");
             Assert.GreaterOrEqual(life.PeopleOf(BeachLife.Role.Player), 2, "at least one pair plays ball on the sand");
             Assert.AreEqual(0, life.PeopleOf(BeachLife.Role.Player) % 2, "ball players come in pairs");
+            Assert.GreaterOrEqual(life.PeopleOf(BeachLife.Role.Vendor), 1, "a beach seller walks the sand");
 
             int sum = 0; foreach (var c in life.LodCounts) sum += c;
             Assert.AreEqual(life.ActiveCount, sum, "every active person has a level of detail");
@@ -200,6 +202,23 @@ namespace ResortAurora.Tests
                 cam.targetTexture = null; RenderTexture.active = null; Object.Destroy(rt); Object.Destroy(tex);
             }
 
+            // evidence: the beach seller with the cooler
+            {
+                var vp = Vector3.zero; bool found = false;
+                foreach (var s in life.Snapshot()) if (s.role == BeachLife.Role.Vendor) { vp = s.pos; found = true; break; }
+                Assert.IsTrue(found, "a seller to photograph");
+                var cam = Camera.main;
+                var from = vp + new Vector3(2.4f, 1.7f, 5.5f); var at = vp + new Vector3(0f, 1.2f, 0f);
+                cam.transform.SetPositionAndRotation(from, Quaternion.LookRotation(at - from));
+                yield return new WaitForSeconds(0.4f);
+                Assert.IsNotNull(GameObject.Find("VendorCooler"), "the seller carries a cooler box (drawn when close)");
+                string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02"); Directory.CreateDirectory(dir);
+                var rt = new RenderTexture(1600, 900, 24); cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt;
+                var tex = new Texture2D(1600, 900, TextureFormat.RGB24, false); tex.ReadPixels(new Rect(0, 0, 1600, 900), 0, 0); tex.Apply();
+                File.WriteAllBytes(Path.Combine(dir, "f02_9_vendedor_na_areia.png"), tex.EncodeToPNG());
+                cam.targetTexture = null; RenderTexture.active = null; Object.Destroy(rt); Object.Destroy(tex);
+            }
+
             // night: the beach empties, the promenade stays alive
             g.Clock.Restore(1, 21f * 60f);
             yield return new WaitForSeconds(2.6f);
@@ -208,6 +227,8 @@ namespace ResortAurora.Tests
             Assert.AreEqual(0, life.PeopleOf(BeachLife.Role.Swimmer), "nobody swims at night");
             Assert.AreEqual(0, life.PeopleOf(BeachLife.Role.Player), "nobody plays ball at night");
             Assert.IsNull(GameObject.Find("BeachBall"), "the ball goes away with its players");
+            Assert.AreEqual(0, life.PeopleOf(BeachLife.Role.Vendor), "no beach sellers at night");
+            Assert.IsNull(GameObject.Find("VendorCooler"), "the cooler goes away with its seller");
             Assert.Less(life.ActiveCount, day, "fewer people at night");
             Assert.IsTrue(g.DayNight.LampsOn, "lamps are on at 21:00");
 

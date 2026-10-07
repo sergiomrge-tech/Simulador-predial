@@ -59,7 +59,7 @@ namespace ResortAurora.Sim
             1.00f, 1.00f, 0.95f, 0.86f, 0.80f, 0.74f,   0.60f, 0.42f, 0.32f, 0.24f, 0.14f, 0.08f,
         };
 
-        public struct Mix { public int Strollers, Joggers, Cyclists, Beach, Swimmers, Kids, Players; public int Total => Strollers + Joggers + Cyclists + Beach + Swimmers + Kids; }
+        public struct Mix { public int Strollers, Joggers, Cyclists, Beach, Swimmers, Kids, Players, Vendors; public int Total => Strollers + Joggers + Cyclists + Beach + Swimmers + Kids; }
 
         public static float Density(float hours, Weather w, float reputation, int stage)
         {
@@ -86,6 +86,7 @@ namespace ResortAurora.Sim
                 Swimmers = (int)Math.Round(8f * d * sunny * (w == Weather.Cloudy || w == Weather.Windy ? 0.5f : 1f)),
                 Kids = (int)Math.Round(6f * d * sunny),
                 Players = (int)Math.Round(2.4f * d * sunny * (w == Weather.Cloudy || w == Weather.Windy ? 0.4f : 1f)),   // pairs playing ball; two people each, on top of Total
+                Vendors = (int)Math.Round(1.6f * d * sunny * (w == Weather.Cloudy || w == Weather.Windy ? 0.6f : 1f)),     // ambulant sellers with a cooler, on top of Total
             };
         }
     }

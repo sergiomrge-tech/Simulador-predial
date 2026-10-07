@@ -14,7 +14,7 @@ namespace ResortAurora.Game
     /// </summary>
     public sealed class BeachLife : MonoBehaviour
     {
-        public enum Role { Stroller, Jogger, Cyclist, Sunbather, Swimmer, Kid, Player }
+        public enum Role { Stroller, Jogger, Cyclist, Sunbather, Swimmer, Kid, Player, Vendor }
         const float RangeHalf = 120f;                         // promenade stretch that is populated, either side of the kiosk
         const int MaxAdults = 84, MaxKids = 24;
 
@@ -27,7 +27,7 @@ namespace ResortAurora.Game
             public int state, dir; public Pose pose;
             public Ambient leader; public Vector3 offset;
             public Spot spot; public Vector3 anchor, target; public float bob;
-            public GameObject towel, ball;                      // ball: owned by the first player of a pair
+            public GameObject towel, ball, cooler;              // ball: owned by the first player of a pair; cooler: carried by a vendor
         }
 
         ResortGame game; ResortSite site; StallLayout lay;
@@ -40,7 +40,7 @@ namespace ResortAurora.Game
         float lodTimer, popTimer, lastHours = -1f;
         Transform folder;
         Mesh umbrellaMesh;
-        Material ballMat;
+        Material ballMat, coolerMat, lidMat;
         public int[] LodCounts { get; } = new int[4];
 
         public int ActiveCount { get; private set; }
@@ -115,6 +115,7 @@ namespace ResortAurora.Game
             a.active = false;
             if (a.towel != null) Destroy(a.towel);
             if (a.ball != null) { Destroy(a.ball); a.ball = null; }
+            if (a.cooler != null) { Destroy(a.cooler); a.cooler = null; }
             a.rig.HitPulse = 0f;
             a.rig.Gesture = Gesture.None; a.rig.BodyOffset = Vector3.zero; a.rig.SetLod(3);
             a.rig.gameObject.SetActive(false);
@@ -134,6 +135,11 @@ namespace ResortAurora.Game
             }
             a.pos.y = y;
             a.rig.transform.SetPositionAndRotation(a.pos, Quaternion.Euler(0f, a.yaw, 0f));
+            if (a.cooler != null)                                                           // hangs at the hip, only drawn while the vendor is close
+            {
+                a.cooler.SetActive(a.rig.Lod <= 1);
+                a.cooler.transform.SetPositionAndRotation(a.pos + Quaternion.Euler(0f, a.yaw, 0f) * new Vector3(0.34f, 0.9f, 0.05f), Quaternion.Euler(0f, a.yaw, 0f));
+            }
         }
 
         // ---------------------------------------------------------------- beach spots (towels and umbrellas)
@@ -220,6 +226,7 @@ namespace ResortAurora.Game
             FillBeach(mix, true);
             for (int i = PeopleOf(Role.Swimmer); i < mix.Swimmers; i++) SpawnSwimmer();
             for (int i = CountOf(Role.Player); i < mix.Players; i++) SpawnPair(true);
+            for (int i = CountOf(Role.Vendor); i < mix.Vendors; i++) SpawnVendor(true);
         }
 
         void Rebalance()
@@ -233,6 +240,7 @@ namespace ResortAurora.Game
             Steer(Role.Cyclist, mix.Cyclists, () => SpawnRunner(Role.Cyclist, false));
             FillBeach(mix, false);
             Steer(Role.Player, mix.Players, () => SpawnPair(false));
+            Steer(Role.Vendor, mix.Vendors, () => SpawnVendor(false));
             int swim = PeopleOf(Role.Swimmer);
             if (swim < mix.Swimmers && rng.NextDouble() < 0.6) SpawnSwimmer();
             else if (swim > mix.Swimmers) foreach (var a in all) if (a.active && a.role == Role.Swimmer && !a.leaving) { a.leaving = true; break; }
@@ -371,6 +379,34 @@ namespace ResortAurora.Game
             first.ball = ball;
         }
 
+        /// <summary>A beach seller: steps down from the promenade, walks a row of the sand with a cooler box on the hip, stopping now and then to call out.</summary>
+        void SpawnVendor(bool instant)
+        {
+            int dir = rng.NextDouble() < 0.5 ? 1 : -1;
+            float x = instant ? sx + ((float)rng.NextDouble() - 0.5f) * 2f * 70f : sx - dir * 80f;
+            float row = EdgeZ(x) - 8f - (float)rng.NextDouble() * 22f;
+            var a = Spawn(Role.Vendor, instant ? new Vector3(x, 0f, VendorRowZ(x, row)) : new Vector3(x, 0f, EdgeZ(x) + 0.5f), dir > 0 ? 90f : 270f, false, PersonKind.Beach);
+            if (a == null) return;
+            a.dir = dir; a.lane = row; a.speed = 1.0f + 0.2f * (float)rng.NextDouble(); a.state = instant ? 1 : 0; a.timer = 6f + 14f * (float)rng.NextDouble();
+            a.pose = Pose.Walk;
+            if (coolerMat == null) { coolerMat = StallBuilder.Mat(new Color(0.93f, 0.94f, 0.95f), 0.3f); lidMat = StallBuilder.Mat(new Color(0.85f, 0.18f, 0.16f), 0.3f); }
+            var box = StallBuilder.Box("VendorCooler", folder, Vector3.zero, new Vector3(0.5f, 0.3f, 0.34f), new Color(0.93f, 0.94f, 0.95f), collider: false);
+            box.GetComponent<MeshRenderer>().sharedMaterial = coolerMat;
+            var lid = StallBuilder.Box("Lid", box.transform, Vector3.zero, new Vector3(0.52f, 0.05f, 0.36f), new Color(0.85f, 0.18f, 0.16f), collider: false);
+            lid.transform.localPosition = new Vector3(0f, 0.58f, 0f); lid.transform.localScale = new Vector3(1.04f, 0.17f, 1.06f);
+            lid.GetComponent<MeshRenderer>().sharedMaterial = lidMat;
+            box.SetActive(false);
+            a.cooler = box;
+        }
+
+        /// <summary>The row of sand a vendor walks: kept on dry sand and clear of the stall, its tables and its queue.</summary>
+        float VendorRowZ(float x, float row)
+        {
+            float z = row;
+            if (x > sx - 14f && x < sx + 15f) z = Mathf.Min(z, kioskZ - 14f);
+            return Mathf.Max(z, ShoreZ(x) + 4f);
+        }
+
         Ambient SpawnPlayer(float x, float z, bool instant, float yaw)
         {
             Vector3 start = instant ? new Vector3(x, 0f, z) : new Vector3(x, 0f, EdgeZ(x) + 0.5f);
@@ -433,6 +469,7 @@ namespace ResortAurora.Game
                 case Role.Kid: TickKid(a, dt); break;
                 case Role.Swimmer: TickSwimmer(a, dt); break;
                 case Role.Player: TickPlayer(a, dt); break;
+                case Role.Vendor: TickVendor(a, dt); break;
             }
             if (player.HasValue && a.active) Yield(a, player.Value);
         }
@@ -584,6 +621,45 @@ namespace ResortAurora.Game
                     break;
                 }
                 case 3:                                                                    // leaving: up the beach to the promenade
+                {
+                    var goal = new Vector3(a.pos.x, 0f, EdgeZ(a.pos.x) + 0.6f);
+                    var to = goal - a.pos; to.y = 0f; float d = to.magnitude;
+                    a.pose = Pose.Walk; a.yaw = Mathf.LerpAngle(a.yaw, PersonRig.YawTowards(a.pos, goal), 8f * dt);
+                    if (d < 0.3f || OutOfSight(a)) Release(a); else a.pos += to / d * Mathf.Min(d, 1.3f * dt);
+                    break;
+                }
+            }
+        }
+
+        /// <summary>Beach seller: down to the sand, then along it; every so often stops, faces the sunbathers and calls out; leaves when asked or at the end of the beach.</summary>
+        void TickVendor(Ambient a, float dt)
+        {
+            if (a.leaving && a.state != 3) { a.state = 3; a.rig.Gesture = Gesture.None; }
+            switch (a.state)
+            {
+                case 0:                                                                    // from the promenade down to the row
+                {
+                    var goal = new Vector3(a.pos.x, 0f, VendorRowZ(a.pos.x, a.lane));
+                    var to = goal - a.pos; to.y = 0f; float d = to.magnitude;
+                    a.pose = Pose.Walk; a.yaw = Mathf.LerpAngle(a.yaw, PersonRig.YawTowards(a.pos, goal), 8f * dt);
+                    if (d < 0.3f) a.state = 1; else a.pos += to / d * Mathf.Min(d, a.speed * dt);
+                    break;
+                }
+                case 1:                                                                    // walking the row
+                {
+                    float x = a.pos.x + a.dir * a.speed * dt;
+                    a.pos = new Vector3(x, 0f, Mathf.MoveTowards(a.pos.z, VendorRowZ(x, a.lane), 1.2f * dt));
+                    a.yaw = Mathf.LerpAngle(a.yaw, a.dir > 0 ? 90f : 270f, 6f * dt); a.pose = Pose.Walk;
+                    a.timer -= dt;
+                    if (a.timer <= 0f) { a.state = 2; a.timer = 5f + 6f * (float)rng.NextDouble(); a.rig.Gesture = Gesture.Chat; }
+                    if (Mathf.Abs(x - sx) > 95f && (x - sx) * a.dir > 0f) a.state = 3;
+                    break;
+                }
+                case 2:                                                                    // calling out to the umbrellas
+                    a.timer -= dt; a.pose = Pose.Stand; a.yaw = Mathf.LerpAngle(a.yaw, 0f, 4f * dt);
+                    if (a.timer <= 0f) { a.state = 1; a.timer = 12f + 25f * (float)rng.NextDouble(); a.rig.Gesture = Gesture.None; }
+                    break;
+                case 3:                                                                    // up the beach to the promenade
                 {
                     var goal = new Vector3(a.pos.x, 0f, EdgeZ(a.pos.x) + 0.6f);
                     var to = goal - a.pos; to.y = 0f; float d = to.magnitude;
