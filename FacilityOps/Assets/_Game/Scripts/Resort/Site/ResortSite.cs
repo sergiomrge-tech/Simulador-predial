@@ -236,18 +236,58 @@ namespace ResortAurora.Site
             return false;
         }
 
+        /// <summary>Seaward distance (m) of each row of the water surface from the local waterline; the first row hides under the beach.</summary>
+        static readonly float[] SeaRows = { -30f, 0f, 3f, 8f, 16f, 30f, 55f, 95f, 160f, 260f, 420f, 700f, 1100f, 1500f };
+
         GameObject BuildSea()
         {
-            var go = GameObject.CreatePrimitive(PrimitiveType.Plane);
-            go.name = "Sea";
-            Destroy(go.GetComponent<Collider>());
-            go.transform.localScale = new Vector3((Data.size.x + 1200f) / 10f, 1f, 90f);                 // open sea from 550 m seaward of the site to 350 m inland (the terrain hides the rest; the waterline wanders with the bays)
-            go.transform.localPosition = new Vector3(Data.size.x * 0.5f, Data.seaLevel, -100f);
-            var m = new Material(Shader.Find("Universal Render Pipeline/Lit")) { name = "BairroSea" };
-            m.SetColor("_BaseColor", new Color(0.05f, 0.35f, 0.45f, 1f));
-            m.SetFloat("_Smoothness", 0.92f);
-            go.GetComponent<MeshRenderer>().sharedMaterial = m;
-            return go;
+            var root = new GameObject("Sea");
+            // fallback sheet (flat, deep colour) under the real surface, so a lagoon or a bay that the waterline scan skips never shows the void
+            var plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            plane.name = "SeaBase"; plane.transform.SetParent(root.transform, false);
+            Destroy(plane.GetComponent<Collider>());
+            plane.transform.localScale = new Vector3((Data.size.x + 3200f) / 10f, 1f, 90f);
+            plane.transform.localPosition = new Vector3(Data.size.x * 0.5f, Data.seaLevel - 0.06f, -100f);
+            var baseMat = new Material(Shader.Find("Universal Render Pipeline/Lit")) { name = "BairroSeaBase" };
+            baseMat.SetColor("_BaseColor", new Color(0.03f, 0.22f, 0.32f, 1f));
+            baseMat.SetFloat("_Smoothness", 0.5f);
+            plane.GetComponent<MeshRenderer>().sharedMaterial = baseMat;
+
+            // the surface: columns along the coast, rows by distance from the waterline (colour = shallowness and opacity per vertex)
+            var shader = Shader.Find("ResortAurora/Sea");
+            if (shader == null) return root;
+            const float colStep = 8f;
+            float x0 = -1500f, x1 = Data.size.x + 1500f;
+            int cols = Mathf.CeilToInt((x1 - x0) / colStep) + 1, rows = SeaRows.Length;
+            var verts = new Vector3[cols * rows]; var colors = new Color[cols * rows]; var tris = new int[(cols - 1) * (rows - 1) * 6];
+            float y = Data.seaLevel;
+            for (int i = 0; i < cols; i++)
+            {
+                float x = x0 + i * colStep, shore = WaterlineZ(Mathf.Clamp(x, 0f, Data.size.x));
+                for (int r = 0; r < rows; r++)
+                {
+                    float d = SeaRows[r];
+                    verts[i * rows + r] = new Vector3(x, y, shore - d);
+                    float shallow = 1f - Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(d / 130f));
+                    float opacity = Mathf.Lerp(0.5f, 1f, Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(d / 22f)));
+                    colors[i * rows + r] = new Color(shallow, opacity, 0f, 1f);
+                }
+            }
+            int k = 0;
+            for (int i = 0; i < cols - 1; i++)
+                for (int r = 0; r < rows - 1; r++)
+                {
+                    int a = i * rows + r, b = a + 1, c = a + rows, e = c + 1;                  // winding is irrelevant: the shader is double-sided
+                    tris[k++] = a; tris[k++] = b; tris[k++] = c; tris[k++] = c; tris[k++] = b; tris[k++] = e;
+                }
+            var mesh = new Mesh { name = "SeaSurface", indexFormat = UnityEngine.Rendering.IndexFormat.UInt32 };
+            mesh.vertices = verts; mesh.colors = colors; mesh.triangles = tris; mesh.RecalculateBounds();
+            var surface = new GameObject("SeaSurface"); surface.transform.SetParent(root.transform, false);
+            surface.AddComponent<MeshFilter>().sharedMesh = mesh;
+            var mr = surface.AddComponent<MeshRenderer>();
+            mr.sharedMaterial = new Material(shader) { name = "BairroSea" };
+            mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; mr.receiveShadows = false;
+            return root;
         }
 
         // ---------------------------------------------------------------- vila (prototype massing, placed on real lot data)

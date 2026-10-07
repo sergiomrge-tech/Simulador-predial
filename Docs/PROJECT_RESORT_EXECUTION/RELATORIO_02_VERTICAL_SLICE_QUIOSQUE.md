@@ -95,3 +95,25 @@ Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, 18h20 e 20h30
 - O HUD é IMGUI provisório e **não foi visto por uma pessoa**; os textos do HUD não aparecem nas capturas de câmera (IMGUI não vai para `Camera.Render`).
 - Sentar continua pose procedural (sem clipes de cadeira nos pacotes gratuitos avaliados).
 - A mesa oeste a 7 m do modelo do quiosque atravessa o bloco de banheiros (modelagem).
+
+
+---
+
+# Adendo 3 — shader do mar e céu noturno (2026-10-06, rodada 3)
+
+**Status: COMPILADO, TESTADO (20/20 PlayMode, modo gráfico, sem erros de shader/compilação no log) e CAPTURADO. Gate técnico segue PASS. `HUMAN_GATE_PENDING` continua; a Fase 03 NÃO está liberada.**
+
+## O que mudou
+- **Mar com shader próprio** (`Resources/ResortSea.shader`, `ResortAurora/Sea`, URP/HLSL): cor por profundidade (turquesa raso -> azul profundo, vertex color), transparência no raso (areia molhada aparece), ondulações analíticas em duas escalas (marola longa + chop que some com a distância), reflexo de Fresnel do céu (usa o ambiente/fog que o `DayNightCycle` já controla, então o mar acompanha o relógio sem C# por quadro) e brilho de sol/lua. Antes era um plano `Lit` liso que refletia o céu e parecia um bloco ciano lavado.
+- **Malha do mar** (`ResortSite.BuildSea`): colunas a cada 8 m ao longo da costa e 14 fileiras por distância da linha d'água (a primeira escondida sob a praia; até 1,5 km mar adentro, dentro do far clip de 1500 m). Um plano escuro fica 6 cm abaixo como rede de segurança (lagoas/baías que o scan da linha d'água ignora).
+- **Céu noturno**: o sol era preso a >= 1 grau acima do horizonte, e o skybox procedural seguia essa direção, deixando um brilho oliva/amarelo a noite toda. Agora o sol desce de verdade abaixo do horizonte (a luz já era desligada por `vis`; sombras só com sol > 1 grau). Resultado: noite com estrelas sobre céu escuro, quiosque e lâmpadas legíveis (luminância média das capturas noturnas 0,11–0,18).
+
+## Evidência
+- `Run-UnityResortTests.ps1 -Graphics` -> `TESTS total=20 passed=20 failed=0` (4 execuções nesta rodada; a última com o código final). 0 ocorrências de `error CS` / `Shader error` no log.
+- Desempenho (render em lote, sem IMGUI): praia ao meio-dia 2,8 ms médio (p95 3,2 ms, pior 3,5 ms, 63 pessoas); estágio 1 2,6–2,7 ms; estágio 7 2,3–3,0 ms. Sem regressão.
+- Capturas reais regeneradas: `ArtSource/Blender/World/Reviews/F02/f02_{1_dia,2_tarde_dourada,3_por_do_sol,4_noite}_*.png` (mar novo visível em `*_praia_para_o_mar` e `*_aerea`).
+
+## Limitações
+- O mar ainda não tem espuma de profundidade, refração real nem reflexo de objetos (planar/SSR); o brilho da lua é fraco nas capturas testadas.
+- O céu noturno é preto com estrelas (sem gradiente azul); o crepúsculo ainda é um oliva sujo do skybox procedural.
+- Nada disso foi visto por uma pessoa: o gate visual e o humano continuam abertos.

@@ -151,11 +151,12 @@ namespace ResortAurora.Game
             float az = 90f - 180f * t;
             if (sun != null)
             {
-                sun.transform.rotation = Quaternion.Euler(Mathf.Max(elev, 1f), az + 180f, 0f);
+                // below the horizon the light is already off (vis), and the procedural sky needs the real direction or it keeps a yellow dusk glow all night
+                sun.transform.rotation = Quaternion.Euler(elev, az + 180f, 0f);
                 sun.color = Color.Lerp(new Color(1f, 0.96f, 0.88f), new Color(1f, 0.58f, 0.32f), golden * golden);
                 float vis = Mathf.Clamp01((elev + 3f) / 10f);
                 sun.intensity = Mathf.Lerp(1.2f, 0.55f, golden) * vis;
-                sun.shadows = night < 0.85f ? LightShadows.Soft : LightShadows.None;
+                sun.shadows = night < 0.85f && elev > 1f ? LightShadows.Soft : LightShadows.None;
                 sun.enabled = vis > 0.001f;
             }
             // moon: rises in the east after sunset and climbs

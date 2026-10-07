@@ -1,6 +1,6 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-Atualizado em 2026-10-06 (fim da rodada 2 de refinamentos seguros da Fase 02).
+Atualizado em 2026-10-06 (fim da rodada 3 de refinamentos seguros da Fase 02).
 
 ## Fase atual
 
@@ -18,19 +18,20 @@ A Fase 03 NÃO está liberada.
 - Desempenho (render em lote, sem IMGUI): ~2,8 ms/quadro com a multidão; estágio 7 ~2,9 ms.
 - Capturas reais: `ArtSource/Blender/World/Reviews/F02/` e `Desktop\Capturas PROJECT RESORT\01_Unity_Reais\F02_praia_viva_dia_noite\`.
 - Rodada 2 (feita): clientes sentam nas mesas do deck do quiosque do estágio 2 (10 cadeiras, rota própria, altura do deck); HUD com faixa de "próximo passo" + estoque baixo + ABERTO/FECHADO + vendas do dia; guarda de balanceamento do primeiro dia. Captura: `f02_7_estagio2_clientes_no_deck.png`.
-- Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1 e 2 de 2026-10-06).
+- Rodada 3 (feita): mar com shader próprio (`Resources/ResortSea.shader`: cor por profundidade, ondulação, Fresnel, brilho) e malha que segue a linha d'água; céu noturno sem o brilho amarelo (o sol agora desce abaixo do horizonte). 20/20 testes, sem regressão de desempenho (2,8 ms).
+- Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1, 2 e 3 de 2026-10-06).
 
 ## Pendente (nada disso se resolve só com código)
 
 1. **HUMAN_GATE_PENDING**: uma pessoa precisa jogar dois dias e avaliar ritmo, clareza do HUD, diversão e a "vida" da praia; ouvir o áudio; olhar as capturas.
-2. Gate visual segue aberto: personagens/quiosque/guarda-sóis ainda são blockout; mar sem shader de água; noite sem contraste de arte.
+2. Gate visual segue aberto: personagens/quiosque/guarda-sóis ainda são blockout; mar com shader simples (sem refração/reflexo de objetos); noite com céu preto e estrelas.
 
 ## Trabalho seguro dentro da Fase 02 (se a rodada continuar antes do gate humano)
 
 - ~~Clientes sentarem nas mesas no estágio 2~~ (feito). ~~HUD de próximo passo~~ (feito; falta olhar humano).
 - Corrigir no Blender (`Tools/Blender/sa_stages.py::kiosk`) a mesa oeste a 7 m que cai dentro do bloco de banheiros e então reativar essa mesa em `StallLayout.AddKioskSeats` (exige o `.blend` base e regenerar/re-exportar o FBX do estágio 2).
 - Sentar/deitar/nadar ainda são procedurais: avaliar clipes gratuitos (Human Crafting Animations FREE, Creative Characters FREE) e o aspecto dos corpos animados; se os manequins ainda parecerem artificiais de perto, o Diretor deve apresentar 1–3 opções pagas ao usuário antes de comprar qualquer coisa.
-- Refinar o rig/roupas dos NPCs e o shader/cor do mar; mais variedade de atividades na areia.
+- Refinar o rig/roupas dos NPCs; mar sem espuma de profundidade/reflexos de objetos e céu noturno preto sem gradiente (cosmético); mais variedade de atividades na areia.
 - Equilíbrio fino da fila/spawn só com dados de jogada humana (curva atual: 6–8h quase sem clientes; o teste `FirstDayDemandIsWorthPlayingAndProfitable` protege a faixa).
 
 ## Próxima ação concreta
