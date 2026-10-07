@@ -26,6 +26,7 @@ A Fase 03 NÃO está liberada.
 - Rodada 8 (feita): banhistas sentados lendo um livro (`Gesture.Read`, ~35% dos que se sentam; livro só em LOD 0–1); 20/20 testes, 0 erros de shader/compilação. Captura: `f02_10_leitor_na_areia.png`.
 - Desempenho remedido após as rodadas 6–8 (adendo 9): praia ao meio-dia 2,8 ms média / 3,7 ms pior, estágio 7 2,5–3,0 ms; sem regressão.
 - Rodada 10 (feita): HEAD revalidado (20/20, 0 erros); decidido NÃO regenerar o estágio 2 no Blender só pela mesa do banheiro (débito cosmético, Fase 15).
+- Rodada 11 (feita): só documentação — `ROTEIRO_PLAYTEST_HUMANO_FASE_02.md` para o humano fechar o gate (sem mudança de código; HEAD e remoto já sincronizados, 20/20 da rodada 10 continua válido).
 - Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1 a 10 de 2026-10-06).
 
 ## Pendente (nada disso se resolve só com código)
@@ -43,7 +44,7 @@ A Fase 03 NÃO está liberada.
 
 ## Próxima ação concreta
 
-Pedir a uma pessoa que jogue dois dias (`ResortPrologue`), anote ritmo/HUD/diversão/áudio e olhe as capturas F02. Só então avaliar o gate humano; sem isso, a Fase 03 permanece bloqueada.
+Pedir a uma pessoa que jogue dois dias (`ResortPrologue`) seguindo `ROTEIRO_PLAYTEST_HUMANO_FASE_02.md` (roteiro + ficha de avaliação, criado na rodada 11), anote ritmo/HUD/diversão/áudio e olhe as capturas F02. Só então avaliar o gate humano; sem isso, a Fase 03 permanece bloqueada.
 
 ## O que NÃO fazer
 
