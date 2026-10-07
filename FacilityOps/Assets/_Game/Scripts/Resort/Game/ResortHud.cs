@@ -54,8 +54,22 @@ namespace ResortAurora.Game
             float h = lastH / 14f;
             GUI.Box(new Rect(8, 8, Screen.width - 16, h), GUIContent.none);
             var c = game.Clock;
-            string s = $"Dia {c.Day}   {GameClock.Format(c.Minutes)} {Daylight.Label(Daylight.PhaseOf(c.Hours))}   {WeatherInfo.Label(game.Weather)}      R$ {game.Ledger.Balance}      Reputação {Mathf.RoundToInt(game.Stall.Reputation * 100)}%      Atendidos hoje {game.Service.Served}   Perdidos {game.Service.Lost}";
+            string shop = game.AwaitingSleep ? "DIA ENCERRADO" : game.Closing ? "FECHANDO" : game.ShopOpen ? "ABERTO" : "FECHADO";
+            string s = $"Dia {c.Day}   {GameClock.Format(c.Minutes)} {Daylight.Label(Daylight.PhaseOf(c.Hours))}   {WeatherInfo.Label(game.Weather)}      Quiosque {shop}      R$ {game.Ledger.Balance}      Reputação {Mathf.RoundToInt(game.Stall.Reputation * 100)}%      Hoje: vendas R$ {game.Service.DayRevenue}   atendidos {game.Service.Served}   perdidos {game.Service.Lost}";
             GUI.Label(new Rect(20, 8 + h * 0.15f, Screen.width - 40, h), s, label);
+            DrawHint(8 + h + 4f);
+        }
+
+        /// <summary>One line under the status bar: the next useful move, plus a warning when products are about to run out.</summary>
+        void DrawHint(float y)
+        {
+            if (game.OpenedPanel != Panel.None) return;
+            string step = ServiceHints.NextStep(game.Snapshot());
+            string low = game.AwaitingSleep ? "" : ServiceHints.LowStock(game.Stall);
+            string text = low.Length > 0 ? step + "      Estoque baixo: " + low : step;
+            float h = lastH / 20f;
+            GUI.Box(new Rect(8, y, Screen.width - 16, h), GUIContent.none);
+            GUI.Label(new Rect(20, y + h * 0.05f, Screen.width - 40, h), text, small);
         }
 
         void DrawPrompt()

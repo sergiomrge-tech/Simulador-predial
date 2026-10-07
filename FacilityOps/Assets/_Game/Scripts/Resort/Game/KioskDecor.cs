@@ -8,6 +8,8 @@ namespace ResortAurora.Game
     public sealed class Seat
     {
         public Vector3 Pos; public float Yaw; public bool Taken, Enabled = true, NeedsTables;
+        /// <summary>A chair of the stage-2 kiosk model (timber deck wings) rather than a stage-1 plastic set.</summary>
+        public bool Kiosk;
     }
 
     /// <summary>

@@ -97,13 +97,11 @@ namespace ResortAurora.Game
             }
         }
 
-        /// <summary>The kiosk faces the promenade, the tables are on the sand beside it: out along the east edge of the stall, then down to the chair.</summary>
+        /// <summary>The kiosk faces the promenade, the tables are beside and behind it: out past the end of the counter, then along to the chair.</summary>
         void BuildSeatPath(StallLayout lay, Seat s)
         {
-            float x = lay.Root.position.x + 4.2f;
             path.Clear();
-            path.Add(lay.Ground(new Vector3(x, 0f, lay.CounterFrontZ + 0.9f)));
-            path.Add(lay.Ground(new Vector3(x, 0f, s.Pos.z)));
+            path.AddRange(lay.RouteToSeat(s));
         }
 
         void BeginLeave(StallLayout lay)
@@ -114,10 +112,10 @@ namespace ResortAurora.Game
 
         void StandUp(StallLayout lay)
         {
-            float x = lay.Root.position.x + 4.2f;
             path.Clear();
-            path.Add(lay.Ground(new Vector3(x, 0f, seat.Pos.z)));
-            path.Add(lay.Ground(new Vector3(x, 0f, lay.CounterFrontZ + 0.9f)));
+            var route = lay.RouteToSeat(seat);
+            route.Reverse();
+            path.AddRange(route);
             seat.Taken = false; seat = null;
             BeginLeave(lay);
         }
@@ -135,7 +133,7 @@ namespace ResortAurora.Game
                 p += to / d * Mathf.Min(d, speed * Time.deltaTime);
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(to), 8f * Time.deltaTime);
             }
-            p.y = lay.Site.HeightAt(p.x, p.z);
+            p.y = lay.Ground(p).y;
             transform.position = p;
             return moving;
         }

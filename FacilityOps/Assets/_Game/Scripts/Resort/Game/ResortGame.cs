@@ -48,6 +48,15 @@ namespace ResortAurora.Game
         public bool ShopOpen { get; private set; }
         /// <summary>The day is over and the player has to walk home and sleep (bed in the Apto 12) to start the next one.</summary>
         public bool AwaitingSleep { get; private set; }
+        /// <summary>The player asked to close (or the day ended) and the last customers are still being served before the cash is counted.</summary>
+        public bool Closing => closingRequested || dayClosing;
+
+        public ServiceSnapshot Snapshot() => new ServiceSnapshot
+        {
+            AwaitingSleep = AwaitingSleep, Closing = Closing, Open = ShopOpen, DayOver = Clock.DayOver,
+            TotalStock = ServiceHints.TotalStock(Stall), Queue = Service.Queue.Count,
+            TicketsToCook = ServiceHints.TicketsToCook(Service.Tickets), Ready = Service.Ready.Count,
+        };
 
         public sealed class DaySummary
         {

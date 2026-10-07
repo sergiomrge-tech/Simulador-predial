@@ -17,12 +17,64 @@ namespace ResortAurora.Game
         public readonly List<GameObject> ExtraTables = new List<GameObject>();
         bool kioskLook, tablesOwned;
 
+        // The stage-2 kiosk model (Tools/Blender/sa_stages.py) stands on a flat timber deck 0.14 m above the ground under the stall origin,
+        // spanning x -9.5..9.5 and 9.5 m behind / 3.4 m in front of it, with tables on both wings.
+        public const float DeckLift = 0.14f, DeckHalfWidth = 9.5f, DeckBack = 9.5f, DeckFront = 3.4f;
+        // Chairs sit slightly higher than the stage-1 plastic ones (0.56 m vs 0.45 m), and the deck adds its own lift.
+        const float KioskChairLift = 0.11f;
+
         /// <summary>Stage-1 tables: one from the start, the other two with the "Mesas de plástico" upgrade; none once the exported kiosk model takes over.</summary>
         public void RefreshUpgrades(ResortGame game)
         {
             tablesOwned = game.Stall.Has("up.mesas");
             foreach (var t in ExtraTables) t.SetActive(tablesOwned && !kioskLook);
-            foreach (var s in Seats) s.Enabled = !kioskLook && (!s.NeedsTables || tablesOwned);
+            ApplySeatAvailability();
+        }
+
+        void ApplySeatAvailability()
+        {
+            foreach (var s in Seats) s.Enabled = s.Kiosk ? kioskLook : !kioskLook && (!s.NeedsTables || tablesOwned);
+        }
+
+        /// <summary>Chairs on the deck wings of the exported kiosk: tables at x +-7 and 1, 4, 7 m behind the stall origin (the west one at 7 m would
+        /// stand inside the toilet block of the model, so it is skipped), a chair 0.9 m to each side of the table facing it.</summary>
+        public void AddKioskSeats()
+        {
+            foreach (var side in new[] { -1f, 1f })
+                for (int k = 0; k < 3; k++)
+                {
+                    if (side < 0f && k == 2) continue;
+                    float tx = side * 7f, tz = -(1f + 3f * k);
+                    foreach (var dx in new[] { -0.9f, 0.9f })
+                    {
+                        var p = Root.TransformPoint(new Vector3(tx + dx, 0f, tz));
+                        p.y = Root.position.y + DeckLift + KioskChairLift;
+                        Seats.Add(new Seat { Pos = p, Yaw = dx < 0f ? 90f : 270f, Kiosk = true, Enabled = false });
+                    }
+                }
+        }
+
+        /// <summary>Waypoints from the queue in front of the counter to a seat (not including the seat itself).</summary>
+        public List<Vector3> RouteToSeat(Seat s)
+        {
+            var path = new List<Vector3>();
+            float front = CounterFrontZ + 0.9f;
+            if (!s.Kiosk)
+            {
+                float x = Root.position.x + 4.2f;
+                path.Add(Ground(new Vector3(x, 0f, front)));
+                path.Add(Ground(new Vector3(x, 0f, s.Pos.z)));
+            }
+            else
+            {
+                // out past the end of the service counter (it spans +-4.6 m), down the wing between the tables, then across to the chair
+                float corridor = Root.position.x + Mathf.Sign(s.Pos.x - Root.position.x) * 5.2f;
+                float approachZ = s.Pos.z + 1.5f;
+                path.Add(Ground(new Vector3(corridor, 0f, front)));
+                path.Add(Ground(new Vector3(corridor, 0f, approachZ)));
+                path.Add(Ground(new Vector3(s.Pos.x, 0f, approachZ)));
+            }
+            return path;
         }
 
         public Seat TakeSeat()
@@ -35,7 +87,19 @@ namespace ResortAurora.Game
         }
 
         public Vector3 QueueSlot(int i) => Ground(new Vector3(Root.position.x, 0f, CounterFrontZ + 0.9f + i * 0.85f));
-        public Vector3 Ground(Vector3 p) { p.y = Site.HeightAt(p.x, p.z); return p; }
+        public Vector3 Ground(Vector3 p)
+        {
+            p.y = Site.HeightAt(p.x, p.z);
+            if (kioskLook && OnDeck(p)) p.y = Root.position.y + DeckLift;
+            return p;
+        }
+
+        /// <summary>True when the point is on the stage-2 kiosk deck (only meaningful while the exported kiosk model is shown).</summary>
+        public bool OnDeck(Vector3 p)
+        {
+            var r = Root.position;
+            return Mathf.Abs(p.x - r.x) <= DeckHalfWidth && p.z >= r.z - DeckBack && p.z <= r.z + DeckFront;
+        }
         public Vector3 LanePoint(float x) => Ground(new Vector3(x, 0f, LaneZ));
 
         static readonly HashSet<string> StallLookParts = new HashSet<string>
@@ -50,7 +114,7 @@ namespace ResortAurora.Game
                 if (StallLookParts.Contains(r.gameObject.name) || r.gameObject.name.StartsWith("S1_")) r.enabled = !kiosk;
             foreach (var t in Root.GetComponentsInChildren<TextMesh>(true))
                 if (t.text == "LANCHES DO MAR") t.gameObject.SetActive(!kiosk);
-            foreach (var s in Seats) s.Enabled = !kiosk && (!s.NeedsTables || tablesOwned);
+            ApplySeatAvailability();
             foreach (var t in ExtraTables) t.SetActive(tablesOwned && !kiosk);
         }
 
@@ -176,6 +240,7 @@ namespace ResortAurora.Game
             layout.CookPos = root.position + new Vector3(-1.3f, 0.1f, -0.2f);
             layout.PickupPos = layout.Ground(new Vector3(x + 2.9f, 0f, counterFront + 1.3f));
             KioskDecor.Dress(game, layout, root);
+            layout.AddKioskSeats();
             layout.RefreshUpgrades(game);
             return layout;
         }

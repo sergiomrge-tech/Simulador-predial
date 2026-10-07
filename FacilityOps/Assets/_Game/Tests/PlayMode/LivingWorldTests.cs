@@ -79,6 +79,32 @@ namespace ResortAurora.Tests
         }
 
         [Test]
+        public void HudHintsPointToTheNextStepAndFlagLowStock()
+        {
+            var s = new ServiceSnapshot { TotalStock = 20 };
+            StringAssert.Contains("Abra o quiosque", ServiceHints.NextStep(s));
+            s.TotalStock = 0; StringAssert.Contains("compre", ServiceHints.NextStep(s));
+            s.TotalStock = 20; s.Open = true;
+            StringAssert.Contains("Aguardando", ServiceHints.NextStep(s));
+            s.Queue = 2; StringAssert.Contains("anote", ServiceHints.NextStep(s));
+            s.TicketsToCook = 1; StringAssert.Contains("chapa", ServiceHints.NextStep(s));
+            s.Ready = 1; StringAssert.Contains("entregue", ServiceHints.NextStep(s));
+            s.Open = false; s.Closing = true; StringAssert.Contains("últimos clientes", ServiceHints.NextStep(s));
+            s.Queue = 0; s.TicketsToCook = 0; s.Ready = 0; StringAssert.Contains("Fechando", ServiceHints.NextStep(s));
+            s.Closing = false; s.AwaitingSleep = true; StringAssert.Contains("durma", ServiceHints.NextStep(s));
+
+            var stall = new StallModel();
+            Assert.AreNotEqual("", ServiceHints.LowStock(stall), "an empty stall reports everything as low");
+            var ledger = new Ledger(new ResortAurora.Core.EventBus(), 100000);
+            foreach (var p in Catalog.Products) stall.Buy(p.Id, 10, ledger, 1);
+            Assert.AreEqual("", ServiceHints.LowStock(stall));
+            Assert.AreEqual(10 * Catalog.Products.Length, ServiceHints.TotalStock(stall));
+            stall.TryConsume(Catalog.Products[0].Id);
+            for (int i = 0; i < 6; i++) stall.TryConsume(Catalog.Products[0].Id);
+            StringAssert.Contains(Catalog.Products[0].Name + " 3", ServiceHints.LowStock(stall));
+        }
+
+        [Test]
         public void PopulationFollowsTheHourAndTheWeather()
         {
             Assert.Greater(PopulationModel.Density(12f, Weather.Sunny, 0.5f, 1), PopulationModel.Density(20f, Weather.Sunny, 0.5f, 1));
@@ -255,8 +281,9 @@ namespace ResortAurora.Tests
             StringAssert.Contains("Lanche 12", rack.Prompt(g));
 
             // tables: one from the start, three with the upgrade
-            Assert.AreEqual(6, g.Layout.Seats.Count);
+            Assert.AreEqual(6, g.Layout.Seats.FindAll(s => !s.Kiosk).Count);
             Assert.AreEqual(2, g.Layout.Seats.FindAll(s => s.Enabled).Count, "one table at the start");
+            Assert.AreEqual(0, g.Layout.Seats.FindAll(s => s.Kiosk && s.Enabled).Count, "kiosk chairs stay off at stage 1");
             Assert.IsTrue(g.Stall.BuyUpgrade("up.mesas", g.Ledger, 1));
             g.Layout.RefreshUpgrades(g);
             Assert.AreEqual(6, g.Layout.Seats.FindAll(s => s.Enabled).Count, "three tables with the Mesas upgrade");
@@ -275,6 +302,60 @@ namespace ResortAurora.Tests
             Time.timeScale = 1f; Time.captureDeltaTime = 0f;
             Assert.IsTrue(sat, "a served customer took a table");
             Assert.Greater(g.Service.Served, 0);
+        }
+
+        [UnityTest]
+        public IEnumerator ServedCustomersSitOnTheDeckTablesOfTheStageTwoKiosk()
+        {
+            System.Environment.SetEnvironmentVariable("RESORT_STAGE", "2");
+            yield return Load();
+            var g = Object.FindAnyObjectByType<ResortGame>();
+            g.Ledger.Add(1, "teste", 5000);
+            foreach (var p in Catalog.Products) g.Stall.Buy(p.Id, 40, g.Ledger, 1);
+            var lay = g.Layout;
+
+            Assert.AreEqual(10, lay.Seats.FindAll(s => s.Enabled).Count, "five deck tables, two chairs each");
+            Assert.AreEqual(0, lay.Seats.FindAll(s => !s.Kiosk && s.Enabled).Count, "no stage-1 plastic chairs at stage 2");
+            foreach (var s in lay.Seats.FindAll(s => s.Kiosk))
+            {
+                Assert.IsTrue(lay.OnDeck(s.Pos), "kiosk chair on the deck");
+                Assert.AreEqual(lay.Root.position.y + StallLayout.DeckLift, lay.Ground(s.Pos).y, 0.001f, "deck height");
+            }
+            // the queue in front of the counter is on the deck, so people stand on it and not 14 cm inside it
+            Assert.AreEqual(lay.Root.position.y + StallLayout.DeckLift, lay.QueueSlot(0).y, 0.001f);
+
+            GameObject.Find("OpenSign").GetComponent<ActionStation>().Use(g);
+            Time.captureDeltaTime = 0.05f; Time.timeScale = 4f;
+            bool sat = false, grounded = true; int guard = 0, seatedFrames = 0;
+            while (guard++ < 16000 && g.OpenedPanel != Panel.Summary && seatedFrames < 20)
+            {
+                Pilot(g, Time.deltaTime);
+                foreach (var a in Object.FindObjectsByType<CustomerAgent>(FindObjectsSortMode.None))
+                {
+                    var gy = lay.Ground(a.transform.position).y;
+                    if (Mathf.Abs(a.transform.position.y - gy) > 0.35f) grounded = false;
+                }
+                var taken = lay.Seats.Find(s => s.Taken && s.Kiosk);
+                if (taken != null)
+                {
+                    sat = true;
+                    var near = false;
+                    foreach (var a in Object.FindObjectsByType<CustomerAgent>(FindObjectsSortMode.None))
+                        if (Vector3.Distance(a.transform.position, taken.Pos) < 0.05f) near = true;
+                    if (near) seatedFrames++;
+                    if (near && seatedFrames == 10)
+                    {
+                        string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02"); Directory.CreateDirectory(dir);
+                        var cam = Camera.main; var r = lay.Root.position; var sp = taken.Pos;
+                        Snap(cam, new Vector3(sp.x + Mathf.Sign(sp.x - r.x) * 5f, r.y + 2.4f, sp.z + 6f), new Vector3(sp.x, r.y + 0.9f, sp.z), Path.Combine(dir, "f02_7_estagio2_clientes_no_deck.png"));
+                    }
+                }
+                yield return null;
+            }
+            Time.timeScale = 1f; Time.captureDeltaTime = 0f;
+            Assert.IsTrue(sat, "a served customer took a deck chair");
+            Assert.GreaterOrEqual(seatedFrames, 20, "a customer actually reached and stayed on the chair");
+            Assert.IsTrue(grounded, "customers follow the deck height");
         }
     }
 }
