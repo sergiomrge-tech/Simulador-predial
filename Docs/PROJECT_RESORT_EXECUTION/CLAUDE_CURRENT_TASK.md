@@ -1,6 +1,6 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-Atualizado em 2026-10-06 (rodada 20: estado idêntico ao das rodadas 17–19 — HEAD == origin, mesmos 6 pacotes na biblioteca, sem código novo; aguardando jogada humana).
+Atualizado em 2026-10-06 (rodada 21: limpeza de debug visual — linhas de lote e legendas 3D distantes escondidas; 20/20 testes; aguardando jogada humana).
 
 ## Fase atual
 
@@ -35,6 +35,7 @@ A Fase 03 NÃO está liberada.
 - Rodada 17 (feita): `git fetch` — HEAD == origin (0/0), nada novo fora de `Reviews/`, biblioteca de assets inalterada (mesmos 6 pacotes), nenhum commit de código desde a rodada 10 (20/20 válido). Nenhuma ação segura nova; Unity não reexecutada. **Bloqueio real: jogada humana (`ROTEIRO_PLAYTEST_HUMANO_FASE_02.md`) ou novos pacotes/instrução.**
 - Rodada 18 (feita): `git fetch` — HEAD == origin (0/0), nada novo fora de `Reviews/`, biblioteca de assets com os mesmos 6 pacotes; nenhuma mudança de código ou validação nova. Estado idêntico ao da rodada 17. Não há trabalho seguro novo; **parar até haver jogada humana, novos pacotes na biblioteca ou nova instrução do Diretor**.
 - Rodada 20 (feita): `git fetch` — HEAD == origin (0/0), nada fora de `Reviews/` modificado, biblioteca inalterada (6 pacotes); Unity não reexecutada (nenhum código mudou desde a rodada 10, 20/20 válido). Nenhum trabalho seguro novo. **Bloqueio real e único: jogada humana de `ROTEIRO_PLAYTEST_HUMANO_FASE_02.md`, ou novos pacotes de animação na biblioteca, ou nova instrução.**
+- Rodada 21 (feita): atendendo ao QA do Diretor (`DIRECTOR_QA_LATEST.md`), linhas/legendas de terrenos só a ≤ 22 m (bloqueados ≤ 6 m) e legendas pequenas do quiosque só a ≤ 9 m (`Billboard.showRange`); 20/20 PlayMode (`-Graphics`), captura real `f02_1_dia_kiosque_da_calcada.png` sem a linha vermelha. Adendo 11 do relatório.
 - Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1 a 10 de 2026-10-06).
 
 ## Pendente (nada disso se resolve só com código)

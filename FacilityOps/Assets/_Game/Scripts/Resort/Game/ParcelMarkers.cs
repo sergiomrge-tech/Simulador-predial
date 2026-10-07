@@ -38,7 +38,9 @@ namespace ResortAurora.Game
             }
         }
 
-        const float ShowRange = 70f;                           // boundary and label only appear near the land (a beach full of red lines is not a beach)
+        const float ShowRange = 22f;                           // boundary and label only appear when you are close to the land (a beach full of red lines is not a beach)
+
+        const float LockedRange = 6f;
 
         void Update()
         {
@@ -47,9 +49,10 @@ namespace ResortAurora.Game
             foreach (var e in entries)
             {
                 float dx = Mathf.Max(e.data.x - cp.x, 0f, cp.x - (e.data.x + e.data.width)), dz = Mathf.Max(e.data.z - cp.z, 0f, cp.z - (e.data.z + e.data.depth));
-                bool near = cam == null || dx * dx + dz * dz < ShowRange * ShowRange;
-                if (e.line.enabled != near) { e.line.enabled = near; e.label.gameObject.SetActive(near); }
                 var status = game.Parcels.StatusOf(e.data.id, game.Stall.Reputation);
+                float range = status == ParcelStatus.Locked ? LockedRange : ShowRange;   // land you cannot buy yet stays out of the way
+                bool near = cam == null || dx * dx + dz * dz < range * range;
+                if (e.line.enabled != near) { e.line.enabled = near; e.label.gameObject.SetActive(near); }
                 string key = status.ToString();
                 if (key == e.lastKey) continue;
                 e.lastKey = key;

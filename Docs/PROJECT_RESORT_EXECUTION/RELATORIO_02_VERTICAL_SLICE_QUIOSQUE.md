@@ -239,3 +239,18 @@ Fecha a ressalva "desempenho não remedido" dos adendos 6–8 (duplas com bola, 
 - Decisão: **não** regenerar o estágio 2 no Blender só para mover a mesa oeste a 7 m que cai no bloco de banheiros. A regeneração exige `create_stages.py` (os 7 estágios, `.blend` git-ignorado) + `export_resort_kit.py` (re-exporta todos os FBX), com risco de mudar outros estágios; o ganho é uma mesa. `StallBuilder.AddKioskSeats` já pula essa mesa, então não há cliente sentado dentro da parede. Fica como débito cosmético para a Fase 15.
 - As capturas `Reviews/F02/*.png` são sobrescritas a cada run dos testes gráficos (aparecem como modificadas no git); não foram commitadas por serem só ruído de re-render.
 - Restante da Fase 02 depende de olhar/jogada humana; não há mais código seguro com retorno relevante antes disso.
+
+---
+
+# Adendo 11 — limpeza de elementos de debug na vista normal (2026-10-06, rodada 21)
+
+**Status: FEITO e REVALIDADO (`unity_PlayMode_20261006_234215`, `-Graphics`: 20/20 PlayMode). Gate técnico segue PASS; `HUMAN_GATE_PENDING` continua; a Fase 03 NÃO está liberada.**
+
+Origem: o QA do Diretor (`DIRECTOR_QA_LATEST.md`) apontou como problemas visuais "linhas de lote em vermelho dominando a cena" e "textos técnicos 3D poluindo o enquadramento". As capturas das rodadas anteriores ainda mostravam as duas coisas (a linha vermelha de um terreno bloqueado ao lado do quiosque e legendas "PRECISA-SE AJUDANTE" / "ABERTO / FECHADO" sobrepostas ao longe).
+
+Mudanças (só apresentação, sem alterar simulação nem save):
+- `ParcelMarkers`: bordas/legendas de terrenos aparecem a ≤ 22 m (antes 70 m); terrenos **bloqueados** só a ≤ 6 m. A placa física do terreno continua existindo.
+- `Billboard`/`StallBuilder.Label`: parâmetro `showRange`; legendas pequenas do quiosque ("ABERTO / FECHADO", "PRECISA-SE AJUDANTE") só renderizam a ≤ 9 m. O letreiro "LANCHES DO MAR" segue sempre visível.
+- Evidência real da Unity: `ArtSource/Blender/World/Reviews/F02/f02_1_dia_kiosque_da_calcada.png` (sem linha vermelha, sem texto técnico a distância).
+
+Itens do QA do Diretor que seguem abertos (exigem arte/olhar humano): NPCs ainda semi-blockout de perto, quiosque/mobiliário simples, céu noturno/iluminação a avaliar visualmente, fundo urbano blockout, aproximação à REF 01/02.

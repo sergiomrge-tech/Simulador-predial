@@ -166,13 +166,13 @@ namespace ResortAurora.Game
             return g;
         }
 
-        public static TextMesh Label(Transform parent, Vector3 localPos, string text, int size = 48, float scale = 0.05f)
+        public static TextMesh Label(Transform parent, Vector3 localPos, string text, int size = 48, float scale = 0.05f, float showRange = 0f)
         {
             var g = new GameObject("Label"); g.transform.SetParent(parent, false); g.transform.localPosition = localPos;
             var t = g.AddComponent<TextMesh>();
             t.text = text; t.fontSize = size; t.characterSize = scale; t.anchor = TextAnchor.MiddleCenter; t.alignment = TextAlignment.Center;
             t.color = Color.white;
-            g.AddComponent<Billboard>();
+            g.AddComponent<Billboard>().showRange = showRange;
             return t;
         }
 
@@ -219,7 +219,7 @@ namespace ResortAurora.Game
             act.prompt = g => g.ShopOpen ? "[E] Fechar o quiosque e conferir o caixa" : "[E] Abrir o quiosque";
             act.canUse = g => !g.Clock.DayOver && !g.AwaitingSleep;
             act.action = g => { if (g.ShopOpen) g.RequestClose(); else g.OpenShop(); };
-            Label(root, new Vector3(-2.45f, 1.85f, 1.15f), "ABERTO / FECHADO", 36, 0.04f);
+            Label(root, new Vector3(-2.45f, 1.85f, 1.15f), "ABERTO / FECHADO", 36, 0.04f, showRange: 9f);
             // help board on a post
             var help = Box("HelpBoard", root, new Vector3(-2.4f, 1.1f, 0.4f), new Vector3(0.08f, 0.6f, 0.5f), new Color(0.15f, 0.3f, 0.2f));
             var hp = help.AddComponent<PanelStation>(); hp.panel = Panel.Help; hp.label = "Como jogar";
@@ -227,7 +227,7 @@ namespace ResortAurora.Game
             var jobs = Box("JobBoard", root, new Vector3(3.6f, 1.0f, 1.9f), new Vector3(0.9f, 1.2f, 0.08f), new Color(0.94f, 0.9f, 0.7f));
             Box("JobPost", root, new Vector3(3.6f, 0.4f, 1.9f), new Vector3(0.08f, 0.8f, 0.08f), wood, collider: false);
             var jb = jobs.AddComponent<PanelStation>(); jb.panel = Panel.Hire; jb.label = "Mural de vagas (contratar)";
-            Label(root, new Vector3(3.6f, 1.75f, 1.9f), "PRECISA-SE\nAJUDANTE", 40, 0.04f);
+            Label(root, new Vector3(3.6f, 1.75f, 1.9f), "PRECISA-SE\nAJUDANTE", 40, 0.04f, showRange: 9f);
             Label(root, new Vector3(0f, 3.1f, 1.6f), "LANCHES DO MAR", 60, 0.07f);
 
             var layout = new StallLayout
@@ -249,10 +249,19 @@ namespace ResortAurora.Game
     /// <summary>Keeps world-space labels facing the camera.</summary>
     public sealed class Billboard : MonoBehaviour
     {
+        /// <summary>When above zero the text only renders within this many metres of the camera, so small captions do not clutter distant views.</summary>
+        public float showRange;
+        MeshRenderer mr;
+
         void LateUpdate()
         {
             var c = Camera.main;
-            if (c != null) transform.rotation = Quaternion.LookRotation(transform.position - c.transform.position);
+            if (c == null) return;
+            var d = transform.position - c.transform.position;
+            transform.rotation = Quaternion.LookRotation(d);
+            if (showRange <= 0f) return;
+            if (mr == null) mr = GetComponent<MeshRenderer>();
+            if (mr != null) mr.enabled = d.sqrMagnitude <= showRange * showRange;
         }
     }
 }
