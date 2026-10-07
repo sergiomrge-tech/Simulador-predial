@@ -1,6 +1,6 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-Atualizado em 2026-10-06 (rodada 16: estado reconfirmado, sem mudança de código; aguardando jogada humana).
+Atualizado em 2026-10-06 (rodada 17: estado reconfirmado, sem mudança de código; aguardando jogada humana).
 
 ## Fase atual
 
@@ -32,6 +32,7 @@ A Fase 03 NÃO está liberada.
 - Rodada 14 (feita): reconfirmação sem mudança de código — HEAD == origin (0/0); `git status` fora de `Reviews/` está limpo (só os 43 PNGs regenerados, locais); nenhum commit novo desde a rodada 13, então a validação Unity da rodada 10 (20/20) segue válida. Nenhum trabalho seguro e não cosmético restante na Fase 02; Fase 03 continua bloqueada pelo gate humano.
 - Rodada 15 (feita): reconfirmação — HEAD == origin/claude/w1-masterplan (0/0) após `git fetch`; nenhum arquivo fora de `Reviews/` modificado; nenhum commit de código desde a validação Unity da rodada 10 (20/20), que segue válida. Sem trabalho seguro e não cosmético restante; **parar de repetir rodadas de reconfirmação até haver jogada humana ou nova instrução**.
 - Rodada 16 (feita): HEAD == origin (0/0) após `git fetch`; nenhum arquivo fora de `Reviews/` modificado; nenhum commit de código desde a rodada 10 (20/20 válido, Unity não reexecutada). A biblioteca local `D:\ProjectResort_AssetLibrary\UnityFree\Packages` só contém Human Basic Motions FREE, Environment Pack Forest Sample e pacotes de fantasia: **Human Crafting Animations FREE / Creative Characters FREE / MC Sample ainda não foram baixados** (o usuário precisa adicioná-los à conta/cache), então sentar/deitar/nadar seguem procedurais. Sem trabalho seguro novo; a próxima rodada só deve ocorrer após jogada humana, novos pacotes na biblioteca ou nova instrução.
+- Rodada 17 (feita): `git fetch` — HEAD == origin (0/0), nada novo fora de `Reviews/`, biblioteca de assets inalterada (mesmos 6 pacotes), nenhum commit de código desde a rodada 10 (20/20 válido). Nenhuma ação segura nova; Unity não reexecutada. **Bloqueio real: jogada humana (`ROTEIRO_PLAYTEST_HUMANO_FASE_02.md`) ou novos pacotes/instrução.**
 - Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1 a 10 de 2026-10-06).
 
 ## Pendente (nada disso se resolve só com código)
