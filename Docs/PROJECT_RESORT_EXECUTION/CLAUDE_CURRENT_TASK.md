@@ -1,6 +1,6 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-Atualizado em 2026-10-06 (rodada 12: estado reauditado, sem mudança de código; aguardando jogada humana).
+Atualizado em 2026-10-06 (rodada 13: estado reconfirmado, sem mudança de código; aguardando jogada humana).
 
 ## Fase atual
 
@@ -28,6 +28,7 @@ A Fase 03 NÃO está liberada.
 - Rodada 10 (feita): HEAD revalidado (20/20, 0 erros); decidido NÃO regenerar o estágio 2 no Blender só pela mesa do banheiro (débito cosmético, Fase 15).
 - Rodada 11 (feita): só documentação — `ROTEIRO_PLAYTEST_HUMANO_FASE_02.md` para o humano fechar o gate (sem mudança de código; HEAD e remoto já sincronizados, 20/20 da rodada 10 continua válido).
 - Rodada 12 (feita): reauditoria — branch `claude/w1-masterplan`, HEAD == origin (0/0), todos os itens de população/atividades/dia-noite da fase 02 já cobertos no código; nenhum código novo seguro restante que não seja cosmético. 43 PNGs de `Reviews/{F02,R2,R4,R5}` aparecem modificados: são capturas regeneradas pela rodada 10 (execução real da Unity), mantidas só locais/não commitadas para não inflar o histórico; podem ser commitadas se o humano quiser as versões atuais.
+- Rodada 13 (feita): reconfirmação — HEAD == origin/claude/w1-masterplan (0/0); desde a última validação Unity (rodada 10, 20/20) só houve commits de documentação (`git diff --name-only 4df7a13 HEAD` fora de `Docs/` vazio), então a validação continua válida e não foi reexecutada. Nenhum código novo seguro restante; os 43 PNGs modificados seguem só locais.
 - Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1 a 10 de 2026-10-06).
 
 ## Pendente (nada disso se resolve só com código)
