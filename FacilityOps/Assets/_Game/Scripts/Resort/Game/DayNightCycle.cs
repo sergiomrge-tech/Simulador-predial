@@ -197,6 +197,11 @@ namespace ResortAurora.Game
                 sky.SetColor("_SunColor", (sun != null ? sun.color : Color.white) * Mathf.Clamp01((elev + 2f) / 6f));
                 sky.SetColor("_Glow", new Color(1f, 0.52f, 0.26f) * (0.55f * glowK));
                 sky.SetFloat("_SunDisc", 1f);
+                var cloud = Color.Lerp(new Color(0.96f, 0.97f, 0.99f), new Color(1f, 0.74f, 0.58f), golden * 0.8f);
+                cloud = Color.Lerp(cloud, new Color(0.055f, 0.075f, 0.15f), night);
+                cloud = Color.Lerp(cloud, new Color(0.30f, 0.22f, 0.38f), dusk * 0.5f);
+                sky.SetColor("_CloudColor", cloud);
+                sky.SetFloat("_CloudCover", game.Weather == Weather.Cloudy ? 0.78f : 0.4f);
             }
             else if (sky != null)
             {

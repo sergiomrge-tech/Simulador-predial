@@ -139,3 +139,21 @@ Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, 18h20 e 20h30
 - Sem nuvens; a tarde dourada ficou mais lilás que alaranjada nas capturas olhando para leste (o brilho quente fica do lado do sol, para oeste); ajuste fino de arte depende de olho humano.
 - O desempenho não foi remedido nesta rodada (o céu é um único quad de skybox, custo desprezível); a medição de 2,8 ms do adendo 3 permanece a última real.
 - Nada disso foi visto por uma pessoa: gate visual e humano continuam abertos.
+
+
+---
+
+# Adendo 5 — nuvens no céu (2026-10-06, rodada 5)
+
+**Status: COMPILADO, TESTADO (20/20 PlayMode, modo gráfico, 0 `error CS` / `Shader error` no log) e CAPTURADO. Gate técnico segue PASS. `HUMAN_GATE_PENDING` continua; a Fase 03 NÃO está liberada.**
+
+## O que mudou
+- `Resources/ResortSky.shader`: camada de nuvens procedural (fbm de ruído de valor, projetada na cúpula, mais densa perto do horizonte, derivando devagar com `_Time`), com borda clara do lado do sol. Novas propriedades `_CloudColor` e `_CloudCover`.
+- `DayNightCycle.Apply`: cor das nuvens por hora (branco de dia, rosado/dourado no pôr do sol, violeta no crepúsculo, azul-marinho escuro à noite) e cobertura 0,4 (0,78 quando o clima é `Cloudy`).
+
+## Evidência
+- `Run-UnityResortTests.ps1 -Graphics` -> `TESTS total=20 passed=20 failed=0`; 0 `error CS` / `Shader error`.
+- Capturas reais regeneradas em `ArtSource/Blender/World/Reviews/F02/` (ver `f02_1_dia_praia_para_o_mar.png`: fiapos de nuvem sobre o mar; crepúsculo e noite continuam limpos).
+
+## Limitações
+- Nuvens são só cosméticas (sem sombra no chão, sem volume); desempenho não remedido (custo: 10 amostras de ruído por pixel de céu, desprezível). Nada disso foi visto por uma pessoa.

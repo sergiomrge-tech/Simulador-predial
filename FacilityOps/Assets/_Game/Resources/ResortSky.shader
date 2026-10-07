@@ -11,6 +11,8 @@ Shader "ResortAurora/Sky"
         _SunColor("Sun colour", Color) = (1, 0.95, 0.85, 1)
         _Glow("Sun-side horizon glow", Color) = (0, 0, 0, 1)
         _SunDisc("Sun disc strength", Range(0, 1)) = 1
+        _CloudColor("Cloud colour (lit by the clock)", Color) = (0.95, 0.96, 0.98, 1)
+        _CloudCover("Cloud cover", Range(0, 1)) = 0.35
     }
     SubShader
     {
@@ -32,7 +34,17 @@ Shader "ResortAurora/Sky"
             float4 _SunColor;
             float4 _Glow;
             float _SunDisc;
+            float4 _CloudColor;
+            float _CloudCover;
             CBUFFER_END
+
+            float Hash21(float2 p) { p = frac(p * float2(123.34, 456.21)); p += dot(p, p + 45.32); return frac(p.x * p.y); }
+            float VNoise(float2 p)
+            {
+                float2 i = floor(p), f = frac(p); f = f * f * (3.0 - 2.0 * f);
+                return lerp(lerp(Hash21(i), Hash21(i + float2(1, 0)), f.x), lerp(Hash21(i + float2(0, 1)), Hash21(i + float2(1, 1)), f.x), f.y);
+            }
+            float Fbm(float2 p) { float a = 0.5, r = 0.0; for (int k = 0; k < 5; k++) { r += a * VNoise(p); p = p * 2.03 + 17.1; a *= 0.5; } return r; }
 
             struct Attributes { float4 positionOS : POSITION; };
             struct Varyings { float4 positionCS : SV_POSITION; float3 dir : TEXCOORD0; };
@@ -67,6 +79,16 @@ Shader "ResortAurora/Sky"
                 // sun disc (its colour is zero when the sun is under the horizon)
                 float disc = smoothstep(0.99955, 0.99985, cosS) * step(0.0, S.y + 0.02) * step(-0.02, h);
                 col += _SunColor.rgb * disc * 6.0 * _SunDisc;
+
+                // clouds: a flat layer projected on the dome (denser toward the horizon), drifting slowly with the wind; lit by the colour DayNightCycle passes in
+                float cl = saturate(h * 3.2);
+                float2 cp = d.xz / (max(h, 0.0) + 0.16) * 0.55 + float2(_Time.y * 0.0035, _Time.y * 0.0014);
+                float dens = Fbm(cp) * 0.78 + Fbm(cp * 3.1 + 5.0) * 0.22;
+                float cov = smoothstep(1.0 - _CloudCover * 0.75 - 0.18, 1.0 - _CloudCover * 0.75 + 0.14, dens) * cl;
+                float thin = saturate((dens - (1.0 - _CloudCover)) * 4.0);
+                float3 cc = _CloudColor.rgb * lerp(0.62, 1.0, 1.0 - thin * 0.55);
+                cc += _Glow.rgb * pow(cosS, 5.0) * 0.5;                                  // silver/gold rim on the sun's side
+                col = lerp(col, cc, cov * 0.92 * step(-0.02, h));
 
                 // 1/255 interleaved gradient noise against banding in the slow night gradient
                 float n = frac(52.9829189 * frac(dot(i.positionCS.xy, float2(0.06711056, 0.00583715))));
