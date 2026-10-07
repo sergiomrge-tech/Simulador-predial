@@ -1,6 +1,6 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-Atualizado em 2026-10-07 (rodada 27: mesma checagem — HEAD == origin, nenhum arquivo fora de `Docs/` mudou, `DIRECTOR_QA_LATEST.md` ainda o de 2026-10-06 20:24, biblioteca com os mesmos 6 pacotes; sem trabalho novo seguro, HUMAN_GATE_PENDING; antes, rodada 26: reconfirmação — HEAD == origin, nenhum arquivo fora de `Docs/` mudou desde 329b2d0, `DIRECTOR_QA_LATEST.md` e biblioteca de assets inalterados, 20/20 `-Graphics` da rodada 21 segue válido; antes, rodadas 22–25: reconfirmação; antes, rodada 21: limpeza de debug visual — linhas de lote e legendas 3D distantes escondidas; 20/20 testes; aguardando jogada humana).
+Atualizado em 2026-10-07 (rodada 28: HEAD == origin, nada fora de `Docs/` mudou, `DIRECTOR_QA_LATEST.md` (2026-10-06 20:24) e biblioteca de assets inalterados; 20/20 `-Graphics` da rodada 21 segue válido; sem trabalho novo seguro — **HUMAN_GATE_PENDING**. Rodadas 22–27 foram reconfirmações idênticas; histórico das rodadas 21 e anteriores abaixo).
 
 ## Fase atual
 
