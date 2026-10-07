@@ -1,0 +1,13 @@
+{
+  "commit": "caacc94",
+  "branch": "claude/w1-masterplan",
+  "push_result": "success",
+  "full_playmode": "30/30",
+  "LivingWorld": "11/11",
+  "urban_scoped": "1/1",
+  "visual_phase": "F02 OPEN",
+  "shared_files_preserved": true,
+  "config_sha256": "80d4e259c3f9ba738b6beb4d999adcf0536a2d75d70d49d8bc2680f271edf380",
+  "unity_left_running": "ResortPrologue",
+  "console_current_errors": 0
+}

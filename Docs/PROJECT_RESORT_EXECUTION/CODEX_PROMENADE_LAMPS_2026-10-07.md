@@ -36,3 +36,8 @@ The inspected images still show angular/procedural palms, occasional procedural 
 Installed MCPForUnity is **v10.2.0** and live connector calls succeeded against `FacilityOps@80d9f59950304178` over `http://127.0.0.1:8080/mcp`. No reinstall or config rewrite was necessary. The Codex config SHA256 before/after was identical: `80d4e259c3f9ba738b6beb4d999adcf0536a2d75d70d49d8bc2680f271edf380`. Other MCP entries are unchanged. See [connection proof](UNITY_MCP_CODEX_REVERIFICATION_2026-10-07.json).
 
 The focused urban integration milestone stages only urban assets/scripts and relevant integration lines in shared files. Global lighting, vegetation, human, deck and other parallel modifications are excluded and remain locally intact. Unused original donor texture copies are also excluded from the commit; only runtime PBR derivatives are staged. Shared working-file hashes were checked before/after index staging and remained identical. The 30/30 result validates the complete current working tree, including those parallel changes; it is not a separately executed test of the staged subset.
+
+
+## Delivery
+
+Urban integration commit: `caacc94` (`Integrate CC0 urban props, connected streets and realistic promenade lamps`). Successfully pushed to `origin/claude/w1-masterplan`, as required by `CLAUDE_AUTONOMOUS_MASTER.md` for validated milestones. The index is empty after the commit; unrelated parallel modifications remain local. The post-commit check confirmed identical working bytes for all five shared files used during selective staging. F02 remains open.
