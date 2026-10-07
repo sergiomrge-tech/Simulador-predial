@@ -189,7 +189,7 @@ Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, 18h20 e 20h30
 
 ## Evidência
 - `Run-UnityResortTests.ps1 -Graphics` -> `TESTS total=20 passed=20 failed=0`; 0 `error CS` / `Shader error`. `PopulationFollowsTheHourAndTheWeather` e `BeachIsAliveByDayAndQuieterAtNight` agora exigem >= 1 vendedor ao meio-dia, a caixa `VendorCooler` visível de perto, nenhum vendedor nem caixa solta à noite.
-- Captura real da Unity: `ArtSource/Blender/World/Reviews/F02/f02_9_vendedor_na_areia.png` (cópia em `Desktop\Capturas PROJECT RESORT_Unity_Reais\F02_praia_viva_dia_noite\`).
+- Captura real da Unity: `ArtSource/Blender/World/Reviews/F02/f02_9_vendedor_na_areia.png` (cópia em `Desktop\Capturas PROJECT RESORT\01_Unity_Reais\F02_praia_viva_dia_noite\`).
 - Aprendizado: o teste achou um conflito de nome (o quiosque já tem um objeto `Cooler`); o da praia chama-se `VendorCooler`.
 
 ## Limitações
