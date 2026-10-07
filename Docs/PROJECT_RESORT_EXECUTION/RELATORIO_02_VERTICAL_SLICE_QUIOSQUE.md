@@ -157,3 +157,21 @@ Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, 18h20 e 20h30
 
 ## Limitações
 - Nuvens são só cosméticas (sem sombra no chão, sem volume); desempenho não remedido (custo: 10 amostras de ruído por pixel de céu, desprezível). Nada disso foi visto por uma pessoa.
+
+---
+
+# Adendo 6 — duplas jogando bola na areia (2026-10-06, rodada 6)
+
+**Status: COMPILADO, TESTADO (20/20 PlayMode, modo gráfico, 0 `error CS` / `Shader error` no log) e CAPTURADO. Gate técnico segue PASS. `HUMAN_GATE_PENDING` continua; a Fase 03 NÃO está liberada.**
+
+## O que mudou
+- Nova atividade ambiente `BeachLife.Role.Player`: duplas de pessoas ativas descem do calçadão até marcas na areia seca (3–4 m do centro, fora da área do quiosque e a mais de 6 m de toalhas/guarda-sóis e 8 m de outra dupla), ficam frente a frente e rebatem uma bola em arco (a bola é um único objeto por dupla, só visível em LOD 0–1). Jogam 45–135 s e voltam ao calçadão; a bola some com a dupla.
+- `Gesture.Hit` / `PersonRig.HitPulse`: o braço de rebatida sobe no instante em que a bola chega a cada jogador.
+- `PopulationModel.Mix.Players` (pares; não entra em `Total`, ~2–3 duplas ao meio-dia, 0 à noite, menos em tempo nublado/ventoso).
+
+## Evidência
+- `Run-UnityResortTests.ps1 -Graphics` -> `TESTS total=20 passed=20 failed=0` (linha de base antes da mudança também 20/20). `BeachIsAliveByDayAndQuieterAtNight` agora exige >= 1 dupla ao meio-dia, número par de jogadores, nenhum à noite e nenhuma bola solta depois.
+- Captura real da Unity: `ArtSource/Blender/World/Reviews/F02/f02_8_bola_na_areia.png` (dupla com bola no ar; corpos ainda são os bonecos procedurais, é blockout).
+
+## Limitações
+- Poses dos jogadores são procedurais (sem clipes de rebatida); a bola não tem física nem quica na areia. Sem avaliação humana.

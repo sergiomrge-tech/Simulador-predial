@@ -14,7 +14,7 @@ namespace ResortAurora.Game
     /// </summary>
     public sealed class BeachLife : MonoBehaviour
     {
-        public enum Role { Stroller, Jogger, Cyclist, Sunbather, Swimmer, Kid }
+        public enum Role { Stroller, Jogger, Cyclist, Sunbather, Swimmer, Kid, Player }
         const float RangeHalf = 120f;                         // promenade stretch that is populated, either side of the kiosk
         const int MaxAdults = 84, MaxKids = 24;
 
@@ -27,7 +27,7 @@ namespace ResortAurora.Game
             public int state, dir; public Pose pose;
             public Ambient leader; public Vector3 offset;
             public Spot spot; public Vector3 anchor, target; public float bob;
-            public GameObject towel;
+            public GameObject towel, ball;                      // ball: owned by the first player of a pair
         }
 
         ResortGame game; ResortSite site; StallLayout lay;
@@ -40,6 +40,7 @@ namespace ResortAurora.Game
         float lodTimer, popTimer, lastHours = -1f;
         Transform folder;
         Mesh umbrellaMesh;
+        Material ballMat;
         public int[] LodCounts { get; } = new int[4];
 
         public int ActiveCount { get; private set; }
@@ -113,6 +114,8 @@ namespace ResortAurora.Game
         {
             a.active = false;
             if (a.towel != null) Destroy(a.towel);
+            if (a.ball != null) { Destroy(a.ball); a.ball = null; }
+            a.rig.HitPulse = 0f;
             a.rig.Gesture = Gesture.None; a.rig.BodyOffset = Vector3.zero; a.rig.SetLod(3);
             a.rig.gameObject.SetActive(false);
             (a.isKid ? freeKids : freeAdults).Push(a.rig);
@@ -216,6 +219,7 @@ namespace ResortAurora.Game
             for (int i = CountOf(Role.Cyclist); i < mix.Cyclists; i++) SpawnRunner(Role.Cyclist, true);
             FillBeach(mix, true);
             for (int i = PeopleOf(Role.Swimmer); i < mix.Swimmers; i++) SpawnSwimmer();
+            for (int i = CountOf(Role.Player); i < mix.Players; i++) SpawnPair(true);
         }
 
         void Rebalance()
@@ -228,6 +232,7 @@ namespace ResortAurora.Game
             Steer(Role.Jogger, mix.Joggers, () => SpawnRunner(Role.Jogger, false));
             Steer(Role.Cyclist, mix.Cyclists, () => SpawnRunner(Role.Cyclist, false));
             FillBeach(mix, false);
+            Steer(Role.Player, mix.Players, () => SpawnPair(false));
             int swim = PeopleOf(Role.Swimmer);
             if (swim < mix.Swimmers && rng.NextDouble() < 0.6) SpawnSwimmer();
             else if (swim > mix.Swimmers) foreach (var a in all) if (a.active && a.role == Role.Swimmer && !a.leaving) { a.leaving = true; break; }
@@ -335,6 +340,48 @@ namespace ResortAurora.Game
             a.pose = Pose.Walk;
         }
 
+        /// <summary>Two people on the sand knocking a ball back and forth (frescobol): they walk down from the promenade, face each other and play.</summary>
+        void SpawnPair(bool instant)
+        {
+            float cx = 0f, cz = 0f; bool found = false;
+            for (int tries = 0; tries < 40 && !found; tries++)
+            {
+                cx = sx + ((float)rng.NextDouble() - 0.5f) * 2f * 85f;
+                cz = EdgeZ(cx) - 12f - (float)rng.NextDouble() * 55f;
+                if (cx > sx - 14f && cx < sx + 15f && cz > kioskZ - 14f) continue;                 // the kiosk, its tables and its path
+                if (site.HeightAt(cx - 3.3f, cz) < 0.6f || site.HeightAt(cx + 3.3f, cz) < 0.6f) continue;   // both ends on dry sand
+                found = true;
+                foreach (var s in spots) if ((s.pos.x - cx) * (s.pos.x - cx) + (s.pos.z - cz) * (s.pos.z - cz) < 6f * 6f) { found = false; break; }
+                if (found) foreach (var o in all) if (o.active && o.role == Role.Player && (o.anchor.x - cx) * (o.anchor.x - cx) + (o.anchor.z - cz) * (o.anchor.z - cz) < 8f * 8f) { found = false; break; }
+            }
+            if (!found) return;
+            float half = 2.6f + 0.7f * (float)rng.NextDouble();
+            var first = SpawnPlayer(cx - half, cz, instant, 90f);
+            if (first == null) return;
+            var second = SpawnPlayer(cx + half, cz, instant, 270f);
+            if (second == null) { Release(first); return; }
+            second.leader = first;
+            first.timer = 45f + 90f * (float)rng.NextDouble();
+            var ball = GameObject.CreatePrimitive(PrimitiveType.Sphere); ball.name = "BeachBall";
+            Destroy(ball.GetComponent<Collider>());
+            ball.transform.SetParent(folder, false); ball.transform.localScale = Vector3.one * 0.2f;
+            if (ballMat == null) ballMat = StallBuilder.Mat(new Color(0.95f, 0.85f, 0.25f), 0.35f);
+            ball.GetComponent<MeshRenderer>().sharedMaterial = ballMat;
+            ball.SetActive(instant);
+            first.ball = ball;
+        }
+
+        Ambient SpawnPlayer(float x, float z, bool instant, float yaw)
+        {
+            Vector3 start = instant ? new Vector3(x, 0f, z) : new Vector3(x, 0f, EdgeZ(x) + 0.5f);
+            var a = Spawn(Role.Player, start, yaw, false, PersonKind.Active);
+            if (a == null) return null;
+            a.anchor = new Vector3(x, 0f, z); a.speed = 1.3f; a.state = instant ? 1 : 0;
+            a.pose = instant ? Pose.Stand : Pose.Walk;
+            if (instant) a.rig.Gesture = Gesture.Hit;
+            return a;
+        }
+
         // ---------------------------------------------------------------- per frame
 
         void Update()
@@ -385,6 +432,7 @@ namespace ResortAurora.Game
                 case Role.Sunbather: TickSunbather(a, dt); break;
                 case Role.Kid: TickKid(a, dt); break;
                 case Role.Swimmer: TickSwimmer(a, dt); break;
+                case Role.Player: TickPlayer(a, dt); break;
             }
             if (player.HasValue && a.active) Yield(a, player.Value);
         }
@@ -492,6 +540,61 @@ namespace ResortAurora.Game
             var d = a.pos - cam.transform.position; d.y = 0f;
             return d.sqrMagnitude > 120f * 120f;
         }
+
+        /// <summary>Ball game: walk to the mark, face the partner and hit the ball back and forth in an arc until the game ends, then walk off.</summary>
+        void TickPlayer(Ambient a, float dt)
+        {
+            var lead = a.leader ?? a;
+            if (a.state != 3 && (lead.leaving || !lead.active || (a.leader != null && lead.state == 3)))
+            {
+                a.state = 3; a.rig.Gesture = Gesture.None; a.rig.HitPulse = 0f;
+                if (a.ball != null) a.ball.SetActive(false);
+            }
+            switch (a.state)
+            {
+                case 0:                                                                    // walking to the mark
+                {
+                    var to = a.anchor - a.pos; to.y = 0f; float d = to.magnitude;
+                    a.pose = Pose.Walk; a.yaw = Mathf.LerpAngle(a.yaw, PersonRig.YawTowards(a.pos, a.anchor), 8f * dt);
+                    if (d < 0.15f) { a.state = 1; a.pos = a.anchor; a.pose = Pose.Stand; a.rig.Gesture = Gesture.Hit; }
+                    else a.pos += to / d * Mathf.Min(d, a.speed * dt);
+                    break;
+                }
+                case 1:                                                                    // playing
+                {
+                    a.pose = Pose.Stand;
+                    a.yaw = Mathf.LerpAngle(a.yaw, a.leader == null ? 90f : 270f, 8f * dt);       // the first player stands at the west end
+                    if (a.leader != null) break;                                           // the first player runs the game
+                    a.timer -= dt;
+                    if (a.timer <= 0f) { a.leaving = true; break; }
+                    var other = Partner(a);
+                    if (other == null || other.state != 1) { if (a.ball != null) a.ball.SetActive(false); a.rig.HitPulse = 0f; break; }
+                    // one hop of the ball every ~1.5 s: u runs 0 -> 1 (to the partner) and back
+                    float u = Mathf.PingPong(Time.time * 0.66f + a.bob, 1f);
+                    var hA = a.pos + Vector3.up * 1.15f + new Vector3(0.15f, 0f, 0f);
+                    var hB = other.pos + Vector3.up * 1.15f - new Vector3(0.15f, 0f, 0f);
+                    bool visible = a.rig.Lod <= 1;
+                    if (a.ball != null)
+                    {
+                        a.ball.SetActive(visible);
+                        a.ball.transform.position = Vector3.Lerp(hA, hB, u) + Vector3.up * (4f * u * (1f - u) * 1.9f);
+                    }
+                    a.rig.HitPulse = Mathf.Clamp01(1f - u / 0.2f);
+                    other.rig.HitPulse = Mathf.Clamp01(1f - (1f - u) / 0.2f);
+                    break;
+                }
+                case 3:                                                                    // leaving: up the beach to the promenade
+                {
+                    var goal = new Vector3(a.pos.x, 0f, EdgeZ(a.pos.x) + 0.6f);
+                    var to = goal - a.pos; to.y = 0f; float d = to.magnitude;
+                    a.pose = Pose.Walk; a.yaw = Mathf.LerpAngle(a.yaw, PersonRig.YawTowards(a.pos, goal), 8f * dt);
+                    if (d < 0.3f || OutOfSight(a)) Release(a); else a.pos += to / d * Mathf.Min(d, 1.3f * dt);
+                    break;
+                }
+            }
+        }
+
+        Ambient Partner(Ambient first) { foreach (var o in all) if (o.active && o.leader == first && o.role == Role.Player) return o; return null; }
 
         void TickKid(Ambient a, float dt)
         {

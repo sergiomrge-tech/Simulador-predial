@@ -134,7 +134,8 @@ namespace ResortAurora.Tests
             Assert.GreaterOrEqual(noon.Beach, 10); Assert.GreaterOrEqual(noon.Swimmers, 3); Assert.GreaterOrEqual(noon.Strollers, 8);
             Assert.LessOrEqual(noon.Total, 70, "the ambient crowd stays inside its pool budget");
             var night = PopulationModel.MixFor(22f, Weather.Sunny, 0.5f, 1);
-            Assert.AreEqual(0, night.Beach); Assert.AreEqual(0, night.Swimmers); Assert.AreEqual(0, night.Kids);
+            Assert.GreaterOrEqual(noon.Players, 1, "people play ball on the sand at noon");
+            Assert.AreEqual(0, night.Beach); Assert.AreEqual(0, night.Swimmers); Assert.AreEqual(0, night.Kids); Assert.AreEqual(0, night.Players);
             Assert.GreaterOrEqual(night.Strollers, 1, "the promenade is quieter at night, never empty");
             Assert.Less(PopulationModel.MixFor(12f, Weather.Cloudy, 0.5f, 1).Total, PopulationModel.MixFor(12f, Weather.Hot, 0.5f, 1).Total, "bad weather empties the beach");
             Assert.Greater(PopulationModel.MixFor(7f, Weather.Sunny, 0.5f, 1).Joggers, 0, "mornings belong to joggers");
@@ -160,6 +161,8 @@ namespace ResortAurora.Tests
             Assert.Greater(life.PeopleOf(BeachLife.Role.Stroller), 0, "people stroll");
             Assert.Greater(life.PeopleOf(BeachLife.Role.Sunbather), 0, "people sit and lie on the sand");
             Assert.Greater(life.PeopleOf(BeachLife.Role.Swimmer), 0, "people are in the water");
+            Assert.GreaterOrEqual(life.PeopleOf(BeachLife.Role.Player), 2, "at least one pair plays ball on the sand");
+            Assert.AreEqual(0, life.PeopleOf(BeachLife.Role.Player) % 2, "ball players come in pairs");
 
             int sum = 0; foreach (var c in life.LodCounts) sum += c;
             Assert.AreEqual(life.ActiveCount, sum, "every active person has a level of detail");
@@ -179,12 +182,32 @@ namespace ResortAurora.Tests
             }
             Debug.Log("LIFE roles seen: " + string.Join(",", seen));
 
+            // evidence: a pair playing ball (real render, not concept art)
+            var players = new List<Vector3>();
+            foreach (var s in life.Snapshot()) if (s.role == BeachLife.Role.Player) players.Add(s.pos);
+            Assert.GreaterOrEqual(players.Count, 2, "a ball pair to photograph");
+            var mate = players[1]; foreach (var q in players.GetRange(1, players.Count - 1)) if ((q - players[0]).sqrMagnitude < (mate - players[0]).sqrMagnitude) mate = q;
+            Assert.Less((mate - players[0]).magnitude, 8f, "partners play close to each other");
+            {
+                var cam = Camera.main; var p = (players[0] + mate) * 0.5f;
+                var from = p + new Vector3(1.5f, 1.7f, 8.5f); var at = p + new Vector3(0f, 1.6f, 0f);
+                cam.transform.SetPositionAndRotation(from, Quaternion.LookRotation(at - from));
+                yield return new WaitForSeconds(0.4f);
+                string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02"); Directory.CreateDirectory(dir);
+                var rt = new RenderTexture(1600, 900, 24); cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt;
+                var tex = new Texture2D(1600, 900, TextureFormat.RGB24, false); tex.ReadPixels(new Rect(0, 0, 1600, 900), 0, 0); tex.Apply();
+                File.WriteAllBytes(Path.Combine(dir, "f02_8_bola_na_areia.png"), tex.EncodeToPNG());
+                cam.targetTexture = null; RenderTexture.active = null; Object.Destroy(rt); Object.Destroy(tex);
+            }
+
             // night: the beach empties, the promenade stays alive
             g.Clock.Restore(1, 21f * 60f);
             yield return new WaitForSeconds(2.6f);
             Debug.Log($"LIFE night: active {life.ActiveCount} sunbathers {life.PeopleOf(BeachLife.Role.Sunbather)} swimmers {life.PeopleOf(BeachLife.Role.Swimmer)} strollers {life.PeopleOf(BeachLife.Role.Stroller)}");
             Assert.AreEqual(0, life.PeopleOf(BeachLife.Role.Sunbather), "nobody sunbathes at night");
             Assert.AreEqual(0, life.PeopleOf(BeachLife.Role.Swimmer), "nobody swims at night");
+            Assert.AreEqual(0, life.PeopleOf(BeachLife.Role.Player), "nobody plays ball at night");
+            Assert.IsNull(GameObject.Find("BeachBall"), "the ball goes away with its players");
             Assert.Less(life.ActiveCount, day, "fewer people at night");
             Assert.IsTrue(g.DayNight.LampsOn, "lamps are on at 21:00");
 

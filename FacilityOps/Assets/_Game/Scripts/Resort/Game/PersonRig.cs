@@ -6,7 +6,7 @@ namespace ResortAurora.Game
 {
     public enum PersonKind { Casual, Beach, Active, Kid, Staff }
     public enum Pose { Stand, Walk, Run, SitSand, SitChair, LieBack, LieFront, Swim, Bike }
-    public enum Gesture { None, Phone, Drink, Chat, Dig }
+    public enum Gesture { None, Phone, Drink, Chat, Dig, Hit }
 
     /// <summary>
     /// A procedural person (prototype art, scaled 1.55-1.88 m): torso, head, hair, arms and two-segment legs, with a few palette-driven looks
@@ -48,6 +48,8 @@ namespace ResortAurora.Game
         public int Lod => lod;
         public Gesture Gesture { get; set; }
         public Vector3 BodyOffset { get; set; }
+        /// <summary>0..1 strength of the current ball strike for <see cref="Gesture.Hit"/> (driven by the game that owns the ball).</summary>
+        public float HitPulse { get; set; }
 
         static T Pick<T>(T[] a, System.Random r) => a[r.Next(a.Length)];
 
@@ -285,6 +287,7 @@ namespace ResortAurora.Game
                 case Gesture.Drink: Rot(armR, -40f - 90f * Mathf.SmoothStep(0f, 1f, Mathf.PingPong(t * 0.35f, 1f)), 8f); break;
                 case Gesture.Chat: Rot(armR, -35f - 25f * Mathf.Sin(t * 3.1f), 6f); Rot(armL, -15f - 10f * Mathf.Sin(t * 2.3f + 1f)); break;
                 case Gesture.Dig: Rot(armR, -50f + 30f * Mathf.Sin(t * 5f)); Rot(armL, -50f - 30f * Mathf.Sin(t * 5f)); break;
+                case Gesture.Hit: Rot(armR, -35f - 125f * HitPulse, 4f); Rot(armL, -20f - 30f * HitPulse, -6f); break;   // racket arm swings up through the strike
             }
         }
 
