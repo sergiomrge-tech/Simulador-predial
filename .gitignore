@@ -19,3 +19,7 @@ ArtSource/Blender/Resort/*.blend1
 ArtSource/Blender/Resort/*.blend
 FacilityOps/f02-*.log
 FacilityOps/f02-*.xml
+
+# Licensed third-party packs (Unity Asset Store): local only, never committed to the public repo
+FacilityOps/Assets/_Game/ThirdParty/
+FacilityOps/Assets/_Game/ThirdParty.meta

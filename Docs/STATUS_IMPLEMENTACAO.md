@@ -293,10 +293,11 @@ Preparação concluída no GitHub:
 - **Balanceamento** (smoke headless, 30 noites): R$ 55 sem camareira ≈ 70% de ocupação, R$ 6,9 mil; com camareira ≈ 93%, R$ 9,2 mil; reformar tudo para Conforto a R$ 90 ≈ R$ 13,9 mil; R$ 140 num quarto Simples derruba a ocupação a 23% e a nota a 1,1★ (preço injusto é punido).
 - **Verificado**: 6 testes de PlayMode passam (prólogo, etapas, quiosque, desempenho, pousada abre/fecha o dia/salva, recarga preserva os quartos). **Não verificado**: o painel IMGUI da pousada em uso real (teclado e mouse) e o equilíbrio com um humano.
 
-## Resort F02 — praia viva, dia/noite, costa ambiente e quiosque da REF 01/02 (2026-10-06) — COMPILADO E TESTADO (15/15 PlayMode)
+## Resort F02 — praia viva, dia/noite, costa ambiente e quiosque da REF 01/02 (2026-10-06) — COMPILADO E TESTADO (17/17 PlayMode)
 
 - Validado no Unity 6000.6.2f1 com `Tools/Autonomy/Run-UnityResortTests.ps1 -Graphics`: 15 testes de PlayMode passando (loop, prólogo, pousada, estágios, performance, 5 de `LivingWorldTests` e 1 de `AmbientLifeTests`), sem erros no console. Capturas reais em `ArtSource/Blender/World/Reviews/F02/` (dia, tarde dourada, pôr do sol, noite, ondas e gaivotas).
 - Novo: `Sim/Daylight.cs`, `Game/DayNightCycle.cs`, `Game/PersonRig.cs`, `Game/BeachLife.cs`, `Game/KioskDecor.cs`, `Game/AmbientLife.cs` (ondas de espuma, gaivotas, copas de palmeira balançando ao vento), `Game/AmbientAudio.cs` (áudio procedural: mar, vento, murmúrio, grilos, gaivota), `Tests/PlayMode/LivingWorldTests.cs`, `Tests/PlayMode/AmbientLifeTests.cs`.
 - Praia comprimida em `Tools/Map/export_resort_site.py` (`BEACH_WATER_DZ`): mar a **55,1 m** do quiosque (antes ~165 m); calçadão e parcelas inalterados. `ResortSite.WaterlineZ(x)` é a consulta compartilhada da linha d'água.
+- Pessoas próximas/médias com corpos animados do pacote gratuito Human Basic Motions (`Game/HumanVisual.cs`, `HumanVisualTests`): pacote local em `Assets/_Game/ThirdParty/` (git-ignorado, repositório público); sem ele cai no corpo procedural.
 - FBX das folhas/troncos de palmeira passaram a ter Read/Write ligado (necessário para dividir as copas).
 - Pendente: `HUMAN_GATE_PENDING` (ritmo, clareza e diversão por uma pessoa jogando); arte final de personagens/quiosque (ainda blockout); áudio autoral.

@@ -25,10 +25,10 @@ Dois dias consecutivos completos (um fechado pela placa às ~17h, outro pelo rel
 
 # Adendo — praia viva, dia/noite, costa ambiente e quiosque da REF 01/02 (2026-10-06)
 
-**Status: COMPILADO, TESTADO (15/15 PlayMode, Unity 6000.6.2f1, modo gráfico) e CAPTURADO. Gate técnico: PASS. Gate humano: `HUMAN_GATE_PENDING`. Gate visual: aberto até uma pessoa avaliar (a cena ainda é blockout).**
+**Status: COMPILADO, TESTADO (17/17 PlayMode, Unity 6000.6.2f1, modo gráfico) e CAPTURADO. Gate técnico: PASS. Gate humano: `HUMAN_GATE_PENDING`. Gate visual: aberto até uma pessoa avaliar (a cena ainda é blockout).**
 
 ## Evidência real (execução da Unity)
-- Comando: `Tools/Autonomy/Run-UnityResortTests.ps1 -Graphics` -> `TESTS total=15 passed=15 failed=0`. Logs em `D:\ProjectResort_Autonomy\logs\`.
+- Comando: `Tools/Autonomy/Run-UnityResortTests.ps1 -Graphics` -> `TESTS total=17 passed=17 failed=0`. Logs em `D:\ProjectResort_Autonomy\logs\`.
 - Console: sem erros nem exceções na execução final.
 - Capturas reais da Unity (cópias também em `Desktop\Capturas PROJECT RESORT\01_Unity_Reais\F02_praia_viva_dia_noite\`): `ArtSource/Blender/World/Reviews/F02/f02_{1_dia,2_tarde_dourada,3_por_do_sol,4_noite}_{kiosque_da_calcada,praia_para_o_mar,mesas_na_areia,calcadao_leste,aerea}.png` e `f02_5_ondas_e_gaivotas.png`.
 
@@ -53,6 +53,14 @@ Dois dias consecutivos completos (um fechado pela placa às ~17h, outro pelo rel
 - **Guarda-sóis pretos**: a malha dupla-face dividia vértices e as normais se anulavam; agora topo e fundo têm vértices próprios.
 - **Marcadores de terreno** (linhas vermelhas): mais finos e só aparecem a até 70 m da parcela.
 - Teste de nadadores tinha intervalo inválido (`from > to`) quando o fundo estava acima de 0,05 m; corrigido.
+
+## Corpos animados (Human Basic Motions FREE) — adicionado depois do primeiro fechamento da rodada
+Seguindo `Docs/ASSET_LIBRARY/UNITY_FREE_ASSETS.md` (prioridade A): pessoas próximas e médias passam a usar os manequins humanoides do pacote gratuito *Human Basic Motions FREE* (Kevin Iglesias, Unity Asset Store) com os clipes reais de idle, caminhada, corrida e conversa, sobre a lógica existente do `BeachLife` (não foi trocada).
+- **Código**: `Game/HumanVisual.cs` (novo) + integração em `Game/PersonRig.cs` (`TryHuman`). Um `PlayableGraph` em tempo de execução mistura os clipes (sem Animator Controller); o manequim é "vestido" por pintura: uma cópia da malha por gênero tem os UVs remapeados por região do corpo (tronco, mangas, bermuda/calça, canelas, sapatos, cabelo) e cada pessoa recebe uma paleta de 12 pixels. Custo: 1 material e nenhum renderer extra por pessoa.
+- **Regras**: caminhar, correr, parar e conversar usam o corpo animado quando LOD <= 1 e há menos de 40 ativos (`HumanVisual.MaxActive`); sentar, deitar, nadar, pedalar e gestos de celular/bebida continuam procedurais (o pacote não tem esses clipes). LOD 2+ volta ao corpo procedural simplificado. Animators ficam em `AlwaysAnimate` porque animators culled congelam o grafo (verificado: o tempo do clipe não avançava).
+- **Licença / repositório**: os arquivos do pacote ficam só em `FacilityOps/Assets/_Game/ThirdParty/Resources/HBM/` (ignorado pelo git; o repositório é público). Sem o pacote, `HumanVisual.Available` é falso e tudo cai no corpo procedural; os testes `HumanVisualTests` fazem `Assert.Ignore`. Para reinstalar: copiar de `D:\ProjectResort_AssetLibrary\UnityFree\ExtractedForReview\Human Basic Motions FREE` (2 modelos + Idle01/02, Walk01_Forward, Run01_Forward, Talk01 de M e F) e ligar Read/Write nos dois modelos.
+- **Medido (Unity, modo gráfico)**: passada do pé em caminhada 0,147 m, corrida 0,345 m, parado 0,000 m; 24–34 corpos animados de 40–59 ativos na praia; render 2,7 ms médio (p95 3,0 ms) com a multidão — sem regressão. Capturas: `f02_6_pessoas_animadas.png`.
+- **Limitações**: são manequins atléticos genéricos pintados (blockout melhorado, não arte final); roupas são só cores por região; criança = adulto escalado; troca visual procedural<->animado ocorre ao sentar/levantar; pés nem sempre assentam perfeitamente no chão (sem IK).
 
 ## Limitações que permanecem
 - Personagens, quiosque, guarda-sóis e fauna são blockout procedural; mar é plano com espuma, sem shader de água; sem arte final.

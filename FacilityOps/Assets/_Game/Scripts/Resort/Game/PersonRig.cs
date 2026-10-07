@@ -42,6 +42,7 @@ namespace ResortAurora.Game
         Vector3 bodyRest;
         int lod = -1;
         float phase, seed;
+        HumanVisual.Look look; HumanVisual human; bool humanTried, humanShown; int idleVariant;
 
         public float Scale { get; private set; } = 1f;
         public int Lod => lod;
@@ -123,6 +124,17 @@ namespace ResortAurora.Game
             armL = Arm(-1f); armR = Arm(1f);
 
             this.core = core.ToArray(); this.extras = extras.ToArray(); this.limbs = limbs.ToArray(); props = new Renderer[0];
+
+            // the same person, described for the optional skinned body (own random stream: the procedural look above is unchanged)
+            var lr = new System.Random((int)(seed * 977f) + 11);
+            bool longHair = hairStyle < 0.35f && !kid;
+            look = new HumanVisual.Look
+            {
+                skin = skin, hair = hair, shirt = shirt, bottom = bareLegs ? shortsColor : bottom, shoes = new Color(0.15f, 0.15f, 0.16f),
+                shirtless = shirtless, bareLegs = bareLegs, longSleeves = !shirtless && kind != PersonKind.Active && lr.NextDouble() < 0.35,
+                longHair = longHair, hasHair = hairStyle < 0.85f, female = lr.NextDouble() < (longHair ? 0.8 : 0.3), scale = Scale,
+            };
+            idleVariant = lr.Next(2);
             SetLod(0);
         }
 
@@ -164,11 +176,13 @@ namespace ResortAurora.Game
 
         void ApplyLod(bool force)
         {
-            bool near = lod <= 1, visible = lod < 3;
+            if (lod >= 2 && humanShown) { humanShown = false; human.Show(false); }     // the skinned body is for near and medium people only
+            bool near = lod <= 1, visible = lod < 3, proc = !humanShown;
             var shadow = lod == 0 ? ShadowCastingMode.On : ShadowCastingMode.Off;
-            foreach (var r in core) { r.enabled = visible; r.shadowCastingMode = shadow; }
-            foreach (var r in extras) { r.enabled = visible; r.shadowCastingMode = shadow; }
-            foreach (var r in limbs) { r.enabled = near; r.shadowCastingMode = shadow; }
+            if (humanShown) human.SetShadows(lod == 0);
+            foreach (var r in core) { r.enabled = visible && proc; r.shadowCastingMode = shadow; }
+            foreach (var r in extras) { r.enabled = visible && proc; r.shadowCastingMode = shadow; }
+            foreach (var r in limbs) { r.enabled = near && proc; r.shadowCastingMode = shadow; }
             foreach (var r in props) { r.enabled = near; r.shadowCastingMode = shadow; }
         }
 
@@ -176,10 +190,34 @@ namespace ResortAurora.Game
 
         static void Rot(Transform t, float x, float z = 0f) => t.localRotation = Quaternion.Euler(x, 0f, z);
 
+        public bool HumanShown => humanShown;
+
+        void SetHumanShown(bool on)
+        {
+            if (humanShown == on) return;
+            humanShown = on; human.Show(on); ApplyLod(true);
+        }
+
+        /// <summary>Upright locomotion and talking use the skinned body when the optional pack is present; everything else stays procedural.</summary>
+        bool TryHuman(Pose pose, float speed, float dt)
+        {
+            bool wants = lod <= 1 && HumanVisual.Available && (pose == Pose.Walk || pose == Pose.Run || pose == Pose.Stand)
+                         && (Gesture == Gesture.None || Gesture == Gesture.Chat) && props.Length == 0;
+            if (wants && human == null && !humanTried) { humanTried = true; human = HumanVisual.Create(transform, look, new System.Random((int)(seed * 31f) + 5)); }
+            if (wants && human != null && !humanShown && HumanVisual.ActiveCount >= HumanVisual.MaxActive) wants = false;
+            if (!wants || human == null) { if (humanShown) SetHumanShown(false); return false; }
+            SetHumanShown(true);
+            var clip = pose == Pose.Run ? HumanVisual.Clip.Run : pose == Pose.Walk ? HumanVisual.Clip.Walk
+                     : Gesture == Gesture.Chat ? HumanVisual.Clip.Talk : (idleVariant == 0 ? HumanVisual.Clip.Idle1 : HumanVisual.Clip.Idle2);
+            human.Drive(clip, speed, dt, Mathf.Repeat(seed, 1f));
+            return true;
+        }
+
         /// <summary>Poses the joints for this instant. <paramref name="speed"/> is the ground speed (m/s) and drives the stride.</summary>
         public void Animate(Pose pose, float speed, float dt)
         {
             if (lod >= 2) return;                                                       // limbs are hidden: nothing to move
+            if (TryHuman(pose, speed, dt)) return;                                      // skinned body animates itself
             phase += dt * Mathf.Max(0.4f, speed) * (pose == Pose.Run ? 3.4f : pose == Pose.Bike ? 2.2f : 4.2f);
             float s = Mathf.Sin(phase), idle = Mathf.Sin(Time.time * 1.1f + seed);
             Vector3 off = bodyRest;
