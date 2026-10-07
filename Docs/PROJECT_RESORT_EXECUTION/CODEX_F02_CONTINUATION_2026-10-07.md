@@ -66,4 +66,8 @@ Capturas finais reais em `D:\ProjectResort_Autonomy\Evidence\CODEX_F02_20261007_
 
 Os arquivos `source-hashes.json` e o XML/log final ficam com a execução. A automação existente recebeu mutex e espera por execuções Unity anteriores, evitando disputar o lock do projeto. Os testes legados R2/R4 agora respeitam `RESORT_TEST_CAPTURE_ROOT`.
 
+Evidência selecionada também versionada em `Evidence/CODEX_F02_VALIDATED_20261007`: XML/log brutos, hashes de fonte e quatro capturas reais. Commit principal: `95fa839` — `Improve phase 02 with CC0 PBR beach assets and mode-only parcel overlays`. Os hashes dos scripts/testes conferiram antes do commit, sem mudanças após a fotografia da validação.
+
+Fonte Blender editável de móveis preservada localmente em `ArtSource/Blender/Resort/CC0_Furniture_Normalized.blend` (124 MB, texturas empacotadas; não incluída no Git). FBX, texturas runtime e licenças estão versionados. Alterações concorrentes de `FacilityOps/Packages/manifest.json` e sua cópia `manifest.json.pre-unity-mcp` foram deixadas fora deste commit.
+
 Commit deve abranger somente código, ferramentas, assets licenciados e notas deste passe; nenhum PNG pré-existente de Reviews, pacote bruto Unity ou pasta temporária será incluído. Trabalho anterior de madeira PBR e redirecionamento de testes foi mantido e integrado ao mesmo bloco visual. O gate humano e visual permanece aberto.
