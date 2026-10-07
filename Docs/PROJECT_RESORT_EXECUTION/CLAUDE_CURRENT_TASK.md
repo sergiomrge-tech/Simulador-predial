@@ -10,7 +10,7 @@ Detalhes, ativos usados, capturas e incidente de quinze capturas R2/R4 regenerad
 
 ## Codex visual/assets continuation — 2026-10-07
 
-The latest Director instruction reopens F02 visual/assets correction and supersedes the earlier “no safe work remains” recommendation below. Do not start F03. Realistic CC0 folding tables/chairs are now integrated and metric/PBR/upgrade/stage behavior was validated in Unity. Focused LivingWorld + furniture/overlay tests passed **13/13** (`D:/ProjectResort_Autonomy/Evidence/CODEX_Visual_20261007_0908`). Final full validation is in progress. Details and preservation incident: `CODEX_F02_REALISTIC_FURNITURE_2026-10-07.md`.
+The latest Director instruction reopens F02 visual/assets correction and supersedes the earlier “no safe work remains” recommendation below. Do not start F03. Realistic CC0 folding tables/chairs are now integrated and metric/PBR/upgrade/stage behavior was validated in Unity. Focused LivingWorld + furniture/overlay tests passed **13/13** (`D:/ProjectResort_Autonomy/Evidence/CODEX_Visual_20261007_0908`). Final full validation passed **24/24**, Unity exit 0 (`CODEX_Visual_20261007_Final/logs/unity_PlayMode_20261007_091100.xml`). Details and preservation incident: `CODEX_F02_REALISTIC_FURNITURE_2026-10-07.md`.
 
 Atualizado em 2026-10-07 (rodada 41). Rodadas 22–41 foram reconfirmações idênticas: HEAD == origin 0/0, nada fora de `Reviews/` modificado, `DIRECTOR_QA_LATEST.md` (06/10 20:24) e os 6 pacotes da biblioteca (mesmos de 20/09) inalterados, 20/20 `-Graphics` da rodada 21 ainda válido (Unity não reexecutada). Sem trabalho novo seguro — **HUMAN_GATE_PENDING**. Não abrir nova rodada até haver jogada humana, pacote novo ou instrução do Diretor. Histórico das rodadas 21 e anteriores abaixo.
 
