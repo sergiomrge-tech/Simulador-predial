@@ -1,0 +1,210 @@
+﻿[
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Camera\\CameraController.cs",
+        "SHA256":  "D8C6EFD252903B6DA7BEDAE6B8EA5FC479D8A4DEAE5E362CE3124B2B46B8E99A"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Core\\EventBus.cs",
+        "SHA256":  "54230D784703DF0643A1CB07425604BA16B94DA25ED9B0D4978978AD8AF37595"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Core\\GameEvents.cs",
+        "SHA256":  "F5D3953892871D1A711168C3A5F777DD9DE9DEF84C69E6CE2791303067885F78"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Editor\\ResortCapture.cs",
+        "SHA256":  "17BA955BC55780389E54A0ED19EAC6630F93820B3BC1D5103EF153E70C31AB3D"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Editor\\ResortSceneBuilder.cs",
+        "SHA256":  "A99DE3DE1D2D6FF232647B228C9D2D9BEFAE7A12B14DAA932D6A8BF2351333CA"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Editor\\ResortSimSmokeTest.cs",
+        "SHA256":  "7DE8B942BA2C7EC7732F8490DCAC2A9EEEDEBEC7947B68DE2E7C4C01748CA31C"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Editor\\ResortTextureImport.cs",
+        "SHA256":  "1CB040DCB518941533550A11BE52A45F5D8FEE4491344E077753EF7FA8401C75"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\Agents.cs",
+        "SHA256":  "28F5A8C365C2136354C8095595AA4033FCA612C1032DD480EFF40CEC36E94637"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\AmbientAudio.cs",
+        "SHA256":  "EC59BB5364BDC9F7F407D8E7175062F156CD0393B0CA68356368EE6C8A6DAAD1"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\AmbientLife.cs",
+        "SHA256":  "FA371CFA4721A9C41CBCDCCE83B1DCAC650EC95F504EADAC4266B058D52A6228"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\BeachLife.cs",
+        "SHA256":  "7BED64006D8285B7624472BAD1E0B7963B33E6CA04A044676CFB675A840D4FE6"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\DayNightCycle.cs",
+        "SHA256":  "D8ECA5546C6A14196F26222ED9BB26A770C6157A899E1A0ADA2879ED72A972CC"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\HumanVisual.cs",
+        "SHA256":  "754421582C8731A6E519B986544AAD516F706F0D56F6B7DD877B0B78B3FF6F02"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\Interactable.cs",
+        "SHA256":  "AB101EBC4F5F512B016126DC81ED5B0A75C9A6D5473853339B679DC6E78917B1"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\KioskDecor.cs",
+        "SHA256":  "E6A2C6750204A1ECF15627701EC8338903B0C6D152B4CE60DADA8EB08ACD62B9"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\ParcelMarkers.cs",
+        "SHA256":  "EC78E987D3F48874AE44F2789AC7D74D843E24F3C82DFEF757B03A1C302DCFC1"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\PersonRig.cs",
+        "SHA256":  "04CB5DA0D69DE66E31AF5615F0BF6D036579F4930DFAE04674BDEADEF38E3DBC"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\PlayerController.cs",
+        "SHA256":  "E0835F530A144C2AD1167B1DB121FCE3A12EB1BCD2B178BE373416746E87EB9C"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\RealisticKioskAssets.cs",
+        "SHA256":  "73BA8E8547F08DCF2B52AE8174BEC49C71419618B352DF01C2A8DAF6CD0BE88B"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\ResortGame.cs",
+        "SHA256":  "0E49CF7C9E5C074B8704B631CAA860C2C968A0159A0669AC810C448021D49339"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\ResortHud.cs",
+        "SHA256":  "F68784A2C72D3C49C87EE215A740F0F6342B9FFCF7A1018AF37C26F64F4BB589"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\StallBuilder.cs",
+        "SHA256":  "D85708C7C9C437433EAC95A999C02FE5316CF682518970B675F40BC1FEC4C5ED"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Grid\\GridManager.cs",
+        "SHA256":  "37AF44944A303258E0A512A01ED31C778A4CE0F2908D520875AD4D01E1693827"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Grid\\IGridService.cs",
+        "SHA256":  "B82A1A90298DD2CFDBB65EBB5E2C28D78A0CA9ABA2733AF634968058373AB7D6"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Placement\\BuildingDefinition.cs",
+        "SHA256":  "C043E943C4893E2AFD07FA3E7AD55BAE6C734389A571395211FB6B03295D8A21"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Placement\\PlacementSystem.cs",
+        "SHA256":  "0394C922815B920C09A21AA07C3B8F957E6671F606DC16326CBE7DDDA4C3FC23"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\Catalog.cs",
+        "SHA256":  "3907864F4408B8FD69A52AE7F7D7A0E3CDDEDF047E8ACF8C81DEB1A7FDA42298"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\Daylight.cs",
+        "SHA256":  "F6EEA43A0D6E07C92A766F0431C33DFE12046B5C7708908E7CF379F48D6C166B"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\DemandModel.cs",
+        "SHA256":  "0A50B8B2A7E1DAD4EA291080F8D013B45A18D3A8704388D9E7A0F3B854F0D660"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\GameClock.cs",
+        "SHA256":  "C65C518F036E7A3C0752AA7152259CF91EAD21C63332DA69C525288A3B2AA278"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\Ledger.cs",
+        "SHA256":  "0785ACD53852E8C574C3A88F592420716DAD660F0BD8D0273E76E412E0058C8A"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\Lodging.cs",
+        "SHA256":  "E2DE5AC3377B70133DB71749BD56AF10CB219BB53204453A1B4CB39DCFAACF5D"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\ParcelBook.cs",
+        "SHA256":  "BE1FAB6C212974CC298FD8E8E2D56805E1E0BD5CB90402AD57DC0092CF3CA574"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\SaveStore.cs",
+        "SHA256":  "DAA4B37CCF2288B5BAE7BD8F553F936C33D7C20DAAFF656DA4391A1CED3C0241"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\ServiceHints.cs",
+        "SHA256":  "50C861BAFF4CEAB862C0BF1DD555D155C4D013E91BA988370DD45ADB49CB36FE"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\Staff.cs",
+        "SHA256":  "E1D580CFAE75E923D7A07EEE641D741BF935D255BEF45E261AA14C972A0EDBF6"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\StallModel.cs",
+        "SHA256":  "20257DE495FB2690BF49AF6AFE355B241BCEF68549C748B38641759DC1641EDE"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Sim\\StallService.cs",
+        "SHA256":  "3EF0012C6E99FF8E79851596E4519CC5AFB2DD32E4B1D949C8D91D9944FD6C74"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Site\\ResortMaterials.cs",
+        "SHA256":  "3CBC8E16A34B9C42DB8F95C36D7F437FEDA8D88B141CFAD45A36E514796FAB40"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Site\\ResortSite.cs",
+        "SHA256":  "6C9507ABF800B9A885B341210A370540525CADD33EB55A07F71F510F4D13C09E"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Site\\ResortStages.cs",
+        "SHA256":  "12779F77626F89E5E23B8F4F1A6A191132948E4807FBB4BF3E207A7DC8680D3F"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Site\\ResortSurfaceMaterials.cs",
+        "SHA256":  "FE149CB2A1C167E368714371EF803A63D08366E6798AC06F2D474DCFBE1B4CC9"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\AmbientLifeTests.cs",
+        "SHA256":  "563D4EEC2E102C5106C0ABD3008508A3951A582301A414866F9847A906E739E6"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\HumanVisualTests.cs",
+        "SHA256":  "001FA47A99FD5C6DE6F019714E1DC74BAA77F12D50E94DE3365B90DD69982FCA"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\LivingWorldTests.cs",
+        "SHA256":  "369F14D8B23F47CF1070F17005CA1CDD8AC1B33609AA43175F9B62A19F8ADF23"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\LodgingTests.cs",
+        "SHA256":  "230E1C2EFE01FC31806AD719E03FEECE4D86917362CE7822E1E9BB1DB73CD9E3"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\LoopTests.cs",
+        "SHA256":  "753088A47BF212BE59035827666F17F1C19C25DB5D4CA7B926A38239F3436255"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\PerformanceTests.cs",
+        "SHA256":  "E48BA72292471CFE0E6C16F842698D484A76578B6FEB192A38DDC56AC9717920"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\PousadaInteriorTests.cs",
+        "SHA256":  "D9AD8B92377FEC19DDF49B4DD757267685EE54F3F4EEE934CF91AEE6FDA8A0E9"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\PrologueDayTests.cs",
+        "SHA256":  "248381185FA6DCA03F86A137E799268349B684340285FEDC32BE1D01F718A590"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\RealisticFurnitureTests.cs",
+        "SHA256":  "4741C6ACEA660A8E269CC874EFC04841A3B957917258112CCE6D9D8AD464F0A4"
+    },
+    {
+        "Path":  "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\StagesTests.cs",
+        "SHA256":  "FB6A94DB6D11418FD782B681E04BDCC4426A50DF863C2485E23EBA80B6EEFCDD"
+    }
+]

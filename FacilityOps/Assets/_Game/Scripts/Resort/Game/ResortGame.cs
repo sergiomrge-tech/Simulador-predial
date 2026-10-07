@@ -133,7 +133,7 @@ namespace ResortAurora.Game
             var board = StallBuilder.Box("Board", lodgingDesk.transform, new Vector3(0f, 1.2f, 0f), new Vector3(1.8f, 1.2f, 0.12f), new Color(0.2f, 0.35f, 0.5f));
             StallBuilder.Box("Post", lodgingDesk.transform, new Vector3(0f, 0.5f, 0f), new Vector3(0.14f, 1.0f, 0.14f), new Color(0.4f, 0.28f, 0.18f), collider: false);
             var st = board.AddComponent<PanelStation>(); st.panel = Panel.Lodging; st.label = "Recepção da Pousada";
-            StallBuilder.Label(lodgingDesk.transform, new Vector3(0f, 2.3f, 0f), "POUSADA\nRecepção", 44, 0.09f);
+            StallBuilder.Label(lodgingDesk.transform, new Vector3(0f, 2.3f, 0f), "POUSADA\nRecepção", 44, 0.045f, showRange: 12f);
         }
 
         /// <summary>Shows the physical stage that matches the land owned (RESORT_STAGE overrides it for captures and tests).</summary>
@@ -165,7 +165,7 @@ namespace ResortAurora.Game
             DayNight.LampHead(porch.transform, Vector3.zero, 0.26f);
             DayNight.AddLamp(porch.transform.position + new Vector3(0f, -0.1f, -0.4f), 11f, 2.4f);
             DayNight.AddLamp(new Vector3(ox + 6.5f, y + 2.3f, oz + 4f), 10f, 1.7f, new Color(1f, 0.82f, 0.55f));
-            StallBuilder.Label(new GameObject("HomeSign").transform, Vector3.zero, h.name + "\n" + h.unit, 44, 0.08f).transform.parent.position = door + new Vector3(0f, 3.9f, -0.6f);
+            StallBuilder.Label(new GameObject("HomeSign").transform, Vector3.zero, h.name + "\n" + h.unit, 44, 0.04f, showRange: 12f).transform.parent.position = door + new Vector3(0f, 3.9f, -0.6f);
         }
 
         void PlaceAtStall() => player.Teleport(Layout.PlayerSpawn, Layout.Root.rotation);

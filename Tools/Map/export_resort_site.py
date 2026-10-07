@@ -23,7 +23,7 @@ SITE_X0, SITE_W = -450.0, 900.0
 SEA_MARGIN, LAND_DEPTH = 80.0, 640.0
 STEP = 1.5
 BLEND = 14.0                       # terrace skirt, metres
-BEACH_WATER_DZ = 114.0             # the masterplan beach is 170 m deep; the playable bairro compresses it so the waterline is ~55 m from the kiosk (REF 01)
+BEACH_WATER_DZ = 138.0             # compact playable beach: water ~31 m from the kiosk; promenade and inland parcels stay fixed
 
 spec = load_spec(root)
 terrain = T.Terrain(spec, pads=T.hero_pads(root, spec))

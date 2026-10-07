@@ -123,7 +123,7 @@ namespace ResortAurora.Tests
 
             g.Clock.Restore(1, 11f * 60f);
             yield return null; yield return null;
-            string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/R5");
+            string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "R5"));
             Directory.CreateDirectory(dir);
             var cam = Camera.main; var h = g.Site.Data.home;
             float ox = h.x - h.width / 2f, oz = h.z - h.depth / 2f, gy = g.Site.HeightAt(h.x, oz);

@@ -84,7 +84,7 @@ namespace ResortAurora.Tests
                 yield return null;
             }
 
-            string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02"); Directory.CreateDirectory(dir);
+            string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "F02")); Directory.CreateDirectory(dir);
             var rt = new RenderTexture(1600, 900, 24); cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt;
             var tex = new Texture2D(1600, 900, TextureFormat.RGB24, false); tex.ReadPixels(new Rect(0, 0, 1600, 900), 0, 0); tex.Apply();
             File.WriteAllBytes(Path.Combine(dir, "f02_6_pessoas_animadas.png"), tex.EncodeToPNG());

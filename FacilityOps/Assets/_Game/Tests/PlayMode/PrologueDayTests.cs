@@ -53,7 +53,7 @@ namespace ResortAurora.Tests
 
         static void Shoot(ResortGame g)
         {
-            string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/R2");
+            string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "R2"));
             Directory.CreateDirectory(dir);
             var cam = Camera.main;
             var parent = cam.transform.parent; var pos = cam.transform.position; var rot = cam.transform.rotation;

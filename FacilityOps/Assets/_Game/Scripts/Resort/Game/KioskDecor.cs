@@ -1,4 +1,5 @@
 using System.Text;
+using System.Collections.Generic;
 using ResortAurora.Sim;
 using UnityEngine;
 
@@ -35,6 +36,69 @@ namespace ResortAurora.Game
             g.GetComponent<MeshRenderer>().sharedMaterial = StallBuilder.Mat(c, 0.25f);
             Object.Destroy(g.GetComponent<Collider>());
             return g;
+        }
+
+        // Reuse the project-owned 1 m wood bake. Cache by dimensions so repeated
+        // planks keep shared meshes/materials; there is no per-frame work.
+        static readonly Dictionary<Vector3, Mesh> woodMeshes = new Dictionary<Vector3, Mesh>();
+        static readonly Dictionary<Color, Material> woodMaterials = new Dictionary<Color, Material>();
+        static readonly HashSet<string> WoodParts = new HashSet<string>
+        {
+            "Deck", "Post", "Counter", "CounterTop", "S1_Beam", "S1_Rafter", "S1_Brace",
+            "S1_CounterPlank", "S1_WallPlank", "S1_Shelf", "S1_SnackRack", "S1_FencePost", "S1_Fascia"
+        };
+
+        static void DressWood(Transform root)
+        {
+            var baseMap = Resources.Load<Texture2D>("Art/Resort/Textures/madeira_BaseColor");
+            var normalMap = Resources.Load<Texture2D>("Art/Resort/Textures/madeira_Normal");
+            if (baseMap == null || normalMap == null) return; // retain the coloured fallback
+            foreach (var filter in root.GetComponentsInChildren<MeshFilter>(true))
+            {
+                if (!WoodParts.Contains(filter.name)) continue;
+                var renderer = filter.GetComponent<MeshRenderer>();
+                var tint = renderer.sharedMaterial.GetColor("_BaseColor");
+                if (!woodMaterials.TryGetValue(tint, out var material) || material == null)
+                {
+                    material = new Material(renderer.sharedMaterial) { name = "KioskWoodPBR" };
+                    material.SetTexture("_BaseMap", baseMap);
+                    material.SetTexture("_BumpMap", normalMap);
+                    material.SetFloat("_BumpScale", 0.45f);
+                    material.SetFloat("_Smoothness", 0.18f);
+                    material.EnableKeyword("_NORMALMAP");
+                    Site.ResortSurfaceMaterials.ApplyMaps(material, "madeira", bump: 0.45f);
+                    woodMaterials[tint] = material;
+                }
+                var size = filter.transform.localScale;
+                if (!woodMeshes.TryGetValue(size, out var mesh) || mesh == null)
+                {
+                    mesh = Object.Instantiate(filter.sharedMesh);
+                    mesh.name = "KioskWoodMetreUV";
+                    var positions = mesh.vertices;
+                    var normals = mesh.normals;
+                    var uv = new Vector2[positions.Length];
+                    for (int i = 0; i < positions.Length; i++)
+                    {
+                        var n = normals[i];
+                        // Grain follows the longest axis on each face. The bake's
+                        // grain is vertical (V); use an orthogonal, outward UV basis.
+                        var along = Vector3.up; float longest = -1f;
+                        for (int axis = 0; axis < 3; axis++)
+                            if (Mathf.Abs(n[axis]) < 0.5f && size[axis] > longest)
+                            {
+                                longest = size[axis]; along = Vector3.zero; along[axis] = 1f;
+                            }
+                        var across = Vector3.Cross(along, n);
+                        var metres = Vector3.Scale(positions[i], size);
+                        uv[i] = new Vector2(Vector3.Dot(metres, across), Vector3.Dot(metres, along));
+                    }
+                    mesh.uv = uv;
+                    mesh.RecalculateTangents();
+                    woodMeshes[size] = mesh;
+                }
+                filter.sharedMesh = mesh;
+                renderer.sharedMaterial = material;
+            }
         }
 
         static Color Plank(int i) => (i % 3) switch { 0 => W1, 1 => W2, _ => W3 };
@@ -132,6 +196,29 @@ namespace ResortAurora.Game
                 float x = -8f + i * 3.2f; if (x > -2f && x < 11f) continue;
                 var post = b("S1_FencePost", root, new Vector3(x, 0.45f, -5.8f), new Vector3(0.16f, 0.9f, 0.16f), new Color(0.45f, 0.34f, 0.22f), collider: false);
                 post.name = "S1_FencePost";
+            }
+            DressWood(root);
+            DressSurfaces(root);
+        }
+
+        static void DressSurfaces(Transform root)
+        {
+            var materials = new Dictionary<(string, Color), Material>();
+            foreach (var filter in root.GetComponentsInChildren<MeshFilter>(true))
+            {
+                string set = filter.name.StartsWith("S1_Chair") || filter.name.StartsWith("S1_Table") ? "plastico" :
+                    filter.name.StartsWith("Awning") ? "galvanizado" : null;
+                if (set == null) continue;
+                var renderer = filter.GetComponent<MeshRenderer>();
+                var tint = renderer.sharedMaterial.GetColor("_BaseColor");
+                var key = (set, tint);
+                if (!materials.TryGetValue(key, out var material))
+                {
+                    material = Site.ResortSurfaceMaterials.Create(set, tint, set == "plastico" ? 0.5f : 1f);
+                    materials.Add(key, material);
+                }
+                filter.sharedMesh = Site.ResortSurfaceMaterials.MetreCube(filter.transform.localScale);
+                renderer.sharedMaterial = material;
             }
         }
 

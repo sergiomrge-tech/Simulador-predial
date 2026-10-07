@@ -1,0 +1,4 @@
+﻿SOURCE: Poly Haven - Aerial Beach 01
+ASSET PAGE: https://polyhaven.com/a/aerial_beach_01
+LICENSE: CC0 1.0 / public domain dedication. Commercial use permitted; attribution not required.
+Downloaded: 2K diffuse, DirectX normal, roughness and ambient occlusion maps.

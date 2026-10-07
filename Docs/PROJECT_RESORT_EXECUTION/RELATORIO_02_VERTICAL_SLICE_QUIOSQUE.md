@@ -254,3 +254,9 @@ Mudanças (só apresentação, sem alterar simulação nem save):
 - Evidência real da Unity: `ArtSource/Blender/World/Reviews/F02/f02_1_dia_kiosque_da_calcada.png` (sem linha vermelha, sem texto técnico a distância).
 
 Itens do QA do Diretor que seguem abertos (exigem arte/olhar humano): NPCs ainda semi-blockout de perto, quiosque/mobiliário simples, céu noturno/iluminação a avaliar visualmente, fundo urbano blockout, aproximação à REF 01/02.
+
+## Continuação Codex — 2026-10-07: passe PBR validado
+
+24/24 ResortAurora.Tests PlayMode com gráficos PASS, exit 0. Evidência local: `Evidence/CODEX_F02_VALIDATED_20261007/unity_PlayMode_20261007_090858.xml`. Areia scan CC0, mesa/cadeiras CC0, calçadão e bairro PBR, água aproximada, contornos somente em compra/construção. Render praia em lote: média 3,3 ms / p95 3,8 ms; não FPS interativo. Gate visual/humano continua aberto, Fase 03 bloqueada.
+
+Ver `CODEX_F02_CONTINUATION_2026-10-07.md` para ativos/licenças, limites, preservação do código e incidente de quinze PNGs R2/R4 regenerados por testes que ignoravam a pasta de captura. Os testes foram corrigidos; esses PNGs antigos ficam fora do commit. Os manequins, guarda-sóis e equipamentos ainda precisam de substituição realista.

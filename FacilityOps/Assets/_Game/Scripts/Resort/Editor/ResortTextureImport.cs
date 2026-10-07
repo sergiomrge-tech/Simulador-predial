@@ -11,7 +11,17 @@ namespace ResortAurora.EditorTools
             var ti = (TextureImporter)assetImporter;
             ti.mipmapEnabled = true;
             ti.anisoLevel = 8;
-            if (assetPath.EndsWith("_Normal.jpg")) ti.textureType = TextureImporterType.NormalMap;
+            if (assetPath.EndsWith("_Normal.jpg") || assetPath.EndsWith("_Normal.png"))
+                ti.textureType = TextureImporterType.NormalMap;
+            ti.sRGBTexture = assetPath.Contains("_BaseColor.");
+            ti.streamingMipmaps = true;
+            ti.maxTextureSize = 1024;
+            if (assetPath.EndsWith("_Mask.png"))
+            {
+                ti.sRGBTexture = false;
+                ti.alphaSource = TextureImporterAlphaSource.FromInput;
+                ti.alphaIsTransparency = false;
+            }
         }
     }
 }

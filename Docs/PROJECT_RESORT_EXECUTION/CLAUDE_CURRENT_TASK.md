@@ -1,5 +1,17 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
+## Continuação Codex — 2026-10-07
+
+O estado abaixo das rodadas antigas foi superado pelo passe visual/assets atual. **24/24 PlayMode com gráficos PASS**, XML `D:\ProjectResort_Autonomy\Evidence\CODEX_F02_20261007_Continuation\FinalVerified\logs\unity_PlayMode_20261007_090858.xml`. Scan CC0 de areia, móveis CC0, calçadão PBR, fachadas combinadas, água mais próxima, sinalização proporcional e contornos restritos a compra/construção. **Fase 02 visual ainda aberta / HUMAN_GATE_PENDING; Fase 03 bloqueada.**
+
+Detalhes, ativos usados, capturas e incidente de quinze capturas R2/R4 regeneradas por testes legados: [relatório Codex](CODEX_F02_CONTINUATION_2026-10-07.md). Os destinos desses testes já foram corrigidos; PNGs de Reviews não devem entrar no commit deste bloco. Pessoas/manequins, guarda-sóis e equipamentos restantes precisam de assets realistas e revisão humana.
+
+## Registro anterior (histórico)
+
+## Codex visual/assets continuation — 2026-10-07
+
+The latest Director instruction reopens F02 visual/assets correction and supersedes the earlier “no safe work remains” recommendation below. Do not start F03. Realistic CC0 folding tables/chairs are now integrated and metric/PBR/upgrade/stage behavior was validated in Unity. Focused LivingWorld + furniture/overlay tests passed **13/13** (`D:/ProjectResort_Autonomy/Evidence/CODEX_Visual_20261007_0908`). Final full validation is in progress. Details and preservation incident: `CODEX_F02_REALISTIC_FURNITURE_2026-10-07.md`.
+
 Atualizado em 2026-10-07 (rodada 41). Rodadas 22–41 foram reconfirmações idênticas: HEAD == origin 0/0, nada fora de `Reviews/` modificado, `DIRECTOR_QA_LATEST.md` (06/10 20:24) e os 6 pacotes da biblioteca (mesmos de 20/09) inalterados, 20/20 `-Graphics` da rodada 21 ainda válido (Unity não reexecutada). Sem trabalho novo seguro — **HUMAN_GATE_PENDING**. Não abrir nova rodada até haver jogada humana, pacote novo ou instrução do Diretor. Histórico das rodadas 21 e anteriores abaixo.
 
 ## Fase atual

@@ -112,6 +112,8 @@ namespace ResortAurora.Game
             kioskLook = kiosk;
             foreach (var r in Root.GetComponentsInChildren<Renderer>(true))
                 if (StallLookParts.Contains(r.gameObject.name) || r.gameObject.name.StartsWith("S1_")) r.enabled = !kiosk;
+            foreach (var group in Root.GetComponentsInChildren<LODGroup>(true))
+                if (group.name.StartsWith("S1_")) group.enabled = !kiosk;
             foreach (var t in Root.GetComponentsInChildren<TextMesh>(true))
                 if (t.text == "LANCHES DO MAR") t.gameObject.SetActive(!kiosk);
             ApplySeatAvailability();
@@ -219,7 +221,7 @@ namespace ResortAurora.Game
             act.prompt = g => g.ShopOpen ? "[E] Fechar o quiosque e conferir o caixa" : "[E] Abrir o quiosque";
             act.canUse = g => !g.Clock.DayOver && !g.AwaitingSleep;
             act.action = g => { if (g.ShopOpen) g.RequestClose(); else g.OpenShop(); };
-            Label(root, new Vector3(-2.45f, 1.85f, 1.15f), "ABERTO / FECHADO", 36, 0.04f, showRange: 9f);
+            Label(root, new Vector3(-2.45f, 1.85f, 1.15f), "ABERTO / FECHADO", 36, 0.014f, showRange: 2.5f);
             // help board on a post
             var help = Box("HelpBoard", root, new Vector3(-2.4f, 1.1f, 0.4f), new Vector3(0.08f, 0.6f, 0.5f), new Color(0.15f, 0.3f, 0.2f));
             var hp = help.AddComponent<PanelStation>(); hp.panel = Panel.Help; hp.label = "Como jogar";
@@ -227,8 +229,13 @@ namespace ResortAurora.Game
             var jobs = Box("JobBoard", root, new Vector3(3.6f, 1.0f, 1.9f), new Vector3(0.9f, 1.2f, 0.08f), new Color(0.94f, 0.9f, 0.7f));
             Box("JobPost", root, new Vector3(3.6f, 0.4f, 1.9f), new Vector3(0.08f, 0.8f, 0.08f), wood, collider: false);
             var jb = jobs.AddComponent<PanelStation>(); jb.panel = Panel.Hire; jb.label = "Mural de vagas (contratar)";
-            Label(root, new Vector3(3.6f, 1.75f, 1.9f), "PRECISA-SE\nAJUDANTE", 40, 0.04f, showRange: 9f);
-            Label(root, new Vector3(0f, 3.1f, 1.6f), "LANCHES DO MAR", 60, 0.07f);
+            var jobsLabel = Label(root, new Vector3(3.6f, 1.55f, 2.01f), "PRECISA-SE\nAJUDANTE", 40, 0.014f, showRange: 6f);
+            jobsLabel.GetComponent<Billboard>().enabled = false;
+            jobsLabel.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+            Box("S1_Fascia", root, new Vector3(0f, 2.67f, 1.75f), new Vector3(3.8f, 0.32f, 0.08f), wood2, collider: false);
+            var fascia = Label(root, new Vector3(0f, 2.67f, 1.8f), "LANCHES DO MAR", 60, 0.024f, showRange: 35f);
+            fascia.GetComponent<Billboard>().enabled = false;
+            fascia.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
 
             var layout = new StallLayout
             {
@@ -240,6 +247,7 @@ namespace ResortAurora.Game
             layout.CookPos = root.position + new Vector3(-1.3f, 0.1f, -0.2f);
             layout.PickupPos = layout.Ground(new Vector3(x + 2.9f, 0f, counterFront + 1.3f));
             KioskDecor.Dress(game, layout, root);
+            RealisticKioskAssets.Dress(root);
             layout.AddKioskSeats();
             layout.RefreshUpgrades(game);
             return layout;

@@ -16,8 +16,69 @@ import bpy
 
 p = argparse.ArgumentParser()
 p.add_argument("--root", required=True)
+p.add_argument("--surface-maps-only", action="store_true", help="Prepare existing authored PBR maps without touching stage FBXs/manifests")
+p.add_argument("--beach-source", help="Optional local CC0 Aerial Beach 01 directory; original files remain unchanged")
 o = p.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
 root = Path(o.root).resolve()
+if o.surface_maps_only:
+    import shutil
+    destination = root / "FacilityOps/Assets/_Game/Resources/Art/Resort/Textures"
+    destination.mkdir(parents=True, exist_ok=True)
+    for name in ("madeira", "reboco", "telha", "plastico", "galvanizado"):
+        source = root / "ArtSource/Textures" / name
+        for kind in ("BaseColor", "Normal"):
+            target = destination / f"{name}_{kind}.jpg"
+            if not target.exists():
+                shutil.copy2(source / target.name, target)
+        rough = bpy.data.images.load(str(source / f"{name}_Roughness.jpg"), check_existing=False)
+        ao = bpy.data.images.load(str(source / f"{name}_AO.jpg"), check_existing=False)
+        rough.colorspace_settings.name = "Non-Color"
+        ao.colorspace_settings.name = "Non-Color"
+        from array import array
+        rp = array('f', [0.0]) * len(rough.pixels)
+        ap = array('f', [0.0]) * len(ao.pixels)
+        rough.pixels.foreach_get(rp)
+        ao.pixels.foreach_get(ap)
+        for i in range(0, len(rp), 4):
+            rp[i], rp[i + 1], rp[i + 2], rp[i + 3] = 0.0, ap[i], 0.0, 1.0 - rp[i]
+        mask = bpy.data.images.new(name + "_Mask", width=rough.size[0], height=rough.size[1], alpha=True)
+        mask.colorspace_settings.name = "Non-Color"
+        mask.pixels.foreach_set(rp)
+        mask.filepath_raw = str(destination / f"{name}_Mask.png")
+        mask.file_format = "PNG"
+        mask.save()
+        print("SURFACE", name, "R=0 G=AO B=0 A=1-roughness")
+        for img in (rough, ao, mask):
+            bpy.data.images.remove(img)
+    if o.beach_source:
+        source = Path(o.beach_source)
+        shutil.copy2(source / "aerial_beach_01_diff_2k.jpg", destination / "sand_BaseColor.jpg")
+        shutil.copy2(source / "LICENSE_SOURCE.txt", destination / "sand_LICENSE.txt")
+        normal = bpy.data.images.load(str(source / "aerial_beach_01_nor_dx_2k.png"))
+        normal.colorspace_settings.name = "Non-Color"
+        pixels = array('f', [0.0]) * len(normal.pixels)
+        normal.pixels.foreach_get(pixels)
+        for i in range(1, len(pixels), 4):
+            pixels[i] = 1.0 - pixels[i]  # DirectX Y- -> Unity tangent-space Y+
+        normal.pixels.foreach_set(pixels)
+        normal.filepath_raw = str(destination / "sand_Normal.png")
+        normal.file_format = "PNG"
+        normal.save()
+        rough = bpy.data.images.load(str(source / "aerial_beach_01_rough_2k.jpg"))
+        ao = bpy.data.images.load(str(source / "aerial_beach_01_ao_2k.jpg"))
+        rough.colorspace_settings.name = ao.colorspace_settings.name = "Non-Color"
+        rp = array('f', [0.0]) * len(rough.pixels)
+        ap = array('f', [0.0]) * len(ao.pixels)
+        rough.pixels.foreach_get(rp); ao.pixels.foreach_get(ap)
+        for i in range(0, len(rp), 4):
+            rp[i], rp[i + 1], rp[i + 2], rp[i + 3] = 0.0, ap[i], 0.0, 1.0 - rp[i]
+        mask = bpy.data.images.new("sand_Mask", width=rough.size[0], height=rough.size[1], alpha=True)
+        mask.colorspace_settings.name = "Non-Color"
+        mask.pixels.foreach_set(rp)
+        mask.filepath_raw = str(destination / "sand_Mask.png")
+        mask.file_format = "PNG"; mask.save()
+        print("SURFACE sand: CC0 scan, DX normal converted to Y+, AO and smoothness packed")
+    sys.exit(0)
 sys.path.insert(0, str(root / "Tools" / "Blender"))
 import sa_materials  # noqa: E402
 import sa_resort  # noqa: E402

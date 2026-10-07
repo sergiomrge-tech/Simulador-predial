@@ -77,7 +77,7 @@ namespace ResortAurora.Tests
                 Assert.LessOrEqual(peak, 1.0f, clip.name + " does not clip"); Assert.Greater(rms, 0.01f, clip.name + " is audible");
             }
 
-            string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02"); Directory.CreateDirectory(dir);
+            string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "F02")); Directory.CreateDirectory(dir);
             var cam = Camera.main; var pos = root + new Vector3(4f, 2.1f, -6f); var look = root + new Vector3(-10f, 8f, -80f);
             cam.transform.SetPositionAndRotation(pos, Quaternion.LookRotation(look - pos));
             yield return new WaitForSeconds(0.5f);

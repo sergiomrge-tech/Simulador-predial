@@ -155,9 +155,13 @@ namespace ResortAurora.Game
             var tries = 0;
             while (spots.Count < n && tries++ < 600)
             {
-                float x = sx + ((float)rng.NextDouble() - 0.5f) * 2f * 95f;
+                // Populate the kiosk's surrounding sand first, retaining the
+                // original number of spots, clearance and distant activity.
+                float halfWidth = spots.Count < 12 ? 38f : 95f;
+                float x = sx + ((float)rng.NextDouble() - 0.5f) * 2f * halfWidth;
                 float u = Mathf.Pow((float)rng.NextDouble(), 2.1f);
-                float z = EdgeZ(x) - 4f - u * 105f;
+                float dryDepth = Mathf.Max(4f, EdgeZ(x) - ShoreZ(x) - 9f);
+                float z = EdgeZ(x) - 4f - u * dryDepth;
                 if (site.HeightAt(x, z) < 0.5f) continue;                               // not on wet sand
                 if (x > sx - 10f && x < sx + 11f && z > kioskZ - 10f) continue;          // the kiosk, its tables and its path
                 bool close = false;
@@ -268,7 +272,8 @@ namespace ResortAurora.Game
         void SpawnGroup(bool anywhere)
         {
             int dir = rng.NextDouble() < 0.5 ? 1 : -1;
-            float x = anywhere ? sx + ((float)rng.NextDouble() - 0.5f) * 2f * (RangeHalf - 8f) : sx - dir * RangeHalf;
+            float span = CountOf(Role.Stroller) < 3 ? 28f : RangeHalf - 8f;
+            float x = anywhere ? sx + ((float)rng.NextDouble() - 0.5f) * 2f * span : sx - dir * RangeHalf;
             float roll = (float)rng.NextDouble();
             int adults = roll < 0.35f ? 1 : roll < 0.65f ? 2 : roll < 0.80f ? 3 : 2;
             int kids = roll >= 0.80f ? 1 + rng.Next(2) : 0;

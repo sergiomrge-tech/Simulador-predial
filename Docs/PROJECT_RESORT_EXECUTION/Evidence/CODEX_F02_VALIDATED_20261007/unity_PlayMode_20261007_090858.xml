@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="24" result="Passed" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-07 12:09:08Z" end-time="2026-10-07 12:10:55Z" duration="107,3967537">
+  <test-suite type="TestSuite" id="1041" name="Facility Ops Prototype" fullname="Facility Ops Prototype" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-10-07 12:09:08Z" end-time="2026-10-07 12:10:55Z" duration="107.396754" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1076" name="ResortAurora.Tests.PlayMode.dll" fullname="D:/sergi/Documents/Simulador-predial/FacilityOps/Library/ScriptAssemblies/ResortAurora.Tests.PlayMode.dll" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-10-07 12:09:08Z" end-time="2026-10-07 12:10:55Z" duration="107.389590" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="5996" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1077" name="ResortAurora" fullname="ResortAurora" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-10-07 12:09:08Z" end-time="2026-10-07 12:10:55Z" duration="107.389088" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1078" name="Tests" fullname="ResortAurora.Tests" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-10-07 12:09:08Z" end-time="2026-10-07 12:10:55Z" duration="107.388460" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1042" name="AmbientLifeTests" fullname="ResortAurora.Tests.AmbientLifeTests" classname="ResortAurora.Tests.AmbientLifeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-07 12:09:08Z" end-time="2026-10-07 12:09:19Z" duration="10.650385" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1043" name="TheCoastMovesAndSoundsAndTheSeaIsCloseToTheKiosk" fullname="ResortAurora.Tests.AmbientLifeTests.TheCoastMovesAndSoundsAndTheSeaIsCloseToTheKiosk" methodname="TheCoastMovesAndSoundsAndTheSeaIsCloseToTheKiosk" classname="ResortAurora.Tests.AmbientLifeTests" runstate="Runnable" seed="1708043614" result="Passed" start-time="2026-10-07 12:09:08Z" end-time="2026-10-07 12:09:19Z" duration="10.638951" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+HumanVisual painted mesh HumanM_BodyMesh_paintedM: 8492 -> 8882 vertices, 1 submesh(es), 52 bones, head (0.20, 0.18, 0.16), region vertex counts [2659,2184,210,250,533,828,466,612,616,76,58,0]
+COAST kiosk z 248,8, waterline z 217,5, kiosk-to-sea 31,3 m, promenade-to-sea 38,5 m
+HumanVisual painted mesh HumanF_BodyMesh_paintedF: 7775 -> 8187 vertices, 1 submesh(es), 52 bones, head (0.20, 0.18, 0.15), region vertex counts [2303,2060,178,222,462,728,442,606,618,98,58,0]
+AMBIENT palm crowns 54, gulls 9, wind 0,46
+AUDIO SurfLoop: 12,0 s, peak 0,85, rms 0,152
+AUDIO MurmurLoop: 8,0 s, peak 0,85, rms 0,134
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1044" name="HumanVisualTests" fullname="ResortAurora.Tests.HumanVisualTests" classname="ResortAurora.Tests.HumanVisualTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-07 12:09:19Z" end-time="2026-10-07 12:09:30Z" duration="11.587697" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1045" name="SkinnedPeopleAnimateAndOtherPosesStayProcedural" fullname="ResortAurora.Tests.HumanVisualTests.SkinnedPeopleAnimateAndOtherPosesStayProcedural" methodname="SkinnedPeopleAnimateAndOtherPosesStayProcedural" classname="ResortAurora.Tests.HumanVisualTests" runstate="Runnable" seed="19303873" result="Passed" start-time="2026-10-07 12:09:19Z" end-time="2026-10-07 12:09:23Z" duration="4.095822" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+HUMAN state Lineup0: clip Walk t=2,78 shown=True
+HUMAN state Lineup1: clip Walk t=2,12 shown=True
+HUMAN state Lineup2: clip Run t=2,75 shown=True
+HUMAN state Lineup3: clip Talk t=3,36 shown=True
+HUMAN state Lineup4: clip Idle2 t=3,56 shown=True
+HUMAN state Lineup5: clip Walk t=2,23 shown=True
+HUMAN foot lift range: walk 0,147 m, walk 0,147 m, run 0,345 m, idle 0,000 m, talk 0,000 m; active 40
+HUMAN Lineup0 Walk: height 1,61 m, left ankle 0,16 m above the ground
+HUMAN Lineup1 Walk: height 1,61 m, left ankle 0,26 m above the ground
+HUMAN Lineup2 Run: height 1,56 m, left ankle 0,42 m above the ground
+HUMAN Lineup3 Stand: height 1,63 m, left ankle 0,11 m above the ground
+HUMAN Lineup4 Stand: height 1,59 m, left ankle 0,11 m above the ground
+HUMAN Lineup5 Walk: height 1,60 m, left ankle 0,26 m above the ground
+]]></output>
+            </test-case>
+            <test-case id="1046" name="TheBeachCrowdUsesSkinnedBodiesNearTheCameraWithinTheBudget" fullname="ResortAurora.Tests.HumanVisualTests.TheBeachCrowdUsesSkinnedBodiesNearTheCameraWithinTheBudget" methodname="TheBeachCrowdUsesSkinnedBodiesNearTheCameraWithinTheBudget" classname="ResortAurora.Tests.HumanVisualTests" runstate="Runnable" seed="1538936724" result="Passed" start-time="2026-10-07 12:09:23Z" end-time="2026-10-07 12:09:30Z" duration="7.487693" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+HUMAN crowd: 23 skinned of 42 active (lod [24,16,2,0])
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1047" name="LivingWorldTests" fullname="ResortAurora.Tests.LivingWorldTests" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-07 12:09:30Z" end-time="2026-10-07 12:10:15Z" duration="44.811256" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1054" name="BeachIsAliveByDayAndQuieterAtNight" fullname="ResortAurora.Tests.LivingWorldTests.BeachIsAliveByDayAndQuieterAtNight" methodname="BeachIsAliveByDayAndQuieterAtNight" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="1819910793" result="Passed" start-time="2026-10-07 12:09:30Z" end-time="2026-10-07 12:09:41Z" duration="10.563288" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+LIFE noon: active 91 (strollers 41, sunbathers 28, kids 1, swimmers 9, joggers 0, cyclists 4) pool 91 weather Hot
+LIFE roles seen: Stroller,Cyclist,Sunbather,Kid,Swimmer,Player,Vendor
+LIFE night: active 7 sunbathers 0 swimmers 0 strollers 7
+LIFE morning: active 23 joggers 1
+]]></output>
+            </test-case>
+            <test-case id="1056" name="DayDuskAndNightAreLitAndCaptured" fullname="ResortAurora.Tests.LivingWorldTests.DayDuskAndNightAreLitAndCaptured" methodname="DayDuskAndNightAreLitAndCaptured" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="2009955568" result="Passed" start-time="2026-10-07 12:09:41Z" end-time="2026-10-07 12:10:02Z" duration="20.973916" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+LIGHT 1_dia/kiosque_da_calcada: mean luminance 0,640
+LIGHT 1_dia/praia_para_o_mar: mean luminance 0,646
+LIGHT 1_dia/mesas_na_areia: mean luminance 0,615
+LIGHT 1_dia/calcadao_leste: mean luminance 0,645
+LIGHT 1_dia/aerea: mean luminance 0,636
+LIGHT 2_tarde_dourada/kiosque_da_calcada: mean luminance 0,462
+LIGHT 2_tarde_dourada/praia_para_o_mar: mean luminance 0,480
+LIGHT 2_tarde_dourada/mesas_na_areia: mean luminance 0,416
+LIGHT 2_tarde_dourada/calcadao_leste: mean luminance 0,446
+LIGHT 2_tarde_dourada/aerea: mean luminance 0,404
+LIGHT 3_por_do_sol/kiosque_da_calcada: mean luminance 0,208
+LIGHT 3_por_do_sol/praia_para_o_mar: mean luminance 0,204
+LIGHT 3_por_do_sol/mesas_na_areia: mean luminance 0,209
+LIGHT 3_por_do_sol/calcadao_leste: mean luminance 0,202
+LIGHT 3_por_do_sol/aerea: mean luminance 0,188
+LIGHT 4_noite/kiosque_da_calcada: mean luminance 0,132
+LIGHT 4_noite/praia_para_o_mar: mean luminance 0,110
+LIGHT 4_noite/mesas_na_areia: mean luminance 0,145
+LIGHT 4_noite/calcadao_leste: mean luminance 0,125
+LIGHT 4_noite/aerea: mean luminance 0,150
+]]></output>
+            </test-case>
+            <test-case id="1050" name="DaylightHasDawnNoonSunsetAndNight" fullname="ResortAurora.Tests.LivingWorldTests.DaylightHasDawnNoonSunsetAndNight" methodname="DaylightHasDawnNoonSunsetAndNight" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="1217100153" result="Passed" start-time="2026-10-07 12:10:02Z" end-time="2026-10-07 12:10:02Z" duration="0.003604" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1052" name="FirstDayDemandIsWorthPlayingAndProfitable" fullname="ResortAurora.Tests.LivingWorldTests.FirstDayDemandIsWorthPlayingAndProfitable" methodname="FirstDayDemandIsWorthPlayingAndProfitable" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="1351436686" result="Passed" start-time="2026-10-07 12:10:02Z" end-time="2026-10-07 12:10:02Z" duration="0.001381" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1055" name="FrameTimeWithTheCrowd" fullname="ResortAurora.Tests.LivingWorldTests.FrameTimeWithTheCrowd" methodname="FrameTimeWithTheCrowd" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="1941438857" result="Passed" start-time="2026-10-07 12:10:02Z" end-time="2026-10-07 12:10:06Z" duration="4.754288" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+PERF livingworld noon beach view: avg 3,3 ms (302 fps), p95 3,8 ms, worst 4,5 ms, active people 44, lod [29,14,1,0], lamps 18
+]]></output>
+            </test-case>
+            <test-case id="1057" name="FridgeAndFreezerReportStockAndServedCustomersTakeTables" fullname="ResortAurora.Tests.LivingWorldTests.FridgeAndFreezerReportStockAndServedCustomersTakeTables" methodname="FridgeAndFreezerReportStockAndServedCustomersTakeTables" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="1076450170" result="Passed" start-time="2026-10-07 12:10:06Z" end-time="2026-10-07 12:10:09Z" duration="2.127642" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+]]></output>
+            </test-case>
+            <test-case id="1051" name="HudHintsPointToTheNextStepAndFlagLowStock" fullname="ResortAurora.Tests.LivingWorldTests.HudHintsPointToTheNextStepAndFlagLowStock" methodname="HudHintsPointToTheNextStepAndFlagLowStock" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="842600235" result="Passed" start-time="2026-10-07 12:10:09Z" end-time="2026-10-07 12:10:09Z" duration="0.001215" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1048" name="InitialKioskUsesMetreScaledWoodWithoutChangingStations" fullname="ResortAurora.Tests.LivingWorldTests.InitialKioskUsesMetreScaledWoodWithoutChangingStations" methodname="InitialKioskUsesMetreScaledWoodWithoutChangingStations" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="1718166366" result="Passed" start-time="2026-10-07 12:10:09Z" end-time="2026-10-07 12:10:10Z" duration="1.766459" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+]]></output>
+            </test-case>
+            <test-case id="1049" name="ParcelOverlaysRequirePurchaseModeAndCloseCleanly" fullname="ResortAurora.Tests.LivingWorldTests.ParcelOverlaysRequirePurchaseModeAndCloseCleanly" methodname="ParcelOverlaysRequirePurchaseModeAndCloseCleanly" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="1309235429" result="Passed" start-time="2026-10-07 12:10:10Z" end-time="2026-10-07 12:10:12Z" duration="1.589924" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+]]></output>
+            </test-case>
+            <test-case id="1053" name="PopulationFollowsTheHourAndTheWeather" fullname="ResortAurora.Tests.LivingWorldTests.PopulationFollowsTheHourAndTheWeather" methodname="PopulationFollowsTheHourAndTheWeather" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="1052809921" result="Passed" start-time="2026-10-07 12:10:12Z" end-time="2026-10-07 12:10:12Z" duration="0.000594" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1058" name="ServedCustomersSitOnTheDeckTablesOfTheStageTwoKiosk" fullname="ResortAurora.Tests.LivingWorldTests.ServedCustomersSitOnTheDeckTablesOfTheStageTwoKiosk" methodname="ServedCustomersSitOnTheDeckTablesOfTheStageTwoKiosk" classname="ResortAurora.Tests.LivingWorldTests" runstate="Runnable" seed="970089331" result="Passed" start-time="2026-10-07 12:10:12Z" end-time="2026-10-07 12:10:15Z" duration="3.023013" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1059" name="LodgingTests" fullname="ResortAurora.Tests.LodgingTests" classname="ResortAurora.Tests.LodgingTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-07 12:10:15Z" end-time="2026-10-07 12:10:19Z" duration="4.503798" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1060" name="BuyingThePousadaOpensRoomsAndTheNightRuns" fullname="ResortAurora.Tests.LodgingTests.BuyingThePousadaOpensRoomsAndTheNightRuns" methodname="BuyingThePousadaOpensRoomsAndTheNightRuns" classname="ResortAurora.Tests.LodgingTests" runstate="Runnable" seed="1228844743" result="Passed" start-time="2026-10-07 12:10:15Z" end-time="2026-10-07 12:10:17Z" duration="1.555463" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+LODGING test: guests=6 occupied=6 reviews=0 balance=92450
+]]></output>
+            </test-case>
+            <test-case id="1061" name="RoomsComeBackAfterReload" fullname="ResortAurora.Tests.LodgingTests.RoomsComeBackAfterReload" methodname="RoomsComeBackAfterReload" classname="ResortAurora.Tests.LodgingTests" runstate="Runnable" seed="1573235420" result="Passed" start-time="2026-10-07 12:10:17Z" end-time="2026-10-07 12:10:19Z" duration="2.945316" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1062" name="LoopTests" fullname="ResortAurora.Tests.LoopTests" classname="ResortAurora.Tests.LoopTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-07 12:10:19Z" end-time="2026-10-07 12:10:33Z" duration="13.746708" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1063" name="TwoDaysHomeToBedAndReload" fullname="ResortAurora.Tests.LoopTests.TwoDaysHomeToBedAndReload" methodname="TwoDaysHomeToBedAndReload" classname="ResortAurora.Tests.LoopTests" runstate="Runnable" seed="112371593" result="Passed" start-time="2026-10-07 12:10:19Z" end-time="2026-10-07 12:10:33Z" duration="13.745383" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+LOOP commute 150 m
+LOOP after 2 days: day=2 balance=410 stock=74 rep=0,513
+AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1064" name="PerformanceTests" fullname="ResortAurora.Tests.PerformanceTests" classname="ResortAurora.Tests.PerformanceTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-07 12:10:33Z" end-time="2026-10-07 12:10:40Z" duration="6.438294" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1065" name="FrameTimeAtStage1AndStage7" fullname="ResortAurora.Tests.PerformanceTests.FrameTimeAtStage1AndStage7" methodname="FrameTimeAtStage1AndStage7" classname="ResortAurora.Tests.PerformanceTests" runstate="Runnable" seed="1972855036" result="Passed" start-time="2026-10-07 12:10:33Z" end-time="2026-10-07 12:10:40Z" duration="6.437030" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+PERF stage1 aerea: avg 3,0 ms (338 fps), p95 3,2 ms, worst 3,9 ms
+PERF stage1 nivel do chao: avg 2,9 ms (345 fps), p95 3,3 ms, worst 3,8 ms
+AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+AmbientLife: 217 palm crowns split from E7-7_Palmeiras_folhas (319 trunks)
+PERF stage7 aerea: avg 2,7 ms (367 fps), p95 2,9 ms, worst 3,7 ms
+PERF stage7 nivel do chao: avg 2,6 ms (388 fps), p95 2,7 ms, worst 3,4 ms
+PERF stage7 eixo central: avg 3,4 ms (291 fps), p95 3,4 ms, worst 15,8 ms
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1066" name="PousadaInteriorTests" fullname="ResortAurora.Tests.PousadaInteriorTests" classname="ResortAurora.Tests.PousadaInteriorTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-07 12:10:40Z" end-time="2026-10-07 12:10:41Z" duration="1.796971" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1067" name="ThePlayerCanEnterTheReceptionAndClimbToTheFirstFloor" fullname="ResortAurora.Tests.PousadaInteriorTests.ThePlayerCanEnterTheReceptionAndClimbToTheFirstFloor" methodname="ThePlayerCanEnterTheReceptionAndClimbToTheFirstFloor" classname="ResortAurora.Tests.PousadaInteriorTests" runstate="Runnable" seed="553230844" result="Passed" start-time="2026-10-07 12:10:40Z" end-time="2026-10-07 12:10:41Z" duration="1.795524" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1068" name="PrologueDayTests" fullname="ResortAurora.Tests.PrologueDayTests" classname="ResortAurora.Tests.PrologueDayTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-07 12:10:41Z" end-time="2026-10-07 12:10:47Z" duration="5.605270" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1069" name="PlayAFullDayThenHireAndSaveAndReload" fullname="ResortAurora.Tests.PrologueDayTests.PlayAFullDayThenHireAndSaveAndReload" methodname="PlayAFullDayThenHireAndSaveAndReload" classname="ResortAurora.Tests.PrologueDayTests" runstate="Runnable" seed="618917563" result="Passed" start-time="2026-10-07 12:10:41Z" end-time="2026-10-07 12:10:47Z" duration="5.597572" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+PLAYTEST cam rel stall = (-120.00, 2.73, 89.71) fwd=(0.00, 0.00, -1.00)
+PLAYTEST day1 served=25 lost=0 revenue=208 balance=208 rep=0,354
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1070" name="RealisticFurnitureTests" fullname="ResortAurora.Tests.RealisticFurnitureTests" classname="ResortAurora.Tests.RealisticFurnitureTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-07 12:10:47Z" end-time="2026-10-07 12:10:51Z" duration="4.430879" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1071" name="FurnitureIsMetreScaledAndKeepsUpgradeAndStageBehavior" fullname="ResortAurora.Tests.RealisticFurnitureTests.FurnitureIsMetreScaledAndKeepsUpgradeAndStageBehavior" methodname="FurnitureIsMetreScaledAndKeepsUpgradeAndStageBehavior" classname="ResortAurora.Tests.RealisticFurnitureTests" runstate="Runnable" seed="747266554" result="Passed" start-time="2026-10-07 12:10:47Z" end-time="2026-10-07 12:10:50Z" duration="2.802469" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+]]></output>
+            </test-case>
+            <test-case id="1072" name="ParcelOverlaysOnlyAppearDuringPurchaseMode" fullname="ResortAurora.Tests.RealisticFurnitureTests.ParcelOverlaysOnlyAppearDuringPurchaseMode" methodname="ParcelOverlaysOnlyAppearDuringPurchaseMode" classname="ResortAurora.Tests.RealisticFurnitureTests" runstate="Runnable" seed="2106188276" result="Passed" start-time="2026-10-07 12:10:50Z" end-time="2026-10-07 12:10:51Z" duration="1.625636" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1073" name="StagesTests" fullname="ResortAurora.Tests.StagesTests" classname="ResortAurora.Tests.StagesTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-07 12:10:51Z" end-time="2026-10-07 12:10:55Z" duration="3.815396" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1074" name="PiecesLineUpWithTheTerrainAndTheStageFollowsTheLand" fullname="ResortAurora.Tests.StagesTests.PiecesLineUpWithTheTerrainAndTheStageFollowsTheLand" methodname="PiecesLineUpWithTheTerrainAndTheStageFollowsTheLand" classname="ResortAurora.Tests.StagesTests" runstate="Runnable" seed="816759946" result="Passed" start-time="2026-10-07 12:10:52Z" end-time="2026-10-07 12:10:54Z" duration="2.165416" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+AmbientLife: 217 palm crowns split from E7-7_Palmeiras_folhas (319 trunks)
+]]></output>
+            </test-case>
+            <test-case id="1075" name="Stage2KioskReplacesTheStallLookButKeepsTheStations" fullname="ResortAurora.Tests.StagesTests.Stage2KioskReplacesTheStallLookButKeepsTheStations" methodname="Stage2KioskReplacesTheStallLookButKeepsTheStations" classname="ResortAurora.Tests.StagesTests" runstate="Runnable" seed="609727490" result="Passed" start-time="2026-10-07 12:10:54Z" end-time="2026-10-07 12:10:55Z" duration="1.647863" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[AmbientLife: 54 palm crowns split from E1-7_palmeiras_folha (54 trunks)
+Saving results to: C:/Users/sergi/AppData/LocalLow/OficinaAurora/Facility Ops Prototype\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

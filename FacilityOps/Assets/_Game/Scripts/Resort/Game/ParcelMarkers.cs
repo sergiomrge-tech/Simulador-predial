@@ -11,10 +11,12 @@ namespace ResortAurora.Game
         sealed class Entry { public Rect2 data; public LineRenderer line; public TextMesh label; public string lastKey; }
         readonly List<Entry> entries = new List<Entry>();
         ResortGame game;
+        ResortAurora.Placement.PlacementSystem placement;
 
         public void Init(ResortGame g)
         {
             game = g;
+            placement = Object.FindAnyObjectByType<ResortAurora.Placement.PlacementSystem>();
             foreach (var p in g.Site.Data.parcels)
             {
                 if (p.id == "P0") continue;                         // the stall spot is drawn by the stall itself
@@ -22,6 +24,7 @@ namespace ResortAurora.Game
                 go.transform.SetParent(transform, false);
                 var lr = go.AddComponent<LineRenderer>();
                 lr.sharedMaterial = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
+                lr.enabled = false;
                 lr.loop = true; lr.widthMultiplier = 0.18f; lr.positionCount = 4; lr.useWorldSpace = true;
                 lr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                 var corners = new[] { new Vector2(p.x, p.z), new Vector2(p.x + p.width, p.z), new Vector2(p.x + p.width, p.z + p.depth), new Vector2(p.x, p.z + p.depth) };
@@ -34,6 +37,7 @@ namespace ResortAurora.Game
                 StallBuilder.Box("Post", go.transform, new Vector3(sx, gy + 0.5f, sz), new Vector3(0.12f, 1.0f, 0.12f), new Color(0.4f, 0.28f, 0.18f), collider: false);
                 var st = sign.AddComponent<PanelStation>(); st.panel = Panel.Parcels; st.label = "Terrenos: " + p.name;
                 var label = StallBuilder.Label(go.transform, new Vector3(sx, gy + 2.4f, sz), p.name, 40, 0.1f);
+                label.gameObject.SetActive(false);
                 entries.Add(new Entry { data = p, line = lr, label = label });
             }
         }
@@ -51,7 +55,8 @@ namespace ResortAurora.Game
                 float dx = Mathf.Max(e.data.x - cp.x, 0f, cp.x - (e.data.x + e.data.width)), dz = Mathf.Max(e.data.z - cp.z, 0f, cp.z - (e.data.z + e.data.depth));
                 var status = game.Parcels.StatusOf(e.data.id, game.Stall.Reputation);
                 float range = status == ParcelStatus.Locked ? LockedRange : ShowRange;   // land you cannot buy yet stays out of the way
-                bool near = cam == null || dx * dx + dz * dz < range * range;
+                bool editing = game.OpenedPanel == Panel.Parcels || (placement != null && placement.IsActive);
+                bool near = editing && cam != null && dx * dx + dz * dz < range * range;
                 if (e.line.enabled != near) { e.line.enabled = near; e.label.gameObject.SetActive(near); }
                 string key = status.ToString();
                 if (key == e.lastKey) continue;

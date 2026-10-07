@@ -81,7 +81,7 @@ namespace ResortAurora.Tests
             Assert.Greater(player.transform.position.y, floorY + 3.4f, "up on the first floor");
             g.Clock.Restore(1, 12f * 60f);
             yield return null; yield return null;
-            string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/R4");
+            string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "R4"));
             Directory.CreateDirectory(dir);
             var cam = Camera.main;
             var rootY = gy(394f, 342f);

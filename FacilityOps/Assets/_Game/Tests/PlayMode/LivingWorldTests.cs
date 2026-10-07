@@ -56,7 +56,82 @@ namespace ResortAurora.Tests
             return (float)(sum / n);
         }
 
+        [UnityTest]
+        public IEnumerator InitialKioskUsesMetreScaledWoodWithoutChangingStations()
+        {
+            System.Environment.SetEnvironmentVariable("RESORT_STAGE", "1");
+            yield return Load();
+            var game = Object.FindAnyObjectByType<ResortGame>();
+            var root = game.Layout.Root;
+            var plank = root.Find("S1_CounterPlank").GetComponent<MeshFilter>();
+            var wood = plank.GetComponent<MeshRenderer>().sharedMaterial;
+            Assert.AreEqual("KioskWoodPBR", wood.name);
+            Assert.AreSame(Resources.Load<Texture2D>("Art/Resort/Textures/madeira_BaseColor"), wood.GetTexture("_BaseMap"));
+            Assert.AreSame(Resources.Load<Texture2D>("Art/Resort/Textures/madeira_Normal"), wood.GetTexture("_BumpMap"));
+            Assert.IsTrue(wood.IsKeywordEnabled("_NORMALMAP"));
+            Assert.AreEqual(24, plank.sharedMesh.vertexCount, "the original cube topology is retained");
+            Assert.AreEqual(36, plank.sharedMesh.triangles.Length);
+            float minV = float.MaxValue, maxV = float.MinValue;
+            var normals = plank.sharedMesh.normals; var uv = plank.sharedMesh.uv;
+            for (int i = 0; i < uv.Length; i++)
+                if (normals[i].z > 0.9f) { minV = Mathf.Min(minV, uv[i].y); maxV = Mathf.Max(maxV, uv[i].y); }
+            Assert.AreEqual(1.02f, maxV - minV, 0.001f, "front grain spans the plank's height in metres");
+            var planks = root.GetComponentsInChildren<MeshFilter>();
+            int count = 0;
+            foreach (var other in planks)
+                if (other.name == "S1_CounterPlank")
+                {
+                    count++; Assert.AreSame(plank.sharedMesh, other.sharedMesh, "identical pieces share one mesh");
+                }
+            Assert.AreEqual(15, count);
+            var counter = root.Find("Counter");
+            Assert.NotNull(counter.GetComponent<CounterStation>());
+            Assert.AreEqual(Vector3.one, counter.GetComponent<BoxCollider>().size);
+            Assert.AreEqual(new Vector3(4.2f, 1.1f, 0.7f), counter.localScale);
+            Assert.AreNotEqual("KioskWoodPBR", root.Find("Cooler").GetComponent<MeshRenderer>().sharedMaterial.name);
+            var captureRoot = System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT");
+            if (!string.IsNullOrEmpty(captureRoot))
+            {
+                var dir = Path.Combine(captureRoot, "WoodPBR"); Directory.CreateDirectory(dir);
+                foreach (var hour in new[] { 12f, 20.5f })
+                {
+                    game.Clock.Restore(1, hour * 60f); yield return null; yield return null;
+                    var r = root.position;
+                    Snap(Camera.main, r + new Vector3(3f, 1.65f, 5f), r + new Vector3(0f, 1.2f, 0f), Path.Combine(dir, "kiosk_" + (hour < 18f ? "day" : "night") + ".png"));
+                }
+            }
+            game.Layout.SetKioskLook(true);
+            foreach (var other in planks)
+            {
+                var renderer = other.GetComponent<MeshRenderer>();
+                // Replaced furniture retains its collider/filter but may no
+                // longer have a renderer. This assertion concerns timber only.
+                if (renderer != null && renderer.sharedMaterial.name == "KioskWoodPBR")
+                    Assert.IsFalse(renderer.enabled, "stage switch still hides stage-1 wood");
+            }
+        }
+
         // ---------------------------------------------------------------- pure models
+
+        [UnityTest]
+        public IEnumerator ParcelOverlaysRequirePurchaseModeAndCloseCleanly()
+        {
+            yield return Load();
+            var game = Object.FindAnyObjectByType<ResortGame>();
+            var markers = Object.FindAnyObjectByType<ParcelMarkers>();
+            var lines = markers.GetComponentsInChildren<LineRenderer>(true);
+            Assert.Greater(lines.Length, 0);
+            var first = lines[0];
+            Camera.main.transform.position = first.GetPosition(0) + Vector3.up * 1.7f;
+            game.OpenPanel(Panel.Help); yield return null; yield return null;
+            foreach (var line in lines) Assert.IsFalse(line.enabled, "ordinary play/help has no parcel outlines even at the boundary");
+            game.OpenPanel(Panel.Parcels); yield return null; yield return null;
+            Assert.IsTrue(first.enabled, "purchase mode shows the nearby parcel");
+            Assert.IsTrue(first.GetComponentInChildren<TextMesh>(true).gameObject.activeSelf);
+            game.ClosePanel(); yield return null; yield return null;
+            foreach (var line in lines) Assert.IsFalse(line.enabled, "closing purchase mode removes all parcel overlays");
+            Assert.Greater(markers.GetComponentsInChildren<PanelStation>().Length, 0, "physical purchase signs remain usable");
+        }
 
         [Test]
         public void DaylightHasDawnNoonSunsetAndNight()
@@ -176,7 +251,16 @@ namespace ResortAurora.Tests
             {
                 Assert.IsFalse(float.IsNaN(s.pos.x) || float.IsNaN(s.pos.y) || float.IsNaN(s.pos.z), "finite position");
                 float ground = g.Site.HeightAt(s.pos.x, s.pos.z);
-                if (s.role == BeachLife.Role.Swimmer) Assert.That(s.pos.y, Is.InRange(Mathf.Min(ground, 0.05f) - 0.01f, Mathf.Max(ground, 0.05f) + 0.01f), "swimmers float at the water surface or wade on the bottom");
+                if (s.role == BeachLife.Role.Swimmer)
+                {
+                    // The bottom can be above the surface in the shallows. NUnit
+                    // requires ordered bounds; retain the same physical endpoints
+                    // and 1 cm tolerance on either side of the waterline.
+                    const float surface = 0.05f, tolerance = 0.01f;
+                    float lower = Mathf.Min(ground, surface) - tolerance;
+                    float upper = Mathf.Max(ground, surface) + tolerance;
+                    Assert.That(s.pos.y, Is.InRange(lower, upper), "swimmers float at the water surface or wade on the bottom");
+                }
                 else Assert.AreEqual(ground, s.pos.y, 0.02f, s.role + " stands on the ground (no floating, no sinking)");
                 if (s.role == BeachLife.Role.Sunbather)
                     Assert.IsFalse(s.pos.x > sx - 9f && s.pos.x < sx + 10f && s.pos.z > kz - 9f && s.pos.z < kz + 6f, "nobody lies inside the stall and its tables");
@@ -195,7 +279,7 @@ namespace ResortAurora.Tests
                 var from = p + new Vector3(1.5f, 1.7f, 8.5f); var at = p + new Vector3(0f, 1.6f, 0f);
                 cam.transform.SetPositionAndRotation(from, Quaternion.LookRotation(at - from));
                 yield return new WaitForSeconds(0.4f);
-                string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02"); Directory.CreateDirectory(dir);
+                string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "F02")); Directory.CreateDirectory(dir);
                 var rt = new RenderTexture(1600, 900, 24); cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt;
                 var tex = new Texture2D(1600, 900, TextureFormat.RGB24, false); tex.ReadPixels(new Rect(0, 0, 1600, 900), 0, 0); tex.Apply();
                 File.WriteAllBytes(Path.Combine(dir, "f02_8_bola_na_areia.png"), tex.EncodeToPNG());
@@ -212,7 +296,7 @@ namespace ResortAurora.Tests
                 cam.transform.SetPositionAndRotation(from, Quaternion.LookRotation(at - from));
                 yield return new WaitForSeconds(0.4f);
                 Assert.IsNotNull(GameObject.Find("VendorCooler"), "the seller carries a cooler box (drawn when close)");
-                string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02"); Directory.CreateDirectory(dir);
+                string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "F02")); Directory.CreateDirectory(dir);
                 var rt = new RenderTexture(1600, 900, 24); cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt;
                 var tex = new Texture2D(1600, 900, TextureFormat.RGB24, false); tex.ReadPixels(new Rect(0, 0, 1600, 900), 0, 0); tex.Apply();
                 File.WriteAllBytes(Path.Combine(dir, "f02_9_vendedor_na_areia.png"), tex.EncodeToPNG());
@@ -228,7 +312,7 @@ namespace ResortAurora.Tests
                 cam.transform.SetPositionAndRotation(from, Quaternion.LookRotation(at - from));
                 yield return new WaitForSeconds(0.4f);
                 Assert.IsNotNull(GameObject.Find("Book"), "the reader holds a book (drawn when close)");
-                string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02"); Directory.CreateDirectory(dir);
+                string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "F02")); Directory.CreateDirectory(dir);
                 var rt = new RenderTexture(1600, 900, 24); cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt;
                 var tex = new Texture2D(1600, 900, TextureFormat.RGB24, false); tex.ReadPixels(new Rect(0, 0, 1600, 900), 0, 0); tex.Apply();
                 File.WriteAllBytes(Path.Combine(dir, "f02_10_leitor_na_areia.png"), tex.EncodeToPNG());
@@ -291,7 +375,7 @@ namespace ResortAurora.Tests
             yield return Load();
             var g = Object.FindAnyObjectByType<ResortGame>();
             var cam = Camera.main; var root = g.Layout.Root.position; float pz = g.Site.PromenadeZ(root.x);
-            string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02");
+            string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "F02"));
             Directory.CreateDirectory(dir);
             var views = new (string name, Vector3 pos, Vector3 look)[]
             {
@@ -427,7 +511,7 @@ namespace ResortAurora.Tests
                     if (near) seatedFrames++;
                     if (near && seatedFrames == 10)
                     {
-                        string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02"); Directory.CreateDirectory(dir);
+                        string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "F02")); Directory.CreateDirectory(dir);
                         var cam = Camera.main; var r = lay.Root.position; var sp = taken.Pos;
                         Snap(cam, new Vector3(sp.x + Mathf.Sign(sp.x - r.x) * 5f, r.y + 2.4f, sp.z + 6f), new Vector3(sp.x, r.y + 0.9f, sp.z), Path.Combine(dir, "f02_7_estagio2_clientes_no_deck.png"));
                     }

@@ -97,6 +97,8 @@ namespace ResortAurora.Site
             terrainGraded.transform.SetParent(transform, false);
             terrainNatural.transform.SetParent(transform, false);
             SetGraded(false);
+            Game.RealisticKioskAssets.BuildPromenade(this);
+            ResortSurfaceMaterials.BuildBeach(this);
             BuildSea().transform.SetParent(transform, false);
             BuildVila().transform.SetParent(transform, false);
 
@@ -290,14 +292,16 @@ namespace ResortAurora.Site
             return root;
         }
 
-        // ---------------------------------------------------------------- vila (prototype massing, placed on real lot data)
+        // ---------------------------------------------------------------- vila (combined coastal facades on the existing lots)
 
         GameObject BuildVila()
         {
             var root = new GameObject("Vila");
             var groups = new Dictionary<int, List<CombineInstance>>();
             var roofs = new List<CombineInstance>();
-            var cube = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+            var frames = new List<CombineInstance>();
+            var windows = new List<CombineInstance>();
+            var doors = new List<CombineInstance>();
             foreach (var l in Data.lots)
             {
                 float y = Mathf.Min(HeightAt(l.x - l.w / 2, l.z), HeightAt(l.x + l.w / 2, l.z), HeightAt(l.x, l.z - l.d / 2), HeightAt(l.x, l.z + l.d / 2));
@@ -305,24 +309,55 @@ namespace ResortAurora.Site
                 float hh = l.h + (top - y) + 1.2f;                              // sink the foundation into slopes
                 var body = Matrix4x4.TRS(new Vector3(l.x, y - 1.2f + hh * 0.5f, l.z), Quaternion.Euler(0f, l.rot, 0f), new Vector3(l.w, hh, l.d));
                 if (!groups.TryGetValue(l.c, out var list)) groups[l.c] = list = new List<CombineInstance>();
-                list.Add(new CombineInstance { mesh = cube, transform = body });
+                list.Add(new CombineInstance { mesh = ResortSurfaceMaterials.MetreCube(new Vector3(l.w, hh, l.d)), transform = body });
                 var roof = Matrix4x4.TRS(new Vector3(l.x, y + l.h + (top - y) + 0.15f, l.z), Quaternion.Euler(0f, l.rot, 0f), new Vector3(l.w + 0.6f, 0.3f, l.d + 0.6f));
-                roofs.Add(new CombineInstance { mesh = cube, transform = roof });
+                roofs.Add(new CombineInstance { mesh = ResortSurfaceMaterials.MetreCube(new Vector3(l.w + 0.6f, 0.3f, l.d + 0.6f)), transform = roof });
+                var rotation = Quaternion.Euler(0f, l.rot, 0f);
+                var origin = new Vector3(l.x, top, l.z);
+                void Part(List<CombineInstance> target, Vector3 position, Vector3 size)
+                {
+                    target.Add(new CombineInstance { mesh = ResortSurfaceMaterials.MetreCube(size),
+                        transform = Matrix4x4.TRS(origin + rotation * position, rotation, size) });
+                }
+                // Recessed dark panes, plaster surrounds and timber doors give
+                // the street real openings; all pieces are still combined.
+                int floors = Mathf.Max(1, Mathf.FloorToInt(l.h / 3.1f));
+                int bays = Mathf.Max(2, Mathf.FloorToInt(l.w / 3f));
+                for (int side = -1; side <= 1; side += 2)
+                    for (int floor = 0; floor < floors; floor++)
+                        for (int bay = 0; bay < bays; bay++)
+                        {
+                            float x = (bay + 0.5f) * l.w / bays - l.w * 0.5f;
+                            if (side == -1 && floor == 0 && bay == bays / 2) continue;
+                            float yy = 1.65f + floor * 3.1f, z = side * (l.d * 0.5f + 0.06f);
+                            Part(windows, new Vector3(x, yy, z), new Vector3(1.25f, 1.3f, 0.06f));
+                            foreach (float xx in new[] { x - 0.71f, x + 0.71f })
+                                Part(frames, new Vector3(xx, yy, z + side * 0.04f), new Vector3(0.14f, 1.58f, 0.14f));
+                            foreach (float fy in new[] { yy - 0.72f, yy + 0.72f })
+                                Part(frames, new Vector3(x, fy, z + side * 0.04f), new Vector3(1.55f, 0.14f, 0.22f));
+                            Part(frames, new Vector3(x, yy, z + side * 0.05f), new Vector3(0.05f, 1.3f, 0.10f));
+                        }
+                float doorX = (bays / 2 + 0.5f) * l.w / bays - l.w * 0.5f;
+                Part(doors, new Vector3(doorX, 1.1f, -l.d * 0.5f - 0.09f), new Vector3(1.05f, 2.2f, 0.12f));
+                Part(frames, new Vector3(doorX, 2.27f, -l.d * 0.5f - 0.13f), new Vector3(1.33f, 0.14f, 0.22f));
             }
-            foreach (var kv in groups) AddCombined(root.transform, "Walls" + kv.Key, kv.Value, Walls[kv.Key % Walls.Length]);
-            AddCombined(root.transform, "Roofs", roofs, new Color(0.55f, 0.3f, 0.22f));
+            foreach (var kv in groups) AddCombined(root.transform, "Walls" + kv.Key, kv.Value, Walls[kv.Key % Walls.Length], "reboco", 2f);
+            AddCombined(root.transform, "Roofs", roofs, new Color(0.8f, 0.65f, 0.54f), "telha", 1.2f);
+            AddCombined(root.transform, "WindowFrames", frames, new Color(0.88f, 0.86f, 0.8f), "reboco", 2f, false);
+            AddCombined(root.transform, "Windows", windows, new Color(0.12f, 0.19f, 0.22f), collider: false);
+            AddCombined(root.transform, "Doors", doors, new Color(0.48f, 0.38f, 0.28f), "madeira", collider: false);
             return root;
         }
 
-        static void AddCombined(Transform parent, string name, List<CombineInstance> parts, Color color)
+        static void AddCombined(Transform parent, string name, List<CombineInstance> parts, Color color, string surface = null, float tile = 1f, bool collider = true)
         {
             var mesh = new Mesh { name = name, indexFormat = UnityEngine.Rendering.IndexFormat.UInt32 };
             mesh.CombineMeshes(parts.ToArray(), true, true);
             var go = new GameObject(name);
             go.transform.SetParent(parent, false);
             go.AddComponent<MeshFilter>().sharedMesh = mesh;
-            go.AddComponent<MeshRenderer>().sharedMaterial = Game.StallBuilder.Mat(color, 0.1f);
-            go.AddComponent<MeshCollider>().sharedMesh = mesh;
+            go.AddComponent<MeshRenderer>().sharedMaterial = surface != null ? ResortSurfaceMaterials.Create(surface, color, tile) : Game.StallBuilder.Mat(color, 0.65f);
+            if (collider) go.AddComponent<MeshCollider>().sharedMesh = mesh;
         }
 
         GameObject BuildHome()
@@ -337,7 +372,7 @@ namespace ResortAurora.Site
             for (int f = 1; f < 4; f++)                                      // window strips so the block reads as floors
                 for (int k = -2; k <= 2; k++)
                     Game.StallBuilder.Box("Win", root.transform, new Vector3(k * 4.2f, f * 3.4f, -h.depth / 2 - 0.05f), new Vector3(1.6f, 1.5f, 0.1f), new Color(0.35f, 0.5f, 0.62f), collider: false);
-            Game.StallBuilder.Label(root.transform, new Vector3(0f, 3.0f, -h.depth / 2 - 0.4f), $"{h.name}\n{h.unit}", 40, 0.12f);
+            Game.StallBuilder.Label(root.transform, new Vector3(0f, 3.0f, -h.depth / 2 - 0.4f), $"{h.name}\n{h.unit}", 40, 0.045f, showRange: 12f);
             return root;
         }
     }

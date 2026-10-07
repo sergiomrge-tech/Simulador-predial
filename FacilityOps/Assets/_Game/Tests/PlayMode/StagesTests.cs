@@ -98,7 +98,7 @@ namespace ResortAurora.Tests
             yield return null; yield return null;
 
             var cam = Camera.main;
-            string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/R4");
+            string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "R4"));
             Directory.CreateDirectory(dir);
             g.Stages.SetStage(7);
             Snap(cam, new Vector3(215f, 100f, -20f), new Vector3(520f, 8f, 410f), dir + "/r4_unity_etapa7_aerea.png");
@@ -139,7 +139,7 @@ namespace ResortAurora.Tests
 
             g.Clock.Restore(1, 12f * 60f);
             yield return null; yield return null;
-            string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/R4");
+            string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "R4"));
             Directory.CreateDirectory(dir);
             var cam = Camera.main;
             var root = g.Layout.Root.position;

@@ -28,7 +28,7 @@ namespace ResortAurora.Game
             rig.transform.SetParent(transform, false);
             transform.position = lay.LanePoint(startX);
             mode = Mode.Approach;
-            label = StallBuilder.Label(transform, new Vector3(0f, 2.35f * rig.Scale, 0f), c.Product.Name, 40, 0.05f);
+            label = StallBuilder.Label(transform, new Vector3(0f, 2.35f * rig.Scale, 0f), c.Product.Name, 40, 0.035f, showRange: 7f);
         }
 
         void OnDestroy() { if (seat != null) seat.Taken = false; }
@@ -149,7 +149,7 @@ namespace ResortAurora.Game
         public void Init(ResortGame g, StaffMember m)
         {
             game = g; member = m; rig = GetComponent<PersonRig>();
-            StallBuilder.Label(transform, new Vector3(0f, 2.25f, 0f), m.name, 36, 0.04f);
+            StallBuilder.Label(transform, new Vector3(0f, 2.25f, 0f), m.name, 36, 0.03f, showRange: 7f);
             transform.rotation = Quaternion.LookRotation(Vector3.forward);               // face the promenade
         }
 
