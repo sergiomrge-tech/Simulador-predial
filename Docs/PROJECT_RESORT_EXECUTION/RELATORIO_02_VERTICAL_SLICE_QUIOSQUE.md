@@ -212,3 +212,20 @@ Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, 18h20 e 20h30
 
 ## Limitações
 - Poses procedurais (blockout); o livro não vira páginas; sem avaliação humana; desempenho não remedido (adiciona um objeto pequeno por leitor próximo).
+
+---
+
+# Adendo 9 — desempenho remedido após as rodadas 6–8 (2026-10-06)
+
+**Status: MEDIDO no log do último run completo (`unity_PlayMode_20261006_225140`, 20/20 PlayMode, modo gráfico), feito sobre o código do commit `176cdc3`. Nenhuma mudança de código. Gate técnico segue PASS; `HUMAN_GATE_PENDING` continua; a Fase 03 NÃO está liberada.**
+
+Fecha a ressalva "desempenho não remedido" dos adendos 6–8 (duplas com bola, vendedor, leitores).
+
+| Cena (render em lote, sem IMGUI) | média | p95 | pior |
+|---|---|---|---|
+| praia ao meio-dia, 47 pessoas ativas, 18 lâmpadas (LOD [12,33,2,0]) | 2,8 ms | 3,2 ms | 3,7 ms |
+| estágio 1 aérea / nível do chão | 2,9 / 2,7 ms | 3,7 / 3,3 ms | 4,4 / 4,1 ms |
+| estágio 7 aérea / nível do chão / eixo central | 2,7 / 2,5 / 3,0 ms | 3,3 / 2,7 / 3,4 ms | 3,7 / 3,0 / 4,8 ms |
+
+- Sem regressão frente às rodadas anteriores (~2,8 ms). Limitação: medição em lote na máquina de desenvolvimento, sem hardware-alvo e sem avaliação humana; não substitui o gate de performance da Fase 16.
+- Decisão: as atividades ambientes cobrem agora passeio, corrida, bicicleta, sol/leitura, nado, crianças, bola e vendedor. Mais variedade (cachorro, dorminhocos) exige rig novo ou clipes e rende pouco antes do olhar humano; fica como opcional.
