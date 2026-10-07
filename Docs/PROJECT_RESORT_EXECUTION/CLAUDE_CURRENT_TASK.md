@@ -1,6 +1,6 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-Atualizado em 2026-10-07 (rodada 30: HEAD == origin 0/0; nada fora de `Reviews/` modificado; `DIRECTOR_QA_LATEST.md` (06/10 20:24) e biblioteca de assets (mesmos 6 pacotes) inalterados; 20/20 `-Graphics` da rodada 21 segue válido, Unity não reexecutada; sem trabalho novo seguro — **HUMAN_GATE_PENDING**. Rodadas 22–29 foram reconfirmações idênticas; histórico das rodadas 21 e anteriores abaixo).
+Atualizado em 2026-10-07 (rodada 31: mesma verificação — HEAD == origin 0/0, nada fora de `Reviews/` modificado, `DIRECTOR_QA_LATEST.md` (06/10 20:24) e os 6 pacotes da biblioteca com mtime inalterado; sem trabalho novo seguro, **HUMAN_GATE_PENDING**; rodada 30: HEAD == origin 0/0; nada fora de `Reviews/` modificado; `DIRECTOR_QA_LATEST.md` (06/10 20:24) e biblioteca de assets (mesmos 6 pacotes) inalterados; 20/20 `-Graphics` da rodada 21 segue válido, Unity não reexecutada; sem trabalho novo seguro — **HUMAN_GATE_PENDING**. Rodadas 22–29 foram reconfirmações idênticas; histórico das rodadas 21 e anteriores abaixo).
 
 ## Fase atual
 
