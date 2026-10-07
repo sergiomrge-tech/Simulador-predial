@@ -1,6 +1,6 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-Atualizado em 2026-10-06 (rodada 9: remedição de desempenho e fechamento; refinamentos ambientais com retorno decrescente).
+Atualizado em 2026-10-06 (rodada 10: HEAD revalidado, 20/20 PlayMode; sem código novo seguro antes do gate humano).
 
 ## Fase atual
 
@@ -25,7 +25,8 @@ A Fase 03 NÃO está liberada.
 - Rodada 7 (feita): vendedor ambulante com caixa de isopor andando pela areia (`BeachLife.Role.Vendor`, `Mix.Vendors`); 20/20 testes, 0 erros de shader/compilação. Captura: `f02_9_vendedor_na_areia.png`.
 - Rodada 8 (feita): banhistas sentados lendo um livro (`Gesture.Read`, ~35% dos que se sentam; livro só em LOD 0–1); 20/20 testes, 0 erros de shader/compilação. Captura: `f02_10_leitor_na_areia.png`.
 - Desempenho remedido após as rodadas 6–8 (adendo 9): praia ao meio-dia 2,8 ms média / 3,7 ms pior, estágio 7 2,5–3,0 ms; sem regressão.
-- Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1 a 9 de 2026-10-06).
+- Rodada 10 (feita): HEAD revalidado (20/20, 0 erros); decidido NÃO regenerar o estágio 2 no Blender só pela mesa do banheiro (débito cosmético, Fase 15).
+- Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1 a 10 de 2026-10-06).
 
 ## Pendente (nada disso se resolve só com código)
 
@@ -35,7 +36,7 @@ A Fase 03 NÃO está liberada.
 ## Trabalho seguro dentro da Fase 02 (se a rodada continuar antes do gate humano)
 
 - ~~Clientes sentarem nas mesas no estágio 2~~ (feito). ~~HUD de próximo passo~~ (feito; falta olhar humano).
-- Corrigir no Blender (`Tools/Blender/sa_stages.py::kiosk`) a mesa oeste a 7 m que cai dentro do bloco de banheiros e então reativar essa mesa em `StallLayout.AddKioskSeats` (exige o `.blend` base e regenerar/re-exportar o FBX do estágio 2).
+- ~~Mesa oeste do banheiro no Blender~~ (adiado para a Fase 15: exige regenerar os 7 estágios + todos os FBX; `AddKioskSeats` já pula a mesa).
 - Sentar/deitar/nadar ainda são procedurais: avaliar clipes gratuitos (Human Crafting Animations FREE, Creative Characters FREE) e o aspecto dos corpos animados; se os manequins ainda parecerem artificiais de perto, o Diretor deve apresentar 1–3 opções pagas ao usuário antes de comprar qualquer coisa.
 - Refinar o rig/roupas dos NPCs; mar sem espuma de profundidade/reflexos de objetos (cosmético); mais variedade de atividades na areia (feito: duplas jogando bola; feito: vendedor ambulante; feito: leitores sentados; faltam p.ex. cachorro, pessoas dormindo sob guarda-sol; opcionais, exigem rig/clipes novos).
 - Equilíbrio fino da fila/spawn só com dados de jogada humana (curva atual: 6–8h quase sem clientes; o teste `FirstDayDemandIsWorthPlayingAndProfitable` protege a faixa).

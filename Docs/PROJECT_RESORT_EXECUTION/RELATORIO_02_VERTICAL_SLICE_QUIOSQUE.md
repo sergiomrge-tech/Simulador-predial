@@ -229,3 +229,13 @@ Fecha a ressalva "desempenho não remedido" dos adendos 6–8 (duplas com bola, 
 
 - Sem regressão frente às rodadas anteriores (~2,8 ms). Limitação: medição em lote na máquina de desenvolvimento, sem hardware-alvo e sem avaliação humana; não substitui o gate de performance da Fase 16.
 - Decisão: as atividades ambientes cobrem agora passeio, corrida, bicicleta, sol/leitura, nado, crianças, bola e vendedor. Mais variedade (cachorro, dorminhocos) exige rig novo ou clipes e rende pouco antes do olhar humano; fica como opcional.
+
+---
+
+# Adendo 10 — revalidação do HEAD e decisão sobre a mesa do banheiro (2026-10-06)
+
+**Status: REVALIDADO (`unity_PlayMode_20261006_225903`, `-Graphics`: 20/20 PlayMode, 0 `error CS` / `Shader error` / `NullReference`; as 53 linhas "Exception" do log são só frames de stack do test framework). Nenhuma mudança de código. Gate técnico segue PASS; `HUMAN_GATE_PENDING` continua; a Fase 03 NÃO está liberada.**
+
+- Decisão: **não** regenerar o estágio 2 no Blender só para mover a mesa oeste a 7 m que cai no bloco de banheiros. A regeneração exige `create_stages.py` (os 7 estágios, `.blend` git-ignorado) + `export_resort_kit.py` (re-exporta todos os FBX), com risco de mudar outros estágios; o ganho é uma mesa. `StallBuilder.AddKioskSeats` já pula essa mesa, então não há cliente sentado dentro da parede. Fica como débito cosmético para a Fase 15.
+- As capturas `Reviews/F02/*.png` são sobrescritas a cada run dos testes gráficos (aparecem como modificadas no git); não foram commitadas por serem só ruído de re-render.
+- Restante da Fase 02 depende de olhar/jogada humana; não há mais código seguro com retorno relevante antes disso.
