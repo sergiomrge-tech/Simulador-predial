@@ -27,7 +27,7 @@ namespace ResortAurora.Game
             public int state, dir; public Pose pose;
             public Ambient leader; public Vector3 offset;
             public Spot spot; public Vector3 anchor, target; public float bob;
-            public GameObject towel, ball, cooler;              // ball: owned by the first player of a pair; cooler: carried by a vendor
+            public GameObject towel, ball, cooler, book;        // ball: owned by the first player of a pair; cooler: carried by a vendor; book: held by a reading sunbather
         }
 
         ResortGame game; ResortSite site; StallLayout lay;
@@ -40,7 +40,7 @@ namespace ResortAurora.Game
         float lodTimer, popTimer, lastHours = -1f;
         Transform folder;
         Mesh umbrellaMesh;
-        Material ballMat, coolerMat, lidMat;
+        Material ballMat, coolerMat, lidMat, bookMat;
         public int[] LodCounts { get; } = new int[4];
 
         public int ActiveCount { get; private set; }
@@ -116,6 +116,7 @@ namespace ResortAurora.Game
             if (a.towel != null) Destroy(a.towel);
             if (a.ball != null) { Destroy(a.ball); a.ball = null; }
             if (a.cooler != null) { Destroy(a.cooler); a.cooler = null; }
+            DropBook(a);
             a.rig.HitPulse = 0f;
             a.rig.Gesture = Gesture.None; a.rig.BodyOffset = Vector3.zero; a.rig.SetLod(3);
             a.rig.gameObject.SetActive(false);
@@ -139,6 +140,11 @@ namespace ResortAurora.Game
             {
                 a.cooler.SetActive(a.rig.Lod <= 1);
                 a.cooler.transform.SetPositionAndRotation(a.pos + Quaternion.Euler(0f, a.yaw, 0f) * new Vector3(0.34f, 0.9f, 0.05f), Quaternion.Euler(0f, a.yaw, 0f));
+            }
+            if (a.book != null)                                                             // held open in front of the chest of someone sitting on the sand
+            {
+                a.book.SetActive(a.rig.Lod <= 1);
+                a.book.transform.SetPositionAndRotation(a.pos + Quaternion.Euler(0f, a.yaw, 0f) * (new Vector3(0f, 0.5f, 0.36f) * a.rig.Scale), Quaternion.Euler(0f, a.yaw, 0f) * Quaternion.Euler(-55f, 0f, 0f));
             }
         }
 
@@ -545,12 +551,12 @@ namespace ResortAurora.Game
                 case 1:                                                                    // lying in the sun
                     a.timer -= dt; a.speed = 0.4f;
                     if (a.leaving) { StartLeaving(a); break; }
-                    if (a.timer <= 0f) { a.state = 2; a.timer = 20f + 50f * (float)rng.NextDouble(); a.pose = Pose.SitSand; a.rig.Gesture = (Gesture)(1 + rng.Next(3)); }
+                    if (a.timer <= 0f) { a.state = 2; a.timer = 20f + 50f * (float)rng.NextDouble(); a.pose = Pose.SitSand; SitGesture(a); }
                     break;
                 case 2:                                                                    // sitting up: phone, a drink, a chat, looking at the sea
                     a.timer -= dt;
                     if (a.leaving) { StartLeaving(a); break; }
-                    if (a.timer <= 0f) { a.state = 1; a.timer = 40f + 80f * (float)rng.NextDouble(); a.rig.Gesture = Gesture.None; a.pose = rng.NextDouble() < 0.5 ? Pose.LieBack : Pose.LieFront; }
+                    if (a.timer <= 0f) { a.state = 1; a.timer = 40f + 80f * (float)rng.NextDouble(); a.rig.Gesture = Gesture.None; DropBook(a); a.pose = rng.NextDouble() < 0.5 ? Pose.LieBack : Pose.LieFront; }
                     break;
                 case 3:                                                                    // leaving: back to the promenade, then gone
                 {
@@ -564,9 +570,43 @@ namespace ResortAurora.Game
             }
         }
 
+        /// <summary>What a sunbather does after sitting up: look at the phone, have a drink, chat, or read a paperback.</summary>
+        void SitGesture(Ambient a)
+        {
+            if (rng.NextDouble() < 0.35) TakeBook(a); else a.rig.Gesture = (Gesture)(1 + rng.Next(3));
+        }
+
+        void TakeBook(Ambient a)
+        {
+            a.rig.Gesture = Gesture.Read;
+            if (a.book != null) return;
+            if (bookMat == null) bookMat = StallBuilder.Mat(new Color(0.90f, 0.86f, 0.74f), 0.2f);
+            var b = StallBuilder.Box("Book", folder, Vector3.zero, new Vector3(0.22f, 0.025f, 0.3f), new Color(0.90f, 0.86f, 0.74f), collider: false);
+            b.GetComponent<MeshRenderer>().sharedMaterial = bookMat;
+            var cover = StallBuilder.Box("Cover", b.transform, Vector3.zero, new Vector3(0.23f, 0.02f, 0.31f), Color.HSVToRGB((float)rng.NextDouble(), 0.6f, 0.55f), collider: false);
+            cover.transform.localPosition = new Vector3(0f, -0.6f, 0f); cover.transform.localScale = new Vector3(1.05f, 0.7f, 1.04f);
+            b.SetActive(false);
+            a.book = b;
+        }
+
+        static void DropBook(Ambient a) { if (a.book != null) { Destroy(a.book); a.book = null; } }
+
+        /// <summary>Test hook: puts the first sunbather who is lying or sitting on a towel into a book (returns false when nobody is on a towel).</summary>
+        public bool MakeSunbatherRead(out Vector3 where)
+        {
+            foreach (var a in all)
+                if (a.active && a.role == Role.Sunbather && (a.state == 1 || a.state == 2) && !a.leaving)
+                {
+                    a.state = 2; a.timer = 600f; a.pose = Pose.SitSand; TakeBook(a); where = a.pos; return true;
+                }
+            where = Vector3.zero; return false;
+        }
+
+        public int ReadersCount() { int n = 0; foreach (var a in all) if (a.active && a.role == Role.Sunbather && a.rig.Gesture == Gesture.Read) n++; return n; }
+
         void StartLeaving(Ambient a)
         {
-            a.state = 3; a.rig.Gesture = Gesture.None;
+            a.state = 3; a.rig.Gesture = Gesture.None; DropBook(a);
             if (a.towel != null) { Destroy(a.towel); a.towel = null; }
             if (a.spot != null && a.spot.who.TrueForAll(w => w.state == 3 || w == a || !w.active)) a.spot.props.SetActive(false);
         }

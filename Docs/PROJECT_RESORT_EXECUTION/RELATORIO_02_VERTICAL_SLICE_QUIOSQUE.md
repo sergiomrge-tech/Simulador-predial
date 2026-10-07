@@ -194,3 +194,21 @@ Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, 18h20 e 20h30
 
 ## Limitações
 - O vendedor ainda não vende nada ao jogador nem aos banhistas (é só ambiente); a caixa é um bloco simples que atravessa um pouco o quadril em alguns quadros; desempenho não remedido nesta rodada (1–2 pessoas a mais no pool de adultos). Sem avaliação humana.
+
+---
+
+# Adendo 8 — banhistas sentados lendo um livro (2026-10-06, rodada 8)
+
+**Status: COMPILADO, TESTADO (20/20 PlayMode, modo gráfico, 0 `error CS` / `Shader error` no log) e CAPTURADO. Gate técnico segue PASS. `HUMAN_GATE_PENDING` continua; a Fase 03 NÃO está liberada.**
+
+## O que mudou
+- Novo gesto `Gesture.Read` em `PersonRig`: os dois braços seguram um livro à frente do peito.
+- `BeachLife`: ao se sentar na toalha, ~35% dos banhistas leem um livro (`TakeBook`/`DropBook`); os demais continuam com celular/bebida/conversa. O livro é um objeto separado (capa colorida), só desenhado em LOD 0–1, e some quando a pessoa deita, vai embora ou é devolvida ao pool.
+- Ganchos de teste `MakeSunbatherRead` e `ReadersCount`.
+
+## Evidência
+- `Run-UnityResortTests.ps1 -Graphics` -> `TESTS total=20 passed=20 failed=0`; 0 `error CS` / `Shader error`. `BeachIsAliveByDayAndQuieterAtNight` agora força um leitor, exige o objeto `Book` perto e a ausência de `Book` à noite.
+- Captura real da Unity: `ArtSource/Blender/World/Reviews/F02/f02_10_leitor_na_areia.png` (um passante aparece em primeiro plano; é o quadro real, sem retoque). A primeira tentativa de captura foi feita por trás da pessoa e não mostrava o livro; a câmera do teste foi movida para o lado do mar.
+
+## Limitações
+- Poses procedurais (blockout); o livro não vira páginas; sem avaliação humana; desempenho não remedido (adiciona um objeto pequeno por leitor próximo).

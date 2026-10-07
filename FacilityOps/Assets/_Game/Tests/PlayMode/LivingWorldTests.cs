@@ -219,6 +219,22 @@ namespace ResortAurora.Tests
                 cam.targetTexture = null; RenderTexture.active = null; Object.Destroy(rt); Object.Destroy(tex);
             }
 
+            // evidence: a sunbather sitting up with a book
+            {
+                Assert.IsTrue(life.MakeSunbatherRead(out var rp), "a sunbather on a towel to hand a book to");
+                Assert.GreaterOrEqual(life.ReadersCount(), 1, "someone reads");
+                var cam = Camera.main;
+                var from = rp + new Vector3(1.0f, 1.2f, -2.6f); var at = rp + new Vector3(0f, 0.55f, 0f);   // from the sea side: readers face the water
+                cam.transform.SetPositionAndRotation(from, Quaternion.LookRotation(at - from));
+                yield return new WaitForSeconds(0.4f);
+                Assert.IsNotNull(GameObject.Find("Book"), "the reader holds a book (drawn when close)");
+                string dir = Path.GetFullPath("../ArtSource/Blender/World/Reviews/F02"); Directory.CreateDirectory(dir);
+                var rt = new RenderTexture(1600, 900, 24); cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt;
+                var tex = new Texture2D(1600, 900, TextureFormat.RGB24, false); tex.ReadPixels(new Rect(0, 0, 1600, 900), 0, 0); tex.Apply();
+                File.WriteAllBytes(Path.Combine(dir, "f02_10_leitor_na_areia.png"), tex.EncodeToPNG());
+                cam.targetTexture = null; RenderTexture.active = null; Object.Destroy(rt); Object.Destroy(tex);
+            }
+
             // night: the beach empties, the promenade stays alive
             g.Clock.Restore(1, 21f * 60f);
             yield return new WaitForSeconds(2.6f);
@@ -229,6 +245,7 @@ namespace ResortAurora.Tests
             Assert.IsNull(GameObject.Find("BeachBall"), "the ball goes away with its players");
             Assert.AreEqual(0, life.PeopleOf(BeachLife.Role.Vendor), "no beach sellers at night");
             Assert.IsNull(GameObject.Find("VendorCooler"), "the cooler goes away with its seller");
+            Assert.IsNull(GameObject.Find("Book"), "the book goes away with its reader");
             Assert.Less(life.ActiveCount, day, "fewer people at night");
             Assert.IsTrue(g.DayNight.LampsOn, "lamps are on at 21:00");
 
