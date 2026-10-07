@@ -104,6 +104,27 @@ namespace ResortAurora.Tests
             StringAssert.Contains(Catalog.Products[0].Name + " 3", ServiceHints.LowStock(stall));
         }
 
+        /// <summary>Balance guard (expected values, no randomness): a first day with base prices must be worth playing and must pay for itself.</summary>
+        [Test]
+        public void FirstDayDemandIsWorthPlayingAndProfitable()
+        {
+            var stall = new StallModel();
+            var ledger = new Ledger(new ResortAurora.Core.EventBus(), 100000);
+            foreach (var p in Catalog.Products) stall.Buy(p.Id, 60, ledger, 1);
+            float expected = 0f, peak = 0f;
+            for (int h = 6; h < 22; h++)
+            {
+                float perHour = DemandModel.Passersby(h, Weather.Sunny) * DemandModel.StopChance(stall);
+                expected += perHour; peak = Mathf.Max(peak, perHour);
+            }
+            Assert.That(expected, Is.InRange(25f, 70f), "customers on a normal first day");
+            Assert.That(peak, Is.InRange(3f, 9f), "peak customers per hour a single player can serve");
+            // average margin per sale, weighted by appeal
+            float margin = 0f, weight = 0f;
+            foreach (var p in Catalog.Products) { margin += p.Appeal * (p.BasePrice - p.UnitCost); weight += p.Appeal; }
+            Assert.Greater(expected * margin / weight, 120f, "profit of a normal first day covers the first upgrade within a couple of days");
+        }
+
         [Test]
         public void PopulationFollowsTheHourAndTheWeather()
         {

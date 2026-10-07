@@ -65,7 +65,7 @@ Seguindo `Docs/ASSET_LIBRARY/UNITY_FREE_ASSETS.md` (prioridade A): pessoas próx
 ## Limitações que permanecem
 - Personagens, quiosque, guarda-sóis e fauna são blockout procedural; mar é plano com espuma, sem shader de água; sem arte final.
 - Sem sessão humana: ritmo, clareza do HUD, diversão e "vida" percebida **não foram avaliados**. A fase 03 continua bloqueada até essa aprovação.
-- Estágio 2+ (quiosque exportado): clientes ainda não sentam (mesas do estágio 1 ficam ocultas).
+- ~~Estágio 2+ (quiosque exportado): clientes ainda não sentam~~ — resolvido no adendo de 2026-10-06 (rodada 2).
 - Áudio procedural não foi ouvido por uma pessoa nesta rodada (só medido: pico, RMS, volumes por hora).
 - UI continua IMGUI provisória.
 
@@ -74,3 +74,24 @@ Seguindo `Docs/ASSET_LIBRARY/UNITY_FREE_ASSETS.md` (prioridade A): pessoas próx
 powershell -ExecutionPolicy Bypass -File Tools/Autonomy/Run-UnityResortTests.ps1 -Graphics
 ```
 Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, 18h20 e 20h30, conferir a geladeira (E), ouvir o mar e observar as palmeiras.
+
+---
+
+# Adendo 2 — mesas do estágio 2, HUD de próximo passo, guarda de balanceamento (2026-10-06, rodada 2)
+
+**Status: COMPILADO, TESTADO (20/20 PlayMode, modo gráfico, sem erros no console) e CAPTURADO. Gate técnico segue PASS. `HUMAN_GATE_PENDING` continua; a Fase 03 NÃO está liberada.**
+
+## O que mudou
+- **Clientes sentam no quiosque exportado (estágio 2+)**: `StallLayout.AddKioskSeats` cria 10 cadeiras nas 5 mesas do deck do modelo de Blender (mesas em x ±7 m e 1/4/7 m atrás da origem; a mesa oeste a 7 m foi pulada porque o modelo a coloca dentro do bloco de banheiros — defeito do `sa_stages.kiosk`, a corrigir na próxima regeneração do FBX). Os assentos do estágio 1 desligam e os do deck ligam em `SetKioskLook`. Rota própria (`RouteToSeat`): sai pela ponta do balcão (x ±5,2 m), desce pelo corredor entre as mesas e atravessa até a cadeira, e volta pelo mesmo caminho.
+- **Altura sobre o deck**: o deck do estágio 2 fica 0,14 m acima do chão; `StallLayout.Ground` agora o considera (`OnDeck`, `DeckLift`), então a fila e os clientes ficam em cima do deck, e não 14 cm dentro dele. Antes, a fila do estágio 2 afundava os pés.
+- **HUD** (`Sim/ServiceHints.cs`, puro, e `ResortHud.DrawHint`): faixa sob a barra de status com o próximo passo ("Abra o quiosque na placa", "Cliente na fila: anote o pedido no balcão", "Pedido na chapa: segure [E] na grelha", "Pedido pronto: entregue no balcão", "Dia encerrado: volte para casa...") e aviso de estoque baixo (≤ 3 un.). A barra de status passou a mostrar ABERTO/FECHADO/FECHANDO e as vendas do dia (R$).
+- **Guarda de balanceamento** (valores esperados, sem aleatoriedade): primeiro dia com preços-base ≈ 25–70 clientes, pico de 3–9 clientes/hora e lucro esperado > R$ 120. Não altera a curva; só avisa se alguém desbalancear.
+
+## Evidência
+- `Run-UnityResortTests.ps1 -Graphics` -> `TESTS total=20 passed=20 failed=0`. Novos: `ServedCustomersSitOnTheDeckTablesOfTheStageTwoKiosk` (cliente chega, senta e permanece na cadeira do deck; alturas seguem o deck), `HudHintsPointToTheNextStepAndFlagLowStock`, `FirstDayDemandIsWorthPlayingAndProfitable`.
+- Captura real da Unity: `ArtSource/Blender/World/Reviews/F02/f02_7_estagio2_clientes_no_deck.png` (cliente sentado na mesa do deck do quiosque do estágio 2; o texto espelhado nos letreiros é só porque a câmera do teste foi movida antes do `LateUpdate` do Billboard).
+
+## Limitações
+- O HUD é IMGUI provisório e **não foi visto por uma pessoa**; os textos do HUD não aparecem nas capturas de câmera (IMGUI não vai para `Camera.Render`).
+- Sentar continua pose procedural (sem clipes de cadeira nos pacotes gratuitos avaliados).
+- A mesa oeste a 7 m do modelo do quiosque atravessa o bloco de banheiros (modelagem).
