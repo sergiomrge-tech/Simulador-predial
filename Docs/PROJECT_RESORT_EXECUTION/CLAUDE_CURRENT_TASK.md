@@ -1,6 +1,6 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-Atualizado em 2026-10-07 (rodada 23: reconfirmação; antes, rodada 21: limpeza de debug visual — linhas de lote e legendas 3D distantes escondidas; 20/20 testes; aguardando jogada humana).
+Atualizado em 2026-10-07 (rodada 24: reconfirmação; antes, rodada 23: reconfirmação; antes, rodada 21: limpeza de debug visual — linhas de lote e legendas 3D distantes escondidas; 20/20 testes; aguardando jogada humana).
 
 ## Fase atual
 
@@ -38,6 +38,7 @@ A Fase 03 NÃO está liberada.
 - Rodada 21 (feita): atendendo ao QA do Diretor (`DIRECTOR_QA_LATEST.md`), linhas/legendas de terrenos só a ≤ 22 m (bloqueados ≤ 6 m) e legendas pequenas do quiosque só a ≤ 9 m (`Billboard.showRange`); 20/20 PlayMode (`-Graphics`), captura real `f02_1_dia_kiosque_da_calcada.png` sem a linha vermelha. Adendo 11 do relatório.
 - Rodada 22 (feita): `git fetch` — HEAD == origin (0/0); código inalterado desde a rodada 21 (20/20 `-Graphics` válido, Unity não reexecutada); biblioteca de assets ainda com os mesmos 6 pacotes. `DIRECTOR_QA_LATEST.md` (20:24) é anterior à rodada 21 e já está atendido: asserção do teste corrigida, linhas de lote/legendas 3D escondidas, mar a 55 m, céu/noite com shader próprio. Itens do QA que restam (humanos realistas, quiosque/mobiliário/fundo urbano de maior fidelidade) exigem arte ou pacotes novos (Mixamo/MakeHuman/Human Crafting Animations FREE), não código seguro. Bloqueio real: jogada humana ou novos assets/instrução.
 - Rodada 23 (feita, 2026-10-07): `git fetch` — HEAD == origin (0/0); nada fora de `Reviews/` modificado; código inalterado desde a rodada 21 (20/20 `-Graphics` válido, Unity não reexecutada); biblioteca de assets com os mesmos 6 pacotes; `DIRECTOR_QA_LATEST.md` sem versão nova. Nenhum trabalho seguro e não cosmético restante; **HUMAN_GATE_PENDING** inalterado. Próximo passo só após jogada humana, pacotes novos (Human Crafting Animations FREE / Mixamo / MakeHuman) ou instrução do Diretor.
+- Rodada 24 (feita, 2026-10-07): `git fetch` — HEAD == origin (0/0); nada fora de `Reviews/` modificado; `DIRECTOR_QA_LATEST.md` ainda o de 2026-10-06 20:24; biblioteca de assets com os mesmos 6 pacotes; código inalterado desde a rodada 21 (20/20 `-Graphics` válido, Unity não reexecutada). Sem trabalho seguro novo; **HUMAN_GATE_PENDING** inalterado.
 - Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1 a 10 de 2026-10-06).
 
 ## Pendente (nada disso se resolve só com código)
