@@ -1,0 +1,152 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+namespace ResortAurora.Site
+{
+    // Roads form a union; sidewalks are the expanded union minus carriageways.
+    // This avoids overlapping asphalt and pavement across every intersection.
+    public static class CoastalUrbanGround
+    {
+        const float RoadLift = .025f, WalkLift = .085f;
+        struct Road { public Rect rect; public float walk; public Road(Rect r, float w) { rect=r; walk=w; } }
+        sealed class Surface
+        {
+            public readonly List<Vector3> v = new List<Vector3>();
+            readonly List<Vector2> uv = new List<Vector2>();
+            readonly List<int> tr = new List<int>();
+            public void Quad(Vector3 a, Vector3 b, Vector3 c, Vector3 d, float tile)
+            {
+                int i=v.Count; v.Add(a); v.Add(b); v.Add(c); v.Add(d);
+                bool vertical = Mathf.Abs(Vector3.Cross(b-a,c-a).y) < .0001f;
+                if (vertical)
+                {
+                    bool alongX = Mathf.Abs(c.x-a.x) > Mathf.Abs(c.z-a.z);
+                    uv.Add(new Vector2(alongX?a.x:a.z,a.y)/tile); uv.Add(new Vector2(alongX?b.x:b.z,b.y)/tile);
+                    uv.Add(new Vector2(alongX?c.x:c.z,c.y)/tile); uv.Add(new Vector2(alongX?d.x:d.z,d.y)/tile);
+                }
+                else
+                {
+                    uv.Add(new Vector2(a.x,a.z)/tile); uv.Add(new Vector2(b.x,b.z)/tile);
+                    uv.Add(new Vector2(c.x,c.z)/tile); uv.Add(new Vector2(d.x,d.z)/tile);
+                }
+                tr.Add(i); tr.Add(i+2); tr.Add(i+1); tr.Add(i+1); tr.Add(i+2); tr.Add(i+3);
+            }
+            public void Build(string name, Transform parent, Material mat)
+            {
+                if(v.Count==0) return;
+                var mesh=new Mesh { name=name, indexFormat=IndexFormat.UInt32 };
+                mesh.SetVertices(v); mesh.SetUVs(0,uv); mesh.SetTriangles(tr,0);
+                mesh.RecalculateNormals(); mesh.RecalculateTangents(); mesh.RecalculateBounds();
+                var go=new GameObject(name); go.transform.SetParent(parent,false);
+                go.AddComponent<MeshFilter>().sharedMesh=mesh;
+                var r=go.AddComponent<MeshRenderer>(); r.sharedMaterial=mat; r.shadowCastingMode=ShadowCastingMode.Off;
+            }
+        }
+        static Material asphalt, pavement, curb, yellow, white;
+        static List<Road> Roads(SiteData d)
+        {
+            var roads=new List<Road> { new Road(new Rect(0,d.avenue.z-d.avenue.width/2,d.size.x,d.avenue.width),3.4f) };
+            foreach(var s in d.streetsEW) roads.Add(new Road(new Rect(0,s.z-s.width/2,d.size.x,s.width),2.5f));
+            foreach(var s in d.streetsNS)
+            {
+                // Exported NS streets stopped 9 m short of the avenue. Continue to its centre.
+                float start=Mathf.Min(s.from,d.avenue.z), end=d.size.z-s.to<=10 ? d.size.z : s.to;
+                roads.Add(new Road(new Rect(s.x-s.width/2,start,s.width,end-start),2.5f));
+            }
+            return roads;
+        }
+        static int Classify(List<Road> roads,float x,float z)
+        {
+            var p=new Vector2(x,z);
+            foreach(var r in roads) if(r.rect.Contains(p)) return 1;
+            foreach(var r in roads)
+                if(Rect.MinMaxRect(r.rect.xMin-r.walk,r.rect.yMin-r.walk,r.rect.xMax+r.walk,r.rect.yMax+r.walk).Contains(p)) return 2;
+            return 0;
+        }
+        public static bool IsRoad(SiteData d,float x,float z) => Classify(Roads(d),x,z)==1;
+        public static bool IsSidewalk(SiteData d,float x,float z) => Classify(Roads(d),x,z)==2;
+        static void Cut(List<float> cuts,float value,float min,float max)
+        { value=Mathf.Clamp(value,min,max); if(!cuts.Exists(v=>Mathf.Abs(v-value)<.001f)) cuts.Add(value); }
+        static List<float> Subdivide(List<float> cuts)
+        {
+            cuts.Sort(); var result=new List<float>();
+            for(int i=0;i<cuts.Count-1;i++)
+            { int n=Mathf.CeilToInt((cuts[i+1]-cuts[i])/3); for(int j=0;j<n;j++) result.Add(Mathf.Lerp(cuts[i],cuts[i+1],j/(float)n)); }
+            result.Add(cuts[cuts.Count-1]); return result;
+        }
+        static Vector3 P(ResortSite s,float x,float z,float lift) => new Vector3(x,s.HeightAt(x,z)+lift,z);
+        static void Patch(Surface m,ResortSite s,float x0,float x1,float z0,float z1,float lift,float tile)
+        { m.Quad(P(s,x0,z0,lift),P(s,x1,z0,lift),P(s,x0,z1,lift),P(s,x1,z1,lift),tile); }
+        static bool Crossing(SiteData d,float x,float z)
+        {
+            foreach(var ns in d.streetsNS)
+            {
+                if(Mathf.Abs(x-ns.x)>ns.width/2+.25f) continue;
+                if(Mathf.Abs(z-(d.avenue.z+d.avenue.width/2+1.7f))<1.55f) return true;
+                foreach(var ew in d.streetsEW) if(Mathf.Abs(Mathf.Abs(z-ew.z)-(ew.width/2+1.25f))<1.1f) return true;
+            }
+            return false;
+        }
+        static void Kerb(Surface m,ResortSite s,Vector2 a,Vector2 b)
+        {
+            if(Crossing(s.Data,(a.x+b.x)/2,(a.y+b.y)/2)) return;
+            var n=new Vector2(-(b.y-a.y),b.x-a.x).normalized*.10f;
+            m.Quad(P(s,a.x,a.y,RoadLift),P(s,a.x,a.y,WalkLift),P(s,b.x,b.y,RoadLift),P(s,b.x,b.y,WalkLift),1);
+            Patch(m,s,Mathf.Min(a.x,b.x)-Mathf.Abs(n.x),Mathf.Max(a.x,b.x)+Mathf.Abs(n.x),
+                Mathf.Min(a.y,b.y)-Mathf.Abs(n.y),Mathf.Max(a.y,b.y)+Mathf.Abs(n.y),WalkLift+.001f,1);
+        }
+        static Material Paint(string name,Color color)
+        { var m=new Material(Shader.Find("Universal Render Pipeline/Lit")){name=name,enableInstancing=true}; m.SetColor("_BaseColor",color); m.SetFloat("_Smoothness",.15f); return m; }
+        static void Markings(Transform root,ResortSite s)
+        {
+            var y=new Surface(); var w=new Surface(); var d=s.Data;
+            for(float x=8;x<d.size.x-8;x+=3)
+            {
+                bool junction=false; foreach(var ns in d.streetsNS) if(Mathf.Abs(x-ns.x)<ns.width/2+6) junction=true;
+                if(junction) continue;
+                foreach(float z in new[]{d.avenue.z-.18f,d.avenue.z+.18f}) Patch(y,s,x,x+2.98f,z-.06f,z+.06f,RoadLift+.006f,1);
+            }
+            foreach(var ns in d.streetsNS)
+            {
+                var zs=new List<float>{d.avenue.z+d.avenue.width/2+1.7f};
+                foreach(var ew in d.streetsEW) { zs.Add(ew.z-ew.width/2-1.25f); zs.Add(ew.z+ew.width/2+1.25f); }
+                foreach(float z in zs) for(float x=ns.x-ns.width/2+.4f;x<ns.x+ns.width/2-.4f;x+=.85f)
+                    Patch(w,s,x,x+.42f,z-1,z+1,RoadLift+.009f,1);
+            }
+            if(yellow==null) yellow=Paint("UrbanPaintYellow",new Color(.92f,.76f,.35f));
+            if(white==null) white=Paint("UrbanPaintWhite",new Color(.89f,.88f,.84f));
+            y.Build("AvenueCentreLines",root,yellow); w.Build("PedestrianCrossings",root,white);
+        }
+        public static void Build(ResortSite s)
+        {
+            if(s==null||s.Data==null||Resources.Load<Texture2D>("Art/Resort/Textures/urban_asphalt_BaseColor")==null) return;
+            var root=new GameObject("UrbanGroundPBR").transform; root.SetParent(s.transform,false);
+            var d=s.Data; var roads=Roads(d); float zMin=d.avenue.z-d.avenue.width/2-3.4f;
+            var xs=new List<float>{0,d.size.x}; var zs=new List<float>{zMin,d.size.z};
+            foreach(var r in roads)
+            {
+                foreach(float x in new[]{r.rect.xMin,r.rect.xMax,r.rect.xMin-r.walk,r.rect.xMax+r.walk}) Cut(xs,x,0,d.size.x);
+                foreach(float z in new[]{r.rect.yMin,r.rect.yMax,r.rect.yMin-r.walk,r.rect.yMax+r.walk}) Cut(zs,z,zMin,d.size.z);
+            }
+            xs=Subdivide(xs); zs=Subdivide(zs); var road=new Surface(); var walk=new Surface(); var kerb=new Surface();
+            for(int i=0;i<xs.Count-1;i++) for(int j=0;j<zs.Count-1;j++)
+            {
+                float x0=xs[i],x1=xs[i+1],z0=zs[j],z1=zs[j+1],x=(x0+x1)/2,z=(z0+z1)/2;
+                int kind=Classify(roads,x,z);
+                if(kind==1) Patch(road,s,x0,x1,z0,z1,RoadLift,4);
+                if(kind!=2) continue;
+                Patch(walk,s,x0,x1,z0,z1,Crossing(d,x,z)?RoadLift:WalkLift,2.2f);
+                if(Classify(roads,x0-.01f,z)==1) Kerb(kerb,s,new Vector2(x0,z0),new Vector2(x0,z1));
+                if(Classify(roads,x1+.01f,z)==1) Kerb(kerb,s,new Vector2(x1,z1),new Vector2(x1,z0));
+                if(Classify(roads,x,z0-.01f)==1) Kerb(kerb,s,new Vector2(x1,z0),new Vector2(x0,z0));
+                if(Classify(roads,x,z1+.01f)==1) Kerb(kerb,s,new Vector2(x0,z1),new Vector2(x1,z1));
+            }
+            if(asphalt==null) asphalt=ResortSurfaceMaterials.Create("urban_asphalt",Color.white);
+            if(pavement==null) pavement=ResortSurfaceMaterials.Create("urban_pavers",new Color(.86f,.85f,.80f));
+            if(curb==null) curb=ResortSurfaceMaterials.Create("urban_concrete",new Color(.82f,.82f,.79f));
+            road.Build("ConnectedRoads",root,asphalt); walk.Build("BlockSidewalks",root,pavement); kerb.Build("InterruptedCurbs",root,curb);
+            Markings(root,s); Debug.Log($"URBAN_GROUND connected={d.streetsNS.Length} roadVertices={road.v.Count} sidewalkVertices={walk.v.Count}");
+        }
+    }
+}

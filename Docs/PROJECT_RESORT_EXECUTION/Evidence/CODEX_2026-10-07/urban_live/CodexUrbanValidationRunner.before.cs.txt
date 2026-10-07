@@ -1,0 +1,47 @@
+using System.IO;
+using UnityEditor;
+using UnityEditor.TestTools.TestRunner.Api;
+using UnityEngine;
+
+namespace ResortAurora.Tests
+{
+    // Explicit one-shot file request allows validation when the remote MCP transport is offline.
+    // No network service, source rewriting or scene saving. The normal TestRunner restores editor state.
+    [InitializeOnLoad]
+    public static class CodexUrbanValidationRunner
+    {
+        static readonly string Root = Path.GetFullPath("Captures/CodexUrbanPass");
+        static readonly string Request = Path.Combine(Root, "run-playmode.request");
+        static TestRunnerApi api;
+        static CodexUrbanValidationRunner() { EditorApplication.update += Check; }
+        static void Check()
+        {
+            if (!File.Exists(Request) || EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlayingOrWillChangePlaymode) return;
+            File.Delete(Request);
+            Run();
+        }
+        [MenuItem("Resort Aurora/Validate Codex Urban Pass")]
+        public static void Run()
+        {
+            Directory.CreateDirectory(Root);
+            api = ScriptableObject.CreateInstance<TestRunnerApi>();
+            api.RegisterCallbacks(new Results());
+            api.Execute(new ExecutionSettings(new Filter {
+                testMode = TestMode.PlayMode,
+                testNames = new[] { "ResortAurora.Tests.UrbanVisualPassTests.ConnectedGroundAndScansPreserveKiosk" }
+            }));
+        }
+        sealed class Results : ICallbacks
+        {
+            public void RunStarted(ITestAdaptor testsToRun) { Debug.Log("CODEX_URBAN_TEST_RUN_STARTED"); }
+            public void RunFinished(ITestResultAdaptor result)
+            {
+                string path = Path.Combine(Root, "test-results-" + System.DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".xml");
+                TestRunnerApi.SaveResultToFile(result, path);
+                Debug.Log($"CODEX_URBAN_TEST_RUN_FINISHED pass={result.PassCount} fail={result.FailCount} result={result.ResultState} file={path}");
+            }
+            public void TestStarted(ITestAdaptor test) { }
+            public void TestFinished(ITestResultAdaptor result) { }
+        }
+    }
+}

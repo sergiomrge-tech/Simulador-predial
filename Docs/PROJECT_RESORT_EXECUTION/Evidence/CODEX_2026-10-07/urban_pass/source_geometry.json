@@ -1,0 +1,1178 @@
+[
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\ProjectOwned\\CoastalUrbanKit\\apartamento.fbx",
+    "min": [
+      -5.609999656677246,
+      -9.475000381469727,
+      -1.3033653658567346e-06
+    ],
+    "max": [
+      5.609999656677246,
+      8.405000686645508,
+      9.880000114440918
+    ],
+    "size": [
+      11.219999313354492,
+      17.880001068115234,
+      9.880001417806284
+    ],
+    "polygons": 7440,
+    "objects": [
+      {
+        "name": "MAT_Concrete",
+        "materials": [
+          "Concrete"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Glass",
+        "materials": [
+          "Glass"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Metal",
+        "materials": [
+          "Metal"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Trim",
+        "materials": [
+          "Trim"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wall",
+        "materials": [
+          "Wall"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wood",
+        "materials": [
+          "Wood"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\ProjectOwned\\CoastalUrbanKit\\casa_terrea.fbx",
+    "min": [
+      -4.724999904632568,
+      -7.40239143371582,
+      -1.0589843668640242e-06
+    ],
+    "max": [
+      4.724999904632568,
+      6.724999904632568,
+      4.820001125335693
+    ],
+    "size": [
+      9.449999809265137,
+      14.127391338348389,
+      4.82000218432006
+    ],
+    "polygons": 2046,
+    "objects": [
+      {
+        "name": "MAT_Awning",
+        "materials": [
+          "Awning"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Concrete",
+        "materials": [
+          "Concrete.001"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Glass",
+        "materials": [
+          "Glass.001"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Metal",
+        "materials": [
+          "Metal.001"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Roof",
+        "materials": [
+          "Roof"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Trim",
+        "materials": [
+          "Trim.001"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wall",
+        "materials": [
+          "Wall.001"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wood",
+        "materials": [
+          "Wood.001"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\ProjectOwned\\CoastalUrbanKit\\hotel.fbx",
+    "min": [
+      -6.109999656677246,
+      -10.274999618530273,
+      -0.025002652779221535
+    ],
+    "max": [
+      6.109999656677246,
+      8.404999732971191,
+      10.079999923706055
+    ],
+    "size": [
+      12.219999313354492,
+      18.679999351501465,
+      10.105002576485276
+    ],
+    "polygons": 9276,
+    "objects": [
+      {
+        "name": "MAT_Concrete",
+        "materials": [
+          "Concrete.002"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Glass",
+        "materials": [
+          "Glass.002"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Metal",
+        "materials": [
+          "Metal.002"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Trim",
+        "materials": [
+          "Trim.002"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wall",
+        "materials": [
+          "Wall.002"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wood",
+        "materials": [
+          "Wood.002"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\ProjectOwned\\CoastalUrbanKit\\loja.fbx",
+    "min": [
+      -5.109999656677246,
+      -7.351843357086182,
+      -0.024999987334012985
+    ],
+    "max": [
+      5.109999656677246,
+      6.134999752044678,
+      5.28000020980835
+    ],
+    "size": [
+      10.219999313354492,
+      13.48684310913086,
+      5.305000197142363
+    ],
+    "polygons": 1344,
+    "objects": [
+      {
+        "name": "MAT_Awning",
+        "materials": [
+          "Awning.001"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Concrete",
+        "materials": [
+          "Concrete.003"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Glass",
+        "materials": [
+          "Glass.003"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Metal",
+        "materials": [
+          "Metal.003"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Trim",
+        "materials": [
+          "Trim.003"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wall",
+        "materials": [
+          "Wall.003"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wood",
+        "materials": [
+          "Wood.003"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\ProjectOwned\\CoastalUrbanKit\\misto.fbx",
+    "min": [
+      -5.109999656677246,
+      -8.975000381469727,
+      -0.025002488866448402
+    ],
+    "max": [
+      5.109999656677246,
+      7.905000686645508,
+      7.079999923706055
+    ],
+    "size": [
+      10.219999313354492,
+      16.880001068115234,
+      7.105002412572503
+    ],
+    "polygons": 3444,
+    "objects": [
+      {
+        "name": "MAT_Awning",
+        "materials": [
+          "Awning.002"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Concrete",
+        "materials": [
+          "Concrete.004"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Glass",
+        "materials": [
+          "Glass.004"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Metal",
+        "materials": [
+          "Metal.004"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Trim",
+        "materials": [
+          "Trim.004"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wall",
+        "materials": [
+          "Wall.004"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wood",
+        "materials": [
+          "Wood.004"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\ProjectOwned\\CoastalUrbanKit\\residencial_sacadas.fbx",
+    "min": [
+      -6.109999656677246,
+      -8.975000381469727,
+      -1.4603235740651144e-06
+    ],
+    "max": [
+      6.109999656677246,
+      7.905000686645508,
+      8.079999923706055
+    ],
+    "size": [
+      12.219999313354492,
+      16.880001068115234,
+      8.080001384029629
+    ],
+    "polygons": 4692,
+    "objects": [
+      {
+        "name": "MAT_Concrete",
+        "materials": [
+          "Concrete.005"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Glass",
+        "materials": [
+          "Glass.005"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Metal",
+        "materials": [
+          "Metal.005"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Trim",
+        "materials": [
+          "Trim.005"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wall",
+        "materials": [
+          "Wall.005"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wood",
+        "materials": [
+          "Wood.005"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\ProjectOwned\\CoastalUrbanKit\\sobrado.fbx",
+    "min": [
+      -4.609999656677246,
+      -8.475000381469727,
+      -1.140444737757207e-06
+    ],
+    "max": [
+      4.609999656677246,
+      7.405000686645508,
+      6.880000114440918
+    ],
+    "size": [
+      9.219999313354492,
+      15.880001068115234,
+      6.880001254885656
+    ],
+    "polygons": 3768,
+    "objects": [
+      {
+        "name": "MAT_Concrete",
+        "materials": [
+          "Concrete.006"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Glass",
+        "materials": [
+          "Glass.006"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Metal",
+        "materials": [
+          "Metal.006"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Trim",
+        "materials": [
+          "Trim.006"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wall",
+        "materials": [
+          "Wall.006"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wood",
+        "materials": [
+          "Wood.006"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\ProjectOwned\\CoastalUrbanKit\\townhouse.fbx",
+    "min": [
+      -3.31000018119812,
+      -8.475000381469727,
+      -1.3788633168587694e-06
+    ],
+    "max": [
+      3.31000018119812,
+      7.405000686645508,
+      6.980000019073486
+    ],
+    "size": [
+      6.62000036239624,
+      15.880001068115234,
+      6.980001397936803
+    ],
+    "polygons": 2796,
+    "objects": [
+      {
+        "name": "MAT_Concrete",
+        "materials": [
+          "Concrete.007"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Glass",
+        "materials": [
+          "Glass.007"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Metal",
+        "materials": [
+          "Metal.007"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Trim",
+        "materials": [
+          "Trim.007"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wall",
+        "materials": [
+          "Wall.007"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "MAT_Wood",
+        "materials": [
+          "Wood.007"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\exterior_aircon_unit_2K\\exterior_aircon_unit_2k.fbx",
+    "min": [
+      -0.892697811126709,
+      -0.15819305181503296,
+      -0.32006561756134033
+    ],
+    "max": [
+      0.907273530960083,
+      0.21596619486808777,
+      0.6078314781188965
+    ],
+    "size": [
+      1.799971342086792,
+      0.3741592466831207,
+      0.9278970956802368
+    ],
+    "polygons": 10906,
+    "objects": [
+      {
+        "name": "exterior_aircon_unit",
+        "materials": [
+          "exterior_aircon_unit_01",
+          "exterior_aircon_unit_02"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "exterior_aircon_unit_rusted",
+        "materials": [
+          "exterior_aircon_unit_rusted_01",
+          "exterior_aircon_unit_rusted_02"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\fire_hydrant_2K\\fire_hydrant_2k.fbx",
+    "min": [
+      -0.4417688846588135,
+      -0.1912068873643875,
+      -8.872071339283139e-05
+    ],
+    "max": [
+      0.43285468220710754,
+      0.12653669714927673,
+      0.7993673086166382
+    ],
+    "size": [
+      0.874623566865921,
+      0.31774358451366425,
+      0.799456029330031
+    ],
+    "polygons": 43710,
+    "objects": [
+      {
+        "name": "fire_hydrant",
+        "materials": [
+          "fire_hydrant"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "fire_hydrant_cap_01",
+        "materials": [
+          "fire_hydrant"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "fire_hydrant_cap_02",
+        "materials": [
+          "fire_hydrant"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "fire_hydrant_cap_03",
+        "materials": [
+          "fire_hydrant"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "fire_hydrant_chain",
+        "materials": [
+          "fire_hydrant"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "fire_hydrant_aged",
+        "materials": [
+          "fire_hydrant_aged"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "fire_hydrant_cap_01_aged",
+        "materials": [
+          "fire_hydrant_aged"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "fire_hydrant_cap_02_aged",
+        "materials": [
+          "fire_hydrant_aged"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "fire_hydrant_cap_03_aged",
+        "materials": [
+          "fire_hydrant_aged"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "fire_hydrant_chain_aged",
+        "materials": [
+          "fire_hydrant_aged"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\modular_metal_gutter_2K\\modular_metal_gutter_2k.fbx",
+    "min": [
+      -0.5155467987060547,
+      -0.0830797478556633,
+      -0.006177909672260284
+    ],
+    "max": [
+      1.7529361248016357,
+      1.431621789932251,
+      1.836430311203003
+    ],
+    "size": [
+      2.2684829235076904,
+      1.5147015377879143,
+      1.8426082208752632
+    ],
+    "polygons": 8224,
+    "objects": [
+      {
+        "name": "modular_metal_gutter_outlet",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter_coupler",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter_funnel",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter_bend",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter_bracing",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter_gutter_plug",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter_gutter_bracing",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter_corner",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter_shower_receiver",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter_gutter_coupler",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "modular_metal_gutter_section",
+        "materials": [
+          "modular_metal_gutter"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\modular_street_seating_2K\\modular_street_seating_2k.fbx",
+    "min": [
+      -2.359999895095825,
+      -0.3999761939048767,
+      -1.6173210326542176e-08
+    ],
+    "max": [
+      1.9800000190734863,
+      0.37039393186569214,
+      0.9500001072883606
+    ],
+    "size": [
+      4.3399999141693115,
+      0.7703701257705688,
+      0.9500001234615709
+    ],
+    "polygons": 13431,
+    "objects": [
+      {
+        "name": "crossbar",
+        "materials": [
+          "modular_street_seating_armrests"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "legs_double",
+        "materials": [
+          "modular_street_seating_supports"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "legs_single",
+        "materials": [
+          "modular_street_seating_supports"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "suspended_support_01",
+        "materials": [
+          "modular_street_seating_supports"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "suspended_support_02",
+        "materials": [
+          "modular_street_seating_supports"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "back_support_r",
+        "materials": [
+          "modular_street_seating_armrests"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "back_support_l",
+        "materials": [
+          "modular_street_seating_armrests"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "arm_rest_01",
+        "materials": [
+          "modular_street_seating_armrests"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "arm_rest_02",
+        "materials": [
+          "modular_street_seating_armrests"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "seat",
+        "materials": [
+          "modular_street_seating_timber"
+        ],
+        "uv_layers": 2
+      },
+      {
+        "name": "seat_back",
+        "materials": [
+          "modular_street_seating_timber"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "connector_60",
+        "materials": [
+          "modular_street_seating_connectors"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "connector_45",
+        "materials": [
+          "modular_street_seating_connectors"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "connector_90",
+        "materials": [
+          "modular_street_seating_connectors"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "connector_30",
+        "materials": [
+          "modular_street_seating_connectors"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "seat_bench",
+        "materials": [
+          "modular_street_seating_timber"
+        ],
+        "uv_layers": 2
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\painted_wooden_bench_2K\\painted_wooden_bench_2k.fbx",
+    "min": [
+      -0.5760610699653625,
+      -0.24284429848194122,
+      -0.0004995078197680414
+    ],
+    "max": [
+      0.5888825058937073,
+      0.25369882583618164,
+      0.8887919783592224
+    ],
+    "size": [
+      1.1649435758590698,
+      0.49654312431812286,
+      0.8892914861789905
+    ],
+    "polygons": 374,
+    "objects": [
+      {
+        "name": "painted_wooden_bench",
+        "materials": [
+          "painted_wooden_bench"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\planter_box_01_2K\\planter_box_01_2k.fbx",
+    "min": [
+      -0.45671579241752625,
+      -0.20653319358825684,
+      2.8160658985143527e-05
+    ],
+    "max": [
+      0.4558956027030945,
+      0.20713479816913605,
+      0.42499640583992004
+    ],
+    "size": [
+      0.9126113951206207,
+      0.4136679917573929,
+      0.4249682451809349
+    ],
+    "polygons": 4667,
+    "objects": [
+      {
+        "name": "planter_box_01",
+        "materials": [
+          "planter_box_01"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\rollershutter_door_2K\\rollershutter_door_2k.fbx",
+    "min": [
+      -0.5400000214576721,
+      -0.29908570647239685,
+      2.2872841327625792e-06
+    ],
+    "max": [
+      2.5399999618530273,
+      0.0010001050541177392,
+      2.3999757766723633
+    ],
+    "size": [
+      3.0799999833106995,
+      0.3000858115265146,
+      2.3999734893882305
+    ],
+    "polygons": 710,
+    "objects": [
+      {
+        "name": "rollershutter_door",
+        "materials": [
+          "rollershutter_door"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "rollershutter_door_graffiti",
+        "materials": [
+          "rollershutter_door_graffiti"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\rollershutter_window_01_2K\\rollershutter_window_01_2k.fbx",
+    "min": [
+      -1.050000548362732,
+      -0.29908546805381775,
+      2.289881877004518e-06
+    ],
+    "max": [
+      4.0500006675720215,
+      0.0010005210060626268,
+      1.850726842880249
+    ],
+    "size": [
+      5.100001215934753,
+      0.3000859890598804,
+      1.850724552998372
+    ],
+    "polygons": 710,
+    "objects": [
+      {
+        "name": "rollershutter_window_01",
+        "materials": [
+          "rollershutter_window_01"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "rollershutter_window_01_graffiti",
+        "materials": [
+          "rollershutter_window_01_graffiti"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\standing_chalkboard_01_2K\\standing_chalkboard_01_2k.fbx",
+    "min": [
+      -0.4461677670478821,
+      -0.3793523609638214,
+      -1.671502616318321e-07
+    ],
+    "max": [
+      0.47335898876190186,
+      0.3793523609638214,
+      1.5090322494506836
+    ],
+    "size": [
+      0.9195267558097839,
+      0.7587047219276428,
+      1.5090324166009452
+    ],
+    "polygons": 1086,
+    "objects": [
+      {
+        "name": "standing_chalkboard_01",
+        "materials": [
+          "standing_chalkboard_01_frame",
+          "standing_chalkboard_01_board"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\street_lamp_01_2K\\street_lamp_01_2k.fbx",
+    "min": [
+      -0.35216811299324036,
+      -0.19324658811092377,
+      -8.447075927620062e-09
+    ],
+    "max": [
+      0.35216811299324036,
+      0.1932467371225357,
+      3.8705554008483887
+    ],
+    "size": [
+      0.7043362259864807,
+      0.3864933252334595,
+      3.8705554092954646
+    ],
+    "polygons": 15305,
+    "objects": [
+      {
+        "name": "street_lamp_01",
+        "materials": [
+          "street_lamp_01",
+          "street_lamp_01_glass",
+          "street_lamp_01_bulb"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\street_lamp_02_2K\\street_lamp_02_2k.fbx",
+    "min": [
+      -0.19324660301208496,
+      -0.8067892789840698,
+      -0.394923597574234
+    ],
+    "max": [
+      0.19324655830860138,
+      7.907864585376956e-08,
+      1.2801183462142944
+    ],
+    "size": [
+      0.38649316132068634,
+      0.8067893580627157,
+      1.6750419437885284
+    ],
+    "polygons": 10169,
+    "objects": [
+      {
+        "name": "street_lamp_02",
+        "materials": [
+          "street_lamp_02",
+          "street_lamp_02_glass",
+          "street_lamp_02_bulb"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\utility_box_01_2K\\utility_box_01_2k.fbx",
+    "min": [
+      -0.2600001096725464,
+      -0.22200000286102295,
+      -9.179391469160691e-09
+    ],
+    "max": [
+      0.2600001096725464,
+      0.21000003814697266,
+      1.1203334331512451
+    ],
+    "size": [
+      0.5200002193450928,
+      0.4320000410079956,
+      1.1203334423306366
+    ],
+    "polygons": 2402,
+    "objects": [
+      {
+        "name": "utility_box_01_box_low",
+        "materials": [
+          "utility_box_01"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\water_manhole_cover_2K\\water_manhole_cover_2k.fbx",
+    "min": [
+      -0.3453802466392517,
+      -0.3453802466392517,
+      -0.02876139059662819
+    ],
+    "max": [
+      0.3453802466392517,
+      0.3453802466392517,
+      0.03885643929243088
+    ],
+    "size": [
+      0.6907604932785034,
+      0.6907604932785034,
+      0.06761782988905907
+    ],
+    "polygons": 3171,
+    "objects": [
+      {
+        "name": "water_manhole_cover_frame",
+        "materials": [
+          "water_manhole_cover"
+        ],
+        "uv_layers": 1
+      },
+      {
+        "name": "water_manhole_cover",
+        "materials": [
+          "water_manhole_cover"
+        ],
+        "uv_layers": 1
+      }
+    ]
+  }
+]

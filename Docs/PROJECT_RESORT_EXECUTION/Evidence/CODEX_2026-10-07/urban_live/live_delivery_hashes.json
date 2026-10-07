@@ -1,0 +1,34 @@
+﻿[
+    {
+        "path":  "FacilityOps/Assets/_Game/Scripts/Resort/Site/CoastalUrbanGround.cs",
+        "sha256":  "5119E8F5C61D3BF9F0B8D285C236A79EB2B3B154E71EA466CF640A4861C9BD0C"
+    },
+    {
+        "path":  "FacilityOps/Assets/_Game/Tests/PlayMode/UrbanVisualPassTests.cs",
+        "sha256":  "19C2E89C9E0ED52E06021AD011BED724C1D23D3B4E071444FA762D4A75E8580F"
+    },
+    {
+        "path":  "FacilityOps/Assets/_Game/Tests/Editor/CodexUrbanValidationRunner.cs",
+        "sha256":  "CBAB2A12632DB2FF9A7DCD8822CA2118C1DC8CFA2D203ED70513D0A3405A5110"
+    },
+    {
+        "path":  "FacilityOps/Assets/_Game/Scripts/Resort/ResortAurora.Resort.asmdef",
+        "sha256":  "BC4ACF9306EB1B756ACD6E05DCD56FAE8DA5A76A922BA7A6D3431B8E0BEF1CA1"
+    },
+    {
+        "path":  "Tools/Blender/correct_codex_urban_openings.py",
+        "sha256":  "B3A8ECDDA4CAE9109DB3FAAC6F41146957F5818677B300A0B507E5C6E7AA1A23"
+    },
+    {
+        "path":  "FacilityOps/Assets/_Game/Resources/Art/Resort/Urban/apartamento.fbx",
+        "sha256":  "2D491648D6E6E986350EBA385C7FBEC6BD9452C025498DAFE161F70568EE8F91"
+    },
+    {
+        "path":  "FacilityOps/Assets/_Game/Resources/Art/Resort/Urban/residencial_sacadas.fbx",
+        "sha256":  "B8EC2D1CF467B645DBBCC98A517D2BFBFF22D8773DB3E164818DCEE6C07CE27E"
+    },
+    {
+        "path":  "FacilityOps/Assets/_Game/Resources/Art/Resort/Urban/sobrado.fbx",
+        "sha256":  "8A1E60EE7CDFC0BE28B4C7C1867FC2C60FAEF6B8157E87295175D58AE103256C"
+    }
+]

@@ -1,0 +1,550 @@
+{
+  "owned_files": [
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Site\\CoastalUrbanAssets.cs",
+      "sha256": "f27bbec9b340046feb5623ba953b93760a5cd4dbeb8d3485aa58c04973ff5f33",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Site\\CoastalUrbanGround.cs",
+      "sha256": "777d89841c35ddd7e5448c5af8d35d706d58a6f577ba047146c7d10bb76c9fbe",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Site\\CoastalUrbanProps.cs",
+      "sha256": "548429295cacb9b4f4c69a9ef66fba6a8d76798da9cee2b2d2ee41c0f74029bf",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Game\\StallBuilder.cs",
+      "sha256": "acc5d8b8a177f01b81e766c79db15ae599667375f09cfea66e6ef8518e98e6ed",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Scripts\\Resort\\Editor\\ResortTextureImport.cs",
+      "sha256": "7ec4dcb2dd2e8ca33903de55be4872dc3c9b9ca682d25cae9ba2d62fca0b41ab",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Tests\\PlayMode\\UrbanVisualPassTests.cs",
+      "sha256": "f192c90328230a0fe6e218f7557941937f1364e160f63bd8a1abb95927cbbcc5",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Tests\\Editor\\ResortAurora.Tests.Editor.asmdef",
+      "sha256": "969fe323f1eb14cdda9b77a2110365aba2c13552f5aafe634e54473600e50cec",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Tests\\Editor\\CodexUrbanValidationRunner.cs",
+      "sha256": "c70a6a96da2fc992c129496550dd9f5d775af3faf1c0a09b659b670329fd9561",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Urban\\apartamento.fbx",
+      "sha256": "d1dcbddee1a91d70a724bcb8c064b0e2e50ae98c11bf05199462a78e5915b8c9",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Urban\\casa_terrea.fbx",
+      "sha256": "ed29e7d498a4c11a18ba07b6bfaaaf7394158d0f42ff58d55ab0c84845f56e0b",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Urban\\hotel.fbx",
+      "sha256": "4c9790e46234be2d03b721ae9a1e54db169bf12923a9ffc10b31d6160b37b281",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Urban\\loja.fbx",
+      "sha256": "7c4d46b000be63bf6df341623e62a2cafb95dd07cdea7674af93c0062fdaa09a",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Urban\\misto.fbx",
+      "sha256": "070942fc0f2971ac5daf008b5f406992f485ee7b19bd2e85333d3308bd9239c7",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Urban\\residencial_sacadas.fbx",
+      "sha256": "1c5ee5c4b7ac82fc1e71e80a340c565ef73b245b4e174508b9bbf84f73cb3d2a",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Urban\\sobrado.fbx",
+      "sha256": "0d6e3232d18518916c144e5de10e59fc783276000485fc7defedc458a10298f1",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Urban\\townhouse.fbx",
+      "sha256": "65ecb81a7c5a9fc3cf85544b461023da1fd96a8500830df8623acb09779d9d7e",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\exterior_aircon_unit_2K\\exterior_aircon_unit_2k.fbx",
+      "sha256": "65667f600a6e06300522648ffceca6096d25afffefbbbfab9f5a885993a6c56b",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\fire_hydrant_2K\\fire_hydrant_2k.fbx",
+      "sha256": "e78283969debe40ab0f828f1c12d4fae5aea90ef8877f2a9a00cbf81786db5a9",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\painted_wooden_bench_2K\\painted_wooden_bench_2k.fbx",
+      "sha256": "e73c6647a11e7232470d7f0d7ef97f2adaa61d4a3de83e94645bcc57f1357ca2",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\planter_box_01_2K\\planter_box_01_2k.fbx",
+      "sha256": "4944e2856b22c0e2be2f2128627c8018e3c214bff056d4475e2744bc4d9831fc",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\rollershutter_door_2K\\rollershutter_door_2k.fbx",
+      "sha256": "9b626603f33e80e3c7f8ed43d14dc6ca6f5ace39d6f54f867bb3ffd1fa02015f",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\rollershutter_window_01_2K\\rollershutter_window_01_2k.fbx",
+      "sha256": "f7c79af17e81bdf686667a6ffead31a87eda9bc4ac6a8d59b074a940716579a0",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\standing_chalkboard_01_2K\\standing_chalkboard_01_2k.fbx",
+      "sha256": "c344884317c061b68fb2572846fc711661ecff7f1557db0aee97fdfab71b6afa",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\street_lamp_01_2K\\street_lamp_01_2k.fbx",
+      "sha256": "06ea6d2f660a29706cfa7812e302013569727644e0e73c4720c2338e6d889ba1",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\street_lamp_02_2K\\street_lamp_02_2k.fbx",
+      "sha256": "c382cef456767343b6c488b09403bd6eb1f5a03d61377bb0ffbdb661aaaeff68",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\utility_box_01_2K\\utility_box_01_2k.fbx",
+      "sha256": "47b4b31ae9c1a7c16fabb035ee8920b80f45ae166ebfd085f2aa65bcb0247b15",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\water_manhole_cover_2K\\water_manhole_cover_2k.fbx",
+      "sha256": "d3609d5aaf3b5f234e252f02c71594e7ba8fb953aa0e8bfb5914781127feabc6",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\modular_metal_gutter_2K\\gutter_section.fbx",
+      "sha256": "282e30c36f2bc3c872752ef5684ab19ec8e8a31bca6ac40cd66b81be914303e7",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\modular_metal_gutter_2K\\downpipe.fbx",
+      "sha256": "891ce4cafa4d954d450f7058b960f92b312e18e42c1cab7c9c7693e535b04e1f",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\exterior_aircon_unit_2K\\textures\\exterior_aircon_unit_01_BaseColor.png",
+      "sha256": "01afc4b4328f641b89d8923eca6fce9ef70e5d15f9cb08bfda4bf97919e3da87",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\exterior_aircon_unit_2K\\textures\\exterior_aircon_unit_02_BaseColor.png",
+      "sha256": "61a6d54d1271a1c5333be8d076e70ebc65d4e968d9939428caff33df70848131",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\fire_hydrant_2K\\textures\\fire_hydrant_BaseColor.png",
+      "sha256": "6ed6fd00d6f01846692e34c7f03a52dff7312c72a0a26f368589f78ccfb9eb1b",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\modular_metal_gutter_2K\\textures\\modular_metal_gutter_BaseColor.png",
+      "sha256": "82a41897c0b6063b36c33bf36e77ac5e105970b13698eb39ea2f9c16247563ad",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\painted_wooden_bench_2K\\textures\\painted_wooden_bench_BaseColor.png",
+      "sha256": "c5c1f8260bcbd4caba557959443de2088f5061f9c567f033f5b18ededda5dc4e",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\planter_box_01_2K\\textures\\planter_box_01_BaseColor.png",
+      "sha256": "af965add52f3a118242c946213ba051164ab6367295b89b736c76f1cd9d32f6a",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\rollershutter_door_2K\\textures\\rollershutter_door_BaseColor.png",
+      "sha256": "5c8696500c8ce071f2c10e909753ac1e4be484646e56244f86069053a039c81c",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\rollershutter_window_01_2K\\textures\\rollershutter_window_01_BaseColor.png",
+      "sha256": "b50481fdd3b0c6ee814074b7ba2db41ca6f232bee448d514b5960704e36ad4fc",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\standing_chalkboard_01_2K\\textures\\standing_chalkboard_01_board_BaseColor.png",
+      "sha256": "d6e3f698e4179771a3759a0e6a9644b8a3282f2e03cadcf493260d91ea125b91",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\standing_chalkboard_01_2K\\textures\\standing_chalkboard_01_frame_BaseColor.png",
+      "sha256": "3fc48c0df284db10f77e696396af00adf02fc61af5cf2dc13b632d008bc85e61",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\street_lamp_01_2K\\textures\\street_lamp_01_BaseColor.png",
+      "sha256": "7ea61f78ccd10aa70ed3cb14e68880fe7ee450fda19b51830e19f397854aa3e9",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\street_lamp_02_2K\\textures\\street_lamp_02_BaseColor.png",
+      "sha256": "12fb3589d5196750b4ec7995d21e679c6bbdb888978420e7a4ff22824b89b7ad",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\utility_box_01_2K\\textures\\utility_box_01_BaseColor.png",
+      "sha256": "5d0b26f7d496a3f02d41754a7754a1871dbe9f46ec3c6586bba5ceebac7da4d4",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\water_manhole_cover_2K\\textures\\water_manhole_cover_BaseColor.png",
+      "sha256": "27b7140139f60286c09956a353bdc203bbb72e5a7ecb06ed78fd932d78ab4cfe",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\exterior_aircon_unit_2K\\textures\\exterior_aircon_unit_01_Normal.png",
+      "sha256": "e137f9ef1c7ddc288a88de434eae63fbbd83f2e59e45cb78f855ce7ca8acb10e",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\exterior_aircon_unit_2K\\textures\\exterior_aircon_unit_02_Normal.png",
+      "sha256": "5704068c5eeb3a9856c2559fdff61eea39a1c547458c55ff172d4caa509d9a57",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\fire_hydrant_2K\\textures\\fire_hydrant_Normal.png",
+      "sha256": "dfc3bea8ee051e9ce9b3d497186bfa5e7de321e0c29f12b340ce9da16b330a0a",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\modular_metal_gutter_2K\\textures\\modular_metal_gutter_Normal.png",
+      "sha256": "594afa379b2e6a2885f470ff4990fa041f1cac42d6f494e234453f18fe7ec976",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\painted_wooden_bench_2K\\textures\\painted_wooden_bench_Normal.png",
+      "sha256": "6147f0d4c45c3211074e6ab871a480012aa1c0a96e55a8d55a05d346ff15f736",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\planter_box_01_2K\\textures\\planter_box_01_Normal.png",
+      "sha256": "06631b4bbf429f744dff42ddf7fce93b6ec27cc035af575b6b7647683328c354",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\rollershutter_door_2K\\textures\\rollershutter_door_Normal.png",
+      "sha256": "12cee4d7b26e81d6716fe68cc843e5fa2ebc98fbc232190503d69fd22687117e",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\rollershutter_window_01_2K\\textures\\rollershutter_window_01_Normal.png",
+      "sha256": "5a34e96fb3766d13300dc1079d80bc5426ba3d5f57bfa69854c0c78d7810a333",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\standing_chalkboard_01_2K\\textures\\standing_chalkboard_01_board_Normal.png",
+      "sha256": "6c747290e54c3085782a80ea7b18cef8171f5c8232ef779640dffbbee456da75",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\standing_chalkboard_01_2K\\textures\\standing_chalkboard_01_frame_Normal.png",
+      "sha256": "0658da362c16b8465bb1798fd51bddda24cd78fe42a7d67d3e9e5b6344ba34cc",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\street_lamp_01_2K\\textures\\street_lamp_01_Normal.png",
+      "sha256": "734d602f87f53f605f6f992be6778b5fcc07aa6a8169acb4393cbedea1503a99",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\street_lamp_02_2K\\textures\\street_lamp_02_Normal.png",
+      "sha256": "c801e3015066d7b85429bace5582a2bc48a57a62013a0b821c4a15ca275ebf2f",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\utility_box_01_2K\\textures\\utility_box_01_Normal.png",
+      "sha256": "d32a0f09d2264861f1f69d9c224fd176bbdf89ece830b6514489c9a0e87a5fe1",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\water_manhole_cover_2K\\textures\\water_manhole_cover_Normal.png",
+      "sha256": "e178c779e755e9e91ff822a53e68d5f8105793ef043db2d977bf254b6b615c9a",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\exterior_aircon_unit_2K\\textures\\exterior_aircon_unit_01_Mask.png",
+      "sha256": "5820abd2c78bb2911ec671df038782a8a7a31f7b020f7166a14318763afd95a6",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\exterior_aircon_unit_2K\\textures\\exterior_aircon_unit_02_Mask.png",
+      "sha256": "211e139a1511a97d92e88b3e012e830ca61635edb161353f0e5c1a0ce459b2ff",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\fire_hydrant_2K\\textures\\fire_hydrant_Mask.png",
+      "sha256": "b168016af0557ed8106408fcf5c652160bc6e10f3976400b74425e4cd2325260",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\modular_metal_gutter_2K\\textures\\modular_metal_gutter_Mask.png",
+      "sha256": "9681ebb6612eb810f2ce2dac2498d7e26a906816ad5b6c62b996e09d717dfcf4",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\painted_wooden_bench_2K\\textures\\painted_wooden_bench_Mask.png",
+      "sha256": "18d797c46e5d52569f29e2305d28cd9e6e2be95cd5c32d0778d618ab14cce61a",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\planter_box_01_2K\\textures\\planter_box_01_Mask.png",
+      "sha256": "917c0b6caac1029a91b487b360fc9b103f787cde95110ecfc5b2f5a5d792388d",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\rollershutter_door_2K\\textures\\rollershutter_door_Mask.png",
+      "sha256": "2e1890c424a5ca597b0280577765deb5b3f9eefc310ca5c7e62ea455680bc48a",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\rollershutter_window_01_2K\\textures\\rollershutter_window_01_Mask.png",
+      "sha256": "d89d562b14fa487e23cd55d09a1aa2525b358e12e9e452160fd493e74908dccc",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\standing_chalkboard_01_2K\\textures\\standing_chalkboard_01_board_Mask.png",
+      "sha256": "c5e68518202ad6faddb00bd435d9a7750bb7029d21cf9f2ce24e3799181cb1fb",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\standing_chalkboard_01_2K\\textures\\standing_chalkboard_01_frame_Mask.png",
+      "sha256": "7f0b0b036bcbca155084d28a763c8eb8b1d55d47430f17273d232a76de90633e",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\street_lamp_01_2K\\textures\\street_lamp_01_Mask.png",
+      "sha256": "4b48f94f217baa229317850c1654956217d706fe52212cb9fe6559a5932f3a5e",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\street_lamp_02_2K\\textures\\street_lamp_02_Mask.png",
+      "sha256": "e4e3327aba603da2f58d895a322dbf1c7ed3974f1fabf7725c5fa228ee48a1a6",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\utility_box_01_2K\\textures\\utility_box_01_Mask.png",
+      "sha256": "ce0e1792292a74c4efdbc50b75e09e14b44cfd14ba4794f8477e64cee3562d44",
+      "validated_copy_matches": true
+    },
+    {
+      "path": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\water_manhole_cover_2K\\textures\\water_manhole_cover_Mask.png",
+      "sha256": "9c5fb82f0b3be3d45988ebd080ff519c0fa6261f2e5167405a3fe8ed85ea04ae",
+      "validated_copy_matches": true
+    }
+  ],
+  "all_owned_inputs_match_validated_copy": true,
+  "reviews": [
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_10_leitor_na_areia.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_1_dia_aerea.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_1_dia_calcadao_leste.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_1_dia_kiosque_da_calcada.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_1_dia_mesas_na_areia.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_1_dia_praia_para_o_mar.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_2_tarde_dourada_aerea.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_2_tarde_dourada_calcadao_leste.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_2_tarde_dourada_kiosque_da_calcada.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_2_tarde_dourada_mesas_na_areia.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_2_tarde_dourada_praia_para_o_mar.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_3_por_do_sol_aerea.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_3_por_do_sol_calcadao_leste.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_3_por_do_sol_kiosque_da_calcada.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_3_por_do_sol_mesas_na_areia.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_3_por_do_sol_praia_para_o_mar.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_4_noite_aerea.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_4_noite_calcadao_leste.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_4_noite_kiosque_da_calcada.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_4_noite_mesas_na_areia.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_4_noite_praia_para_o_mar.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_5_ondas_e_gaivotas.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_6_pessoas_animadas.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_7_estagio2_clientes_no_deck.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_8_bola_na_areia.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\F02\\f02_9_vendedor_na_areia.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R1\\r1_site_aerea.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R1\\r1_site_praia.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R2\\r2_barraca_visao_geral.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R2\\r2_primeira_pessoa_meio_dia.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_eixo_central.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_etapa1_aerea.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_etapa7_aerea.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_etapa7_plato.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_grande_hotel.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_grande_hotel_saguao.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_pousada_corredor.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_pousada_escada_externa.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_pousada_fachada.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_pousada_hotel.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_pousada_recepcao.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_quiosque_calcadao.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R4\\r4_unity_quiosque_do_balcao.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R5\\r5_lar_cama.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R5\\r5_lar_fachada.png",
+      "unchanged": true
+    },
+    {
+      "path": "ArtSource\\Blender\\World\\Reviews\\R5\\r5_quiosque_balcao_placa.png",
+      "unchanged": true
+    }
+  ],
+  "all_baseline_review_pngs_unchanged": true,
+  "final_compile_error_count": 0,
+  "final_unity_test_exit_zero": true,
+  "capture_directory": "FacilityOps\\Captures\\CodexUrbanPass\\20261007_145559"
+}

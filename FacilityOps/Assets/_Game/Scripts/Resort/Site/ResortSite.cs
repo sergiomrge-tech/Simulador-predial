@@ -98,6 +98,8 @@ namespace ResortAurora.Site
             terrainNatural.transform.SetParent(transform, false);
             SetGraded(false);
             Game.RealisticKioskAssets.BuildPromenade(this);
+            CoastalUrbanGround.Build(this);
+            CoastalUrbanProps.Build(this);
             ResortSurfaceMaterials.BuildBeach(this);
             BuildSea().transform.SetParent(transform, false);
             BuildVila().transform.SetParent(transform, false);
@@ -346,6 +348,7 @@ namespace ResortAurora.Site
             AddCombined(root.transform, "WindowFrames", frames, new Color(0.88f, 0.86f, 0.8f), "reboco", 2f, false);
             AddCombined(root.transform, "Windows", windows, new Color(0.12f, 0.19f, 0.22f), collider: false);
             AddCombined(root.transform, "Doors", doors, new Color(0.48f, 0.38f, 0.28f), "madeira", collider: false);
+            CoastalUrbanAssets.ReplaceVisuals(root.transform, this);
             return root;
         }
 

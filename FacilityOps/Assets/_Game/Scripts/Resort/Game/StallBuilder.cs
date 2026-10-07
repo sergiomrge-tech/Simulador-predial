@@ -248,6 +248,7 @@ namespace ResortAurora.Game
             layout.PickupPos = layout.Ground(new Vector3(x + 2.9f, 0f, counterFront + 1.3f));
             KioskDecor.Dress(game, layout, root);
             RealisticKioskAssets.Dress(root);
+            CoastalUrbanProps.DressKioskJobBoard(site, root, jobs, jobsLabel);
             layout.AddKioskSeats();
             layout.RefreshUpgrades(game);
             return layout;

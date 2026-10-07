@@ -70,3 +70,8 @@ Pedir a uma pessoa que jogue dois dias (`ResortPrologue`) seguindo `ROTEIRO_PLAY
 - não construir pousada/hotel/resort novos;
 - não chamar blockout de arte final;
 - não marcar o gate visual/humano como PASS sem uma pessoa jogar.
+
+
+### Codex urban continuation ? 2026-10-07 18:50
+
+12 promenade poles replaced visually by the approved CC0 lantern scan; collision/fallback and eight-point-light pool retained. Real live MCP v10.2.0: urban 1/1, full PlayMode 30/30, LivingWorld 11/11. F02 stays OPEN for visible palms/people, sparse plots, facade/night contrast and standalone performance. See [evidence and scope](CODEX_PROMENADE_LAMPS_2026-10-07.md). Parallel changes were preserved.

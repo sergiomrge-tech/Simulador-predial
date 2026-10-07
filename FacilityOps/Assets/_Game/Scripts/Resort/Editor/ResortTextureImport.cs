@@ -7,7 +7,8 @@ namespace ResortAurora.EditorTools
     {
         void OnPreprocessTexture()
         {
-            if (!assetPath.Contains("/Art/Resort/Textures/")) return;
+            if (!assetPath.Contains("/Art/Resort/Textures/") &&
+                !assetPath.Contains("/Art/Resort/UrbanProps/")) return;
             var ti = (TextureImporter)assetImporter;
             ti.mipmapEnabled = true;
             ti.anisoLevel = 8;

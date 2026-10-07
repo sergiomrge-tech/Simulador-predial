@@ -1,0 +1,2 @@
+Urban integration PASS; lots=234; buildingRenderers=309; streetProps=78; sidewalkVertices=15472; original collision and kiosk stations preserved.
+Shader support checks passed. Screenshot inspection is still required; visual phase is NOT approved.

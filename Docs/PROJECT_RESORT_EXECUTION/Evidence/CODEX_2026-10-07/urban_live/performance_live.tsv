@@ -1,0 +1,7 @@
+counter	unit	samples	mean	median	p95	max	valid
+CPU Main Thread Frame Time	TimeNanoseconds	60	2335588.33333333	2316900	2594400	3059800	True
+CPU Render Thread Frame Time	TimeNanoseconds	60	1176111.66666667	1154000	1285600	1685300	True
+CPU Total Frame Time	TimeNanoseconds	60	3496050	3472600	3872300	4223300	True
+Triangles Count	Count	60	7880580	7880580	7880580	7880580	True
+SetPass Calls Count	Count	60	41	41	41	41	True
+BRG Draw Calls Count	Undefined	60	582.533333333333	582	582	598	True

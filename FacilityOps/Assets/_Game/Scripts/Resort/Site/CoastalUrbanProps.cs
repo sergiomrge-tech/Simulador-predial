@@ -1,0 +1,265 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+namespace ResortAurora.Site
+{
+    // Local CC0 scans, shared materials, canonical single variants and metric placement.
+    public static class CoastalUrbanProps
+    {
+        sealed class Prop
+        {
+            public readonly string folder, file; public readonly float height;
+            public Prop(string folder,string file,float height) { this.folder=folder; this.file=file; this.height=height; }
+            public string Path => "Art/Resort/UrbanProps/"+folder+"/"+file;
+        }
+        static readonly Prop Lamp=new Prop("street_lamp_01_2K","street_lamp_01_2k",4.8f);
+        static readonly Prop WallLamp=new Prop("street_lamp_02_2K","street_lamp_02_2k",1.1f);
+        static readonly Prop Bench=new Prop("painted_wooden_bench_2K","painted_wooden_bench_2k",.88f);
+        static readonly Prop Planter=new Prop("planter_box_01_2K","planter_box_01_2k",.55f);
+        static readonly Prop Hydrant=new Prop("fire_hydrant_2K","fire_hydrant_2k",.82f);
+        static readonly Prop Utility=new Prop("utility_box_01_2K","utility_box_01_2k",1.12f);
+        static readonly Prop Aircon=new Prop("exterior_aircon_unit_2K","exterior_aircon_unit_2k",.72f);
+        static readonly Prop Shutter=new Prop("rollershutter_door_2K","rollershutter_door_2k",2.35f);
+        static readonly Prop WindowShutter=new Prop("rollershutter_window_01_2K","rollershutter_window_01_2k",1.3f);
+        static readonly Prop Board=new Prop("standing_chalkboard_01_2K","standing_chalkboard_01_2k",1.05f);
+        static readonly Prop Manhole=new Prop("water_manhole_cover_2K","water_manhole_cover_2k",.0676f);
+        static readonly Prop Downpipe=new Prop("modular_metal_gutter_2K","downpipe",1f);
+        static readonly Prop Gutter=new Prop("modular_metal_gutter_2K","gutter_section",.1374f);
+        static readonly Dictionary<string,Material> materials=new Dictionary<string,Material>();
+        static readonly Dictionary<string,GameObject> models=new Dictionary<string,GameObject>();
+
+        static Material MaterialFor(Prop def,string materialName)
+        {
+            // Preserve each material slot: AC fins, lamp glass and chalkboard frame have distinct UV atlases.
+            string stem=materialName.Split('.')[0].Replace(" (Instance)","");
+            string key=def.folder+"/"+stem;
+            if(materials.TryGetValue(key,out var m)&&m!=null) return m;
+            var shader=Shader.Find("Universal Render Pipeline/Lit"); if(shader==null) return null;
+            m=new Material(shader){name="UrbanProp_"+stem,enableInstancing=true};
+            string path="Art/Resort/UrbanProps/"+def.folder+"/textures/"+stem;
+            var color=Resources.Load<Texture2D>(path+"_BaseColor");
+            if(color!=null) m.SetTexture("_BaseMap",color);
+            m.SetColor("_BaseColor",stem.Contains("glass")?new Color(.12f,.19f,.22f):Color.white);
+            m.SetFloat("_Smoothness",stem.Contains("glass")?.88f:.25f);
+            var normal=Resources.Load<Texture2D>(path+"_Normal");
+            if(normal!=null) { m.SetTexture("_BumpMap",normal); m.SetFloat("_BumpScale",.8f); m.EnableKeyword("_NORMALMAP"); }
+            var mask=Resources.Load<Texture2D>(path+"_Mask");
+            if(mask!=null)
+            {
+                m.SetTexture("_MetallicGlossMap",mask); m.SetTexture("_OcclusionMap",mask);
+                m.SetFloat("_Smoothness",1); m.SetFloat("_SmoothnessTextureChannel",0); m.SetFloat("_OcclusionStrength",.7f);
+                m.EnableKeyword("_METALLICSPECGLOSSMAP"); m.EnableKeyword("_OCCLUSIONMAP");
+            }
+            if(stem.EndsWith("_glass"))
+            {
+                // The scanned lantern contains an actual bulb behind these panes.
+                // Opaque dark glass hid it completely in the night review.
+                m.SetColor("_BaseColor",new Color(.84f,.91f,.95f,.22f));
+                m.SetFloat("_Surface",1); m.SetFloat("_Blend",0); m.SetFloat("_ZWrite",0);
+                m.SetFloat("_SrcBlend",(float)BlendMode.SrcAlpha);
+                m.SetFloat("_DstBlend",(float)BlendMode.OneMinusSrcAlpha);
+                m.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                m.SetOverrideTag("RenderType","Transparent"); m.renderQueue=(int)RenderQueue.Transparent;
+            }
+            materials[key]=m; return m;
+        }
+        public static bool TryLampEmitter(Transform root,out Vector3 point)
+        {
+            point=root.position;
+            foreach(var mf in root.GetComponentsInChildren<MeshFilter>(true))
+            {
+                var mesh=mf.sharedMesh; var renderer=mf.GetComponent<Renderer>();
+                if(mesh==null || !mesh.isReadable || renderer==null) continue;
+                var mats=renderer.sharedMaterials;
+                for(int slot=0;slot<Mathf.Min(mats.Length,mesh.subMeshCount);slot++)
+                {
+                    if(mats[slot]==null || !mats[slot].name.EndsWith("_bulb")) continue;
+                    var indices=mesh.GetTriangles(slot); if(indices.Length==0) continue;
+                    var vertices=mesh.vertices;
+                    var bounds=new UnityEngine.Bounds(mf.transform.TransformPoint(vertices[indices[0]]),Vector3.zero);
+                    foreach(int index in indices) bounds.Encapsulate(mf.transform.TransformPoint(vertices[index]));
+                    point=bounds.center; return true;
+                }
+            }
+            return false;
+        }
+        public static bool BindLampBulb(Transform root,Material emissive)
+        {
+            bool bound=false;
+            foreach(var renderer in root.GetComponentsInChildren<Renderer>(true))
+            {
+                var mats=renderer.sharedMaterials;
+                for(int i=0;i<mats.Length;i++)
+                    if(mats[i]!=null && mats[i].name.EndsWith("_bulb")) { mats[i]=emissive; bound=true; }
+                renderer.sharedMaterials=mats;
+            }
+            return bound;
+        }
+        public static void DressPromenadeLamps(ResortAurora.Game.DayNightCycle cycle)
+        {
+            var root=cycle.transform.Find("PromenadeLamps"); if(root==null) return;
+            int count=0;
+            foreach(Transform post in root)
+            {
+                if(post.Find("PromenadeLampScan")!=null) continue;
+                var head=post.Find("LampHead"); if(head==null) continue;
+                var scan=Place(Lamp,post,Vector3.zero,90,"PromenadeLampScan",4.2f);
+                if(scan==null) continue; // Original fixture remains the asset fallback.
+                var pole=post.Find("Pole"); var arm=post.Find("Arm");
+                if(pole!=null) pole.GetComponent<Renderer>().enabled=false;
+                if(arm!=null) arm.GetComponent<Renderer>().enabled=false;
+                if(TryLampEmitter(scan.transform,out var emitter))
+                {
+                    cycle.RelocateLamp(head.position+Vector3.down*.05f,emitter);
+                    head.position=emitter;
+                }
+                if(BindLampBulb(scan.transform,head.GetComponent<Renderer>().sharedMaterial))
+                    head.GetComponent<Renderer>().enabled=false;
+                count++;
+            }
+            Debug.Log("URBAN_PROMENADE_LAMPS scanned="+count+" original collision and light pool retained");
+        }
+        static Bounds Bounds(GameObject go)
+        {
+            var rs=go.GetComponentsInChildren<Renderer>(true);
+            if(rs.Length==0) return new Bounds(go.transform.position,Vector3.zero);
+            var b=rs[0].bounds; for(int i=1;i<rs.Length;i++) b.Encapsulate(rs[i].bounds); return b;
+        }
+        static GameObject Place(Prop def,Transform parent,Vector3 localPosition,float yaw,string name,float height=0)
+        {
+            if(!models.TryGetValue(def.Path,out var prefab)||prefab==null) models[def.Path]=prefab=Resources.Load<GameObject>(def.Path);
+            if(prefab==null) { Debug.LogWarning("URBAN_PROP missing="+def.Path); return null; }
+            // FBX roots can carry the axis/unit conversion. Never overwrite that transform.
+            var go=new GameObject(name); go.transform.SetParent(parent,false);
+            var model=Object.Instantiate(prefab,go.transform,false);
+            // The selected scan exports retain their vertical axis along Unity -Z.
+            // Adapt inside the yaw wrapper; +90 puts scan feet below its seat/head.
+            model.transform.localRotation=Quaternion.Euler(90,0,0)*model.transform.localRotation;
+            go.transform.localPosition=localPosition;
+            // Poly Haven FBX sources are Z-up. Convert once to Unity Y-up, then apply the authored street/facade yaw.
+            go.transform.localRotation=Quaternion.Euler(0,yaw,0)*Quaternion.Euler(-90f,0,0);
+            go.transform.localScale=Vector3.one;
+            var rs=go.GetComponentsInChildren<Renderer>(true);
+            foreach(var r in rs)
+            {
+                var mats=r.sharedMaterials;
+                for(int i=0;i<mats.Length;i++) mats[i]=MaterialFor(def,mats[i]!=null?mats[i].name:def.file.Replace("_2k",""));
+                r.sharedMaterials=mats; r.shadowCastingMode=ShadowCastingMode.On; r.receiveShadows=true;
+            }
+            var b=Bounds(go); if(b.size.y<.001f) return go;
+            go.transform.localScale=Vector3.one*((height>0?height:def.height)/b.size.y);
+            b=Bounds(go);
+            Vector3 anchor=parent.TransformPoint(localPosition);
+            go.transform.position+=new Vector3(anchor.x-b.center.x,anchor.y-b.min.y,anchor.z-b.center.z);
+            var lod=go.AddComponent<LODGroup>(); lod.SetLODs(new[]{new LOD(.003f,rs)}); lod.RecalculateBounds();
+            return go;
+        }
+        static float Ground(ResortSite site,float x,float z)
+        { return site.HeightAt(x,z)+(CoastalUrbanGround.IsSidewalk(site.Data,x,z)?.085f:.035f); }
+        static bool ClearOfJunction(ResortSite s,float x,float z,float margin=10)
+        {
+            foreach(var ns in s.Data.streetsNS) if(Mathf.Abs(ns.x-x)<ns.width/2+margin && z>=s.Data.avenue.z) return false;
+            return true;
+        }
+        static void StreetFurniture(ResortSite site,Transform root)
+        {
+            var d=site.Data; float z=d.avenue.z+d.avenue.width/2+2.85f;
+            int count=0;
+            for(float x=28;x<d.size.x-28;x+=58)
+                if(ClearOfJunction(site,x,z,5)) Place(Lamp,root,new Vector3(x,Ground(site,x,z),z),90,"AvenueLamp_"+count++);
+            foreach(var ew in d.streetsEW)
+                for(float x=32;x<d.size.x-25;x+=87)
+                {
+                    float zz=ew.z+ew.width/2+2.05f;
+                    if(ClearOfJunction(site,x,zz,4)) Place(Lamp,root,new Vector3(x,Ground(site,x,zz),zz),90,"NeighbourhoodLamp_"+count++);
+                }
+            for(float x=36;x<d.size.x-36;x+=62)
+            {
+                if(Mathf.Abs(x-site.StallX)<28) continue;
+                float bz=site.PromenadeZ(x)+3.7f;
+                Place(Bench,root,new Vector3(x,Ground(site,x,bz),bz),180,"PromenadeBench_"+count++);
+                float px=x+5.2f,pz=site.PromenadeZ(px)+3.85f;
+                Place(Planter,root,new Vector3(px,Ground(site,px,pz),pz),90,"PromenadePlanter_"+count++);
+            }
+            for(float x=95;x<d.size.x-60;x+=190)
+            {
+                float zz=d.avenue.z+d.avenue.width/2+1.9f;
+                if(ClearOfJunction(site,x,zz,3)) Place(Hydrant,root,new Vector3(x,Ground(site,x,zz),zz),0,"Hydrant_"+count++);
+            }
+            for(float x=145;x<d.size.x-80;x+=230)
+            {
+                float zz=d.avenue.z+d.avenue.width/2+2.8f;
+                if(ClearOfJunction(site,x,zz,3)) Place(Utility,root,new Vector3(x,Ground(site,x,zz),zz),180,"UtilityBox_"+count++);
+            }
+            foreach(var ns in d.streetsNS)
+                foreach(var ew in d.streetsEW)
+                {
+                    float x=ns.x+ns.width*.2f,zz=ew.z+ew.width/2+8;
+                    // Lid's top, rather than its feet, is flush with the asphalt overlay.
+                    Place(Manhole,root,new Vector3(x,site.HeightAt(x,zz)+.025f-.0676f,zz),0,"Manhole_"+count++);
+                }
+            Debug.Log("URBAN_STREET_FURNITURE placed="+count);
+        }
+        static void Facades(ResortSite site,Transform root)
+        {
+            int count=0;
+            for(int i=0;i<site.Data.lots.Length;i++)
+            {
+                var lot=site.Data.lots[i];
+                if(!CoastalUrbanAssets.TryDescribeLot(site,lot,i,out var f)) continue;
+                float yaw=lot.rot;
+                if(i%4==0)
+                {
+                    // Rear service facade stays exposed even where adjacent lots share a party wall.
+                    Place(Aircon,root,f.Point(lot,f.width*.23f,2.45f,f.back-.13f),yaw+180,"FacadeAC_"+i);
+                    count++;
+                }
+                if(i%7==2 && f.height>5.8f)
+                    Place(WindowShutter,root,f.Point(lot,-f.width*.23f,4.35f,f.front+.13f),yaw+180,"FacadeWindowShutter_"+i);
+                if(f.commercial)
+                {
+                    // Rear service door; keep the shop's public frontage open.
+                    // These shutter scans face -Z, unlike the condenser and chalkboard scans.
+                    Place(Shutter,root,f.Point(lot,0,0,f.back-.13f),yaw,"ShopServiceShutter_"+i);
+                    Place(WallLamp,root,f.Point(lot,f.width*.30f,2.9f,f.front+.05f),yaw,"ShopWallLamp_"+i);
+                    var p=f.Point(lot,-f.width*.28f,0,f.front+1.0f);
+                    if(!CoastalUrbanGround.IsRoad(site.Data,p.x,p.z))
+                    { p.y=Ground(site,p.x,p.z); Place(Board,root,p,yaw+((i&1)==0?12:-8),"ShopChalkboard_"+i); }
+                    count++;
+                }
+                if(i%6==1)
+                {
+                    // Individual metre pipe sections, mounted at the rear corner.
+                    float pipeHeight=Mathf.Min(f.height-.45f,5.6f);
+                    for(float y=.12f;y<pipeHeight;y+=1)
+                        Place(Downpipe,root,f.Point(lot,f.wallX+.1f,y,-f.depth*.34f),yaw,"FacadeDownpipe_"+i+"_"+y);
+                    if(f.pitchedRoof)
+                        Place(Gutter,root,f.Point(lot,0,f.height-.75f,f.front+.08f),yaw,"FacadeGutter_"+i);
+                }
+            }
+            Debug.Log("URBAN_FACADE_DETAILS dressed="+count);
+        }
+        public static void Build(ResortSite site)
+        {
+            if(site==null||site.Data==null) return;
+            var root=new GameObject("UrbanPropsRealistic_F02").transform; root.SetParent(site.transform,false);
+            StreetFurniture(site,root);
+            var details=new GameObject("FacadeDetails").transform; details.SetParent(root,false); Facades(site,details);
+        }
+        public static void DressKioskJobBoard(ResortSite site, Transform root, GameObject jobs, TextMesh caption)
+        {
+            if(site==null || root==null || jobs==null) return;
+            var p=new Vector3(3.6f,0,1.9f);
+            var world=root.TransformPoint(p); var local=site.transform.InverseTransformPoint(world);
+            world.y=site.HeightAt(local.x,local.z)+site.transform.position.y+.035f;
+            p=root.InverseTransformPoint(world);
+            var scan=Place(Board,root,p,0,"Codex_KioskJobBoard",1.55f);
+            if(scan==null) return;
+            // Retain the original PanelStation, collider and its interaction location.
+            var renderer=jobs.GetComponent<MeshRenderer>(); if(renderer!=null) renderer.enabled=false;
+            var post=root.Find("JobPost"); if(post!=null) post.GetComponent<MeshRenderer>().enabled=false;
+            if(caption!=null) caption.transform.localPosition=p+new Vector3(0,1.27f,.17f);
+        }
+    }
+}

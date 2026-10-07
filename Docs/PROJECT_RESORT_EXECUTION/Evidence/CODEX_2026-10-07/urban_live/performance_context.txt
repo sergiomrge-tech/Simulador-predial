@@ -1,0 +1,1 @@
+Editor Unity 6000.6.2f1; screen=1101x506; cameraStart=(330.00, 5.50, 338.50); cameraEnd=(330.00, 5.50, 338.50); elapsedSeconds=1,51774590000059; renderedFrames=360; editor counters include scene/editor rendering, no standalone FPS claim.

@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-07",
+  "project": "FacilityOps",
+  "unity_version": "6000.6.2f1",
+  "mcp_version": "10.2.0",
+  "instance": "FacilityOps@80d9f59950304178",
+  "transport": "http",
+  "url": "http://127.0.0.1:8080/mcp",
+  "config_modified": false,
+  "config_sha256_before": "80d4e259c3f9ba738b6beb4d999adcf0536a2d75d70d49d8bc2680f271edf380",
+  "config_sha256_after": "80d4e259c3f9ba738b6beb4d999adcf0536a2d75d70d49d8bc2680f271edf380",
+  "other_servers_preserved": [
+    "node_repl",
+    "unreal_topgpt",
+    "gemini_topgpt"
+  ],
+  "verification": [
+    "live instances resource",
+    "live project info resource",
+    "live execute_code read installed package version",
+    "live PlayMode full-suite job ef1bb8844a2a47d59629048fbaa62f88: 30/30",
+    "live console: zero current errors"
+  ],
+  "test_duration_seconds": 260.6275304
+}

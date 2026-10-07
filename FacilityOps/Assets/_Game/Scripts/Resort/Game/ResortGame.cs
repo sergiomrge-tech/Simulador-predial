@@ -82,6 +82,8 @@ namespace ResortAurora.Game
             DayNight.Init(this, sun);
             Layout = StallBuilder.Build(this, site, site.StallX);
             DayNight.BuildPromenadeLamps(site, site.StallX);
+            CoastalUrbanProps.DressPromenadeLamps(DayNight);
+            DayNight.RegisterUrbanLamps(site);
             player.Bind(this);
 
             Parcels = new ParcelBook(Bus);

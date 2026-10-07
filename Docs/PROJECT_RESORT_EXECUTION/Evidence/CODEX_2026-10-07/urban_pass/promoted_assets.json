@@ -1,0 +1,189 @@
+[
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\exterior_aircon_unit_2K\\exterior_aircon_unit_2k.fbx",
+    "source_sha256": "6ec65a298df8af2734a36e2e92a7600ac34b603849d7caddf9b3f4b437be40d3",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\exterior_aircon_unit_2K\\exterior_aircon_unit_2k.fbx",
+    "selected": [
+      "exterior_aircon_unit"
+    ],
+    "size": [
+      0.799971342086792,
+      0.3741592466831207,
+      0.9278970956802368
+    ],
+    "polygons": 5453
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\fire_hydrant_2K\\fire_hydrant_2k.fbx",
+    "source_sha256": "cdc69fb6a7b681ab23cb90196af99a6f5215fd86aa99e6b668d676184e4dd221",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\fire_hydrant_2K\\fire_hydrant_2k.fbx",
+    "selected": [
+      "fire_hydrant",
+      "fire_hydrant_cap_01",
+      "fire_hydrant_cap_02",
+      "fire_hydrant_cap_03",
+      "fire_hydrant_chain"
+    ],
+    "size": [
+      0.2746235430240631,
+      0.31774359941482544,
+      0.799456000328064
+    ],
+    "polygons": 21855
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\painted_wooden_bench_2K\\painted_wooden_bench_2k.fbx",
+    "source_sha256": "aedd0af2d8c9cbf753aa20b193ddc17548d778abe1514fc8ae5b0c3af5cf1855",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\painted_wooden_bench_2K\\painted_wooden_bench_2k.fbx",
+    "selected": [
+      "painted_wooden_bench"
+    ],
+    "size": [
+      1.1649435758590698,
+      0.49654310941696167,
+      0.8892914652824402
+    ],
+    "polygons": 374
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\planter_box_01_2K\\planter_box_01_2k.fbx",
+    "source_sha256": "b95812e1ea5c0027e6a94ce4be32ae0f01340e69f69d696c9dd7137500dedaf7",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\planter_box_01_2K\\planter_box_01_2k.fbx",
+    "selected": [
+      "planter_box_01"
+    ],
+    "size": [
+      0.9126113653182983,
+      0.4136679768562317,
+      0.42496824264526367
+    ],
+    "polygons": 4667
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\rollershutter_door_2K\\rollershutter_door_2k.fbx",
+    "source_sha256": "b47380af9bb0fdf287cb95e7963deb3de28791a07d193da88a25532be26ca30e",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\rollershutter_door_2K\\rollershutter_door_2k.fbx",
+    "selected": [
+      "rollershutter_door"
+    ],
+    "size": [
+      1.0800000429153442,
+      0.30008581280708313,
+      2.3999733924865723
+    ],
+    "polygons": 355
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\rollershutter_window_01_2K\\rollershutter_window_01_2k.fbx",
+    "source_sha256": "d86997e012ff6b340587c4205516f5a39fdd9cfcdd5f49894d3681abfc89a656",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\rollershutter_window_01_2K\\rollershutter_window_01_2k.fbx",
+    "selected": [
+      "rollershutter_window_01"
+    ],
+    "size": [
+      2.100001096725464,
+      0.30008599162101746,
+      1.8507245779037476
+    ],
+    "polygons": 355
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\standing_chalkboard_01_2K\\standing_chalkboard_01_2k.fbx",
+    "source_sha256": "a59658d78548aa1c2f025e36db08072a11b99745d1b8fe933745568b306578f6",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\standing_chalkboard_01_2K\\standing_chalkboard_01_2k.fbx",
+    "selected": [
+      "standing_chalkboard_01"
+    ],
+    "size": [
+      0.9195267558097839,
+      0.7587047219276428,
+      1.5090323686599731
+    ],
+    "polygons": 1086
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\street_lamp_01_2K\\street_lamp_01_2k.fbx",
+    "source_sha256": "7d0553c30c887ac51fa69fe92c554b8e68aefbf94a2367bd612aef657b3b4cce",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\street_lamp_01_2K\\street_lamp_01_2k.fbx",
+    "selected": [
+      "street_lamp_01"
+    ],
+    "size": [
+      0.7043362259864807,
+      0.3864933252334595,
+      3.8705554008483887
+    ],
+    "polygons": 15305
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\street_lamp_02_2K\\street_lamp_02_2k.fbx",
+    "source_sha256": "aba2bbec3b9d4333733134abacef7f38dd48ad9b5e8b7cde2cf3c562a9fc363b",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\street_lamp_02_2K\\street_lamp_02_2k.fbx",
+    "selected": [
+      "street_lamp_02"
+    ],
+    "size": [
+      0.38649314641952515,
+      0.8067893385887146,
+      1.675041913986206
+    ],
+    "polygons": 10169
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\utility_box_01_2K\\utility_box_01_2k.fbx",
+    "source_sha256": "14809b4be24db3ac36af16081a7110684626b6a34ce2240b58f9567bfe7842d5",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\utility_box_01_2K\\utility_box_01_2k.fbx",
+    "selected": [
+      "utility_box_01_box_low"
+    ],
+    "size": [
+      0.5200002193450928,
+      0.4320000410079956,
+      1.1203334331512451
+    ],
+    "polygons": 2402
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\water_manhole_cover_2K\\water_manhole_cover_2k.fbx",
+    "source_sha256": "d198ea6870633f2716ae6b0f416907e25a4248d3cae7a94e66a1ca0294602fa5",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\water_manhole_cover_2K\\water_manhole_cover_2k.fbx",
+    "selected": [
+      "water_manhole_cover_frame",
+      "water_manhole_cover"
+    ],
+    "size": [
+      0.6907604932785034,
+      0.6907604932785034,
+      0.06761783361434937
+    ],
+    "polygons": 3171
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\modular_metal_gutter_2K\\modular_metal_gutter_2k.fbx",
+    "source_sha256": "3f5adcaefd85997a2593c6b0cc6d0143672ea4025173295a3abbf7407676d915",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\modular_metal_gutter_2K\\gutter_section.fbx",
+    "selected": [
+      "modular_metal_gutter"
+    ],
+    "size": [
+      1.5109202861785889,
+      0.3891298174858093,
+      0.1373935341835022
+    ],
+    "polygons": 370
+  },
+  {
+    "source": "D:\\ProjectResort_AssetLibrary\\PolyHaven_CC0\\UrbanKit\\modular_metal_gutter_2K\\modular_metal_gutter_2k.fbx",
+    "source_sha256": "3f5adcaefd85997a2593c6b0cc6d0143672ea4025173295a3abbf7407676d915",
+    "output": "FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\UrbanProps\\modular_metal_gutter_2K\\downpipe.fbx",
+    "selected": [
+      "modular_metal_gutter_section"
+    ],
+    "size": [
+      0.1573237180709839,
+      0.16103222966194153,
+      0.9999269247055054
+    ],
+    "polygons": 447
+  }
+]
