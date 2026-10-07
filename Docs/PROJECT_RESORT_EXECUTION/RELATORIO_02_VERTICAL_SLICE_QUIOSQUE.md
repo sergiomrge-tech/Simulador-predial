@@ -117,3 +117,25 @@ Depois abrir `ResortPrologue` e jogar: olhar o calçadão às 12h, 18h20 e 20h30
 - O mar ainda não tem espuma de profundidade, refração real nem reflexo de objetos (planar/SSR); o brilho da lua é fraco nas capturas testadas.
 - O céu noturno é preto com estrelas (sem gradiente azul); o crepúsculo ainda é um oliva sujo do skybox procedural.
 - Nada disso foi visto por uma pessoa: o gate visual e o humano continuam abertos.
+
+
+---
+
+# Adendo 4 — shader de céu próprio (2026-10-06, rodada 4)
+
+**Status: COMPILADO, TESTADO (20/20 PlayMode, modo gráfico, 0 `error CS` / `Shader error` no log) e CAPTURADO. Gate técnico segue PASS. `HUMAN_GATE_PENDING` continua; a Fase 03 NÃO está liberada.**
+
+## O que mudou
+- **Céu com shader próprio** (`Resources/ResortSky.shader`, `ResortAurora/Sky`, URP/HLSL) no lugar do `Skybox/Procedural`: gradiente zênite -> horizonte dirigido pelo relógio, faixa quente do lado do sol, halo e disco solar, dither de 1/255 contra faixas. O horizonte do céu usa exatamente a cor da névoa, então céu, mar distante e névoa se encontram sem emenda em qualquer hora.
+- **`DayNightCycle.Apply`**: cores de zênite/horizonte por hora (azul de dia, lilás/laranja na tarde dourada, violeta no crepúsculo, azul-marinho profundo à noite); o crepúsculo roxo só aparece enquanto a noite sobe (`dusk`). Se o shader não for encontrado, cai no céu procedural antigo.
+- Antes: pôr do sol com céu oliva sujo e noite preta pura; agora: pôr do sol violeta e noite azul-marinho com estrelas.
+
+## Evidência
+- Execução A (código antigo, linha de base desta rodada): `TESTS total=20 passed=20 failed=0`.
+- Execução B (código novo): `TESTS total=20 passed=20 failed=0`. Luminância média das capturas: pôr do sol 0,20–0,23 (antes 0,13–0,19), noite 0,13–0,19 (antes 0,11–0,18); dia e tarde sem mudança relevante.
+- Capturas reais regeneradas: `ArtSource/Blender/World/Reviews/F02/f02_{1..4}_*.png` (ver `f02_3_por_do_sol_praia_para_o_mar.png`, `f02_4_noite_praia_para_o_mar.png`, `f02_2_tarde_dourada_calcadao_leste.png`).
+
+## Limitações
+- Sem nuvens; a tarde dourada ficou mais lilás que alaranjada nas capturas olhando para leste (o brilho quente fica do lado do sol, para oeste); ajuste fino de arte depende de olho humano.
+- O desempenho não foi remedido nesta rodada (o céu é um único quad de skybox, custo desprezível); a medição de 2,8 ms do adendo 3 permanece a última real.
+- Nada disso foi visto por uma pessoa: gate visual e humano continuam abertos.

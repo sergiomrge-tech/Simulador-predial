@@ -20,6 +20,7 @@ namespace ResortAurora.Game
         ResortGame game;
         Light sun, moon;
         Material sky, lampMat, starMat, moonMat;
+        bool customSky;
         Transform dome;
         readonly List<Lamp> lamps = new List<Lamp>();
         Light[] pool;
@@ -40,7 +41,9 @@ namespace ResortAurora.Game
             moon = moonGo.AddComponent<Light>();
             moon.type = LightType.Directional; moon.color = new Color(0.55f, 0.66f, 1f); moon.intensity = 0f; moon.shadows = LightShadows.None;
 
-            var skyShader = Shader.Find("Skybox/Procedural");
+            var skyShader = Shader.Find("ResortAurora/Sky");
+            customSky = skyShader != null;
+            if (!customSky) skyShader = Shader.Find("Skybox/Procedural");                // stock fallback if the shader was stripped
             if (skyShader != null) { sky = new Material(skyShader) { name = "DaySky" }; RenderSettings.skybox = sky; }
             RenderSettings.sun = sun;
             RenderSettings.ambientMode = AmbientMode.Trilight;
@@ -174,11 +177,28 @@ namespace ResortAurora.Game
             RenderSettings.ambientEquatorColor = Amb(new Color(0.62f, 0.60f, 0.56f), new Color(0.40f, 0.30f, 0.30f), new Color(0.09f, 0.11f, 0.19f));
             RenderSettings.ambientGroundColor = Amb(new Color(0.40f, 0.34f, 0.26f), new Color(0.22f, 0.16f, 0.14f), new Color(0.05f, 0.05f, 0.08f));
             RenderSettings.reflectionIntensity = Mathf.Lerp(1f, 0.12f, night);
+            // horizon (also the fog and the sea's far colour): blue day, orange sunset, violet dusk, deep blue night; the dusk only shows while night rises
+            float dusk = Mathf.Sin(Mathf.Clamp01(night) * Mathf.PI) * (elev < 4f ? 1f : 0f);
             var horizon = Color.Lerp(Color.Lerp(new Color(0.72f, 0.82f, 0.92f), new Color(0.95f, 0.55f, 0.40f), golden), new Color(0.04f, 0.06f, 0.13f), night);
+            horizon = Color.Lerp(horizon, new Color(0.40f, 0.26f, 0.44f), dusk * 0.55f);
             RenderSettings.fogColor = horizon;
             RenderSettings.fogDensity = Mathf.Lerp(0.00035f, 0.0007f, Mathf.Max(golden * 0.6f, night));
 
-            if (sky != null)
+            if (sky != null && customSky)
+            {
+                var zenith = Color.Lerp(new Color(0.14f, 0.36f, 0.78f), new Color(0.22f, 0.27f, 0.54f), golden);
+                zenith = Color.Lerp(zenith, new Color(0.02f, 0.035f, 0.10f), night);
+                zenith = Color.Lerp(zenith, new Color(0.14f, 0.12f, 0.30f), dusk * 0.5f);
+                float glowK = golden * golden * (1f - night) * Mathf.Clamp01((elev + 22f) / 24f);     // the sky keeps its afterglow while the sun is a little below the horizon
+                sky.SetColor("_Zenith", zenith);
+                sky.SetColor("_Horizon", horizon);
+                sky.SetColor("_Ground", horizon * 0.55f);
+                sky.SetVector("_SunDir", sun != null ? -sun.transform.forward : Vector3.up);
+                sky.SetColor("_SunColor", (sun != null ? sun.color : Color.white) * Mathf.Clamp01((elev + 2f) / 6f));
+                sky.SetColor("_Glow", new Color(1f, 0.52f, 0.26f) * (0.55f * glowK));
+                sky.SetFloat("_SunDisc", 1f);
+            }
+            else if (sky != null)
             {
                 sky.SetFloat("_SunSize", 0.04f);
                 sky.SetFloat("_AtmosphereThickness", Mathf.Lerp(1.0f, 1.6f, golden));
