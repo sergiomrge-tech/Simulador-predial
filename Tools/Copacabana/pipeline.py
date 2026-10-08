@@ -125,9 +125,72 @@ def download(frame: Frame, output: Path):
                     pass
             errors.append(f"{endpoint}: {type(exc).__name__}: {exc}{detail}")
             time.sleep(2)
-    raise RuntimeError("Falha em TODOS os endpoints. Sem substituicao ficticia.\n" +
-                       "\n".join(errors))
+    print("Overpass servers unavailable; trying official OSM API tiled maps.", flush=True)
+    try:
+        return download_official_osm_api(frame, output)
+    except Exception as original:
+        raise RuntimeError("Falha em Overpass E API oficial; SEM dados ficticios.\n" +
+                           "\n".join(errors)) from original
 
+
+
+def download_official_osm_api(frame: Frame, output: Path, grid_size=3):
+    """Last-resort *real* geodata. Split to respect OSM API map node limits.
+
+    The OSM /api/0.6/map endpoint has strict tile/node and usage limits.
+    Intended only for a one-off research snapshot, not repeated bulk crawling.
+    """
+    south, west, north, east = frame.bbox()
+    merged = ET.Element("osm", version="0.6",
+                        generator="CopacabanaGISOfficialOSMTileMerge")
+    merged_items = {}
+    for ix in range(grid_size):
+        for iy in range(grid_size):
+            tile_w = west + (east - west) * ix / grid_size
+            tile_e = west + (east - west) * (ix + 1) / grid_size
+            tile_s = south + (north - south) * iy / grid_size
+            tile_n = south + (north - south) * (iy + 1) / grid_size
+            tile_bbox = ",".join(f"{v:.7f}" for v in
+                                 (tile_w, tile_s, tile_e, tile_n))
+            uri = "https://api.openstreetmap.org/api/0.6/map?" + parse.urlencode(
+                {"bbox": tile_bbox})
+            last_error = None
+            for attempt in range(3):
+                try:
+                    req = request.Request(uri, headers={
+                        "User-Agent": "CopacabanaGISPrototype/1.0 (one-time mapping)",
+                        "Accept": "application/xml",
+                    })
+                    with request.urlopen(req, timeout=65) as resp:
+                        content = resp.read(30_000_000)
+                    xml = ET.fromstring(content)
+                    if xml.tag != "osm":
+                        raise ValueError("Resposta invalida da API oficial")
+                    for item in xml:
+                        if item.tag in ("node", "way", "relation") and item.get("id"):
+                            merged_items[(item.tag, item.get("id"))] = item
+                    print(f"Official OSM tile {ix+1},{iy+1} OK ({len(content)} bytes)",
+                          flush=True)
+                    last_error = None
+                    break
+                except Exception as exc:
+                    last_error = exc
+                    time.sleep(2 + attempt * 2)
+            if last_error:
+                raise RuntimeError(f"OSM API tile {ix},{iy} failed: {last_error}")
+            time.sleep(0.5)  # be courteous to public OSM API
+    if sum(k[0] == "way" for k in merged_items) < 20:
+        raise RuntimeError("OSM official API returned too few ways")
+    for tag in ("node", "way", "relation"):
+        for (actual_tag, _), item in merged_items.items():
+            if tag == actual_tag:
+                merged.append(item)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_bytes(ET.tostring(merged, encoding="utf-8",
+                                  xml_declaration=True))
+    print(f"REAL OSM official API merge: {len(merged_items)} unique elements",
+          flush=True)
+    return "https://api.openstreetmap.org/api/0.6/map (tiled)"
 
 def tags(element):
     return {t.get("k"): t.get("v") for t in element.findall("tag")}
