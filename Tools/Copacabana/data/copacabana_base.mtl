@@ -1,0 +1,6 @@
+newmtl Building
+Kd 0.72 0.72 0.69
+newmtl Road
+Kd 0.17 0.17 0.18
+newmtl Land
+Kd 0.36 0.50 0.30
