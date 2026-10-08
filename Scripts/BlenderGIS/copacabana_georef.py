@@ -31,10 +31,15 @@ for ob in bpy.context.scene.objects:
         ob.rotation_euler.z = math.radians(
             config["axis_angle_degrees_counterclockwise_from_east"])
 
-# These values are computed from the Avenida Atlantica reference in
-# EPSG:32723 and shifted 300 m inward, as defined in region.json.
-# Recalculate if the region origin is changed.
-utm_easting, utm_northing = 685834.9456167693, 7458580.830587678
+# Compute precisely from Avenida Atlantica landmark with pyproj, never
+# use manually approximated UTM coordinates.
+from pyproj import Transformer
+transformer = Transformer.from_crs("EPSG:4326", config["crs"], always_xy=True)
+utm_reference_easting, utm_reference_northing = transformer.transform(
+    *config["avenue_reference_lonlat"])
+rad = math.radians(config["axis_angle_degrees_counterclockwise_from_east"])
+utm_easting = utm_reference_easting - math.sin(rad) * config["center_shift_inland_m"]
+utm_northing = utm_reference_northing + math.cos(rad) * config["center_shift_inland_m"]
 gis = GeoScene(bpy.context.scene)
 gis.crs = config["crs"]
 gis.setOriginPrj(utm_easting, utm_northing, synch=False)
