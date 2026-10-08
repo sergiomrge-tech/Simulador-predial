@@ -8,7 +8,7 @@ on:
       - '.github/workflows/copacabana_blendergis.yml'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   georeference:
     runs-on: ubuntu-latest
@@ -38,3 +38,14 @@ jobs:
           name: copacabana-real-blendergis-utm23s
           path: Tools/Copacabana/data/Copacabana_BlenderGIS_UTM23S.blend
           retention-days: 30
+      - name: Preserve georeferenced BlenderGIS scene in isolated branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f Tools/Copacabana/data/Copacabana_BlenderGIS_UTM23S.blend
+          if git diff --cached --quiet; then
+            echo "No changes to georeferenced blend"
+          else
+            git commit -m "GIS: archive georeferenced Copacabana BlenderGIS scene"
+            git push origin HEAD:codex/copacabana-osm-real-20261008
+          fi
