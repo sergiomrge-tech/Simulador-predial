@@ -29,9 +29,10 @@ ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data"
 REGION = ROOT / "region.json"
 ENDPOINTS = (
+    "https://overpass-api.de/api/interpreter",
     "https://overpass.kumi.systems/api/interpreter",
-    "https://overpass.nchc.org.tw/api/interpreter",
     "https://overpass.private.coffee/api/interpreter",
+    "https://overpass.nchc.org.tw/api/interpreter",
 )
 
 
@@ -78,17 +79,19 @@ class Frame:
 
 def ql_query(bounds):
     b = ",".join(f"{v:.7f}" for v in bounds)
-    # Nodes needed for way geometries and relation member ways.
-    return ("[out:xml][timeout:160];\n("
-            f'nwr["building"]({b});\n'
-            f'nwr["highway"]({b});\n'
-            f'nwr["natural"]({b});\n'
-            f'nwr["landuse"]({b});\n'
-            f'nwr["leisure"]({b});\n'
-            f'nwr["waterway"]({b});\n'
-            f'nwr["tourism"]({b});\n'
-            f'nwr["man_made"]({b});\n'
-            ");\n(._; >>;);\nout body;\n")
+    # Only ways and mapped trees: avoids huge multipolygon relation recursions
+    # that can crash public Overpass servers (or pull whole distant features).
+    return ("[out:xml][timeout:90];\n("
+            f'way["building"]({b});\n'
+            f'way["highway"]({b});\n'
+            f'way["natural"]({b});\n'
+            f'way["landuse"]({b});\n'
+            f'way["leisure"]({b});\n'
+            f'way["waterway"]({b});\n'
+            f'way["tourism"]({b});\n'
+            f'way["man_made"]({b});\n'
+            f'node["natural"="tree"]({b});\n'
+            ");\n(._; >;);\nout body;\n")
 
 
 def download(frame: Frame, output: Path):
@@ -96,9 +99,10 @@ def download(frame: Frame, output: Path):
     errors = []
     for endpoint in ENDPOINTS:
         try:
-            payload = parse.urlencode({"data": query}).encode("utf-8")
-            req = request.Request(endpoint, data=payload, headers={
-                "User-Agent": "CopacabanaGISPrototype/1.0 (OpenStreetMap data research)",
+            # GET works on more public Overpass reverse proxies than POST.
+            url = endpoint + "?" + parse.urlencode({"data": query})
+            req = request.Request(url, headers={
+                "User-Agent": "CopacabanaGISPrototype/1.0 (OSM research)",
                 "Accept": "application/xml",
             })
             with request.urlopen(req, timeout=240) as resp:
@@ -113,7 +117,13 @@ def download(frame: Frame, output: Path):
             print(f"REAL OSM downloaded from {endpoint}: {len(content):,} bytes")
             return endpoint
         except Exception as exc:
-            errors.append(f"{endpoint}: {type(exc).__name__}: {exc}")
+            detail = ""
+            if hasattr(exc, "read"):
+                try:
+                    detail = " | server: " + exc.read(700).decode("utf-8", "replace")
+                except Exception:
+                    pass
+            errors.append(f"{endpoint}: {type(exc).__name__}: {exc}{detail}")
             time.sleep(2)
     raise RuntimeError("Falha em TODOS os endpoints. Sem substituicao ficticia.\n" +
                        "\n".join(errors))
