@@ -1,0 +1,12 @@
+{
+  "name": "Copacabana real | recorte piloto do resort",
+  "reference": "Avenida Atlantica, Copacabana, Rio de Janeiro",
+  "avenue_reference_lonlat": [-43.18512336, -22.9725157],
+  "crs": "EPSG:32723",
+  "axis_angle_degrees_counterclockwise_from_east": 46.0,
+  "center_shift_inland_m": 300.0,
+  "along_coast_length_m": 2000.0,
+  "inland_width_m": 1000.0,
+  "area_m2": 2000000,
+  "note": "Area piloto rotacionada, centrada proximo a Avenida Atlantica. OSM real, sem prometer que abrange a totalidade da praia. Ajustar apos inspecao cartografica."
+}
