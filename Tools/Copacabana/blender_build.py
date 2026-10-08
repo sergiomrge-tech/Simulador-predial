@@ -34,6 +34,13 @@ bpy.ops.object.light_add(type="SUN", location=(250, -200, 1500))
 sun = bpy.context.object
 sun.data.energy = 3.0
 sun.rotation_euler = (0.5, -0.35, -0.45)
+# Ubuntu's Blender build can lack the optional OpenImageDenoiser library.
+# Keep a real render, but disable denoising for portable CPU headless mode.
+if scene.render.engine == "CYCLES":
+    if hasattr(scene.cycles, "use_denoising"):
+        scene.cycles.use_denoising = False
+    if hasattr(bpy.context.view_layer.cycles, "use_denoising"):
+        bpy.context.view_layer.cycles.use_denoising = False
 scene.render.resolution_x = 1280
 scene.render.resolution_y = 800
 scene.render.resolution_percentage = 100
