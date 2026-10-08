@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   blender-osm:
@@ -39,6 +39,19 @@ jobs:
             Tools/Copacabana/data/Copacabana_OSM_Base.blend
             Tools/Copacabana/data/Copacabana_OSM_Base_preview.png
           retention-days: 30
+
+      - name: Preserve Blender preview and editable project in isolated Git branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f Tools/Copacabana/data/Copacabana_OSM_Base.blend
+          git add -f Tools/Copacabana/data/Copacabana_OSM_Base_preview.png
+          if git diff --cached --quiet; then
+            echo "Blender files unchanged"
+          else
+            git commit -m "GIS: preserve verified Blender OSM scene and real render"
+            git push origin HEAD:codex/copacabana-osm-real-20261008
+          fi
 
   osm2world-real:
     if: ${{ !contains(github.event.head_commit.message, '[blender-only]') }}
