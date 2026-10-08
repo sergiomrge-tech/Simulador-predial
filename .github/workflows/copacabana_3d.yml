@@ -1,0 +1,88 @@
+name: Copacabana Blender + OSM2World | assets 3D
+on:
+  push:
+    branches:
+      - codex/copacabana-osm-real-20261008
+    paths:
+      - '.github/workflows/copacabana_3d.yml'
+      - 'Tools/Copacabana/blender_build.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  blender-osm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout already extracted REAL OSM geodata
+        uses: actions/checkout@v4
+        with:
+          ref: codex/copacabana-osm-real-20261008
+      - name: Install Blender using official Ubuntu repository
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq blender
+          blender --version
+      - name: Build actual Blender file and REAL base preview
+        run: |
+          test -s Tools/Copacabana/data/copacabana_base.obj
+          blender --background --factory-startup --python Tools/Copacabana/blender_build.py
+          test -s Tools/Copacabana/data/Copacabana_OSM_Base.blend
+          test -s Tools/Copacabana/data/Copacabana_OSM_Base_preview.png
+      - name: Upload editable Blender project and its screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: copacabana-real-blender-project-and-preview
+          path: |
+            Tools/Copacabana/data/Copacabana_OSM_Base.blend
+            Tools/Copacabana/data/Copacabana_OSM_Base_preview.png
+          retention-days: 30
+
+  osm2world-real:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout OSM snapshot
+        uses: actions/checkout@v4
+        with:
+          ref: codex/copacabana-osm-real-20261008
+      - name: Install Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Download official OSM2World release
+        run: |
+          curl -fLS --retry 2 --max-time 480 "https://osm2world.org/download/files/0.4.0/OSM2World-0.4.0-bin.zip" -o /tmp/osm2world.zip
+          mkdir -p /tmp/osm2world
+          unzip -q /tmp/osm2world.zip -d /tmp/osm2world
+          find /tmp/osm2world -maxdepth 4 -iname '*osm2world*' | head -n 25
+      - name: Generate GLB from REAL OpenStreetMap data
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import gzip
+          archive = Path("Tools/Copacabana/data/copacabana.osm.gz")
+          assert archive.is_file()
+          with gzip.open(archive,"rb") as src:
+              Path("/tmp/copacabana_real.osm").write_bytes(src.read())
+          PY
+          LAUNCHER=$(find /tmp/osm2world -type f -name 'osm2world.sh' | head -n 1)
+          if [ -z "$LAUNCHER" ]; then
+            LAUNCHER=$(find /tmp/osm2world -type f -name 'osm2world' | head -n 1)
+          fi
+          test -n "$LAUNCHER" || { echo "OSM2World launcher unavailable"; exit 1; }
+          chmod +x "$LAUNCHER"
+          OUT="$GITHUB_WORKSPACE/Tools/Copacabana/data/copacabana_osm2world.glb"
+          cd "$(dirname "$LAUNCHER")"
+          JAVA_TOOL_OPTIONS="-Xmx4g" "$LAUNCHER" -i /tmp/copacabana_real.osm -o "$OUT"
+          test -s "$OUT"
+          file "$OUT"
+      - name: Upload real OSM2World 3D model
+        uses: actions/upload-artifact@v4
+        with:
+          name: copacabana-real-osm2world-glb
+          path: Tools/Copacabana/data/copacabana_osm2world.glb
+          retention-days: 30
