@@ -23,12 +23,12 @@ jobs:
       - name: Install Blender using official Ubuntu repository
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq blender
+          sudo apt-get install -y -qq blender libegl1 libgl1 libgl1-mesa-dri libxrender1 libxext6 libxi6
           blender --version
       - name: Build actual Blender file and REAL base preview
         run: |
           test -s Tools/Copacabana/data/copacabana_base.obj
-          blender --background --factory-startup --python Tools/Copacabana/blender_build.py
+          blender --background --factory-startup --python-expr "import bpy; bpy.context.scene.render.engine='CYCLES'; bpy.context.scene.cycles.samples=8" --python Tools/Copacabana/blender_build.py
           test -s Tools/Copacabana/data/Copacabana_OSM_Base.blend
           test -s Tools/Copacabana/data/Copacabana_OSM_Base_preview.png
       - name: Upload editable Blender project and its screenshot
@@ -41,6 +41,7 @@ jobs:
           retention-days: 30
 
   osm2world-real:
+    if: ${{ !contains(github.event.head_commit.message, '[blender-only]') }}
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
