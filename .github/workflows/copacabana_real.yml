@@ -1,0 +1,94 @@
+name: Copacabana OSM real | 2km2
+on:
+  push:
+    branches:
+      - codex/copacabana-osm-real-20261008
+    paths:
+      - 'Tools/Copacabana/**'
+      - '!Tools/Copacabana/data/**'
+      - '.github/workflows/copacabana_real.yml'
+  workflow_dispatch:
+    inputs:
+      osm2world:
+        description: 'Baixar OSM2World 0.4.0 (431 MB) e criar GLB extra'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  real-geography:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout isolated geographic branch
+        uses: actions/checkout@v4
+        with:
+          ref: codex/copacabana-osm-real-20261008
+          persist-credentials: true
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: GIS dependencies
+        run: python -m pip install -r Tools/Copacabana/requirements.txt
+      - name: Offline coordinate and fake-data tests
+        run: python -m unittest discover -s Tools/Copacabana/tests -v
+      - name: Download real OpenStreetMap and generate clipped city base
+        run: python Tools/Copacabana/pipeline.py --download
+      - name: Validate output sizes and entities
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("Tools/Copacabana/data")
+          m = json.loads((p/"report.json").read_text())
+          assert m["game_area_m2"] == 2_000_000, m
+          assert m["real_osm_entities_within_roi"].get("building", 0) >= 20, m
+          assert m["real_osm_entities_within_roi"].get("road", 0) >= 10, m
+          for name in ["copacabana.osm", "copacabana_base.obj",
+                       "copacabana_base.mtl", "copacabana.osm.gz",
+                       "buildings.geojson", "roads.geojson", "roi.geojson"]:
+              assert (p/name).stat().st_size > 0, name
+          print("Real OSM geometry VALIDATED:", m["real_osm_entities_within_roi"])
+          PY
+      - name: OSM2World official optional conversion
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.osm2world }}
+        run: |
+          curl -fLS --retry 2 --max-time 300 "https://osm2world.org/download/files/0.4.0/OSM2World-0.4.0-bin.zip" -o /tmp/osm2world.zip
+          unzip -q /tmp/osm2world.zip -d /tmp/osm2world
+          find /tmp/osm2world -maxdepth 5 -iname '*osm2world*' | head -n 30
+          LAUNCHER=$(find /tmp/osm2world -type f -name 'osm2world.sh' | head -n 1)
+          if [ -z "$LAUNCHER" ]; then
+            LAUNCHER=$(find /tmp/osm2world -type f -name 'osm2world' | head -n 1)
+          fi
+          test -n "$LAUNCHER" || { echo "OSM2World launcher not found"; exit 1; }
+          chmod +x "$LAUNCHER"
+          "$LAUNCHER" -i Tools/Copacabana/data/copacabana.osm -o Tools/Copacabana/data/copacabana_osm2world.glb
+          test -s Tools/Copacabana/data/copacabana_osm2world.glb
+      - name: Upload reproducible GIS and model artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: copacabana-osm-real-2km2
+          path: Tools/Copacabana/data/
+          retention-days: 30
+      - name: Commit GIS snapshot to isolated branch (not main)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f Tools/Copacabana/data/copacabana.osm.gz
+          git add -f Tools/Copacabana/data/buildings.geojson
+          git add -f Tools/Copacabana/data/roads.geojson
+          git add -f Tools/Copacabana/data/coast_and_land.geojson
+          git add -f Tools/Copacabana/data/roi.geojson
+          git add -f Tools/Copacabana/data/report.json
+          git add -f Tools/Copacabana/data/copacabana_base.obj
+          git add -f Tools/Copacabana/data/copacabana_base.mtl
+          if git diff --cached --quiet; then
+            echo "No new geometry to commit"
+          else
+            git commit -m "GIS: snapshot real OSM Copacabana geometry (ODbL)"
+            git push origin HEAD:codex/copacabana-osm-real-20261008
+          fi
