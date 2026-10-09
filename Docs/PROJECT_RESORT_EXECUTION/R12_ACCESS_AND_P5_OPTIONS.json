@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 1,
+  "status": "OSM_ACCESS_AND_P5_OPTIONS_ONLY_GAMEPLAY_BLOCKED",
+  "source_sha256": {
+    "gis_parcel_report": "cf90d8fffcb39e2d9f7e02b172e6c2a354b7e97d65131bf5896a1b5763602a84",
+    "osm_snapshot_gzip": "8fa230fc41b40234d4e37e17aa18b1bb697a20e33750293d440e110e8ee0bd8f",
+    "buildings": "cac5b363ad3c4734bd086a83715b6e52f454317c3fc7782a884d3efbe362a2d6",
+    "geometry_frame": "fcd311fd3545e5b2972bb42f7ce9b8e3642c3f24643ae635fc98998f5d5ba5ec",
+    "legacy_gameplay_site": "426b3a91c21639d25b79bd0b8efe61d2d5f012bb36aaa23941cb592e45a08435"
+  },
+  "frozen_input_revision": "Resort-Simulator- commit 5217a65751a334f8ea3934ae1e7f0c75f7594a9c",
+  "source_way_segments_access": 3401,
+  "source_tagged_pedestrian_segments": 1936,
+  "parcel_access_audit": {
+    "P0": {
+      "status": "PLANAR_CANDIDATE_REQUIRES_NATIVE_NAVMESH",
+      "candidate_center_xy_m": {
+        "x": 325,
+        "y": -270
+      },
+      "nearest_pedestrian_way": {
+        "distance_m": 10.664,
+        "source_way_id": "way/966307850",
+        "highway_type": "footway",
+        "line_is_road_center_not_verified_sidewalk": false
+      },
+      "nearest_street_centerline": {
+        "distance_m": 33.925,
+        "source_way_id": "way/30149969",
+        "highway_type": "service",
+        "line_is_road_center_not_verified_sidewalk": true
+      },
+      "accessible_in_game": false,
+      "note": "Distances are straight-line to OSM ways, not a walking route or player navmesh."
+    },
+    "P1": {
+      "status": "PLANAR_CANDIDATE_REQUIRES_NATIVE_NAVMESH",
+      "candidate_center_xy_m": {
+        "x": 25,
+        "y": -345
+      },
+      "nearest_pedestrian_way": {
+        "distance_m": 32.157,
+        "source_way_id": "way/42292908",
+        "highway_type": "footway",
+        "line_is_road_center_not_verified_sidewalk": false
+      },
+      "nearest_street_centerline": {
+        "distance_m": 75.727,
+        "source_way_id": "way/1447369171",
+        "highway_type": "service",
+        "line_is_road_center_not_verified_sidewalk": true
+      },
+      "accessible_in_game": false,
+      "note": "Distances are straight-line to OSM ways, not a walking route or player navmesh."
+    },
+    "P2": {
+      "status": "PLANAR_CANDIDATE_REQUIRES_NATIVE_NAVMESH",
+      "candidate_center_xy_m": {
+        "x": 625,
+        "y": 180
+      },
+      "nearest_pedestrian_way": {
+        "distance_m": 148.095,
+        "source_way_id": "way/782532807",
+        "highway_type": "steps",
+        "line_is_road_center_not_verified_sidewalk": false
+      },
+      "nearest_street_centerline": {
+        "distance_m": 54.866,
+        "source_way_id": "way/75035874",
+        "highway_type": "residential",
+        "line_is_road_center_not_verified_sidewalk": true
+      },
+      "accessible_in_game": false,
+      "note": "Distances are straight-line to OSM ways, not a walking route or player navmesh."
+    },
+    "P3": {
+      "status": "PLANAR_CANDIDATE_REQUIRES_NATIVE_NAVMESH",
+      "candidate_center_xy_m": {
+        "x": 500,
+        "y": 280
+      },
+      "nearest_pedestrian_way": {
+        "distance_m": 79.694,
+        "source_way_id": "way/372967306",
+        "highway_type": "path",
+        "line_is_road_center_not_verified_sidewalk": false
+      },
+      "nearest_street_centerline": {
+        "distance_m": 118.838,
+        "source_way_id": "way/42161338",
+        "highway_type": "residential",
+        "line_is_road_center_not_verified_sidewalk": true
+      },
+      "accessible_in_game": false,
+      "note": "Distances are straight-line to OSM ways, not a walking route or player navmesh."
+    },
+    "P4": {
+      "status": "PLANAR_CANDIDATE_REQUIRES_NATIVE_NAVMESH",
+      "candidate_center_xy_m": {
+        "x": -875,
+        "y": 280
+      },
+      "nearest_pedestrian_way": {
+        "distance_m": 214.476,
+        "source_way_id": "way/61015378",
+        "highway_type": "pedestrian",
+        "line_is_road_center_not_verified_sidewalk": false
+      },
+      "nearest_street_centerline": {
+        "distance_m": 98.922,
+        "source_way_id": "way/72157023",
+        "highway_type": "residential",
+        "line_is_road_center_not_verified_sidewalk": true
+      },
+      "accessible_in_game": false,
+      "note": "Distances are straight-line to OSM ways, not a walking route or player navmesh."
+    },
+    "P5": {
+      "status": "UNPLACED",
+      "nearest_pedestrian_way": null,
+      "nearest_street_centerline": null,
+      "accessible_in_game": false
+    },
+    "P6": {
+      "status": "PLANAR_CANDIDATE_REQUIRES_NATIVE_NAVMESH",
+      "candidate_center_xy_m": {
+        "x": 600,
+        "y": 255
+      },
+      "nearest_pedestrian_way": {
+        "distance_m": 74.703,
+        "source_way_id": "way/372967306",
+        "highway_type": "path",
+        "line_is_road_center_not_verified_sidewalk": false
+      },
+      "nearest_street_centerline": {
+        "distance_m": 121.596,
+        "source_way_id": "way/75035874",
+        "highway_type": "residential",
+        "line_is_road_center_not_verified_sidewalk": true
+      },
+      "accessible_in_game": false,
+      "note": "Distances are straight-line to OSM ways, not a walking route or player navmesh."
+    },
+    "P7": {
+      "status": "PLANAR_CANDIDATE_REQUIRES_NATIVE_NAVMESH",
+      "candidate_center_xy_m": {
+        "x": -50,
+        "y": -345
+      },
+      "nearest_pedestrian_way": {
+        "distance_m": 28.545,
+        "source_way_id": "way/42292908",
+        "highway_type": "footway",
+        "line_is_road_center_not_verified_sidewalk": false
+      },
+      "nearest_street_centerline": {
+        "distance_m": 66.857,
+        "source_way_id": "way/1447369171",
+        "highway_type": "service",
+        "line_is_road_center_not_verified_sidewalk": true
+      },
+      "accessible_in_game": false,
+      "note": "Distances are straight-line to OSM ways, not a walking route or player navmesh."
+    }
+  },
+  "original_p5": {
+    "width_m": 240,
+    "depth_m": 190,
+    "area_m2": 45600,
+    "status": "NO_CLEAR_PLANAR_CANDIDATE_ON_25M_GRID"
+  },
+  "p5_reduced_footprint_options": [
+    {
+      "width_m": 180,
+      "depth_m": 125,
+      "area_m2": 22500,
+      "free_grid_points": 85,
+      "candidate_center_xy_m": {
+        "x": -225,
+        "y": 380
+      },
+      "candidate_rectangle_xy_m": [
+        -315.0,
+        317.5,
+        -135.0,
+        442.5
+      ],
+      "proposal_only": true,
+      "gameplay_migration_enabled": false
+    },
+    {
+      "width_m": 150,
+      "depth_m": 125,
+      "area_m2": 18750,
+      "free_grid_points": 93,
+      "candidate_center_xy_m": {
+        "x": -200,
+        "y": 380
+      },
+      "candidate_rectangle_xy_m": [
+        -275.0,
+        317.5,
+        -125.0,
+        442.5
+      ],
+      "proposal_only": true,
+      "gameplay_migration_enabled": false
+    },
+    {
+      "width_m": 120,
+      "depth_m": 100,
+      "area_m2": 12000,
+      "free_grid_points": 131,
+      "candidate_center_xy_m": {
+        "x": 825,
+        "y": 305
+      },
+      "candidate_rectangle_xy_m": [
+        765.0,
+        255.0,
+        885.0,
+        355.0
+      ],
+      "proposal_only": true,
+      "gameplay_migration_enabled": false
+    },
+    {
+      "width_m": 100,
+      "depth_m": 80,
+      "area_m2": 8000,
+      "free_grid_points": 199,
+      "candidate_center_xy_m": {
+        "x": -300,
+        "y": 330
+      },
+      "candidate_rectangle_xy_m": [
+        -350.0,
+        290.0,
+        -250.0,
+        370.0
+      ],
+      "proposal_only": true,
+      "gameplay_migration_enabled": false
+    },
+    {
+      "width_m": 80,
+      "depth_m": 60,
+      "area_m2": 4800,
+      "free_grid_points": 233,
+      "candidate_center_xy_m": {
+        "x": 900,
+        "y": 255
+      },
+      "candidate_rectangle_xy_m": [
+        860.0,
+        225.0,
+        940.0,
+        285.0
+      ],
+      "proposal_only": true,
+      "gameplay_migration_enabled": false
+    }
+  ],
+  "original_plot_geometry_preserved": true,
+  "original_gameplay_site_preserved": true,
+  "migration_enabled": false,
+  "player_spawn_mapped": false,
+  "gameplay_routes_validated": false,
+  "all_options_unapproved": true,
+  "limitations": [
+    "OSM pedestrian way tagging is incomplete; absence is not proof of no sidewalk",
+    "Straight-line distance does not mean route/navmesh access",
+    "Use/reservation of properties is NOT known; candidates may be occupied or inaccessible",
+    "P5 reduction changes game design and needs explicit approval before gameplay migration",
+    "Unity collision, ground height, NPC and quest tests still required"
+  ]
+}

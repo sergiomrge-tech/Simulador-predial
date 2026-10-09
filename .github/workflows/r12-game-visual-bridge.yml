@@ -61,6 +61,7 @@ jobs:
       - name: Recompute conservative gameplay-lot feasibility against exact OSM snapshot
         run: |
           python3 Tools/Bridge/analyze_r12_geo_anchor_feasibility.py --visual frozen-visual --check
+          python3 Tools/Bridge/audit_r12_access_and_p5_options.py --visual frozen-visual --check
           echo "R12_OSM_ANCHOR_CANDIDATES_SOURCE_MATCH_PASS (migration disabled)"
       - name: Assert no staged R12 binaries or Unity cache slipped into Git
         run: |
