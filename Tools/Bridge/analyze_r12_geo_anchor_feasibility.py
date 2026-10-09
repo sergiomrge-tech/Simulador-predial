@@ -232,4 +232,24 @@ if __name__=="__main__":
     opts=ap.parse_args()
     m=main(opts.visual,not opts.check)
     if opts.check:
-        assert json.loads(REPORT.read_text(encoding="utf-8"))==m, "NOT_REPRODUCIBLE"
+        old=json.loads(REPORT.read_text(encoding="utf-8"))
+        if old!=m:
+            mismatches=[]
+            def compare(a,b,where="report"):
+                if type(a)!=type(b):
+                    mismatches.append((where,"different types",str(type(a)),str(type(b))))
+                elif isinstance(a,dict):
+                    for k in sorted(set(a)|set(b)):
+                        if k not in a or k not in b:
+                            mismatches.append((where+"."+k,"key absent",str(k in a),str(k in b)))
+                        else:compare(a[k],b[k],where+"."+k)
+                elif isinstance(a,list):
+                    if len(a)!=len(b):mismatches.append((where,"different length",str(len(a)),str(len(b))))
+                    else:
+                        for i,(x,y) in enumerate(zip(a,b)):compare(x,y,where+"["+str(i)+"]")
+                elif a!=b:
+                    mismatches.append((where,"different value",repr(a),repr(b)))
+            compare(old,m)
+            for diff in mismatches[:22]:
+                print("R12_GEO_CROSS_PLATFORM_DIFF",*diff,flush=True)
+            raise SystemExit("NOT_REPRODUCIBLE "+str(len(mismatches))+" field(s)")
