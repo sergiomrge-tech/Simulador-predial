@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "status": "EDITOR_PREVIEW_MARKERS_ONLY_NOT_APPROVED_FOR_GAMEPLAY",
+  "source_revision": "Resort-Simulator- R13 Pass2 5217a65751a334f8ea3934ae1e7f0c75f7594a9c",
+  "r12_frame": {
+    "axis_angle_degrees": 46.0,
+    "along_coast_m": 2000,
+    "inland_m": 1000,
+    "crs": "EPSG:32723",
+    "source_frame_sha256": "fcd311fd3545e5b2972bb42f7ce9b8e3642c3f24643ae635fc98998f5d5ba5ec"
+  },
+  "source_report_sha256": "cf90d8fffcb39e2d9f7e02b172e6c2a354b7e97d65131bf5896a1b5763602a84",
+  "source_access_report_sha256": "ec5ed5f779189a0d1ca9f746c7033070b9f392b4748c36094a11b7806d4eaf1f",
+  "blender_to_unity_transform": "WorldX=x*cos(46)-y*sin(46); WorldZ=-x*sin(46)-y*cos(46).",
+  "world_y_verified": false,
+  "scene_alignment_verified_natively": false,
+  "playmode_navmesh_pass": false,
+  "gameplay_spawn_enabled": false,
+  "user_original_gameplay_files_untouched": true,
+  "excluded": [
+    "P5 — no valid original-size planar location",
+    "HOME_DOOR — entrance not geo-verified",
+    "STALL_PROMENADE — pedestrian path not geo-verified"
+  ],
+  "candidates": [
+    {
+      "id": "P0",
+      "status": "EDITOR_REVIEW_ONLY_NOT_A_SPAWN_OR_RESERVED_LOT",
+      "planar_only": true,
+      "world_height_y": null,
+      "center_world_xz": {
+        "x": 419.985716,
+        "z": -46.227675
+      },
+      "outline_world_xz": [
+        {
+          "x": 422.21778,
+          "z": -39.901705
+        },
+        {
+          "x": 426.38573,
+          "z": -44.217744
+        },
+        {
+          "x": 417.753653,
+          "z": -52.553645
+        },
+        {
+          "x": 413.585703,
+          "z": -48.237606
+        }
+      ],
+      "local_rectangle_xy": [
+        322.0,
+        -276.0,
+        328.0,
+        -264.0
+      ],
+      "sector": "S06",
+      "source": "R12_GEO_ANCHOR_FEASIBILITY.json"
+    },
+    {
+      "id": "P1",
+      "status": "EDITOR_REVIEW_ONLY_NOT_A_SPAWN_OR_RESERVED_LOT",
+      "planar_only": true,
+      "world_height_y": null,
+      "center_world_xz": {
+        "x": 265.53869,
+        "z": 221.673643
+      },
+      "outline_world_xz": [
+        {
+          "x": 264.445551,
+          "z": 240.0803
+        },
+        {
+          "x": 283.895985,
+          "z": 219.938786
+        },
+        {
+          "x": 266.63183,
+          "z": 203.266985
+        },
+        {
+          "x": 247.181396,
+          "z": 223.4085
+        }
+      ],
+      "local_rectangle_xy": [
+        11.0,
+        -357.0,
+        39.0,
+        -333.0
+      ],
+      "sector": "S05",
+      "source": "R12_GEO_ANCHOR_FEASIBILITY.json"
+    },
+    {
+      "id": "P2",
+      "status": "EDITOR_REVIEW_ONLY_NOT_A_SPAWN_OR_RESERVED_LOT",
+      "planar_only": true,
+      "world_height_y": null,
+      "center_world_xz": {
+        "x": 304.680317,
+        "z": -574.625882
+      },
+      "outline_world_xz": [
+        {
+          "x": 305.173946,
+          "z": -546.345918
+        },
+        {
+          "x": 332.960281,
+          "z": -575.11951
+        },
+        {
+          "x": 304.186689,
+          "z": -602.905845
+        },
+        {
+          "x": 276.400354,
+          "z": -574.132253
+        }
+      ],
+      "local_rectangle_xy": [
+        605.0,
+        160.0,
+        645.0,
+        200.0
+      ],
+      "sector": "S08",
+      "source": "R12_GEO_ANCHOR_FEASIBILITY.json"
+    },
+    {
+      "id": "P3",
+      "status": "EDITOR_REVIEW_ONLY_NOT_A_SPAWN_OR_RESERVED_LOT",
+      "planar_only": true,
+      "world_height_y": null,
+      "center_world_xz": {
+        "x": 145.914041,
+        "z": -554.174244
+      },
+      "outline_world_xz": [
+        {
+          "x": 143.181192,
+          "z": -508.1576
+        },
+        {
+          "x": 191.807278,
+          "z": -558.511386
+        },
+        {
+          "x": 148.64689,
+          "z": -600.190888
+        },
+        {
+          "x": 100.020804,
+          "z": -549.837102
+        }
+      ],
+      "local_rectangle_xy": [
+        465.0,
+        250.0,
+        535.0,
+        310.0
+      ],
+      "sector": "S07",
+      "source": "R12_GEO_ANCHOR_FEASIBILITY.json"
+    },
+    {
+      "id": "P4",
+      "status": "EDITOR_REVIEW_ONLY_NOT_A_SPAWN_OR_RESERVED_LOT",
+      "planar_only": true,
+      "world_height_y": null,
+      "center_world_xz": {
+        "x": -809.241218,
+        "z": 434.917982
+      },
+      "outline_world_xz": [
+        {
+          "x": -811.727253,
+          "z": 495.074607
+        },
+        {
+          "x": -749.208,
+          "z": 430.334025
+        },
+        {
+          "x": -806.755184,
+          "z": 374.761356
+        },
+        {
+          "x": -869.274437,
+          "z": 439.501938
+        }
+      ],
+      "local_rectangle_xy": [
+        -920.0,
+        240.0,
+        -830.0,
+        320.0
+      ],
+      "sector": "S00",
+      "source": "R12_GEO_ANCHOR_FEASIBILITY.json"
+    },
+    {
+      "id": "P6",
+      "status": "EDITOR_REVIEW_ONLY_NOT_A_SPAWN_OR_RESERVED_LOT",
+      "planar_only": true,
+      "world_height_y": null,
+      "center_world_xz": {
+        "x": 233.363373,
+        "z": -608.741765
+      },
+      "outline_world_xz": [
+        {
+          "x": 231.124153,
+          "z": -534.445157
+        },
+        {
+          "x": 307.536574,
+          "z": -613.572535
+        },
+        {
+          "x": 235.602594,
+          "z": -683.038372
+        },
+        {
+          "x": 159.190173,
+          "z": -603.910994
+        }
+      ],
+      "local_rectangle_xy": [
+        545.0,
+        205.0,
+        655.0,
+        305.0
+      ],
+      "sector": "S08",
+      "source": "R12_GEO_ANCHOR_FEASIBILITY.json"
+    },
+    {
+      "id": "P7",
+      "status": "EDITOR_REVIEW_ONLY_NOT_A_SPAWN_OR_RESERVED_LOT",
+      "planar_only": true,
+      "world_height_y": null,
+      "center_world_xz": {
+        "x": 213.439313,
+        "z": 275.624128
+      },
+      "outline_world_xz": [
+        {
+          "x": 193.09319,
+          "z": 325.484285
+        },
+        {
+          "x": 262.559027,
+          "z": 253.550305
+        },
+        {
+          "x": 233.785435,
+          "z": 225.76397
+        },
+        {
+          "x": 164.319598,
+          "z": 297.69795
+        }
+      ],
+      "local_rectangle_xy": [
+        -100.0,
+        -365.0,
+        0.0,
+        -325.0
+      ],
+      "sector": "S04",
+      "source": "R12_GEO_ANCHOR_FEASIBILITY.json"
+    }
+  ]
+}
