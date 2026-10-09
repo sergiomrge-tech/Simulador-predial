@@ -1,0 +1,16 @@
+{
+    "status": "R12_EDITOR_GIS_CANDIDATES_NATIVE_PASS_NOT_GAMEPLAY",
+    "unity_version": "6000.6.2f1",
+    "source_scene_sha256": "ed3d5295473aa8353d9f06cd38173b2c2efb87efb326132f346b85d0b27250d5",
+    "preview_scene": "Assets/_Game/Preview/CopacabanaR12/Scenes/R12_Copacabana_GeometricCandidates_Review.unity",
+    "source_scene": "Assets/_Game/Preview/CopacabanaR12/Scenes/R12_Copacabana_Lojas_Vitrines_Entradas.unity",
+    "candidates": 7,
+    "outline_segments": 28,
+    "visible_labels": 7,
+    "source_scene_bytes_preserved": true,
+    "game_scene_unmodified": true,
+    "world_y_verified": false,
+    "playable_migration_enabled": false,
+    "native_navmesh_tested": false,
+    "colliders_validated": false
+}

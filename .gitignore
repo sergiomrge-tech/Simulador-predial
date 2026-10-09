@@ -34,3 +34,6 @@ FacilityOps/Assets/_Game/ThirdParty.meta
 /R12_anchor_native_unity_2.log
 /R12_anchor_native_unity_3.log
 /R12_anchor_upm.log
+# Native GIS-marker Editor logs retained only on QA computer
+/R12_geo_marker_native_unity.log
+/R12_geo_marker_upm.log
