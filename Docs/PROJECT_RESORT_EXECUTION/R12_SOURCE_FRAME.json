@@ -1,0 +1,12 @@
+{
+  "name": "Copacabana real - frame de origem do recorte Blender/OSM",
+  "source": "sergiomrge-tech/Simulador-predial/Tools/Copacabana/region.json (codex/copacabana-osm-real-20261008)",
+  "avenue_reference_lonlat": [-43.18512336, -22.9725157],
+  "crs": "EPSG:32723",
+  "axis_angle_degrees_counterclockwise_from_east": 46.0,
+  "center_shift_inland_m": 300.0,
+  "along_coast_length_m": 2000.0,
+  "inland_width_m": 1000.0,
+  "game_area_m2": 2000000,
+  "copyright": "© OpenStreetMap contributors — ODbL 1.0"
+}

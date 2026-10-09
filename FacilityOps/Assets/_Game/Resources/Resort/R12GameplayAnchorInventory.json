@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "status": "NOT_APPROVED_MUST_KEEP_LEGACY_GAMEPLAY_WORLD",
+  "approved": false,
+  "source_site_sha256": "5b6adfbcf9011a531467644026cfd471af8ee88dfef048e195d1481506d800c0",
+  "source_frame_sha256": "fcd311fd3545e5b2972bb42f7ce9b8e3642c3f24643ae635fc98998f5d5ba5ec",
+  "source_gameplay_scene": "Assets/_Game/Scenes/ResortPrologue.unity",
+  "target_scene": "Assets/_Game/Preview/CopacabanaR12/Scenes/R12_Copacabana_Lojas_Vitrines_Entradas.unity",
+  "legacy_size_m": {
+    "x": 900.0,
+    "z": 720.0
+  },
+  "r12_geo": {
+    "crs": "EPSG:32723",
+    "along_coast_m": 2000,
+    "inland_m": 1000,
+    "axis_angle_degrees": 46.0
+  },
+  "transform_policy": "ONE_TO_ONE_METRES_RIGID_ROTATION_TRANSLATION_ONLY_NO_RESIZE",
+  "migration_enabled": false,
+  "anchors": [
+    {
+      "id": "HOME_DOOR",
+      "label": "Edifício Santa Clara — Apto 12",
+      "source": "home.x / home.doorZ",
+      "role": "player_spawn",
+      "legacy": {
+        "x": 330.0,
+        "z": 338.5
+      },
+      "target": null,
+      "status": "GEOGRAPHIC_PLACEMENT_UNVERIFIED"
+    },
+    {
+      "id": "STALL_PROMENADE",
+      "label": "Quiosque inicial",
+      "source": "stall.x / interpolated promenade",
+      "role": "shop",
+      "legacy": {
+        "x": 450.0,
+        "z": 255.995
+      },
+      "target": null,
+      "status": "GEOGRAPHIC_PLACEMENT_UNVERIFIED"
+    },
+    {
+      "id": "PARCEL_P0",
+      "label": "Ponto da barraca",
+      "source": "parcels.P0 (rectangle center)",
+      "role": "parcel",
+      "legacy": {
+        "x": 450.0,
+        "z": 244.0
+      },
+      "target": null,
+      "status": "GEOGRAPHIC_PLACEMENT_UNVERIFIED"
+    },
+    {
+      "id": "PARCEL_P1",
+      "label": "Faixa do quiosque",
+      "source": "parcels.P1 (rectangle center)",
+      "role": "parcel",
+      "legacy": {
+        "x": 450.0,
+        "z": 238.0
+      },
+      "target": null,
+      "status": "GEOGRAPHIC_PLACEMENT_UNVERIFIED"
+    },
+    {
+      "id": "PARCEL_P2",
+      "label": "Sobrado do Seu Tonico",
+      "source": "parcels.P2 (rectangle center)",
+      "role": "parcel",
+      "legacy": {
+        "x": 400.0,
+        "z": 350.0
+      },
+      "target": null,
+      "status": "GEOGRAPHIC_PLACEMENT_UNVERIFIED"
+    },
+    {
+      "id": "PARCEL_P3",
+      "label": "Quarteirão vizinho",
+      "source": "parcels.P3 (rectangle center)",
+      "role": "parcel",
+      "legacy": {
+        "x": 460.0,
+        "z": 360.0
+      },
+      "target": null,
+      "status": "GEOGRAPHIC_PLACEMENT_UNVERIFIED"
+    },
+    {
+      "id": "PARCEL_P4",
+      "label": "Grande Hotel Palmeiras",
+      "source": "parcels.P4 (rectangle center)",
+      "role": "parcel",
+      "legacy": {
+        "x": 550.0,
+        "z": 370.0
+      },
+      "target": null,
+      "status": "GEOGRAPHIC_PLACEMENT_UNVERIFIED"
+    },
+    {
+      "id": "PARCEL_P5",
+      "label": "Platô das Palmeiras",
+      "source": "parcels.P5 (rectangle center)",
+      "role": "parcel",
+      "legacy": {
+        "x": 450.0,
+        "z": 575.0
+      },
+      "target": null,
+      "status": "GEOGRAPHIC_PLACEMENT_UNVERIFIED"
+    },
+    {
+      "id": "PARCEL_P6",
+      "label": "Ponta do Farol",
+      "source": "parcels.P6 (rectangle center)",
+      "role": "parcel",
+      "legacy": {
+        "x": 835.0,
+        "z": 380.0
+      },
+      "target": null,
+      "status": "GEOGRAPHIC_PLACEMENT_UNVERIFIED"
+    },
+    {
+      "id": "PARCEL_P7",
+      "label": "Marina",
+      "source": "parcels.P7 (rectangle center)",
+      "role": "parcel",
+      "legacy": {
+        "x": 750.0,
+        "z": 210.0
+      },
+      "target": null,
+      "status": "GEOGRAPHIC_PLACEMENT_UNVERIFIED"
+    }
+  ],
+  "remaining": [
+    "survey/geometrically verify target locations on R12 map",
+    "validate free areas and existing building/road clearance per target",
+    "find safe NPC/quest paths and parcels",
+    "validate spawn collider and player navigation",
+    "preserve historical save state and migrate only verified positions",
+    "disable duplicate terrain/sea/roads in R12 mode",
+    "run actual gameplay and FPS tests before enable"
+  ]
+}

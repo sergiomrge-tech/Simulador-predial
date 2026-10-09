@@ -1,0 +1,12 @@
+﻿{
+    "status": "R12_ANCHORS_UNITY_NATIVE_PASS_MIGRATION_BLOCKED",
+    "unity": "6000.6.2f1",
+    "reason": "MAP_NOT_APPROVED_FOR_PLAYABLE_MIGRATION",
+    "originalGameplaySceneSha256": "7905406f7eff59d9ca1ee16049f0225dbc2b340438a930334a7c3a374a7ec964",
+    "anchorCount": 10,
+    "verifiedTargetCount": 0,
+    "originalParcels": 8,
+    "legacyGameplayPreserved": true,
+    "migrationEnabled": false,
+    "sourceVisualSceneFound": true
+}

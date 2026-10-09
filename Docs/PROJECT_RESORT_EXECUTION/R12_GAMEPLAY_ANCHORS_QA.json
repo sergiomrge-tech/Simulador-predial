@@ -1,0 +1,19 @@
+{
+  "status": "R12_ANCHOR_LEGACY_INVENTORY_PASS_GEOGRAPHIC_PLACEMENT_PENDING",
+  "anchors_count": 10,
+  "legacy_home": {
+    "x": 330.0,
+    "z": 338.5
+  },
+  "legacy_stall": {
+    "x": 450.0,
+    "z": 255.995
+  },
+  "parcels_count": 8,
+  "legacy_lots": 234,
+  "legacy_prompoints": 76,
+  "ready_to_switch": false,
+  "no_world_coordinates_invented": true,
+  "preserves_gameplay_site_sha256": "5b6adfbcf9011a531467644026cfd471af8ee88dfef048e195d1481506d800c0",
+  "source_frame_sha256": "fcd311fd3545e5b2972bb42f7ce9b8e3642c3f24643ae635fc98998f5d5ba5ec"
+}

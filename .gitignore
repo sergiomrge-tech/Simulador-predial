@@ -28,3 +28,9 @@ FacilityOps/Assets/_Game/ThirdParty.meta
 /FacilityOps/Assets/_Game/Preview/
 /FacilityOps/Assets/_Game/Preview.meta
 /R12_bridge_unity*.log
+
+# Native R12 gameplay-anchor QA logs are ephemeral
+/R12_anchor_native_unity.log
+/R12_anchor_native_unity_2.log
+/R12_anchor_native_unity_3.log
+/R12_anchor_upm.log

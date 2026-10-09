@@ -10,6 +10,10 @@ on:
       - 'Docs/PROJECT_RESORT_EXECUTION/R12_GAME_BRIDGE_*.md'
       - '.github/workflows/r12-game-visual-bridge.yml'
       - 'FacilityOps/Assets/_Game/Editor/ResortR12GameBridgeAudit.cs'
+      - 'FacilityOps/Assets/_Game/Scripts/Resort/Site/R12GameplayWorldGate.cs'
+      - 'FacilityOps/Assets/_Game/Scripts/Resort/Editor/ResortR12GameplayAnchorAudit.cs'
+      - 'FacilityOps/Assets/_Game/Resources/Resort/R12GameplayAnchorInventory.json'
+      - 'Docs/PROJECT_RESORT_EXECUTION/R12_GAMEPLAY_ANCHOR*'
   pull_request:
     paths:
       - 'Tools/Bridge/**'
@@ -17,6 +21,10 @@ on:
       - 'Docs/PROJECT_RESORT_EXECUTION/R12_GAME_BRIDGE_*.md'
       - '.github/workflows/r12-game-visual-bridge.yml'
       - 'FacilityOps/Assets/_Game/Editor/ResortR12GameBridgeAudit.cs'
+      - 'FacilityOps/Assets/_Game/Scripts/Resort/Site/R12GameplayWorldGate.cs'
+      - 'FacilityOps/Assets/_Game/Scripts/Resort/Editor/ResortR12GameplayAnchorAudit.cs'
+      - 'FacilityOps/Assets/_Game/Resources/Resort/R12GameplayAnchorInventory.json'
+      - 'Docs/PROJECT_RESORT_EXECUTION/R12_GAMEPLAY_ANCHOR*'
   workflow_dispatch:
 
 jobs:
@@ -31,9 +39,11 @@ jobs:
         run: |
           python3 -m unittest discover -s Tools/Bridge -p 'test_*.py' -v
           python3 -m py_compile Tools/Bridge/*.py
+          python3 Tools/Bridge/build_r12_anchor_inventory.py --check
       - name: Audit the 622 asset manifest and separate native Unity provenance
         run: |
           python3 Tools/Bridge/check_r12_bridge_contract.py
+          python3 -m unittest discover -s Tools/Bridge -p 'test_r12_native_anchor_qa.py' -v
       - name: Assert no staged R12 binaries or Unity cache slipped into Git
         run: |
           python3 - <<'PY'
