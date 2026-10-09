@@ -1,0 +1,45 @@
+name: Resort R12 - cross-repo visual bridge contract
+
+on:
+  push:
+    branches:
+      - codex/r12-gameplay-visual-bridge
+    paths:
+      - 'Tools/Bridge/**'
+      - 'Docs/PROJECT_RESORT_EXECUTION/R12_GAME_BRIDGE_*.json'
+      - 'Docs/PROJECT_RESORT_EXECUTION/R12_GAME_BRIDGE_*.md'
+      - '.github/workflows/r12-game-visual-bridge.yml'
+      - 'FacilityOps/Assets/_Game/Editor/ResortR12GameBridgeAudit.cs'
+  pull_request:
+    paths:
+      - 'Tools/Bridge/**'
+      - 'Docs/PROJECT_RESORT_EXECUTION/R12_GAME_BRIDGE_*.json'
+      - 'Docs/PROJECT_RESORT_EXECUTION/R12_GAME_BRIDGE_*.md'
+      - '.github/workflows/r12-game-visual-bridge.yml'
+      - 'FacilityOps/Assets/_Game/Editor/ResortR12GameBridgeAudit.cs'
+  workflow_dispatch:
+
+jobs:
+  bridge-contract:
+    name: Python source GUID and game safety contract
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test that the importer is safe to rerun and rejects GUID conflicts
+        run: |
+          python3 -m unittest discover -s Tools/Bridge -p 'test_*.py' -v
+          python3 -m py_compile Tools/Bridge/*.py
+      - name: Audit the 622 asset manifest and separate native Unity provenance
+        run: |
+          python3 Tools/Bridge/check_r12_bridge_contract.py
+      - name: Assert no staged R12 binaries or Unity cache slipped into Git
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          paths=subprocess.check_output(['git','ls-files'],text=True).splitlines()
+          assert not any(p.startswith('FacilityOps/Assets/_Game/Preview/') for p in paths)
+          assert not any('/Library/' in p or p.startswith('FacilityOps/Library/') for p in paths)
+          print('R12_GAME_BRIDGE_NO_BINARIES_IN_PUBLIC_GIT_PASS')
+          PY

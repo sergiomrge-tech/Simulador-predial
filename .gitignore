@@ -23,3 +23,8 @@ FacilityOps/f02-*.xml
 # Licensed third-party packs (Unity Asset Store): local only, never committed to the public repo
 FacilityOps/Assets/_Game/ThirdParty/
 FacilityOps/Assets/_Game/ThirdParty.meta
+
+# R12 Copacabana GUID-preserving QA preview: reproducible staged assets (source external)
+/FacilityOps/Assets/_Game/Preview/
+/FacilityOps/Assets/_Game/Preview.meta
+/R12_bridge_unity*.log
