@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "status": "OSM_GEOMETRIC_ONLY_CANDIDATES_NOT_GAMEPLAY_PLACEMENTS",
+  "source_hashes": {
+    "osm_gzip_sha256": "8fa230fc41b40234d4e37e17aa18b1bb697a20e33750293d440e110e8ee0bd8f",
+    "source_frame_sha256": "6d433f4cdb2c92ce951920fc696c1fef4c1fe9d2ccd2eeb4f6a80525fe850797",
+    "road_segments": 3895,
+    "shoreline_points": 128,
+    "geo_frame": {
+      "name": "Copacabana real - frame de origem do recorte Blender/OSM",
+      "source": "sergiomrge-tech/Simulador-predial/Tools/Copacabana/region.json (codex/copacabana-osm-real-20261008)",
+      "avenue_reference_lonlat": [
+        -43.18512336,
+        -22.9725157
+      ],
+      "crs": "EPSG:32723",
+      "axis_angle_degrees_counterclockwise_from_east": 46.0,
+      "center_shift_inland_m": 300.0,
+      "along_coast_length_m": 2000.0,
+      "inland_width_m": 1000.0,
+      "game_area_m2": 2000000,
+      "copyright": "© OpenStreetMap contributors — ODbL 1.0"
+    },
+    "building_data_sha256": "b4986c589e6abd58dc4de2e87224dec6067e1554de0e42aee11c6b4045699c5c",
+    "osm_buildings": 1468,
+    "legacy_site_sha256": "5b6adfbcf9011a531467644026cfd471af8ee88dfef048e195d1481506d800c0",
+    "legacy_anchor_inventory_sha256": "fb4c6560f5c7b40213bc04a47aca27a2502783f329e9cdd607799259dc1d0f45",
+    "frame_file_sha256_for_bridge": "fcd311fd3545e5b2972bb42f7ce9b8e3642c3f24643ae635fc98998f5d5ba5ec"
+  },
+  "frame": "2000m coastline x 1000m inland, EPSG:32723, 46deg",
+  "parcel_rule": "exact legacy width/depth, 1.25m building clearance, road class width/2 + 1.5m, 55m inland from OSM shoreline, 4m interparcel buffer",
+  "grid_step_m": 25,
+  "source_footprints_unchanged": true,
+  "source_road_geometry_unchanged": true,
+  "original_gameplay_unchanged": true,
+  "migration_enabled": false,
+  "home_building_entry": "NOT_MAPPED_NO_ENTRANCE_GEOMETRY_VERIFIED",
+  "stall_access": "NOT_MAPPED_REQUIRES_ACTUAL_COAST_PEDESTRIAN_NAVIGATION",
+  "parcels": {
+    "P5": {
+      "status": "NO_FREE_CANDIDATE_ON_25M_GRID",
+      "size_m": {
+        "width": 240,
+        "depth": 190
+      },
+      "grid_candidates_tested": 2272,
+      "free_candidates_before_reserving": 0,
+      "rejection_counts": {
+        "OSM_SHORE_55M_BUFFER": 237,
+        "OSM_BUILDING": 2000,
+        "OSM_ROAD_ENVELOPE": 35
+      },
+      "provisional_center_xy_m": null,
+      "provisional_rectangle_xy_m": null,
+      "sector": null,
+      "never_approved": true
+    },
+    "P6": {
+      "status": "GEOMETRY_CANDIDATE_UNVERIFIED",
+      "size_m": {
+        "width": 110,
+        "depth": 100
+      },
+      "grid_candidates_tested": 2628,
+      "free_candidates_before_reserving": 154,
+      "rejection_counts": {
+        "OSM_BUILDING": 2135,
+        "OSM_SHORE_55M_BUFFER": 228,
+        "OSM_ROAD_ENVELOPE": 111
+      },
+      "provisional_center_xy_m": {
+        "x": 600,
+        "y": 255
+      },
+      "provisional_rectangle_xy_m": [
+        545.0,
+        205.0,
+        655.0,
+        305.0
+      ],
+      "sector": "S08",
+      "never_approved": true
+    },
+    "P4": {
+      "status": "GEOMETRY_CANDIDATE_UNVERIFIED",
+      "size_m": {
+        "width": 90,
+        "depth": 80
+      },
+      "grid_candidates_tested": 2701,
+      "free_candidates_before_reserving": 217,
+      "rejection_counts": {
+        "OSM_BUILDING": 2127,
+        "OSM_ROAD_ENVELOPE": 106,
+        "OSM_SHORE_55M_BUFFER": 188,
+        "OTHER_GAME_PARCEL": 63
+      },
+      "provisional_center_xy_m": {
+        "x": -875,
+        "y": 280
+      },
+      "provisional_rectangle_xy_m": [
+        -920.0,
+        240.0,
+        -830.0,
+        320.0
+      ],
+      "sector": "S00",
+      "never_approved": true
+    },
+    "P3": {
+      "status": "GEOMETRY_CANDIDATE_UNVERIFIED",
+      "size_m": {
+        "width": 70,
+        "depth": 60
+      },
+      "grid_candidates_tested": 2701,
+      "free_candidates_before_reserving": 242,
+      "rejection_counts": {
+        "OSM_BUILDING": 2103,
+        "OTHER_GAME_PARCEL": 74,
+        "OSM_ROAD_ENVELOPE": 116,
+        "OSM_SHORE_55M_BUFFER": 166
+      },
+      "provisional_center_xy_m": {
+        "x": 500,
+        "y": 280
+      },
+      "provisional_rectangle_xy_m": [
+        465.0,
+        250.0,
+        535.0,
+        310.0
+      ],
+      "sector": "S07",
+      "never_approved": true
+    },
+    "P7": {
+      "status": "GEOMETRY_CANDIDATE_UNVERIFIED",
+      "size_m": {
+        "width": 100,
+        "depth": 40
+      },
+      "grid_candidates_tested": 2701,
+      "free_candidates_before_reserving": 252,
+      "rejection_counts": {
+        "OSM_BUILDING": 2089,
+        "OTHER_GAME_PARCEL": 89,
+        "OSM_ROAD_ENVELOPE": 127,
+        "OSM_SHORE_55M_BUFFER": 144
+      },
+      "provisional_center_xy_m": {
+        "x": -50,
+        "y": -345
+      },
+      "provisional_rectangle_xy_m": [
+        -100.0,
+        -365.0,
+        0.0,
+        -325.0
+      ],
+      "sector": "S04",
+      "never_approved": true
+    },
+    "P2": {
+      "status": "GEOMETRY_CANDIDATE_UNVERIFIED",
+      "size_m": {
+        "width": 40,
+        "depth": 40
+      },
+      "grid_candidates_tested": 2701,
+      "free_candidates_before_reserving": 312,
+      "rejection_counts": {
+        "OSM_BUILDING": 1987,
+        "OTHER_GAME_PARCEL": 87,
+        "OSM_ROAD_ENVELOPE": 181,
+        "OSM_SHORE_55M_BUFFER": 134
+      },
+      "provisional_center_xy_m": {
+        "x": 625,
+        "y": 180
+      },
+      "provisional_rectangle_xy_m": [
+        605.0,
+        160.0,
+        645.0,
+        200.0
+      ],
+      "sector": "S08",
+      "never_approved": true
+    },
+    "P1": {
+      "status": "GEOMETRY_CANDIDATE_UNVERIFIED",
+      "size_m": {
+        "width": 28,
+        "depth": 24
+      },
+      "grid_candidates_tested": 2701,
+      "free_candidates_before_reserving": 419,
+      "rejection_counts": {
+        "OSM_BUILDING": 1824,
+        "OTHER_GAME_PARCEL": 78,
+        "OSM_ROAD_ENVELOPE": 269,
+        "OSM_SHORE_55M_BUFFER": 111
+      },
+      "provisional_center_xy_m": {
+        "x": 25,
+        "y": -345
+      },
+      "provisional_rectangle_xy_m": [
+        11.0,
+        -357.0,
+        39.0,
+        -333.0
+      ],
+      "sector": "S05",
+      "never_approved": true
+    },
+    "P0": {
+      "status": "GEOMETRY_CANDIDATE_UNVERIFIED",
+      "size_m": {
+        "width": 6,
+        "depth": 12
+      },
+      "grid_candidates_tested": 2701,
+      "free_candidates_before_reserving": 653,
+      "rejection_counts": {
+        "OSM_BUILDING": 1347,
+        "OSM_ROAD_ENVELOPE": 533,
+        "OTHER_GAME_PARCEL": 68,
+        "OSM_SHORE_55M_BUFFER": 100
+      },
+      "provisional_center_xy_m": {
+        "x": 325,
+        "y": -270
+      },
+      "provisional_rectangle_xy_m": [
+        322.0,
+        -276.0,
+        328.0,
+        -264.0
+      ],
+      "sector": "S06",
+      "never_approved": true
+    }
+  },
+  "remaining_native_gates": [
+    "real building entrance and home mapping",
+    "usable/legal site vs GIS footprint/road exclusion",
+    "Unity colliders, navmesh, player+NPC paths and spawn height",
+    "persisting all old saves and quest waypoints",
+    "single ocean/road/terrain and tested game performance"
+  ]
+}

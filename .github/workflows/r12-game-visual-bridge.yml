@@ -14,6 +14,7 @@ on:
       - 'FacilityOps/Assets/_Game/Scripts/Resort/Editor/ResortR12GameplayAnchorAudit.cs'
       - 'FacilityOps/Assets/_Game/Resources/Resort/R12GameplayAnchorInventory.json'
       - 'Docs/PROJECT_RESORT_EXECUTION/R12_GAMEPLAY_ANCHOR*'
+      - 'Docs/PROJECT_RESORT_EXECUTION/R12_GEO_ANCHOR*'
   pull_request:
     paths:
       - 'Tools/Bridge/**'
@@ -25,6 +26,7 @@ on:
       - 'FacilityOps/Assets/_Game/Scripts/Resort/Editor/ResortR12GameplayAnchorAudit.cs'
       - 'FacilityOps/Assets/_Game/Resources/Resort/R12GameplayAnchorInventory.json'
       - 'Docs/PROJECT_RESORT_EXECUTION/R12_GAMEPLAY_ANCHOR*'
+      - 'Docs/PROJECT_RESORT_EXECUTION/R12_GEO_ANCHOR*'
   workflow_dispatch:
 
 jobs:
@@ -44,6 +46,22 @@ jobs:
         run: |
           python3 Tools/Bridge/check_r12_bridge_contract.py
           python3 -m unittest discover -s Tools/Bridge -p 'test_r12_native_anchor_qa.py' -v
+      - name: Read-only checkout of frozen Copacabana OSM and GIS frame
+        uses: actions/checkout@v4
+        with:
+          repository: sergiomrge-tech/Resort-Simulator-
+          ref: 5217a65751a334f8ea3934ae1e7f0c75f7594a9c
+          path: frozen-visual
+          sparse-checkout: |
+            geo/data/copacabana.osm.gz
+            geo/procedural/R4_SOURCE_FRAME.json
+            geo/procedural/R4_OSM_50_STYLE_ASSIGNMENTS.json
+            Tools/geo/generate_r6_vegetation.py
+          sparse-checkout-cone-mode: false
+      - name: Recompute conservative gameplay-lot feasibility against exact OSM snapshot
+        run: |
+          python3 Tools/Bridge/analyze_r12_geo_anchor_feasibility.py --visual frozen-visual --check
+          echo "R12_OSM_ANCHOR_CANDIDATES_SOURCE_MATCH_PASS (migration disabled)"
       - name: Assert no staged R12 binaries or Unity cache slipped into Git
         run: |
           python3 - <<'PY'
