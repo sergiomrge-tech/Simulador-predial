@@ -23,7 +23,13 @@ BASE=GAME/"FacilityOps/Assets/_Game/Resources/Resort/R12GameplayAnchorInventory.
 REPORT=GAME/"Docs/PROJECT_RESORT_EXECUTION/R12_GEO_ANCHOR_FEASIBILITY.json"
 
 def sha(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    raw=path.read_bytes()
+    # Git may check out JSON with LF on Linux and CRLF on Windows. The
+    # source data is identical; normalize line endings before hashing.
+    # Frozen .osm.gz remains byte-identical, with NO normalization.
+    if path.suffix.lower()=='.json':
+        raw=raw.replace(b'\r\n',b'\n').replace(b'\r',b'\n')
+    return hashlib.sha256(raw).hexdigest()
 
 def polygon_contains(point,ring):
     x,y=point

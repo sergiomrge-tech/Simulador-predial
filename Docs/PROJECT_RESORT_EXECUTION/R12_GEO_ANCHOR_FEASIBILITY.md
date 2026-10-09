@@ -14,7 +14,7 @@ Para cada lote, gerou retângulos candidatos exatamente com a largura/profundida
 - se aproximassem da linha de costa real a menos de 55m;
 - se sobrepusessem a outros terrenos candidatos, com buffer de 4m.
 
-A implementação usa Liang–Barsky para segmentos e retângulos e point-in-polygon para checar pegadas de edifícios, com hashes SHA256 dos dados originais e relatório determinístico. Os testes do algoritmo tratam travessias, tangências e polígonos.
+A implementação usa Liang–Barsky para segmentos e retângulos e point-in-polygon para checar pegadas de edifícios, com hashes SHA256 do OSM compactado original e dos arquivos JSON com quebras de linha normalizadas (LF/CRLF), preservando semântica e relatório determinístico. Os testes do algoritmo tratam travessias, tangências e polígonos.
 
 ## Resultado do teste de viabilidade — NÃO são locais oficiais
 | Terreno | Dimensão herdada | Resultado no grid 25m |

@@ -3,7 +3,7 @@
   "status": "OSM_GEOMETRIC_ONLY_CANDIDATES_NOT_GAMEPLAY_PLACEMENTS",
   "source_hashes": {
     "osm_gzip_sha256": "8fa230fc41b40234d4e37e17aa18b1bb697a20e33750293d440e110e8ee0bd8f",
-    "source_frame_sha256": "6d433f4cdb2c92ce951920fc696c1fef4c1fe9d2ccd2eeb4f6a80525fe850797",
+    "source_frame_sha256": "fcd311fd3545e5b2972bb42f7ce9b8e3642c3f24643ae635fc98998f5d5ba5ec",
     "road_segments": 3895,
     "shoreline_points": 128,
     "geo_frame": {
@@ -21,9 +21,9 @@
       "game_area_m2": 2000000,
       "copyright": "© OpenStreetMap contributors — ODbL 1.0"
     },
-    "building_data_sha256": "b4986c589e6abd58dc4de2e87224dec6067e1554de0e42aee11c6b4045699c5c",
+    "building_data_sha256": "cac5b363ad3c4734bd086a83715b6e52f454317c3fc7782a884d3efbe362a2d6",
     "osm_buildings": 1468,
-    "legacy_site_sha256": "5b6adfbcf9011a531467644026cfd471af8ee88dfef048e195d1481506d800c0",
+    "legacy_site_sha256": "426b3a91c21639d25b79bd0b8efe61d2d5f012bb36aaa23941cb592e45a08435",
     "legacy_anchor_inventory_sha256": "fb4c6560f5c7b40213bc04a47aca27a2502783f329e9cdd607799259dc1d0f45",
     "frame_file_sha256_for_bridge": "fcd311fd3545e5b2972bb42f7ce9b8e3642c3f24643ae635fc98998f5d5ba5ec"
   },
