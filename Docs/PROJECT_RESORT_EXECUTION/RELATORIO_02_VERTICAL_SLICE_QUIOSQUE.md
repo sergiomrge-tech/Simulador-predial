@@ -283,3 +283,16 @@ Diagnóstico leave-one-out por grupo da cena (teste opt-in `DiagnosticLeaveOneOu
 - Capturas reais da ilha de 2 km² (dia, tarde, pôr do sol, noite) revistas. Dia e pôr do sol coerentes; a noite olhando para o mar mostrava céu e mar quase pretos.
 - Mudança só de apresentação em `DayNightCycle.Apply` (sem tocar simulação/save): horizonte/névoa noturnos mais claros, zênite noturno mais azul e lua 0,56→0,72. Luminância média das capturas noturnas: kiosque 0,086, mar 0,168, mesas 0,241, calçadão 0,080, aérea 0,176 (asserts do teste: >0,02 e <0,5).
 - Limitação: efeito modesto; a lua fica fora do enquadramento da vista para o mar, então o céu ainda lê escuro ali. Reflexo da lua no mar e avaliação de beleza noturna ficam para o olhar humano / Fase 15.
+
+## Adendo 12d — experimento de densidade da praia, revertido (Claude, 2026-10-10, rodada 44)
+
+**Status: nenhuma mudança de código mantida. Código == `a126819` (validado 37/37 na rodada 43). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
+
+Tentativa de deixar a areia ao lado do quiosque mais ocupada ao meio-dia, medida com a suíte real (`-Graphics`):
+
+| Variante | Resultado | Log |
+|---|---|---|
+| `Beach` 24→34 + 40 pontos | 2 falhas: orçamento de pool (71 > 70) e teste dos três scans | `unity_PlayMode_20261010_220134.xml` |
+| mesmos 24, 18 primeiros pontos em ±30 m do quiosque | 1 falha: teste dos três scans (`variants=Claudia,Eric`) | `unity_PlayMode_20261010_220743.xml` |
+
+Conclusões: (1) o teto de 70 pessoas ambiente é um orçamento deliberado — mais densidade exige mexer em pool/LOD, não só em `PopulationModel.MixFor`; (2) `ExistingBeachLifeSelectsThreeScansAndKeepsItsBudget` depende de quais dos poucos scans realistas (6–7 em ~48 pessoas visíveis) caem no enquadramento, logo qualquer mudança no fluxo aleatório de `BeachLife` pode quebrá-lo sem defeito no jogo — deve ser tornado determinístico antes de novas mexidas em população; (3) nas capturas reais a diferença visual do reagrupamento foi pequena, então foi descartado. Nada visto por humano.
