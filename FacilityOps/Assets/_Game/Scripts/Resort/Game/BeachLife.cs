@@ -188,7 +188,7 @@ namespace ResortAurora.Game
                 var canopy = new GameObject("Canopy"); canopy.transform.SetParent(root.transform, false);
                 canopy.transform.localPosition = new Vector3(0.85f, 2.2f, 0.6f); canopy.transform.localRotation = Quaternion.Euler(0f, 0f, -6f);
                 canopy.AddComponent<MeshFilter>().sharedMesh = umbrellaMesh;
-                var mr = canopy.AddComponent<MeshRenderer>(); mr.sharedMaterial = StallBuilder.Mat(Umbrellas[rng.Next(Umbrellas.Length)], 0.2f);
+                var mr = canopy.AddComponent<MeshRenderer>(); mr.sharedMaterial = RealisticKioskAssets.CanopyMaterial(Umbrellas[rng.Next(Umbrellas.Length)]);
             }
             return root;
         }
@@ -198,6 +198,12 @@ namespace ResortAurora.Game
         public static Mesh MakeUmbrella()
         {
             if (umbrellaShared != null) return umbrellaShared;
+            var source = Resources.Load<GameObject>("Art/Resort/Props/UmbrellaCanopy");
+            if (source != null)
+            {
+                var filter = source.GetComponentInChildren<MeshFilter>();
+                if (filter != null && filter.sharedMesh != null) return umbrellaShared = filter.sharedMesh;
+            }
             const int n = 14; const float r = 1.2f, h = 0.42f;
             // top and underside use their own vertices: sharing them would average the opposite normals to zero and render the canopy black
             var v = new List<Vector3>(); var t = new List<int>();

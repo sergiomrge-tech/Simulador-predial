@@ -70,20 +70,32 @@ namespace ResortAurora.Site
         public static void BuildBeach(ResortSite site)
         {
             if (Resources.Load<Texture2D>("Art/Resort/Textures/sand_BaseColor") == null) return;
-            const int rows = 17;
+            // Sample the actual heightfield no more than 0.75 m apart. The old 17
+            // longitudinal bands bridged dunes and intersected the terrain,
+            // producing black patches and bright sand streaks.
             int columns = Mathf.CeilToInt(site.Data.size.x / 1.5f) + 1;
+            float widestBeach = 0f;
+            for (int probe = 0; probe <= columns; probe++)
+            {
+                float x = Mathf.Min(probe * 1.5f, site.Data.size.x);
+                widestBeach = Mathf.Max(widestBeach, site.PromenadeZ(x) - 6.10f - (site.WaterlineZ(x) - .40f));
+            }
+            int rows = Mathf.Max(20, Mathf.CeilToInt(widestBeach / .75f) + 1);
             var vertices = new Vector3[columns * rows];
             var uv = new Vector2[vertices.Length];
+            var shoreDistance = new Vector2[vertices.Length];
             for (int i = 0; i < columns; i++)
             {
                 float x = Mathf.Min(i * 1.5f, site.Data.size.x);
-                float shore = site.WaterlineZ(x) - 1f, edge = site.PromenadeZ(x) - 6.05f;
+                float shore = site.WaterlineZ(x) - .40f, edge = site.PromenadeZ(x) - 6.10f;
                 for (int j = 0; j < rows; j++)
                 {
                     float z = Mathf.Lerp(shore, edge, j / (float)(rows - 1));
                     int k = i * rows + j;
-                    vertices[k] = new Vector3(x, site.HeightAt(x, z) + 0.012f, z);
-                    uv[k] = new Vector2(x, z) / 4f;
+                    vertices[k] = new Vector3(x, site.HeightAt(x, z) + .10f, z);
+                    // World-space metres; the shader controls physical scan tiling.
+                    uv[k] = new Vector2(x, z);
+                    shoreDistance[k] = new Vector2(z - site.WaterlineZ(x), 0f);
                 }
             }
             var triangles = new int[(columns - 1) * (rows - 1) * 6]; int t = 0;
@@ -94,12 +106,35 @@ namespace ResortAurora.Site
                     triangles[t++] = a; triangles[t++] = c; triangles[t++] = b;
                     triangles[t++] = b; triangles[t++] = c; triangles[t++] = d;
                 }
-            var mesh = new Mesh { name = "BeachSandPBR", vertices = vertices, uv = uv, triangles = triangles };
+            var mesh = new Mesh { name = "BeachSandPBR", indexFormat = UnityEngine.Rendering.IndexFormat.UInt32, vertices = vertices, uv = uv, uv2 = shoreDistance, triangles = triangles };
             mesh.RecalculateNormals(); mesh.RecalculateTangents(); mesh.RecalculateBounds();
             var surface = new GameObject("BeachSandPBR"); surface.transform.SetParent(site.transform, false);
             surface.AddComponent<MeshFilter>().sharedMesh = mesh;
             var renderer = surface.AddComponent<MeshRenderer>();
-            renderer.sharedMaterial = Create("sand", Color.white);
+            // Prefer the coherent Poly Haven CC0 wet/dry scanned sand; keep an explicit
+            // stable PBR fallback if any import is incomplete.
+            var coastalShader = Resources.Load<Shader>("Coastal/CoastalSand");
+            Material coastalMaterial = null;
+            if (coastalShader != null && coastalShader.isSupported)
+            {
+                var candidate = new Material(coastalShader) { name = "CoastalSand_DryWet_CC0" };
+                bool allMaps = true;
+                foreach (var layer in new[] { "Dry", "Wet" })
+                    foreach (var channel in new[] { "Color", "Normal", "Rough", "AO" })
+                    {
+                        var map = Resources.Load<Texture2D>("Coastal/" + layer + channel);
+                        if (map == null) { allMaps = false; break; }
+                        candidate.SetTexture("_" + layer + channel, map);
+                    }
+                if (allMaps)
+                {
+                    candidate.SetFloat("_DryMetres", 2f);
+                    candidate.SetFloat("_WetMetres", 2f);
+                    coastalMaterial = candidate;
+                }
+                else Object.Destroy(candidate);
+            }
+            renderer.sharedMaterial = coastalMaterial != null ? coastalMaterial : Create("sand", Color.white);
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         }
     }

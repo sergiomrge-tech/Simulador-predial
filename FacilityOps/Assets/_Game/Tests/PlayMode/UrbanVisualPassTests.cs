@@ -66,7 +66,7 @@ namespace ResortAurora.Tests
             Assert.IsTrue(CoastalUrbanAssets.Available);
             var urban = site.transform.Find("Vila/VilaRealista_F02"); Assert.NotNull(urban);
             Assert.Greater(urban.GetComponentsInChildren<MeshRenderer>().Length, 0);
-            Assert.IsTrue(site.transform.Find("Vila").GetComponentsInChildren<MeshCollider>().All(c => c.enabled));
+            Assert.IsTrue(site.transform.Find("Vila").GetComponentsInChildren<MeshCollider>().Where(c => !c.transform.IsChildOf(urban)).All(c => c.enabled));
             Assert.IsTrue(site.transform.Find("Vila").GetComponentsInChildren<MeshRenderer>()
                 .Where(r => !r.transform.IsChildOf(urban)).All(r => !r.enabled));
             foreach (var ns in data.streetsNS)

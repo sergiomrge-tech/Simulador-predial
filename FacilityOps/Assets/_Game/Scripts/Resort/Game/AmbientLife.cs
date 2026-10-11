@@ -54,7 +54,8 @@ namespace ResortAurora.Game
 
         void BuildWaves()
         {
-            var shader = Shader.Find("Sprites/Default");
+            var shader = Shader.Find("ResortAurora/SurfFoam");
+            if (shader == null) shader = Shader.Find("Sprites/Default");
             for (int k = 0; k < WaveCount; k++)
             {
                 var w = new Wave { offset = k / (float)WaveCount * WavePeriod, verts = new Vector3[(WaveSegments + 1) * 2] };

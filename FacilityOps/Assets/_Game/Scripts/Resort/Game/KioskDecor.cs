@@ -61,6 +61,7 @@ namespace ResortAurora.Game
                 if (!woodMaterials.TryGetValue(tint, out var material) || material == null)
                 {
                     material = new Material(renderer.sharedMaterial) { name = "KioskWoodPBR" };
+                    material.SetColor("_BaseColor", Color.Lerp(Color.white, tint, 0.25f));
                     material.SetTexture("_BaseMap", baseMap);
                     material.SetTexture("_BumpMap", normalMap);
                     material.SetFloat("_BumpScale", 0.45f);
@@ -249,7 +250,7 @@ namespace ResortAurora.Game
             var pole = b("S1_UmbrellaPole", t.transform, new Vector3(0f, 1.15f, 0f), new Vector3(0.04f, 2.3f, 0.04f), new Color(0.8f, 0.8f, 0.78f), false);
             var canopy = new GameObject("S1_Umbrella"); canopy.transform.SetParent(t.transform, false); canopy.transform.localPosition = new Vector3(0f, 2.25f, 0f);
             canopy.AddComponent<MeshFilter>().sharedMesh = BeachLife.MakeUmbrella();
-            canopy.AddComponent<MeshRenderer>().sharedMaterial = StallBuilder.Mat(extra ? new Color(0.95f, 0.95f, 0.92f) : yellow, 0.2f);
+            canopy.AddComponent<MeshRenderer>().sharedMaterial = RealisticKioskAssets.CanopyMaterial(extra ? new Color(0.95f, 0.95f, 0.92f) : yellow);
             canopy.transform.localScale = Vector3.one * 1.05f;
             if (extra) { t.SetActive(false); layout.ExtraTables.Add(t); }
         }

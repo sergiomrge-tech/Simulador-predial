@@ -62,34 +62,35 @@ namespace ResortAurora.Tests
             var g = Object.FindAnyObjectByType<ResortGame>();
             var player = Object.FindAnyObjectByType<PlayerController>();
             var cc = player.GetComponent<CharacterController>();
+            float dx = ResortAurora.Site.ResortStages.LegacyKitOffsetX(g.Site.Data); // kit coordinates -> migrated site
             float gy(float x, float z) => g.Site.HeightAt(x, z);
 
             // 1) through the open gate (x 394) and the front door into the reception (ground floor)
-            player.Teleport(new Vector3(394f, gy(394f, 327f) + 0.2f, 327f), Quaternion.identity);
+            player.Teleport(new Vector3(394f + dx, gy(394f + dx, 327f) + 0.2f, 327f), Quaternion.identity);
             yield return null;
-            Walk(cc, new Vector3(394f, 0f, 337f));
+            Walk(cc, new Vector3(394f + dx, 0f, 337f));
             Assert.Greater(player.transform.position.z, 336f, "walked through the gate and the front door");
-            Assert.Less(player.transform.position.y, gy(394f, 342f) + 1.5f, "still on the ground floor");
+            Assert.Less(player.transform.position.y, gy(394f + dx, 342f) + 1.5f, "still on the ground floor");
 
             // 2) round the east side and up the outdoor stair to the first-floor corridor
-            player.Teleport(new Vector3(402.7f, gy(402.7f, 358f) + 0.2f, 358f), Quaternion.identity);
+            player.Teleport(new Vector3(402.7f + dx, gy(402.7f + dx, 358f) + 0.2f, 358f), Quaternion.identity);
             yield return null;
-            Walk(cc, new Vector3(402.7f, 0f, 348.9f));
-            Walk(cc, new Vector3(402.7f, 0f, 347.7f));
-            Walk(cc, new Vector3(398.5f, 0f, 347.7f));
-            float floorY = gy(398.5f, 347.7f);
+            Walk(cc, new Vector3(402.7f + dx, 0f, 348.9f));
+            Walk(cc, new Vector3(402.7f + dx, 0f, 347.7f));
+            Walk(cc, new Vector3(398.5f + dx, 0f, 347.7f));
+            float floorY = gy(398.5f + dx, 347.7f);
             Assert.Greater(player.transform.position.y, floorY + 3.4f, "up on the first floor");
             g.Clock.Restore(1, 12f * 60f);
             yield return null; yield return null;
             string dir = Path.GetFullPath(Path.Combine(System.Environment.GetEnvironmentVariable("RESORT_TEST_CAPTURE_ROOT") ?? "../ArtSource/Blender/World/Reviews", "R4"));
             Directory.CreateDirectory(dir);
             var cam = Camera.main;
-            var rootY = gy(394f, 342f);
-            Snap(cam, new Vector3(394f, rootY + 1.7f, 332f), new Vector3(394f, rootY + 1.4f, 346f), dir + "/r4_unity_pousada_recepcao.png");
-            Snap(cam, new Vector3(398.5f, floorY + 4.6f, 347.7f), new Vector3(388f, floorY + 4.3f, 347.7f), dir + "/r4_unity_pousada_corredor.png");
-            Snap(cam, new Vector3(412f, floorY + 6.5f, 352f), new Vector3(402f, floorY + 4.8f, 347.7f), dir + "/r4_unity_pousada_escada_externa.png");
-            Snap(cam, new Vector3(387f, rootY + 1.5f, 330f) + Vector3.up * 3.0f, new Vector3(394f, rootY + 4f, 345f), dir + "/r4_unity_pousada_fachada.png");
-            Assert.Less(player.transform.position.x, 401.5f, "inside the corridor");
+            var rootY = gy(394f + dx, 342f);
+            Snap(cam, new Vector3(394f + dx, rootY + 1.7f, 332f), new Vector3(394f + dx, rootY + 1.4f, 346f), dir + "/r4_unity_pousada_recepcao.png");
+            Snap(cam, new Vector3(398.5f + dx, floorY + 4.6f, 347.7f), new Vector3(388f + dx, floorY + 4.3f, 347.7f), dir + "/r4_unity_pousada_corredor.png");
+            Snap(cam, new Vector3(412f + dx, floorY + 6.5f, 352f), new Vector3(402f + dx, floorY + 4.8f, 347.7f), dir + "/r4_unity_pousada_escada_externa.png");
+            Snap(cam, new Vector3(387f + dx, rootY + 1.5f, 330f) + Vector3.up * 3.0f, new Vector3(394f + dx, rootY + 4f, 345f), dir + "/r4_unity_pousada_fachada.png");
+            Assert.Less(player.transform.position.x, 401.5f + dx, "inside the corridor");
 
         }
     }

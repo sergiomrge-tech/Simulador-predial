@@ -71,20 +71,21 @@ namespace ResortAurora.Tests
             Assert.AreEqual(7, g.Stages.Stage);
             Assert.IsTrue(g.Site.Graded, "graded terrain at stage 7");
 
+            float dx = ResortStages.LegacyKitOffsetX(g.Site.Data); // kit coordinates -> migrated site
             GameObject find(string n) { foreach (var go in g.Stages.Instances) if (go.name == n) return go; return null; }
             var hotel = find("E6-7_grande_hotel");
             Assert.NotNull(hotel); Assert.IsTrue(hotel.activeSelf);
             var hb = BoundsOf(hotel);
             // Blender site-local X 505..595 (+ portico), Y 330..420 -> Unity x, z; height above the pad
-            Assert.That(hb.center.x, Is.InRange(535f, 565f), "hotel x");
+            Assert.That(hb.center.x, Is.InRange(535f + dx, 565f + dx), "hotel x");
             Assert.That(hb.center.z, Is.InRange(335f, 395f), "hotel z (north = +z, not mirrored)");
-            Assert.That(hb.min.y, Is.GreaterThan(g.Site.HeightAt(550f, 358f) - 3f), "hotel sits on the ground");
+            Assert.That(hb.min.y, Is.GreaterThan(g.Site.HeightAt(550f + dx, 358f) - 3f), "hotel sits on the ground");
             Assert.That(hb.size.x, Is.InRange(85f, 110f), "hotel width");
 
             var aur = find("E7-7_Arq_Tower");
             Assert.NotNull(aur);
             var tb = BoundsOf(aur);
-            Assert.That(tb.center.x, Is.InRange(440f, 470f), "tower x");
+            Assert.That(tb.center.x, Is.InRange(440f + dx, 470f + dx), "tower x");
             Assert.That(tb.center.z, Is.InRange(620f, 660f), "tower z");
             Assert.That(tb.max.y, Is.GreaterThan(60f), "tower height");
 

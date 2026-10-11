@@ -20,8 +20,9 @@ namespace ResortAurora.Game
         // The stage-2 kiosk model (Tools/Blender/sa_stages.py) stands on a flat timber deck 0.14 m above the ground under the stall origin,
         // spanning x -9.5..9.5 and 9.5 m behind / 3.4 m in front of it, with tables on both wings.
         public const float DeckLift = 0.14f, DeckHalfWidth = 9.5f, DeckBack = 9.5f, DeckFront = 3.4f;
-        // Chairs sit slightly higher than the stage-1 plastic ones (0.56 m vs 0.45 m), and the deck adds its own lift.
-        const float KioskChairLift = 0.11f;
+        // CC0 deck chairs use the same 0.45 m seat height as the stage-one chairs.
+        // The rig's seated pose supplies the seat height; only the deck lifts its root.
+        static float KioskChairLift => RealisticKioskAssets.DeckAssetsAvailable ? 0f : .11f;
 
         /// <summary>Stage-1 tables: one from the start, the other two with the "Mesas de plástico" upgrade; none once the exported kiosk model takes over.</summary>
         public void RefreshUpgrades(ResortGame game)
@@ -103,19 +104,45 @@ namespace ResortAurora.Game
         public Vector3 LanePoint(float x) => Ground(new Vector3(x, 0f, LaneZ));
 
         static readonly HashSet<string> StallLookParts = new HashSet<string>
-        { "Deck", "Post", "Awning0", "Awning1", "Awning2", "Awning3", "Awning4", "Awning5", "Counter", "CounterTop", "Grill", "GrillGlow", "Cooler", "CoolerLid" };
+        { "Deck", "Post", "Awning0", "Awning1", "Awning2", "Awning3", "Awning4", "Awning5", "Counter", "CounterTop", "Grill", "GrillGlow", "Cooler", "CoolerLid", "LampHead" };
 
         /// <summary>From stage 2 the exported kiosk model replaces the stall's look. The stations (counter, grill, crate, boards) keep their colliders and
         /// prompts at the same spots, so play is unchanged; only the structural visuals are hidden.</summary>
         public void SetKioskLook(bool kiosk)
         {
             kioskLook = kiosk;
+            // Match authored surfaces and keep the side-mounted controls accessible.
+            var counter = Root.Find("Counter").GetComponent<BoxCollider>();
+            counter.size = kiosk ? new Vector3(9.2f/4.2f,1.2f/1.1f,.85f/.7f) : Vector3.one;
+            counter.center = kiosk ? new Vector3(0f,.05f/1.1f,0f) : Vector3.zero;
+            Root.Find("Grill").localPosition = new Vector3(-1.5f,kiosk?.56f:.45f,-1f);
+            Root.Find("Cooler").localPosition = new Vector3(1.4f,kiosk?.55f:.4f,-1.2f);
+            Root.Find("S1_Fridge").localPosition = new Vector3(.35f,kiosk?1.09f:.95f,-1.5f);
+            var snack = Root.Find("S1_SnackRack");
+            snack.localPosition = kiosk ? new Vector3(3.6f,.555f,-3.1f) : new Vector3(2.15f,.9f,-1.68f);
+            snack.localScale = kiosk ? new Vector3(.55f,.83f,.4f) : new Vector3(.45f,1.8f,.3f);
+            Root.Find("OpenSign").localPosition = kiosk ? new Vector3(-4.45f,1.25f,1.85f) : new Vector3(-2.45f,1.25f,1.15f);
+            Root.Find("HelpBoard").localPosition = kiosk ? new Vector3(-4.45f,1.95f,1.85f) : new Vector3(-2.4f,1.1f,.4f);
+            foreach(var label in Root.GetComponentsInChildren<TextMesh>(true))
+                if(label.text.StartsWith("ABERTO /")) label.transform.localPosition = kiosk ? new Vector3(-4.505f,1.25f,1.85f) : new Vector3(-2.505f,1.25f,1.15f);
             foreach (var r in Root.GetComponentsInChildren<Renderer>(true))
-                if (StallLookParts.Contains(r.gameObject.name) || r.gameObject.name.StartsWith("S1_")) r.enabled = !kiosk;
+                if (StallLookParts.Contains(r.gameObject.name) || r.gameObject.name.StartsWith("S1_"))
+                    r.enabled = !kiosk && !r.gameObject.name.EndsWith("Fallback");
             foreach (var group in Root.GetComponentsInChildren<LODGroup>(true))
                 if (group.name.StartsWith("S1_")) group.enabled = !kiosk;
             foreach (var t in Root.GetComponentsInChildren<TextMesh>(true))
                 if (t.text == "LANCHES DO MAR") t.gameObject.SetActive(!kiosk);
+            // Stage-one collision cannot remain as invisible barriers inside the larger kitchen.
+            // Interactive station proxies remain for raycast/use; the authored shell supplies structure.
+            foreach (var collider in Root.GetComponentsInChildren<Collider>(true))
+            {
+                bool station = collider.GetComponent<CounterStation>() != null
+                    || collider.GetComponent<GrillStation>() != null
+                    || collider.GetComponent<ActionStation>() != null
+                    || collider.GetComponent<PanelStation>() != null;
+                if (!station && (StallLookParts.Contains(collider.name) || collider.name.StartsWith("S1_") || collider.name == "BackWall"))
+                    collider.enabled = !kiosk;
+            }
             ApplySeatAvailability();
             foreach (var t in ExtraTables) t.SetActive(tablesOwned && !kiosk);
         }
@@ -143,11 +170,11 @@ namespace ResortAurora.Game
     /// <summary>Builds the beach stall procedurally (prototype art; replaced by authored models later). Everything is a primitive with a URP Lit colour.</summary>
     public static class StallBuilder
     {
-        static readonly Dictionary<Color, Material> mats = new Dictionary<Color, Material>();
+        static readonly Dictionary<(Color, float, bool), Material> mats = new Dictionary<(Color, float, bool), Material>();
 
         public static Material Mat(Color c, float smooth = 0.15f, bool emissive = false)
         {
-            var key = c; if (emissive) key.a = 0.5f;
+            var key = (c, smooth, emissive);
             if (mats.TryGetValue(key, out var m) && m != null) return m;
             m = new Material(Shader.Find("Universal Render Pipeline/Lit")) { color = c };
             m.SetColor("_BaseColor", c); m.SetFloat("_Smoothness", smooth);
@@ -174,6 +201,15 @@ namespace ResortAurora.Game
             var t = g.AddComponent<TextMesh>();
             t.text = text; t.fontSize = size; t.characterSize = scale; t.anchor = TextAnchor.MiddleCenter; t.alignment = TextAlignment.Center;
             t.color = Color.white;
+            // GUI/Text Shader ignores world depth and can print signs through
+            // people's faces. Keep the font atlas, but use a URP depth-tested pass.
+            var renderer = g.GetComponent<MeshRenderer>();
+            var signShader = Shader.Find("ResortAurora/WorldSignText");
+            if (signShader != null && renderer.sharedMaterial != null)
+            {
+                var material = new Material(renderer.sharedMaterial) { name = "WorldSignText" };
+                material.shader = signShader; renderer.sharedMaterial = material;
+            }
             g.AddComponent<Billboard>().showRange = showRange;
             return t;
         }
@@ -221,7 +257,9 @@ namespace ResortAurora.Game
             act.prompt = g => g.ShopOpen ? "[E] Fechar o quiosque e conferir o caixa" : "[E] Abrir o quiosque";
             act.canUse = g => !g.Clock.DayOver && !g.AwaitingSleep;
             act.action = g => { if (g.ShopOpen) g.RequestClose(); else g.OpenShop(); };
-            Label(root, new Vector3(-2.45f, 1.85f, 1.15f), "ABERTO / FECHADO", 36, 0.014f, showRange: 2.5f);
+            var openLabel = Label(root, new Vector3(-2.505f, 1.25f, 1.15f), "ABERTO /\nFECHADO", 36, 0.014f);
+            openLabel.GetComponent<Billboard>().enabled = false;
+            openLabel.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
             // help board on a post
             var help = Box("HelpBoard", root, new Vector3(-2.4f, 1.1f, 0.4f), new Vector3(0.08f, 0.6f, 0.5f), new Color(0.15f, 0.3f, 0.2f));
             var hp = help.AddComponent<PanelStation>(); hp.panel = Panel.Help; hp.label = "Como jogar";
@@ -232,8 +270,8 @@ namespace ResortAurora.Game
             var jobsLabel = Label(root, new Vector3(3.6f, 1.55f, 2.01f), "PRECISA-SE\nAJUDANTE", 40, 0.014f, showRange: 6f);
             jobsLabel.GetComponent<Billboard>().enabled = false;
             jobsLabel.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
-            Box("S1_Fascia", root, new Vector3(0f, 2.67f, 1.75f), new Vector3(3.8f, 0.32f, 0.08f), wood2, collider: false);
-            var fascia = Label(root, new Vector3(0f, 2.67f, 1.8f), "LANCHES DO MAR", 60, 0.024f, showRange: 35f);
+            Box("S1_Fascia", root, new Vector3(0f, 2.67f, 2.10f), new Vector3(3.8f, 0.32f, 0.08f), wood2, collider: false);
+            var fascia = Label(root, new Vector3(0f, 2.67f, 2.145f), "LANCHES DO MAR", 60, 0.024f, showRange: 35f);
             fascia.GetComponent<Billboard>().enabled = false;
             fascia.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
 

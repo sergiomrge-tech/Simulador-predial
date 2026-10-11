@@ -130,11 +130,15 @@ namespace ResortAurora.Game
             // the same person, described for the optional skinned body (own random stream: the procedural look above is unchanged)
             var lr = new System.Random((int)(seed * 977f) + 11);
             bool longHair = hairStyle < 0.35f && !kid;
+            bool longSleeves = !shirtless && kind != PersonKind.Active && lr.NextDouble() < 0.35;
+            bool female = lr.NextDouble() < (longHair ? 0.8 : 0.3);
             look = new HumanVisual.Look
             {
                 skin = skin, hair = hair, shirt = shirt, bottom = bareLegs ? shortsColor : bottom, shoes = new Color(0.15f, 0.15f, 0.16f),
-                shirtless = shirtless, bareLegs = bareLegs, longSleeves = !shirtless && kind != PersonKind.Active && lr.NextDouble() < 0.35,
-                longHair = longHair, hasHair = hairStyle < 0.85f, female = lr.NextDouble() < (longHair ? 0.8 : 0.3), scale = Scale,
+                shirtless = shirtless, bareLegs = bareLegs, longSleeves = longSleeves,
+                longHair = longHair, hasHair = hairStyle < 0.85f, female = female, scale = Scale,
+                realisticEligible = kind == PersonKind.Staff || kind == PersonKind.Casual,
+                variantSeed = (int)(seed * 977f) + 11,
             };
             idleVariant = lr.Next(2);
             SetLod(0);

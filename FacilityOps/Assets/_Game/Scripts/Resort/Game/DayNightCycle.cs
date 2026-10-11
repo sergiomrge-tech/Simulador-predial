@@ -3,6 +3,7 @@ using ResortAurora.Site;
 using ResortAurora.Sim;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace ResortAurora.Game
 {
@@ -14,12 +15,17 @@ namespace ResortAurora.Game
     public sealed class DayNightCycle : MonoBehaviour
     {
         const int PoolSize = 8;
+        const int ShadowedLampCount = 2;
 
         struct Lamp { public Vector3 pos; public float range, intensity; public Color color; }
 
         ResortGame game;
         Light sun, moon;
         Material sky, lampMat, starMat, moonMat;
+        Volume postFx;
+        ColorAdjustments colorGrade;
+        Bloom bloom;
+        Tonemapping tonemapping;
         bool customSky;
         Transform dome;
         readonly List<Lamp> lamps = new List<Lamp>();
@@ -54,6 +60,8 @@ namespace ResortAurora.Game
             lampMat.SetColor("_BaseColor", new Color(0.96f, 0.9f, 0.78f)); lampMat.EnableKeyword("_EMISSION");
             lampMat.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
 
+            ConfigureCameraAndPostFx();
+
             pool = new Light[PoolSize];
             for (int i = 0; i < PoolSize; i++)
             {
@@ -62,6 +70,42 @@ namespace ResortAurora.Game
                 pool[i] = l;
             }
             BuildSkyDome();
+        }
+
+        void ConfigureCameraAndPostFx()
+        {
+            var cam = Camera.main;
+            if (cam != null)
+            {
+                var data = cam.GetUniversalAdditionalCameraData();
+                data.antialiasing = AntialiasingMode.SubpixelMorphologicalAntiAliasing;
+                data.antialiasingQuality = AntialiasingQuality.High;
+                data.renderPostProcessing = true;
+                data.dithering = true;
+                data.stopNaN = true;
+            }
+
+            var volumeGo = new GameObject("ResortPostFX");
+            volumeGo.transform.SetParent(transform, false);
+            postFx = volumeGo.AddComponent<Volume>();
+            postFx.isGlobal = true;
+            postFx.priority = 20f;
+            postFx.weight = 1f;
+            postFx.sharedProfile = ScriptableObject.CreateInstance<VolumeProfile>();
+
+            tonemapping = postFx.sharedProfile.Add<Tonemapping>(true);
+            tonemapping.mode.Override(TonemappingMode.ACES);
+
+            colorGrade = postFx.sharedProfile.Add<ColorAdjustments>(true);
+            colorGrade.postExposure.Override(0.06f);
+            colorGrade.contrast.Override(7f);
+            colorGrade.saturation.Override(-2f);
+
+            bloom = postFx.sharedProfile.Add<Bloom>(true);
+            bloom.intensity.Override(0.06f);
+            bloom.threshold.Override(1.15f);
+            bloom.scatter.Override(0.55f);
+            bloom.highQualityFiltering.Override(true);
         }
 
         // ---------------------------------------------------------------- lamps
@@ -204,6 +248,20 @@ namespace ResortAurora.Game
             float elev = Daylight.SunElevation(hours), golden = Daylight.Golden(hours);
             float t = Mathf.Clamp01((hours - Daylight.Sunrise) / (Daylight.Sunset - Daylight.Sunrise));
 
+            // Subtle filmic finishing: keep daylight crisp, protect sunset highlights and let lamps
+            // bloom slightly at night without washing out the scene.
+            if (colorGrade != null)
+            {
+                colorGrade.postExposure.value = Mathf.Lerp(0.08f, 0.02f, night) + golden * 0.03f;
+                colorGrade.contrast.value = Mathf.Lerp(7f, 8.5f, night);
+                colorGrade.saturation.value = Mathf.Lerp(-2f, -5f, night);
+            }
+            if (bloom != null)
+            {
+                bloom.intensity.value = Mathf.Lerp(0.045f, 0.15f, night);
+                bloom.threshold.value = Mathf.Lerp(1.18f, 0.88f, night);
+            }
+
             // sun: rises in the east, crosses the northern sky, sets in the west; the light points the other way
             float az = 90f - 180f * t;
             if (sun != null)
@@ -213,6 +271,10 @@ namespace ResortAurora.Game
                 sun.color = Color.Lerp(new Color(1f, 0.96f, 0.88f), new Color(1f, 0.58f, 0.32f), golden * golden);
                 float vis = Mathf.Clamp01((elev + 3f) / 10f);
                 sun.intensity = Mathf.Lerp(1.2f, 0.55f, golden) * vis;
+                sun.shadowStrength = Mathf.Lerp(0.94f, 0.72f, golden);
+                sun.shadowBias = 0.035f;
+                sun.shadowNormalBias = 0.25f;
+                sun.shadowNearPlane = 0.25f;
                 sun.shadows = night < 0.85f && elev > 1f ? LightShadows.Soft : LightShadows.None;
                 sun.enabled = vis > 0.001f;
             }
@@ -220,40 +282,44 @@ namespace ResortAurora.Game
             float moonUp = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(0.25f, 0.9f, night));
             float moonElev = 24f + Mathf.Max(0f, hours - 18f) * 7f, moonAz = 105f - Mathf.Max(0f, hours - 18f) * 9f;
             moon.transform.rotation = Quaternion.Euler(moonElev, moonAz + 180f, 0f);
-            moon.intensity = 0.42f * moonUp;
+            moon.intensity = 0.56f * moonUp;
+            moon.shadowStrength = 0.46f;
+            moon.shadowBias = 0.05f;
+            moon.shadowNormalBias = 0.30f;
+            moon.shadowNearPlane = 0.25f;
             moon.shadows = night > 0.85f ? LightShadows.Soft : LightShadows.None;
             moon.enabled = moonUp > 0.001f;
 
             // ambient: day sky-blue, dusk violet, night deep blue that never goes black
-            var dayA = new Color(0.60f, 0.72f, 0.90f); var duskA = new Color(0.42f, 0.34f, 0.48f); var nightA = new Color(0.10f, 0.14f, 0.27f);
+            var dayA = new Color(0.48f, 0.66f, 0.88f); var duskA = new Color(0.40f, 0.30f, 0.38f); var nightA = new Color(0.075f, 0.105f, 0.20f);
             Color Amb(Color d, Color k, Color nn) => Color.Lerp(Color.Lerp(d, k, golden * 0.8f), nn, night);
             RenderSettings.ambientSkyColor = Amb(dayA, duskA, nightA);
-            RenderSettings.ambientEquatorColor = Amb(new Color(0.62f, 0.60f, 0.56f), new Color(0.40f, 0.30f, 0.30f), new Color(0.09f, 0.11f, 0.19f));
-            RenderSettings.ambientGroundColor = Amb(new Color(0.40f, 0.34f, 0.26f), new Color(0.22f, 0.16f, 0.14f), new Color(0.05f, 0.05f, 0.08f));
-            RenderSettings.reflectionIntensity = Mathf.Lerp(1f, 0.12f, night);
+            RenderSettings.ambientEquatorColor = Amb(new Color(0.54f, 0.58f, 0.61f), new Color(0.40f, 0.29f, 0.26f), new Color(0.095f, 0.115f, 0.18f));
+            RenderSettings.ambientGroundColor = Amb(new Color(0.34f, 0.36f, 0.32f), new Color(0.24f, 0.16f, 0.13f), new Color(0.050f, 0.065f, 0.10f));
+            RenderSettings.reflectionIntensity = Mathf.Lerp(1f, 0.22f, night);
             // horizon (also the fog and the sea's far colour): blue day, orange sunset, violet dusk, deep blue night; the dusk only shows while night rises
             float dusk = Mathf.Sin(Mathf.Clamp01(night) * Mathf.PI) * (elev < 4f ? 1f : 0f);
-            var horizon = Color.Lerp(Color.Lerp(new Color(0.72f, 0.82f, 0.92f), new Color(0.95f, 0.55f, 0.40f), golden), new Color(0.04f, 0.06f, 0.13f), night);
-            horizon = Color.Lerp(horizon, new Color(0.40f, 0.26f, 0.44f), dusk * 0.55f);
+            var horizon = Color.Lerp(Color.Lerp(new Color(0.60f, 0.78f, 0.93f), new Color(0.98f, 0.56f, 0.34f), golden), new Color(0.040f, 0.070f, 0.14f), night);
+            horizon = Color.Lerp(horizon, new Color(0.34f, 0.20f, 0.30f), dusk * 0.38f);
             RenderSettings.fogColor = horizon;
             RenderSettings.fogDensity = Mathf.Lerp(0.00035f, 0.0007f, Mathf.Max(golden * 0.6f, night));
 
             if (sky != null && customSky)
             {
-                var zenith = Color.Lerp(new Color(0.14f, 0.36f, 0.78f), new Color(0.22f, 0.27f, 0.54f), golden);
-                zenith = Color.Lerp(zenith, new Color(0.02f, 0.035f, 0.10f), night);
-                zenith = Color.Lerp(zenith, new Color(0.14f, 0.12f, 0.30f), dusk * 0.5f);
+                var zenith = Color.Lerp(new Color(0.055f, 0.31f, 0.68f), new Color(0.18f, 0.24f, 0.48f), golden);
+                zenith = Color.Lerp(zenith, new Color(0.025f, 0.050f, 0.13f), night);
+                zenith = Color.Lerp(zenith, new Color(0.12f, 0.10f, 0.22f), dusk * 0.34f);
                 float glowK = golden * golden * (1f - night) * Mathf.Clamp01((elev + 22f) / 24f);     // the sky keeps its afterglow while the sun is a little below the horizon
                 sky.SetColor("_Zenith", zenith);
                 sky.SetColor("_Horizon", horizon);
                 sky.SetColor("_Ground", horizon * 0.55f);
                 sky.SetVector("_SunDir", sun != null ? -sun.transform.forward : Vector3.up);
                 sky.SetColor("_SunColor", (sun != null ? sun.color : Color.white) * Mathf.Clamp01((elev + 2f) / 6f));
-                sky.SetColor("_Glow", new Color(1f, 0.52f, 0.26f) * (0.55f * glowK));
+                sky.SetColor("_Glow", new Color(1f, 0.48f, 0.20f) * (0.48f * glowK));
                 sky.SetFloat("_SunDisc", 1f);
-                var cloud = Color.Lerp(new Color(0.96f, 0.97f, 0.99f), new Color(1f, 0.74f, 0.58f), golden * 0.8f);
+                var cloud = Color.Lerp(new Color(0.93f, 0.95f, 0.98f), new Color(1f, 0.70f, 0.52f), golden * 0.72f);
                 cloud = Color.Lerp(cloud, new Color(0.055f, 0.075f, 0.15f), night);
-                cloud = Color.Lerp(cloud, new Color(0.30f, 0.22f, 0.38f), dusk * 0.5f);
+                cloud = Color.Lerp(cloud, new Color(0.25f, 0.18f, 0.30f), dusk * 0.34f);
                 sky.SetColor("_CloudColor", cloud);
                 sky.SetFloat("_CloudCover", game.Weather == Weather.Cloudy ? 0.78f : 0.4f);
             }
@@ -313,6 +379,14 @@ namespace ResortAurora.Game
                 var lamp = lamps[chosen[i]];
                 pool[i].transform.position = lamp.pos; pool[i].color = lamp.color;
                 pool[i].range = lamp.range; pool[i].intensity = lamp.intensity * fade;
+                // Only the two closest street/kiosk lamps cast shadows. This adds grounding at night without
+                // paying for eight realtime shadow cubemaps.
+                bool shadowed = i < ShadowedLampCount;
+                pool[i].shadows = shadowed ? LightShadows.Soft : LightShadows.None;
+                pool[i].shadowStrength = 0.38f * fade;
+                pool[i].shadowBias = 0.055f;
+                pool[i].shadowNormalBias = 0.32f;
+                pool[i].shadowNearPlane = 0.18f;
             }
         }
     }

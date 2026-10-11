@@ -207,6 +207,8 @@ namespace ResortAurora.Site
             for(int i=0;i<site.Data.lots.Length;i++)
             {
                 var lot=site.Data.lots[i];
+                // vrbn includes authored facade details; avoid projecting kit dressing over its windows/doors.
+                if(CoastalVRBNAssets.IsCompatible(lot)) continue;
                 if(!CoastalUrbanAssets.TryDescribeLot(site,lot,i,out var f)) continue;
                 float yaw=lot.rot;
                 if(i%4==0)

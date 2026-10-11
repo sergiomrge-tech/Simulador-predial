@@ -17,13 +17,17 @@ namespace ResortAurora.Game
         {
             game = g;
             placement = Object.FindAnyObjectByType<ResortAurora.Placement.PlacementSystem>();
+            // Always ship this URP shader through Resources. Shader.Find alone can
+            // succeed in the Editor but be stripped from standalone builds.
+            var boundaryShader = Resources.Load<Shader>("Resort/ParcelBoundary");
+            if (boundaryShader == null) Debug.LogWarning("ParcelBoundary shader unavailable; boundary lines disabled.");
             foreach (var p in g.Site.Data.parcels)
             {
                 if (p.id == "P0") continue;                         // the stall spot is drawn by the stall itself
                 var go = new GameObject("Parcel " + p.id);
                 go.transform.SetParent(transform, false);
                 var lr = go.AddComponent<LineRenderer>();
-                lr.sharedMaterial = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
+                lr.sharedMaterial = boundaryShader != null ? new Material(boundaryShader) : null;
                 lr.enabled = false;
                 lr.loop = true; lr.widthMultiplier = 0.18f; lr.positionCount = 4; lr.useWorldSpace = true;
                 lr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -63,7 +67,7 @@ namespace ResortAurora.Game
                 e.lastKey = key;
                 Color c = status == ParcelStatus.Owned ? new Color(0.25f, 0.9f, 0.35f) : status == ParcelStatus.Available ? new Color(1f, 0.85f, 0.2f) : new Color(0.9f, 0.3f, 0.25f);
                 e.line.startColor = e.line.endColor = c;
-                e.line.sharedMaterial.color = c;
+                if (e.line.sharedMaterial != null) e.line.sharedMaterial.color = c;
                 e.label.text = status == ParcelStatus.Owned ? e.data.name + "\nSEU" : status == ParcelStatus.Available ? e.data.name + "\nÀ VENDA R$ " + e.data.price : e.data.name + "\nINDISPONÍVEL";
                 e.label.color = c;
             }

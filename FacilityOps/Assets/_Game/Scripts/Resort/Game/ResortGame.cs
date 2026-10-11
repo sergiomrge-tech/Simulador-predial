@@ -85,6 +85,9 @@ namespace ResortAurora.Game
             CoastalUrbanProps.DressPromenadeLamps(DayNight);
             DayNight.RegisterUrbanLamps(site);
             player.Bind(this);
+            // Spawn before parcel/shader or lodging setup. A failed optional
+            // renderer can never leave the camera at its scene-authored sea coordinate.
+            PlaceAtHome();
 
             Parcels = new ParcelBook(Bus);
             foreach (var p in site.Data.parcels)
@@ -92,7 +95,7 @@ namespace ResortAurora.Game
             new GameObject("ParcelMarkers").AddComponent<ParcelMarkers>().Init(this);
 
             Stages = new GameObject("ResortStages").AddComponent<ResortStages>();
-            Stages.Init(site);
+            Stages.Init(site, Layout.Root.position);
             Bus.Subscribe<ParcelBought>(e => { if (e.Id == "P2") UnlockLodging(true); RefreshStage(); });
 
             BuildHomeStations();
@@ -171,7 +174,18 @@ namespace ResortAurora.Game
         }
 
         void PlaceAtStall() => player.Teleport(Layout.PlayerSpawn, Layout.Root.rotation);
-        void PlaceAtHome() => player.Teleport(site.HomeDoor + Vector3.up * 0.2f, Quaternion.Euler(0f, 180f, 0f));
+        void PlaceAtHome()
+        {
+            var home=site.Data.home;
+            var pos=site.HomeDoor;
+            // Ensure the front porch is always outside the home's south wall.
+            pos.z=Mathf.Min(pos.z,home.z-home.depth*0.5f-0.65f);
+            pos.y=site.HeightAt(pos.x,pos.z)+0.24f;
+            if(pos.y <= site.Data.seaLevel+0.35f)
+                throw new System.InvalidOperationException("Home spawn is underwater: island terrain must preserve Santa Clara.");
+            player.Teleport(pos,Quaternion.Euler(0f,180f,0f));
+            Debug.Log($"RESORT_HOME_SPAWN x={pos.x:F2} y={pos.y:F2} z={pos.z:F2} land=true unit={home.unit}");
+        }
 
         void Load(ResortSave s)
         {

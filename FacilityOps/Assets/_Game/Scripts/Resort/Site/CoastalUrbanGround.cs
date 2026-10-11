@@ -46,8 +46,10 @@ namespace ResortAurora.Site
         static Material asphalt, pavement, curb, yellow, white;
         static List<Road> Roads(SiteData d)
         {
-            var roads=new List<Road> { new Road(new Rect(0,d.avenue.z-d.avenue.width/2,d.size.x,d.avenue.width),3.4f) };
-            foreach(var s in d.streetsEW) roads.Add(new Road(new Rect(0,s.z-s.width/2,d.size.x,s.width),2.5f));
+            float westernEnd=d.size.x>1500f?76f:0f;
+            float eastEnd=d.size.x>1500f?d.size.x-76f:d.size.x;
+            var roads=new List<Road> { new Road(new Rect(westernEnd,d.avenue.z-d.avenue.width/2,eastEnd-westernEnd,d.avenue.width),3.4f) };
+            foreach(var s in d.streetsEW) roads.Add(new Road(new Rect(westernEnd,s.z-s.width/2,eastEnd-westernEnd,s.width),2.5f));
             foreach(var s in d.streetsNS)
             {
                 // Exported NS streets stopped 9 m short of the avenue. Continue to its centre.
@@ -101,7 +103,7 @@ namespace ResortAurora.Site
         static void Markings(Transform root,ResortSite s)
         {
             var y=new Surface(); var w=new Surface(); var d=s.Data;
-            for(float x=8;x<d.size.x-8;x+=3)
+            for(float x=d.size.x>1500f?80f:8f;x<d.size.x-(d.size.x>1500f?80f:8f);x+=3)
             {
                 bool junction=false; foreach(var ns in d.streetsNS) if(Mathf.Abs(x-ns.x)<ns.width/2+6) junction=true;
                 if(junction) continue;

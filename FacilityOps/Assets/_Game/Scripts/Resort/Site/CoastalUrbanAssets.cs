@@ -62,6 +62,7 @@ namespace ResortAurora.Site
 
         public static bool TryDescribeLot(ResortSite site, LotData lot, int index, out LotFrame frame)
         {
+            if (CoastalVRBNAssets.TryDescribe(site, lot, out frame)) return true;
             frame = default;
             var archetype = Pick(lot, index); var prefab = Load(archetype.path);
             if (prefab == null) return false;
@@ -242,6 +243,7 @@ namespace ResortAurora.Site
             for (int index = 0; index < site.Data.lots.Length; index++)
             {
                 var lot = site.Data.lots[index];
+                if (CoastalVRBNAssets.TryPlace(urbanRoot.transform, site, lot, index)) { replaced++; continue; }
                 var archetype = Pick(lot, index);
                 var prefab = Load(archetype.path);
                 if (prefab == null) continue;

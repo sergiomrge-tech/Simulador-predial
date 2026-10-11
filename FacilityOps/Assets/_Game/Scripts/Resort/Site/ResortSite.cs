@@ -88,6 +88,7 @@ namespace ResortAurora.Site
                 naturalHeights = new float[gradedHeights.Length];
                 Buffer.BlockCopy(nat.bytes, 0, naturalHeights, 0, naturalHeights.Length * sizeof(float));
             }
+            CoastalTerrainRelief.Apply(Data, gradedHeights, naturalHeights);
             heights = gradedHeights;
             Ready = true;
 
@@ -98,10 +99,13 @@ namespace ResortAurora.Site
             terrainNatural.transform.SetParent(transform, false);
             SetGraded(false);
             Game.RealisticKioskAssets.BuildPromenade(this);
+            CoastalPromenadeAvenueLink.Build(this); // beach promenade to avenue: exactly one metre planted buffer
             CoastalUrbanGround.Build(this);
             CoastalUrbanProps.Build(this);
+            CoastalVegetation.Build(this);
+            ScannedUnderstory.Build(this);
             ResortSurfaceMaterials.BuildBeach(this);
-            BuildSea().transform.SetParent(transform, false);
+            CoastalOceanVisual.Build(this).transform.SetParent(transform, false);
             BuildVila().transform.SetParent(transform, false);
 
             var p5 = Array.Find(Data.parcels, p => p.id == "P5");
@@ -163,36 +167,57 @@ namespace ResortAurora.Site
 
         // ---------------------------------------------------------------- terrain
 
-        GameObject BuildTerrain(float[] heights, string objectName, Material material)
+        GameObject BuildTerrain(float[] input, string objectName, Material material)
         {
-            int nx = Data.columns, nz = Data.rows;
-            var verts = new Vector3[nx * nz];
-            var uv = new Vector2[nx * nz];
-            for (int j = 0; j < nz; j++)
-                for (int i = 0; i < nx; i++)
+            int nx=Data.columns,nz=Data.rows;
+            // PhysX large-triangle cook regression: 2 km² cannot be one
+            // 3-million-index collider. Individual tiles are independently
+            // culled and their normals share the full heightfield gradients.
+            const int cellsPerTile=250;
+            var root=new GameObject(objectName);
+            for(int z0=0;z0<nz-1;z0+=cellsPerTile)
+                for(int x0=0;x0<nx-1;x0+=cellsPerTile)
                 {
-                    int k = j * nx + i;
-                    verts[k] = new Vector3(i * Data.step, heights[k], j * Data.step);
-                    uv[k] = new Vector2(i / (float)(nx - 1), j / (float)(nz - 1));
+                    int tx=Mathf.Min(cellsPerTile,nx-1-x0);
+                    int tz=Mathf.Min(cellsPerTile,nz-1-z0);
+                    int tw=tx+1,th=tz+1;
+                    var verts=new Vector3[tw*th];
+                    var normals=new Vector3[verts.Length];
+                    var uv=new Vector2[verts.Length];
+                    for(int j=0;j<th;j++)for(int i=0;i<tw;i++)
+                    {
+                        int ix=x0+i,iz=z0+j,k=j*tw+i;
+                        verts[k]=new Vector3(ix*Data.step,input[iz*nx+ix],iz*Data.step);
+                        uv[k]=new Vector2(ix/(float)(nx-1),iz/(float)(nz-1));
+                        int left=Mathf.Max(0,ix-1),right=Mathf.Min(nx-1,ix+1);
+                        int down=Mathf.Max(0,iz-1),up=Mathf.Min(nz-1,iz+1);
+                        float gradX=(input[iz*nx+left]-input[iz*nx+right])/
+                            Mathf.Max(Data.step,(right-left)*Data.step);
+                        float gradZ=(input[down*nx+ix]-input[up*nx+ix])/
+                            Mathf.Max(Data.step,(up-down)*Data.step);
+                        normals[k]=new Vector3(gradX,1f,gradZ).normalized;
+                    }
+                    var tris=new int[tx*tz*6];int n=0;
+                    for(int j=0;j<tz;j++)for(int i=0;i<tx;i++)
+                    {
+                        int a=j*tw+i,bb=a+1,c=a+tw,e=c+1;
+                        tris[n++]=a;tris[n++]=c;tris[n++]=bb;
+                        tris[n++]=bb;tris[n++]=c;tris[n++]=e;
+                    }
+                    var mesh=new Mesh {
+                        name=objectName+"_Cell_"+x0+"_"+z0,
+                        indexFormat=UnityEngine.Rendering.IndexFormat.UInt32
+                    };
+                    mesh.vertices=verts;mesh.normals=normals;mesh.uv=uv;
+                    mesh.triangles=tris;mesh.RecalculateBounds();
+                    var tile=new GameObject(mesh.name);
+                    tile.transform.SetParent(root.transform,false);
+                    tile.AddComponent<MeshFilter>().sharedMesh=mesh;
+                    tile.AddComponent<MeshRenderer>().sharedMaterial=material;
+                    tile.AddComponent<MeshCollider>().sharedMesh=mesh;
                 }
-            var tris = new int[(nx - 1) * (nz - 1) * 6];
-            int t = 0;
-            for (int j = 0; j < nz - 1; j++)
-                for (int i = 0; i < nx - 1; i++)
-                {
-                    int a = j * nx + i, b = a + 1, c = a + nx, e = c + 1;
-                    tris[t++] = a; tris[t++] = c; tris[t++] = b;   // clockwise seen from above (Unity front face)
-                    tris[t++] = b; tris[t++] = c; tris[t++] = e;
-                }
-            var mesh = new Mesh { name = "BairroTerrain", indexFormat = UnityEngine.Rendering.IndexFormat.UInt32 };
-            mesh.vertices = verts; mesh.uv = uv; mesh.triangles = tris;
-            mesh.RecalculateNormals(); mesh.RecalculateBounds();
-
-            var go = new GameObject(objectName);
-            go.AddComponent<MeshFilter>().sharedMesh = mesh;
-            go.AddComponent<MeshRenderer>().sharedMaterial = material;
-            go.AddComponent<MeshCollider>().sharedMesh = mesh;
-            return go;
+            Debug.Log($"ISLAND_TERRAIN_TILESET root={objectName} tiles={root.transform.childCount} verts={nx*nz}");
+            return root;
         }
 
         /// <summary>Prototype shading: a colour map from height and layout (sand, grass, asphalt, promenade stone, parcels). Replaced by PBR splat later.</summary>
@@ -348,6 +373,8 @@ namespace ResortAurora.Site
             AddCombined(root.transform, "WindowFrames", frames, new Color(0.88f, 0.86f, 0.8f), "reboco", 2f, false);
             AddCombined(root.transform, "Windows", windows, new Color(0.12f, 0.19f, 0.22f), collider: false);
             AddCombined(root.transform, "Doors", doors, new Color(0.48f, 0.38f, 0.28f), "madeira", collider: false);
+            // Replace the prototype-looking combined boxes with the detailed F02 coastal kit.
+            // The legacy meshes keep collision authority and remain visible if the kit is unavailable.
             CoastalUrbanAssets.ReplaceVisuals(root.transform, this);
             return root;
         }

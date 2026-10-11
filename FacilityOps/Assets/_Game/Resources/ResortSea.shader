@@ -4,8 +4,8 @@ Shader "ResortAurora/Sea"
     // Everything it needs (ambient sky, fog, main light) is already driven by DayNightCycle, so the water follows the clock with no per-frame C#.
     Properties
     {
-        _Deep("Deep water", Color) = (0.015, 0.16, 0.27, 1)
-        _Shallow("Shallow water", Color) = (0.12, 0.60, 0.58, 1)
+        _Deep("Deep water", Color) = (0.008, 0.115, 0.20, 1)
+        _Shallow("Shallow water", Color) = (0.08, 0.48, 0.52, 1)
         _Ripple("Ripple strength", Range(0, 2)) = 1
     }
     SubShader
@@ -74,20 +74,21 @@ Shader "ResortAurora/Sea"
                 // body colour: deeper offshore, turquoise in the shallows, tinted by the ambient sky so it dims with the evening
                 float3 amb = unity_AmbientSky.rgb;
                 float3 body = lerp(_Deep.rgb, _Shallow.rgb, shallow);
-                float3 lit = amb * 0.75 + lightCol * saturate(dot(N, L)) * 0.45;
+                float ndl = saturate(dot(N, L));
+                float3 lit = amb * 0.58 + lightCol * (0.34 + ndl * 0.46);
                 body *= lit;
 
                 // sky reflection: Fresnel, brighter towards the horizon
                 float nv = saturate(dot(N, V));
                 float fres = 0.02 + 0.98 * pow(1.0 - nv, 5.0);
                 float3 horizon = unity_FogColor.rgb;
-                float3 refl = lerp(amb * 1.15, horizon, saturate(1.0 - V.y * 4.0));
+                float3 refl = lerp(amb * 1.05, horizon * 1.03, saturate(1.0 - V.y * 3.2));
                 float3 col = lerp(body, refl, saturate(fres * lerp(1.0, 0.45, shallow)));
 
                 // sun / moon glitter on the ripples
                 float3 H = normalize(L + V);
                 float nh = saturate(dot(N, H));
-                float glint = pow(nh, 900.0) * 6.0 + pow(nh, 80.0) * 0.22;
+                float glint = pow(nh, 780.0) * 4.2 + pow(nh, 70.0) * 0.16;
                 col += lightCol * glint * saturate(L.y * 6.0);
 
                 col = MixFog(col, i.fog);

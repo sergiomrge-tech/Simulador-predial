@@ -18,6 +18,14 @@ namespace ResortAurora.Game
         float holdTime;
 
         public Interactable Target => target;
+        public static Interactable ResolveInteractionHit(RaycastHit hit)
+        {
+            if(hit.collider==null)return null;
+            var direct=hit.collider.GetComponentInParent<Interactable>();
+            if(direct!=null)return direct;
+            var surface=hit.collider.GetComponent<KioskSurfaceInteractions>();
+            return surface!=null?surface.Resolve(hit.point):null;
+        }
         public float HoldProgress => holding == null ? 0f : Mathf.Clamp01(holdTime / Mathf.Max(0.01f, holding.HoldDuration(game)));
         public bool Frozen { get; set; }
 
@@ -65,7 +73,7 @@ namespace ResortAurora.Game
         {
             Interactable found = null;
             if (Physics.Raycast(head.position, head.forward, out var hit, Reach, ~0, QueryTriggerInteraction.Collide))
-                found = hit.collider.GetComponentInParent<Interactable>();
+                found = ResolveInteractionHit(hit);
             if (holding != null && found != holding) CancelHold();
             target = found;
             if (target == null || !target.CanUse(game)) { if (holding != null) CancelHold(); return; }

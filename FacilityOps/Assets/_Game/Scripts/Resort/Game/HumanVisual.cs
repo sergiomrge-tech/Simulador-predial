@@ -7,7 +7,9 @@ using UnityEngine.Rendering;
 namespace ResortAurora.Game
 {
     /// <summary>
-    /// Optional skinned look for near and medium people: the free "Human Basic Motions" mannequins (Kevin Iglesias, Unity Asset Store) driven by a runtime
+    /// Optional skinned look for near and medium people. Eligible adults prefer locally licensed Renderpeople scans with original UVs and shared PBR maps.
+    /// Human Basic Motions supplies animation via Humanoid retargeting; it does not supply realistic beach bodies. Other roles retain the documented fallback:
+    /// the free "Human Basic Motions" mannequins (Kevin Iglesias, Unity Asset Store) driven by a runtime
     /// playable graph (idle, walk, run, talk, cross-faded) and "dressed" by painting: each model gets one UV-remapped copy of its mesh in which every
     /// triangle belongs to a body region (torso, sleeves, shorts, legs, shoes, hair...), and every person gets a tiny palette texture that colours those
     /// regions, so the crowd keeps its variety at the cost of one material and no extra renderers.
@@ -32,6 +34,10 @@ namespace ResortAurora.Game
         static readonly Mesh[] painted = new Mesh[2];
         static int active;
         static Shader litShader;
+        static readonly string[] realisticNames = { "Eric", "Carla", "Claudia" };
+        static readonly GameObject[] realisticModels = new GameObject[3];
+        static readonly Material[] realisticMaterials = new Material[3];
+        static readonly bool[] realisticProbed = new bool[3];
 
         public static bool Available { get { Probe(); return available; } }
         public static int ActiveCount => active;
@@ -62,8 +68,9 @@ namespace ResortAurora.Game
         public struct Look
         {
             public Color skin, hair, shirt, bottom, shoes;
-            public bool shirtless, bareLegs, longSleeves, longHair, hasHair, female;
+            public bool shirtless, bareLegs, longSleeves, longHair, hasHair, female, realisticEligible;
             public float scale;
+            public int variantSeed;
         }
 
         Animator animator;
@@ -72,12 +79,16 @@ namespace ResortAurora.Game
         AnimationMixerPlayable mixer;
         AnimationClipPlayable[] players;
         float[] weights;
+        float[] clipLengths;
+        bool[] clipLoops;
         Clip target = Clip.Idle1;
         bool counted, built;
 
         public Clip Current => target;
         public bool Shown => gameObject.activeSelf;
         public Animator Animator => animator;
+        public bool IsRealistic { get; private set; }
+        public string RealisticVariant { get; private set; }
         public float ClipTime => players != null ? (float)players[(int)target].GetTime() : -1f;
 
         /// <summary>Instantiates the mannequin under <paramref name="rig"/> and paints it. The root of the rig stands at the feet.</summary>
@@ -87,8 +98,20 @@ namespace ResortAurora.Game
             int g = look.female ? 1 : 0;
             var root = new GameObject("HumanVisual"); root.transform.SetParent(rig, false);
             var hv = root.AddComponent<HumanVisual>();
-            var model = Instantiate(models[g], root.transform);
-            model.name = "Mannequin"; model.transform.localPosition = Vector3.zero; model.transform.localRotation = Quaternion.identity;
+            // Independent deterministic stream: changing the visual roster must not
+            // change animation phases or consume the BeachLife population RNG.
+            int variant = g == 0 ? 0 : 1 + new System.Random(look.variantSeed).Next(2);
+            var realistic = look.realisticEligible ? RealisticModel(variant) : null;
+            if (realistic == null && look.realisticEligible && g == 1)
+            {
+                variant = variant == 1 ? 2 : 1;
+                realistic = RealisticModel(variant);
+            }
+            var model = Instantiate(realistic != null ? realistic : models[g], root.transform);
+            hv.IsRealistic = realistic != null;
+            hv.RealisticVariant = hv.IsRealistic ? realisticNames[variant] : null;
+            model.name = hv.IsRealistic ? "ScannedAdult" : "Mannequin";
+            model.transform.localPosition = Vector3.zero; model.transform.localRotation = Quaternion.identity;
             hv.animator = model.GetComponent<Animator>();
             if (hv.animator == null) hv.animator = model.GetComponentInChildren<Animator>();
             if (hv.animator == null || !hv.animator.isHuman) { Destroy(root); return null; }
@@ -96,7 +119,7 @@ namespace ResortAurora.Game
             hv.animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;            // culled animators freeze their playable graph; the LOD already hides far people
             hv.animator.runtimeAnimatorController = null;
             hv.skinned = hv.animator.GetComponentsInChildren<SkinnedMeshRenderer>();
-            hv.Paint(look, g);
+            if (hv.IsRealistic) hv.DressRealistic(variant); else hv.Paint(look, g);
             hv.BuildGraph(g, rng);
             hv.built = true;
             root.SetActive(false);
@@ -104,6 +127,50 @@ namespace ResortAurora.Game
         }
 
         // ---------------------------------------------------------------- painting
+
+        // The optional scanned assets are local-only under ThirdParty. A complete
+        // PBR set and a valid Humanoid avatar are required before using them.
+        static GameObject RealisticModel(int variant)
+        {
+            if (realisticProbed[variant]) return realisticModels[variant];
+            realisticProbed[variant] = true;
+            string path = "RealisticHumans/" + realisticNames[variant];
+            var model = Resources.Load<GameObject>(path);
+            var color = Resources.Load<Texture2D>(path + "_BaseColor");
+            var normal = Resources.Load<Texture2D>(path + "_Normal");
+            var gloss = Resources.Load<Texture2D>(path + "_MetallicGloss");
+            if (model == null || color == null || normal == null || gloss == null) return null;
+            var an = model.GetComponentInChildren<Animator>();
+            if (an == null || an.avatar == null || !an.avatar.isValid || !an.avatar.isHuman) return null;
+            var shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null || !shader.isSupported) return null;
+            var mat = new Material(shader) { name = realisticNames[variant] + "_ScannedAdultPBR", enableInstancing = true };
+            mat.SetTexture("_BaseMap", color); mat.SetColor("_BaseColor", Color.white);
+            mat.SetTexture("_BumpMap", normal); mat.SetFloat("_BumpScale", 0.65f); mat.EnableKeyword("_NORMALMAP");
+            mat.SetTexture("_MetallicGlossMap", gloss); mat.SetFloat("_Smoothness", 0.65f);
+            mat.EnableKeyword("_METALLICSPECGLOSSMAP");
+            realisticModels[variant] = model; realisticMaterials[variant] = mat;
+            return model;
+        }
+
+        void DressRealistic(int variant)
+        {
+            var bounds = new Bounds(); bool first = true;
+            foreach (var r in skinned)
+            {
+                if (first) { bounds = r.bounds; first = false; } else bounds.Encapsulate(r.bounds);
+                var mats = new Material[r.sharedMaterials.Length];
+                for (int i = 0; i < mats.Length; i++) mats[i] = realisticMaterials[variant];
+                r.sharedMaterials = mats; r.updateWhenOffscreen = false;
+            }
+            // Measure in the visual root's frame, so parent height variation is
+            // preserved and a scaled PersonRig does not cancel its own scale.
+            float bottom = transform.InverseTransformPoint(new Vector3(bounds.center.x, bounds.min.y, bounds.center.z)).y;
+            float top = transform.InverseTransformPoint(new Vector3(bounds.center.x, bounds.max.y, bounds.center.z)).y;
+            float scale = 1.74f / Mathf.Max(0.5f, top - bottom);
+            transform.localScale = Vector3.one * scale;
+            animator.transform.localPosition += Vector3.up * (-bottom);
+        }
 
         /// <summary>Body region of a vertex from its dominant bone and where it sits along that bone (bind pose, world space).</summary>
         static int RegionOf(HumanBodyBones bone, Vector3 p, Animator an, Vector3 headCenter, Vector3 headSize, Vector3 fwd)
@@ -243,10 +310,12 @@ namespace ResortAurora.Game
             var cl = clips[g];
             mixer = AnimationMixerPlayable.Create(graph, cl.Length);
             players = new AnimationClipPlayable[cl.Length]; weights = new float[cl.Length];
+            clipLengths = new float[cl.Length]; clipLoops = new bool[cl.Length];
             for (int i = 0; i < cl.Length; i++)
             {
+                clipLengths[i] = cl[i].length; clipLoops[i] = cl[i].isLooping;
                 players[i] = AnimationClipPlayable.Create(graph, cl[i]);
-                players[i].SetApplyFootIK(false);
+                players[i].SetApplyFootIK(IsRealistic);
                 players[i].SetTime(rng.NextDouble() * cl[i].length);                       // out of step with the neighbours
                 graph.Connect(players[i], 0, mixer, i);
                 mixer.SetInputWeight(i, 0f);
@@ -260,6 +329,15 @@ namespace ResortAurora.Game
         public void Drive(Clip clip, float speed, float dt, float variety)
         {
             if (!built) return;
+            int selected = (int)clip;
+            // HBM Talk01 is a non-looping source. Its input still advances while
+            // mixed out, so reset on entry and repeat it while talking.
+            if (!clipLoops[selected] && clipLengths[selected] > 0f)
+            {
+                if (target != clip) players[selected].SetTime(0d);
+                else if (players[selected].GetTime() >= clipLengths[selected])
+                    players[selected].SetTime(players[selected].GetTime() % clipLengths[selected]);
+            }
             target = clip;
             for (int i = 0; i < weights.Length; i++)
             {

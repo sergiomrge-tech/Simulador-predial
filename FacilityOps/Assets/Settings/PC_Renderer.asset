@@ -56,7 +56,7 @@ MonoBehaviour:
   m_RenderingMode: 2
   m_DepthPrimingMode: 0
   m_CopyDepthMode: 0
-  m_AccurateGbufferNormals: 0
+  m_AccurateGbufferNormals: 1
   m_IntermediateTextureMode: 0
 --- !u!114 &7833122117494664109
 MonoBehaviour:
@@ -77,9 +77,9 @@ MonoBehaviour:
     AfterOpaque: 0
     Source: 1
     NormalSamples: 1
-    Intensity: 0.4
-    DirectLightingStrength: 0.25
-    Radius: 0.3
+    Intensity: 0.65
+    DirectLightingStrength: 0.15
+    Radius: 0.45
     Samples: 1
     BlurQuality: 0
     Falloff: 100

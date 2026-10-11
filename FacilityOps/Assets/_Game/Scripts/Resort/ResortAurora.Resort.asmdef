@@ -1,6 +1,6 @@
 {
   "name": "ResortAurora.Resort",
   "rootNamespace": "ResortAurora",
-  "references": ["Unity.InputSystem"],
+  "references": ["Unity.InputSystem", "Unity.RenderPipelines.Core.Runtime", "Unity.RenderPipelines.Universal.Runtime"],
   "autoReferenced": true
 }
