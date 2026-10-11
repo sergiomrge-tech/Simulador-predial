@@ -31,6 +31,20 @@ namespace ResortAurora.Tests
                 Assert.IsNotNull(beach);
                 var beachMesh = beach.GetComponent<MeshFilter>().sharedMesh;
                 Assert.Greater(beachMesh.vertexCount, 18000, "Old 17-row beach mesh intersects terrain");
+                // The sand must run right up to the paving and settle under it: no strip of bare terrain, no lip.
+                var sandVerts = beachMesh.vertices; float worstGap = 0f, worstLip = 0f; int onEdge = 0;
+                for (int i = 0; i < sandVerts.Length; i++)
+                {
+                    var v = sandVerts[i];
+                    float edge = site.PromenadeZ(v.x) - 5.95f;
+                    if (v.z < edge - 0.05f) continue;
+                    onEdge++;
+                    worstGap = Mathf.Max(worstGap, Mathf.Abs(edge - v.z));
+                    worstLip = Mathf.Max(worstLip, v.y - site.HeightAt(v.x, v.z));
+                }
+                Assert.Greater(onEdge, 100, "sand mesh has a vertex row on the paving edge");
+                Assert.Less(worstGap, 0.05f, "sand reaches the paving edge");
+                Assert.Less(worstLip, 0.02f, "sand is flush with the ground where it meets the paving");
                 var material = beach.GetComponent<MeshRenderer>().sharedMaterial;
                 Assert.IsTrue(material != null && material.shader != null && material.shader.isSupported);
                 Assert.AreEqual("ResortAurora/CoastalSand", material.shader.name);

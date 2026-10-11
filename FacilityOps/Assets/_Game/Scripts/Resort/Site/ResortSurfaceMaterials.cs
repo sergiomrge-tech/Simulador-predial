@@ -67,6 +67,9 @@ namespace ResortAurora.Site
 
         /// <summary>One PBR sand surface follows the same heightfield/collider.
         /// The local CC0 scan adds close detail without changing terrain physics.</summary>
+        // Paving spans PromenadeZ +/- 5.95 and sits .015 m over the ground.
+        const float SandEdgeOffset = 5.95f, SandLift = .10f, SandEdgeLift = .005f, SandTaper = 1f;
+
         public static void BuildBeach(ResortSite site)
         {
             if (Resources.Load<Texture2D>("Art/Resort/Textures/sand_BaseColor") == null) return;
@@ -78,7 +81,7 @@ namespace ResortAurora.Site
             for (int probe = 0; probe <= columns; probe++)
             {
                 float x = Mathf.Min(probe * 1.5f, site.Data.size.x);
-                widestBeach = Mathf.Max(widestBeach, site.PromenadeZ(x) - 6.10f - (site.WaterlineZ(x) - .40f));
+                widestBeach = Mathf.Max(widestBeach, site.PromenadeZ(x) - SandEdgeOffset - (site.WaterlineZ(x) - .40f));
             }
             int rows = Mathf.Max(20, Mathf.CeilToInt(widestBeach / .75f) + 1);
             var vertices = new Vector3[columns * rows];
@@ -87,12 +90,16 @@ namespace ResortAurora.Site
             for (int i = 0; i < columns; i++)
             {
                 float x = Mathf.Min(i * 1.5f, site.Data.size.x);
-                float shore = site.WaterlineZ(x) - .40f, edge = site.PromenadeZ(x) - 6.10f;
+                float shore = site.WaterlineZ(x) - .40f, edge = site.PromenadeZ(x) - SandEdgeOffset;
                 for (int j = 0; j < rows; j++)
                 {
                     float z = Mathf.Lerp(shore, edge, j / (float)(rows - 1));
                     int k = i * rows + j;
-                    vertices[k] = new Vector3(x, site.HeightAt(x, z) + .10f, z);
+                    // The sand runs right up to the paving (no bare-terrain gap) and settles
+                    // from its .10 m lift to just under the paving over the last metre, so
+                    // the seam has neither a lip nor a strip of the terrain tint.
+                    float lift = Mathf.Lerp(SandEdgeLift, SandLift, Mathf.SmoothStep(0f, 1f, (edge - z) / SandTaper));
+                    vertices[k] = new Vector3(x, site.HeightAt(x, z) + lift, z);
                     // World-space metres; the shader controls physical scan tiling.
                     uv[k] = new Vector2(x, z);
                     shoreDistance[k] = new Vector2(z - site.WaterlineZ(x), 0f);

@@ -354,3 +354,14 @@ Fecha a pendência da rodada 48 (medição em ms inconclusiva). Execução isola
 Todos ≥ 98 fps em lote; sem picos de 80 ms (o 83 ms da rodada 48 era ruído). Os valores ficaram ~1–3 ms acima da rodada 46 (8,8/8,1 e 7,3/6,4/5,4) com as mesmas draw calls no estágio 1 — variação de máquina (há processos `mcp-for-blender` em segundo plano), não regressão de código. Medição standalone em hardware-alvo continua pendente (Fase 16).
 
 Observação visual (capturas reais de `LivingWorldTests`, nada alterado): em `f02_1_dia_mesas_na_areia.png` e `f02_1_dia_kiosque_da_calcada.png` aparece uma faixa fina amarelada entre a areia seca e o ladrilho do calçadão, que em ângulo rasante lê como "borda de laje". Provável origem: mistura seco/úmido do shader `Coastal/CoastalSand` (uv2 = distância à orla) ou borda da malha `BeachSandPBR` junto ao calçadão; não investigado a fundo. Candidato para a próxima rodada ou Fase 15.
+
+
+## Adendo — rodada 50 (2026-10-11): emenda areia/calçadão corrigida
+
+**Status: VALIDADO (suíte completa `unity_PlayMode_20261011_024252`: 38 passed / 1 skip opt-in, UNITY_EXIT=0, 0 `error CS`/`Shader error`/NRE; `CoastalPromenadeLayoutTests` com a nova asserção reexecutado isolado em `unity_PlayMode_20261011_025146`, 1/1). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
+
+Causa da faixa amarelada da rodada 49 (não era o shader): a malha `BeachSandPBR` terminava em `PromenadeZ - 6,10`, enquanto o ladrilho do calçadão começa em `PromenadeZ - 5,95`, e a areia ficava 0,10 m acima do terreno. Resultado: um vão de 0,15 m com o terreno nu (tinta de areia do mapa de cores) e um degrau/"borda de laje" em ângulo rasante.
+
+Correção em `ResortSurfaceMaterials.BuildBeach`: a areia agora vai até `PromenadeZ - 5,95` (encosta no ladrilho) e a elevação desce suavemente (SmoothStep) de 0,10 m para 0,005 m no último metro, ficando abaixo do ladrilho (+0,015 m). Teste `CoastalPromenadeLayoutTests` ganhou asserção: vértices na borda existem (>100), vão < 5 cm, degrau < 2 cm.
+
+Evidência real (capturas da Unity, `f02_1_dia_mesas_na_areia.png`, `f02_1_dia_kiosque_da_calcada.png`): a faixa amarelada e o degrau sumiram; a areia encontra o calçadão sem emenda visível. Nota: nesta execução o clima sorteado foi mais fechado (areia mais escura, sem sombra do guarda-sol, menos pessoas) — `DemandModel` sorteia o clima por dia e `Daylight` reduz o sol em dia nublado; não é efeito da correção (só altera alturas dos últimos metros). Limitação: ainda é leitura de captura, sem olhar humano.
