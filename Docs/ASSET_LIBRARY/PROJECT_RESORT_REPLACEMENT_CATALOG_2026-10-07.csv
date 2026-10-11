@@ -1,0 +1,16 @@
+priority,current_placeholder,replacement_asset,local_source,status,intended_use,gate
+P0,Human mannequins,Renderpeople Rigged,"D:\ProjectResort_AssetLibrary\Renderpeople_Free_Rigged",downloaded_not_promoted,realistic NPC models,OPEN
+P0,Human locomotion,Human Basic Motions FREE,"D:\ProjectResort_AssetLibrary\UnityFree\ExtractedForReview\Human Basic Motions FREE",integrated,animation set,ACTIVE
+P0,Urban blockout,CoastalUrbanKit 8 archetypes,"D:\ProjectResort_AssetLibrary\ProjectOwned\CoastalUrbanKit",imported_referenced,coastal city buildings,ACTIVE
+P0,Flat roads,PolyHaven asphalt_01,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanSurfaces\asphalt_01",imported_pbr,connected roads,ACTIVE
+P0,Prototype sidewalks,PolyHaven concrete_pavers_02,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanSurfaces\concrete_pavers_02",imported_pbr,sidewalks,ACTIVE
+P1,Prototype street lamp,street_lamp_01_2K,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanKit\street_lamp_01_2K",imported_referenced,urban lighting,ACTIVE
+P1,Prototype bench,painted_wooden_bench_2K,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanKit\painted_wooden_bench_2K",imported_referenced,street furniture,ACTIVE
+P1,Prototype planter,planter_box_01_2K,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanKit\planter_box_01_2K",imported_referenced,promenade,ACTIVE
+P1,Prototype hydrant,fire_hydrant_2K,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanKit\fire_hydrant_2K",imported_referenced,street detail,ACTIVE
+P1,Prototype utility box,utility_box_01_2K,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanKit\utility_box_01_2K",imported_referenced,infrastructure,ACTIVE
+P1,Generic exterior AC,exterior_aircon_unit_2K,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanKit\exterior_aircon_unit_2K",downloaded_staging,facade details,OPEN
+P1,Generic gutters,modular_metal_gutter_2K,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanKit\modular_metal_gutter_2K",downloaded_staging,facade details,OPEN
+P1,Generic shop shutters,rollershutter_door_2K,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanKit\rollershutter_door_2K",downloaded_staging,shops,OPEN
+P1,Generic window shutters,rollershutter_window_01_2K,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\UrbanKit\rollershutter_window_01_2K",downloaded_staging,shops residential,OPEN
+P1,Beach sand placeholder,AerialBeach01_2K,"D:\ProjectResort_AssetLibrary\PolyHaven_CC0\AerialBeach01_2K",downloaded,beach surface,OPEN

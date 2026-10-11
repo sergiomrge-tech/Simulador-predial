@@ -260,3 +260,14 @@ Itens do QA do Diretor que seguem abertos (exigem arte/olhar humano): NPCs ainda
 24/24 ResortAurora.Tests PlayMode com gráficos PASS, exit 0. Evidência local: `Evidence/CODEX_F02_VALIDATED_20261007/unity_PlayMode_20261007_090858.xml`. Areia scan CC0, mesa/cadeiras CC0, calçadão e bairro PBR, água aproximada, contornos somente em compra/construção. Render praia em lote: média 3,3 ms / p95 3,8 ms; não FPS interativo. Gate visual/humano continua aberto, Fase 03 bloqueada.
 
 Ver `CODEX_F02_CONTINUATION_2026-10-07.md` para ativos/licenças, limites, preservação do código e incidente de quinze PNGs R2/R4 regenerados por testes que ignoravam a pasta de captura. Os testes foram corrigidos; esses PNGs antigos ficam fora do commit. Os manequins, guarda-sóis e equipamentos ainda precisam de substituição realista.
+
+---
+
+# Adendo 12 — consolidação da ilha de 2 km² e revalidação (Claude, 2026-10-10)
+
+**Status: 37/37 PlayMode (`-Graphics`), Unity exit 0, 0 `error CS` / `Shader error` / `NullReferenceException`. Gate técnico segue PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
+
+- O trabalho não commitado do Codex (mapa de ilha 2000×1000 m, relevo costeiro, anel de oceano, vegetação/understory CC0, props urbanos CC0, terreno em ladrilhos 250×250 células por limite de cook do PhysX, quiosque com props realistas, sombras 120 m) foi validado em conjunto e commitado em blocos.
+- Primeira execução: 35/37. As duas falhas (`StagesTests.PiecesLineUpWithTheTerrainAndTheStageFollowsTheLand`, `PousadaInteriorTests.ThePlayerCanEnterTheReceptionAndClimbToTheFirstFloor`) eram expectativas de coordenadas da planta de 900 m; o kit Blender agora é deslocado `(size.x - 900)/2 = 550 m` em X. Introduzido `ResortStages.LegacyKitOffsetX(SiteData)` e os testes passaram a somar esse deslocamento. Reexecução focada 3/3 e suíte completa 37/37 (`unity_PlayMode_20261010_211156.xml`).
+- Desempenho (lote, sem IMGUI): praia meio-dia 5,7 ms média (p95 6,7; pior 7,1; 76 pessoas; 102 lâmpadas); estágio 1 nível do chão 15,5 ms; estágio 7 aérea 12,4 ms, nível do chão 17,3 ms (p95 18,0), eixo central 6,5 ms. **Regressão ~2× frente aos 2,8 ms do mapa de 900 m** — próximo alvo de otimização.
+- Limitações: `RealisticHumanPassTests`/`VRBNIntegrationTests` exigem pacotes licenciados locais; com `RESORT_TEST_CAPTURE_ROOT` definido, `ScreenCapture` não grava em batchmode e 2 testes falham (artefato do ambiente). Nada foi avaliado por humano.

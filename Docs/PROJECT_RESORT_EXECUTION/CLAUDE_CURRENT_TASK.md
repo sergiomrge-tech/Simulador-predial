@@ -1,77 +1,45 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-## Continuação Codex — 2026-10-07
-
-O estado abaixo das rodadas antigas foi superado pelo passe visual/assets atual. **24/24 PlayMode com gráficos PASS**, XML `D:\ProjectResort_Autonomy\Evidence\CODEX_F02_20261007_Continuation\FinalVerified\logs\unity_PlayMode_20261007_090858.xml`. Scan CC0 de areia, móveis CC0, calçadão PBR, fachadas combinadas, água mais próxima, sinalização proporcional e contornos restritos a compra/construção. **Fase 02 visual ainda aberta / HUMAN_GATE_PENDING; Fase 03 bloqueada.**
-
-Detalhes, ativos usados, capturas e incidente de quinze capturas R2/R4 regeneradas por testes legados: [relatório Codex](CODEX_F02_CONTINUATION_2026-10-07.md). Os destinos desses testes já foram corrigidos; PNGs de Reviews não devem entrar no commit deste bloco. Pessoas/manequins, guarda-sóis e equipamentos restantes precisam de assets realistas e revisão humana.
-
-## Registro anterior (histórico)
-
-## Codex visual/assets continuation — 2026-10-07
-
-The latest Director instruction reopens F02 visual/assets correction and supersedes the earlier “no safe work remains” recommendation below. Do not start F03. Realistic CC0 folding tables/chairs are now integrated and metric/PBR/upgrade/stage behavior was validated in Unity. Focused LivingWorld + furniture/overlay tests passed **13/13** (`D:/ProjectResort_Autonomy/Evidence/CODEX_Visual_20261007_0908`). Final full validation passed **24/24**, Unity exit 0 (`CODEX_Visual_20261007_Final/logs/unity_PlayMode_20261007_091100.xml`). Details and preservation incident: `CODEX_F02_REALISTIC_FURNITURE_2026-10-07.md`.
-
-Atualizado em 2026-10-07 (rodada 41). Rodadas 22–41 foram reconfirmações idênticas: HEAD == origin 0/0, nada fora de `Reviews/` modificado, `DIRECTOR_QA_LATEST.md` (06/10 20:24) e os 6 pacotes da biblioteca (mesmos de 20/09) inalterados, 20/20 `-Graphics` da rodada 21 ainda válido (Unity não reexecutada). Sem trabalho novo seguro — **HUMAN_GATE_PENDING**. Não abrir nova rodada até haver jogada humana, pacote novo ou instrução do Diretor. Histórico das rodadas 21 e anteriores abaixo.
+Atualizado em 2026-10-10 (rodada Claude 42, branch `claude/w1-masterplan`).
 
 ## Fase atual
 
-**Fase 02 — Vertical Slice do Quiosque** — gate técnico **PASS**; **HUMAN_GATE_PENDING** (jogada humana).
+**Fase 02 — Vertical Slice do Quiosque** — gate técnico **PASS**; gate visual **ABERTO**; **HUMAN_GATE_PENDING** (jogada humana + olhar do Diretor).
 
 A Fase 03 NÃO está liberada.
 
-## Estado real (verificado no Unity 6000.6.2f1, modo gráfico)
+## Estado real verificado nesta rodada
 
-- 20/20 testes de PlayMode passam (`Tools/Autonomy/Run-UnityResortTests.ps1 -Graphics`), sem erros no console.
-- Loop completo (casa → praia → abrir → estoque → atender → fechar → caixa → casa → dormir → save/load) coberto por `LoopTests`/`PrologueDayTests` e passando.
-- Praia viva (67–72 pessoas ao meio-dia, LOD/pooling), ciclo dia/pôr do sol/noite com lâmpadas, ondas, gaivotas, palmeiras ao vento, áudio ambiente procedural.
-- Pessoas próximas e médias usam os manequins animados do *Human Basic Motions FREE* (idle/caminhar/correr/conversar), pintados por região; pacote só local (`ThirdParty/`, git-ignorado), com fallback procedural.
-- Mar a 55,1 m do quiosque (antes ~165 m), via `BEACH_WATER_DZ` em `Tools/Map/export_resort_site.py`.
-- Desempenho (render em lote, sem IMGUI): ~2,8 ms/quadro com a multidão; estágio 7 ~2,9 ms.
-- Capturas reais: `ArtSource/Blender/World/Reviews/F02/` e `Desktop\Capturas PROJECT RESORT\01_Unity_Reais\F02_praia_viva_dia_noite\`.
-- Rodada 2 (feita): clientes sentam nas mesas do deck do quiosque do estágio 2 (10 cadeiras, rota própria, altura do deck); HUD com faixa de "próximo passo" + estoque baixo + ABERTO/FECHADO + vendas do dia; guarda de balanceamento do primeiro dia. Captura: `f02_7_estagio2_clientes_no_deck.png`.
-- Rodada 3 (feita): mar com shader próprio (`Resources/ResortSea.shader`: cor por profundidade, ondulação, Fresnel, brilho) e malha que segue a linha d'água; céu noturno sem o brilho amarelo (o sol agora desce abaixo do horizonte). 20/20 testes, sem regressão de desempenho (2,8 ms).
-- Rodada 4 (feita): céu com shader próprio (`Resources/ResortSky.shader`): crepúsculo violeta e noite azul-marinho com estrelas no lugar do oliva/preto; 20/20 testes, 0 erros de shader.
-- Rodada 5 (feita): nuvens procedurais no shader do céu (`ResortSky.shader`, cor por hora, cobertura maior com clima nublado); 20/20 testes, 0 erros de shader.
-- Rodada 6 (feita): duplas jogando bola na areia (`BeachLife.Role.Player`, `Gesture.Hit`, `Mix.Players`); 20/20 testes, 0 erros de shader/compilação. Captura: `f02_8_bola_na_areia.png`.
-- Rodada 7 (feita): vendedor ambulante com caixa de isopor andando pela areia (`BeachLife.Role.Vendor`, `Mix.Vendors`); 20/20 testes, 0 erros de shader/compilação. Captura: `f02_9_vendedor_na_areia.png`.
-- Rodada 8 (feita): banhistas sentados lendo um livro (`Gesture.Read`, ~35% dos que se sentam; livro só em LOD 0–1); 20/20 testes, 0 erros de shader/compilação. Captura: `f02_10_leitor_na_areia.png`.
-- Desempenho remedido após as rodadas 6–8 (adendo 9): praia ao meio-dia 2,8 ms média / 3,7 ms pior, estágio 7 2,5–3,0 ms; sem regressão.
-- Rodada 10 (feita): HEAD revalidado (20/20, 0 erros); decidido NÃO regenerar o estágio 2 no Blender só pela mesa do banheiro (débito cosmético, Fase 15).
-- Rodada 11 (feita): só documentação — `ROTEIRO_PLAYTEST_HUMANO_FASE_02.md` para o humano fechar o gate (sem mudança de código; HEAD e remoto já sincronizados, 20/20 da rodada 10 continua válido).
-- Rodada 12 (feita): reauditoria — branch `claude/w1-masterplan`, HEAD == origin (0/0), todos os itens de população/atividades/dia-noite da fase 02 já cobertos no código; nenhum código novo seguro restante que não seja cosmético. 43 PNGs de `Reviews/{F02,R2,R4,R5}` aparecem modificados: são capturas regeneradas pela rodada 10 (execução real da Unity), mantidas só locais/não commitadas para não inflar o histórico; podem ser commitadas se o humano quiser as versões atuais.
-- Rodada 13 (feita): reconfirmação — HEAD == origin/claude/w1-masterplan (0/0); desde a última validação Unity (rodada 10, 20/20) só houve commits de documentação (`git diff --name-only 4df7a13 HEAD` fora de `Docs/` vazio), então a validação continua válida e não foi reexecutada. Nenhum código novo seguro restante; os 43 PNGs modificados seguem só locais.
-- Rodada 14 (feita): reconfirmação sem mudança de código — HEAD == origin (0/0); `git status` fora de `Reviews/` está limpo (só os 43 PNGs regenerados, locais); nenhum commit novo desde a rodada 13, então a validação Unity da rodada 10 (20/20) segue válida. Nenhum trabalho seguro e não cosmético restante na Fase 02; Fase 03 continua bloqueada pelo gate humano.
-- Rodadas 13–20 (reconfirmações, sem código): HEAD == origin, nada fora de `Reviews/` modificado, biblioteca de assets inalterada (6 pacotes: Human Basic Motions FREE, Environment Pack Forest Sample, fantasia/monstros/VFX — **Human Crafting Animations FREE / Creative Characters FREE / MC Sample não baixados**, então sentar/deitar/nadar seguem procedurais). Validação Unity da rodada 10 (20/20) permaneceu válida até a rodada 21.
-- Rodada 21 (feita): atendendo ao QA do Diretor (`DIRECTOR_QA_LATEST.md`), linhas/legendas de terrenos só a ≤ 22 m (bloqueados ≤ 6 m) e legendas pequenas do quiosque só a ≤ 9 m (`Billboard.showRange`); 20/20 PlayMode (`-Graphics`), captura real `f02_1_dia_kiosque_da_calcada.png` sem a linha vermelha. Adendo 11 do relatório.
-- Rodadas 22–25 (reconfirmações, 2026-10-07): `git fetch` — HEAD == origin (0/0); código inalterado desde a rodada 21 (20/20 `-Graphics` válido, Unity não reexecutada); `DIRECTOR_QA_LATEST.md` ainda o de 2026-10-06 20:24 (já atendido no que é código); biblioteca com os mesmos 6 pacotes. Sem trabalho seguro e não cosmético restante; **HUMAN_GATE_PENDING** inalterado. **Não abrir novas rodadas de reconfirmação** — só retomar após jogada humana, pacotes novos (Human Crafting Animations FREE / Mixamo / MakeHuman) ou instrução do Diretor.
-- Relatório: `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1 a 10 de 2026-10-06).
+- Havia um grande bloco de trabalho do Codex (2026-10-07 a 10-09) só no disco: mapa de **ilha de 2 km²** (2000×1000 m, passo 2 m), relevo costeiro, anel de oceano, vegetação/understory CC0 (Poly Haven), props urbanos CC0, ladrilhos de terreno (PhysX), integração vrbn local, quiosque com assets realistas, sombras mais fortes. HEAD == origin antes da rodada.
+- Validação real do Unity 6000.6.2f1 (`Tools/Autonomy/Run-UnityResortTests.ps1 -Graphics`) sobre essa árvore: primeira execução **35/37** — as duas falhas eram testes legados com coordenadas fixas da planta de 900 m (`StagesTests.PiecesLineUpWithTheTerrainAndTheStageFollowsTheLand`, `PousadaInteriorTests.ThePlayerCanEnterTheReceptionAndClimbToTheFirstFloor`); o site migrado desloca o kit em +550 m no X (`ResortStages.LegacyKitOffsetX`). Testes corrigidos para usar o deslocamento.
+- Execução final: **37/37 PASS, UNITY_EXIT=0**, 0 `error CS`, 0 `Shader error`, 0 `NullReferenceException` — `D:\ProjectResort_Autonomy\logs\unity_PlayMode_20261010_211156.xml`.
+- Nota de ambiente: com `RESORT_TEST_CAPTURE_ROOT` definido, 2 testes de `RealisticHumanPassTests` falham em `-batchmode` (`ScreenCapture.CaptureScreenshot` não grava em 0,15 s). Rode a suíte **sem** essa variável.
+- Testes de `RealisticHumanPassTests` e `VRBNIntegrationTests` dependem de pacotes licenciados locais (`Assets/_Game/ThirdParty/`, `Assets/vrbn_studios/`, git-ignorados); em um clone limpo esses testes não passam (o jogo cai nos fallbacks).
+- Desempenho (render em lote, sem IMGUI), mapa de 2 km²: praia ao meio-dia 5,7 ms média / 6,7 p95 / 7,1 pior (76 pessoas, 102 lâmpadas) — antes 2,8 ms; estágio 7 ao nível do chão 17,3 ms (58 fps) / p95 18,0; estágio 1 ao nível do chão 15,5 ms. **Regressão de ~2× em relação ao mapa de 900 m**; ainda dentro de 60 fps nessa máquina, mas é o item de otimização mais importante antes da Fase 16 (e para o gate de "performance" da Fase 02).
+- Commits desta rodada (push em `origin/claude/w1-masterplan`): ignore de bundles locais; ilha 2 km² + código + testes; assets CC0.
+- Fora do commit de propósito: PNGs de `ArtSource/Blender/World/Reviews/` (regenerados a cada run), `ProjectSettings/*` com ruído do Unity (ps4Passcode, TimeManager), `Packages/manifest*.json` (só o plugin MCP), `vrbn_studios/`, `MCPForUnity/`, `FacilityOps/Captures/` (2 GB).
 
-## Pendente (nada disso se resolve só com código)
+## Pendente
 
-1. **HUMAN_GATE_PENDING**: uma pessoa precisa jogar dois dias e avaliar ritmo, clareza do HUD, diversão e a "vida" da praia; ouvir o áudio; olhar as capturas.
-2. Gate visual segue aberto: personagens/quiosque/guarda-sóis ainda são blockout; mar com shader simples (sem refração/reflexo de objetos); céu com nuvens só cosméticas; noite sem reflexo de objetos na água.
+1. **HUMAN_GATE_PENDING**: uma pessoa precisa jogar dois dias (`ROTEIRO_PLAYTEST_HUMANO_FASE_02.md`) e avaliar ritmo, HUD, diversão, áudio e as capturas reais.
+2. Gate visual aberto (ver `CODEX_PROMENADE_LAMPS_2026-10-07.md`): palmeiras/pessoas visíveis, lotes esparsos, contraste de fachada/noite, manequins/guarda-sóis ainda blockout, desempenho standalone.
+3. Gate de coerência visual (`RESORT_VISUAL_COHESION_GATE_20261007.md`): todos os assets devem ter o mesmo estilo; vrbn é banco de candidatos (status `CANDIDATE/HOLD/APPROVED_ON_SCENE`).
 
-## Trabalho seguro dentro da Fase 02 (se a rodada continuar antes do gate humano)
+## Trabalho seguro dentro da Fase 02 (próxima rodada)
 
-- ~~Clientes sentarem nas mesas no estágio 2~~ (feito). ~~HUD de próximo passo~~ (feito; falta olhar humano).
-- ~~Mesa oeste do banheiro no Blender~~ (adiado para a Fase 15: exige regenerar os 7 estágios + todos os FBX; `AddKioskSeats` já pula a mesa).
-- Sentar/deitar/nadar ainda são procedurais: avaliar clipes gratuitos (Human Crafting Animations FREE, Creative Characters FREE) e o aspecto dos corpos animados; se os manequins ainda parecerem artificiais de perto, o Diretor deve apresentar 1–3 opções pagas ao usuário antes de comprar qualquer coisa.
-- Refinar o rig/roupas dos NPCs; mar sem espuma de profundidade/reflexos de objetos (cosmético); mais variedade de atividades na areia (feito: duplas jogando bola; feito: vendedor ambulante; feito: leitores sentados; faltam p.ex. cachorro, pessoas dormindo sob guarda-sol; opcionais, exigem rig/clipes novos).
-- Equilíbrio fino da fila/spawn só com dados de jogada humana (curva atual: 6–8h quase sem clientes; o teste `FirstDayDemandIsWorthPlayingAndProfitable` protege a faixa).
-
-## Próxima ação concreta
-
-Pedir a uma pessoa que jogue dois dias (`ResortPrologue`) seguindo `ROTEIRO_PLAYTEST_HUMANO_FASE_02.md` (roteiro + ficha de avaliação, criado na rodada 11), anote ritmo/HUD/diversão/áudio e olhe as capturas F02. Só então avaliar o gate humano; sem isso, a Fase 03 permanece bloqueada.
+- Perfilar e reduzir o custo de render do mapa de 2 km² (culling por célula da vegetação/understory, instancing, LOD de props urbanos, sombra a 120 m) e remedir com `PerformanceTests`; meta: voltar a ≤ 4 ms na praia ao meio-dia e ≤ 10 ms no estágio 7 ao nível do chão.
+- Capturas reais de dia/pôr do sol/noite da ilha nova (rodar com a variável de capturas somente nos testes de captura da cena, nunca em `RealisticHumanPassTests`).
 
 ## O que NÃO fazer
 
 - não iniciar a Fase 03;
 - não construir pousada/hotel/resort novos;
 - não chamar blockout de arte final;
-- não marcar o gate visual/humano como PASS sem uma pessoa jogar.
+- não marcar o gate visual/humano como PASS sem uma pessoa jogar;
+- não commitar `vrbn_studios/`, `ThirdParty/`, `Captures/` nem pacotes brutos da Asset Store.
 
+## Histórico resumido
 
-### Codex urban continuation ? 2026-10-07 18:50
-
-12 promenade poles replaced visually by the approved CC0 lantern scan; collision/fallback and eight-point-light pool retained. Real live MCP v10.2.0: urban 1/1, full PlayMode 30/30, LivingWorld 11/11. F02 stays OPEN for visible palms/people, sparse plots, facade/night contrast and standalone performance. See [evidence and scope](CODEX_PROMENADE_LAMPS_2026-10-07.md). Parallel changes were preserved.
+- Rodadas 1–21 (2026-10-06): loop completo, praia viva com LOD/pooling, dia/noite, mar/céu/nuvens com shader próprio, atividades ambientes, HUD de próximo passo — ver `RELATORIO_02_VERTICAL_SLICE_QUIOSQUE.md` (adendos 1–11).
+- Rodadas 22–41: reconfirmações sem trabalho novo (HUMAN_GATE_PENDING).
+- Codex 2026-10-07/10-09: passe PBR, móveis CC0, calçadão, lâmpadas, vegetação, ilha 2 km² — ver `CODEX_F02_CONTINUATION_2026-10-07.md`, `CODEX_F02_REALISTIC_FURNITURE_2026-10-07.md`, `CODEX_PROMENADE_LAMPS_2026-10-07.md`, `CODEX_URBAN_*`.

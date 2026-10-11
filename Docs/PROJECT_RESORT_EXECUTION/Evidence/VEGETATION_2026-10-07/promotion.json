@@ -1,0 +1,62 @@
+[
+  {
+    "asset": "island_tree_02",
+    "lod": 0,
+    "ratio": 0.12,
+    "polygons": 128665,
+    "file": "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Vegetation\\island_tree_02\\island_tree_02_LOD0.fbx"
+  },
+  {
+    "asset": "island_tree_02",
+    "lod": 1,
+    "ratio": 0.035,
+    "polygons": 37527,
+    "file": "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Vegetation\\island_tree_02\\island_tree_02_LOD1.fbx"
+  },
+  {
+    "asset": "island_tree_02",
+    "lod": 2,
+    "ratio": 0.01,
+    "polygons": 10722,
+    "file": "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Vegetation\\island_tree_02\\island_tree_02_LOD2.fbx"
+  },
+  {
+    "asset": "tree_small_02",
+    "lod": 0,
+    "ratio": 0.07,
+    "polygons": 144374,
+    "file": "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Vegetation\\tree_small_02\\tree_small_02_LOD0.fbx"
+  },
+  {
+    "asset": "tree_small_02",
+    "lod": 1,
+    "ratio": 0.02,
+    "polygons": 49919,
+    "file": "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Vegetation\\tree_small_02\\tree_small_02_LOD1.fbx"
+  },
+  {
+    "asset": "tree_small_02",
+    "lod": 2,
+    "ratio": 0.006,
+    "polygons": 49919,
+    "file": "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Vegetation\\tree_small_02\\tree_small_02_LOD2.fbx"
+  },
+  {
+    "asset": "grass_medium_01",
+    "variant": 0,
+    "polygons": 433,
+    "file": "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Vegetation\\grass_medium_01\\grass_patch_0.fbx"
+  },
+  {
+    "asset": "grass_medium_01",
+    "variant": 1,
+    "polygons": 1148,
+    "file": "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Vegetation\\grass_medium_01\\grass_patch_1.fbx"
+  },
+  {
+    "asset": "grass_medium_01",
+    "variant": 2,
+    "polygons": 2399,
+    "file": "D:\\sergi\\Documents\\Simulador-predial\\FacilityOps\\Assets\\_Game\\Resources\\Art\\Resort\\Vegetation\\grass_medium_01\\grass_patch_2.fbx"
+  }
+]
