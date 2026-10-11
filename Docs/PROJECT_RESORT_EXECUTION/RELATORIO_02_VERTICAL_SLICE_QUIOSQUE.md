@@ -379,3 +379,10 @@ Confirma que a árvore da rodada 50 (emenda areia/calçadão) segue verde. Candi
 **Status: sem nova validação (HEAD `98e65af` inalterado; vale a suíte da rodada 51, 38 passed / 1 skip opt-in, `unity_PlayMode_20261011_025501`). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
 
 Branch == origin; Human Basic Motions já integrado; capturas reais de tarde dourada, crepúsculo e noite revisadas sem defeito novo. Observação estética para o olhar humano / Fase 15: a areia da tarde dourada lê cinza-amarronzada porque o ambiente violeta domina o sol baixo. Próxima ação concreta: uma pessoa jogar os dois dias do `ROTEIRO_PLAYTEST_HUMANO_FASE_02.md` e julgar as capturas reais.
+
+
+## Adendo — rodada 53 (2026-10-11): auditoria de estado, só documentação
+
+**Status: sem nova validação (HEAD `dfba51a` == `origin/claude/w1-masterplan`, nenhum código/cena alterado desde a rodada 51; vale a suíte 38 passed / 1 skip opt-in, `unity_PlayMode_20261011_025501`). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`.**
+
+Corrigido em `CLAUDE_CURRENT_TASK.md` o caminho do backup dos FBX de vegetação (barras perdidas): `D:\ProjectResort_Autonomy\backup\vegetation_lods_20261010`. Não há trabalho seguro e de alto valor restante na Fase 02 sem retorno humano; a Fase 03 segue bloqueada.
