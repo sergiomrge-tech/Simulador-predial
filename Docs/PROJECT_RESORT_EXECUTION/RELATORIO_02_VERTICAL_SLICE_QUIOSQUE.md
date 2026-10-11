@@ -301,3 +301,12 @@ Conclusões: (1) o teto de 70 pessoas ambiente é um orçamento deliberado — m
 ## Adendo — rodada 45 (2026-10-10)
 
 O teste frágil dos três scans (`RealisticHumanPassTests.ExistingBeachLifeSelectsThreeScansAndKeepsItsBudget`) foi relaxado para o contrato estável (subconjunto dos três scans, ≥ 2 variantes, um masculino e um feminino, orçamento e material compartilhado preservados). Nenhum código de jogo mudou. Suíte completa: 37/37 PASS, 1 skip opt-in, UNITY_EXIT=0, 0 `error CS`/`Shader error`/NRE (`unity_PlayMode_20261010_221600.xml`). Gate humano e gate visual continuam abertos (HUMAN_GATE_PENDING); Fase 03 não liberada.
+
+
+## Adendo — rodada 46 (2026-10-11): proxy volumétrico de LOD para árvores distantes
+
+**Status: FEITO e VALIDADO (`unity_PlayMode_20261011_015347`, `-Graphics`: 37 passed / 1 skipped opt-in, UNITY_EXIT=0, 0 `error CS`/`Shader error`/NRE). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
+
+Os LODs distantes decimados offline (cartões de folha desconexos) apareciam como "espinhos" escuros nos lotes da vista aérea. `CoastalVegetation.Tree` agora usa LOD0 (original) → LOD1 (~20k tris) → proxy de ~300 triângulos (três elipsoides de copa dimensionados pelos bounds reais do LOD0, material URP/Lit verde instanciado, sem sombra) → culled (< 0,6% da tela). `PerformanceTests` passou a logar draw calls/setPass/tris/shadowCasters.
+
+Medido (lote, 1080p, sem hardware-alvo): praia meio-dia 5,3 ms; estágio 1 aérea 8,8 / chão 8,1 ms; estágio 7 aérea 7,3 / chão 6,4 / eixo 5,4 ms. Captura real `f02_1_dia_aerea.png` conferida: copas verdes no lugar dos espinhos. Limitação: o proxy é uma cor única, sem variação por espécie; avaliação estética é do olhar humano / Fase 15.

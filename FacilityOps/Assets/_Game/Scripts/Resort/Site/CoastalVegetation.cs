@@ -199,6 +199,67 @@ namespace ResortAurora.Site
             return true;
         }
 
+        static readonly Dictionary<TreeDef, Mesh> proxyMeshes = new Dictionary<TreeDef, Mesh>();
+
+        static Material ProxyMaterial()
+        {
+            const string key = "proxy_canopy";
+            if (materials.TryGetValue(key, out var m) && m != null) return m;
+            var shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null) return null;
+            m = new Material(shader) { name = "VegetationProxy_Canopy", enableInstancing = true };
+            m.SetColor("_BaseColor", new Color(.27f, .43f, .17f, 1f));
+            m.SetFloat("_Metallic", 0f);
+            m.SetFloat("_Smoothness", 0f);
+            m.SetFloat("_SpecularHighlights", 0f);
+            m.EnableKeyword("_SPECULARHIGHLIGHTS_OFF");
+            materials[key] = m;
+            return m;
+        }
+
+        static void AddEllipsoid(List<Vector3> v, List<Vector3> n, List<int> tris, Vector3 center, Vector3 radii, int seg, int rings)
+        {
+            int start = v.Count;
+            for (int r = 0; r <= rings; r++)
+            {
+                float phi = Mathf.PI * r / rings;
+                for (int s = 0; s <= seg; s++)
+                {
+                    float th = Mathf.PI * 2f * s / seg;
+                    var d = new Vector3(Mathf.Sin(phi) * Mathf.Cos(th), Mathf.Cos(phi), Mathf.Sin(phi) * Mathf.Sin(th));
+                    v.Add(center + Vector3.Scale(d, radii));
+                    n.Add(d);
+                }
+            }
+            for (int r = 0; r < rings; r++)
+                for (int s = 0; s < seg; s++)
+                {
+                    int a = start + r * (seg + 1) + s, b = a + seg + 1;
+                    tris.Add(a); tris.Add(b); tris.Add(a + 1);
+                    tris.Add(a + 1); tris.Add(b); tris.Add(b + 1);
+                }
+        }
+
+        /// <summary>Single-draw far-LOD stand-in sized to the authored canopy bounds (root-local): three canopy blobs, no trunk (sub-pixel at that range). ~300 triangles.</summary>
+        static Mesh ProxyMesh(TreeDef def, Bounds b)
+        {
+            if (proxyMeshes.TryGetValue(def, out var cached) && cached != null) return cached;
+            float h = Mathf.Max(b.size.y, .5f), sx = Mathf.Max(b.size.x, .5f), sz = Mathf.Max(b.size.z, .5f), y0 = b.min.y;
+            var v = new List<Vector3>(); var n = new List<Vector3>(); var tris = new List<int>();
+            var cc = b.center;
+            // one large central blob and two offset ones for an uneven silhouette
+            AddEllipsoid(v, n, tris, new Vector3(cc.x, y0 + h * .68f, cc.z), new Vector3(sx * .41f, h * .27f, sz * .41f), 10, 6);
+            AddEllipsoid(v, n, tris, new Vector3(cc.x + sx * .20f, y0 + h * .58f, cc.z - sz * .12f), new Vector3(sx * .27f, h * .20f, sz * .27f), 8, 5);
+            AddEllipsoid(v, n, tris, new Vector3(cc.x - sx * .19f, y0 + h * .60f, cc.z + sz * .13f), new Vector3(sx * .26f, h * .20f, sz * .26f), 8, 5);
+
+            var mesh = new Mesh { name = "TreeProxy_" + def.stem };
+            mesh.SetVertices(v); mesh.SetNormals(n);
+            mesh.SetTriangles(tris, 0);
+            mesh.RecalculateBounds();
+            proxyMeshes[def] = mesh;
+            return mesh;
+        }
+
         static GameObject Tree(TreeDef def, Transform parent, Vector3 pos, float yaw, float scale, int index)
         {
             var root = new GameObject("Tree_" + def.stem + "_" + index);
@@ -208,7 +269,11 @@ namespace ResortAurora.Site
             root.transform.localScale = Vector3.one * scale;
 
             var lods = new List<LOD>();
-            for (int i = 0; i < def.lods; i++)
+            Bounds canopy = default; bool haveBounds = false;
+            // The offline-decimated far LODs (collapse on disconnected leaf cards) read as dark thin skeletons from a distance,
+            // so the chain is LOD0 (as authored) -> LOD1 (~20k tris) -> a volumetric proxy (trunk + canopy blobs) -> culled.
+            int meshLods = Mathf.Min(def.lods, 2);
+            for (int i = 0; i < meshLods; i++)
             {
                 var prefab = Load(def.LOD(i));
                 if (prefab == null) continue;
@@ -217,10 +282,32 @@ namespace ResortAurora.Site
                 model.transform.localPosition = Vector3.zero;
                 model.transform.localRotation = Quaternion.identity;
                 model.transform.localScale = Vector3.one;
-                Dress(model, def.folder, i == def.lods - 1);
+                Dress(model, def.folder, i == def.lods - 1);   // shadow casting off only on the last authored mesh LOD, as before
                 var rs = model.GetComponentsInChildren<Renderer>(true);
-                float threshold = i == 0 ? .22f : i == 1 ? .06f : .016f;
+                if (i == 0)
+                    foreach (var mf in model.GetComponentsInChildren<MeshFilter>(true))
+                    {
+                        if (mf.sharedMesh == null) continue;
+                        var mb = mf.sharedMesh.bounds;   // model space (unscaled, unrotated root): independent of the tree's random yaw/scale
+                        for (int c = 0; c < 8; c++)
+                        {
+                            var corner = model.transform.InverseTransformPoint(mf.transform.TransformPoint(mb.center + Vector3.Scale(mb.extents, new Vector3((c & 1) == 0 ? -1 : 1, (c & 2) == 0 ? -1 : 1, (c & 4) == 0 ? -1 : 1))));
+                            if (!haveBounds) { canopy = new Bounds(corner, Vector3.zero); haveBounds = true; } else canopy.Encapsulate(corner);
+                        }
+                    }
+                float threshold = i == 0 ? .22f : .08f;
                 lods.Add(new LOD(threshold, rs) { fadeTransitionWidth = .12f });
+            }
+            if (lods.Count > 0 && haveBounds)
+            {
+                var proxy = new GameObject("LODProxy");
+                proxy.transform.SetParent(root.transform, false);
+                proxy.AddComponent<MeshFilter>().sharedMesh = ProxyMesh(def, canopy);
+                var pr = proxy.AddComponent<MeshRenderer>();
+                pr.sharedMaterial = ProxyMaterial();
+                pr.shadowCastingMode = ShadowCastingMode.Off;
+                pr.receiveShadows = true;
+                lods.Add(new LOD(.03f, new Renderer[] { pr }) { fadeTransitionWidth = .15f });
             }
             if (lods.Count > 0)
             {

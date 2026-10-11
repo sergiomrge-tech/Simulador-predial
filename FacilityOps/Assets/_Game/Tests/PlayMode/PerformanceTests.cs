@@ -56,7 +56,12 @@ namespace ResortAurora.Tests
             times.Sort();
             float avg = 0f; foreach (var t in times) avg += t; avg /= times.Count;
             float p95 = times[(int)(times.Count * 0.95f)];
-            Debug.Log($"PERF {label}: avg {avg:0.0} ms ({1000f / avg:0} fps), p95 {p95:0.0} ms, worst {times[times.Count - 1]:0.0} ms");
+#if UNITY_EDITOR
+            string counts = $", drawCalls {UnityEditor.UnityStats.drawCalls}, setPass {UnityEditor.UnityStats.setPassCalls}, tris {UnityEditor.UnityStats.triangles / 1000}k, shadowCasters {UnityEditor.UnityStats.shadowCasters}";
+#else
+            string counts = "";
+#endif
+            Debug.Log($"PERF {label}: avg {avg:0.0} ms ({1000f / avg:0} fps), p95 {p95:0.0} ms, worst {times[times.Count - 1]:0.0} ms{counts}");
             sink.Add(avg);
         }
 
