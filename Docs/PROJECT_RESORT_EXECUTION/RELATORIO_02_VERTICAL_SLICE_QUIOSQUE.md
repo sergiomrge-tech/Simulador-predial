@@ -372,3 +372,10 @@ Evidência real (capturas da Unity, `f02_1_dia_mesas_na_areia.png`, `f02_1_dia_k
 **Status: VALIDADO (`unity_PlayMode_20261011_025501`, `-Graphics`: 38 passed / 1 skipped opt-in, UNITY_EXIT=0, 0 `error CS`/`Shader error`/NRE). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
 
 Confirma que a árvore da rodada 50 (emenda areia/calçadão) segue verde. Candidato descartado: `enableInstancing` em `StallBuilder.Mat` não reduz custo com SRP Batcher; a combinação de draw calls do clutter fica para a Fase 16. Próxima ação concreta: uma pessoa jogar os dois dias do `ROTEIRO_PLAYTEST_HUMANO_FASE_02.md` e avaliar as capturas reais.
+
+
+## Adendo — rodada 52 (2026-10-11): auditoria de estado, sem mudança de código
+
+**Status: sem nova validação (HEAD `98e65af` inalterado; vale a suíte da rodada 51, 38 passed / 1 skip opt-in, `unity_PlayMode_20261011_025501`). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
+
+Branch == origin; Human Basic Motions já integrado; capturas reais de tarde dourada, crepúsculo e noite revisadas sem defeito novo. Observação estética para o olhar humano / Fase 15: a areia da tarde dourada lê cinza-amarronzada porque o ambiente violeta domina o sol baixo. Próxima ação concreta: uma pessoa jogar os dois dias do `ROTEIRO_PLAYTEST_HUMANO_FASE_02.md` e julgar as capturas reais.
