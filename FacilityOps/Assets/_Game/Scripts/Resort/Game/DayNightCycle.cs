@@ -282,7 +282,7 @@ namespace ResortAurora.Game
             float moonUp = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(0.25f, 0.9f, night));
             float moonElev = 24f + Mathf.Max(0f, hours - 18f) * 7f, moonAz = 105f - Mathf.Max(0f, hours - 18f) * 9f;
             moon.transform.rotation = Quaternion.Euler(moonElev, moonAz + 180f, 0f);
-            moon.intensity = 0.56f * moonUp;
+            moon.intensity = 0.72f * moonUp;
             moon.shadowStrength = 0.46f;
             moon.shadowBias = 0.05f;
             moon.shadowNormalBias = 0.30f;
@@ -299,7 +299,7 @@ namespace ResortAurora.Game
             RenderSettings.reflectionIntensity = Mathf.Lerp(1f, 0.22f, night);
             // horizon (also the fog and the sea's far colour): blue day, orange sunset, violet dusk, deep blue night; the dusk only shows while night rises
             float dusk = Mathf.Sin(Mathf.Clamp01(night) * Mathf.PI) * (elev < 4f ? 1f : 0f);
-            var horizon = Color.Lerp(Color.Lerp(new Color(0.60f, 0.78f, 0.93f), new Color(0.98f, 0.56f, 0.34f), golden), new Color(0.040f, 0.070f, 0.14f), night);
+            var horizon = Color.Lerp(Color.Lerp(new Color(0.60f, 0.78f, 0.93f), new Color(0.98f, 0.56f, 0.34f), golden), new Color(0.075f, 0.115f, 0.22f), night);
             horizon = Color.Lerp(horizon, new Color(0.34f, 0.20f, 0.30f), dusk * 0.38f);
             RenderSettings.fogColor = horizon;
             RenderSettings.fogDensity = Mathf.Lerp(0.00035f, 0.0007f, Mathf.Max(golden * 0.6f, night));
@@ -307,7 +307,7 @@ namespace ResortAurora.Game
             if (sky != null && customSky)
             {
                 var zenith = Color.Lerp(new Color(0.055f, 0.31f, 0.68f), new Color(0.18f, 0.24f, 0.48f), golden);
-                zenith = Color.Lerp(zenith, new Color(0.025f, 0.050f, 0.13f), night);
+                zenith = Color.Lerp(zenith, new Color(0.040f, 0.075f, 0.185f), night);
                 zenith = Color.Lerp(zenith, new Color(0.12f, 0.10f, 0.22f), dusk * 0.34f);
                 float glowK = golden * golden * (1f - night) * Mathf.Clamp01((elev + 22f) / 24f);     // the sky keeps its afterglow while the sun is a little below the horizon
                 sky.SetColor("_Zenith", zenith);

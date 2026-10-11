@@ -275,3 +275,11 @@ Ver `CODEX_F02_CONTINUATION_2026-10-07.md` para ativos/licenças, limites, prese
 ## Adendo 12b — regressão de desempenho da ilha corrigida (Claude, 2026-10-10)
 
 Diagnóstico leave-one-out por grupo da cena (teste opt-in `DiagnosticLeaveOneOutBreakdown`): `RealisticCoastalVegetation` custava ~17 ms de 22 ms no estágio 1 ao nível do chão; as árvores tinham 128k–144k triângulos no LOD0 e 37k–50k no LOD1 (tree_small_02 tinha LOD2 idêntico ao LOD1, 50k). Correção: LOD1/LOD2 regenerados no Blender (`Tools/Blender/relod_vegetation.py`, ~22k e ~8k triângulos; LOD0 preservado), limiares de LOD .22/.06/.016, LOD final vazio, folhas mais claras. Medido (lote, 1080p, 2 execuções): estágio 1 chão 19,2 → 9,2 ms; aérea 12,0 → 9,4 ms; estágio 7 chão 8,3 → 6,4 ms; praia meio-dia 6,0 ms. Capturas reais das árvores (antes/depois): `D:\ProjectResort_Autonomy\Evidence\CLAUDE_20261010	rees_before|trees_after2`. Limitações: as folhas continuam escuras sob sol baixo (iluminação/translucência de folhagem é tema de arte/Fase 15); LOD2 não desce de ~8k por causa dos cartões de folha desconexos; nada visto por humano.
+
+## Adendo 12c — noite um pouco mais legível (Claude, 2026-10-10, rodada 43)
+
+**Status: FEITO e REVALIDADO (`unity_PlayMode_20261010_215325`, `-Graphics`: 37 passed / 1 skipped opt-in, UNITY_EXIT=0). Gate técnico segue PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
+
+- Capturas reais da ilha de 2 km² (dia, tarde, pôr do sol, noite) revistas. Dia e pôr do sol coerentes; a noite olhando para o mar mostrava céu e mar quase pretos.
+- Mudança só de apresentação em `DayNightCycle.Apply` (sem tocar simulação/save): horizonte/névoa noturnos mais claros, zênite noturno mais azul e lua 0,56→0,72. Luminância média das capturas noturnas: kiosque 0,086, mar 0,168, mesas 0,241, calçadão 0,080, aérea 0,176 (asserts do teste: >0,02 e <0,5).
+- Limitação: efeito modesto; a lua fica fora do enquadramento da vista para o mar, então o céu ainda lê escuro ali. Reflexo da lua no mar e avaliação de beleza noturna ficam para o olhar humano / Fase 15.

@@ -1,6 +1,6 @@
 # PROJECT RESORT — Tarefa Atual do Claude
 
-Atualizado em 2026-10-10 (rodada Claude 42, branch `claude/w1-masterplan`).
+Atualizado em 2026-10-10 (rodada Claude 43, branch `claude/w1-masterplan`).
 
 ## Fase atual
 
@@ -17,6 +17,7 @@ A Fase 03 NÃO está liberada.
 - Testes de `RealisticHumanPassTests` e `VRBNIntegrationTests` dependem de pacotes licenciados locais (`Assets/_Game/ThirdParty/`, `Assets/vrbn_studios/`, git-ignorados); em um clone limpo esses testes não passam (o jogo cai nos fallbacks).
 - Desempenho (render em lote, sem IMGUI), mapa de 2 km²: a primeira medição mostrou regressão (estágio 1 ao nível do chão 19 ms). **Causa medida** (teste opt-in `PerformanceTests.DiagnosticLeaveOneOutBreakdown`, `RESORT_PERF_DIAG=1`): as árvores Poly Haven tinham LODs de 128k/37k/11k (island_tree_02) e 144k/50k/50k (tree_small_02) triângulos; `RealisticCoastalVegetation` respondia por ~17 ms de 22. Correção: LOD1/LOD2 re-derivados por `Tools/Blender/relod_vegetation.py` (~22k/~8k tris; LOD0 mantido), limiares de LOD mais agressivos (.22/.06/.016) e LOD final vazio (cull < 0,6% da tela) em `CoastalVegetation.Tree`. Folhas escaneadas (quase pretas) clareadas no tom base. Resultado (2 execuções consistentes): praia meio-dia 6,0 ms (p95 6,9), estágio 1 aérea 9,4 / chão 9,2 ms, estágio 7 aérea 7,5 / chão 6,4 / eixo 5,5 ms — todos ≥ 100 fps em lote. As câmeras do `PerformanceTests` agora somam `LegacyKitOffsetX` (antes apontavam para fora do hotel). Backup dos FBX antigos: `D:\ProjectResort_Autonomyackupegetation_lods_20261010`. Medição em lote nesta máquina, sem hardware-alvo.
 - Commits desta rodada (push em `origin/claude/w1-masterplan`): ignore de bundles locais; ilha 2 km² + código + testes; assets CC0; docs; otimização de LOD de árvores.
+- **Rodada 43**: capturas reais da ilha nova (dia/tarde/pôr do sol/noite, `ArtSource/Blender/World/Reviews/F02/`) conferidas visualmente — o dia está coerente; a noite tinha céu/horizonte/mar quase pretos. Ajuste de apresentação em `DayNightCycle.Apply`: horizonte noturno (0,04,0,07,0,14)→(0,075,0,115,0,22), zênite (0,025,0,05,0,13)→(0,04,0,075,0,185), luz da lua 0,56→0,72. Luminância média noite (kiosque/mar/mesas/calçadão/aérea): 0,086/0,168/0,241/0,080/0,176. Suíte completa 37/37 (1 skip opt-in), UNITY_EXIT=0, 0 `error CS`/`Shader error`/NRE — `unity_PlayMode_20261010_215325.xml`. Melhoria modesta: o céu noturno continua muito escuro olhando para o mar (a lua fica fora do enquadramento); o julgamento de beleza noturna é do olhar humano.
 - Fora do commit de propósito: PNGs de `ArtSource/Blender/World/Reviews/` (regenerados a cada run), `ProjectSettings/*` com ruído do Unity (ps4Passcode, TimeManager), `Packages/manifest*.json` (só o plugin MCP), `vrbn_studios/`, `MCPForUnity/`, `FacilityOps/Captures/` (2 GB).
 
 ## Pendente
