@@ -335,3 +335,22 @@ Solução sem tocar no orçamento de pessoas: `Game/BeachClutter.cs` coloca, de 
 Desempenho: A/B de draw calls do `PerformanceTests` com e sem o clutter deu números idênticos (as câmeras de perf não enxergam o clutter); os tempos em ms variaram bastante entre execuções na mesma máquina (ex.: estágio 7 eixo central 14,9 / 6,0 / 7,9 ms), então a comparação em ms é ruído (na suíte completa final o estágio 1 ao nível do chão chegou a 83 ms com as mesmas 1572 draw calls; medição de ms inconclusiva, a repetir em máquina ociosa). Na vista da praia ao meio-dia o clutter acrescenta algumas centenas de draw calls não agrupadas (materiais do `StallBuilder` sem instancing) — candidato a instancing/combinação na Fase 16.
 
 Limitações: adereços são primitivas coloridas (blockout), não arte final; nada visto por humano.
+
+
+## Adendo — rodada 49 (2026-10-11): medição de desempenho limpa e observação visual (sem mudança de código)
+
+**Status: VALIDADO (`unity_PlayMode_20261011_023803`, `PerformanceTests` isolado, `-Graphics`: 1 passed / 1 skipped opt-in, UNITY_EXIT=0, 0 `error CS`). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
+
+Fecha a pendência da rodada 48 (medição em ms inconclusiva). Execução isolada, com `BeachClutter` ativo (lote, 1080p, sem hardware-alvo):
+
+| Cena | avg | p95 | draw calls | setPass |
+|---|---|---|---|---|
+| estágio 1 aérea | 10,2 ms (98 fps) | 11,1 | 2620 | 220 |
+| estágio 1 chão | 9,1 ms (110 fps) | 10,3 | 1572 | 146 |
+| estágio 7 aérea | 9,1 ms (110 fps) | 11,2 | 3960 | 230 |
+| estágio 7 chão | 9,4 ms (107 fps) | 12,1 | 2948 | 126 |
+| estágio 7 eixo | 9,6 ms (104 fps) | 11,9 | 2258 | 114 |
+
+Todos ≥ 98 fps em lote; sem picos de 80 ms (o 83 ms da rodada 48 era ruído). Os valores ficaram ~1–3 ms acima da rodada 46 (8,8/8,1 e 7,3/6,4/5,4) com as mesmas draw calls no estágio 1 — variação de máquina (há processos `mcp-for-blender` em segundo plano), não regressão de código. Medição standalone em hardware-alvo continua pendente (Fase 16).
+
+Observação visual (capturas reais de `LivingWorldTests`, nada alterado): em `f02_1_dia_mesas_na_areia.png` e `f02_1_dia_kiosque_da_calcada.png` aparece uma faixa fina amarelada entre a areia seca e o ladrilho do calçadão, que em ângulo rasante lê como "borda de laje". Provável origem: mistura seco/úmido do shader `Coastal/CoastalSand` (uv2 = distância à orla) ou borda da malha `BeachSandPBR` junto ao calçadão; não investigado a fundo. Candidato para a próxima rodada ou Fase 15.
