@@ -77,7 +77,7 @@ namespace ResortAurora.Site
 
             var baseMap = Resources.Load<Texture2D>(p + "_BaseColor");
             if (baseMap != null) m.SetTexture("_BaseMap", baseMap);
-            m.SetColor("_BaseColor", leaf ? new Color(0.72f, 0.82f, 0.66f, 1f) :
+            m.SetColor("_BaseColor", leaf ? new Color(1.55f, 1.75f, 1.30f, 1f) :   // the scanned leaf albedo is very dark; lift it so canopies do not read as black silhouettes
                                     grass ? new Color(0.82f, 0.88f, 0.72f, 1f) : Color.white);
             m.SetFloat("_Metallic", 0f);
             m.SetFloat("_Smoothness", cutout ? 0.025f : 0.20f);
@@ -219,11 +219,12 @@ namespace ResortAurora.Site
                 model.transform.localScale = Vector3.one;
                 Dress(model, def.folder, i == def.lods - 1);
                 var rs = model.GetComponentsInChildren<Renderer>(true);
-                float threshold = i == 0 ? .12f : i == 1 ? .038f : .012f;
+                float threshold = i == 0 ? .22f : i == 1 ? .06f : .016f;
                 lods.Add(new LOD(threshold, rs) { fadeTransitionWidth = .12f });
             }
             if (lods.Count > 0)
             {
+                lods.Add(new LOD(.006f, new Renderer[0]));   // culled: a tree under ~0.6% of the screen height is not worth a draw call
                 var g = root.AddComponent<LODGroup>();
                 g.fadeMode = LODFadeMode.CrossFade;
                 g.animateCrossFading = false;
