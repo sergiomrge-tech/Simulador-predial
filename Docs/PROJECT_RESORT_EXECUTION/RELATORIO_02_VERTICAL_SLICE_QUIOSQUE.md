@@ -365,3 +365,10 @@ Causa da faixa amarelada da rodada 49 (não era o shader): a malha `BeachSandPBR
 Correção em `ResortSurfaceMaterials.BuildBeach`: a areia agora vai até `PromenadeZ - 5,95` (encosta no ladrilho) e a elevação desce suavemente (SmoothStep) de 0,10 m para 0,005 m no último metro, ficando abaixo do ladrilho (+0,015 m). Teste `CoastalPromenadeLayoutTests` ganhou asserção: vértices na borda existem (>100), vão < 5 cm, degrau < 2 cm.
 
 Evidência real (capturas da Unity, `f02_1_dia_mesas_na_areia.png`, `f02_1_dia_kiosque_da_calcada.png`): a faixa amarelada e o degrau sumiram; a areia encontra o calçadão sem emenda visível. Nota: nesta execução o clima sorteado foi mais fechado (areia mais escura, sem sombra do guarda-sol, menos pessoas) — `DemandModel` sorteia o clima por dia e `Daylight` reduz o sol em dia nublado; não é efeito da correção (só altera alturas dos últimos metros). Limitação: ainda é leitura de captura, sem olhar humano.
+
+
+## Adendo — rodada 51 (2026-10-11): reconfirmação, sem mudança de código
+
+**Status: VALIDADO (`unity_PlayMode_20261011_025501`, `-Graphics`: 38 passed / 1 skipped opt-in, UNITY_EXIT=0, 0 `error CS`/`Shader error`/NRE). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
+
+Confirma que a árvore da rodada 50 (emenda areia/calçadão) segue verde. Candidato descartado: `enableInstancing` em `StallBuilder.Mat` não reduz custo com SRP Batcher; a combinação de draw calls do clutter fica para a Fase 16. Próxima ação concreta: uma pessoa jogar os dois dias do `ROTEIRO_PLAYTEST_HUMANO_FASE_02.md` e avaliar as capturas reais.
