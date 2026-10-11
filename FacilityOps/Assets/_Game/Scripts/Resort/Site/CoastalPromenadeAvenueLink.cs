@@ -72,8 +72,11 @@ namespace ResortAurora.Site
             obj.transform.SetParent(site.transform, false);
             obj.AddComponent<MeshFilter>().sharedMesh = mesh;
             var renderer = obj.AddComponent<MeshRenderer>();
-            renderer.sharedMaterial = ResortSurfaceMaterials.Create("pedra_portuguesa",
-                new Color(.95f, .93f, .88f), 2f);
+            // The UVs above are already divided by the authored 2 m tile (as in the PromenadePBR strip beside it), so the
+            // material must not scale again or the mosaic doubles in size and leaves a visible seam at the promenade edge.
+            // Same material as the promenade strip so both read as one continuous pavement.
+            renderer.sharedMaterial = ResortAurora.Game.RealisticKioskAssets.PromenadeStoneMaterial()
+                ?? ResortSurfaceMaterials.Create("pedra_portuguesa", new Color(.95f, .93f, .88f), 1f);
             renderer.shadowCastingMode = ShadowCastingMode.Off;
 
             // The last metre is a thin planting/curb strip. It has no collider

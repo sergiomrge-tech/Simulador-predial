@@ -46,6 +46,9 @@ namespace ResortAurora.Game
             materials[set] = m; return m;
         }
 
+        /// <summary>The shared Portuguese-pavement material of the promenade, or null while its scanned maps are missing.</summary>
+        public static Material PromenadeStoneMaterial() => MaterialFor("pedra_portuguesa");
+
         static void Spawn(GameObject prefab, Transform parent, string name, Vector3 position, float yaw, Material material)
         {
             var obj = Object.Instantiate(prefab, parent, false);

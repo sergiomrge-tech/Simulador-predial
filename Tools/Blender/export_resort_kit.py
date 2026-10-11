@@ -149,7 +149,7 @@ TEX = {   # material -> (texture set, tint, smoothness)
     "travertino": ("ladrilho", (.92, .84, .70), .35), "estuque": ("reboco", (.96, .94, .90), .15), "teca": ("madeira", (.95, .66, .40), .35),
     "brise": ("madeira", (.80, .55, .34), .30), "madeira_escura": ("madeira", (.42, .27, .17), .35), "terracota": ("telha", (1.0, .78, .66), .25),
     "marmore": ("ladrilho", (.98, .97, .95), .75), "azulejo": ("pastilha", (.25, .80, .86), .8), "basalto": ("granito", (.30, .30, .33), .45),
-    "concreto": ("concreto", (.95, .95, .93), .15), "tronco": ("madeira", (.45, .34, .26), .1),
+    "concreto": ("concreto", (.95, .95, .93), .15), "tronco": ("madeira", (.80, .66, .52), .1),
 }
 BUMP = {"marmore": 0.0, "travertino": 0.45, "azulejo": 0.4, "estuque": 0.5}   # polished or fine surfaces keep little or no relief
 tex_dir = out / "Textures"
@@ -170,6 +170,8 @@ for name in used:
         e.update({"set": sset, "color": list(tint), "smoothness": sm, "tile": tile.get(sset, 1.0), "bump": BUMP.get(name, 0.9)})
     if name == "vidro":
         e.update({"color": [.30, .46, .55], "smoothness": .95, "metallic": .6})
+    if name == "folhagem":                               # palms and shrubs read near-black under the midday sun at the authored albedo
+        e.update({"color": [.26, .43, .15], "smoothness": .2})
     if name == "luz_quente":
         e.update({"color": [1, .85, .6], "emission": [1.0, .74, .45, 2.2]})
     if name == "agua_piscina":

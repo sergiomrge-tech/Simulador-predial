@@ -310,3 +310,15 @@ O teste frágil dos três scans (`RealisticHumanPassTests.ExistingBeachLifeSelec
 Os LODs distantes decimados offline (cartões de folha desconexos) apareciam como "espinhos" escuros nos lotes da vista aérea. `CoastalVegetation.Tree` agora usa LOD0 (original) → LOD1 (~20k tris) → proxy de ~300 triângulos (três elipsoides de copa dimensionados pelos bounds reais do LOD0, material URP/Lit verde instanciado, sem sombra) → culled (< 0,6% da tela). `PerformanceTests` passou a logar draw calls/setPass/tris/shadowCasters.
 
 Medido (lote, 1080p, sem hardware-alvo): praia meio-dia 5,3 ms; estágio 1 aérea 8,8 / chão 8,1 ms; estágio 7 aérea 7,3 / chão 6,4 / eixo 5,4 ms. Captura real `f02_1_dia_aerea.png` conferida: copas verdes no lugar dos espinhos. Limitação: o proxy é uma cor única, sem variação por espécie; avaliação estética é do olhar humano / Fase 15.
+
+
+## Adendo — rodada 47 (2026-10-11): palmeiras legíveis e emenda do calçadão
+
+**Status: FEITO e VALIDADO (`unity_PlayMode_20261011_020619`, `-Graphics`: 37 passed / 1 skipped opt-in, UNITY_EXIT=0, 0 `error CS`/`Shader error`/NRE). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
+
+Duas falhas visuais vistas nas capturas reais de `DayDuskAndNightAreLitAndCaptured` (calçadão leste, meio-dia):
+
+1. **Palmeiras quase pretas.** Tronco (`tronco`, textura `madeira` com tinta 0,45/0,34/0,26) e folhagem (0,16/0,27/0,10) saíam escuros demais sob sol pleno. Tinta do tronco → (0,80/0,66/0,52) e folhagem → (0,26/0,43/0,15), em `Tools/Blender/export_resort_kit.py` e em `Resources/Art/Resort/resort_materials.json` (mesmos valores; a regeneração do kit não desfaz a correção). Afeta também arbustos/props que usam `folhagem`/`tronco`.
+2. **Emenda reta no calçadão.** `CoastalPromenadeAvenueLink` dividia o UV por 2 m e o material dividia de novo (`tile=2`), então o mosaico do lado da avenida tinha o dobro do tamanho e outro brilho. Agora a faixa usa o mesmo material do `PromenadePBR` (`RealisticKioskAssets.PromenadeStoneMaterial()`), com fallback para `ResortSurfaceMaterials.Create(..., 1f)`.
+
+Evidência: capturas reais regeneradas em `ArtSource/Blender/World/Reviews/F02/` (`f02_1_dia_calcadao_leste.png`, `f02_1_dia_aerea.png`): as ondas do mosaico se alinham sem emenda e as palmeiras têm tronco marrom e copa verde. Limitação: as copas continuam de baixa poligonagem e escuras no lado sombreado; a avaliação estética é do olhar humano / Fase 15. Nada visto por humano.

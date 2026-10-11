@@ -96,11 +96,11 @@
                                   },
                       "folhagem":  {
                                        "color":  [
-                                                     0.16,
-                                                     0.27,
-                                                     0.1
+                                                     0.26,
+                                                     0.43,
+                                                     0.15
                                                  ],
-                                       "smoothness":  0.25,
+                                       "smoothness":  0.2,
                                        "metallic":  0.0
                                    },
                       "latao":  {
@@ -207,9 +207,9 @@
                                      },
                       "tronco":  {
                                      "color":  [
-                                                   0.45,
-                                                   0.34,
-                                                   0.26
+                                                   0.8,
+                                                   0.66,
+                                                   0.52
                                                ],
                                      "smoothness":  0.1,
                                      "metallic":  0.0,
