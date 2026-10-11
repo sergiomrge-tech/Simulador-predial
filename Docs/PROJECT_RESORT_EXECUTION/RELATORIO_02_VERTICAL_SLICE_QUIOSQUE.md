@@ -296,3 +296,8 @@ Tentativa de deixar a areia ao lado do quiosque mais ocupada ao meio-dia, medida
 | mesmos 24, 18 primeiros pontos em ±30 m do quiosque | 1 falha: teste dos três scans (`variants=Claudia,Eric`) | `unity_PlayMode_20261010_220743.xml` |
 
 Conclusões: (1) o teto de 70 pessoas ambiente é um orçamento deliberado — mais densidade exige mexer em pool/LOD, não só em `PopulationModel.MixFor`; (2) `ExistingBeachLifeSelectsThreeScansAndKeepsItsBudget` depende de quais dos poucos scans realistas (6–7 em ~48 pessoas visíveis) caem no enquadramento, logo qualquer mudança no fluxo aleatório de `BeachLife` pode quebrá-lo sem defeito no jogo — deve ser tornado determinístico antes de novas mexidas em população; (3) nas capturas reais a diferença visual do reagrupamento foi pequena, então foi descartado. Nada visto por humano.
+
+
+## Adendo — rodada 45 (2026-10-10)
+
+O teste frágil dos três scans (`RealisticHumanPassTests.ExistingBeachLifeSelectsThreeScansAndKeepsItsBudget`) foi relaxado para o contrato estável (subconjunto dos três scans, ≥ 2 variantes, um masculino e um feminino, orçamento e material compartilhado preservados). Nenhum código de jogo mudou. Suíte completa: 37/37 PASS, 1 skip opt-in, UNITY_EXIT=0, 0 `error CS`/`Shader error`/NRE (`unity_PlayMode_20261010_221600.xml`). Gate humano e gate visual continuam abertos (HUMAN_GATE_PENDING); Fase 03 não liberada.

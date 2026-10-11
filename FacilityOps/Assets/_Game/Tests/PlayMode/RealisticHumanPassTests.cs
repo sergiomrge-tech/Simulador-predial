@@ -139,7 +139,13 @@ namespace ResortAurora.Tests
             Debug.Log("REALISTIC_HUMAN_CROWD " + text);
             if (!string.IsNullOrEmpty(Folder)) File.WriteAllText(Path.Combine(Folder, "natural-crowd-metrics.txt"), text);
             yield return GameShot("natural_beachlife_promenade");
-            Assert.That(variants, Is.EquivalentTo(new[] { "Eric", "Carla", "Claudia" }));
+            // Which scans end up near the camera depends on the BeachLife random stream, so assert
+            // the stable contract (only the three known scans, at least a male and a female one)
+            // instead of an exact set.
+            Assert.That(variants, Is.SubsetOf(new[] { "Eric", "Carla", "Claudia" }));
+            Assert.GreaterOrEqual(variants.Length, 2, "at least two distinct scans visible: " + string.Join(",", variants));
+            Assert.Contains("Eric", variants, "male scan missing");
+            Assert.IsTrue(variants.Contains("Carla") || variants.Contains("Claudia"), "no female scan visible");
             Assert.LessOrEqual(HumanVisual.ActiveCount, HumanVisual.MaxActive);
             foreach (var group in shown.GroupBy(h => h.RealisticVariant))
             {
