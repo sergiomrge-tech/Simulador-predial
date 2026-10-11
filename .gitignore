@@ -23,3 +23,14 @@ FacilityOps/f02-*.xml
 # Licensed third-party packs (Unity Asset Store): local only, never committed to the public repo
 FacilityOps/Assets/_Game/ThirdParty/
 FacilityOps/Assets/_Game/ThirdParty.meta
+
+# Local-only: raw Asset Store bundle, editor automation plugin, huge capture dumps, evidence scratch
+FacilityOps/Assets/vrbn_studios/
+FacilityOps/Assets/vrbn_studios.meta
+FacilityOps/Assets/MCPForUnity/
+FacilityOps/Assets/MCPForUnity.meta
+FacilityOps/Captures/
+FacilityOps/Captures.meta
+FacilityOps/Packages/manifest.json.pre-unity-mcp
+Docs/PROJECT_RESORT_EXECUTION/Evidence/CODEX_2026-10-07/captures/
+Docs/PROJECT_RESORT_EXECUTION/Evidence/CODEX_2026-10-07/temp/
