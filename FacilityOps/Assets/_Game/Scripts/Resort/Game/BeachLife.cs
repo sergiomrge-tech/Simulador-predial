@@ -43,6 +43,8 @@ namespace ResortAurora.Game
         Material ballMat, coolerMat, lidMat, bookMat;
         public int[] LodCounts { get; } = new int[4];
 
+        public IEnumerable<Vector3> SpotPositions() { foreach (var s in spots) yield return s.pos; }
+
         public int ActiveCount { get; private set; }
         public int Spawned => createdAdults + createdKids;
         public PopulationModel.Mix Target { get; private set; }

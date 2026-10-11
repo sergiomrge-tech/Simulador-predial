@@ -322,3 +322,16 @@ Duas falhas visuais vistas nas capturas reais de `DayDuskAndNightAreLitAndCaptur
 2. **Emenda reta no calçadão.** `CoastalPromenadeAvenueLink` dividia o UV por 2 m e o material dividia de novo (`tile=2`), então o mosaico do lado da avenida tinha o dobro do tamanho e outro brilho. Agora a faixa usa o mesmo material do `PromenadePBR` (`RealisticKioskAssets.PromenadeStoneMaterial()`), com fallback para `ResortSurfaceMaterials.Create(..., 1f)`.
 
 Evidência: capturas reais regeneradas em `ArtSource/Blender/World/Reviews/F02/` (`f02_1_dia_calcadao_leste.png`, `f02_1_dia_aerea.png`): as ondas do mosaico se alinham sem emenda e as palmeiras têm tronco marrom e copa verde. Limitação: as copas continuam de baixa poligonagem e escuras no lado sombreado; a avaliação estética é do olhar humano / Fase 15. Nada visto por humano.
+
+
+## Adendo — rodada 48 (2026-10-11): adereços permanentes de praia (`BeachClutter`)
+
+**Status: FEITO e VALIDADO (`unity_PlayMode_20261011_022838`, `-Graphics`: 38 passed / 1 skipped opt-in, UNITY_EXIT=0, 0 `error CS`/`Shader error`/NRE). Gate técnico PASS; gate visual ABERTO; `HUMAN_GATE_PENDING`; Fase 03 NÃO liberada.**
+
+Problema visto nas capturas reais (`f02_1_dia_mesas_na_areia.png`): a faixa de areia ao lado do quiosque lia como vazia e plana, e a densidade de pessoas não pode subir sem aumentar o pool de 70 (rodada 44).
+
+Solução sem tocar no orçamento de pessoas: `Game/BeachClutter.cs` coloca, de forma determinística por seed, 12 guarda-sóis alugados (com 1–2 toalhas, bolsa e chinelos), 6 castelos de areia com bandeirinha, 4 toalhas com bolsa e 9 troncos de maré alta. Tudo sem colliders, em areia seca (altura ≥ 0,45 m), fora de ±13 m do quiosque e longe dos pontos de `BeachLife` (`BeachLife.SpotPositions()`); cada cluster é desligado além de 80 m da câmera. Novo teste `LivingWorldTests.BeachClutterDressesTheSandWithoutCollidersOrCrowdingTheKiosk`.
+
+Desempenho: A/B de draw calls do `PerformanceTests` com e sem o clutter deu números idênticos (as câmeras de perf não enxergam o clutter); os tempos em ms variaram bastante entre execuções na mesma máquina (ex.: estágio 7 eixo central 14,9 / 6,0 / 7,9 ms), então a comparação em ms é ruído (na suíte completa final o estágio 1 ao nível do chão chegou a 83 ms com as mesmas 1572 draw calls; medição de ms inconclusiva, a repetir em máquina ociosa). Na vista da praia ao meio-dia o clutter acrescenta algumas centenas de draw calls não agrupadas (materiais do `StallBuilder` sem instancing) — candidato a instancing/combinação na Fase 16.
+
+Limitações: adereços são primitivas coloridas (blockout), não arte final; nada visto por humano.

@@ -523,5 +523,24 @@ namespace ResortAurora.Tests
             Assert.GreaterOrEqual(seatedFrames, 20, "a customer actually reached and stayed on the chair");
             Assert.IsTrue(grounded, "customers follow the deck height");
         }
+
+        [UnityTest]
+        public IEnumerator BeachClutterDressesTheSandWithoutCollidersOrCrowdingTheKiosk()
+        {
+            yield return Load();
+            var game = Object.FindAnyObjectByType<ResortGame>();
+            Assert.NotNull(game.Clutter);
+            Assert.GreaterOrEqual(game.Clutter.Count, 20, "umbrellas, towels, sandcastles and driftwood are placed on the dry sand");
+            Assert.GreaterOrEqual(game.Clutter.UmbrellaCount, 6);
+            Assert.AreEqual(0, game.Clutter.GetComponentsInChildren<Collider>(true).Length, "clutter never blocks the player or the crowd");
+            var kiosk = game.Layout.Root.position;
+            foreach (Transform cluster in game.Clutter.transform)
+            {
+                var p = cluster.position;
+                Assert.GreaterOrEqual(game.Site.HeightAt(p.x, p.z), 0.4f, cluster.name + " sits on dry sand");
+                Assert.AreEqual(game.Site.HeightAt(p.x, p.z), p.y, 0.05f, cluster.name + " follows the terrain");
+                Assert.IsFalse(Mathf.Abs(p.x - kiosk.x) < 12f && p.z > kiosk.z - 15f, cluster.name + " keeps the kiosk area clear");
+            }
+        }
     }
 }
