@@ -1,0 +1,30 @@
+[
+  {
+    "id": "fern_02",
+    "license": "Poly Haven CC0",
+    "fbx_size": 223596,
+    "rgba_size": 887835,
+    "coverage": 0.153
+  },
+  {
+    "id": "shrub_02",
+    "license": "Poly Haven CC0",
+    "fbx_size": 832300,
+    "rgba_size": 996601,
+    "coverage": 0.343
+  },
+  {
+    "id": "shrub_03",
+    "license": "Poly Haven CC0",
+    "fbx_size": 290956,
+    "rgba_size": 1238141,
+    "coverage": 0.251
+  },
+  {
+    "id": "shrub_04",
+    "license": "Poly Haven CC0",
+    "fbx_size": 852540,
+    "rgba_size": 966956,
+    "coverage": 0.376
+  }
+]

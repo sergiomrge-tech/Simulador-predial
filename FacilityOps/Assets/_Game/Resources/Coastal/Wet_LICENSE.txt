@@ -1,0 +1,4 @@
+Poly Haven damp_beach_sand
+https://polyhaven.com/a/damp_beach_sand
+CC0 1.0 public domain.
+Normal converted DX to GL by inversion of green channel.

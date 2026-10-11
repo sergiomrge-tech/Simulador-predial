@@ -1,0 +1,4 @@
+Poly Haven aerial_beach_01
+https://polyhaven.com/a/aerial_beach_01
+CC0 1.0 public domain.
+Normal converted DX to GL by inversion of green channel.

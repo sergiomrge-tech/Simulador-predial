@@ -1,0 +1,5 @@
+﻿Poly Haven asset: grass_medium_01
+License: CC0
+Source: https://polyhaven.com/a/grass_medium_01
+Downloaded: 2026-10-07
+Resolution: 1K FBX package
